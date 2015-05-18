@@ -15,7 +15,11 @@ app.on('ready', function() {
 
   mainWindow = new BrowserWindow({ width: 800, height: 600 })
 
-  mainWindow.loadUrl('file://' + __dirname + '/index.html')
+  if (process.env.HOT) {
+    mainWindow.loadUrl('file://' + __dirname + '/app/hot-dev-app.html')
+  } else {
+    mainWindow.loadUrl('file://' + __dirname + '/app/app.html')
+  }
 
   mainWindow.on('closed', function() {
     mainWindow = null

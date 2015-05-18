@@ -8,21 +8,27 @@ var loadersByExtension = require('./lib/loaders-by-extension')
 
 module.exports = function(opts) {
 
-  var entry = [
-    'webpack-dev-server/client?http://localhost:2992',
-    'webpack/hot/only-dev-server',
-    './app/scripts/app.jsx'
-  ]
+  var entry = {
+    main: opts.prerender ? './app/mainApp' : './app/mainApp'
+  }
 
 
 
-  var loaders = [
-    { test: /\.(js|jsx)$/, loaders: [ 'react-hot', 'babel' ], exclude: /node_modules/ },
-    { test: /\.styl$/, loaders: [ 'style', 'css', 'stylus' ], exclude: /node_modules/ },
-    { test: /\.css$/, loaders: [ 'style', 'css' ], exclude: /node_modules/ },
-    { test: /\.json$/, loader: 'json', exclude: /node_modules/ },
-    { test: /\.(png|jpg)$/, loaders: [ 'url?limit=8192' ], exclude: /node_modules/ }
-  ]
+  var loaders = {
+    'jsx': opts.hotComponents ? [ 'react-hot-loader', 'babel-loader?stage=0' ] : 'babel-loader?stage=0',
+    'js': {
+      loader: 'babel-loader?stage=0',
+      include: path.join(__dirname, 'app')
+    },
+    'json':  'json-loader',
+    'txt': 'raw-loader',
+    'png|jpg|jpeg|gif|svg': 'url-loader?limit=10000',
+    'woff|woff2': 'url-loader?limit=100000',
+    'ttf|eot': 'file-loader',
+    'wav|mp3': 'file-loader',
+    'html': 'html-loader',
+    'md|markdown': [ 'html-loader', 'markdown-loader' ]
+  }
 
   var cssLoader = opts.minimize ? 'css-loader' : 'css-loader?localIdentName=[path][name]---[local]---[hash:base64:5]';
 
@@ -61,7 +67,7 @@ module.exports = function(opts) {
 
 
   var output = {
-    path: __dirname + '/public/js/',
+    path: __dirname + '/_assets/',
     filename: 'bundle.js',
     publicPath: 'http://localhost:2992/',
     contentBase: __dirname + '/public/'
@@ -73,7 +79,8 @@ module.exports = function(opts) {
 
 
   var plugins = [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.PrefetchPlugin('react'),
+    new webpack.PrefetchPlugin('react/lib/ReactComponentBrowserEnvironment')
   ]
 
   if (opts.prerender) {
@@ -101,12 +108,12 @@ module.exports = function(opts) {
     plugins.push(new webpack.optimize.CommonsChunkPlugin('commons', 'commons.js' + (opts.longTermCaching && !opts.prerender ? '?[chunkhash]' : '')))
   }
 
-  // var asyncLoader = {
-  //   test: require('./app/route-handlers/async').map(function(name) {
-  //     return path.join(__dirname, 'app', 'route-handlers', name);
-  //   }),
-  //   loader: opts.prerender ? 'react-proxy-loader/unavailable' : 'react-proxy-loader'
-  // };
+  var asyncLoader = {
+    test: require('./app/routes/async').map(function(name) {
+      return path.join(__dirname, 'app', 'routes', name);
+    }),
+    loader: opts.prerender ? 'react-proxy-loader/unavailable' : 'react-proxy-loader'
+  }
 
   Object.keys(stylesheetLoaders).forEach(function(ext) {
     var stylesheetLoader = stylesheetLoaders[ext];
@@ -151,7 +158,7 @@ module.exports = function(opts) {
     output: output,
     target: opts.prerender ? 'node' : 'web',
     module: {
-      loaders: [].concat(loadersByExtension(loaders)).concat(loadersByExtension(stylesheetLoaders)).concat(additionalLoaders)
+      loaders: [asyncLoader].concat(loadersByExtension(loaders)).concat(loadersByExtension(stylesheetLoaders)).concat(additionalLoaders)
     },
     devtool: opts.devtool,
     debug: opts.debug,
