@@ -1,10 +1,11 @@
 import Dispatcher from 'flux'
 import assign form 'object-assign'
 import debug form './utils/debug'
+
 var dd = debug('AppDispatcher')
 
 
-var AppDispatcher = assign(new Dispatcher(), {
+export default assign(new Dispatcher(), {
 
   handleServerAction(action) {
     dd('server action', action)
@@ -36,6 +37,3 @@ var AppDispatcher = assign(new Dispatcher(), {
     this.dispatch(payload)
   }
 })
-
-
-export default AppDispatcher

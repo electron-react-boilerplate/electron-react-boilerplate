@@ -1,7 +1,13 @@
-'use strict'
-
 import React from 'react'
-import App from './components/App'
+import AppContainer from './containers/AppContainer'
+import router from './routes/router'
+import debug from './utils/debug'
 
+var dd = debug('mainApp')
 
-React.render(<App />, document.getElementById('react-root'))
+window.location.hash = '/'
+
+router.run(function (Handler) {
+  dd('router.run', Handler)
+  React.render(<Handler />, document.getElementById('react-root'))
+});
