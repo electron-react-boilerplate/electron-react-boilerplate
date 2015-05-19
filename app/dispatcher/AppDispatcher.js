@@ -1,6 +1,7 @@
 import Dispatcher from 'flux'
-import assign form 'object-assign'
-import debug form './utils/debug'
+import assign from 'object-assign'
+import PayloadSources from '../constants/PayloadSources'
+import debug from './utils/debug'
 
 var dd = debug('AppDispatcher')
 
