@@ -1,7 +1,7 @@
 {
   "name": "electron-react-boilerplate",
   "version": "0.0.1",
-  "description": "electron-react-boilerplate",
+  "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader",
   "main": "main.js",
   "scripts": {
     "test": "mocha",
@@ -15,8 +15,12 @@
     "type": "git",
     "url": "git+https://github.com/chentsulin/electron-react-boilerplate.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "C. T. Lin",
+    "email": "chentsulin@gmail.com",
+    "url": "https://github.com/chentsulin"
+  },
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/chentsulin/electron-react-boilerplate/issues"
   },
