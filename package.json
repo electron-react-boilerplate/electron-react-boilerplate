@@ -26,6 +26,7 @@
     "babel-loader": "^5.1.2",
     "chai": "^2.3.0",
     "css-loader": "^0.12.1",
+    "electron-prebuilt": "^0.26.0",
     "extract-text-webpack-plugin": "^0.8.0",
     "file-loader": "^0.8.1",
     "html-loader": "^0.3.0",
@@ -46,6 +47,7 @@
   "dependencies": {
     "debug": "^2.2.0",
     "flux": "^2.0.3",
+    "keymirror": "^0.1.1",
     "object-assign": "^2.0.0",
     "react": "^0.13.3",
     "react-router": "^0.13.3"
