@@ -9,7 +9,8 @@
     "hot-dev-server": "webpack-dev-server --config webpack-hot-dev-server.config.js --hot --progress --colors --port 2992 --inline",
     "build": "webpack --config webpack-production.config.js --progress --profile --colors",
     "start-hot": "HOT=1 /Applications/Electron.app/Contents/MacOS/Electron .",
-    "start": "/Applications/Electron.app/Contents/MacOS/Electron ."
+    "start": "/Applications/Electron.app/Contents/MacOS/Electron .",
+    "package": "node package.js"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
     "babel-loader": "^5.1.2",
     "chai": "^2.3.0",
     "css-loader": "^0.12.1",
+    "electron-packager": "^4.1.0",
     "electron-prebuilt": "^0.26.0",
     "extract-text-webpack-plugin": "^0.8.0",
     "file-loader": "^0.8.1",

@@ -1,4 +1,4 @@
-import routes from './routes.jsx'
+import routes from './routes'
 import Router from 'react-router'
 
 
