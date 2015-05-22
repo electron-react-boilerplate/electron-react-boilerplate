@@ -57,17 +57,17 @@ module.exports = function(opts) {
 
   var modulesDirectories = [ 'node_modules' ]
 
-  var extensions = ['', '.web.js', '.js', '.jsx'];
+  var extensions = ['', '.js', '.jsx'];
 
   var root = path.join(__dirname, 'app')
 
   var publicPath = opts.devServer
-                 ? 'http://localhost:2992/_assets/'
-                 : '/_assets/'
+                 ? 'http://localhost:2992/dist/'
+                 : '/dist/'
 
 
   var output = {
-    path: __dirname + '/_assets/',
+    path: __dirname + '/dist/',
     filename: 'bundle.js',
     publicPath: 'http://localhost:2992/',
     contentBase: __dirname + '/public/'
@@ -84,7 +84,7 @@ module.exports = function(opts) {
   ]
 
   if (opts.prerender) {
-    plugins.push(new StatsPlugin(path.join(__dirname, 'build', 'stats.prerender.json'), {
+    plugins.push(new StatsPlugin(path.join(__dirname, 'dist', 'stats.prerender.json'), {
       chunkModules: true,
       exclude: excludeFromStats
     }));
@@ -98,7 +98,7 @@ module.exports = function(opts) {
     );
     plugins.push(new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }));
   } else {
-    plugins.push(new StatsPlugin(path.join(__dirname, 'build', 'stats.json'), {
+    plugins.push(new StatsPlugin(path.join(__dirname, 'dist', 'stats.json'), {
       chunkModules: true,
       exclude: excludeFromStats
     }));
@@ -146,7 +146,7 @@ module.exports = function(opts) {
     plugins.push(
       new webpack.DefinePlugin({
         'process.env': {
-          NODE_ENV: JSON.stringify('production')
+          NODE_ENV: "'production'"
         }
       }),
       new webpack.NoErrorsPlugin()
