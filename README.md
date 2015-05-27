@@ -32,6 +32,11 @@ npm run package
 
 Use `electron-packager` to pack you app for darwin (osx), linux and win32 (windows) platform. After build, you can see them in `release` folder.
 
+## To Do
+
+- simplify webpack config
+- asar support
+- yeoman generator
 
 [npm-image]: https://img.shields.io/npm/v/electron-react-boilerplate.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/electron-react-boilerplate
