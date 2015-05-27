@@ -3,7 +3,7 @@
 [![NPM version][npm-image]][npm-url]
 [![Dependency Status][david_img]][david_site]
 
-> Electron application boilerplate based on React, React Router, Webpack, React Hot Loader
+> [Electron](http://electron.atom.io/) application boilerplate based on [React](https://facebook.github.io/react/), [React Router](http://rackt.github.io/react-router/), [Webpack](http://webpack.github.io/docs/), [React Hot Loader](http://gaearon.github.io/react-hot-loader/)
 
 ## Install
 
@@ -37,6 +37,9 @@ Use `electron-packager` to pack you app for darwin (osx), linux and win32 (windo
 - simplify webpack config
 - asar support
 - yeoman generator
+
+## License
+MIT © [C. T. Lin](https://github.com/chentsulin)
 
 [npm-image]: https://img.shields.io/npm/v/electron-react-boilerplate.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/electron-react-boilerplate
