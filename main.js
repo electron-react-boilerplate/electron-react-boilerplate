@@ -25,7 +25,7 @@ app.on('ready', function() {
     mainWindow = null
   })
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV === 'development') {
     mainWindow.openDevTools()
   }
 
