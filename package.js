@@ -1,5 +1,6 @@
 var packager = require('electron-packager')
 var assign = require('object-assign')
+var del = require('del')
 var argv = require('minimist')(process.argv.slice(2))
 var devDeps = Object.keys(require('./package.json').devDependencies)
 
@@ -43,6 +44,9 @@ var Windows_OPTS = assign({}, DEFAULT_OPTS, {
   arch: 'x64',
   out: 'release/win32',
 })
+
+
+del.sync('release')
 
 
 pack(MacOS_OPTS, thenPack(Linux_OPTS, thenPack(Windows_OPTS, log)))
