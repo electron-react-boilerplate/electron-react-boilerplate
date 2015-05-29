@@ -1,12 +1,16 @@
 var packager = require('electron-packager')
 var assign = require('object-assign')
+var argv = require('minimist')(process.argv.slice(2))
 var devDeps = Object.keys(require('./package.json').devDependencies)
 
 
+var version = argv.version || argv.v || '0.27.1'
+var appName = argv.name || argv.n || 'ElectronReact'
+
 var DEFAULT_OPTS = {
-  version: '0.27.1',
+  version: version,
   dir: './',
-  name: 'ElectronReact',
+  name: appName,
   ignore: [
     '/test($|/)',
     '/tools($|/)',
