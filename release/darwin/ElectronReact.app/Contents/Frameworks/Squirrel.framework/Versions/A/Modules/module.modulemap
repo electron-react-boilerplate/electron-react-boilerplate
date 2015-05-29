@@ -1,6 +1,0 @@
-framework module Squirrel {
-  umbrella header "Squirrel.h"
-
-  export *
-  module * { export * }
-}

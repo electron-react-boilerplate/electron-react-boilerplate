@@ -1,6 +1,0 @@
-framework module Mantle {
-  umbrella header "Mantle.h"
-
-  export *
-  module * { export * }
-}
