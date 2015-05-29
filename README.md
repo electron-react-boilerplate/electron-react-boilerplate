@@ -32,18 +32,20 @@ npm run package
 
 #### Options
 
-- --name, -n: Application Name (default: ElectronReact)
+- --name, -n: Application name (default: ElectronReact)
 - --version, -v: Electron version (default: 0.27.1)
+- --asar, -a: [asar](https://github.com/atom/asar) support (default: false)
+- --icon, -i: Application icon
 
 Use `electron-packager` to pack your app for darwin (osx), linux and win32 (windows) platform. After build, you will see them in `release` folder.
 
-`test/`, `tools/`, `release/` folder and devDependencies in `package.json` will be ignored by default.
+`test`, `tools`, `release` folder and devDependencies in `package.json` will be ignored by default.
 
 ## To Do
 
 - simplify webpack config
-- asar support
 - yeoman generator
+- add script to get latest version from [release page](https://github.com/atom/electron/releases)
 
 ## License
 MIT © [C. T. Lin](https://github.com/chentsulin)

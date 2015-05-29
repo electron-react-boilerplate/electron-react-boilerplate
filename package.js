@@ -6,16 +6,24 @@ var devDeps = Object.keys(require('./package.json').devDependencies)
 
 var version = argv.version || argv.v || '0.27.1'
 var appName = argv.name || argv.n || 'ElectronReact'
+var shouldUseAsar = argv.asar || argv.a || false
 
 var DEFAULT_OPTS = {
   version: version,
   dir: './',
   name: appName,
+  asar: shouldUseAsar,
   ignore: [
     '/test($|/)',
     '/tools($|/)',
     '/release($|/)'
   ].concat(devDeps.map(function(name) { return '/node_modules/' + name + '($|/)' }))
+}
+
+var icon = argv.icon || argv.i
+
+if (icon) {
+  DEFAULT_OPTS.icon = icon
 }
 
 var MacOS_OPTS = assign({}, DEFAULT_OPTS, {
