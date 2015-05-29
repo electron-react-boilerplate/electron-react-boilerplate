@@ -35,9 +35,9 @@ npm run package
 - --name, -n: Application Name (default: ElectronReact)
 - --version, -v: Electron version (default: 0.27.1)
 
-Use `electron-packager` to pack you app for darwin (osx), linux and win32 (windows) platform. After build, you can see them in `release` folder.
+Use `electron-packager` to pack your app for darwin (osx), linux and win32 (windows) platform. After build, you will see them in `release` folder.
 
-`test/`, `tools` and devDependencies in `package.json` will be ignored by default.
+`test/`, `tools/`, `release/` folder and devDependencies in `package.json` will be ignored by default.
 
 ## To Do
 
