@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>BuildMachineOSBuild</key>
+    <string>14D136</string>
+    <key>CFBundleDisplayName</key>
+    <string>ElectronReact</string>
+    <key>CFBundleExecutable</key>
+    <string>Electron</string>
+    <key>CFBundleIconFile</key>
+    <string>atom.icns</string>
+    <key>CFBundleIdentifier</key>
+    <string>com.electron.electronreact</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleName</key>
+    <string>ElectronReact</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleVersion</key>
+    <string>0.27.1</string>
+    <key>DTSDKBuild</key>
+    <string>14D125</string>
+    <key>DTSDKName</key>
+    <string>macosx</string>
+    <key>DTXcode</key>
+    <string>0632</string>
+    <key>DTXcodeBuild</key>
+    <string>6D2105</string>
+    <key>LSMinimumSystemVersion</key>
+    <string>10.8.0</string>
+    <key>NSMainNibFile</key>
+    <string>MainMenu</string>
+    <key>NSPrincipalClass</key>
+    <string>AtomApplication</string>
+    <key>NSSupportsAutomaticGraphicsSwitching</key>
+    <true/>
+  </dict>
+</plist>

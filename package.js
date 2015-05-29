@@ -1,10 +1,17 @@
 var packager = require('electron-packager')
 var assign = require('object-assign')
+var devDeps = Object.keys(require('./package.json').devDependencies)
+
 
 var DEFAULT_OPTS = {
-  version: '0.26.1',
+  version: '0.27.1',
   dir: './',
-  name: 'ElectronReact'
+  name: 'ElectronReact',
+  ignore: [
+    '/test($|/)',
+    '/tools($|/)',
+    '/release($|/)'
+  ].concat(devDeps.map(function(name) { return '/node_modules/' + name + '($|/)' }))
 }
 
 var MacOS_OPTS = assign({}, DEFAULT_OPTS, {
