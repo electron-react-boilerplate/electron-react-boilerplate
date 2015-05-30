@@ -2,6 +2,7 @@ import React from 'react'
 import AppContainer from './containers/AppContainer'
 import router from './routes/router'
 import debug from './utils/debug'
+import './app.css'
 
 var dd = debug('mainApp')
 

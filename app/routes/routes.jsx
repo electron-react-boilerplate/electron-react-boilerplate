@@ -7,7 +7,7 @@ import AboutPageContainer from '../containers/AboutPageContainer'
 
 export default (
   <Route path="/" handler={AppContainer}>
-    <DefaultRoute handler={HomePageContainer} />
+    <DefaultRoute name="home" handler={HomePageContainer} />
     <Route name="about" handler={AboutPageContainer} />
   </Route>
 )
