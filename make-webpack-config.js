@@ -156,7 +156,7 @@ module.exports = function(opts) {
   return {
     entry: entry,
     output: output,
-    target: opts.prerender ? 'node' : 'web',
+    target: 'atom',
     module: {
       loaders: [asyncLoader].concat(loadersByExtension(loaders)).concat(loadersByExtension(stylesheetLoaders)).concat(additionalLoaders)
     },
