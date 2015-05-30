@@ -26,6 +26,15 @@
   "bugs": {
     "url": "https://github.com/chentsulin/electron-react-boilerplate/issues"
   },
+  "keywords": [
+    "electron",
+    "boilerplate",
+    "react",
+    "react-router",
+    "flux",
+    "webpack",
+    "react-hot"
+  ],
   "homepage": "https://github.com/chentsulin/electron-react-boilerplate#readme",
   "devDependencies": {
     "asar": "^0.6.1",
