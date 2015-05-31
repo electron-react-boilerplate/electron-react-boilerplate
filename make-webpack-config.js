@@ -71,7 +71,8 @@ module.exports = function(opts) {
     path: __dirname + '/dist/',
     filename: 'bundle.js',
     publicPath: 'http://localhost:2992/',
-    contentBase: __dirname + '/public/'
+    contentBase: __dirname + '/public/',
+    libraryTarget: 'commonjs2'
   }
 
   var excludeFromStats = [
