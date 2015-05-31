@@ -153,10 +153,13 @@ module.exports = function(opts) {
     )
   }
 
+  var nodeModules = fs.readdirSync('node_modules').filter(function(x) { return x !== '.bin' })
+
   return {
     entry: entry,
     output: output,
     target: 'atom',
+    externals: nodeModules,
     module: {
       loaders: [asyncLoader].concat(loadersByExtension(loaders)).concat(loadersByExtension(stylesheetLoaders)).concat(additionalLoaders)
     },
