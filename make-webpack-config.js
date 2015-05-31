@@ -57,7 +57,7 @@ module.exports = function(opts) {
 
   var modulesDirectories = [ 'node_modules' ]
 
-  var extensions = ['', '.js', '.jsx'];
+  var extensions = [ '', '.js', '.jsx', '.json', '.node' ];
 
   var root = path.join(__dirname, 'app')
 
@@ -131,7 +131,7 @@ module.exports = function(opts) {
     plugins.push(new ExtractTextPlugin('[name].css' + (opts.longTermCaching ? '?[contenthash]' : '')));
   }
 
-  if(opts.minimize && !opts.prerender) {
+  if (opts.minimize && !opts.prerender) {
     plugins.push(
       new webpack.optimize.UglifyJsPlugin({
         compressor: {
