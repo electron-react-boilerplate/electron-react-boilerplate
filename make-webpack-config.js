@@ -1,5 +1,6 @@
 var webpack = require('webpack')
 var path = require('path')
+var fs = require('fs')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var StatsPlugin = require('stats-webpack-plugin')
 var loadersByExtension = require('./lib/loaders-by-extension')
