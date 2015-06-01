@@ -1,5 +1,6 @@
 var webpack = require('webpack')
 var path = require('path')
+var fs = require('fs')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var StatsPlugin = require('stats-webpack-plugin')
 var loadersByExtension = require('./lib/loaders-by-extension')
@@ -57,7 +58,7 @@ module.exports = function(opts) {
 
   var modulesDirectories = [ 'node_modules' ]
 
-  var extensions = ['', '.js', '.jsx'];
+  var extensions = [ '', '.js', '.jsx', '.json', '.node' ];
 
   var root = path.join(__dirname, 'app')
 
@@ -70,7 +71,8 @@ module.exports = function(opts) {
     path: __dirname + '/dist/',
     filename: 'bundle.js',
     publicPath: 'http://localhost:2992/',
-    contentBase: __dirname + '/public/'
+    contentBase: __dirname + '/public/',
+    libraryTarget: 'commonjs2'
   }
 
   var excludeFromStats = [
@@ -131,7 +133,7 @@ module.exports = function(opts) {
     plugins.push(new ExtractTextPlugin('[name].css' + (opts.longTermCaching ? '?[contenthash]' : '')));
   }
 
-  if(opts.minimize && !opts.prerender) {
+  if (opts.minimize && !opts.prerender) {
     plugins.push(
       new webpack.optimize.UglifyJsPlugin({
         compressor: {
@@ -153,10 +155,13 @@ module.exports = function(opts) {
     )
   }
 
+  var nodeModules = fs.readdirSync('node_modules').filter(function(x) { return x !== '.bin' })
+
   return {
     entry: entry,
     output: output,
     target: 'atom',
+    externals: nodeModules,
     module: {
       loaders: [asyncLoader].concat(loadersByExtension(loaders)).concat(loadersByExtension(stylesheetLoaders)).concat(additionalLoaders)
     },
