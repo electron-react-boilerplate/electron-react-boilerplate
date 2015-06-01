@@ -1,6 +1,6 @@
 {
   "name": "electron-react-boilerplate",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader",
   "main": "main.js",
   "scripts": {
