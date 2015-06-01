@@ -7,7 +7,7 @@
     "test": "mocha",
     "dev-server": "webpack-dev-server --config webpack-dev-server.config.js --progress --colors --port 2992 --inline",
     "hot-dev-server": "webpack-dev-server --config webpack-hot-dev-server.config.js --hot --progress --colors --port 2992 --inline",
-    "build": "webpack --config webpack-production.config.js --progress --profile --colors",
+    "build": "webpack --config webpack.config.production.js --progress --profile --colors",
     "start": "/Applications/Electron.app/Contents/MacOS/Electron .",
     "start-dev": "NODE_ENV=development /Applications/Electron.app/Contents/MacOS/Electron .",
     "start-hot": "HOT=1 NODE_ENV=development /Applications/Electron.app/Contents/MacOS/Electron .",
