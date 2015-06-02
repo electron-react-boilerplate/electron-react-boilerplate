@@ -33,7 +33,7 @@ npm run package
 #### Options
 
 - --name, -n: Application name (default: ElectronReact)
-- --version, -v: Electron version (default: 0.27.1)
+- --version, -v: Electron version (default: latest version)
 - --asar, -a: [asar](https://github.com/atom/asar) support (default: false)
 - --icon, -i: Application icon
 
@@ -54,7 +54,6 @@ We add some module's `peerDependencies` to ignore option as default for applicat
 
 - simplify webpack config
 - yeoman generator
-- add script to get latest version from [release page](https://github.com/atom/electron/releases)
 
 ## License
 MIT © [C. T. Lin](https://github.com/chentsulin)

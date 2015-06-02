@@ -38,8 +38,8 @@
   "homepage": "https://github.com/chentsulin/electron-react-boilerplate#readme",
   "devDependencies": {
     "asar": "^0.6.1",
+    "babel-core": "^5.4.2",
     "babel-loader": "^5.1.2",
-    "babel-core": "^5.4.2",    
     "chai": "^2.3.0",
     "css-loader": "^0.12.1",
     "del": "^1.2.0",
@@ -47,11 +47,13 @@
     "electron-prebuilt": "^0.26.0",
     "extract-text-webpack-plugin": "^0.8.0",
     "file-loader": "^0.8.1",
+    "github-latest-release": "^0.1.1",
     "html-loader": "^0.3.0",
     "json-loader": "^0.5.1",
     "markdown-loader": "^0.1.2",
     "minimist": "^1.1.1",
     "mocha": "^2.2.5",
+    "node-libs-browser": ">= 0.4.0 <=0.6.0",
     "proxyquire": "^1.4.0",
     "raw-loader": "^0.5.1",
     "react-hot-loader": "^1.2.7",
@@ -61,8 +63,7 @@
     "style-loader": "^0.12.2",
     "url-loader": "^0.5.5",
     "webpack": "^1.9.7",
-    "webpack-dev-server": "^1.8.2",
-    "node-libs-browser": ">= 0.4.0 <=0.6.0"
+    "webpack-dev-server": "^1.9.0"
   },
   "dependencies": {
     "debug": "^2.2.0",
