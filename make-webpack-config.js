@@ -119,7 +119,7 @@ module.exports = function(opts) {
 
   Object.keys(stylesheetLoaders).forEach(function(ext) {
     var stylesheetLoader = stylesheetLoaders[ext];
-    if(Array.isArray(stylesheetLoader)) stylesheetLoader = stylesheetLoader.join('!');
+    if (Array.isArray(stylesheetLoader)) stylesheetLoader = stylesheetLoader.join('!');
     if (opts.prerender) {
       stylesheetLoaders[ext] = stylesheetLoader.replace(/^css-loader/, 'css-loader/locals');
     } else if (opts.separateStylesheet) {
