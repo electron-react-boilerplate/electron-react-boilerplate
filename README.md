@@ -41,6 +41,15 @@ Use `electron-packager` to pack your app for darwin (osx), linux and win32 (wind
 
 `test`, `tools`, `release` folder and devDependencies in `package.json` will be ignored by default.
 
+#### Default Ignore modules
+
+We add some module's `peerDependencies` to ignore option as default for application size reduction.
+
+- `babel-core` is required by `babel-loader` and its size is ~19 MB
+- `node-libs-browser` is required by `webpack` and its size is ~3MB.
+
+> **Note:** If you want to use any above modules in runtime, for example: `require('babel/register')`, you should move them form `devDependencies` to `dependencies`.
+
 ## To Do
 
 - simplify webpack config
