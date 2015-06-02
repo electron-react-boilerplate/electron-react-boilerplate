@@ -1,16 +1,16 @@
 var packager = require('electron-packager')
 var assign = require('object-assign')
 var del = require('del')
+var latest = require('github-latest-release')
 var argv = require('minimist')(process.argv.slice(2))
 var devDeps = Object.keys(require('./package.json').devDependencies)
 
 
-var version = argv.version || argv.v || '0.27.1'
+
 var appName = argv.name || argv.n || 'ElectronReact'
 var shouldUseAsar = argv.asar || argv.a || false
 
 var DEFAULT_OPTS = {
-  version: version,
   dir: './',
   name: appName,
   asar: shouldUseAsar,
@@ -27,30 +27,50 @@ if (icon) {
   DEFAULT_OPTS.icon = icon
 }
 
-var MacOS_OPTS = assign({}, DEFAULT_OPTS, {
-  platform: 'darwin',
-  arch: 'x64',
-  out: 'release/darwin',
-})
+var version = argv.version || argv.v
 
-var Linux_OPTS = assign({}, DEFAULT_OPTS, {
-  platform: 'linux',
-  arch: 'x64',
-  out: 'release/linux',
-})
+if (version) {
+  DEFAULT_OPTS.version = version
+  packForPlatforms()
+} else {
+  latest('atom', 'electron', function(err, res) {
+    if (err) {
+      DEFAULT_OPTS.version = '0.27.1'
+    } else {
+      DEFAULT_OPTS.version = res.name.split('v')[1]
+    }
+    packForPlatforms()
+  })
+}
 
-var Windows_OPTS = assign({}, DEFAULT_OPTS, {
-  platform: 'win32',
-  arch: 'x64',
-  out: 'release/win32',
-})
+var MacOS_OPTS, Linux_OPTS, Windows_OPTS
+
+function assignOpts() {
+  MacOS_OPTS = assign({}, DEFAULT_OPTS, {
+    platform: 'darwin',
+    arch: 'x64',
+    out: 'release/darwin',
+  })
+
+  Linux_OPTS = assign({}, DEFAULT_OPTS, {
+    platform: 'linux',
+    arch: 'x64',
+    out: 'release/linux',
+  })
+
+  Windows_OPTS = assign({}, DEFAULT_OPTS, {
+    platform: 'win32',
+    arch: 'x64',
+    out: 'release/win32',
+  })
+}
 
 
-del.sync('release')
-
-
-pack(MacOS_OPTS, thenPack(Linux_OPTS, thenPack(Windows_OPTS, log)))
-
+function packForPlatforms() {
+  assignOpts()
+  del.sync('release')
+  pack(MacOS_OPTS, thenPack(Linux_OPTS, thenPack(Windows_OPTS, log)))
+}
 
 function pack(opts, cb) {
   packager(opts, cb)
