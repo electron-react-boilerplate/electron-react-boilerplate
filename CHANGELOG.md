@@ -1,3 +1,16 @@
+# 0.2.3 (2015.6.3)
+
+#### Features
+
+- **Package Version:** use latest release electron version as default
+- **Ignore Large peerDependencies**
+
+#### Bug fixed
+
+- **Npm Script:** typo, [#6](https://github.com/chentsulin/electron-react-boilerplate/pull/6)
+- **Missing css:** [#7](https://github.com/chentsulin/electron-react-boilerplate/pull/7)
+
+
 # 0.2.2 (2015.6.2)
 
 #### Features
