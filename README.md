@@ -3,7 +3,7 @@
 [![NPM version][npm-image]][npm-url]
 [![Dependency Status][david_img]][david_site]
 
-> [Electron](http://electron.atom.io/) application boilerplate based on [React](https://facebook.github.io/react/), [React Router](http://rackt.github.io/react-router/), [Webpack](http://webpack.github.io/docs/), [React Hot Loader](http://gaearon.github.io/react-hot-loader/)
+> [Electron](http://electron.atom.io/) application boilerplate based on [React](https://facebook.github.io/react/), [React Router](http://rackt.github.io/react-router/), [Webpack](http://webpack.github.io/docs/), [React Hot Loader](http://gaearon.github.io/react-hot-loader/) for rapid application development
 
 ## Install
 
@@ -54,6 +54,8 @@ We add some module's `peerDependencies` to ignore option as default for applicat
 
 - simplify webpack config
 - yeoman generator
+- support react devtools when [atom/electron#915](https://github.com/atom/electron/issues/915) fixed
+- prerender production html
 
 ## License
 MIT © [C. T. Lin](https://github.com/chentsulin)
