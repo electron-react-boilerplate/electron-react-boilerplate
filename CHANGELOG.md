@@ -1,3 +1,10 @@
+# 0.2.4 (2015.6.9)
+
+#### Bug fixed
+
+- **Eslint:** typo, [#17](https://github.com/chentsulin/electron-react-boilerplate/issues/17) and improve `.eslintrc`
+
+
 # 0.2.3 (2015.6.3)
 
 #### Features
