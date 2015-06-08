@@ -39,6 +39,7 @@
   "devDependencies": {
     "asar": "^0.6.1",
     "babel-core": "^5.4.2",
+    "babel-eslint": "^3.1.14",
     "babel-loader": "^5.1.2",
     "chai": "^2.3.0",
     "css-loader": "^0.12.1",
@@ -46,6 +47,8 @@
     "electron-packager": "^4.1.0",
     "electron-prebuilt": "^0.26.0",
     "electron-rebuild": "^0.2.1",
+    "eslint": "^0.22.1",
+    "eslint-plugin-react": "^2.5.0",
     "extract-text-webpack-plugin": "^0.8.0",
     "file-loader": "^0.8.1",
     "github-latest-release": "^0.1.1",
