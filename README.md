@@ -24,7 +24,7 @@ npm run start-hot
 
 To start a react-hot electron app development !
 
-> If you are using `OS X` and you place your Electron in `/Applications` folder, it will be fine. Otherwise you should see [Run your app](https://github.com/atom/electron/blob/master/docs/tutorial/quick-start.md#run-your-app) document for run this on your computer.
+> Please make sure you have a `electron` environment variable which is linked to your Electron binary in your terminal. Otherwise you should refer [Run your app](https://github.com/atom/electron/blob/master/docs/tutorial/quick-start.md#run-your-app) document for run this on your computer.
 
 ## Package
 
