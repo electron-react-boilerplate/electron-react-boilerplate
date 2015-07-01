@@ -38,8 +38,9 @@ npm run package
 - --version, -v: Electron version (default: latest version)
 - --asar, -a: [asar](https://github.com/atom/asar) support (default: false)
 - --icon, -i: Application icon
+- --all: pack for all platforms
 
-Use `electron-packager` to pack your app for darwin (osx), linux and win32 (windows) platform. After build, you will see them in `release` folder.
+Use `electron-packager` to pack your app with `--all` options for darwin (osx), linux and win32 (windows) platform. After build, you will find them in `release` folder. Otherwise, you will only find one for your os.
 
 `test`, `tools`, `release` folder and devDependencies in `package.json` will be ignored by default.
 
