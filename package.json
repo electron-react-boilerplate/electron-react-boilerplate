@@ -11,7 +11,8 @@
     "start": "electron .",
     "start-dev": "NODE_ENV=development electron .",
     "start-hot": "HOT=1 NODE_ENV=development electron .",
-    "package": "node package.js"
+    "package": "node package.js",
+    "package-all": "node package.js --all"
   },
   "repository": {
     "type": "git",
