@@ -1,3 +1,11 @@
+# 0.2.5 (2015.7.1)
+
+#### Features
+
+- **NPM Script:** support multi-platform
+- **package:** `--all` option
+
+
 # 0.2.4 (2015.6.9)
 
 #### Bug fixed
