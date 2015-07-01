@@ -2,7 +2,7 @@ import assign from 'object-assign'
 import { EventEmitter } from 'events'
 
 
-var CHANGE_EVENT = 'change';
+var CHANGE_EVENT = 'change'
 
 
 export default function(attributes) {
