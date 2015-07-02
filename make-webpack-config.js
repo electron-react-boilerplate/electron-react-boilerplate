@@ -21,7 +21,7 @@ module.exports = function(opts) {
       loader: 'babel-loader?stage=0',
       include: path.join(__dirname, 'app')
     },
-    'json':  'json-loader',
+    'json': 'json-loader',
     'txt': 'raw-loader',
     'png|jpg|jpeg|gif|svg': 'url-loader?limit=10000',
     'woff|woff2': 'url-loader?limit=100000',
@@ -31,7 +31,7 @@ module.exports = function(opts) {
     'md|markdown': [ 'html-loader', 'markdown-loader' ]
   }
 
-  var cssLoader = opts.minimize ? 'css-loader' : 'css-loader?localIdentName=[path][name]---[local]---[hash:base64:5]';
+  var cssLoader = opts.minimize ? 'css-loader' : 'css-loader?localIdentName=[path][name]---[local]---[hash:base64:5]'
 
   var stylesheetLoaders = {
     'css': cssLoader,
@@ -58,7 +58,7 @@ module.exports = function(opts) {
 
   var modulesDirectories = [ 'node_modules' ]
 
-  var extensions = [ '', '.js', '.jsx', '.json', '.node' ];
+  var extensions = [ '', '.js', '.jsx', '.json', '.node' ]
 
   var root = path.join(__dirname, 'app')
 
@@ -89,16 +89,16 @@ module.exports = function(opts) {
     plugins.push(new StatsPlugin(path.join(__dirname, 'dist', 'stats.prerender.json'), {
       chunkModules: true,
       exclude: excludeFromStats
-    }));
-    aliasLoader['react-proxy$'] = 'react-proxy/unavailable';
-    aliasLoader['react-proxy-loader$'] = 'react-proxy-loader/unavailable';
+    }))
+    aliasLoader['react-proxy$'] = 'react-proxy/unavailable'
+    aliasLoader['react-proxy-loader$'] = 'react-proxy-loader/unavailable'
     externals.push(
       /^react(\/.*)?$/,
       /^reflux(\/.*)?$/,
       'superagent',
       'async'
-    );
-    plugins.push(new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }));
+    )
+    plugins.push(new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }))
   } else {
     plugins.push(new StatsPlugin(path.join(__dirname, 'dist', 'stats.json'), {
       chunkModules: true,
@@ -112,25 +112,25 @@ module.exports = function(opts) {
 
   var asyncLoader = {
     test: require('./app/routes/async').map(function(name) {
-      return path.join(__dirname, 'app', 'routes', name);
+      return path.join(__dirname, 'app', 'routes', name)
     }),
     loader: opts.prerender ? 'react-proxy-loader/unavailable' : 'react-proxy-loader'
   }
 
   Object.keys(stylesheetLoaders).forEach(function(ext) {
-    var stylesheetLoader = stylesheetLoaders[ext];
-    if (Array.isArray(stylesheetLoader)) stylesheetLoader = stylesheetLoader.join('!');
+    var stylesheetLoader = stylesheetLoaders[ext]
+    if (Array.isArray(stylesheetLoader)) stylesheetLoader = stylesheetLoader.join('!')
     if (opts.prerender) {
-      stylesheetLoaders[ext] = stylesheetLoader.replace(/^css-loader/, 'css-loader/locals');
+      stylesheetLoaders[ext] = stylesheetLoader.replace(/^css-loader/, 'css-loader/locals')
     } else if (opts.separateStylesheet) {
-      stylesheetLoaders[ext] = ExtractTextPlugin.extract('style-loader', stylesheetLoader);
+      stylesheetLoaders[ext] = ExtractTextPlugin.extract('style-loader', stylesheetLoader)
     } else {
-      stylesheetLoaders[ext] = 'style-loader!' + stylesheetLoader;
+      stylesheetLoaders[ext] = 'style-loader!' + stylesheetLoader
     }
   })
 
   if (opts.separateStylesheet && !opts.prerender) {
-    plugins.push(new ExtractTextPlugin('[name].css' + (opts.longTermCaching ? '?[contenthash]' : '')));
+    plugins.push(new ExtractTextPlugin('[name].css' + (opts.longTermCaching ? '?[contenthash]' : '')))
   }
 
   if (opts.minimize && !opts.prerender) {

@@ -1,4 +1,6 @@
 var os = require('os')
+var webpack = require('webpack')
+var cfg = require('./webpack.config.production.js')
 var packager = require('electron-packager')
 var assign = require('object-assign')
 var del = require('del')
@@ -48,21 +50,26 @@ if (version) {
 
 function startPack() {
   console.log('start pack...')
-  del.sync('release')
-  if (shouldBuildAll) {
-    // build for all platforms
-    var archs = ['ia32', 'x64']
-    var platforms = ['linux', 'win32', 'darwin']
+  webpack(cfg, function(err, stats) {
+    if (err) return console.error(err)
+    del('release', function(err, paths) {
+      if (err) return console.error(err)
+      if (shouldBuildAll) {
+        // build for all platforms
+        var archs = ['ia32', 'x64']
+        var platforms = ['linux', 'win32', 'darwin']
 
-    platforms.forEach(function (plat) {
-      archs.forEach(function (arch) {
-        pack(plat, arch, log(plat, arch))
-      })
+        platforms.forEach(function (plat) {
+          archs.forEach(function (arch) {
+            pack(plat, arch, log(plat, arch))
+          })
+        })
+      } else {
+        // build for current platform only
+        pack(os.platform(), os.arch(), log(os.platform(), os.arch()))
+      }
     })
-  } else {
-    // build for current platform only
-    pack(os.platform(), os.arch(), log(os.platform(), os.arch()))
-  }
+  })
 }
 
 function pack(plat, arch, cb) {
