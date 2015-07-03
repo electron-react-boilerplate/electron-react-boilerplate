@@ -1,3 +1,14 @@
+# 0.2.6 (2015.7.3)
+
+#### Features
+
+- **menu**
+
+#### Bug fixed
+
+- **package.js:** include webpack build.
+
+
 # 0.2.5 (2015.7.1)
 
 #### Features
