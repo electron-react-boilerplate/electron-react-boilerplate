@@ -3,6 +3,8 @@
 [![NPM version][npm-image]][npm-url]
 [![Dependency Status][david_img]][david_site]
 
+![](./erb-logo.png)
+
 > [Electron](http://electron.atom.io/) application boilerplate based on [React](https://facebook.github.io/react/), [React Router](http://rackt.github.io/react-router/), [Webpack](http://webpack.github.io/docs/), [React Hot Loader](http://gaearon.github.io/react-hot-loader/) for rapid application development
 
 Warning: react-hot-reload maybe temporarily fail because `ws` issue with latest node and iojs   [Automattic/engine.io-client#376](https://github.com/Automattic/engine.io-client/issues/376)
