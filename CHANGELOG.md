@@ -1,3 +1,10 @@
+# 0.2.7 (2015.7.9)
+
+#### Bug fixed
+
+- **defaultProps:** fix typos.
+
+
 # 0.2.6 (2015.7.3)
 
 #### Features
