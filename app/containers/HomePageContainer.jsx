@@ -4,8 +4,8 @@ import { Link } from 'react-router'
 
 export default class HomePageContainer extends React.Component {
 
-  static getProps() {
-    return {}
+  static defaultProps = {
+
   }
 
   render() {
