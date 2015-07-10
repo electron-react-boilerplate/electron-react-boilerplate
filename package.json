@@ -72,7 +72,7 @@
   },
   "dependencies": {
     "debug": "^2.2.0",
-    "electron-debug": "^0.1.0",
+    "electron-debug": "^0.1.1",
     "flux": "^2.0.3",
     "keymirror": "^0.1.1",
     "object-assign": "^2.0.0",
