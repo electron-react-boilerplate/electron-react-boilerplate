@@ -1,6 +1,6 @@
 var os = require('os')
 var webpack = require('webpack')
-var cfg = require('./webpack.config.production.js')
+var cfg = require('./webpack/webpack.config.production.js')
 var packager = require('electron-packager')
 var assign = require('object-assign')
 var del = require('del')
