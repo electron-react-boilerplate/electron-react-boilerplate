@@ -3,23 +3,23 @@ var path = require('path')
 var fs = require('fs')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var StatsPlugin = require('stats-webpack-plugin')
-var loadersByExtension = require('./lib/loaders-by-extension')
+var loadersByExtension = require('./loaders-by-extension')
 
-
+var projectRoot = path.join(__dirname, '..')
+var appRoot = path.join(projectRoot, 'app')
 
 module.exports = function(opts) {
 
   var entry = {
-    main: opts.prerender ? './app/mainApp' : './app/mainApp'
+    main: opts.prerender ? path.join(appRoot, 'mainApp') : path.join(appRoot, 'mainApp')
   }
-
 
 
   var loaders = {
     'jsx': opts.hotComponents ? [ 'react-hot-loader', 'babel-loader' ] : 'babel-loader',
     'js': {
       loader: 'babel-loader',
-      include: path.join(__dirname, 'app')
+      include: appRoot
     },
     'json': 'json-loader',
     'txt': 'raw-loader',
@@ -60,18 +60,16 @@ module.exports = function(opts) {
 
   var extensions = [ '', '.js', '.jsx', '.json', '.node' ]
 
-  var root = path.join(__dirname, 'app')
-
   var publicPath = opts.devServer
                  ? 'http://localhost:2992/dist/'
                  : '/dist/'
 
 
   var output = {
-    path: __dirname + '/dist/',
+    path: projectRoot + '/dist/',
     filename: 'bundle.js',
     publicPath: publicPath,
-    contentBase: __dirname + '/public/',
+    contentBase: projectRoot + '/public/',
     libraryTarget: 'commonjs2'
   }
 
@@ -86,7 +84,7 @@ module.exports = function(opts) {
   ]
 
   if (opts.prerender) {
-    plugins.push(new StatsPlugin(path.join(__dirname, 'dist', 'stats.prerender.json'), {
+    plugins.push(new StatsPlugin(path.join(projectRoot, 'dist', 'stats.prerender.json'), {
       chunkModules: true,
       exclude: excludeFromStats
     }))
@@ -100,7 +98,7 @@ module.exports = function(opts) {
     )
     plugins.push(new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }))
   } else {
-    plugins.push(new StatsPlugin(path.join(__dirname, 'dist', 'stats.json'), {
+    plugins.push(new StatsPlugin(path.join(projectRoot, 'dist', 'stats.json'), {
       chunkModules: true,
       exclude: excludeFromStats
     }));
@@ -111,8 +109,8 @@ module.exports = function(opts) {
   }
 
   var asyncLoader = {
-    test: require('./app/routes/async').map(function(name) {
-      return path.join(__dirname, 'app', 'routes', name)
+    test: require('../app/routes/async').map(function(name) {
+      return path.join(appRoot, 'routes', name)
     }),
     loader: opts.prerender ? 'react-proxy-loader/unavailable' : 'react-proxy-loader'
   }
@@ -168,7 +166,7 @@ module.exports = function(opts) {
     devtool: opts.devtool,
     debug: opts.debug,
     resolve: {
-      root: root,
+      root: appRoot,
       modulesDirectories: modulesDirectories,
       extensions: extensions,
       alias: alias
