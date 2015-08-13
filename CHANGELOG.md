@@ -1,3 +1,12 @@
+# 0.2.8 (2015.8.13)
+
+#### Improvements
+
+- **bump electron-debug**
+- **babelrc**
+- **organize webpack scripts**
+
+
 # 0.2.7 (2015.7.9)
 
 #### Bug fixed
