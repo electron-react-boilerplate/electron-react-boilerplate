@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router'
+import React from 'react';
+import { Link } from 'react-router';
 
 
 export default class HomePageContainer extends React.Component {
@@ -15,7 +15,7 @@ export default class HomePageContainer extends React.Component {
         <p>This is the homepage.</p>
         <Link to="about">to About</Link>
       </div>
-    )
+    );
   }
 
 }

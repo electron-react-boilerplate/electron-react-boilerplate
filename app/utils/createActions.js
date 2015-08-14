@@ -1,3 +1,3 @@
 export default function createActions(attributes) {
-  return attributes
+  return attributes;
 }
