@@ -153,13 +153,26 @@ module.exports = function(opts) {
     )
   }
 
-  var nodeModules = fs.readdirSync('node_modules').filter(function(x) { return x !== '.bin' })
+  var nodeModules = fs.readdirSync('node_modules').filter(function(x) {
+    return x !== '.bin' && x !== 'react' && x !== 'react-router';
+  });
+
+  var electronModules = [
+    'ipc',
+    'remote',
+    'web-frame',
+    'clipboard',
+    'crash-reporter',
+    'native-image',
+    'screen',
+    'shell'
+  ];
 
   return {
     entry: entry,
     output: output,
-    target: 'atom',
-    externals: nodeModules,
+    target: 'web',
+    externals: externals.concat(nodeModules).concat(electronModules),
     module: {
       loaders: [asyncLoader].concat(loadersByExtension(loaders)).concat(loadersByExtension(stylesheetLoaders)).concat(additionalLoaders)
     },
