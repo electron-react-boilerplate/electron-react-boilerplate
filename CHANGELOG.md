@@ -1,3 +1,10 @@
+# 0.2.9 (2015.8.18)
+
+#### Bug fixed
+
+- **Fix hot-reload**
+
+
 # 0.2.8 (2015.8.13)
 
 #### Improvements
