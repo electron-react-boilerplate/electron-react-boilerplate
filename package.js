@@ -25,7 +25,7 @@ var DEFAULT_OPTS = {
   ].concat(devDeps.map(function(name) { return '/node_modules/' + name + '($|/)' }))
 }
 
-var icon = argv.icon || argv.i
+var icon = argv.icon || argv.i || 'app/app.icns'
 
 if (icon) {
   DEFAULT_OPTS.icon = icon
