@@ -26,9 +26,21 @@ To start a react-hot electron app development !
 
 > Please make sure you have a `electron` environment variable which is linked to your Electron binary in your terminal. Otherwise you should refer [Run your app](https://github.com/atom/electron/blob/master/docs/tutorial/quick-start.md#run-your-app) document for run this on your computer.
 
+## Externals
+
+If you use any 3rd party libraries which can't be built with webpack, you must list them in your `webpack/make-webpack-config.js`：
+
+```javascript
+externals.push(
+	// put your node 3rd party libraries which can't be built with webpack here (mysql, mongodb, and so on..)
+)
+```
+
+You can find those lines in the file.
+
 ## Package
 
-```
+```bash
 npm run package
 ```
 
