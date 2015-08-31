@@ -10,7 +10,6 @@ var projectRoot = path.join(__dirname, '..');
 var appRoot = path.join(projectRoot, 'app');
 
 module.exports = function(opts) {
-
   var entry = {
     main: opts.prerender ? path.join(appRoot, 'mainApp') : path.join(appRoot, 'mainApp')
   };

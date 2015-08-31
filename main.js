@@ -16,7 +16,6 @@ app.on('window-all-closed', function() {
 
 
 app.on('ready', function() {
-
   mainWindow = new BrowserWindow({ width: 1024, height: 728 });
 
   if (process.env.HOT) {
