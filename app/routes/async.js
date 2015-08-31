@@ -1,1 +1,1 @@
-module.exports = [ 'SomePage', 'ReadmePage' ]
+module.exports = [ 'SomePage', 'ReadmePage' ];

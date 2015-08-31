@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router'
+import React from 'react';
+import { Link } from 'react-router';
 
 
 export default class AboutPageContainer extends React.Component {
@@ -15,7 +15,7 @@ export default class AboutPageContainer extends React.Component {
         <p>About us.</p>
         <Link to="home">back Home</Link>
       </div>
-    )
+    );
   }
 
 }

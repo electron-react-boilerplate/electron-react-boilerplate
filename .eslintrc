@@ -1,43 +1,21 @@
 {
-  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "env": {
+    "browser": true,
+    "mocha": true,
+    "node": true
+  },
+  "rules": {
+    "react/jsx-uses-react": 2,
+    "react/jsx-uses-vars": 2,
+    "react/react-in-jsx-scope": 2,
+
+    "no-var": 0,
+    "vars-on-top": 0,
+    "comma-dangle": 0,
+    "no-use-before-define": 0
+  },
   "plugins": [
     "react"
-  ],
-  "ecmaFeatures": {
-    "jsx": true,
-    "modules": true
-  },
-	"env": {
-    "node": true,
-    "mocha": true,
-    "es6": true,
-    "browser": true
-  },
-  "globals": {
-
-  },
-	"rules": {
-		"quotes": [2, "single"],
-		"semi": [2, "never"],
-		"curly": [2, "multi-line"],
-		"no-underscore-dangle": 0,
-
-    "react/display-name": 0,
-    "react/jsx-boolean-value": 1,
-    "react/jsx-quotes": 1,
-    "react/jsx-no-undef": 1,
-    "react/jsx-sort-props": 1,
-    "react/jsx-sort-prop-types": 1,
-    "react/jsx-uses-react": 1,
-    "react/jsx-uses-vars": 1,
-    "react/no-did-mount-set-state": 1,
-    "react/no-did-update-set-state": 1,
-    "react/no-multi-comp": 1,
-    "react/no-unknown-property": 1,
-    "react/prop-types": 1,
-    "react/react-in-jsx-scope": 1,
-    "react/self-closing-comp": 1,
-    "react/sort-comp": 0,
-    "react/wrap-multilines": 1
-	}
+  ]
 }
