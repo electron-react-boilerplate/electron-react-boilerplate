@@ -1,3 +1,14 @@
+# 0.2.10 (2015.8.27)
+
+#### Features
+
+- **custom placeholder icon**
+
+#### Improvements
+
+- **electron-renderer as target:** via [webpack-target-electron-renderer](https://github.com/chentsulin/webpack-target-electron-renderer)
+
+
 # 0.2.9 (2015.8.18)
 
 #### Bug fixed

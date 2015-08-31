@@ -11,9 +11,9 @@ export default createStore({
 AppDispatcher.register(payload => {
   var action = payload.action;
   switch (action.type) {
-    case ActionTypes.ROUTE_CHANGE:
-      break;
-    default:
+  case ActionTypes.ROUTE_CHANGE:
+    break;
+  default:
 
   }
 });

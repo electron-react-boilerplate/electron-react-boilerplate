@@ -1,10 +1,10 @@
 /* eslint func-names: 0 */
 var webpack = require('webpack');
 var path = require('path');
-var fs = require('fs');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var StatsPlugin = require('stats-webpack-plugin');
 var loadersByExtension = require('loaders-by-extension');
+var webpackTargetElectronRenderer = require('webpack-target-electron-renderer');
 
 var projectRoot = path.join(__dirname, '..');
 var appRoot = path.join(projectRoot, 'app');
@@ -154,26 +154,14 @@ module.exports = function(opts) {
     );
   }
 
-  var nodeModules = fs.readdirSync('node_modules').filter(function(x) {
-    return x !== '.bin' && x !== 'react' && x !== 'react-router';
-  });
+  externals.push(
+    // put your node 3rd party libraries which can't be built with webpack here (mysql, mongodb, and so on..)
+  );
 
-  var electronModules = [
-    'ipc',
-    'remote',
-    'web-frame',
-    'clipboard',
-    'crash-reporter',
-    'native-image',
-    'screen',
-    'shell'
-  ];
-
-  return {
+  var options = {
     entry: entry,
     output: output,
-    target: 'web',
-    externals: externals.concat(nodeModules).concat(electronModules),
+    externals: externals,
     module: {
       loaders: [asyncLoader].concat(loadersByExtension(loaders)).concat(loadersByExtension(stylesheetLoaders)).concat(additionalLoaders)
     },
@@ -183,7 +171,8 @@ module.exports = function(opts) {
       root: appRoot,
       modulesDirectories: modulesDirectories,
       extensions: extensions,
-      alias: alias
+      alias: alias,
+      packageMains: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main']
     },
     plugins: plugins,
     devServer: {
@@ -193,4 +182,8 @@ module.exports = function(opts) {
       }
     }
   };
+
+  options.target = webpackTargetElectronRenderer(options);
+
+  return options;
 };

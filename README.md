@@ -5,9 +5,9 @@
 
 ![](./erb-logo.png)
 
-> [Electron](http://electron.atom.io/) application boilerplate based on [React](https://facebook.github.io/react/), [React Router](http://rackt.github.io/react-router/), [Webpack](http://webpack.github.io/docs/), [React Hot Loader](http://gaearon.github.io/react-hot-loader/) for rapid application development
+> Live editing development on desktop app
 
-Warning: react-hot-reload maybe temporarily fail because `ws` issue with latest node and iojs   [Automattic/engine.io-client#376](https://github.com/Automattic/engine.io-client/issues/376)
+[Electron](http://electron.atom.io/) application boilerplate based on [React](https://facebook.github.io/react/), [React Router](http://rackt.github.io/react-router/), [Webpack](http://webpack.github.io/docs/), [React Hot Loader](http://gaearon.github.io/react-hot-loader/) for rapid application development
 
 ## Install
 
@@ -28,9 +28,21 @@ To start a react-hot electron app development !
 
 > Please make sure you have a `electron` environment variable which is linked to your Electron binary in your terminal. Otherwise you should refer [Run your app](https://github.com/atom/electron/blob/master/docs/tutorial/quick-start.md#run-your-app) document for run this on your computer.
 
+## Externals
+
+If you use any 3rd party libraries which can't be built with webpack, you must list them in your `webpack/make-webpack-config.js`：
+
+```javascript
+externals.push(
+	// put your node 3rd party libraries which can't be built with webpack here (mysql, mongodb, and so on..)
+)
+```
+
+You can find those lines in the file.
+
 ## Package
 
-```
+```bash
 npm run package
 ```
 
