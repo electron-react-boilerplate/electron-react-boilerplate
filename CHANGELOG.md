@@ -1,3 +1,10 @@
+# 0.3.0 (2015.8.31)
+
+#### Improvements
+
+- **eslint-config-airbnb**
+
+
 # 0.2.10 (2015.8.27)
 
 #### Features
