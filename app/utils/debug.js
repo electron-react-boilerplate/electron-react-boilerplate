@@ -1,5 +1,5 @@
-import debug from 'debug'
+import debug from 'debug';
 
-global.dd = debug
+global.dd = debug;
 
-export default debug
+export default debug;

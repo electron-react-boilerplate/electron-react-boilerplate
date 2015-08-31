@@ -1,5 +1,5 @@
-import React from 'react'
-import { RouteHandler } from 'react-router'
+import React from 'react';
+import { RouteHandler } from 'react-router';
 
 
 export default class AppContainer extends React.Component {
@@ -9,7 +9,7 @@ export default class AppContainer extends React.Component {
       <div>
         <RouteHandler />
       </div>
-    )
+    );
   }
 
 }

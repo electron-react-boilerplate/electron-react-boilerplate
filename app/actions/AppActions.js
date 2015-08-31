@@ -1,6 +1,6 @@
-import createActions from '../utils/createActions'
+import createActions from '../utils/createActions';
 
 
 export default createActions({
 
-})
+});

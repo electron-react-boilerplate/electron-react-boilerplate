@@ -1,4 +1,4 @@
-import keyMirror from 'keymirror'
+import keyMirror from 'keymirror';
 
 
 export default keyMirror({
@@ -6,4 +6,4 @@ export default keyMirror({
   // Routes
   ROUTE_CHANGE: null
 
-})
+});
