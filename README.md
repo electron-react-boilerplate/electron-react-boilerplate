@@ -67,6 +67,10 @@ We add some module's `peerDependencies` to ignore option as default for applicat
 
 > **Note:** If you want to use any above modules in runtime, for example: `require('babel/register')`, you should move them form `devDependencies` to `dependencies`.
 
+#### Building windows apps from non-windows platforms
+
+Please checkout [Building windows apps from non-windows platforms](https://github.com/maxogden/electron-packager#building-windows-apps-from-non-windows-platforms).
+
 ## To Do
 
 - simplify webpack config

@@ -53,8 +53,8 @@ function startPack() {
   console.log('start pack...');
   webpack(cfg, function runWebpackBuild(err, stats) {
     if (err) return console.error(err);
-    del('release', function(err, paths) {
-      if (err) return console.error(err);
+    del('release')
+    .then(function(paths) {
       if (shouldBuildAll) {
         // build for all platforms
         var archs = ['ia32', 'x64'];
@@ -69,6 +69,9 @@ function startPack() {
         // build for current platform only
         pack(os.platform(), os.arch(), log(os.platform(), os.arch()));
       }
+    })
+    .catch(function(err) {
+      console.error(err);
     });
   });
 }
