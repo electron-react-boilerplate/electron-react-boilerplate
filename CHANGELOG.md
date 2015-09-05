@@ -1,3 +1,10 @@
+# 0.4.0 (2015.9.5)
+
+#### Improvements
+
+- **update dependencies**
+
+
 # 0.3.0 (2015.8.31)
 
 #### Improvements
