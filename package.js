@@ -5,7 +5,7 @@ var cfg = require('./webpack/webpack.config.production.js');
 var packager = require('electron-packager');
 var assign = require('object-assign');
 var del = require('del');
-var latest = require('github-latest-release');
+var exec = require('child_process').exec;
 var argv = require('minimist')(process.argv.slice(2));
 var devDeps = Object.keys(require('./package.json').devDependencies);
 
@@ -38,11 +38,12 @@ if (version) {
   DEFAULT_OPTS.version = version;
   startPack();
 } else {
-  latest('atom', 'electron', function(err, res) {
+  // use the same version as the currently-installed electron-prebuilt
+  exec('npm list | grep electron-prebuilt', function(err, stdout, stderr) {
     if (err) {
       DEFAULT_OPTS.version = '0.28.3';
     } else {
-      DEFAULT_OPTS.version = res.name.split('v')[1];
+      DEFAULT_OPTS.version = stdout.split('@')[1].replace(/\s/g, '');
     }
     startPack();
   });
