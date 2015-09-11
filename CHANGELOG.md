@@ -1,3 +1,10 @@
+# 0.4.1 (2015.9.11)
+
+#### Improvements
+
+- **use electron-prebuilt version for packaging (#33)**
+
+
 # 0.4.0 (2015.9.5)
 
 #### Improvements
