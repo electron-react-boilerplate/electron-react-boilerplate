@@ -54,7 +54,6 @@
     "eslint-plugin-react": "^3.3.1",
     "extract-text-webpack-plugin": "^0.8.2",
     "file-loader": "^0.8.4",
-    "github-latest-release": "^0.1.1",
     "html-loader": "^0.3.0",
     "json-loader": "^0.5.2",
     "loaders-by-extension": "^1.0.0",
