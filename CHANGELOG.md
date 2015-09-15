@@ -1,3 +1,10 @@
+# 0.4.2 (2015.9.15)
+
+#### Bug fixed
+
+- **run start-hot breaks chrome refresh(CTRL+R) (#42)**: bump `electron-debug` to `0.2.1`
+
+
 # 0.4.1 (2015.9.11)
 
 #### Improvements
