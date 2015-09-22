@@ -1,3 +1,10 @@
+# 0.4.3 (2015.9.22)
+
+#### Bug fixed
+
+- **Fix #45 zeromq crash:** bump version of `electron-prebuilt`.
+
+
 # 0.4.2 (2015.9.15)
 
 #### Bug fixed
