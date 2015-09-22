@@ -47,7 +47,7 @@
     "css-loader": "^0.17.0",
     "del": "^2.0.1",
     "electron-packager": "^5.0.2",
-    "electron-prebuilt": "^0.31.2",
+    "electron-prebuilt": "^0.33.0",
     "electron-rebuild": "^1.0.0",
     "eslint": "^1.3.1",
     "eslint-config-airbnb": "0.0.8",
