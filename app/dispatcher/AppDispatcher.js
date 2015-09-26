@@ -1,7 +1,7 @@
-import Dispatcher from 'flux';
+import {Dispatcher} from 'flux';
 import assign from 'object-assign';
 import PayloadSources from '../constants/PayloadSources';
-import debug from './utils/debug';
+import debug from '../utils/debug';
 
 var dd = debug('AppDispatcher');
 
