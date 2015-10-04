@@ -17,7 +17,7 @@
   },
   "bin":{
     "electron":"./node_modules/.bin/electron"
-  }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/chentsulin/electron-react-boilerplate.git"
