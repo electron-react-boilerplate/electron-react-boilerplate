@@ -20,18 +20,18 @@ $ npm install
 ## Run
 
 ```bash
-npm run hot-dev-server
+npm run hot-server
 npm run start-hot
 ```
 
 ## Externals
 
-If you use any 3rd party libraries which can't be built with webpack, you must list them in your `webpack/make-webpack-config.js`：
+If you use any 3rd party libraries which can't be built with webpack, you must list them in your `webpack.config.base.js`：
 
 ```javascript
-externals.push(
-	// put your node 3rd party libraries which can't be built with webpack here (mysql, mongodb, and so on..)
-)
+externals: [
+  // put your node 3rd party libraries which can't be built with webpack here (mysql, mongodb, and so on..)
+]
 ```
 
 You can find those lines in the file.
@@ -69,10 +69,8 @@ Please checkout [Building windows apps from non-windows platforms](https://githu
 
 ## To Do
 
-- simplify webpack config
 - yeoman generator
 - support react devtools when [atom/electron#915](https://github.com/atom/electron/issues/915) fixed
-- prerender production html
 
 ## License
 MIT © [C. T. Lin](https://github.com/chentsulin)
