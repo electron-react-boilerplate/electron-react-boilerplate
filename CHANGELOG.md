@@ -1,3 +1,16 @@
+# 0.5.0 (2015.10.11)
+
+#### Improvements
+
+- **Simplify webpack config** see [#50](https://github.com/chentsulin/electron-react-boilerplate/pull/50).
+
+#### Breaking Changes
+
+- **webpack configs**
+- **port changed:** changed default port from 2992 to 3000.
+- **npm scripts:** remove `start-dev` and `dev-server`. rename `hot-dev-server` to `hot-server`.
+
+
 # 0.4.3 (2015.9.22)
 
 #### Bug fixed
