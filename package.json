@@ -6,11 +6,9 @@
   "scripts": {
     "test": "mocha",
     "lint": "eslint .",
-    "dev-server": "webpack-dev-server --config webpack/webpack-dev-server.config.js --progress --colors --port 2992 --inline",
-    "hot-dev-server": "webpack-dev-server --config webpack/webpack-hot-dev-server.config.js --hot --progress --colors --port 2992 --inline",
-    "build": "webpack --config webpack/webpack.config.production.js --progress --profile --colors",
+    "hot-server": "node server.js",
+    "build": "webpack --config webpack.config.production.js --progress --profile --colors",
     "start": "electron .",
-    "start-dev": "NODE_ENV=development electron .",
     "start-hot": "HOT=1 NODE_ENV=development electron .",
     "package": "node package.js",
     "package-all": "node package.js --all"
@@ -56,11 +54,6 @@
     "eslint-config-airbnb": "0.0.8",
     "eslint-plugin-react": "^3.3.1",
     "extract-text-webpack-plugin": "^0.8.2",
-    "file-loader": "^0.8.4",
-    "html-loader": "^0.3.0",
-    "json-loader": "^0.5.2",
-    "loaders-by-extension": "^1.0.0",
-    "markdown-loader": "^0.1.7",
     "minimist": "^1.2.0",
     "mocha": "^2.3.0",
     "node-libs-browser": ">= 0.4.0 <=0.6.0",
@@ -71,7 +64,6 @@
     "sinon": "^1.16.1",
     "stats-webpack-plugin": "^0.2.1",
     "style-loader": "^0.12.3",
-    "url-loader": "^0.5.6",
     "webpack": "^1.12.1",
     "webpack-dev-server": "^1.10.1",
     "webpack-target-electron-renderer": "^0.1.0"
