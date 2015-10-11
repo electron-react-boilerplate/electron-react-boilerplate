@@ -36,6 +36,10 @@ externals: [
 
 You can find those lines in the file.
 
+## CSS Modules support
+
+Import css file as [css-modules](https://github.com/css-modules/css-modules) using `.module.css`.
+
 ## Package
 
 ```bash
