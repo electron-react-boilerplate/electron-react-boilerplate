@@ -1,6 +1,6 @@
 {
   "name": "electron-react-boilerplate",
-  "version": "0.4.3",
+  "version": "0.5.0",
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
   "main": "main.js",
   "scripts": {
@@ -13,8 +13,8 @@
     "package": "node package.js",
     "package-all": "node package.js --all"
   },
-  "bin":{
-    "electron":"./node_modules/.bin/electron"
+  "bin": {
+    "electron": "./node_modules/.bin/electron"
   },
   "repository": {
     "type": "git",
