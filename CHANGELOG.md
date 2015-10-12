@@ -1,3 +1,10 @@
+# 0.5.1 (2015.10.12)
+
+#### Bug fixed
+
+- **Fix #51:** use `path.join(__dirname` instead of `./`.
+
+
 # 0.5.0 (2015.10.11)
 
 #### Improvements
