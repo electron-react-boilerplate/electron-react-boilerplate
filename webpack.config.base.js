@@ -1,9 +1,11 @@
+var path = require('path');
+
 module.exports = {
   module: {
     loaders: []
   },
   output: {
-    path: './dist/',
+    path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
     libraryTarget: 'commonjs2'
   },
