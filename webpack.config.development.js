@@ -13,18 +13,13 @@ config.debug = true;
 config.devtool = 'cheap-module-eval-source-map';
 
 config.entry = [
-  'webpack-dev-server/client?http://localhost:3000',
-  'webpack/hot/only-dev-server',
+  'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr',
   './app/mainApp'
 ];
 
 config.output.publicPath = 'http://localhost:3000/dist/';
 
 config.module.loaders.push({
-  test: /\.jsx?$/,
-  loaders: ['react-hot-loader', 'babel-loader'],
-  exclude: /node_modules/
-}, {
   test: /^((?!\.module).)*\.css$/,
   loaders: [
     'style-loader',
@@ -41,6 +36,7 @@ config.module.loaders.push({
 
 config.plugins.push(
   new webpack.HotModuleReplacementPlugin(),
+  new webpack.NoErrorsPlugin(),
   new webpack.DefinePlugin({
     '__DEV__': true,
     'process.env': JSON.stringify('development')
