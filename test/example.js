@@ -1,9 +1,9 @@
-/* eslint func-names: 0, no-unused-vars: 0 */
-var expect = require('chai').expect;
+/* eslint func-names: 0 */
+import { expect } from 'chai';
 
 
-describe('description', function() {
-  it('description', function() {
-    // body...
+describe('description', () => {
+  it('description', () => {
+    expect(1 + 2).to.equal(3);
   });
 });
