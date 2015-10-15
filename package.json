@@ -4,7 +4,8 @@
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
   "main": "main.js",
   "scripts": {
-    "test": "mocha",
+    "test": "NODE_ENV=test mocha --compilers js:babel/register --recursive",
+    "test-watch": "npm test -- --watch",
     "lint": "eslint .",
     "hot-server": "node server.js",
     "build": "webpack --config webpack.config.production.js --progress --profile --colors",
@@ -41,10 +42,11 @@
   "homepage": "https://github.com/chentsulin/electron-react-boilerplate#readme",
   "devDependencies": {
     "asar": "^0.8.0",
+    "babel": "^5.8.23",
     "babel-core": "^5.8.23",
     "babel-eslint": "^4.1.1",
     "babel-loader": "^5.3.2",
-    "chai": "^3.2.0",
+    "chai": "^3.3.0",
     "css-loader": "^0.17.0",
     "del": "^2.0.1",
     "electron-packager": "^5.0.2",
