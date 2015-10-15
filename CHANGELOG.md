@@ -1,3 +1,10 @@
+# 0.6.0 (2015.10.16)
+
+#### Breaking Changes
+
+- **From react-hot-loader to react-transform**
+
+
 # 0.5.2 (2015.10.15)
 
 #### Improvements
