@@ -2,7 +2,11 @@ var path = require('path');
 
 module.exports = {
   module: {
-    loaders: []
+    loaders: [{
+      test: /\.jsx?$/,
+      loaders: ['babel-loader'],
+      exclude: /node_modules/
+    }]
   },
   output: {
     path: path.join(__dirname, 'dist'),

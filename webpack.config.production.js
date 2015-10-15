@@ -19,10 +19,6 @@ var stylesTextPlugin = new ExtractTextPlugin('style.css', { allChunks: true });
 var globalStylesTextPlugin = new ExtractTextPlugin('global-style.css', { allChunks: true });
 
 config.module.loaders.push({
-  test: /\.jsx?$/,
-  loaders: ['babel-loader'],
-  exclude: /node_modules/
-}, {
   test: /^((?!\.module).)*\.css$/,
   loader: globalStylesTextPlugin.extract(
     'style-loader',
