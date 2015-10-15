@@ -1,3 +1,10 @@
+# 0.5.2 (2015.10.15)
+
+#### Improvements
+
+- **Run tests with babel-register:** #29.
+
+
 # 0.5.1 (2015.10.12)
 
 #### Bug fixed
