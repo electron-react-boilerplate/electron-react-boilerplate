@@ -1,0 +1,14 @@
+.container {
+  position: absolute;
+  text-align: right;
+  top: 30%;
+  right: 10px;
+}
+
+.container h2 {
+  font-size: 5rem;
+}
+
+.container a {
+  font-size: 1.4rem;
+}

@@ -11,7 +11,7 @@ var config = Object.create(baseConfig);
 
 config.devtool = 'source-map';
 
-config.entry = './app/mainApp';
+config.entry = './app/index';
 
 config.output.publicPath = '/dist/';
 
