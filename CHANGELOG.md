@@ -1,3 +1,10 @@
+# 0.6.1 (2015.10.17)
+
+#### Improvements
+
+- **Bump electron to v0.34.0**
+
+
 # 0.6.0 (2015.10.16)
 
 #### Breaking Changes
