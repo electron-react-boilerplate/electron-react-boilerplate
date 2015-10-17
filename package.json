@@ -8,11 +8,11 @@
     "test-watch": "npm test -- --watch",
     "lint": "eslint .",
     "hot-server": "node server.js",
-    "build": "webpack --config webpack.config.production.js --progress --profile --colors",
+    "build": "NODE_ENV=production webpack --config webpack.config.production.js --progress --profile --colors",
     "start": "electron .",
     "start-hot": "HOT=1 NODE_ENV=development electron .",
-    "package": "node package.js",
-    "package-all": "node package.js --all"
+    "package": "NODE_ENV=production node package.js",
+    "package-all": "npm run package -- --all"
   },
   "bin": {
     "electron": "./node_modules/.bin/electron"
