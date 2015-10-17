@@ -1,17 +1,5 @@
-import React, { Component, PropTypes} from 'react';
-
-
-export default class App extends Component {
-  static propTypes = {
-    children: PropTypes.element.isRequired
-  };
-
-  render() {
-    return (
-      <div>
-        {this.props.children}
-      </div>
-    );
-  }
+if (process.env.NODE_ENV === 'production') {
+  module.exports = require('./App.production');
+} else {
+  module.exports = require('./App.development');
 }
-

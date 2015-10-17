@@ -1,8 +1,8 @@
 .container {
   position: absolute;
-  text-align: right;
   top: 30%;
-  right: 10px;
+  left: 10px;
+  text-align: center;
 }
 
 .container h2 {
