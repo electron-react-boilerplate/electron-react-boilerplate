@@ -19,6 +19,8 @@ $ npm install
 
 ## Run
 
+Run this two commands __simultaniously__ in different console tabs.
+
 ```bash
 npm run hot-server
 npm run start-hot
