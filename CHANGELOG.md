@@ -1,3 +1,10 @@
+# 0.6.2 (2015.10.18)
+
+#### Bug fixed
+
+- **Babel plugins production env not be set properly:** #57.
+
+
 # 0.6.1 (2015.10.17)
 
 #### Improvements
