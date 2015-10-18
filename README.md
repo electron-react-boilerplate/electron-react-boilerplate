@@ -73,10 +73,9 @@ We add some module's `peerDependencies` to ignore option as default for applicat
 
 Please checkout [Building windows apps from non-windows platforms](https://github.com/maxogden/electron-packager#building-windows-apps-from-non-windows-platforms).
 
-## To Do
+#### Native-like UI
 
-- yeoman generator
-- support react devtools when [atom/electron#915](https://github.com/atom/electron/issues/915) fixed
+If you want to have native-like User Interface (OS X El Capitan and Windows 10), [react-desktop](https://github.com/gabrielbull/react-desktop) may perfect suit for you.
 
 ## License
 MIT © [C. T. Lin](https://github.com/chentsulin)
