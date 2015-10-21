@@ -2,7 +2,7 @@ import React from 'react';
 import AppContainer from './containers/AppContainer';
 import router from './routes/router';
 import debug from './utils/debug';
-import './app.css';
+import './styles/app.css';
 
 var dd = debug('mainApp');
 
