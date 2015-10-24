@@ -15,18 +15,15 @@ config.entry = './app/mainApp';
 
 config.output.publicPath = '/dist/';
 
-var stylesTextPlugin = new ExtractTextPlugin('style.css', { allChunks: true });
-var globalStylesTextPlugin = new ExtractTextPlugin('global-style.css', { allChunks: true });
-
 config.module.loaders.push({
   test: /^((?!\.module).)*\.css$/,
-  loader: globalStylesTextPlugin.extract(
+  loader: ExtractTextPlugin.extract(
     'style-loader',
     'css-loader'
   )
 }, {
   test: /\.module\.css$/,
-  loader: stylesTextPlugin.extract(
+  loader: ExtractTextPlugin.extract(
     'style-loader',
     'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
   )
@@ -44,8 +41,7 @@ config.plugins.push(
       warnings: false
     }
   }),
-  stylesTextPlugin,
-  globalStylesTextPlugin
+  new ExtractTextPlugin('style.css', { allChunks: true })
 );
 
 config.target = webpackTargetElectronRenderer(config);
