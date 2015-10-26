@@ -1,3 +1,10 @@
+# 0.6.4 (2015.10.27)
+
+#### Improvements
+
+- **Bump electron-debug to 0.3**
+
+
 # 0.6.3 (2015.10.26)
 
 #### Improvements
