@@ -1,3 +1,10 @@
+# 0.6.3 (2015.10.26)
+
+#### Improvements
+
+- **Initialize ExtractTextPlugin once:** #64.
+
+
 # 0.6.2 (2015.10.18)
 
 #### Bug fixed
