@@ -1,3 +1,11 @@
+# 0.6.5 (2015.11.7)
+
+#### Improvements
+
+- **Bump style-loader to 0.13**
+- **Bump css-loader to 0.22**
+
+
 # 0.6.4 (2015.10.27)
 
 #### Improvements
