@@ -7,7 +7,8 @@
 
 > Live editing development on desktop app
 
-[Electron](http://electron.atom.io/) application boilerplate based on [React](https://facebook.github.io/react/), [React Router](http://rackt.github.io/react-router/), [Webpack](http://webpack.github.io/docs/), [React Trasform HMR](https://github.com/gaearon/react-transform-hmr) for rapid application development
+[Electron](http://electron.atom.io/) application boilerplate based on [React](https://facebook.github.io/react/), [Redux](https://github.com/rackt/redux), [React Router](https://github.com/rackt/react-router), [Webpack](http://webpack.github.io/docs/), [React Trasform HMR](https://github.com/gaearon/react-transform-hmr) for rapid application development
+
 
 ## Install
 
@@ -17,6 +18,7 @@ Install dependencies.
 $ npm install
 ```
 
+
 ## Run
 
 Run this two commands __simultaniously__ in different console tabs.
@@ -25,6 +27,21 @@ Run this two commands __simultaniously__ in different console tabs.
 npm run hot-server
 npm run start-hot
 ```
+
+#### Toggle Chrome DevTools
+
+- OS X: <kbd>Cmd</kbd> <kbd>Alt</kbd> <kbd>I</kbd> or <kbd>F12</kbd>
+- Linux: <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>I</kbd> or <kbd>F12</kbd>
+- Windows: <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>I</kbd> or <kbd>F12</kbd>
+
+- see [electron-debug](https://github.com/sindresorhus/electron-debug) for more detail information.
+
+#### Toggle Redux DevTools
+
+<kbd>Ctrl+H</kbd>
+
+- see [redux-devtools-dock-monitor](https://github.com/gaearon/redux-devtools-dock-monitor) for more detail information.
+
 
 ## Externals
 
@@ -38,9 +55,11 @@ externals: [
 
 You can find those lines in the file.
 
+
 ## CSS Modules support
 
 Import css file as [css-modules](https://github.com/css-modules/css-modules) using `.module.css`.
+
 
 ## Package
 
@@ -73,9 +92,11 @@ We add some module's `peerDependencies` to ignore option as default for applicat
 
 Please checkout [Building windows apps from non-windows platforms](https://github.com/maxogden/electron-packager#building-windows-apps-from-non-windows-platforms).
 
+
 ## Native-like UI
 
 If you want to have native-like User Interface (OS X El Capitan and Windows 10), [react-desktop](https://github.com/gabrielbull/react-desktop) may perfect suit for you.
+
 
 ## License
 MIT © [C. T. Lin](https://github.com/chentsulin)

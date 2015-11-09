@@ -65,20 +65,26 @@
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",
     "redbox-react": "^1.1.1",
-    "sinon": "^1.16.1",
+    "redux-devtools": "^3.0.0-beta-3",
+    "redux-devtools-dock-monitor": "^1.0.0-beta-3",
+    "redux-devtools-log-monitor": "^1.0.0-beta-3",
+    "redux-logger": "^2.0.4",
+    "sinon": "^1.17.2",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.1",
     "webpack-dev-middleware": "^1.2.0",
     "webpack-hot-middleware": "^2.4.1",
-    "webpack-target-electron-renderer": "^0.1.0"
+    "webpack-target-electron-renderer": "^0.1.1"
   },
   "dependencies": {
-    "debug": "^2.2.0",
     "electron-debug": "^0.3.0",
-    "flux": "^2.1.1",
-    "keymirror": "^0.1.1",
-    "object-assign": "^4.0.1",
-    "react": "^0.13.3",
-    "react-router": "^0.13.3"
+    "font-awesome": "^4.4.0",
+    "react": "^0.14.2",
+    "react-dom": "^0.14.2",
+    "react-redux": "^4.0.0",
+    "react-router": "^1.0.0-rc4",
+    "redux": "^3.0.4",
+    "redux-promise": "^0.5.0",
+    "redux-thunk": "^1.0.0"
   }
 }
