@@ -7,7 +7,7 @@
     "test": "NODE_ENV=test mocha --compilers js:babel/register --recursive --require ./test/setup.js $(find test -name '*.spec.js')",
     "test-watch": "npm test -- --watch",
     "test-e2e:crdv": "chromedriver",
-    "test-e2e": "NODE_ENV=test mocha --compilers js:babel/register ./test/e2e.js",
+    "test-e2e": "NODE_ENV=test mocha --compilers js:babel/register --require ./test/setup.js ./test/e2e.js",
     "lint": "eslint .",
     "hot-server": "node server.js",
     "build": "NODE_ENV=production webpack --config webpack.config.production.js --progress --profile --colors",
