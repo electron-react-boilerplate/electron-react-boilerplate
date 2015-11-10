@@ -2,10 +2,12 @@
   "name": "electron-react-boilerplate",
   "version": "0.7.0-beta",
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
-  "main": "main.js",
+  "main": "main.js", 
   "scripts": {
     "test": "NODE_ENV=test mocha --compilers js:babel/register --recursive --require ./test/setup.js",
     "test-watch": "npm test -- --watch",
+    "test-e2e:crdv": "chromedriver",
+    "test-e2e": "NODE_ENV=test mocha --compilers js:babel/register ./test/e2e.js",
     "lint": "eslint .",
     "hot-server": "node server.js",
     "build": "NODE_ENV=production webpack --config webpack.config.production.js --progress --profile --colors",
