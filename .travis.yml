@@ -1,7 +1,15 @@
-sudo: false
+sudo: true
 language: node_js
 node_js:
   - "4"
   - "5"
-install: "npm install -g mocha"
+before_install:
+- sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+- sudo apt-get update -qq
+
+install:
+- sudo apt-get install -qq g++-4.8
+- export CXX="g++-4.8"
+
+- npm install -g mocha
 script: "npm run test"
