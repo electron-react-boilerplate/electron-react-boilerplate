@@ -10,6 +10,6 @@ before_install:
 install:
 - sudo apt-get install -qq g++-4.8
 - export CXX="g++-4.8"
-
-- npm install -g mocha
+- npm install
+- npm install -g mocha babel@5
 script: "npm run test"
