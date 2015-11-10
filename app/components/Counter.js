@@ -20,7 +20,7 @@ class Counter extends Component {
             <i className="fa fa-arrow-left fa-3x" />
           </Link>
         </div>
-        <div className={styles.counter}>
+        <div className={`counter ${styles.counter}`}>
           {counter}
         </div>
         <div className={styles.btnGroup}>
