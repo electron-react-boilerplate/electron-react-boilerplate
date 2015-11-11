@@ -2,7 +2,7 @@
   "name": "electron-react-boilerplate",
   "version": "0.7.0-beta",
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
-  "main": "main.js", 
+  "main": "main.js",
   "scripts": {
     "test": "NODE_ENV=test mocha --compilers js:babel/register --recursive --require ./test/setup.js $(find test -name '*.spec.js')",
     "test-watch": "npm test -- --watch",
