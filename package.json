@@ -66,6 +66,7 @@
     "minimist": "^1.2.0",
     "mocha": "^2.3.0",
     "node-libs-browser": ">= 0.4.0 <=0.6.0",
+    "object-assign": "^4.0.1",
     "postcss": "^5.0.11",
     "postcss-modules-extract-imports": "^1.0.0",
     "postcss-modules-local-by-default": "^1.0.0",
