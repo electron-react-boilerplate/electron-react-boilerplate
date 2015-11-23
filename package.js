@@ -84,6 +84,7 @@ function pack(plat, arch, cb) {
   var opts = assign({}, DEFAULT_OPTS, {
     platform: plat,
     arch: arch,
+    prune: true,
     out: 'release/' + plat + '-' + arch
   });
 
