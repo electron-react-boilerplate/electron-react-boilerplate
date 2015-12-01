@@ -1,13 +1,13 @@
 /* eslint strict: 0 */
 'use strict';
 
-var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var webpackTargetElectronRenderer = require('webpack-target-electron-renderer');
-var baseConfig = require('./webpack.config.base');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpackTargetElectronRenderer = require('webpack-target-electron-renderer');
+const baseConfig = require('./webpack.config.base');
 
 
-var config = Object.create(baseConfig);
+const config = Object.create(baseConfig);
 
 config.devtool = 'source-map';
 

@@ -1,12 +1,12 @@
 /* eslint strict: 0 */
 'use strict';
 
-var webpack = require('webpack');
-var webpackTargetElectronRenderer = require('webpack-target-electron-renderer');
-var baseConfig = require('./webpack.config.base');
+const webpack = require('webpack');
+const webpackTargetElectronRenderer = require('webpack-target-electron-renderer');
+const baseConfig = require('./webpack.config.base');
 
 
-var config = Object.create(baseConfig);
+const config = Object.create(baseConfig);
 
 config.debug = true;
 
