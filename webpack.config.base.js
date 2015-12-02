@@ -1,4 +1,7 @@
-var path = require('path');
+/* eslint strict: 0 */
+'use strict';
+
+const path = require('path');
 
 module.exports = {
   module: {

@@ -67,13 +67,11 @@
     "minimist": "^1.2.0",
     "mocha": "^2.3.0",
     "node-libs-browser": ">= 0.4.0 <=0.6.0",
-    "object-assign": "^4.0.1",
     "postcss": "^5.0.11",
     "postcss-modules-extract-imports": "^1.0.0",
     "postcss-modules-local-by-default": "^1.0.0",
     "postcss-modules-scope": "^1.0.0",
     "postcss-modules-values": "^1.1.1",
-    "proxyquire": "^1.7.1",
     "react-addons-test-utils": "^0.14.2",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",
@@ -101,5 +99,8 @@
     "redux": "^3.0.4",
     "redux-promise": "^0.5.0",
     "redux-thunk": "^1.0.0"
+  },
+  "devEngines": {
+    "node": "4.x"
   }
 }
