@@ -32,6 +32,8 @@ npm run hot-server
 npm run start-hot
 ```
 
+> Note: require node >= 4 and npm >= 2.
+
 #### Toggle Chrome DevTools
 
 - OS X: <kbd>Cmd</kbd> <kbd>Alt</kbd> <kbd>I</kbd> or <kbd>F12</kbd>
