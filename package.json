@@ -101,6 +101,7 @@
     "redux-thunk": "^1.0.0"
   },
   "devEngines": {
-    "node": "4.x"
+    "node": "4.x || 5.x",
+    "npm": "2.x || 3.x"
   }
 }
