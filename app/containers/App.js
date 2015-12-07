@@ -1,7 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import DevTools from './DevTools';
-
-const env = process.env.NODE_ENV || 'development';
 
 export default class App extends Component {
   static propTypes = {
@@ -12,7 +9,14 @@ export default class App extends Component {
     return (
       <div>
         {this.props.children}
-        {( env !== 'production' ) ? <DevTools /> : ''}
+        {
+        (() => {
+          if (process.env.NODE_ENV !== 'production') {
+            const DevTools = require('./DevTools');
+            return <DevTools />;
+          }
+        })()
+      }
       </div>
     );
   }
