@@ -5,18 +5,40 @@
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
   "main": "main.js",
   "scripts": {
-    "test": "NODE_ENV=test mocha --compilers js:babel/register --recursive --require ./test/setup.js $(find test -name '*.spec.js')",
+    "test": "better-npm-run test",
     "test-watch": "npm test -- --watch",
     "test-e2e:crdv": "chromedriver",
-    "test-e2e": "NODE_ENV=test mocha --compilers js:babel/register --require ./test/setup.js --require co-mocha ./test/e2e.js",
+    "test-e2e": "better-npm-run test-e2e",
     "lint": "eslint app test *.js",
     "hot-server": "node server.js",
-    "build": "NODE_ENV=production webpack --config webpack.config.production.js --progress --profile --colors",
+    "build": "better-npm-run build",
     "start": "electron .",
-    "start-hot": "HOT=1 NODE_ENV=development electron .",
-    "package": "NODE_ENV=production node package.js",
+    "start-hot": "better-npm-run start-hot",
+    "package": "better-npm-run package",
     "package-all": "npm run package -- --all",
     "postinstall": "node node_modules/fbjs-scripts/node/check-dev-engines.js package.json"
+  },
+  "betterScripts": {
+    "start-hot": {
+      "command": "electron .",
+      "env": { "HOT": 1, "NODE_ENV": "development" }
+    },
+    "package": {
+      "command": "node package.js",
+      "env": { "NODE_ENV": "production" }
+    },
+    "build": {
+      "command": "webpack --config webpack.config.production.js --progress --profile --colors",
+      "env": { "NODE_ENV": "production" }
+    },
+    "test": {
+      "command": "mocha --compilers js:babel/register --recursive --require ./test/setup.js $(find test -name '*.spec.js')",
+      "env": { "NODE_ENV": "test" }
+    },
+    "test-e2e": {
+      "command": "mocha --compilers js:babel/register --require ./test/setup.js --require co-mocha ./test/e2e.js",
+      "env": { "NODE_ENV": "test" }
+    }
   },
   "bin": {
     "electron": "./node_modules/.bin/electron"
@@ -92,6 +114,7 @@
     "webpack-target-electron-renderer": "^0.2.0"
   },
   "dependencies": {
+    "better-npm-run": "0.0.4",
     "electron-debug": "^0.5.1",
     "font-awesome": "^4.4.0",
     "history": "~1.13.0",
