@@ -30,7 +30,7 @@
       "env": { "NODE_ENV": "production" }
     },
     "test": {
-      "command": "mocha --compilers js:babel/register --recursive --require ./test/setup.js $(find test -name '*.spec.js')",
+      "command": "mocha --compilers js:babel/register --recursive --require ./test/setup.js test/**/*.spec.js",
       "env": { "NODE_ENV": "test" }
     },
     "test-e2e": {
