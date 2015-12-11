@@ -73,6 +73,7 @@
     "babel-eslint": "^4.1.1",
     "babel-loader": "^5.3.2",
     "babel-plugin-react-transform": "^1.1.1",
+    "better-npm-run": "0.0.4",
     "chai": "^3.3.0",
     "chromedriver": "^2.19.0",
     "co-mocha": "^1.1.2",
@@ -114,7 +115,6 @@
     "webpack-target-electron-renderer": "^0.2.0"
   },
   "dependencies": {
-    "better-npm-run": "0.0.4",
     "electron-debug": "^0.5.1",
     "font-awesome": "^4.4.0",
     "history": "~1.13.0",
