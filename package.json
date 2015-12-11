@@ -73,7 +73,7 @@
     "babel-eslint": "^4.1.1",
     "babel-loader": "^5.3.2",
     "babel-plugin-react-transform": "^1.1.1",
-    "better-npm-run": "0.0.4",
+    "better-npm-run": "0.0.5",
     "chai": "^3.3.0",
     "chromedriver": "^2.19.0",
     "co-mocha": "^1.1.2",
