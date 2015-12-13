@@ -1,3 +1,4 @@
+import path from 'path';
 import webdriver from 'selenium-webdriver';
 import { expect } from 'chai';
 import electronPath from 'electron-prebuilt';
@@ -12,7 +13,7 @@ describe('main window', function spec() {
       .withCapabilities({
         chromeOptions: {
           binary: electronPath,
-          args: [ 'app=.' ]
+          args: [ 'app=' + path.resolve() ]
         }
       })
       .forBrowser('electron')
