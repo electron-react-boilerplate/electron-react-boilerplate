@@ -8,10 +8,10 @@ const packager = require('electron-packager');
 const del = require('del');
 const exec = require('child_process').exec;
 const argv = require('minimist')(process.argv.slice(2));
-const devDeps = Object.keys(require('./package.json').devDependencies);
+const pkg = require('./package.json');
+const devDeps = Object.keys(pkg.devDependencies);
 
-
-const appName = argv.name || argv.n || 'ElectronReact';
+const appName = argv.name || argv.n || pkg.productName;
 const shouldUseAsar = argv.asar || argv.a || false;
 const shouldBuildAll = argv.all || false;
 
