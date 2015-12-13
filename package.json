@@ -12,7 +12,7 @@
     "lint": "eslint app test *.js",
     "hot-server": "node server.js",
     "build": "better-npm-run build",
-    "start": "electron .",
+    "start": "NODE_ENV=production electron .",
     "start-hot": "better-npm-run start-hot",
     "package": "better-npm-run package",
     "package-all": "npm run package -- --all",
