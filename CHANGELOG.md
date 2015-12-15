@@ -1,3 +1,26 @@
+# 0.7.0 (2015.12.16)
+
+#### Bug fixed
+
+- **Fixed process.env.NODE_ENV variable in webpack:** #74.
+- **add missing object-assign**: #76.
+- **packaging in npm@3:** #77.
+- **compatibility in windows:** #100.
+- **disable chrome debugger in production env:** #102.
+
+#### Improvements
+
+- **redux**
+- **css-modules**
+- **upgrade to react-router 1.x**
+- **unit tests**
+- **e2e tests**
+- **travis-ci**
+- **upgrade to electron 0.35.x**
+- **use es2015**
+- **check dev engine for node and npm**
+
+
 # 0.6.5 (2015.11.7)
 
 #### Improvements
