@@ -1,7 +1,7 @@
 {
   "name": "electron-react-boilerplate",
   "productName": "ElectronReact",
-  "version": "0.7.0-beta",
+  "version": "0.7.0",
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
   "main": "main.js",
   "scripts": {
@@ -21,23 +21,34 @@
   "betterScripts": {
     "start-hot": {
       "command": "electron .",
-      "env": { "HOT": 1, "NODE_ENV": "development" }
+      "env": {
+        "HOT": 1,
+        "NODE_ENV": "development"
+      }
     },
     "package": {
       "command": "node package.js",
-      "env": { "NODE_ENV": "production" }
+      "env": {
+        "NODE_ENV": "production"
+      }
     },
     "build": {
       "command": "webpack --config webpack.config.production.js --progress --profile --colors",
-      "env": { "NODE_ENV": "production" }
+      "env": {
+        "NODE_ENV": "production"
+      }
     },
     "test": {
       "command": "mocha --compilers js:babel/register --recursive --require ./test/setup.js test/**/*.spec.js",
-      "env": { "NODE_ENV": "test" }
+      "env": {
+        "NODE_ENV": "test"
+      }
     },
     "test-e2e": {
       "command": "mocha --compilers js:babel/register --require ./test/setup.js --require co-mocha ./test/e2e.js",
-      "env": { "NODE_ENV": "test" }
+      "env": {
+        "NODE_ENV": "test"
+      }
     }
   },
   "bin": {
