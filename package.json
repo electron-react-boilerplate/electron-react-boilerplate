@@ -12,13 +12,19 @@
     "lint": "eslint app test *.js",
     "hot-server": "node server.js",
     "build": "better-npm-run build",
-    "start": "NODE_ENV=production electron ./",
+    "start": "better-npm-run start",
     "start-hot": "better-npm-run start-hot",
     "package": "better-npm-run package",
     "package-all": "npm run package -- --all",
     "postinstall": "node node_modules/fbjs-scripts/node/check-dev-engines.js package.json"
   },
   "betterScripts": {
+    "start": {
+      "command": "electron ./",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
     "start-hot": {
       "command": "electron ./",
       "env": {
