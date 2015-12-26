@@ -45,13 +45,13 @@
       }
     },
     "test": {
-      "command": "mocha --compilers js:babel/register --recursive --require ./test/setup.js test/**/*.spec.js",
+      "command": "mocha --compilers js:babel-core/register --recursive --require ./test/setup.js test/**/*.spec.js",
       "env": {
         "NODE_ENV": "test"
       }
     },
     "test-e2e": {
-      "command": "mocha --compilers js:babel/register --require ./test/setup.js --require co-mocha ./test/e2e.js",
+      "command": "mocha --compilers js:babel-core/register --require ./test/setup.js --require co-mocha ./test/e2e.js",
       "env": {
         "NODE_ENV": "test"
       }
