@@ -45,13 +45,13 @@
       }
     },
     "test": {
-      "command": "mocha --compilers js:babel/register --recursive --require ./test/setup.js test/**/*.spec.js",
+      "command": "mocha --compilers js:babel-core/register --recursive --require ./test/setup.js test/**/*.spec.js",
       "env": {
         "NODE_ENV": "test"
       }
     },
     "test-e2e": {
-      "command": "mocha --compilers js:babel/register --require ./test/setup.js --require co-mocha ./test/e2e.js",
+      "command": "mocha --compilers js:babel-core/register --require ./test/setup.js --require co-mocha ./test/e2e.js",
       "env": {
         "NODE_ENV": "test"
       }
@@ -85,11 +85,15 @@
   "homepage": "https://github.com/chentsulin/electron-react-boilerplate#readme",
   "devDependencies": {
     "asar": "^0.8.0",
-    "babel": "^5.8.23",
-    "babel-core": "^5.8.23",
-    "babel-eslint": "^4.1.1",
-    "babel-loader": "^5.3.2",
-    "babel-plugin-react-transform": "^1.1.1",
+    "babel-core": "^6.3.26",
+    "babel-eslint": "^5.0.0-beta6",
+    "babel-loader": "^6.2.0",
+    "babel-plugin-add-module-exports": "^0.1.2",
+    "babel-polyfill": "^6.3.14",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "babel-preset-react-hmre": "^1.0.0",
+    "babel-preset-stage-0": "^6.3.13",
     "better-npm-run": "0.0.5",
     "chai": "^3.3.0",
     "chromedriver": "^2.19.0",
@@ -116,9 +120,6 @@
     "postcss-modules-scope": "^1.0.0",
     "postcss-modules-values": "^1.1.1",
     "react-addons-test-utils": "^0.14.2",
-    "react-transform-catch-errors": "^1.0.0",
-    "react-transform-hmr": "^1.0.1",
-    "redbox-react": "^1.1.1",
     "redux-devtools": "^3.0.0",
     "redux-devtools-dock-monitor": "^1.0.1",
     "redux-devtools-log-monitor": "^1.0.1",
