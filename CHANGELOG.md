@@ -1,3 +1,16 @@
+# 0.7.1 (2015.12.27)
+
+#### Bug fixed
+
+- **Fixed npm script on windows 10:** #103.
+- **history and react-router version bump**: #109, #110.
+
+#### Improvements
+
+- **electron 0.36**
+
+
+
 # 0.7.0 (2015.12.16)
 
 #### Bug fixed
