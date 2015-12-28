@@ -7,7 +7,6 @@
   "scripts": {
     "test": "better-npm-run test",
     "test-watch": "npm test -- --watch",
-    "test-e2e:crdv": "chromedriver",
     "test-e2e": "better-npm-run test-e2e",
     "lint": "eslint app test *.js",
     "hot-server": "node server.js",
