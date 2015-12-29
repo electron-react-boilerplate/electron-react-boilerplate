@@ -19,7 +19,7 @@ function setup(initialState) {
     </Provider>
   );
   return {
-    app: app,
+    app,
     buttons: scryRenderedDOMComponentsWithTag(app, 'button').map(button => {
       return button;
     }),

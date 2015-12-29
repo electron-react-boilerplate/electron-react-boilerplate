@@ -20,8 +20,8 @@ function setup() {
   };
   const component = renderIntoDocument(<Counter counter={1} {...actions} />);
   return {
-    component: component,
-    actions: actions,
+    component,
+    actions,
     buttons: scryRenderedDOMComponentsWithTag(component, 'button').map(button => {
       return button;
     }),
