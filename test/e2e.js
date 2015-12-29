@@ -12,8 +12,9 @@ process.on('exit', chromedriver.stop);
 const delay = time => new Promise(resolve => setTimeout(resolve, time));
 
 describe('main window', function spec() {
+  this.timeout(5000);
+
   before(async () => {
-    this.timeout(5000);
     await delay(1000); // wait chromedriver start time
     this.driver = new webdriver.Builder()
       .usingServer('http://localhost:9515')
@@ -28,7 +29,6 @@ describe('main window', function spec() {
   });
 
   after(async () => {
-    this.timeout(10000);
     await this.driver.quit();
   });
 
