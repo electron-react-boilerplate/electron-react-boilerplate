@@ -9,9 +9,12 @@ import counterStyles from '../app/components/Counter.module.css';
 chromedriver.start(); // on port 9515
 process.on('exit', chromedriver.stop);
 
+const delay = time => new Promise(resolve => setTimeout(resolve, time));
+
 describe('main window', function spec() {
-  before((done) => {
+  before(async () => {
     this.timeout(5000);
+    await delay(1000); // wait chromedriver start time
     this.driver = new webdriver.Builder()
       .usingServer('http://localhost:9515')
       .withCapabilities({
@@ -22,7 +25,6 @@ describe('main window', function spec() {
       })
       .forBrowser('electron')
       .build();
-    done();
   });
 
   after(async () => {
