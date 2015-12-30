@@ -19,7 +19,7 @@
 Install dependencies.
 
 ```bash
-npm install
+$ npm install
 ```
 
 
@@ -28,8 +28,8 @@ npm install
 Run this two commands __simultaneously__ in different console tabs.
 
 ```bash
-npm run hot-server
-npm run start-hot
+$ npm run hot-server
+$ npm run start-hot
 ```
 
 *Note: requires a node version >= 4 and an npm version >= 2.*
@@ -70,13 +70,13 @@ Import css file as [css-modules](https://github.com/css-modules/css-modules) usi
 ## Package
 
 ```bash
-npm run package
+$ npm run package
 ```
 
 To package apps for all platforms:
 
 ```bash
-npm run package-all
+$ npm run package-all
 ```
 
 #### Options
