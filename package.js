@@ -27,7 +27,7 @@ const DEFAULT_OPTS = {
   ].concat(devDeps.map(name => `/node_modules/${name}($|/)`))
 };
 
-const icon = argv.icon || argv.i || 'app/app.icns';
+const icon = argv.icon || argv.i || 'app/app';
 
 if (icon) {
   DEFAULT_OPTS.icon = icon;
@@ -83,7 +83,19 @@ function pack(plat, arch, cb) {
   // there is no darwin ia32 electron
   if (plat === 'darwin' && arch === 'ia32') return;
 
-  const opts = Object.assign({}, DEFAULT_OPTS, {
+  const iconObj = {
+    icon: DEFAULT_OPTS.icon + (() => {
+      let extension = '.png';
+      if (plat === 'darwin') {
+        extension = '.icns';
+      } else if (plat === 'win32') {
+        extension = '.ico';
+      }
+      return extension;
+    })
+  };
+  
+  const opts = Object.assign({}, DEFAULT_OPTS, iconObj, {
     platform: plat,
     arch,
     prune: true,
