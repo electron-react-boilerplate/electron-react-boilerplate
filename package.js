@@ -92,7 +92,7 @@ function pack(plat, arch, cb) {
         extension = '.ico';
       }
       return extension;
-    }())
+    })()
   };
   
   const opts = Object.assign({}, DEFAULT_OPTS, iconObj, {
