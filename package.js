@@ -94,7 +94,7 @@ function pack(plat, arch, cb) {
       return extension;
     })()
   };
-  
+
   const opts = Object.assign({}, DEFAULT_OPTS, iconObj, {
     platform: plat,
     arch,
