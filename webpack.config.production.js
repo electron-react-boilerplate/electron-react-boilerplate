@@ -13,7 +13,7 @@ config.devtool = 'source-map';
 
 config.entry = './app/index';
 
-config.output.publicPath = '/dist/';
+config.output.publicPath = '../dist/';
 
 config.module.loaders.push({
   test: /^((?!\.module).)*\.css$/,
