@@ -110,6 +110,11 @@ Please checkout [Building windows apps from non-windows platforms](https://githu
 If you want to have native-like User Interface (OS X El Capitan and Windows 10), [react-desktop](https://github.com/gabrielbull/react-desktop) may perfect suit for you.
 
 
+## Maintainers
+
+- [C. T. Lin](https://github.com/chentsulin)
+- [Jhen-Jie Hong](https://github.com/jhen0409)
+
 ## License
 MIT © [C. T. Lin](https://github.com/chentsulin)
 
