@@ -23,13 +23,13 @@ config.module.loaders.push({
   test: /^((?!\.module).)*\.css$/,
   loaders: [
     'style-loader',
-    'css-loader'
+    'css-loader?sourceMap'
   ]
 }, {
   test: /\.module\.css$/,
   loaders: [
     'style-loader',
-    'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!'
+    'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!'
   ]
 });
 
