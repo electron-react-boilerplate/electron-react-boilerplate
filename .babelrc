@@ -4,6 +4,11 @@
   "env": {
     "development": {
       "presets": ["react-hmre"]
+    },
+    "test": {
+      "plugins": [
+        ["webpack-loaders", { "config": "webpack.config.node.js", "verbose": false }]
+      ]
     }
   }
 }
