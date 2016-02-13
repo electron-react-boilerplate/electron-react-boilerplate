@@ -1,4 +1,3 @@
-import 'babel-polyfill';
 import { jsdom } from 'jsdom';
 
 global.document = jsdom('<!doctype html><html><body></body></html>');
