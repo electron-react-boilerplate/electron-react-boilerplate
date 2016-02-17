@@ -1,3 +1,20 @@
+# 0.8.0 (2015.2.17)
+
+#### Bug fixed
+
+- **Fix lint errors**
+- **Fix Webpack publicPath for production builds**: #119.
+- **package script now chooses correct OS icon extension**
+
+#### Improvements
+
+- **babel 6**
+- **Upgrade Dependencies**
+- **Enable CSS source maps**
+- **Add json-loader**: #128.
+- **react-router 2.0 and react-router-redux 3.0**
+
+
 # 0.7.1 (2015.12.27)
 
 #### Bug fixed
