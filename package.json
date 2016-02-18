@@ -46,7 +46,7 @@
   "devDependencies": {
     "asar": "^0.9.0",
     "babel-core": "^6.3.26",
-    "babel-eslint": "^5.0.0-beta6",
+    "babel-eslint": "^5.0.0",
     "babel-loader": "^6.2.0",
     "babel-plugin-add-module-exports": "^0.1.2",
     "babel-plugin-webpack-loaders": "^0.2.1",
