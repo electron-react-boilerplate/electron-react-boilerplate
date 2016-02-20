@@ -98,7 +98,7 @@ We add some module's `peerDependencies` to ignore option as default for applicat
 - `babel-core` is required by `babel-loader` and its size is ~19 MB
 - `node-libs-browser` is required by `webpack` and its size is ~3MB.
 
-> **Note:** If you want to use any above modules in runtime, for example: `require('babel/register')`, you should move them form `devDependencies` to `dependencies`.
+> **Note:** If you want to use any above modules in runtime, for example: `require('babel/register')`, you should move them from `devDependencies` to `dependencies`.
 
 #### Building windows apps from non-windows platforms
 
