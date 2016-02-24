@@ -1,3 +1,10 @@
+# HEAD
+
+#### Breaking Changes
+
+- **css module as default:** #154.
+
+
 # 0.8.0 (2015.2.17)
 
 #### Bug fixed
