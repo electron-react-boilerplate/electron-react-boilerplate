@@ -62,9 +62,14 @@ externals: [
 You can find those lines in the file.
 
 
-## CSS Modules support
+## CSS Modules
 
-Import css file as [css-modules](https://github.com/css-modules/css-modules) using `.module.css`.
+This boilerplate out of the box is configured to use [css-modules](https://github.com/css-modules/css-modules).
+
+All `.css` file extensions will use css-modules unless it has `.global.css`.
+
+If you need global styles, stylesheets with `.global.css` will not go through the
+css-modules loader. e.g. `app.global.css`
 
 
 ## Package
