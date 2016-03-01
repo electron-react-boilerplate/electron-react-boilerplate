@@ -9,22 +9,14 @@
     "test-watch": "npm test -- --watch",
     "test-e2e": "cross-env NODE_ENV=test mocha --compilers js:babel-core/register --require ./test/setup.js --require co-mocha ./test/e2e.js",
     "lint": "eslint app test *.js",
-    "hot-server": "better-npm-run hot-server",
+    "hot-server": "node server.js",
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.production.js --progress --profile --colors",
     "start": "cross-env NODE_ENV=production electron ./",
-    "start-hot": "better-npm-run start-hot",
+    "start-hot": "cross-env HOT=1 NODE_ENV=development electron ./",
     "package": "cross-env NODE_ENV=production node package.js",
     "package-all": "npm run package -- --all",
     "postinstall": "node node_modules/fbjs-scripts/node/check-dev-engines.js package.json",
     "dev": "concurrently --kill-others \"npm run hot-server\" \"npm run start-hot\""
-  },
-  "betterScripts": {
-    "hot-server": {
-      "command": "node server.js"
-    },
-    "start-hot": {
-      "command": "cross-env HOT=1 NODE_ENV=development electron ./"
-    }
   },
   "bin": {
     "electron": "./node_modules/.bin/electron"
@@ -96,7 +88,6 @@
     "webpack-dev-middleware": "^1.2.0",
     "webpack-hot-middleware": "^2.4.1",
     "webpack-target-electron-renderer": "^0.3.0",
-    "better-npm-run": "^0.0.7",
     "concurrently": "^2.0.0"
   },
   "dependencies": {
