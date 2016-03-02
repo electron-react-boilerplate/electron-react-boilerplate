@@ -4,10 +4,25 @@
     <meta charset="utf-8">
     <title>Hello Electron React!</title>
     <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="../dist/style.css" />
+    <script>
+      (function() {
+        if (!process.env.HOT) {
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = '../dist/style.css';
+          document.write(link.outerHTML);
+        }
+      }());
+    </script>
   </head>
   <body>
     <div id="root"></div>
-    <script src="../dist/bundle.js"></script>
+    <script>
+      (function() {
+        const script = document.createElement('script');
+        script.src = (process.env.HOT) ? 'http://localhost:3000/dist/bundle.js' : '../dist/bundle.js';
+        document.write(script.outerHTML);
+      }());
+    </script>
   </body>
 </html>
