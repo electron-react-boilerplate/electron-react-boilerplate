@@ -99,7 +99,7 @@
     "react-dom": "^0.14.2",
     "react-redux": "^4.0.5",
     "react-router": "^2.0.0",
-    "react-router-redux": "^3.0.0",
+    "react-router-redux": "^4.0.0",
     "redux": "^3.2.1",
     "redux-promise": "^0.5.0",
     "redux-thunk": "^1.0.2"
