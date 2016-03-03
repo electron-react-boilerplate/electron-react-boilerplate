@@ -22,9 +22,7 @@ function setup() {
   return {
     component,
     actions,
-    buttons: scryRenderedDOMComponentsWithTag(component, 'button').map(button => {
-      return button;
-    }),
+    buttons: scryRenderedDOMComponentsWithTag(component, 'button').map(button => button),
     p: findRenderedDOMComponentWithClass(component, 'counter')
   };
 }

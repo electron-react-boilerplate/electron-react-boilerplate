@@ -7,14 +7,11 @@
     "node": true
   },
   "rules": {
-    "react/jsx-uses-react": 2,
-    "react/jsx-uses-vars": 2,
-    "react/react-in-jsx-scope": 2,
+    "react/jsx-no-bind": 0,
 
-    "no-var": 0,
-    "vars-on-top": 0,
     "comma-dangle": 0,
-    "no-use-before-define": 0
+    "no-use-before-define": 0,
+    "consistent-return": 0
   },
   "plugins": [
     "react"
