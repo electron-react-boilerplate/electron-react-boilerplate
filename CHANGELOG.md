@@ -1,8 +1,16 @@
 # HEAD
 
+#### Improvements
+
+- **Added [redux-logger](https://github.com/fcomb/redux-logger)**
+- **Upgraded [react-router-redux](https://github.com/reactjs/react-router-redux) to v4**
+- **Upgraded dependencies**
+- **Added `npm run dev` command:** [#162](https://github.com/chentsulin/electron-react-boilerplate/pull/162)
+
 #### Breaking Changes
 
-- **css module as default:** #154.
+- **css module as default:** [#154](https://github.com/chentsulin/electron-react-boilerplate/pull/154).
+- **set default NODE_ENV to production:** [#140](https://github.com/chentsulin/electron-react-boilerplate/issues/140)
 
 
 # 0.8.0 (2015.2.17)
@@ -10,7 +18,7 @@
 #### Bug fixed
 
 - **Fix lint errors**
-- **Fix Webpack publicPath for production builds**: #119.
+- **Fix Webpack publicPath for production builds**: [#119](https://github.com/chentsulin/electron-react-boilerplate/issues/119).
 - **package script now chooses correct OS icon extension**
 
 #### Improvements
@@ -18,7 +26,7 @@
 - **babel 6**
 - **Upgrade Dependencies**
 - **Enable CSS source maps**
-- **Add json-loader**: #128.
+- **Add json-loader**: [#128](https://github.com/chentsulin/electron-react-boilerplate/issues/128).
 - **react-router 2.0 and react-router-redux 3.0**
 
 
@@ -26,8 +34,8 @@
 
 #### Bug fixed
 
-- **Fixed npm script on windows 10:** #103.
-- **history and react-router version bump**: #109, #110.
+- **Fixed npm script on windows 10:** [#103](https://github.com/chentsulin/electron-react-boilerplate/issues/103).
+- **history and react-router version bump**: [#109](https://github.com/chentsulin/electron-react-boilerplate/issues/109), [#110](https://github.com/chentsulin/electron-react-boilerplate/pull/110).
 
 #### Improvements
 
@@ -39,11 +47,11 @@
 
 #### Bug fixed
 
-- **Fixed process.env.NODE_ENV variable in webpack:** #74.
-- **add missing object-assign**: #76.
-- **packaging in npm@3:** #77.
-- **compatibility in windows:** #100.
-- **disable chrome debugger in production env:** #102.
+- **Fixed process.env.NODE_ENV variable in webpack:** [#74](https://github.com/chentsulin/electron-react-boilerplate/pull/74).
+- **add missing object-assign**: [#76](https://github.com/chentsulin/electron-react-boilerplate/pull/76).
+- **packaging in npm@3:** [#77](https://github.com/chentsulin/electron-react-boilerplate/pull/77).
+- **compatibility in windows:** [#100](https://github.com/chentsulin/electron-react-boilerplate/pull/100).
+- **disable chrome debugger in production env:** [#102](https://github.com/chentsulin/electron-react-boilerplate/pull/102).
 
 #### Improvements
 
@@ -77,14 +85,14 @@
 
 #### Improvements
 
-- **Initialize ExtractTextPlugin once:** #64.
+- **Initialize ExtractTextPlugin once:** [#64](https://github.com/chentsulin/electron-react-boilerplate/issues/64).
 
 
 # 0.6.2 (2015.10.18)
 
 #### Bug fixed
 
-- **Babel plugins production env not be set properly:** #57.
+- **Babel plugins production env not be set properly:** [#57](https://github.com/chentsulin/electron-react-boilerplate/issues/57).
 
 
 # 0.6.1 (2015.10.17)
@@ -105,7 +113,7 @@
 
 #### Improvements
 
-- **Run tests with babel-register:** #29.
+- **Run tests with babel-register:** [#29](https://github.com/chentsulin/electron-react-boilerplate/issues/29).
 
 
 # 0.5.1 (2015.10.12)
