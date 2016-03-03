@@ -20,10 +20,6 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'app', 'hot-dev-app.html'));
-});
-
 app.listen(PORT, 'localhost', err => {
   if (err) {
     console.log(err);
