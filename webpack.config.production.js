@@ -13,8 +13,6 @@ config.devtool = 'source-map';
 
 config.entry = './app/index';
 
-config.output.publicPath = '../dist/';
-
 config.module.loaders.push({
   test: /\.global\.css$/,
   loader: ExtractTextPlugin.extract(
