@@ -16,10 +16,16 @@
 
 ## Install
 
-Install dependencies.
+First, clone the repo via git:
 
 ```bash
-$ npm install
+git clone https://github.com/chentsulin/electron-react-boilerplate.git your-project-name
+```
+
+And then install dependencies.
+
+```bash
+$ cd your-project-name && npm install
 ```
 
 
