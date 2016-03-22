@@ -46,6 +46,9 @@ $ npm run dev
 
 *Note: requires a node version >= 4 and an npm version >= 2.*
 
+
+## DevTools
+
 #### Toggle Chrome DevTools
 
 - OS X: <kbd>Cmd</kbd> <kbd>Alt</kbd> <kbd>I</kbd> or <kbd>F12</kbd>
@@ -59,6 +62,10 @@ $ npm run dev
 - All platforms: <kbd>Ctrl+H</kbd>
 
 *See [redux-devtools-dock-monitor](https://github.com/gaearon/redux-devtools-dock-monitor) for more information.*
+
+#### Redux Devtools Window
+
+Now you can implement it using [remote-redux-devtools](https://github.com/zalmoxisus/remote-redux-devtools) with a [remote monitor](https://github.com/zalmoxisus/remote-redux-devtools#remote-monitoring) by yourself.
 
 
 ## Externals
@@ -131,6 +138,7 @@ If you want to have native-like User Interface (OS X El Capitan and Windows 10),
 
 - [C. T. Lin](https://github.com/chentsulin)
 - [Jhen-Jie Hong](https://github.com/jhen0409)
+
 
 ## License
 MIT © [C. T. Lin](https://github.com/chentsulin)
