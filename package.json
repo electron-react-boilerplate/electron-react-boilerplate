@@ -47,7 +47,7 @@
   "devDependencies": {
     "asar": "^0.10.0",
     "babel-core": "^6.6.0",
-    "babel-eslint": "^5.0.0",
+    "babel-eslint": "^6.0.0-beta.6",
     "babel-loader": "^6.2.4",
     "babel-plugin-add-module-exports": "^0.1.2",
     "babel-plugin-webpack-loaders": "^0.3.7",
@@ -64,9 +64,9 @@
     "css-loader": "^0.23.1",
     "del": "^2.0.1",
     "electron-packager": "^5.2.0",
-    "electron-prebuilt": "^0.36.9",
+    "electron-prebuilt": "^0.37.2",
     "electron-rebuild": "^1.0.0",
-    "eslint": "~2.2.0",
+    "eslint": "^2.4.0",
     "eslint-config-airbnb": "^6.0.2",
     "eslint-plugin-react": "^4.1.0",
     "express": "^4.13.3",
@@ -91,7 +91,7 @@
     "webpack-target-electron-renderer": "^0.4.0"
   },
   "dependencies": {
-    "css-modules-require-hook": "^3.0.0",
+    "css-modules-require-hook": "^4.0.0",
     "electron-debug": "^0.5.2",
     "font-awesome": "^4.4.0",
     "postcss": "^5.0.18",
@@ -101,8 +101,7 @@
     "react-router": "^2.0.0",
     "react-router-redux": "^4.0.0",
     "redux": "^3.2.1",
-    "redux-promise": "^0.5.0",
-    "redux-thunk": "^1.0.2"
+    "redux-thunk": "^2.0.1"
   },
   "devEngines": {
     "node": "4.x || 5.x",
