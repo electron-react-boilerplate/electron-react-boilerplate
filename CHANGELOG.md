@@ -1,4 +1,4 @@
-# HEAD
+# 0.9.0 (2016.3.23)
 
 #### Improvements
 
@@ -6,6 +6,7 @@
 - **Upgraded [react-router-redux](https://github.com/reactjs/react-router-redux) to v4**
 - **Upgraded dependencies**
 - **Added `npm run dev` command:** [#162](https://github.com/chentsulin/electron-react-boilerplate/pull/162)
+- **electron to v0.37.2**
 
 #### Breaking Changes
 
@@ -13,7 +14,7 @@
 - **set default NODE_ENV to production:** [#140](https://github.com/chentsulin/electron-react-boilerplate/issues/140)
 
 
-# 0.8.0 (2015.2.17)
+# 0.8.0 (2016.2.17)
 
 #### Bug fixed
 
