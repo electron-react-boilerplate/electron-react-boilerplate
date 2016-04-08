@@ -1,50 +1,61 @@
-/* eslint strict: 0 */
-'use strict';
+/* eslint max-len: 0 */
+import webpack from 'webpack';
+import webpackTargetElectronRenderer from 'webpack-target-electron-renderer';
+import baseConfig from './webpack.config.base';
 
-const webpack = require('webpack');
-const webpackTargetElectronRenderer = require('webpack-target-electron-renderer');
-const baseConfig = require('./webpack.config.base');
+const config = {
+  ...baseConfig,
 
+  debug: true,
 
-const config = Object.create(baseConfig);
+  devtool: 'cheap-module-eval-source-map',
 
-config.debug = true;
+  entry: [
+    'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr',
+    './app/index'
+  ],
 
-config.devtool = 'cheap-module-eval-source-map';
+  output: {
+    ...baseConfig.output,
+    publicPath: 'http://localhost:3000/dist/'
+  },
 
-config.entry = [
-  'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr',
-  './app/index'
-];
+  module: {
+    ...baseConfig.module,
+    loaders: [
+      ...baseConfig.module.loaders,
 
-config.output.publicPath = 'http://localhost:3000/dist/';
+      {
+        test: /\.global\.css$/,
+        loaders: [
+          'style-loader',
+          'css-loader?sourceMap'
+        ]
+      },
 
-config.module.loaders.push({
-  test: /\.global\.css$/,
-  loaders: [
-    'style-loader',
-    'css-loader?sourceMap'
-  ]
-}, {
-  test: /^((?!\.global).)*\.css$/,
-  loaders: [
-    'style-loader',
-    'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
-  ]
-});
+      {
+        test: /^((?!\.global).)*\.css$/,
+        loaders: [
+          'style-loader',
+          'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
+        ]
+      }
+    ]
+  },
 
-
-config.plugins.push(
-  new webpack.HotModuleReplacementPlugin(),
-  new webpack.NoErrorsPlugin(),
-  new webpack.DefinePlugin({
-    __DEV__: true,
-    'process.env': {
-      NODE_ENV: JSON.stringify('development')
-    }
-  })
-);
+  plugins: [
+    ...baseConfig.plugins,
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
+    new webpack.DefinePlugin({
+      __DEV__: true,
+      'process.env': {
+        NODE_ENV: JSON.stringify('development')
+      }
+    })
+  ],
+};
 
 config.target = webpackTargetElectronRenderer(config);
 
-module.exports = config;
+export default config;

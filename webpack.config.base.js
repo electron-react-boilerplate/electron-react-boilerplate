@@ -1,9 +1,6 @@
-/* eslint strict: 0 */
-'use strict';
+import path from 'path';
 
-const path = require('path');
-
-module.exports = {
+export default {
   module: {
     loaders: [{
       test: /\.jsx?$/,
