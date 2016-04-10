@@ -3,6 +3,7 @@
 
 const os = require('os');
 const webpack = require('webpack');
+const electronCfg = require('./webpack.config.electron.js');
 const cfg = require('./webpack.config.production.js');
 const packager = require('electron-packager');
 const del = require('del');
@@ -53,11 +54,20 @@ if (version) {
 }
 
 
+function build(cfg) {
+  return new Promise((resolve, reject) => {
+    webpack(cfg, (err, stats) => {
+      if (err) return reject(err);
+      resolve(stats);
+    });
+  });
+}
+
 function startPack() {
   console.log('start pack...');
-  webpack(cfg, (err, stats) => {
-    if (err) return console.error(err);
-    del('release')
+  build(electronCfg)
+    .then(() => build(cfg))
+    .then(() => del('release'))
     .then(paths => {
       if (shouldBuildAll) {
         // build for all platforms
@@ -77,7 +87,6 @@ function startPack() {
     .catch(err => {
       console.error(err);
     });
-  });
 }
 
 function pack(plat, arch, cb) {
