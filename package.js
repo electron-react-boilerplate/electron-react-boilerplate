@@ -1,14 +1,17 @@
 /* eslint strict: 0, no-shadow: 0, no-unused-vars: 0, no-console: 0 */
 'use strict';
 
+require('babel-polyfill');
 const os = require('os');
 const webpack = require('webpack');
+const electronCfg = require('./webpack.config.electron.js');
 const cfg = require('./webpack.config.production.js');
 const packager = require('electron-packager');
 const del = require('del');
 const exec = require('child_process').exec;
 const argv = require('minimist')(process.argv.slice(2));
 const pkg = require('./package.json');
+const deps = Object.keys(pkg.dependencies);
 const devDeps = Object.keys(pkg.devDependencies);
 
 const appName = argv.name || argv.n || pkg.productName;
@@ -23,8 +26,13 @@ const DEFAULT_OPTS = {
   ignore: [
     '/test($|/)',
     '/tools($|/)',
-    '/release($|/)'
+    '/release($|/)',
+    '/main.development.js'
   ].concat(devDeps.map(name => `/node_modules/${name}($|/)`))
+  .concat(
+    deps.filter(name => !electronCfg.externals.includes(name))
+      .map(name => `/node_modules/${name}($|/)`)
+  )
 };
 
 const icon = argv.icon || argv.i || 'app/app';
@@ -52,11 +60,20 @@ if (version) {
 }
 
 
+function build(cfg) {
+  return new Promise((resolve, reject) => {
+    webpack(cfg, (err, stats) => {
+      if (err) return reject(err);
+      resolve(stats);
+    });
+  });
+}
+
 function startPack() {
   console.log('start pack...');
-  webpack(cfg, (err, stats) => {
-    if (err) return console.error(err);
-    del('release')
+  build(electronCfg)
+    .then(() => build(cfg))
+    .then(() => del('release'))
     .then(paths => {
       if (shouldBuildAll) {
         // build for all platforms
@@ -76,7 +93,6 @@ function startPack() {
     .catch(err => {
       console.error(err);
     });
-  });
 }
 
 function pack(plat, arch, cb) {
