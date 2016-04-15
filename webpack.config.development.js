@@ -1,6 +1,5 @@
 /* eslint max-len: 0 */
 import webpack from 'webpack';
-import webpackTargetElectronRenderer from 'webpack-target-electron-renderer';
 import baseConfig from './webpack.config.base';
 
 const config = {
@@ -54,8 +53,8 @@ const config = {
       }
     })
   ],
-};
 
-config.target = webpackTargetElectronRenderer(config);
+  target: 'electron-renderer'
+};
 
 export default config;
