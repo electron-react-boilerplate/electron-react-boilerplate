@@ -1,3 +1,10 @@
+# 0.9.0 (2016.4.18)
+
+#### Improvements
+
+- **Upgraded dependencies**
+
+
 # 0.9.0 (2016.3.23)
 
 #### Improvements
