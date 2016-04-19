@@ -24,10 +24,10 @@ const DEFAULT_OPTS = {
   name: appName,
   asar: shouldUseAsar,
   ignore: [
-    '/test($|/)',
-    '/tools($|/)',
-    '/release($|/)',
-    '/main.development.js'
+    '^/test($|/)',
+    '^/tools($|/)',
+    '^/release($|/)',
+    '^/main.development.js'
   ].concat(devDeps.map(name => `/node_modules/${name}($|/)`))
   .concat(
     deps.filter(name => !electronCfg.externals.includes(name))
