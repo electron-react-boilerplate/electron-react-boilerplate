@@ -12,7 +12,7 @@ export default class App extends Component {
         {
           (() => {
             if (process.env.NODE_ENV !== 'production') {
-              const DevTools = require('./DevTools');
+              const DevTools = require('./DevTools'); // eslint-disable-line global-require
               return <DevTools />;
             }
           })()
