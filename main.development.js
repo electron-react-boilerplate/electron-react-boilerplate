@@ -1,10 +1,9 @@
-import { app, BrowserWindow, Menu, crashReporter, shell } from 'electron';
+import { app, BrowserWindow, Menu, shell } from 'electron';
 
 let menu;
 let template;
 let mainWindow = null;
 
-crashReporter.start();
 
 if (process.env.NODE_ENV === 'development') {
   require('electron-debug')();
