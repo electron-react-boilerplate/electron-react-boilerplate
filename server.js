@@ -11,12 +11,14 @@ const app = express();
 const compiler = webpack(config);
 const PORT = 3000;
 
-app.use(webpackDevMiddleware(compiler, {
+const wdm = webpackDevMiddleware(compiler, {
   publicPath: config.output.publicPath,
   stats: {
     colors: true
   }
-}));
+});
+
+app.use(wdm);
 
 app.use(webpackHotMiddleware(compiler));
 
@@ -31,6 +33,7 @@ const server = app.listen(PORT, 'localhost', err => {
 
 process.on('SIGTERM', () => {
   console.log('Stopping dev server');
+  wdm.close();
   server.close(() => {
     process.exit(0);
   });
