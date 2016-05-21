@@ -1,8 +1,16 @@
-# 0.9.0 (2016.4.18)
+# 0.10.0 (2016.4.18)
 
 #### Improvements
 
+- **Use Babel in main process with Webpack build:** [#201](https://github.com/chentsulin/electron-react-boilerplate/pull/201)
+- **Change targets to built-in support by webpack:** [#197](https://github.com/chentsulin/electron-react-boilerplate/pull/197)
+- **use es2015 syntax for webpack configs:** [#195](https://github.com/chentsulin/electron-react-boilerplate/pull/195)
+- **Open application when webcontent is loaded:** [#192](https://github.com/chentsulin/electron-react-boilerplate/pull/192)
 - **Upgraded dependencies**
+
+#### Bug fixed
+
+- **Fix `npm list electron-prebuilt` in package.js:** [#188](https://github.com/chentsulin/electron-react-boilerplate/pull/188)
 
 
 # 0.9.0 (2016.3.23)
