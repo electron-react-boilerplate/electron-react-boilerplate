@@ -134,6 +134,20 @@ We use [webpack-target-electron-renderer](https://github.com/chentsulin/webpack-
 
 > Note: webpack >= 1.12.15 has built-in support for `electron-main` and `electron-renderer` targets.
 
+## How to keep the boilerplate updated
+
+If your application is a fork from this repo, you can add this repo to another git remote:
+
+```sh
+git remote add upstream https://github.com/chentsulin/electron-react-boilerplate.git
+```
+
+Then, use git to merge some latest commits:
+
+```sh
+git pull upstream master
+```
+
 ## Native-like UI
 
 If you want to have native-like User Interface (OS X El Capitan and Windows 10), [react-desktop](https://github.com/gabrielbull/react-desktop) may perfect suit for you.
