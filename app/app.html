@@ -19,6 +19,16 @@
     <div id="root"></div>
     <script>
       (function() {
+        if (process.env.NODE_ENV === 'development') {
+          const getDevToolsExtensions =
+            require('electron').remote.BrowserWindow.getDevToolsExtensions;
+
+          const reactDevtoolsAlreadyAdded =
+            getDevToolsExtensions && getDevToolsExtensions().hasOwnProperty('React Developer Tools');
+
+          if (!reactDevtoolsAlreadyAdded) require('electron-react-devtools').install();
+        }
+
         const script = document.createElement('script');
         script.src = (process.env.HOT) ? 'http://localhost:3000/dist/bundle.js' : '../dist/bundle.js';
         document.write(script.outerHTML);
