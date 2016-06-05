@@ -124,6 +124,10 @@ We add some module's `peerDependencies` to ignore option as default for applicat
 
 > **Note:** If you want to use any above modules in runtime, for example: `require('babel/register')`, you should move them from `devDependencies` to `dependencies`.
 
+#### Dispatching redux actions from main process
+
+see discusses in [#118](https://github.com/chentsulin/electron-react-boilerplate/issues/118) and [#](https://github.com/chentsulin/electron-react-boilerplate/issues/108)
+
 #### Building windows apps from non-windows platforms
 
 Please checkout [Building windows apps from non-windows platforms](https://github.com/maxogden/electron-packager#building-windows-apps-from-non-windows-platforms).
