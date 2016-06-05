@@ -130,7 +130,7 @@ Please checkout [Building windows apps from non-windows platforms](https://githu
 
 ## Dispatching redux actions from main process
 
-see discusses in [#118](https://github.com/chentsulin/electron-react-boilerplate/issues/118) and [#](https://github.com/chentsulin/electron-react-boilerplate/issues/108)
+see discusses in [#118](https://github.com/chentsulin/electron-react-boilerplate/issues/118) and [#108](https://github.com/chentsulin/electron-react-boilerplate/issues/108)
 
 ## How hot-reloading works on Electron
 
