@@ -70,6 +70,7 @@
     "cross-env": "^1.0.8",
     "css-loader": "^0.23.1",
     "del": "^2.2.0",
+    "devtron": "^1.2.0",
     "electron-packager": "^7.0.2",
     "electron-prebuilt": "^1.2.3",
     "electron-react-devtools": "^0.3.1",
