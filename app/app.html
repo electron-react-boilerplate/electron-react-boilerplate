@@ -20,13 +20,17 @@
     <script>
       (function() {
         if (process.env.NODE_ENV === 'development') {
+          const extension = {
+            name: 'React Developer Tools',
+            id: 'fmkadmapgofadopljbjfkapdkoienihi',
+          }
           const getDevToolsExtensions =
             require('electron').remote.BrowserWindow.getDevToolsExtensions;
 
           const reactDevtoolsAlreadyAdded =
-            getDevToolsExtensions && getDevToolsExtensions().hasOwnProperty('React Developer Tools');
+            getDevToolsExtensions && getDevToolsExtensions().hasOwnProperty(extension.name);
 
-          if (!reactDevtoolsAlreadyAdded) require('electron-react-devtools').install();
+          if (!reactDevtoolsAlreadyAdded) require('electron-devtools-installer')(extension.id);
         }
 
         const script = document.createElement('script');
