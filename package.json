@@ -103,7 +103,7 @@
   },
   "dependencies": {
     "css-modules-require-hook": "^4.0.0",
-    "electron-debug": "^1.0.0",
+    "electron-debug": "^1.0.1",
     "font-awesome": "^4.6.3",
     "postcss": "^5.0.21",
     "react": "^15.1.0",
