@@ -2,6 +2,8 @@
 
 'use strict';
 
+/** Build file to package the app for release */
+
 require('babel-polyfill');
 const os = require('os');
 const webpack = require('webpack');
@@ -10,11 +12,28 @@ const cfg = require('./webpack.config.production');
 const packager = require('electron-packager');
 const del = require('del');
 const exec = require('child_process').exec;
-const argv = require('minimist')(process.argv.slice(2));
 const pkg = require('./package.json');
 
-const deps = Object.keys(pkg.dependencies);
-const devDeps = Object.keys(pkg.devDependencies);
+/**
+ * First two values are node path and current script path
+ * https://nodejs.org/docs/latest/api/process.html#process_process_argv
+ */
+const argv = require('minimist')(process.argv.slice(2));
+
+/**
+ * Do not package node modules from 'devDependencies'
+ * and 'dependencies' that are set as external
+ */
+const toNodePath = name => `/node_modules/${name}($|/)`;
+const devDeps = Object
+  .keys(pkg.devDependencies)
+  .map(toNodePath);
+
+const depsExternal = Object
+  .keys(pkg.dependencies)
+  .filter(name => !electronCfg.externals.includes(name))
+  .map(toNodePath);
+
 
 const appName = argv.name || argv.n || pkg.productName;
 const shouldUseAsar = argv.asar || argv.a || false;
@@ -29,21 +48,15 @@ const DEFAULT_OPTS = {
     '^/test($|/)',
     '^/release($|/)',
     '^/main.development.js'
-  ].concat(devDeps.map(name => `/node_modules/${name}($|/)`))
-  .concat(
-    deps.filter(name => !electronCfg.externals.includes(name))
-      .map(name => `/node_modules/${name}($|/)`)
-  )
+  ]
+  .concat(devDeps)
+  .concat(depsExternal)
 };
 
 const icon = argv.icon || argv.i || 'app/app';
-
-if (icon) {
-  DEFAULT_OPTS.icon = icon;
-}
+if (icon) DEFAULT_OPTS.icon = icon;
 
 const version = argv.version || argv.v;
-
 if (version) {
   DEFAULT_OPTS.version = version;
   startPack();
@@ -61,6 +74,11 @@ if (version) {
 }
 
 
+/**
+ * @desc Execute the webpack build process on given config object
+ * @param {Object} cfg
+ * @return {Promise}
+ */
 function build(cfg) {
   return new Promise((resolve, reject) => {
     webpack(cfg, (err, stats) => {
@@ -70,14 +88,21 @@ function build(cfg) {
   });
 }
 
+
+/** @desc Build, clear previous releases and pack new versions */
 async function startPack() {
   console.log('start pack...');
 
   try {
+    /**
+     * - Build the 'Main process' and 'Renderer Process' files.
+     * - Clear the ./release directory
+     */
     await build(electronCfg);
     await build(cfg);
     const paths = await del('release');
 
+    // Start the packing process
     if (shouldBuildAll) {
       // build for all platforms
       const archs = ['ia32', 'x64'];
@@ -97,6 +122,13 @@ async function startPack() {
   }
 }
 
+
+/**
+ * @desc
+ * @param {String} plat
+ * @param {String} arch
+ * @param {Function} cb
+ */
 function pack(plat, arch, cb) {
   // there is no darwin ia32 electron
   if (plat === 'darwin' && arch === 'ia32') return;
@@ -104,11 +136,9 @@ function pack(plat, arch, cb) {
   const iconObj = {
     icon: DEFAULT_OPTS.icon + (() => {
       let extension = '.png';
-      if (plat === 'darwin') {
-        extension = '.icns';
-      } else if (plat === 'win32') {
-        extension = '.ico';
-      }
+      if (plat === 'darwin') extension = '.icns';
+      if (plat === 'win32') extension = '.ico';
+
       return extension;
     })()
   };
@@ -125,6 +155,12 @@ function pack(plat, arch, cb) {
 }
 
 
+/**
+ * @desc Log out success / error of building for given platform and architecture
+ * @param {String} plat
+ * @param {String} arch
+ * @return {Function}
+ */
 function log(plat, arch) {
   return (err, filepath) => {
     if (err) return console.error(err);
