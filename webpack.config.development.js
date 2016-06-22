@@ -10,6 +10,7 @@ const config = {
   devtool: 'cheap-module-eval-source-map',
 
   entry: [
+    'react-hot-loader/patch',
     'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr',
     './app/index'
   ],
