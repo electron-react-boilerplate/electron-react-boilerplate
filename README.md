@@ -57,16 +57,9 @@ $ npm run dev
 
 *See [electron-debug](https://github.com/sindresorhus/electron-debug) for more information.*
 
-#### Toggle Redux DevTools
+#### Redux DevTools
 
-- All platforms: <kbd>Ctrl+H</kbd>
-
-*See [redux-devtools-dock-monitor](https://github.com/gaearon/redux-devtools-dock-monitor) for more information.*
-
-#### Redux Devtools Window
-
-Now you can implement it using [remote-redux-devtools](https://github.com/zalmoxisus/remote-redux-devtools) with a [remote monitor](https://github.com/zalmoxisus/remote-redux-devtools#remote-monitoring) by yourself.
-
+We used [redux-devtools-extension](https://github.com/zalmoxisus/redux-devtools-extension), you can find the `Redux` tab on Chrome DevTools.
 
 ## Externals
 
