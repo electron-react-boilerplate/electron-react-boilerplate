@@ -15,7 +15,24 @@ app.on('window-all-closed', () => {
 });
 
 
-app.on('ready', () => {
+const installExtensions = async () => {
+  if (process.env.NODE_ENV === 'development') {
+    const installer = require('electron-devtools-installer'); // eslint-disable-line global-require
+    const extensions = [
+      'REACT_DEVELOPER_TOOLS',
+      'REDUX_DEVTOOLS'
+    ];
+    for (const name of extensions) {
+      try {
+        await installer.default(installer[name]);
+      } catch (e) {} // eslint-disable-line
+    }
+  }
+};
+
+app.on('ready', async () => {
+  await installExtensions();
+
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,

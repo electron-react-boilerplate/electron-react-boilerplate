@@ -6,7 +6,7 @@ export default {
 
   devtool: 'source-map',
 
-  entry: './main.development',
+  entry: ['babel-polyfill', './main.development'],
 
   output: {
     ...baseConfig.output,
