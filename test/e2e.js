@@ -1,13 +1,8 @@
-import path from 'path';
-import chromedriver from 'chromedriver';
-import webdriver from 'selenium-webdriver';
+import { Application } from 'spectron';
 import { expect } from 'chai';
 import electronPath from 'electron-prebuilt';
 import homeStyles from '../app/components/Home.css';
 import counterStyles from '../app/components/Counter.css';
-
-chromedriver.start(); // on port 9515
-process.on('exit', chromedriver.stop);
 
 const delay = time => new Promise(resolve => setTimeout(resolve, time));
 
@@ -15,93 +10,93 @@ describe('main window', function spec() {
   this.timeout(5000);
 
   before(async () => {
-    await delay(1000); // wait chromedriver start time
-    this.driver = new webdriver.Builder()
-      .usingServer('http://localhost:9515')
-      .withCapabilities({
-        chromeOptions: {
-          binary: electronPath,
-          args: [`app=${path.resolve()}`]
-        }
-      })
-      .forBrowser('electron')
-      .build();
+    this.app = new Application({
+      path: electronPath,
+      args: ['.'],
+    });
+    return this.app.start();
   });
 
-  after(async () => {
-    await this.driver.quit();
+  after(() => {
+    if (this.app && this.app.isRunning()) {
+      return this.app.stop();
+    }
   });
 
-  const findCounter = () => this.driver.findElement(webdriver.By.className(counterStyles.counter));
+  const findCounter = () => this.app.client.element(`.${counterStyles.counter}`);
 
-  const findButtons = () => this.driver.findElements(webdriver.By.className(counterStyles.btn));
+  const findButtons = async () => {
+    const { value } = await this.app.client.elements(`.${counterStyles.btn}`);
+    return value.map(btn => btn.ELEMENT);
+  };
 
   it('should open window', async () => {
-    const title = await this.driver.getTitle();
+    const { client, browserWindow } = this.app;
+
+    await client.waitUntilWindowLoaded();
+    await delay(500);
+    const title = await browserWindow.getTitle();
     expect(title).to.equal('Hello Electron React!');
   });
 
   it('should to Counter with click "to Counter" link', async () => {
-    const link = await this.driver.findElement(webdriver.By.css(`.${homeStyles.container} > a`));
-    link.click();
+    const { client } = this.app;
 
-    const counter = await findCounter();
-    expect(await counter.getText()).to.equal('0');
+    await client.click(`.${homeStyles.container} > a`);
+    expect(await findCounter().getText()).to.equal('0');
   });
 
   it('should display updated count after increment button click', async () => {
-    const buttons = await findButtons();
-    buttons[0].click();
+    const { client } = this.app;
 
-    const counter = await findCounter();
-    expect(await counter.getText()).to.equal('1');
+    const buttons = await findButtons();
+    await client.elementIdClick(buttons[0]);  // +
+    expect(await findCounter().getText()).to.equal('1');
   });
 
   it('should display updated count after descrement button click', async () => {
+    const { client } = this.app;
+
     const buttons = await findButtons();
-    const counter = await findCounter();
-
-    buttons[1].click();  // -
-
-    expect(await counter.getText()).to.equal('0');
+    await client.elementIdClick(buttons[1]);  // -
+    expect(await findCounter().getText()).to.equal('0');
   });
 
   it('shouldnt change if even and if odd button clicked', async () => {
-    const buttons = await findButtons();
-    const counter = await findCounter();
-    buttons[2].click();  // odd
+    const { client } = this.app;
 
-    expect(await counter.getText()).to.equal('0');
+    const buttons = await findButtons();
+    await client.elementIdClick(buttons[2]);  // odd
+    expect(await findCounter().getText()).to.equal('0');
   });
 
   it('should change if odd and if odd button clicked', async () => {
+    const { client } = this.app;
+
     const buttons = await findButtons();
-    const counter = await findCounter();
-
-    buttons[0].click();  // +
-    buttons[2].click();  // odd
-
-    expect(await counter.getText()).to.equal('2');
+    await client.elementIdClick(buttons[0]);  // +
+    await client.elementIdClick(buttons[2]);  // odd
+    expect(await findCounter().getText()).to.equal('2');
   });
 
   it('should change if async button clicked and a second later', async () => {
+    const { client } = this.app;
+
     const buttons = await findButtons();
-    const counter = await findCounter();
-    buttons[3].click();  // async
-
-    expect(await counter.getText()).to.equal('2');
-
-    await this.driver.wait(() =>
-      counter.getText().then(text => text === '3')
-    , 1000, 'count not as expected');
+    await client.elementIdClick(buttons[3]);  // async
+    expect(await findCounter().getText()).to.equal('2');
+    await delay(1000);
+    expect(await findCounter().getText()).to.equal('3');
   });
 
   it('should back to home if back button clicked', async () => {
-    const link = await this.driver.findElement(
-      webdriver.By.css(`.${counterStyles.backButton} > a`)
-    );
-    link.click();
+    const { client } = this.app;
+    await client.element(
+      `.${counterStyles.backButton} > a`
+    ).click();
 
-    await this.driver.findElement(webdriver.By.className(homeStyles.container));
+    expect(
+      await client.isExisting(`.${homeStyles.container}`)
+    ).to.be.true;
   });
 });
