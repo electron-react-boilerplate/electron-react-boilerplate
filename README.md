@@ -2,6 +2,7 @@
 
 [![NPM version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
+[![Appveyor Build Status][appveyor-image]][appveyor-url]
 [![Dependency Status][david_img]][david_site]
 
 ![](./erb-logo.png)
@@ -163,5 +164,7 @@ MIT © [C. T. Lin](https://github.com/chentsulin)
 [npm-url]: https://npmjs.org/package/electron-react-boilerplate
 [travis-image]: https://travis-ci.org/chentsulin/electron-react-boilerplate.svg?branch=master
 [travis-url]: https://travis-ci.org/chentsulin/electron-react-boilerplate
+[appveyor-image]: https://ci.appveyor.com/api/projects/status/github/chentsulin/electron-react-boilerplate?svg=true
+[appveyor-url]: https://ci.appveyor.com/project/chentsulin/electron-react-boilerplate/branch/master
 [david_img]: https://img.shields.io/david/chentsulin/electron-react-boilerplate.svg
 [david_site]: https://david-dm.org/chentsulin/electron-react-boilerplate
