@@ -1,15 +1,13 @@
 import webpack from 'webpack';
+import merge from 'webpack-merge';
 import baseConfig from './webpack.config.base';
 
-export default {
-  ...baseConfig,
-
+export default merge(baseConfig, {
   devtool: 'source-map',
 
   entry: ['babel-polyfill', './main.development'],
 
   output: {
-    ...baseConfig.output,
     path: __dirname,
     filename: './main.js'
   },
@@ -39,8 +37,7 @@ export default {
   },
 
   externals: [
-    ...baseConfig.externals,
     'font-awesome',
     'source-map-support'
   ]
-};
+});
