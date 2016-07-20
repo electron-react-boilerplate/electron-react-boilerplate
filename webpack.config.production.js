@@ -1,26 +1,19 @@
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import merge from 'webpack-merge';
 import baseConfig from './webpack.config.base';
 
-const config = {
-  ...baseConfig,
-
+const config = merge(baseConfig, {
   devtool: 'source-map',
 
   entry: './app/index',
 
   output: {
-    ...baseConfig.output,
-
     publicPath: '../dist/'
   },
 
   module: {
-    ...baseConfig.module,
-
     loaders: [
-      ...baseConfig.module.loaders,
-
       {
         test: /\.global\.css$/,
         loader: ExtractTextPlugin.extract(
@@ -40,7 +33,6 @@ const config = {
   },
 
   plugins: [
-    ...baseConfig.plugins,
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
@@ -55,6 +47,6 @@ const config = {
   ],
 
   target: 'electron-renderer'
-};
+});
 
 export default config;
