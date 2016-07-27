@@ -36,4 +36,3 @@ main.js
 main.js.map
 static/*
 !static/package.json
-!static/node_modules
