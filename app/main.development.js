@@ -6,7 +6,7 @@ let template;
 let mainWindow = null;
 
 if (process.env.NODE_ENV === 'production') {
-  const sourceMapSupport = require('source-map-support');
+  const sourceMapSupport = require('source-map-support'); // eslint-disable-line global-require
   sourceMapSupport.install();
 }
 
