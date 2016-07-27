@@ -9,5 +9,8 @@
     "email": "chentsulin@gmail.com",
     "url": "https://github.com/chentsulin"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "font-awesome": "^4.6.3"
+  }
 }

@@ -23,7 +23,8 @@
     "compile": "npm run build-renderer && npm run build-main",
     "builder": "npm run compile && npm run dist",
     "builder:win": "npm run compile && build --win --x64",
-    "builder:linux": "npm run compile && build --linux"
+    "builder:linux": "npm run compile && build --linux",
+    "builder:all": "npm run compile && build -mwl"
   },
   "build": {
     "appId": "org.develar.ElectronReact",
@@ -109,11 +110,11 @@
     "css-loader": "^0.23.1",
     "del": "^2.2.1",
     "devtron": "^1.2.1",
+    "electron-builder": "^5.14.2",
     "electron-devtools-installer": "^2.0.0",
     "electron-packager": "^7.3.0",
     "electron-prebuilt": "^1.2.8",
     "electron-rebuild": "^1.1.5",
-    "electron-builder": "^5.14.2",
     "eslint": "^2.13.1",
     "eslint-config-airbnb": "^9.0.1",
     "eslint-import-resolver-webpack": "^0.4.0",
@@ -123,6 +124,7 @@
     "express": "^4.14.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "fbjs-scripts": "^0.7.1",
+    "html-webpack-plugin": "^2.22.0",
     "jsdom": "^9.4.1",
     "json-loader": "^0.5.4",
     "minimist": "^1.2.0",
@@ -136,8 +138,7 @@
     "webpack": "^1.13.1",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.12.1",
-    "webpack-merge": "^0.14.0",
-    "html-webpack-plugin": "^2.22.0"
+    "webpack-merge": "^0.14.0"
   },
   "dependencies": {
     "css-modules-require-hook": "^4.0.1",
