@@ -5,11 +5,11 @@ import baseConfig from './webpack.config.base';
 export default merge(baseConfig, {
   devtool: 'source-map',
 
-  entry: ['babel-polyfill', './main.development'],
+  entry: ['babel-polyfill', './app/main.development'],
 
   output: {
     path: __dirname,
-    filename: './main.js'
+    filename: './static/main.js'
   },
 
   plugins: [

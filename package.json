@@ -14,11 +14,50 @@
     "build-renderer": "cross-env NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.production.js --progress --profile --colors",
     "build": "npm run build-main && npm run build-renderer",
     "start": "cross-env NODE_ENV=production electron ./",
-    "start-hot": "cross-env HOT=1 NODE_ENV=development electron -r babel-register -r babel-polyfill ./main.development",
+    "start-hot": "cross-env HOT=1 NODE_ENV=development electron -r babel-register -r babel-polyfill ./app/main.development",
     "package": "cross-env NODE_ENV=production node -r babel-register package.js",
     "package-all": "npm run package -- --all",
     "postinstall": "node node_modules/fbjs-scripts/node/check-dev-engines.js package.json",
-    "dev": "concurrently --kill-others \"npm run hot-server\" \"npm run start-hot\""
+    "dev": "concurrently --kill-others \"npm run hot-server\" \"npm run start-hot\"",
+    "dist": "build",
+    "compile": "npm run build-renderer && npm run build-main",
+    "builder": "npm run compile && npm run dist",
+    "builder:win": "npm run compile && build --win --x64",
+    "builder:linux": "npm run compile && build --linux"
+  },
+  "build": {
+    "appId": "org.develar.ElectronReact",
+    "app-category-type": "public.app-category.tools",
+    "dmg": {
+      "contents": [
+        {
+          "x": 410,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 130,
+          "y": 150,
+          "type": "file"
+        }
+      ]
+    },
+    "win": {
+      "iconUrl": "https://raw.githubusercontent.com/chentsulin/electron-react-boilerplate/master/build/icon.ico",
+      "remoteReleases": true
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "AppImage"
+      ]
+    }
+  },
+  "directories": {
+    "buildResources": "build",
+    "output": "dist",
+    "app": "static"
   },
   "bin": {
     "electron": "./node_modules/.bin/electron"
@@ -74,6 +113,7 @@
     "electron-packager": "^7.3.0",
     "electron-prebuilt": "^1.2.8",
     "electron-rebuild": "^1.1.5",
+    "electron-builder": "^5.14.2",
     "eslint": "^2.13.1",
     "eslint-config-airbnb": "^9.0.1",
     "eslint-import-resolver-webpack": "^0.4.0",
@@ -96,7 +136,8 @@
     "webpack": "^1.13.1",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.12.1",
-    "webpack-merge": "^0.14.0"
+    "webpack-merge": "^0.14.0",
+    "html-webpack-plugin": "^2.22.0"
   },
   "dependencies": {
     "css-modules-require-hook": "^4.0.1",
