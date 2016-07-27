@@ -10,7 +10,7 @@
     "url": "https://github.com/chentsulin"
   },
   "license": "MIT",
-  "devDependencies": {
+  "dependencies": {
     "font-awesome": "^4.6.3"
   }
 }
