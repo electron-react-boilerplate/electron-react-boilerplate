@@ -17,7 +17,7 @@
     "start-hot": "cross-env HOT=1 NODE_ENV=development electron -r babel-register -r babel-polyfill ./app/main.development",
     "package": "cross-env NODE_ENV=production node -r babel-register package.js",
     "package-all": "npm run package -- --all",
-    "postinstall": "node node_modules/fbjs-scripts/node/check-dev-engines.js package.json",
+    "postinstall": "concurrently \"install-app-deps\" \"node node_modules/fbjs-scripts/node/check-dev-engines.js package.json\"",
     "dev": "concurrently --kill-others \"npm run hot-server\" \"npm run start-hot\"",
     "dist": "build",
     "compile": "npm run build-renderer && npm run build-main",
