@@ -1,5 +1,6 @@
 {
   "presets": ["es2015", "stage-0", "react"],
+  "compact": true,
   "plugins": ["add-module-exports"],
   "env": {
     "production": {
