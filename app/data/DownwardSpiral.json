@@ -1,0 +1,302 @@
+
+   {
+      "type": "target",
+      "start": 0,
+      "ftp": 0.5
+   },
+   {
+      "type": "target",
+      "start": 111,
+      "ftp": 0.6
+   },
+   {
+      "type": "target",
+      "start": 171,
+      "ftp": 0.7
+   },
+   {
+      "type": "target",
+      "start": 231,
+      "ftp": 0.8
+   },
+   {
+      "type": "target",
+      "start": 324,
+      "ftp": 0.85
+   },
+   {
+      "type": "target",
+      "start": 426,
+      "ftp": 1
+   },
+   {
+      "type": "target",
+      "start": 484,
+      "ftp": 0.5
+   },
+   {
+      "type": "target",
+      "start": 546,
+      "ftp": 1.1
+   },
+   {
+      "type": "target",
+      "start": 588,
+      "ftp": 0.5
+   },
+   {
+      "type": "target",
+      "start": 648,
+      "ftp": 1.2
+   },
+   {
+      "type": "target",
+      "start": 699,
+      "ftp": 1.25
+   },
+   {
+      "type": "target",
+      "start": 704,
+      "ftp": 1.2
+   },
+   {
+      "type": "target",
+      "start": 768,
+      "ftp": 0.5
+   },
+   {
+      "type": "target",
+      "start": 888,
+      "ftp": 1.2
+   },
+   {
+      "type": "target",
+      "start": 904,
+      "ftp": 1.25
+   },
+   {
+      "type": "target",
+      "start": 909,
+      "ftp": 1.2
+   },
+   {
+      "type": "target",
+      "start": 993,
+      "ftp": 0.5
+   },
+   {
+      "type": "target",
+      "start": 1098,
+      "ftp": 1.2
+   },
+   {
+      "type": "target",
+      "start": 1188,
+      "ftp": 0.5
+   },
+   {
+      "type": "target",
+      "start": 1277,
+      "ftp": 1.2
+   },
+   {
+      "type": "target",
+      "start": 1352,
+      "ftp": 0.5
+   },
+   {
+      "type": "target",
+      "start": 1428,
+      "ftp": 1.25
+   },
+   {
+      "type": "target",
+      "start": 1448,
+      "ftp": 1.5
+   },
+   {
+      "type": "target",
+      "start": 1452,
+      "ftp": 1.25
+   },
+   {
+      "type": "target",
+      "start": 1488,
+      "ftp": 0.5
+   },
+   {
+      "type": "target",
+      "start": 1547,
+      "ftp": 1.25
+   },
+   {
+      "type": "target",
+      "start": 1594,
+      "ftp": 0.5
+   },
+   {
+      "type": "target",
+      "start": 1637,
+      "ftp": 1.5
+   },
+   {
+      "type": "target",
+      "start": 1668,
+      "ftp": 0.5
+   },
+   {
+      "type": "target",
+      "start": 1698,
+      "ftp": 1.5
+   },
+   {
+      "type": "target",
+      "start": 1715,
+      "ftp": 0.5
+   },
+   {
+      "type": "target",
+      "start": 1953,
+      "ftp": 1.2
+   },
+   {
+      "type": "target",
+      "start": 2051,
+      "ftp": 1.25
+   },
+   {
+      "type": "target",
+      "start": 2056,
+      "ftp": 1.2
+   },
+   {
+      "type": "target",
+      "start": 2073,
+      "ftp": 0.5
+   },
+   {
+      "type": "target",
+      "start": 2193,
+      "ftp": 1.2
+   },
+   {
+      "type": "target",
+      "start": 2298,
+      "ftp": 0.5
+   },
+   {
+      "type": "target",
+      "start": 2403,
+      "ftp": 1.2
+   },
+   {
+      "type": "target",
+      "start": 2444,
+      "ftp": 1.25
+   },
+   {
+      "type": "target",
+      "start": 2449,
+      "ftp": 1.2
+   },
+   {
+      "type": "target",
+      "start": 2494,
+      "ftp": 0.5
+   },
+   {
+      "type": "target",
+      "start": 2583,
+      "ftp": 1.2
+   },
+   {
+      "type": "target",
+      "start": 2658,
+      "ftp": 0.5
+   },
+   {
+      "type": "target",
+      "start": 2734,
+      "ftp": 1.25
+   },
+   {
+      "type": "target",
+      "start": 2794,
+      "ftp": 0.5
+   },
+   {
+      "type": "target",
+      "start": 2853,
+      "ftp": 1.25
+   },
+   {
+      "type": "target",
+      "start": 2891,
+      "ftp": 1.5
+   },
+   {
+      "type": "target",
+      "start": 2896,
+      "ftp": 1.25
+   },
+   {
+      "type": "target",
+      "start": 2898,
+      "ftp": 0.5
+   },
+   {
+      "type": "target",
+      "start": 2943,
+      "ftp": 1.5
+   },
+   {
+      "type": "target",
+      "start": 2973,
+      "ftp": 0.5
+   },
+   {
+      "type": "target",
+      "start": 3003,
+      "ftp": 1.5
+   },
+   {
+      "type": "target",
+      "start": 3011,
+      "ftp": 1.5
+   },
+   {
+      "type": "target",
+      "start": 3016,
+      "ftp": 1.5
+   },
+   {
+      "type": "target",
+      "start": 3033,
+      "ftp": 0.5
+   },
+   {
+      "type": "target",
+      "start": 3063,
+      "ftp": 1.5
+   },
+   {
+      "type": "target",
+      "start": 3093,
+      "ftp": 0.5
+   },
+   {
+      "type": "target",
+      "start": 3123,
+      "ftp": 1.5
+   },
+   {
+      "type": "target",
+      "start": 3139,
+      "ftp": 0.5
+   },
+   {
+      "type": "target",
+      "start": 3327,
+      "ftp": 0.5
+   }
+]
