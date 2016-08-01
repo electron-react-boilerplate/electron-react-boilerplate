@@ -86,7 +86,7 @@
     "jsdom": "^9.4.1",
     "json-loader": "^0.5.4",
     "minimist": "^1.2.0",
-    "mocha": "^2.5.3",
+    "mocha": "^3.0.0",
     "node-libs-browser": "^1.0.0",
     "react-addons-test-utils": "^15.3.0",
     "redux-logger": "^2.6.1",
