@@ -25,3 +25,4 @@ test_script:
   - npm run test
   - npm run build
   - npm run test-e2e
+  - npm run package
