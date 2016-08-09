@@ -58,9 +58,24 @@ $ npm run dev
 
 *See [electron-debug](https://github.com/sindresorhus/electron-debug) for more information.*
 
-#### Redux DevTools
+#### DevTools extension
 
-We used [redux-devtools-extension](https://github.com/zalmoxisus/redux-devtools-extension), you can find the `Redux` tab on Chrome DevTools.
+This boilerplate is included following DevTools extensions:
+
+* [Devtron](https://github.com/electron/devtron) - Install via [electron-debug](https://github.com/sindresorhus/electron-debug).
+* [React Developer Tools](https://github.com/facebook/react-devtools) - Install via [electron-devtools-installer](https://github.com/GPMDP/electron-devtools-installer).
+* [Redux DevTools](https://github.com/zalmoxisus/redux-devtools-extension) - Install via [electron-devtools-installer](https://github.com/GPMDP/electron-devtools-installer).
+
+You can find the tabs on Chrome DevTools.
+
+If you want to update extensions version, please set `UPGRADE_EXTENSIONS` env, just run:
+
+```bash
+$ UPGRADE_EXTENSIONS=1 npm run dev
+
+# For Windows
+$ set UPGRADE_EXTENSIONS=1 && npm run dev
+```
 
 ## Externals
 
