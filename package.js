@@ -4,13 +4,14 @@
 require('babel-polyfill');
 const os = require('os');
 const webpack = require('webpack');
-const electronCfg = require('./webpack.config.electron.js');
-const cfg = require('./webpack.config.production.js');
+const electronCfg = require('./webpack.config.electron');
+const cfg = require('./webpack.config.production');
 const packager = require('electron-packager');
 const del = require('del');
 const exec = require('child_process').exec;
 const argv = require('minimist')(process.argv.slice(2));
 const pkg = require('./package.json');
+
 const deps = Object.keys(pkg.dependencies);
 const devDeps = Object.keys(pkg.devDependencies);
 
