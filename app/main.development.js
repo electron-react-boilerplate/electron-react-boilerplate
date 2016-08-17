@@ -12,6 +12,9 @@ if (process.env.NODE_ENV === 'production') {
 
 if (process.env.NODE_ENV === 'development') {
   require('electron-debug')(); // eslint-disable-line global-require
+
+  const PATH_APP_NODE_MODULES = require('path').join(__dirname, '..', 'static', 'node_modules');
+  require('module').globalPaths.push(PATH_APP_NODE_MODULES);
 }
 
 
