@@ -1,6 +1,6 @@
 import { Application } from 'spectron';
 import { expect } from 'chai';
-import electronPath from 'electron-prebuilt';
+import electronPath from 'electron';
 import homeStyles from '../app/components/Home.css';
 import counterStyles from '../app/components/Counter.css';
 
