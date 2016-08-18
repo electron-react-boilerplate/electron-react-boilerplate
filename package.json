@@ -138,6 +138,7 @@
   },
   "dependencies": {
     "css-modules-require-hook": "^4.0.1",
+    "electron-builder": "^5.26.0",
     "electron-debug": "^1.0.1",
     "font-awesome": "^4.6.3",
     "postcss": "^5.1.0",
