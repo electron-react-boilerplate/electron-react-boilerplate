@@ -14,7 +14,7 @@ export default merge(baseConfig, {
   ],
 
   output: {
-    publicPath: 'http://localhost:3000/dist/'
+    publicPath: 'http://localhost:3000/static/'
   },
 
   module: {
