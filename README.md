@@ -112,6 +112,12 @@ To package apps for all platforms:
 $ npm run package-all
 ```
 
+To pass options:
+
+```bash
+$ npm run package -- --[option]
+```
+
 #### Options
 
 - --name, -n: Application name (default: ElectronReact)
