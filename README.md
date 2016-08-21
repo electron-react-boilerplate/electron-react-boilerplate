@@ -112,7 +112,7 @@ To package apps for all platforms:
 $ npm run package-all
 ```
 
-To pass options:
+To package apps with options:
 
 ```bash
 $ npm run package -- --[option]
