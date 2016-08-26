@@ -14,7 +14,9 @@
     "import/no-extraneous-dependencies": 0,
     "react/jsx-no-bind": 0,
     "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx"] }],
-    "react/prefer-stateless-function": 0
+    "react/prefer-stateless-function": 0,
+    # https://github.com/eslint/eslint/issues/6274
+    "generator-star-spacing": 0
   },
   "plugins": [
     "import",
