@@ -1,6 +1,13 @@
 {
   "presets": ["es2015", "stage-0", "react"],
-  "plugins": ["add-module-exports"],
+  "plugins": [
+    "add-module-exports",
+    ["typecheck", {
+      "disable": {
+        "production": true
+      }
+    }]
+  ],
   "env": {
     "production": {
       "presets": ["react-optimize"],
