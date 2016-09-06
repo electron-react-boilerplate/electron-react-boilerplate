@@ -1,22 +1,14 @@
 {
   "presets": ["es2015", "stage-0", "react"],
-  "plugins": [
-    "add-module-exports",
-    ["typecheck", {
-      "disable": {
-        "production": true
-      }
-    }]
-  ],
+  "plugins": ["add-module-exports"],
   "env": {
     "production": {
       "presets": ["react-optimize"],
-      "plugins": [
-        "babel-plugin-dev-expression"
-      ]
+      "plugins": ["babel-plugin-dev-expression"]
     },
     "development": {
-      "presets": ["react-hmre"]
+      "presets": ["react-hmre"],
+      "plugins": ["tcomb"]
     },
     "test": {
       "plugins": [

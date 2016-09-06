@@ -167,6 +167,9 @@ Then, use git to merge some latest commits:
 git pull upstream master
 ```
 
+## Type Annotations
+Optionally annotate your code with types. Use [Facebook's Flow](https://flowtype.org) or [tcomb types](https://github.com/gcanti/babel-plugin-tcomb-boilerplate) to optionally and gradually add type annotations to function arguments and return values. If you don't want to add type checking, just don't add types. Type checks are turned off during production mode.
+
 ## Native-like UI
 
 If you want to have native-like User Interface (OS X El Capitan and Windows 10), [react-desktop](https://github.com/gabrielbull/react-desktop) may perfect suit for you.
