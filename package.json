@@ -91,6 +91,7 @@
     "sinon": "^1.17.5",
     "spectron": "^3.3.0",
     "style-loader": "^0.13.1",
+    "tcomb": "^3.2.13",
     "webpack": "^1.13.2",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.12.2",
@@ -108,8 +109,7 @@
     "react-router-redux": "^4.0.5",
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
-    "source-map-support": "^0.4.2",
-    "tcomb": "^3.2.13"
+    "source-map-support": "^0.4.2"
   },
   "devEngines": {
     "node": "4.x || 5.x || 6.x",
