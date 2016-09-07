@@ -12,6 +12,7 @@ export default merge(baseConfig, {
 
   entry: [
     `webpack-hot-middleware/client?path=http://localhost:${port}/__webpack_hmr`,
+    'babel-polyfill',
     './app/index'
   ],
 
