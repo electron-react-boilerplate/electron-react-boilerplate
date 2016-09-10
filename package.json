@@ -80,7 +80,7 @@
     "express": "^4.14.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "fbjs-scripts": "^0.7.1",
-    "jsdom": "^9.4.2",
+    "jsdom": "^9.4.3",
     "json-loader": "^0.5.4",
     "minimist": "^1.2.0",
     "mocha": "^3.0.2",
