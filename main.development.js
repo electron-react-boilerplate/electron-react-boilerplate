@@ -32,6 +32,13 @@ const installExtensions = async () => {
   }
 };
 
+const port = process.env.PORT || 3000;
+require('electron-handlebars')({
+  hot: process.env.HOT,
+  bundleUrl: process.env.HOT ? `http://localhost:${port}/dist/bundle.js` : '../dist/bundle.js',
+  title: 'Hello, Electron React!',
+});
+
 app.on('ready', async () => {
   await installExtensions();
 
@@ -41,7 +48,7 @@ app.on('ready', async () => {
     height: 728
   });
 
-  mainWindow.loadURL(`file://${__dirname}/app/app.html`);
+  mainWindow.loadURL(`file://${__dirname}/app/app.hbs`);
 
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.show();
