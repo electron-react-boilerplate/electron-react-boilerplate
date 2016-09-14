@@ -98,6 +98,7 @@
   "dependencies": {
     "css-modules-require-hook": "^4.0.2",
     "electron-debug": "^1.0.1",
+    "electron-handlebars": "^1.0.0",
     "font-awesome": "^4.6.3",
     "postcss": "^5.1.2",
     "react": "^15.3.1",
