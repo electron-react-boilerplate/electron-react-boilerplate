@@ -1,8 +1,9 @@
 import webpack from 'webpack';
+import validate from 'webpack-validator';
 import merge from 'webpack-merge';
 import baseConfig from './webpack.config.base';
 
-export default merge(baseConfig, {
+export default validate(merge(baseConfig, {
   devtool: 'source-map',
 
   entry: ['babel-polyfill', './main.development'],
@@ -40,4 +41,4 @@ export default merge(baseConfig, {
     'font-awesome',
     'source-map-support'
   ]
-});
+}));

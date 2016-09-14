@@ -1,6 +1,7 @@
 import path from 'path';
+import validate from 'webpack-validator';
 
-export default {
+export default validate({
   module: {
     loaders: [{
       test: /\.jsx?$/,
@@ -27,4 +28,4 @@ export default {
     // put your node 3rd party libraries which can't be built with webpack here
     // (mysql, mongodb, and so on..)
   ]
-};
+});
