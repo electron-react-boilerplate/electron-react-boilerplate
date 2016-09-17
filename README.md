@@ -79,7 +79,7 @@ $ set UPGRADE_EXTENSIONS=1 && npm run dev
 
 ## Externals
 
-If you use any 3rd party libraries which can't be built with webpack, you must list them in your `webpack.config.base.js`：
+If you use any 3rd party libraries which can't or won't be built with webpack, you must list them in your `webpack.config.base.js`：
 
 ```javascript
 externals: [
@@ -87,7 +87,19 @@ externals: [
 ]
 ```
 
-You can find those lines in the file.
+For a common example, to install Bootstrap, `npm i --save bootstrap` and link them in the head of app.html
+
+```html
+<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css" />
+<link rel="image/svg+xml" href="../node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.eot" />
+...
+```
+
+Make sure to list bootstrap in externals in `webpack.config.base.js` or the app won't include them in the package:
+```js
+externals: ['bootstrap']
+```
+ 
 
 
 ## CSS Modules
