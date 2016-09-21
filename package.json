@@ -86,6 +86,7 @@
     "mocha": "^3.0.2",
     "node-libs-browser": "^1.0.0",
     "react-addons-test-utils": "^15.3.1",
+    "react-hot-loader": "^3.0.0-beta.4",
     "redux-logger": "^2.6.1",
     "sinon": "^1.17.5",
     "spectron": "^3.3.0",

@@ -9,7 +9,8 @@
       ]
     },
     "development": {
-      "presets": ["react-hmre"]
+      "presets": ["react-hmre"],
+      "plugins": ["react-hot-loader/babel"]
     },
     "test": {
       "plugins": [

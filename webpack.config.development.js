@@ -12,6 +12,7 @@ export default merge(baseConfig, {
 
   entry: [
     `webpack-hot-middleware/client?path=http://localhost:${port}/__webpack_hmr`,
+    'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
     'babel-polyfill',
     './app/index'
   ],
