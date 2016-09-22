@@ -13,9 +13,9 @@ export default merge(baseConfig, {
   },
   
   resolve: {
-    packageAlias: "main"
+    packageAlias: 'main'
   },
-
+  
   plugins: [
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
