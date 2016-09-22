@@ -11,6 +11,10 @@ export default merge(baseConfig, {
     path: __dirname,
     filename: './main.js'
   },
+  
+  resolve: {
+    packageAlias: "main"
+  },
 
   plugins: [
     new webpack.optimize.UglifyJsPlugin({
