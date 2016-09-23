@@ -89,7 +89,7 @@
     "node-libs-browser": "^1.0.0",
     "react-addons-test-utils": "^15.3.1",
     "redux-logger": "^2.6.1",
-    "sinon": "^1.17.5",
+    "sinon": "^1.17.6",
     "spectron": "^3.3.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.2",
