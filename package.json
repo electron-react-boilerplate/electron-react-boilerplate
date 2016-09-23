@@ -98,7 +98,7 @@
     "webpack-merge": "^0.14.1"
   },
   "dependencies": {
-    "css-modules-require-hook": "^4.0.2",
+    "css-modules-require-hook": "^4.0.3",
     "electron-debug": "^1.0.1",
     "font-awesome": "^4.6.3",
     "postcss": "^5.1.2",
