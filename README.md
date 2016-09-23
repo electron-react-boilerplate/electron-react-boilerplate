@@ -182,6 +182,7 @@ If you want to have native-like User Interface (OS X El Capitan and Windows 10),
 
 - [C. T. Lin](https://github.com/chentsulin)
 - [Jhen-Jie Hong](https://github.com/jhen0409)
+- [Amila Welihinda](https://github.com/amilajack)
 
 
 ## License
