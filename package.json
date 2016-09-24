@@ -87,7 +87,7 @@
     "minimist": "^1.2.0",
     "mocha": "^3.0.2",
     "node-libs-browser": "^1.0.0",
-    "react-addons-test-utils": "^15.3.1",
+    "react-addons-test-utils": "^15.3.2",
     "redux-logger": "^2.6.1",
     "sinon": "^1.17.6",
     "spectron": "^3.3.0",
