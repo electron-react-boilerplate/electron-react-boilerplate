@@ -1,4 +1,4 @@
-/* eslint func-names: 0 */
+/* eslint-disable func-names */
 import { expect } from 'chai';
 
 
