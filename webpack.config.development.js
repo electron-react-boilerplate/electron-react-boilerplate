@@ -1,11 +1,12 @@
 /* eslint max-len: 0 */
 import webpack from 'webpack';
+import validate from 'webpack-validator';
 import merge from 'webpack-merge';
 import baseConfig from './webpack.config.base';
 
 const port = process.env.PORT || 3000;
 
-export default merge(baseConfig, {
+export default validate(merge(baseConfig, {
   debug: true,
 
   devtool: 'cheap-module-eval-source-map',
@@ -49,4 +50,4 @@ export default merge(baseConfig, {
   ],
 
   target: 'electron-renderer'
-});
+}));
