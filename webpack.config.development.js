@@ -13,6 +13,7 @@ export default validate(merge(baseConfig, {
 
   entry: [
     `webpack-hot-middleware/client?path=http://localhost:${port}/__webpack_hmr`,
+    'react-hot-loader/patch',
     'babel-polyfill',
     './app/index'
   ],
