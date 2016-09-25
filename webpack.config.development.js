@@ -1,4 +1,4 @@
-/* eslint max-len: 0 */
+/* eslint-disable max-len */
 import webpack from 'webpack';
 import merge from 'webpack-merge';
 import baseConfig from './webpack.config.base';

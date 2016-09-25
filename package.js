@@ -1,4 +1,5 @@
-/* eslint strict: 0, no-shadow: 0, no-unused-vars: 0, no-console: 0 */
+/* eslint-disable strict, no-shadow, no-unused-vars, no-console */
+
 'use strict';
 
 require('babel-polyfill');
@@ -82,8 +83,8 @@ async function startPack() {
       const archs = ['ia32', 'x64'];
       const platforms = ['linux', 'win32', 'darwin'];
 
-      platforms.forEach((plat) => {
-        archs.forEach((arch) => {
+      platforms.forEach(plat => {
+        archs.forEach(arch => {
           pack(plat, arch, log(plat, arch));
         });
       });
