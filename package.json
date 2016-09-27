@@ -50,7 +50,7 @@
   "devDependencies": {
     "asar": "^0.12.2",
     "babel-core": "^6.14.0",
-    "babel-eslint": "^6.1.2",
+    "babel-eslint": "^7.0.0",
     "babel-loader": "^6.2.5",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-dev-expression": "^0.2.1",
