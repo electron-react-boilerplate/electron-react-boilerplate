@@ -3,7 +3,7 @@ import { expect } from 'chai';
 
 
 describe('description', () => {
-  it('should have description', () => {
+  it('description', () => {
     expect(1 + 2).to.equal(3);
   });
 });

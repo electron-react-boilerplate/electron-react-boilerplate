@@ -16,14 +16,11 @@
     "react/jsx-no-bind": "off",
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
     "react/prefer-stateless-function": "off",
-    "generator-star-spacing": "off",
-    "flowtype-errors/show-errors": 2
+    "generator-star-spacing": "off"
   },
   "plugins": [
     "import",
-    "react",
-    "flowtype",
-    "flowtype-errors"
+    "react"
   ],
   "settings": {
     "import/resolver": {
