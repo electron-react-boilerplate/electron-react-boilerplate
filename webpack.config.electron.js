@@ -18,6 +18,10 @@ export default validate(merge(baseConfig, {
     filename: './main.js'
   },
 
+  resolve: {
+    packageMains: ['webpackNode', 'node', 'main']
+  },
+
   plugins: [
     // Minify the output
     new webpack.optimize.UglifyJsPlugin({
