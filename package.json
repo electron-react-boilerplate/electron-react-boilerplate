@@ -103,7 +103,7 @@
     "css-modules-require-hook": "^4.0.3",
     "electron-debug": "^1.0.1",
     "font-awesome": "^4.6.3",
-    "postcss": "^5.1.2",
+    "postcss": "^5.2.4",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",
