@@ -93,6 +93,7 @@
     "sinon": "^1.17.6",
     "spectron": "^3.3.0",
     "style-loader": "^0.13.1",
+    "v8-lazy-parse-webpack-plugin": "^0.3.0",
     "webpack": "^1.13.2",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.12.2",
