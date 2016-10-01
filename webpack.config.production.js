@@ -5,6 +5,7 @@
 import webpack from 'webpack';
 import validate from 'webpack-validator';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import V8LazyParseWebpackPlugin from 'v8-lazy-parse-webpack-plugin';
 import merge from 'webpack-merge';
 import baseConfig from './webpack.config.base';
 
@@ -56,12 +57,15 @@ const config = validate(merge(baseConfig, {
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
         screw_ie8: true,
-        warnings: false
+        warnings: false,
+        negate_iife: false
       }
     }),
 
     // Set the ExtractTextPlugin output filename
-    new ExtractTextPlugin('style.css', { allChunks: true })
+    new ExtractTextPlugin('style.css', { allChunks: true }),
+
+    new V8LazyParseWebpackPlugin()
   ],
 
   // https://github.com/chentsulin/webpack-target-electron-renderer#how-this-module-works

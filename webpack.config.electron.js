@@ -5,6 +5,7 @@
 import webpack from 'webpack';
 import validate from 'webpack-validator';
 import merge from 'webpack-merge';
+import V8LazyParseWebpackPlugin from 'v8-lazy-parse-webpack-plugin';
 import baseConfig from './webpack.config.base';
 
 export default validate(merge(baseConfig, {
@@ -22,7 +23,8 @@ export default validate(merge(baseConfig, {
     // Minify the output
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
-        warnings: false
+        warnings: false,
+        negate_iife: false
       }
     }),
 
@@ -38,7 +40,9 @@ export default validate(merge(baseConfig, {
       'process.env': {
         NODE_ENV: JSON.stringify('production')
       }
-    })
+    }),
+
+    new V8LazyParseWebpackPlugin()
   ],
 
   /**
