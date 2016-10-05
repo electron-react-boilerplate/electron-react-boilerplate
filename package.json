@@ -97,7 +97,7 @@
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.12.2",
     "webpack-merge": "^0.14.1",
-    "webpack-validator": "^2.2.7"
+    "webpack-validator": "^2.2.9"
   },
   "dependencies": {
     "css-modules-require-hook": "^4.0.3",
