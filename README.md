@@ -32,7 +32,7 @@ $ cd your-project-name && npm install
 
 ## Run
 
-Run this two commands __simultaneously__ in different console tabs.
+Run these two commands __simultaneously__ in different console tabs.
 
 ```bash
 $ npm run hot-server
@@ -79,7 +79,7 @@ $ set UPGRADE_EXTENSIONS=1 && npm run dev
 
 ## Externals
 
-If you use any 3rd party libraries which can't be built with webpack, you must list them in your `webpack.config.base.js`：
+If you use any 3rd party libraries which can't or won't be built with webpack, you must list them in your `webpack.config.base.js`：
 
 ```javascript
 externals: [
@@ -87,7 +87,19 @@ externals: [
 ]
 ```
 
-You can find those lines in the file.
+For a common example, to install Bootstrap, `npm i --save bootstrap` and link them in the head of app.html
+
+```html
+<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css" />
+<link rel="image/svg+xml" href="../node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.eot" />
+...
+```
+
+Make sure to list bootstrap in externals in `webpack.config.base.js` or the app won't include them in the package:
+```js
+externals: ['bootstrap']
+```
+ 
 
 
 ## CSS Modules
@@ -110,6 +122,12 @@ To package apps for all platforms:
 
 ```bash
 $ npm run package-all
+```
+
+To package apps with options:
+
+```bash
+$ npm run package -- --[option]
 ```
 
 #### Options
@@ -141,12 +159,6 @@ Please checkout [Building windows apps from non-windows platforms](https://githu
 
 see discusses in [#118](https://github.com/chentsulin/electron-react-boilerplate/issues/118) and [#108](https://github.com/chentsulin/electron-react-boilerplate/issues/108)
 
-## How hot-reloading works on Electron
-
-We use [webpack-target-electron-renderer](https://github.com/chentsulin/webpack-target-electron-renderer) to provide a build target for electron renderer process. Read more information [here](https://github.com/chentsulin/webpack-target-electron-renderer#how-this-module-works).
-
-> Note: webpack >= 1.12.15 has built-in support for `electron-main` and `electron-renderer` targets.
-
 ## How to keep the boilerplate updated
 
 If your application is a fork from this repo, you can add this repo to another git remote:
@@ -170,6 +182,7 @@ If you want to have native-like User Interface (OS X El Capitan and Windows 10),
 
 - [C. T. Lin](https://github.com/chentsulin)
 - [Jhen-Jie Hong](https://github.com/jhen0409)
+- [Amila Welihinda](https://github.com/amilajack)
 
 
 ## License

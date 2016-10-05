@@ -1,4 +1,4 @@
-/* eslint no-unused-expressions: 0 */
+/* eslint-disable no-unused-expressions */
 import { expect } from 'chai';
 import { spy } from 'sinon';
 import * as actions from '../../app/actions/counter';
@@ -31,7 +31,7 @@ describe('actions', () => {
   });
 
   // There's no nice way to test this at the moment...
-  it('incrementAsync', (done) => {
+  it('incrementAsync', done => {
     const fn = actions.incrementAsync(1);
     expect(fn).to.be.a('function');
     const dispatch = spy();

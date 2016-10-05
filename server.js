@@ -1,4 +1,8 @@
-/* eslint no-console: 0 */
+/* eslint-disable no-console */
+/**
+ * Setup and run the development server for Hot-Module-Replacement
+ * https://webpack.github.io/docs/hot-module-replacement-with-webpack.html
+ */
 
 import express from 'express';
 import webpack from 'webpack';
@@ -9,7 +13,7 @@ import config from './webpack.config.development';
 
 const app = express();
 const compiler = webpack(config);
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const wdm = webpackDevMiddleware(compiler, {
   publicPath: config.output.publicPath,

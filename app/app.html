@@ -28,11 +28,12 @@
   <body>
     <div id="root"></div>
     <script>
-      (function() {
+      {
         const script = document.createElement('script');
-        script.src = (process.env.HOT) ? 'http://localhost:3000/static/bundle.js' : './bundle.js';
+        const port = process.env.PORT || 3000;
+        script.src = (process.env.HOT) ? `http://localhost:${port}/static/bundle.js` : './bundle.js';
         document.write(script.outerHTML);
-      }());
+      }
     </script>
   </body>
 </html>

@@ -1,13 +1,21 @@
+/**
+ * Build config for electron 'Renderer Process' file
+ */
+
 import webpack from 'webpack';
+import validate from 'webpack-validator';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import merge from 'webpack-merge';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import baseConfig from './webpack.config.base';
 
-const config = merge(baseConfig, {
+const config = validate(merge(baseConfig, {
   devtool: 'cheap-module-source-map',
 
-  entry: './app/index',
+  entry: [
+    'babel-polyfill',
+    './app/index'
+  ],
 
   output: {
     publicPath: '../static/'
@@ -15,6 +23,7 @@ const config = merge(baseConfig, {
 
   module: {
     loaders: [
+      // Extract all .global.css to style.css as is
       {
         test: /\.global\.css$/,
         loader: ExtractTextPlugin.extract(
@@ -23,6 +32,7 @@ const config = merge(baseConfig, {
         )
       },
 
+      // Pipe other styles through css modules and apend to style.css
       {
         test: /^((?!\.global).)*\.css$/,
         loader: ExtractTextPlugin.extract(
@@ -34,10 +44,16 @@ const config = merge(baseConfig, {
   },
 
   plugins: [
+    // https://webpack.github.io/docs/list-of-plugins.html#occurrenceorderplugin
+    // https://github.com/webpack/webpack/issues/864
     new webpack.optimize.OccurrenceOrderPlugin(),
+
+    // NODE_ENV should be production so that modules do not perform certain development checks
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
+
+    // Minify without warning messages and IE8 support
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
         screw_ie8: true,
@@ -52,7 +68,8 @@ const config = merge(baseConfig, {
     })
   ],
 
+  // https://github.com/chentsulin/webpack-target-electron-renderer#how-this-module-works
   target: 'electron-renderer'
-});
+}));
 
 export default config;

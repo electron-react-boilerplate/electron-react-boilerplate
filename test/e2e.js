@@ -7,7 +7,7 @@ import counterStyles from '../app/components/Counter.css';
 const delay = time => new Promise(resolve => setTimeout(resolve, time));
 
 describe('main window', function spec() {
-  this.timeout(5000);
+  this.timeout(10000);
 
   before(async () => {
     this.app = new Application({
