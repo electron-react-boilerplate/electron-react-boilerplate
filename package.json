@@ -15,17 +15,12 @@
     "build": "npm run build-main && npm run build-renderer",
     "start": "cross-env NODE_ENV=production electron ./static/",
     "start-hot": "cross-env HOT=1 NODE_ENV=development electron -r babel-register -r babel-polyfill ./app/main.development",
-    "package": "cross-env NODE_ENV=production node -r babel-register package.js",
-    "package-all": "npm run package -- --all",
     "postinstall": "concurrently \"install-app-deps\" \"node node_modules/fbjs-scripts/node/check-dev-engines.js package.json\"",
     "dev": "concurrently --kill-others \"npm run hot-server\" \"npm run start-hot\"",
-    "dist": "build",
-    "compile": "npm run build-renderer && npm run build-main",
-    "builder": "npm run compile && npm run dist",
-    "builder:win": "npm run compile && build --win --x64",
-    "builder:linux": "npm run compile && build --linux",
-    "builder:all": "npm run compile && build -mwl",
-    "cleanup": "mop -v"
+    "package": "npm run build && build --publish never",
+    "package:win": "npm run compile && build --win --x64",
+    "package:linux": "npm run compile && build --linux",
+    "package:all": "npm run compile && build -mwl"
   },
   "build": {
     "appId": "org.develar.ElectronReact",
