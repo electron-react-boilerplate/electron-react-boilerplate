@@ -29,7 +29,7 @@
   },
   "build": {
     "appId": "org.develar.ElectronReact",
-    "app-category-type": "public.app-category.tools",
+    "category": "public.app-category.tools",
     "dmg": {
       "contents": [
         {
