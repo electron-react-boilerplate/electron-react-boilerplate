@@ -99,7 +99,7 @@ Make sure to list bootstrap in externals in `webpack.config.base.js` or the app 
 ```js
 externals: ['bootstrap']
 ```
- 
+
 
 
 ## CSS Modules
@@ -154,6 +154,8 @@ We add some module's `peerDependencies` to ignore option as default for applicat
 #### Building windows apps from non-windows platforms
 
 Please checkout [Building windows apps from non-windows platforms](https://github.com/maxogden/electron-packager#building-windows-apps-from-non-windows-platforms).
+
+To package apps, also see [Multi Platform Build](https://github.com/electron-userland/electron-builder/wiki/Multi-Platform-Build)
 
 ## Dispatching redux actions from main process
 
