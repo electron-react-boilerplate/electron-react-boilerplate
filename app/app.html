@@ -30,8 +30,9 @@
     <script>
       {
         const script = document.createElement('script');
-        const port = process.env.PORT || 3000;
-        script.src = (process.env.HOT) ? `http://localhost:3000/static/bundle.js` : './bundle.js';
+        script.src = (process.env.HOT)
+          ? `http://localhost:${process.env.PORT || 3000}/static/bundle.js`
+          : './bundle.js';
         document.write(script.outerHTML);
       }
     </script>
