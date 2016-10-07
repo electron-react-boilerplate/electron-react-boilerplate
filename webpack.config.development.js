@@ -7,6 +7,7 @@
 import webpack from 'webpack';
 import validate from 'webpack-validator';
 import merge from 'webpack-merge';
+import formatter from 'eslint-formatter-pretty';
 import baseConfig from './webpack.config.base';
 
 const port = process.env.PORT || 3000;
@@ -27,6 +28,13 @@ export default validate(merge(baseConfig, {
   },
 
   module: {
+    preLoaders: [
+      {
+        test: /\.js$/,
+        loader: 'eslint-loader',
+        exclude: /node_modules/
+      }
+    ],
     loaders: [
       {
         test: /\.global\.css$/,
@@ -44,6 +52,10 @@ export default validate(merge(baseConfig, {
         ]
       }
     ]
+  },
+
+  eslint: {
+    formatter
   },
 
   plugins: [

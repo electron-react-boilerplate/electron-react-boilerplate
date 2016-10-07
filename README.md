@@ -45,7 +45,7 @@ or run two servers with one command
 $ npm run dev
 ```
 
-*Note: requires a node version >= 4 and an npm version >= 2.*
+*Note: requires a node version >= 4 and an npm version >= 3.*
 
 
 ## DevTools
@@ -99,7 +99,7 @@ Make sure to list bootstrap in externals in `webpack.config.base.js` or the app 
 ```js
 externals: ['bootstrap']
 ```
- 
+
 
 
 ## CSS Modules
