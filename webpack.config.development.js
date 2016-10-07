@@ -23,7 +23,7 @@ export default validate(merge(baseConfig, {
   ],
 
   output: {
-    publicPath: `http://localhost:${port}/static/`
+    publicPath: `http://localhost:${port}/dist/`
   },
 
   module: {

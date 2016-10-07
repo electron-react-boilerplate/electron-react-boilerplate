@@ -18,7 +18,7 @@ const config = validate(merge(baseConfig, {
   ],
 
   output: {
-    publicPath: '../static/'
+    publicPath: '../dist/'
   },
 
   module: {

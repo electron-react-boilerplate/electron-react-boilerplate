@@ -12,7 +12,7 @@ describe('main window', function spec() {
   before(async () => {
     this.app = new Application({
       path: electronPath,
-      args: ['static'],
+      args: [path.join(__dirname, '..', 'app')],
     });
     return this.app.start();
   });
