@@ -79,6 +79,7 @@
     "eslint-import-resolver-webpack": "^0.6.0",
     "eslint-plugin-import": "^1.16.0",
     "eslint-plugin-jsx-a11y": "^2.2.2",
+    "eslint-plugin-promise": "^2.0.1",
     "eslint-plugin-react": "^6.3.0",
     "express": "^4.14.0",
     "extract-text-webpack-plugin": "^1.0.1",
