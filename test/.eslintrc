@@ -10,7 +10,7 @@
     "mocha/no-skipped-tests": 0,
     "mocha/no-pending-tests": 2,
     "mocha/handle-done-callback": 2,
-    "mocha/no-synchronous-tests": 1,
+    "mocha/no-synchronous-tests": 0,
     "mocha/no-global-tests": 2,
     "mocha/valid-test-description": 2,
     "mocha/valid-suite-description": 2,

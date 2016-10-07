@@ -7,7 +7,7 @@
     "node": true
   },
   "rules": {
-    "arrow-parens": ["error", "as-needed"],
+    "arrow-parens": ["off"],
     "consistent-return": "off",
     "comma-dangle": "off",
     "no-use-before-define": "off",
