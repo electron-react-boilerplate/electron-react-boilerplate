@@ -114,6 +114,8 @@ css-modules loader. e.g. `app.global.css`
 
 ## Package
 
+To package apps for the local platform:
+
 ```bash
 $ npm run package
 ```
@@ -132,15 +134,7 @@ $ npm run package -- --[option]
 
 #### Options
 
-- --name, -n: Application name (default: ElectronReact)
-- --version, -v: Electron version (default: latest version)
-- --asar, -a: [asar](https://github.com/atom/asar) support (default: false)
-- --icon, -i: Application icon
-- --all: pack for all platforms
-
-Use `electron-packager` to pack your app with `--all` options for darwin (osx), linux and win32 (windows) platform. After build, you will find them in `release` folder. Otherwise, you will only find one for your os.
-
-`test`, `tools`, `release` folder and devDependencies in `package.json` will be ignored by default.
+See [electron-builder CLI Usage](https://github.com/electron-userland/electron-builder#cli-usage)
 
 #### Default Ignore modules
 
@@ -149,13 +143,13 @@ We add some module's `peerDependencies` to ignore option as default for applicat
 - `babel-core` is required by `babel-loader` and its size is ~19 MB
 - `node-libs-browser` is required by `webpack` and its size is ~3MB.
 
-> **Note:** If you want to use any above modules in runtime, for example: `require('babel/register')`, you should move them from `devDependencies` to `dependencies`.
+This boilerplate uses a [two package.json structure](https://github.com/electron-userland/electron-builder#two-packagejson-structure).
+
+> **Note:** If you want to use any above modules in runtime, for example: `require('babel/register')`, you should move them from `devDependencies` in the root `package.json` to `dependencies` in `app/package.json`.
 
 #### Building windows apps from non-windows platforms
 
-Please checkout [Building windows apps from non-windows platforms](https://github.com/maxogden/electron-packager#building-windows-apps-from-non-windows-platforms).
-
-To package apps, also see [Multi Platform Build](https://github.com/electron-userland/electron-builder/wiki/Multi-Platform-Build)
+Please checkout [Multi Platform Build](https://github.com/electron-userland/electron-builder/wiki/Multi-Platform-Build)
 
 ## Dispatching redux actions from main process
 

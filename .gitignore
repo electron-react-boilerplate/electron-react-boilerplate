@@ -32,8 +32,6 @@ app/node_modules
 
 # App packaged
 dist
-release
-app/dist
 app/main.js
 app/main.js.map
 app/bundle.js
