@@ -13,6 +13,8 @@ install:
   - npm install
 matrix:
   fast_finish: true
+platform:
+  - x64
 build: off
 version: '{build}'
 shallow_clone: true
