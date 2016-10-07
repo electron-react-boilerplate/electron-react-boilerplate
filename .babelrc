@@ -4,9 +4,7 @@
   "env": {
     "production": {
       "presets": ["react-optimize"],
-      "plugins": [
-        "babel-plugin-dev-expression"
-      ]
+      "plugins": ["babel-plugin-dev-expression"]
     },
     "development": {
       "presets": ["react-hmre"]
