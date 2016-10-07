@@ -7,7 +7,7 @@
     "node": true
   },
   "rules": {
-    "arrow-parens": ["error", "as-needed"],
+    "arrow-parens": ["off"],
     "consistent-return": "off",
     "comma-dangle": "off",
     "generator-star-spacing": "off",
@@ -21,12 +21,14 @@
     "promise/no-native": 0,
     "react/jsx-no-bind": "off",
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
-    "react/prefer-stateless-function": "off"
+    "react/prefer-stateless-function": "off",
+    "flowtype-errors/show-errors": 2
   },
   "plugins": [
+    "flowtype-errors",
     "import",
-    "react",
-    "promise"
+    "promise",
+    "react"
   ],
   "settings": {
     "import/resolver": {
