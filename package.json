@@ -54,7 +54,7 @@
   },
   "directories": {
     "buildResources": "build",
-    "output": "dist"
+    "output": "release"
   },
   "bin": {
     "electron": "./node_modules/.bin/electron"

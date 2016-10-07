@@ -31,7 +31,7 @@ app/node_modules
 .DS_Store
 
 # App packaged
-dist
+release
 app/main.js
 app/main.js.map
 app/bundle.js
