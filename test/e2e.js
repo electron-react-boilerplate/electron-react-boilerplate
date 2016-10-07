@@ -1,6 +1,7 @@
 import { Application } from 'spectron';
 import { expect } from 'chai';
 import electronPath from 'electron';
+import path from 'path';
 import homeStyles from '../app/components/Home.css';
 import counterStyles from '../app/components/Counter.css';
 
