@@ -7,19 +7,27 @@
     "node": true
   },
   "rules": {
-    "arrow-parens": ["error", "as-needed"],
+    "arrow-parens": ["off"],
     "consistent-return": "off",
     "comma-dangle": "off",
-    "no-use-before-define": "off",
+    "generator-star-spacing": "off",
     "import/no-unresolved": ["error", { "ignore": ["electron"] }],
     "import/no-extraneous-dependencies": "off",
+    "no-use-before-define": "off",
+    "promise/param-names": 2,
+    "promise/always-return": 2,
+    "promise/always-catch": 2, // deprecated
+    "promise/catch-or-return": 2,
+    "promise/no-native": 0,
     "react/jsx-no-bind": "off",
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
     "react/prefer-stateless-function": "off",
-    "generator-star-spacing": "off"
+    "flowtype-errors/show-errors": 2
   },
   "plugins": [
+    "flowtype-errors",
     "import",
+    "promise",
     "react"
   ],
   "settings": {

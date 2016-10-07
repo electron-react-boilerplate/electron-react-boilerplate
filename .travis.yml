@@ -4,7 +4,6 @@ language: node_js
 
 node_js:
   - 6
-  - 5
   - 4
 
 cache:
@@ -24,6 +23,7 @@ addons:
 
 install:
   - export CXX="g++-4.8"
+  - npm install -g npm@latest
   - npm install
   - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
 
