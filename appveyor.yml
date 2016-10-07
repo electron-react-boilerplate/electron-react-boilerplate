@@ -1,10 +1,9 @@
 os: unstable
 cache:
-  - node_modules 
+  - node_modules
 environment:
   matrix:
     - nodejs_version: 6
-    - nodejs_version: 5
     - nodejs_version: 4
 install:
   - ps: Install-Product node $env:nodejs_version
