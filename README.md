@@ -173,8 +173,8 @@ Then, use git to merge some latest commits:
 git pull upstream master
 ```
 
-## Type Annotations
-This project comes with Flow support out of the box! You can annotate your code with types, [get Flow errors as ESLint errors](https://github.com/amilajack/eslint-plugin-flowtype-errors), and get runtime errors of incorrect types with [tcomb. types](https://github.com/gcanti/babel-plugin-tcomb-boilerplate). Gradually add type annotations to function arguments and return values but if you don't want to add type checking, just don't add types. Type checks are turned off during production.
+## Static Type Checking
+This project comes with Flow support out of the box! You can annotate your code with types, [get Flow errors as ESLint errors](https://github.com/amilajack/eslint-plugin-flowtype-errors), and get [type errors during runtime](https://github.com/gcanti/babel-plugin-tcomb-boilerplate) during development. Types are completely optional.
 
 ## Native-like UI
 
