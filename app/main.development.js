@@ -6,7 +6,7 @@ let mainWindow = null;
 
 (() => {
   if (process.env.NODE_ENV === 'production') {
-    if (require('electron-squirrel-startup')) return;
+    if (require('electron-squirrel-startup')) return; // eslint-disable-line
   }
 
   if (process.env.NODE_ENV === 'production') {
