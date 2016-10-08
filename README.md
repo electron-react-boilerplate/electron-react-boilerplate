@@ -122,6 +122,9 @@ $ npm run package
 
 To package apps for all platforms:
 
+First, refer to [Multi Platform Build](https://github.com/electron-userland/electron-builder/wiki/Multi-Platform-Build) for dependencies.
+
+Then,
 ```bash
 $ npm run package-all
 ```
@@ -147,9 +150,6 @@ This boilerplate uses a [two package.json structure](https://github.com/electron
 
 > **Note:** If you want to use any above modules in runtime, for example: `require('babel/register')`, you should move them from `devDependencies` in the root `package.json` to `dependencies` in `app/package.json`.
 
-#### Building windows apps from non-windows platforms
-
-Please checkout [Multi Platform Build](https://github.com/electron-userland/electron-builder/wiki/Multi-Platform-Build)
 
 ## Dispatching redux actions from main process
 
