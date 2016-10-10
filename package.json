@@ -42,8 +42,7 @@
       ]
     },
     "win": {
-      "iconUrl": "https://raw.githubusercontent.com/chentsulin/electron-react-boilerplate/master/build/icon.ico",
-      "remoteReleases": true
+      "target": "nsis"
     },
     "linux": {
       "target": [
@@ -110,7 +109,6 @@
     "electron-builder": "^5.26.0",
     "electron-devtools-installer": "^2.0.1",
     "electron-rebuild": "^1.2.1",
-    "electron-squirrel-startup": "^1.0.0",
     "enzyme": "^2.4.1",
     "eslint": "^3.7.1",
     "eslint-config-airbnb": "^12.0.0",
