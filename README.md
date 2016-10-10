@@ -139,17 +139,14 @@ $ npm run package -- --[option]
 
 See [electron-builder CLI Usage](https://github.com/electron-userland/electron-builder#cli-usage)
 
-#### Default Ignore modules
-
-We add some module's `peerDependencies` to ignore option as default for application size reduction.
-
-- `babel-core` is required by `babel-loader` and its size is ~19 MB
-- `node-libs-browser` is required by `webpack` and its size is ~3MB.
+#### Module Structure
 
 This boilerplate uses a [two package.json structure](https://github.com/electron-userland/electron-builder#two-packagejson-structure).
 
-> **Note:** If you want to use any above modules in runtime, for example: `require('babel/register')`, you should move them from `devDependencies` in the root `package.json` to `dependencies` in `app/package.json`.
-
+Some best practices around what modules to include, and how:
+1) If the module is native to a platform or otherwise should be included with the published package (i.e. bootstrap, openbci), it should be listed under `dependencies` in `./app/package.json`.
+2) If a module is `import`ed by another module, include it in `dependencies` in `./package.json`.   See [this ESLint rule](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-extraneous-dependencies.md)
+3) Otherwise, modules used for building, testing and debugging should be included in `devDependencies` in `./package.json`.
 
 ## Dispatching redux actions from main process
 
