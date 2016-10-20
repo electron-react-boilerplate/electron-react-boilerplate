@@ -6,7 +6,7 @@ environment:
     - nodejs_version: 4
 
 cache:
-  - node_modules
+  - "%LOCALAPPDATA%/Yarn"
 
 matrix:
   fast_finish: true
@@ -22,7 +22,8 @@ clone_depth: 1
 install:
   - ps: Install-Product node $env:nodejs_version
   - set CI=true
-  - npm install -g yarnpkg
+  - choco install yarn
+  - refreshenv
   - yarn
 
 test_script:

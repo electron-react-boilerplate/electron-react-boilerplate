@@ -8,7 +8,7 @@ node_js:
 
 cache:
   directories:
-    - node_modules
+  - $HOME/.yarn-cache
 
 addons:
   apt:
