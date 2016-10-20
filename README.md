@@ -52,7 +52,7 @@ $ npm run dev
 ## Editor Configuration
 **Atom**
 ```bash
-apm install editorconfig es6-javascript javascript-snippets linter linter-eslint language-babel
+apm install editorconfig es6-javascript autocomplete-flow javascript-snippets linter linter-eslint language-babel
 ```
 
 **Sublime**
