@@ -62,15 +62,9 @@ if (version) {
   startPack();
 } else {
   // use the same version as the currently-installed electron-prebuilt
-  exec('npm list electron --dev', (err, stdout) => {
-    if (err) {
-      DEFAULT_OPTS.version = '1.2.0';
-    } else {
-      DEFAULT_OPTS.version = stdout.split('electron@')[1].replace(/\s/g, '');
-    }
-
-    startPack();
-  });
+  // eslint-disable-next-line global-require
+  DEFAULT_OPTS.version = require('electron/package.json').version;
+  startPack();
 }
 
 
