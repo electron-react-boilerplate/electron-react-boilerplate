@@ -28,11 +28,11 @@ git clone https://github.com/chentsulin/electron-react-boilerplate.git your-proj
 ```
 
 And then install dependencies.
+**ProTip**: Install with [yarn](https://github.com/yarnpkg/yarn) for faster and safer installation
 
 ```bash
 $ cd your-project-name && npm install
 ```
-
 
 ## Run
 
