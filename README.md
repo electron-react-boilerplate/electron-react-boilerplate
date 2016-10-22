@@ -13,9 +13,13 @@
 
 ## Screenshot
 
-![](https://cloud.githubusercontent.com/assets/3382565/10557547/b1f07a4e-74e3-11e5-8d27-79ab6947d429.gif)
+![Electron Boilerplate Demo](https://cloud.githubusercontent.com/assets/3382565/10557547/b1f07a4e-74e3-11e5-8d27-79ab6947d429.gif)
 
 ## Install
+
+* **Note: requires a node version >= 4 and an npm version >= 3.**
+* **If you have installation or compilation issues with this project, please see [our debugging guide](https://github.com/chentsulin/electron-react-boilerplate/issues/400)**
+
 
 First, clone the repo via git:
 
@@ -24,11 +28,11 @@ git clone https://github.com/chentsulin/electron-react-boilerplate.git your-proj
 ```
 
 And then install dependencies.
+**ProTip**: Install with [yarn](https://github.com/yarnpkg/yarn) for faster and safer installation
 
 ```bash
 $ cd your-project-name && npm install
 ```
-
 
 ## Run
 
@@ -45,8 +49,22 @@ or run two servers with one command
 $ npm run dev
 ```
 
-*Note: requires a node version >= 4 and an npm version >= 3.*
+## Editor Configuration
+**Atom**
+```bash
+apm install editorconfig es6-javascript autocomplete-flow javascript-snippets linter linter-eslint language-babel
+```
 
+**Sublime**
+* https://github.com/sindresorhus/editorconfig-sublime#readme
+* https://github.com/SublimeLinter/SublimeLinter3
+* https://github.com/roadhump/SublimeLinter-eslint
+* https://github.com/babel/babel-sublime
+
+**Others**
+* [Editorconfig](http://editorconfig.org/#download)
+* [ESLint](http://eslint.org/docs/user-guide/integrations#editors)
+* Babel Syntax Plugin
 
 ## DevTools
 
@@ -167,8 +185,8 @@ Then, use git to merge some latest commits:
 git pull upstream master
 ```
 
-## Type Annotations
-This project comes with Flow support out of the box! You can annotate your code with types, [get Flow errors as ESLint errors](https://github.com/amilajack/eslint-plugin-flowtype-errors), and get runtime errors of incorrect types with [tcomb. types](https://github.com/gcanti/babel-plugin-tcomb-boilerplate). Gradually add type annotations to function arguments and return values but if you don't want to add type checking, just don't add types. Type checks are turned off during production.
+## Static Type Checking
+This project comes with Flow support out of the box! You can annotate your code with types, [get Flow errors as ESLint errors](https://github.com/amilajack/eslint-plugin-flowtype-errors), and get [type errors during runtime](https://github.com/gcanti/babel-plugin-tcomb-boilerplate) during development. Types are completely optional.
 
 ## Native-like UI
 
