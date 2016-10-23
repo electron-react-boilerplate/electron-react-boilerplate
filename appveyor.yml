@@ -6,8 +6,7 @@ environment:
     - nodejs_version: 4
 
 cache:
-  directories:
-    - node_modules
+  - "node_modules"
 
 # Enable when https://github.com/yarnpkg/yarn/issues/1233 and
 # https://github.com/yarnpkg/yarn/issues/1059 are resolved and disable npm cache
