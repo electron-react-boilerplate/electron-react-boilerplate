@@ -6,7 +6,13 @@ environment:
     - nodejs_version: 4
 
 cache:
-  - "%LOCALAPPDATA%/Yarn"
+  - "node_modules"
+
+# Enable when https://github.com/yarnpkg/yarn/issues/1233 and
+# https://github.com/yarnpkg/yarn/issues/1059 are resolved and disable npm cache
+#
+# cache:
+#   - "%LOCALAPPDATA%/Yarn"
 
 matrix:
   fast_finish: true
@@ -22,9 +28,19 @@ clone_depth: 1
 install:
   - ps: Install-Product node $env:nodejs_version
   - set CI=true
-  - choco install yarn
-  - refreshenv
-  - yarn
+  - npm install -g npm@latest
+  - set PATH=%APPDATA%\npm;%PATH%
+  - npm install
+
+# Enable when https://github.com/yarnpkg/yarn/issues/1233 and
+# https://github.com/yarnpkg/yarn/issues/1059 are resolved and disable npm cache
+#
+# install:
+#   - ps: Install-Product node $env:nodejs_version
+#   - set CI=true
+#   - choco install yarn
+#   - refreshenv
+#   - yarn
 
 test_script:
   - node --version
