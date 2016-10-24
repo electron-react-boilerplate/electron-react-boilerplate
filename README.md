@@ -130,7 +130,7 @@ If you need global styles, stylesheets with `.global.css` will not go through th
 css-modules loader. e.g. `app.global.css`
 
 
-## Package
+## Packaging
 
 To package apps for the local platform:
 
@@ -161,11 +161,17 @@ See [electron-builder CLI Usage](https://github.com/electron-userland/electron-b
 
 This boilerplate uses a [two package.json structure](https://github.com/electron-userland/electron-builder#two-packagejson-structure).
 
-Some best practices around what modules to include, and how:
-
+#### Building windows apps from non-windows platforms
 1. If the module is native to a platform or otherwise should be included with the published package (i.e. bootstrap, openbci), it should be listed under `dependencies` in `./app/package.json`.
 2. If a module is `import`ed by another module, include it in `dependencies` in `./package.json`.   See [this ESLint rule](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-extraneous-dependencies.md)
 3. Otherwise, modules used for building, testing and debugging should be included in `devDependencies` in `./package.json`.
+
+## Static Type Checking
+This project comes with Flow support out of the box! You can annotate your code with types, [get Flow errors as ESLint errors](https://github.com/amilajack/eslint-plugin-flowtype-errors), and get [type errors during runtime](https://github.com/gcanti/babel-plugin-tcomb-boilerplate) during development. Types are completely optional.
+
+## Native-like UI
+
+If you want to have native-like User Interface (OS X El Capitan and Windows 10), [react-desktop](https://github.com/gabrielbull/react-desktop) may perfect suit for you.
 
 ## Dispatching redux actions from main process
 
@@ -184,14 +190,6 @@ Then, use git to merge some latest commits:
 ```sh
 git pull upstream master
 ```
-
-## Static Type Checking
-This project comes with Flow support out of the box! You can annotate your code with types, [get Flow errors as ESLint errors](https://github.com/amilajack/eslint-plugin-flowtype-errors), and get [type errors during runtime](https://github.com/gcanti/babel-plugin-tcomb-boilerplate) during development. Types are completely optional.
-
-## Native-like UI
-
-If you want to have native-like User Interface (OS X El Capitan and Windows 10), [react-desktop](https://github.com/gabrielbull/react-desktop) may perfect suit for you.
-
 
 ## Maintainers
 
