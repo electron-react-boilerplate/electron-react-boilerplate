@@ -121,7 +121,7 @@
     "source-map-support": "^0.4.5"
   },
   "devEngines": {
-    "node": "4.x || 5.x || 6.x || 7.x",
+    "node": ">=4.x",
     "npm": "3.x"
   }
 }
