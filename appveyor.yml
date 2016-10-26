@@ -49,3 +49,4 @@ test_script:
   - npm run build
   - npm run test-e2e
   - npm run package
+  - npm run update-deps
