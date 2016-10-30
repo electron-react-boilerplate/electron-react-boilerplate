@@ -18,7 +18,7 @@ export default validate({
   },
 
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, 'app'),
     filename: 'bundle.js',
 
     // https://github.com/webpack/webpack/issues/1114

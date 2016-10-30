@@ -6,6 +6,7 @@ import webpack from 'webpack';
 import validate from 'webpack-validator';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import merge from 'webpack-merge';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 import baseConfig from './webpack.config.base';
 
 const config = validate(merge(baseConfig, {
@@ -59,9 +60,12 @@ const config = validate(merge(baseConfig, {
         warnings: false
       }
     }),
-
-    // Set the ExtractTextPlugin output filename
-    new ExtractTextPlugin('style.css', { allChunks: true })
+    new ExtractTextPlugin('style.css', { allChunks: true }),
+    new HtmlWebpackPlugin({
+      filename: 'app.html',
+      template: 'app/app.html',
+      inject: false
+    })
   ],
 
   // https://github.com/chentsulin/webpack-target-electron-renderer#how-this-module-works
