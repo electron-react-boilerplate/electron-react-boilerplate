@@ -22,12 +22,10 @@ const argv = require('minimist')(process.argv.slice(2));
 
 /**
  * Do not package node modules from 'devDependencies'
- * and 'dependencies' that are set as external
+ * (automatically done by electron-packager) and
+ * 'dependencies' that are set as external
  */
 const toNodePath = name => `/node_modules/${name}($|/)`;
-const devDeps = Object
-  .keys(pkg.devDependencies)
-  .map(toNodePath);
 
 const depsExternal = Object
   .keys(pkg.dependencies)
@@ -49,7 +47,6 @@ const DEFAULT_OPTS = {
     '^/release($|/)',
     '^/main.development.js'
   ]
-  .concat(devDeps)
   .concat(depsExternal)
 };
 
@@ -59,20 +56,18 @@ if (icon) DEFAULT_OPTS.icon = icon;
 const version = argv.version || argv.v;
 if (version) {
   DEFAULT_OPTS.version = version;
-  startPack();
 } else {
-  // use the same version as the currently-installed electron-prebuilt
+  // use the same version as the currently-installed electron
   exec('npm list electron --dev', (err, stdout) => {
     if (err) {
       DEFAULT_OPTS.version = '1.2.0';
     } else {
       DEFAULT_OPTS.version = stdout.split('electron@')[1].replace(/\s/g, '');
     }
-
-    startPack();
   });
 }
 
+startPack();
 
 /**
  * @desc Execute the webpack build process on given config object
@@ -105,7 +100,7 @@ async function startPack() {
     // Start the packing process
     if (shouldBuildAll) {
       // build for all platforms
-      const archs = ['ia32', 'x64'];
+      const archs = ['ia32', 'x64', 'armv7l'];
       const platforms = ['linux', 'win32', 'darwin'];
 
       platforms.forEach(plat => {
@@ -132,22 +127,12 @@ async function startPack() {
 function pack(plat, arch, cb) {
   // there is no darwin ia32 electron
   if (plat === 'darwin' && arch === 'ia32') return;
+  // armv7l does not exist on any platform but linux
+  if (plat !== 'linux' && arch === 'armv7l') return;
 
-  const iconObj = {
-    icon: DEFAULT_OPTS.icon + (() => {
-      let extension = '.png';
-      if (plat === 'darwin') extension = '.icns';
-      if (plat === 'win32') extension = '.ico';
-
-      return extension;
-    })()
-  };
-
-  const opts = Object.assign({}, DEFAULT_OPTS, iconObj, {
+  const opts = Object.assign({}, DEFAULT_OPTS, {
     platform: plat,
     arch,
-    prune: true,
-    'app-version': pkg.version || DEFAULT_OPTS.version,
     out: `release/${plat}-${arch}`
   });
 

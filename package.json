@@ -72,7 +72,7 @@
     "devtron": "^1.4.0",
     "electron": "^1.4.4",
     "electron-devtools-installer": "^2.0.1",
-    "electron-packager": "^8.1.0",
+    "electron-packager": "^8.2.0",
     "electron-rebuild": "^1.3.0",
     "enzyme": "^2.5.1",
     "eslint": "^3.8.1",
