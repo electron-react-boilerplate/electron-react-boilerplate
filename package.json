@@ -131,7 +131,7 @@
     "node-libs-browser": "^1.0.0",
     "postcss": "^5.2.5",
     "react-addons-test-utils": "^15.3.2",
-    "redux-logger": "^2.7.2",
+    "redux-logger": "^2.7.4",
     "sinon": "^1.17.6",
     "spectron": "^3.4.0",
     "style-loader": "^0.13.1",
@@ -153,7 +153,7 @@
     "react-router-redux": "^4.0.6",
     "redux": "^3.6.0",
     "redux-thunk": "^2.1.0",
-    "source-map-support": "^0.4.5"
+    "source-map-support": "^0.4.6"
   },
   "devEngines": {
     "node": ">=4.x",
