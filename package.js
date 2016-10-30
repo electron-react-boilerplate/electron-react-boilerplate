@@ -132,7 +132,7 @@ function pack(plat, arch, cb) {
 
   const opts = Object.assign({}, DEFAULT_OPTS, {
     platform: plat,
-    arch: arch,
+    arch,
     out: `release/${plat}-${arch}`
   });
 
