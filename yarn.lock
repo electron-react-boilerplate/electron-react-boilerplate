@@ -6199,9 +6199,9 @@ reduce-function-call@^1.0.1:
   dependencies:
     balanced-match "~0.1.0"
 
-redux-logger@^2.7.2:
-  version "2.7.2"
-  resolved "https://registry.yarnpkg.com/redux-logger/-/redux-logger-2.7.2.tgz#14dff3d60bbda7a6361a5901cb073fe3a9980fe1"
+redux-logger@^2.7.4:
+  version "2.7.4"
+  resolved "https://registry.yarnpkg.com/redux-logger/-/redux-logger-2.7.4.tgz#891e5d29e7f111d08b5781a237b9965b5858c7f8"
   dependencies:
     deep-diff "0.3.4"
 
@@ -6656,6 +6656,12 @@ source-map-resolve@^0.3.0:
 source-map-support@^0.4.2, source-map-support@^0.4.5:
   version "0.4.5"
   resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.4.5.tgz#4438df4219e1b3c7feb674614b4c67f9722db1e4"
+  dependencies:
+    source-map "^0.5.3"
+
+source-map-support@^0.4.6:
+  version "0.4.6"
+  resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.4.6.tgz#32552aa64b458392a85eab3b0b5ee61527167aeb"
   dependencies:
     source-map "^0.5.3"
 
