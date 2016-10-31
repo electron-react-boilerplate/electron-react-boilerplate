@@ -13,6 +13,8 @@ import { spawn } from 'child_process';
 
 import config from './webpack.config.development';
 
+const argv = require('minimist')(process.argv.slice(2));
+
 const app = express();
 const compiler = webpack(config);
 const PORT = process.env.PORT || 3000;
@@ -33,9 +35,11 @@ const server = app.listen(PORT, 'localhost', serverError => {
     return console.error(serverError);
   }
 
-  spawn('npm', ['run', 'start-hot'], { stdio: 'inherit' })
-    .on('close', code => process.exit(code))
-    .on('error', spawnError => console.error(spawnError));
+  if (argv['start-hot']) {
+    spawn('npm', ['run', 'start-hot'], { env: process.env, stdio: 'inherit' })
+      .on('close', code => process.exit(code))
+      .on('error', spawnError => console.error(spawnError));
+  }
 
   console.log(`Listening at http://localhost:${PORT}`);
 });
