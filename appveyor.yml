@@ -2,8 +2,8 @@ os: unstable
 
 environment:
   matrix:
+    - nodejs_version: 7
     - nodejs_version: 6
-    - nodejs_version: 4
 
 cache:
   - node_modules -> package.json
