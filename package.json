@@ -156,7 +156,7 @@
     "source-map-support": "^0.4.6"
   },
   "devEngines": {
-    "node": ">=4.x",
+    "node": ">=6.x",
     "npm": ">=3.x"
   }
 }
