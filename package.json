@@ -110,7 +110,7 @@
     "eslint": "^3.9.0",
     "eslint-config-airbnb": "^12.0.0",
     "eslint-formatter-pretty": "^1.1.0",
-    "eslint-import-resolver-webpack": "^0.6.0",
+    "eslint-import-resolver-webpack": "^0.7.0",
     "eslint-loader": "^1.6.0",
     "eslint-plugin-flowtype-errors": "^1.5.0",
     "eslint-plugin-import": "^2.0.1",
