@@ -20,7 +20,6 @@
 * **Note: requires a node version >= 6 and an npm version >= 3.**
 * **If you have installation or compilation issues with this project, please see [our debugging guide](https://github.com/chentsulin/electron-react-boilerplate/issues/400)**
 
-
 First, clone the repo via git:
 
 ```bash
@@ -33,6 +32,8 @@ And then install dependencies.
 ```bash
 $ cd your-project-name && npm install
 ```
+
+:bulb: *In order to remove boilerplate sample code, simply run `npm run cleanup`. After this is run, the initial sample boilerplate code will be removed in order for a clean project for starting custom dev*
 
 ## Run
 
