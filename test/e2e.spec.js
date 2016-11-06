@@ -7,7 +7,7 @@ import counterStyles from '../app/components/Counter.css';
 
 const delay = time => new Promise(resolve => setTimeout(resolve, time));
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = process.env.CI ? 40000 : 20000;
 
 describe('main window', function spec() {
   beforeAll(async () => {
