@@ -1,6 +1,7 @@
 {
   "env": {
-    "jest": true,
+    "jasmine": true,
+    "jest": true
   },
   "rules": {
     "no-unused-expressions": 0

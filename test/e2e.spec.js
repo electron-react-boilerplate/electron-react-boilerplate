@@ -7,6 +7,8 @@ import counterStyles from '../app/components/Counter.css';
 
 const delay = time => new Promise(resolve => setTimeout(resolve, time));
 
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
+
 describe('main window', function spec() {
   beforeAll(async () => {
     this.app = new Application({
