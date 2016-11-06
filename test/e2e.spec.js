@@ -7,13 +7,13 @@ import counterStyles from '../app/components/Counter.css';
 
 const delay = time => new Promise(resolve => setTimeout(resolve, time));
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000;
 
 describe('main window', function spec() {
   beforeAll(async () => {
-    this.app = new Application({
+    this.app = await new Application({
       path: electronPath,
-      args: [path.join(__dirname, '..', 'app')],
+      args: [path.join(__dirname, '..', 'app')]
     });
     return this.app.start();
   });
