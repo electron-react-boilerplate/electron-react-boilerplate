@@ -7,18 +7,18 @@ import counterStyles from '../app/components/Counter.css';
 
 const delay = time => new Promise(resolve => setTimeout(resolve, time));
 
-describe('main window', function spec() {
-  this.timeout(10000);
+jasmine.DEFAULT_TIMEOUT_INTERVAL = process.env.CI ? 40000 : 20000;
 
-  before(async () => {
-    this.app = new Application({
+describe('main window', function spec() {
+  beforeAll(async () => {
+    this.app = await new Application({
       path: electronPath,
-      args: [path.join(__dirname, '..', 'app')],
+      args: [path.join(__dirname, '..', 'app')]
     });
     return this.app.start();
   });
 
-  after(() => {
+  afterAll(() => {
     if (this.app && this.app.isRunning()) {
       return this.app.stop();
     }
