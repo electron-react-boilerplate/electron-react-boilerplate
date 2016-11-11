@@ -153,6 +153,22 @@ To package apps with options:
 $ npm run package -- --[option]
 ```
 
+## Further commands
+
+To run the application without packaging run
+
+```bash
+$ npm run build
+$ npm start
+```
+
+To run End-to-End Test
+
+```bash
+$ npm run build
+$ npm run test-e2e
+```
+
 #### Options
 
 See [electron-builder CLI Usage](https://github.com/electron-userland/electron-builder#cli-usage)
