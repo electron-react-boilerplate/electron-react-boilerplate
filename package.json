@@ -104,7 +104,7 @@
     "css-loader": "^0.25.0",
     "devtron": "^1.4.0",
     "electron": "^1.4.4",
-    "electron-builder": "^7.15.2",
+    "electron-builder": "^8.3.0",
     "electron-devtools-installer": "^2.0.1",
     "enzyme": "^2.5.1",
     "eslint": "^3.9.1",
