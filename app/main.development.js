@@ -30,7 +30,7 @@ const installExtensions = async () => {
       'REDUX_DEVTOOLS'
     ];
     const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
-    for (const name of extensions) {
+    for (const name of extensions) { // eslint-disable-line
       try {
         await installer.default(installer[name], forceDownload);
       } catch (e) {} // eslint-disable-line
