@@ -53,8 +53,4 @@ export default validate(merge(baseConfig, {
     __dirname: false,
     __filename: false
   },
-
-  externals: [
-    // 'source-map-support'
-  ]
 }));
