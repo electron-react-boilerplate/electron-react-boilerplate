@@ -42,17 +42,12 @@
       ]
     },
     "files": [
-      "**/*",
-      "!actions${/*}",
-      "!api${/*}",
-      "!components${/*}",
-      "!containers${/*}",
-      "!reducers${/*}",
-      "!store${/*}",
-      "!utils${/*}",
-      "!main.development.js",
-      "!index.js",
-      "!routes.js"
+      "dist/",
+      "node_modules/",
+      "app.html",
+      "main.js",
+      "main.js.map",
+      "package.json"
     ],
     "win": {
       "target": "nsis"
