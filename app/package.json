@@ -11,6 +11,5 @@
   },
   "license": "MIT",
   "dependencies": {
-    "source-map-support": "^0.4.3"
   }
 }

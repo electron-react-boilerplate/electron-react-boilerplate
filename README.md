@@ -97,21 +97,6 @@ $ UPGRADE_EXTENSIONS=1 npm run dev
 $ set UPGRADE_EXTENSIONS=1 && npm run dev
 ```
 
-## Externals
-
-If you use any 3rd party libraries which can't or won't be built with webpack, you must list them in your `webpack.config.base.js`：
-
-```javascript
-externals: [
-  // put your node 3rd party libraries which can't be built with webpack here (mysql, mongodb, and so on..)
-]
-```
-
-For a common example, to install bcrypt, `npm i --save bcrypt`, and make sure to list bcrypt in externals in `webpack.config.base.js` or the app won't include them in the package:
-```js
-externals: ['bcrypt']
-```
-
 
 
 ## CSS Modules
@@ -177,7 +162,7 @@ See [electron-builder CLI Usage](https://github.com/electron-userland/electron-b
 
 This boilerplate uses a [two package.json structure](https://github.com/electron-userland/electron-builder#two-packagejson-structure).
 
-1. If the module is native to a platform or otherwise should be included with the published package (i.e. bcrypt, openbci), it should be listed under `dependencies` in `./app/package.json` and `externals` in `webpack.config.base.js`.   See [Externals](#externals).
+1. If the module is native to a platform or otherwise should be included with the published package (i.e. bcrypt, openbci), it should be listed under `dependencies` in `./app/package.json`.
 2. If a module is `import`ed by another module, include it in `dependencies` in `./package.json`.   See [this ESLint rule](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-extraneous-dependencies.md).
 3. Otherwise, modules used for building, testing and debugging should be included in `devDependencies` in `./package.json`.
 
