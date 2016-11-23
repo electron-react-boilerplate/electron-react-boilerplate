@@ -34,7 +34,7 @@ const config = validate(merge(baseConfig, {
         )
       },
 
-      // Pipe other styles through css modules and apend to style.css
+      // Pipe other styles through css modules and append to style.css
       {
         test: /^((?!\.global).)*\.css$/,
         loader: ExtractTextPlugin.extract(
