@@ -39,7 +39,7 @@ export default validate(merge(baseConfig, {
   ],
 
   /**
-   * Set targed to Electron speciffic node.js env.
+   * Set target to Electron specific node.js env.
    * https://github.com/chentsulin/webpack-target-electron-renderer#how-this-module-works
    */
   target: 'electron-main',
