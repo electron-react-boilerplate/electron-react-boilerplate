@@ -29,8 +29,8 @@ before_script:
   - sleep 3
 
 script:
-  - npm run lint
-  - npm run test
-  - npm run build
-  - npm run test-e2e
-  - npm run package
+  - yarn run lint
+  - yarn run test
+  - yarn run build
+  - yarn run test-e2e
+  - yarn run package
