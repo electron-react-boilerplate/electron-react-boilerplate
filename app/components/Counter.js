@@ -2,7 +2,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import styles from './Counter.css';
-import cow from './super-cow.jpg';
 
 class Counter extends Component {
   static propTypes = {
@@ -25,7 +24,6 @@ class Counter extends Component {
         <div className={`counter ${styles.counter}`}>
           {counter}
         </div>
-        <img role="presentation" src={cow} />
         <div className={styles.btnGroup}>
           <button className={styles.btn} onClick={increment}>
             <i className="fa fa-plus" />

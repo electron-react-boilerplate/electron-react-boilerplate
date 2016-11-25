@@ -19,10 +19,8 @@ export default validate({
       loader: 'json-loader'
     },
     {
-      test: /\.(?:png|jpg|svg)$/,
-      loader: 'url-loader',
-      query: {}
-      // Inline images smaller than 10kb as data URIs        limit: 10000
+      test: /\.(?:ico|gif|png|jpg|jpeg|svg|webp)$/,
+      loader: 'url-loader'
     }]
   },
 
