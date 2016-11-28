@@ -135,7 +135,7 @@
     "json-loader": "^0.5.4",
     "minimist": "^1.2.0",
     "mocha": "^3.1.2",
-    "react-addons-test-utils": "^15.3.2",
+    "react-addons-test-utils": "^15.4.1",
     "redux-logger": "^2.7.4",
     "sinon": "^1.17.6",
     "spectron": "^3.4.0",
