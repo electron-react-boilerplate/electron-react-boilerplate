@@ -19,7 +19,7 @@ export default validate({
       loader: 'json-loader'
     },
     {
-      test: /\.(?:ico|gif|png|jpg|jpeg|svg|webp)$/,
+      test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
       loader: 'url-loader'
     }]
   },
