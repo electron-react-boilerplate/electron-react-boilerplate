@@ -3,14 +3,15 @@
   <head>
     <meta charset="utf-8">
     <title>Hello Electron React!</title>
-    <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css" />
     <script>
-      if (!process.env.HOT) {
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = '../dist/style.css';
-        document.write(link.outerHTML);
-      }
+      (function() {
+        if (!process.env.HOT) {
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = './dist/style.css';
+          document.write(link.outerHTML);
+        }
+      }());
     </script>
   </head>
   <body>
@@ -19,7 +20,9 @@
       {
         const script = document.createElement('script');
         const port = process.env.PORT || 3000;
-        script.src = (process.env.HOT) ? `http://localhost:${port}/dist/bundle.js` : '../dist/bundle.js';
+        script.src = (process.env.HOT)
+          ? 'http://localhost:' + port + '/dist/bundle.js'
+          : './dist/bundle.js';
         document.write(script.outerHTML);
       }
     </script>

@@ -10,12 +10,12 @@ import baseConfig from './webpack.config.base';
 export default validate(merge(baseConfig, {
   devtool: 'source-map',
 
-  entry: ['babel-polyfill', './main.development'],
+  entry: ['babel-polyfill', './app/main.development'],
 
   // 'main.js' in root
   output: {
     path: __dirname,
-    filename: './main.js'
+    filename: './app/main.js'
   },
 
   plugins: [
@@ -25,15 +25,12 @@ export default validate(merge(baseConfig, {
         warnings: false
       }
     }),
-
     // Add source map support for stack traces in node
     // https://github.com/evanw/node-source-map-support
-    new webpack.BannerPlugin(
-      'require("source-map-support").install();',
-      { raw: true, entryOnly: false }
-    ),
-
-    // NODE_ENV should be production so that modules do not perform certain development checks
+    // new webpack.BannerPlugin(
+    //   'require("source-map-support").install();',
+    //   { raw: true, entryOnly: false }
+    // ),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production')
@@ -42,7 +39,7 @@ export default validate(merge(baseConfig, {
   ],
 
   /**
-   * Set targed to Electron speciffic node.js env.
+   * Set target to Electron specific node.js env.
    * https://github.com/chentsulin/webpack-target-electron-renderer#how-this-module-works
    */
   target: 'electron-main',
@@ -56,9 +53,4 @@ export default validate(merge(baseConfig, {
     __dirname: false,
     __filename: false
   },
-
-  externals: [
-    'font-awesome',
-    'source-map-support'
-  ]
 }));
