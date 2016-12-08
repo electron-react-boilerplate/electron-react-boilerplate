@@ -8,18 +8,29 @@ import rootReducer from '../reducers';
 import * as counterActions from '../actions/counter';
 
 export default (initialState: Object) => {
-  const actionCreators = {
-    ...counterActions,
-    push,
-  };
+  // Redux Configuration
+  const middleware = [];
+  const enhancers = [];
 
+  // Thunk Middleware
+  middleware.push(thunk);
+
+  // Logging Middleware
   const logger = createLogger({
     level: 'info',
     collapsed: true
   });
+  middleware.push(logger);
 
+  // Router Middleware
   const router = routerMiddleware(hashHistory);
+  middleware.push(router);
 
+  // Redux DevTools Configuration
+  const actionCreators = {
+    ...counterActions,
+    push,
+  };
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose
   /* eslint-disable no-underscore-dangle */
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
@@ -29,10 +40,12 @@ export default (initialState: Object) => {
     }) :
     compose;
   /* eslint-enable no-underscore-dangle */
-  const enhancer = composeEnhancers(
-    applyMiddleware(thunk, router, logger)
-  );
 
+  // Apply Middleware & Compose Enhancers
+  enhancers.push(applyMiddleware(...middleware));
+  const enhancer = composeEnhancers(...enhancers);
+
+  // Create Store
   const store = createStore(rootReducer, initialState, enhancer);
 
   if (module.hot) {
