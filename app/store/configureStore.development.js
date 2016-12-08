@@ -7,32 +7,32 @@ import rootReducer from '../reducers';
 
 import * as counterActions from '../actions/counter';
 
-const actionCreators = {
-  ...counterActions,
-  push,
-};
+export default (initialState: Object) => {
+  const actionCreators = {
+    ...counterActions,
+    push,
+  };
 
-const logger = createLogger({
-  level: 'info',
-  collapsed: true
-});
+  const logger = createLogger({
+    level: 'info',
+    collapsed: true
+  });
 
-const router = routerMiddleware(hashHistory);
+  const router = routerMiddleware(hashHistory);
 
-// If Redux DevTools Extension is installed use it, otherwise use Redux compose
-/* eslint-disable no-underscore-dangle */
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-    // Options: http://zalmoxisus.github.io/redux-devtools-extension/API/Arguments.html
-    actionCreators,
-  }) :
-  compose;
-/* eslint-enable no-underscore-dangle */
-const enhancer = composeEnhancers(
-  applyMiddleware(thunk, router, logger)
-);
+  // If Redux DevTools Extension is installed use it, otherwise use Redux compose
+  /* eslint-disable no-underscore-dangle */
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+      // Options: http://zalmoxisus.github.io/redux-devtools-extension/API/Arguments.html
+      actionCreators,
+    }) :
+    compose;
+  /* eslint-enable no-underscore-dangle */
+  const enhancer = composeEnhancers(
+    applyMiddleware(thunk, router, logger)
+  );
 
-export default function configureStore(initialState: Object) {
   const store = createStore(rootReducer, initialState, enhancer);
 
   if (module.hot) {
@@ -42,4 +42,4 @@ export default function configureStore(initialState: Object) {
   }
 
   return store;
-}
+};
