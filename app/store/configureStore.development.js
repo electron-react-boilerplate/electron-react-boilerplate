@@ -10,12 +10,13 @@ import {
   replayActionMain,
   replayActionRenderer,
 } from 'electron-redux';
+import isRenderer from 'is-electron-renderer';
 import rootReducer from '../reducers';
 
 import * as counterActions from '../actions/counter';
 
-export default (initialState: Object, scope = 'main') => {
-  console.log('initialState', initialState, scope);
+export default (initialState: Object) => {
+  const isMain = !isRenderer;
   // Redux Configuration
   let middleware = [];
   const enhancers = [];
@@ -24,7 +25,7 @@ export default (initialState: Object, scope = 'main') => {
   middleware.push(thunk);
 
   // Logging Middleware
-  if (scope === 'main') {
+  if (isMain) {
     const logger = createLogger({
       level: 'info',
       collapsed: true
@@ -33,14 +34,14 @@ export default (initialState: Object, scope = 'main') => {
   }
 
   // Router Middleware
-  if (scope === 'renderer') {
+  if (isRenderer) {
     const router = routerMiddleware(hashHistory);
     middleware.push(router);
   }
 
   // Redux DevTools Configuration
   let composeEnhancers = compose;
-  if (scope === 'renderer') {
+  if (isRenderer) {
     const actionCreators = {
       ...counterActions,
       push,
@@ -57,13 +58,13 @@ export default (initialState: Object, scope = 'main') => {
   }
 
   // Electron Redux Configuration
-  if (scope === 'renderer') {
+  if (isRenderer) {
     middleware = [
       forwardToMain,
       ...middleware,
     ];
   }
-  if (scope === 'main') {
+  if (isMain) {
     middleware = [
       triggerAlias,
       ...middleware,
@@ -84,7 +85,7 @@ export default (initialState: Object, scope = 'main') => {
     );
   }
 
-  if (scope === 'main') {
+  if (isMain) {
     replayActionMain(store);
   } else {
     replayActionRenderer(store);

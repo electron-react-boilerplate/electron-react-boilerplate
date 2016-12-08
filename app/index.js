@@ -10,7 +10,7 @@ import configureStore from './store/configureStore';
 import './app.global.css';
 
 const initialState = getInitialStateRenderer();
-const store = configureStore(initialState, 'renderer');
+const store = configureStore(initialState);
 const history = syncHistoryWithStore(hashHistory, store);
 
 render(

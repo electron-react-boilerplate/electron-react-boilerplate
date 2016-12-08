@@ -5,7 +5,7 @@ let menu;
 let template;
 let mainWindow = null;
 
-const store = configureStore({}, 'main');
+const store = configureStore();
 
 store.subscribe(() => {
   console.log('state from main process', store.getState());
