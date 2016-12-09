@@ -9,7 +9,7 @@
           const link = document.createElement('link');
           link.rel = 'stylesheet';
           link.href = './dist/style.css';
-          document.body.appendChild(link);
+          document.getElementsByTagName('head')[0].appendChild(link);
         }
       }());
     </script>
