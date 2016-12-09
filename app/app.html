@@ -9,7 +9,7 @@
           const link = document.createElement('link');
           link.rel = 'stylesheet';
           link.href = './dist/style.css';
-          document.body.appendChild(link.outerHTML);
+          document.body.appendChild(link);
         }
       }());
     </script>
@@ -23,7 +23,7 @@
         script.src = (process.env.HOT)
           ? 'http://localhost:' + port + '/dist/bundle.js'
           : './dist/bundle.js';
-        document.body.appendChild(script.outerHTML);
+        document.body.appendChild(script);
       }
     </script>
   </body>
