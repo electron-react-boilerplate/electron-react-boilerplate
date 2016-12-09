@@ -9,6 +9,7 @@
           const link = document.createElement('link');
           link.rel = 'stylesheet';
           link.href = './dist/style.css';
+          // HACK: Writing the script path should be done with webpack
           document.getElementsByTagName('head')[0].appendChild(link);
         }
       }());
@@ -23,6 +24,7 @@
         script.src = (process.env.HOT)
           ? 'http://localhost:' + port + '/dist/bundle.js'
           : './dist/bundle.js';
+        // HACK: Writing the script path should be done with webpack
         document.body.appendChild(script);
       }
     </script>
