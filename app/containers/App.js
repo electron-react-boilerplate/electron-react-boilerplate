@@ -1,9 +1,9 @@
 // @flow
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 
 export default class App extends Component {
-  static propTypes = {
-    children: PropTypes.element.isRequired
+  props: {
+    children: HTMLElement
   };
 
   render() {
