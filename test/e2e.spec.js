@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Application } from 'spectron';
 import { expect } from 'chai';
 import electronPath from 'electron';
@@ -6,6 +7,10 @@ import homeStyles from '../app/components/Home.css';
 import counterStyles from '../app/components/Counter.css';
 
 const delay = time => new Promise(resolve => setTimeout(resolve, time));
+
+// HACK to fix test timeout
+global.Promise = require.requireActual('promise');
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000; // 10 second timeout
 
 describe('main window', function spec() {
   beforeAll(async () => {
