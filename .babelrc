@@ -12,7 +12,7 @@
     },
     "test": {
       "plugins": [
-        ["webpack-loaders", { "config": "webpack.config.test.js", "verbose": false }]
+        ["webpack-loaders", { "config": "webpack.config.tests.js", "verbose": false }]
       ]
     }
   }
