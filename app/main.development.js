@@ -1,8 +1,15 @@
 import { app, BrowserWindow, Menu, shell } from 'electron';
+import configureStore from './store/configureStore';
 
 let menu;
 let template;
 let mainWindow = null;
+
+const store = configureStore();
+
+store.subscribe(() => {
+  console.log('state from main process', store.getState());
+});
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support'); // eslint-disable-line
