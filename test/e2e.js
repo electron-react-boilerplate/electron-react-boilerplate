@@ -10,7 +10,7 @@ const delay = time => new Promise(resolve => setTimeout(resolve, time));
 describe('main window', function spec() {
   this.timeout(10000);
 
-  before(async () => {
+  beforeAll(async () => {
     this.app = new Application({
       path: electronPath,
       args: [path.join(__dirname, '..', 'app')],
