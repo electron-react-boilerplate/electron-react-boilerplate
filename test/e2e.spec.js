@@ -36,14 +36,14 @@ describe('main window', function spec() {
     await delay(500);
     const title = await browserWindow.getTitle();
     expect(title).to.equal('Hello Electron React!');
-  });
+  }, 10000);
 
   it('should to Counter with click "to Counter" link', async () => {
     const { client } = this.app;
 
     await client.click(`.${homeStyles.container} > a`);
     expect(await findCounter().getText()).to.equal('0');
-  });
+  }, 10000);
 
   it('should display updated count after increment button click', async () => {
     const { client } = this.app;
@@ -51,7 +51,7 @@ describe('main window', function spec() {
     const buttons = await findButtons();
     await client.elementIdClick(buttons[0]);  // +
     expect(await findCounter().getText()).to.equal('1');
-  });
+  }, 10000);
 
   it('should display updated count after descrement button click', async () => {
     const { client } = this.app;
@@ -59,7 +59,7 @@ describe('main window', function spec() {
     const buttons = await findButtons();
     await client.elementIdClick(buttons[1]);  // -
     expect(await findCounter().getText()).to.equal('0');
-  });
+  }, 10000);
 
   it('shouldnt change if even and if odd button clicked', async () => {
     const { client } = this.app;
@@ -67,7 +67,7 @@ describe('main window', function spec() {
     const buttons = await findButtons();
     await client.elementIdClick(buttons[2]);  // odd
     expect(await findCounter().getText()).to.equal('0');
-  });
+  }, 10000);
 
   it('should change if odd and if odd button clicked', async () => {
     const { client } = this.app;
@@ -76,7 +76,7 @@ describe('main window', function spec() {
     await client.elementIdClick(buttons[0]);  // +
     await client.elementIdClick(buttons[2]);  // odd
     expect(await findCounter().getText()).to.equal('2');
-  });
+  }, 10000);
 
   it('should change if async button clicked and a second later', async () => {
     const { client } = this.app;
@@ -86,7 +86,7 @@ describe('main window', function spec() {
     expect(await findCounter().getText()).to.equal('2');
     await delay(1000);
     expect(await findCounter().getText()).to.equal('3');
-  });
+  }, 10000);
 
   it('should back to home if back button clicked', async () => {
     const { client } = this.app;
@@ -97,5 +97,5 @@ describe('main window', function spec() {
     expect(
       await client.isExisting(`.${homeStyles.container}`)
     ).to.be.true;
-  });
+  }, 10000);
 });
