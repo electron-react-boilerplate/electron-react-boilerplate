@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Application } from 'spectron';
 import { expect } from 'chai';
 import electronPath from 'electron';
@@ -7,10 +8,12 @@ import counterStyles from '../app/components/Counter.css';
 
 const delay = time => new Promise(resolve => setTimeout(resolve, time));
 
-describe('main window', function spec() {
-  this.timeout(10000);
+// HACK to fix test timeout
+global.Promise = require.requireActual('promise');
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000; // 10 second timeout
 
-  before(async () => {
+describe('main window', function spec() {
+  beforeAll(async () => {
     this.app = new Application({
       path: electronPath,
       args: [path.join(__dirname, '..', 'app')],
@@ -18,7 +21,7 @@ describe('main window', function spec() {
     return this.app.start();
   });
 
-  after(() => {
+  afterAll(() => {
     if (this.app && this.app.isRunning()) {
       return this.app.stop();
     }
@@ -38,14 +41,14 @@ describe('main window', function spec() {
     await delay(500);
     const title = await browserWindow.getTitle();
     expect(title).to.equal('Hello Electron React!');
-  });
+  }, 10000);
 
   it('should to Counter with click "to Counter" link', async () => {
     const { client } = this.app;
 
     await client.click(`.${homeStyles.container} > a`);
     expect(await findCounter().getText()).to.equal('0');
-  });
+  }, 10000);
 
   it('should display updated count after increment button click', async () => {
     const { client } = this.app;
@@ -53,7 +56,7 @@ describe('main window', function spec() {
     const buttons = await findButtons();
     await client.elementIdClick(buttons[0]);  // +
     expect(await findCounter().getText()).to.equal('1');
-  });
+  }, 10000);
 
   it('should display updated count after descrement button click', async () => {
     const { client } = this.app;
@@ -61,7 +64,7 @@ describe('main window', function spec() {
     const buttons = await findButtons();
     await client.elementIdClick(buttons[1]);  // -
     expect(await findCounter().getText()).to.equal('0');
-  });
+  }, 10000);
 
   it('shouldnt change if even and if odd button clicked', async () => {
     const { client } = this.app;
@@ -69,7 +72,7 @@ describe('main window', function spec() {
     const buttons = await findButtons();
     await client.elementIdClick(buttons[2]);  // odd
     expect(await findCounter().getText()).to.equal('0');
-  });
+  }, 10000);
 
   it('should change if odd and if odd button clicked', async () => {
     const { client } = this.app;
@@ -78,7 +81,7 @@ describe('main window', function spec() {
     await client.elementIdClick(buttons[0]);  // +
     await client.elementIdClick(buttons[2]);  // odd
     expect(await findCounter().getText()).to.equal('2');
-  });
+  }, 10000);
 
   it('should change if async button clicked and a second later', async () => {
     const { client } = this.app;
@@ -88,7 +91,7 @@ describe('main window', function spec() {
     expect(await findCounter().getText()).to.equal('2');
     await delay(1000);
     expect(await findCounter().getText()).to.equal('3');
-  });
+  }, 10000);
 
   it('should back to home if back button clicked', async () => {
     const { client } = this.app;
@@ -99,5 +102,5 @@ describe('main window', function spec() {
     expect(
       await client.isExisting(`.${homeStyles.container}`)
     ).to.be.true;
-  });
+  }, 10000);
 });
