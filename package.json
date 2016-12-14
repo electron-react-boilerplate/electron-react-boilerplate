@@ -26,6 +26,7 @@
     "cleanup": "mop -v"
   },
   "build": {
+    "productName": "ElectronReact",
     "appId": "org.develar.ElectronReact",
     "category": "public.app-category.tools",
     "dmg": {
