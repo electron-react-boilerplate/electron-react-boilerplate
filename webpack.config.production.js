@@ -8,6 +8,7 @@ import validate from 'webpack-validator';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import merge from 'webpack-merge';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import BabiliPlugin from 'babili-webpack-plugin';
 import baseConfig from './webpack.config.base';
 
 export default validate(merge(baseConfig, {
@@ -68,14 +69,10 @@ export default validate(merge(baseConfig, {
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
 
-    // Minify without warning messages and IE8 support
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        screw_ie8: true,
-        warnings: false
-      }
-    }),
+    new BabiliPlugin(),
+
     new ExtractTextPlugin('style.css', { allChunks: true }),
+
     new HtmlWebpackPlugin({
       filename: '../app.html',
       template: 'app/app.html',
