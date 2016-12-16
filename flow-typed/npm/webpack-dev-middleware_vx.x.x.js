@@ -1,4 +1,4 @@
-// flow-typed signature: 3110fce48c49842a66286ad518b6b2f1
+// flow-typed signature: be6f7d69bab2ee86c971763b42e9b0db
 // flow-typed version: <<STUB>>/webpack-dev-middleware_v^1.8.4/flow_v0.37.0
 
 /**
@@ -30,6 +30,10 @@ declare module 'webpack-dev-middleware/lib/PathJoin' {
   declare module.exports: any;
 }
 
+declare module 'webpack-dev-middleware/lib/Shared' {
+  declare module.exports: any;
+}
+
 declare module 'webpack-dev-middleware/middleware' {
   declare module.exports: any;
 }
@@ -40,6 +44,9 @@ declare module 'webpack-dev-middleware/lib/GetFilenameFromUrl.js' {
 }
 declare module 'webpack-dev-middleware/lib/PathJoin.js' {
   declare module.exports: $Exports<'webpack-dev-middleware/lib/PathJoin'>;
+}
+declare module 'webpack-dev-middleware/lib/Shared.js' {
+  declare module.exports: $Exports<'webpack-dev-middleware/lib/Shared'>;
 }
 declare module 'webpack-dev-middleware/middleware.js' {
   declare module.exports: $Exports<'webpack-dev-middleware/middleware'>;
