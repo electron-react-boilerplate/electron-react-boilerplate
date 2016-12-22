@@ -152,7 +152,7 @@
     "webpack": "^1.14.0",
     "webpack-dev-middleware": "^1.9.0",
     "webpack-hot-middleware": "^2.13.2",
-    "webpack-merge": "^1.1.2",
+    "webpack-merge": "^2.0.0",
     "webpack-validator": "^2.3.0"
   },
   "dependencies": {
