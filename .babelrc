@@ -1,6 +1,6 @@
 {
-	"presets": [
-    ["env", {"targets": { "node": 6 }, "useBuiltIns": true }],
+  "presets": [
+    ["env", { "targets": { "node": 6 }, "useBuiltIns": true }],
     "stage-0",
     "react"
   ],
@@ -11,7 +11,11 @@
       "plugins": ["babel-plugin-dev-expression"]
     },
     "development": {
-			"plugins": ["tcomb"],
+      "plugins": [
+        "transform-class-properties",
+        "transform-es2015-classes",
+        "tcomb"
+      ],
       "presets": ["react-hmre"]
     },
     "test": {
