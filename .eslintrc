@@ -8,6 +8,7 @@
   },
   "rules": {
     "arrow-parens": ["off"],
+    "compat/compat": 2,
     "consistent-return": "off",
     "comma-dangle": "off",
     "generator-star-spacing": "off",
@@ -28,9 +29,11 @@
     "flowtype-errors",
     "import",
     "promise",
+    "compat",
     "react"
   ],
   "settings": {
+    "targets": ["chrome"],
     "import/resolver": {
       "webpack": {
         "config": "webpack.config.eslint.js"
