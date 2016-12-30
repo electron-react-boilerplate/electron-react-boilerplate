@@ -36,17 +36,8 @@ $ cd your-project-name && npm install
 
 :bulb: *In order to remove boilerplate sample code, simply run `npm run cleanup`. After this is run, the initial sample boilerplate code will be removed in order for a clean project for starting custom dev*
 
-## Run
-
-Run these two commands __simultaneously__ in different console tabs.
-
-```bash
-$ npm run hot-server
-$ npm run start-hot
-```
-
-or run two servers with one command
-
+## Development
+  * Runs with live-reload (hot-module-replacement)
 ```bash
 $ npm run dev
 ```
