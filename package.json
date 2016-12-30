@@ -109,7 +109,7 @@
     "babel-preset-stage-0": "^6.16.0",
     "babel-register": "^6.18.0",
     "babili-webpack-plugin": "^0.0.7",
-    "boiler-room-custodian": "^0.4.3",
+    "boiler-room-custodian": "^0.5.0",
     "chai": "^3.5.0",
     "concurrently": "^3.1.0",
     "cross-env": "^3.1.3",
