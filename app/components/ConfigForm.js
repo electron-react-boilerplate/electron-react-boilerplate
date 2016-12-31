@@ -1,44 +1,53 @@
 import React from 'react';
-import TextField from 'material-ui/TextField';
-// import Songs from '../components/Songs';
+import { TextInput } from 'react-desktop/windows';
 
 export default function (props) {
   let hostName = props.hostName;
   let ftpPort = props.ftpPort;
   let ftpUserName = props.ftpUserName;
   let ftpPassword = props.ftpPassword;
-  const onHostNameChange = props.onHostNameChange;
-  const onFtpPortChange = props.onFtpPortChange;
-  const onFtpUserNameChange = props.onFtpUserNameChange;
-  const onFtpPasswordChange = props.onFtpPasswordChange;
+  const setHostName = props.setHostName;
+  const setFtpPort = props.setFtpPort;
+  const setFtpUserName = props.setFtpUserName;
+  const setFtpPassword = props.setFtpPassword;
 
   return (
     <div>
       <form className='container'>
         <br />
-        <TextField
-          hintText="192.168.0.1"
-          floatingLabelText="Hostname or IP"
-          onChange={(evt, newValue) => onHostNameChange(newValue)}
+        <TextInput
+          placeholder="192.168.0.1"
+          label="Hostname or IP"
+          onChange={(evt) => {
+            evt.preventDefault();
+            setHostName(evt.target.value);
+          } }
           value={hostName}
           /><br />
-        <TextField
-          defaultValue="23"
-          floatingLabelText="FTP Port"
-          onChange={(evt, newValue) => onFtpPortChange(newValue)}
+        <TextInput
+          label="FTP Port"
+          onChange={(evt) => {
+            evt.preventDefault();
+            setFtpPort(evt.target.value);
+          } }
           value={ftpPort}
           /><br />
-        <TextField
-          hintText="Gene.Amdahl"
-          floatingLabelText="FTP User Name"
-          onChange={(evt, newValue) => onFtpUserNameChange(newValue)}
+        <TextInput
+          placeholder="Gene.Amdahl"
+          label="FTP User Name"
+          onChange={(evt) => {
+            evt.preventDefault();
+            setFtpUserName(evt.target.value);
+          } }
           value={ftpUserName}
           /><br />
-        <TextField
-          hintText="Password Field"
-          floatingLabelText="FTP Password"
-          type="password"
-          onChange={(evt, newValue) => onFtpPasswordChange(newValue)}
+        <TextInput
+          placeholder="Password"
+          label="FTP Password"
+          onChange={(evt) => {
+            evt.preventDefault();
+            setFtpPassword(evt.target.value);
+          } }
           value={ftpPassword}
           /><br />
       </form>
