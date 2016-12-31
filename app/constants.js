@@ -1,0 +1,5 @@
+export const SET_EDITOR_CONTENT = 'SET_EDITOR_CONTENT';
+export const SET_HOST_NAME = 'SET_HOST_NAME';
+export const SET_FTP_PORT = 'SET_FTP_PORT';
+export const SET_FTP_USER_NAME = 'SET_FTP_USER_NAME';
+export const SET_FTP_PASSWORD = 'SET_FTP_PASSWORD';
