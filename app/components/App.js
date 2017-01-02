@@ -1,6 +1,10 @@
 import React from 'react';
 import { Window, TitleBar, Text, NavPane, NavPaneItem } from 'react-desktop/windows';
 import w10Edit from '../../resources/icons/w10Edit.svg';
+// import punchCardLightTheme from '../../resources/icons/punchCardLightTheme.png';
+// import punchCardDarkTheme from '../../resources/icons/punchCardDarkTheme.png';
+import renderIcon from '../utils/renderIcon';
+
 import { hashHistory } from 'react-router'
 
 export default function (props) { //props is now from MY POV
@@ -32,23 +36,17 @@ export default function (props) { //props is now from MY POV
         >
         <NavPaneItem
           title='home'
-          // icon={w10Edit}
-          theme="light"
-          background="#ffffff"
+          icon={renderIcon('help', props.theme)}
           padding="10px 20px"
           onSelect={() => {
             console.log("Going to /home");
             hashHistory.push('/home');
           } }
-          // push
           />
         <NavPaneItem
           title='edit'
-          // icon={w10Edit}
-          theme="light"
-          background="#ffffff"
+          icon={renderIcon('punchCard', props.theme)}
           padding="10px 20px"
-          // push
           onSelect={() => {
             console.log("Going to /editor");
             hashHistory.push('/editor');
@@ -57,15 +55,12 @@ export default function (props) { //props is now from MY POV
         </NavPaneItem>
         <NavPaneItem
           title='config'
-          // icon={w10Edit}
-          theme="light"
-          background="#ffffff"
+          icon={renderIcon('settings', props.theme)}
           padding="10px 20px"
           onSelect={() => {
             console.log("Going to /config");
             hashHistory.push('/config');
           } }
-          // push
           >
         </NavPaneItem>
       </NavPane>
