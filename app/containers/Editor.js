@@ -5,7 +5,9 @@ import { setEditorContent } from '../actions/editor';
 
 function mapStateToProps(state) {
   return {
-    editorContent: state.editor.editorContent
+    editorContent: state.editor.editorContent,
+    theme: state.uiStyle.theme,
+    color: state.uiStyle.color
   };
 }
 

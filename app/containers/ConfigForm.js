@@ -2,6 +2,7 @@
 import { connect } from 'react-redux';
 import ConfigForm from '../components/ConfigForm';
 import { setHostName, setFtpPort, setFtpUserName, setFtpPassword } from '../actions/configForm.js';
+import { setThemeDark, setThemeLight } from '../actions/uiStyle';
 
 function mapStateToProps(state) {
   return {
@@ -19,7 +20,9 @@ function mapDispatchToProps(dispatch) {
     setHostName: (hostName) => dispatch(setHostName(hostName)),
     setFtpPort: (ftpPort) => dispatch(setFtpPort(ftpPort)),
     setFtpUserName: (ftpUserName) => dispatch(setFtpUserName(ftpUserName)),
-    setFtpPassword: (ftpPassword) => dispatch(setFtpPassword(ftpPassword))
+    setFtpPassword: (ftpPassword) => dispatch(setFtpPassword(ftpPassword)),
+    setThemeDark: () => dispatch(setThemeDark()),
+    setThemeLight: () => dispatch(setThemeLight())
   };
 }
 

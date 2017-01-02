@@ -42,36 +42,34 @@ export default function (props) { //props is now from MY POV
           } }
           // push
           />
-          <NavPaneItem
-            title='edit'
-            // icon={w10Edit}
-            theme="light"
-            background="#ffffff"
-            padding="10px 20px"
-            // push
-            onSelect={() => {
-              console.log("Going to /editor");
-              hashHistory.push('/editor');
-            } }
-            >
-          </NavPaneItem>
-          <NavPaneItem
-            title='config'
-            // icon={w10Edit}
-            theme="light"
-            background="#ffffff"
-            padding="10px 20px"
-            onSelect={() => {
-              console.log("Going to /config");
-              hashHistory.push('/config');
-            } }
-            // push
-            >
-          </NavPaneItem>
+        <NavPaneItem
+          title='edit'
+          // icon={w10Edit}
+          theme="light"
+          background="#ffffff"
+          padding="10px 20px"
+          // push
+          onSelect={() => {
+            console.log("Going to /editor");
+            hashHistory.push('/editor');
+          } }
+          >
+        </NavPaneItem>
+        <NavPaneItem
+          title='config'
+          // icon={w10Edit}
+          theme="light"
+          background="#ffffff"
+          padding="10px 20px"
+          onSelect={() => {
+            console.log("Going to /config");
+            hashHistory.push('/config');
+          } }
+          // push
+          >
+        </NavPaneItem>
       </NavPane>
-        <div>
-          {props.children}
-        </div>
+      {props.children}
     </Window >
-      )
+  )
 }

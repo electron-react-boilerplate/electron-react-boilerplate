@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput, View } from 'react-desktop/windows';
+import { TextInput, Text, View, Radio, Label } from 'react-desktop/windows';
 
 export default function (props) {
   let hostName = props.hostName;
@@ -12,52 +12,82 @@ export default function (props) {
   const setFtpPassword = props.setFtpPassword;
   const color = props.color;
   const theme = props.theme;
+  const setThemeDark = props.setThemeDark;
+  const setThemeLight = props.setThemeLight;
+
 
   return (
     <View
-      color='#cc7f29'
-      background
+      color={color}
       theme={theme}
       layout='vertical'
-      width='auto'
+      horizontalAlignment='center'
+      width='100%'
       height='100%'
       >
+      <Label color={theme === 'dark' ? 'white' : '#333'}>Hostname or IP</Label>
       <TextInput
-        color='#cc7f29'
+        theme={theme}
         placeholder="192.168.0.1"
-        label="Hostname or IP"
         onChange={(evt) => {
           evt.preventDefault();
           setHostName(evt.target.value);
         } }
         value={hostName}
         />
+      <Label color={theme === 'dark' ? 'white' : '#333'}>FTP Port</Label>
       <TextInput
-        label="FTP Port"
         onChange={(evt) => {
           evt.preventDefault();
           setFtpPort(evt.target.value);
         } }
         value={ftpPort}
         />
+      <Label color={theme === 'dark' ? 'white' : '#333'}>FTP User Name</Label>
       <TextInput
         placeholder="Gene.Amdahl"
-        label="FTP User Name"
         onChange={(evt) => {
           evt.preventDefault();
           setFtpUserName(evt.target.value);
         } }
         value={ftpUserName}
         />
+      <Label color={theme === 'dark' ? 'white' : '#333'}>FTP Password</Label>
       <TextInput
         placeholder="Password"
-        label="FTP Password"
         onChange={(evt) => {
           evt.preventDefault();
           setFtpPassword(evt.target.value);
         } }
         value={ftpPassword}
         />
+      <Label color={theme === 'dark' ? 'white' : '#333'}>Theme</Label>
+      <View layout="horizontal" theme={theme}>
+        <Radio
+          theme={theme}
+          color={color}
+          label="Dark"
+          name="radio0"
+          onChange={(evt) => {
+            setThemeDark();
+          } }
+          defaultChecked= {theme === 'dark' ? true : false}
+          />
+        <span
+          style={{ marginLeft: '5px' }}
+          />
+        <Radio
+          theme={theme}
+          color={color}
+          label="Light"
+          name="radio0"
+          onChange={(evt) => {
+            setThemeLight();
+          } }
+          defaultValue="Light was checked!"
+          defaultChecked={theme === 'light' ? true : false}
+          />
+      </View>
     </View>
   );
 }
