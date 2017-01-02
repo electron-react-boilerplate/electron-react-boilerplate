@@ -6,8 +6,6 @@ import Editor from 'react-ace';
 import React from 'react';
 
 export default function (props) { //props is now from MY POV
-  console.log("Props.children ", props.children);
-
   const editorContent = props.editorContent;
   const setEditorContent = props.setEditorContent;
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput } from 'react-desktop/windows';
+import { TextInput, View } from 'react-desktop/windows';
 
 export default function (props) {
   let hostName = props.hostName;
@@ -10,49 +10,54 @@ export default function (props) {
   const setFtpPort = props.setFtpPort;
   const setFtpUserName = props.setFtpUserName;
   const setFtpPassword = props.setFtpPassword;
+  const color = props.color;
+  const theme = props.theme;
 
   return (
-    <div>
-      <form className='container'>
-        <br />
-        <TextInput
-          placeholder="192.168.0.1"
-          label="Hostname or IP"
-          onChange={(evt) => {
-            evt.preventDefault();
-            setHostName(evt.target.value);
-          } }
-          value={hostName}
-          /><br />
-        <TextInput
-          label="FTP Port"
-          onChange={(evt) => {
-            evt.preventDefault();
-            setFtpPort(evt.target.value);
-          } }
-          value={ftpPort}
-          /><br />
-        <TextInput
-          placeholder="Gene.Amdahl"
-          label="FTP User Name"
-          onChange={(evt) => {
-            evt.preventDefault();
-            setFtpUserName(evt.target.value);
-          } }
-          value={ftpUserName}
-          /><br />
-        <TextInput
-          placeholder="Password"
-          label="FTP Password"
-          onChange={(evt) => {
-            evt.preventDefault();
-            setFtpPassword(evt.target.value);
-          } }
-          value={ftpPassword}
-          /><br />
-      </form>
-    </div>
-
+    <View
+      color='#cc7f29'
+      background
+      theme={theme}
+      layout='vertical'
+      width='auto'
+      height='100%'
+      >
+      <TextInput
+        color='#cc7f29'
+        placeholder="192.168.0.1"
+        label="Hostname or IP"
+        onChange={(evt) => {
+          evt.preventDefault();
+          setHostName(evt.target.value);
+        } }
+        value={hostName}
+        />
+      <TextInput
+        label="FTP Port"
+        onChange={(evt) => {
+          evt.preventDefault();
+          setFtpPort(evt.target.value);
+        } }
+        value={ftpPort}
+        />
+      <TextInput
+        placeholder="Gene.Amdahl"
+        label="FTP User Name"
+        onChange={(evt) => {
+          evt.preventDefault();
+          setFtpUserName(evt.target.value);
+        } }
+        value={ftpUserName}
+        />
+      <TextInput
+        placeholder="Password"
+        label="FTP Password"
+        onChange={(evt) => {
+          evt.preventDefault();
+          setFtpPassword(evt.target.value);
+        } }
+        value={ftpPassword}
+        />
+    </View>
   );
-
 }

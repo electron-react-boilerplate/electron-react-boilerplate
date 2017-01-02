@@ -5,10 +5,16 @@ import { routerMiddleware, push } from 'react-router-redux';
 import createLogger from 'redux-logger';
 import rootReducer from '../reducers';
 
-import * as counterActions from '../actions/counter';
+// import * as counterActions from '../actions/counter';
+import * as configFormActions from '../actions/configForm';
+import * as editorActions from '../actions/editor';
+import * as uiStyleActions from '../actions/uiStyle';
 
 const actionCreators = {
-  ...counterActions,
+  // ...counterActions,
+  ...configFormActions,
+  ...editorActions,
+  ...uiStyleActions,
   push,
 };
 

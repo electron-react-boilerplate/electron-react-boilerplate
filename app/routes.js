@@ -4,13 +4,11 @@ import { Route, IndexRoute } from 'react-router';
 import App from './containers/App';
 import Editor from './containers/Editor';
 import HomePage from './containers/HomePage';
-import CounterPage from './containers/CounterPage';
 import ConfigForm from './containers/ConfigForm';
 
 
 export default (
   <Route path="/" component={App}>
-    <Route path="/counter" component={CounterPage} />
     <Route path="/editor" component={Editor} />
     <Route path="/config" component={ConfigForm} />
     <IndexRoute component={HomePage} />

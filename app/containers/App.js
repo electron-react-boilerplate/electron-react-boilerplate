@@ -1,16 +1,13 @@
 // @flow
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import App from '../components/App';
 
-export default class App extends Component {
-  props: {
-    children: HTMLElement
+function mapStateToProps(state) {
+  return {
+    theme: state.uiStyle.theme,
+    color: state.uiStyle.color
   };
-
-  render() {
-    return (
-      <div>
-        {this.props.children}
-      </div>
-    );
-  }
 }
+
+export default connect(mapStateToProps)(App);
