@@ -9,6 +9,7 @@ import ConfigForm from './containers/ConfigForm';
 
 export default (
   <Route path="/" component={App}>
+  <Route path="/home" component={HomePage} />
     <Route path="/editor" component={Editor} />
     <Route path="/config" component={ConfigForm} />
     <IndexRoute component={HomePage} />
