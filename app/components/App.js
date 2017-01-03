@@ -22,7 +22,6 @@ export default function (props) { //props is now from MY POV
       width="100%"
       // padding="12px"
       >
-      <TitleBar title="Keypunch" controls />
       <NavPane
         canPaneToggle={true} //bool Sets whether the pane can be compacted.Default value "true".
         color={props.color}	//string	Sets the main color of a component.

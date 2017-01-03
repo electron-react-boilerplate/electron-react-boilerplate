@@ -16,12 +16,12 @@ export default function (props) {
       layout='vertical'
       horizontalAlignment='center'
       width='100%'
-      height='500%'
+      height='100%'
       >
       <button onClick={openFilePicker}>Open</button>
       <img
       src='../resources/images/keypunchingAtTexasAM.jpg'
-      style={{height: '100%', width: '100%'}}/>
+      style={{height: '30%', width: '30%'}}/>
     </View>
   );
 }

@@ -12,15 +12,16 @@ export default function (props) { //props is now from MY POV
   const color = props.color;
 
   return (
-     <Editor
-     mode="java"
+    <Editor
+      mode="java"
       theme={theme === 'dark' ? 'twilight' : 'github'}
       onChange={setEditorContent}
-      name="UNIQUE_ID_OF_DIV"
-      editorProps={{ $blockScrolling: true }}
+      name="EDITOR" //TODO: Change this to a generated value when we add multiple editors
+      editorProps={{ $blockScrolling: Infinity }}
       value={editorContent}
       width='100%'
-      fontSize='20pt'
+      height='100vh'
+      fontSize={20}
       />
 
   )
