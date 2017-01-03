@@ -15,7 +15,6 @@ export default function (props) {
       chrome
       height="100%"
       width="100%"
-      // padding="12px"
       >
       <NavPane
         canPaneToggle={true} //bool Sets whether the pane can be compacted.Default value "true".
@@ -29,32 +28,17 @@ export default function (props) {
         // push
         >
         <NavPaneItem
-          title='home'
-          icon={renderIcon('help', props.theme)}
-          padding="10px 20px"
-          onSelect={() => {
-            console.log("Going to /home");
-            hashHistory.push('/home');
-          } }
-          />
-        <NavPaneItem
           title='edit'
           icon={renderIcon('punchCard', props.theme)}
-          padding="10px 20px"
-          onSelect={() => {
-            console.log("Going to /editor");
-            hashHistory.push('/editor');
-          } }
+          onSelect={() => hashHistory.push('/editor')}
+          push
           >
         </NavPaneItem>
         <NavPaneItem
           title='config'
           icon={renderIcon('settings', props.theme)}
-          padding="10px 20px"
-          onSelect={() => {
-            console.log("Going to /config");
-            hashHistory.push('/config');
-          } }
+          onSelect={() => hashHistory.push('/config')}
+          push
           >
         </NavPaneItem>
       </NavPane>

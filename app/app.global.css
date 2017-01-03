@@ -43,3 +43,10 @@ a:hover {
   height: 100%;
   width: 100%;
 }
+
+/* Hack to fix weird nav-icon alignment */
+/* Tacked on className on /keypunch-electron/node_modules/react-desktop/src/navPane/windows/pane/item/item.js*/
+
+span.navItem {
+  padding-left: 5px !important;
+}
