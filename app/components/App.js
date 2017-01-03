@@ -18,9 +18,9 @@ export default function (props) { //props is now from MY POV
       color={props.color}
       theme={props.theme}
       chrome
-      height="auto"
-      width="auto"
-      padding="12px"
+      height="100%"
+      width="100%"
+      // padding="12px"
       >
       <TitleBar title="Keypunch" controls />
       <NavPane
