@@ -58,10 +58,13 @@ apm install editorconfig es6-javascript atom-ternjs javascript-snippets linter l
 ```
 
 **Sublime**
-* https://github.com/sindresorhus/editorconfig-sublime#readme
-* https://github.com/SublimeLinter/SublimeLinter3
-* https://github.com/roadhump/SublimeLinter-eslint
-* https://github.com/babel/babel-sublime
+* [Editorconfig Integration](https://github.com/sindresorhus/editorconfig-sublime#readme)
+* [Linting](https://github.com/SublimeLinter/SublimeLinter3)
+* [ESLint Integration](https://github.com/roadhump/SublimeLinter-eslint)
+* [Syntax Highlighting](https://github.com/babel/babel-sublime)
+* [Autocompletion](https://github.com/ternjs/tern_for_sublime)
+* [Node Snippets](https://packagecontrol.io/packages/JavaScript%20%26%20NodeJS%20Snippets)
+* [ES6 Snippets](https://packagecontrol.io/packages/ES6-Toolkit)
 
 **Others**
 * [Editorconfig](http://editorconfig.org/#download)
