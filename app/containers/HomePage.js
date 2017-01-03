@@ -14,17 +14,4 @@ function mapStateToProps(state) {
   };
 }
 
-//I'm not sure where I should be putting non-store UI logic that I want to encapsulate into functions.
-function mapDispatchToProps(dispatch) {
-  return {
-    openFilePicker: () => {
-      dialog.showOpenDialog({ properties: ['openFile', 'createDirectory', 'showHiddenFiles'] }, function (fileNames) {
-        console.log(fileNames[0]); // an array
-        let fileContents = loadFile(fileNames[0]);
-        dispatch(setEditorContent(fileContents));
-      })
-    }
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps)(Home);

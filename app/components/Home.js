@@ -18,10 +18,17 @@ export default function (props) {
       width='100%'
       height='100%'
       >
-      <button onClick={openFilePicker}>Open</button>
+      <h1
+        color={theme === 'dark' ? 'white' : '#333'}
+        > Keypunch
+        </h1>
+      <h3
+        color={theme === 'dark' ? 'white' : '#333'}
+        > a lightweight text editor made with the mainframe in mind.
+        </h3>
       <img
-      src='../resources/images/keypunchingAtTexasAM.jpg'
-      style={{height: '30%', width: '30%'}}/>
-    </View>
+        src='../resources/images/keypunchingAtTexasAM.jpg'
+        style={{ height: '30%', width: '30%' }} />
+    </View >
   );
 }
