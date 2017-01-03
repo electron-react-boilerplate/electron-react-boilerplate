@@ -3,6 +3,7 @@ import React from 'react';
 export default function renderIcon(name, theme) {
   const fill = theme === 'light' ? '#ffffff' : '#000000';
   const stroke = theme === 'light' ? '#000000' : '#ffffff';
+  const grayscale = theme === 'dark' ? '#ffffff' : '#ddd';
   switch (name) {
     case 'punchCard':
       return (
@@ -54,42 +55,27 @@ export default function renderIcon(name, theme) {
       );
     case 'printout':
       return (
-        <svg viewBox="0 0 92.7 114.68" width="40px" height="36px">
+        <svg viewBox="0 0 90 120" width="40px" height="36px">
           <title>printout</title>
           <g>
-            <rect x="8.5" y="0.99" width="83.41" height="113.19" style={{ fill: '#fff', stroke: '#231f20' }} />
-            <rect x="0.5" y="0.5" width="91.41" height="10" style={{ fill: '#b8d877', stroke: '#231f20' }} />
-            <rect x="0.8" y="19.13" width="91.41" height="10" style={{ fill: '#b8d877', stroke: '#231f20' }} />
-            <rect x="0.5" y="37.76" width="91.41" height="10" style={{ fill: '#b8d877', stroke: '#231f20' }} />
-            <rect x="0.5" y="56.4" width="91.41" height="10" style={{ fill: '#b8d877', stroke: '#231f20' }} />
-            <rect x="0.5" y="75.03" width="91.41" height="10" style={{ fill: '#b8d877', stroke: '#231f20' }} />
-            <rect x="0.5" y="93.66" width="91.41" height="10" style={{ fill: '#b8d877', stroke: '#231f20' }} />
-            <rect x="0.5" y="0.99" width="8" height="113.19" style={{ fill: 'none', stroke: '#231f20' }} />
-            <rect x="83.91" y="0.99" width="8" height="113.19" style={{ fill: 'none', stroke: '#231f20' }} />
-            <circle cx="88.14" cy="6.13" r="3" style={{ fill: '#fff', stroke: '#231f20' }} />
-            <circle cx="88.14" cy="109.13" r="3" style={{ fill: '#fff', stroke: '#231f20' }} />
-            <circle cx="88.14" cy="99.13" r="3" style={{ fill: '#fff', stroke: '#231f20' }} />
-            <circle cx="87.91" cy="89.58" r="3" style={{ fill: '#fff', stroke: '#231f20' }} />
-            <circle cx="87.91" cy="80.03" r="3" style={{ fill: '#fff', stroke: '#231f20' }} />
-            <circle cx="87.91" cy="70.71" r="3" style={{ fill: '#fff', stroke: '#231f20' }} />
-            <circle cx="87.91" cy="61.4" r="3" style={{ fill: '#fff', stroke: '#231f20' }} />
-            <circle cx="87.91" cy="52.08" r="3" style={{ fill: '#fff', stroke: '#231f20' }} />
-            <circle cx="88.14" cy="42.76" r="3" style={{ fill: '#fff', stroke: '#231f20' }} />
-            <circle cx="87.91" cy="33.45" r="3" style={{ fill: '#fff', stroke: '#231f20' }} />
-            <circle cx="87.91" cy="14.82" r="3" style={{ fill: '#fff', stroke: '#231f20' }} />
-            <circle cx="87.91" cy="24.13" r="3" style={{ fill: '#fff', stroke: '#231f20' }} />
-            <circle cx="4.5" cy="109.13" r="3" style={{ fill: '#fff', stroke: '#231f20' }} />
-            <circle cx="4.5" cy="99.13" r="3" style={{ fill: '#fff', stroke: '#231f20' }} />
-            <circle cx="4.5" cy="89.58" r="3" style={{ fill: '#fff', stroke: '#231f20' }} />
-            <circle cx="4.5" cy="80.03" r="3" style={{ fill: '#fff', stroke: '#231f20' }} />
-            <circle cx="4.5" cy="70.71" r="3" style={{ fill: '#fff', stroke: '#231f20' }} />
-            <circle cx="4.5" cy="61.4" r="3" style={{ fill: '#fff', stroke: '#231f20' }} />
-            <circle cx="4.5" cy="52.08" r="3" style={{ fill: '#fff', stroke: '#231f20' }} />
-            <circle cx="4.5" cy="42.76" r="3" style={{ fill: '#fff', stroke: '#231f20' }} />
-            <circle cx="4.5" cy="33.45" r="3" style={{ fill: '#fff', stroke: '#231f20' }} />
-            <circle cx="4.5" cy="24.13" r="3" style={{ fill: '#fff', stroke: '#231f20' }} />
-            <circle cx="4.5" cy="14.82" r="3" style={{ fill: '#fff', stroke: '#231f20' }} />
-            <circle cx="4.5" cy="6.13" r="3" style={{ fill: '#fff', stroke: '#231f20' }} />
+            <rect x="0" y="0" width="90" height="120" fill={grayscale} stroke={stroke} />
+            <rect x="0" y="0" width="90" height="20" fill='#b8d877' stroke='#fff' />
+            <rect x="0" y="40" width="90" height="20" fill='#b8d877' stroke='#fff' />
+            <rect x="0" y="80" width="90" height="20" fill='#b8d877' stroke='#fff' />
+            <rect x="0" y="0" width="16" height="120" fill='none' stroke='#231f20' />
+            <rect x="74" y="0" width="16" height="120" fill='none' stroke='#231f20' />
+            <circle cx="8" cy="10" r="5" fill={fill} stroke={stroke} />
+            <circle cx="8" cy="30" r="5" fill={fill} stroke={stroke} />
+            <circle cx="8" cy="50" r="5" fill={fill} stroke={stroke} />
+            <circle cx="8" cy="70" r="5" fill={fill} stroke={stroke} />
+            <circle cx="8" cy="90" r="5" fill={fill} stroke={stroke} />
+            <circle cx="8" cy="110" r="5" fill={fill} stroke={stroke} />
+            <circle cx="82" cy="10" r="5" fill={fill} stroke={stroke} />
+            <circle cx="82" cy="30" r="5" fill={fill} stroke={stroke} />
+            <circle cx="82" cy="50" r="5" fill={fill} stroke={stroke} />
+            <circle cx="82" cy="70" r="5" fill={fill} stroke={stroke} />
+            <circle cx="82" cy="90" r="5" fill={fill} stroke={stroke} />
+            <circle cx="82" cy="110" r="5" fill={fill} stroke={stroke} />
           </g>
         </svg>
       )
