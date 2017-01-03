@@ -1,4 +1,4 @@
-import openFilePicker from './nativeDialogs';
+import {openFilePicker, newFile, saveFile} from './nativeDialogs';
 
 export default function generateMenuTemplate() {
   const template = [
@@ -6,7 +6,18 @@ export default function generateMenuTemplate() {
       label: 'File',
       submenu: [
         {
+          label: 'New File',
+          accelerator: "CmdOrCtrl+N",
+          click() {
+            newFile()
+          }
+        },
+        {
+          type: 'separator'
+        },
+        {
           label: 'Open File',
+          accelerator: "CmdOrCtrl+O",
           click() {
             openFilePicker()
           }
@@ -15,7 +26,29 @@ export default function generateMenuTemplate() {
           type: 'separator'
         },
         {
-          role: 'open'
+          label: 'Save',
+          accelerator: "CmdOrCtrl+S",
+          click() {
+            saveFile(true);
+          }
+        },
+        {
+          label: 'Save As',
+          accelerator: "Shift+CmdOrCtrl+S",
+          click() {
+            saveFile(false);
+          }
+        },
+        {
+          type: 'separator'
+        },
+        {
+          role: 'minimize'
+        },
+        {
+          label: 'Close Window',
+          role: 'close',
+          accelerator: "Shift+CmdOrCtrl+W",
         }
       ]
     },
@@ -81,22 +114,11 @@ export default function generateMenuTemplate() {
       ]
     },
     {
-      role: 'window',
-      submenu: [
-        {
-          role: 'minimize'
-        },
-        {
-          role: 'close'
-        }
-      ]
-    },
-    {
       role: 'help',
       submenu: [
         {
-          label: 'Learn More',
-          click() { require('electron').shell.openExternal('http://electron.atom.io') }
+          label: 'View on GitHub',
+          click() { require('electron').shell.openExternal('https://github.com/spmcbride1201/keypunch-electron') }
         }
       ]
     }

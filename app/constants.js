@@ -1,8 +1,11 @@
 export const SET_EDITOR_CONTENT = 'SET_EDITOR_CONTENT';
+export const SET_EDITOR_PATH = 'SET_EDITOR_PATH';
+
 export const SET_HOST_NAME = 'SET_HOST_NAME';
 export const SET_FTP_PORT = 'SET_FTP_PORT';
 export const SET_FTP_USER_NAME = 'SET_FTP_USER_NAME';
 export const SET_FTP_PASSWORD = 'SET_FTP_PASSWORD';
+
 export const SET_THEME_DARK = 'SET_THEME_DARK';
 export const SET_THEME_LIGHT = 'SET_THEME_LIGHT';
 export const SET_COLOR = 'SET_COLOR';
