@@ -1,15 +1,10 @@
 import React from 'react';
-import { Window, TitleBar, Text, NavPane, NavPaneItem } from 'react-desktop/windows';
-import w10Edit from '../../resources/icons/w10Edit.svg';
-// import punchCardLightTheme from '../../resources/icons/punchCardLightTheme.png';
-// import punchCardDarkTheme from '../../resources/icons/punchCardDarkTheme.png';
+import { Window, NavPane, NavPaneItem } from 'react-desktop/windows';
 import renderIcon from '../utils/renderIcon';
 
 import { hashHistory } from 'react-router'
 
-export default function (props) { //props is now from MY POV
-  console.log("Props.children ", props.children);
-
+export default function (props) {
   const editorContent = props.editorContent;
   const setEditorContent = props.setEditorContent;
 

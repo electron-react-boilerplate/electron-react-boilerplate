@@ -3,7 +3,6 @@ import React from 'react';
 export default function renderIcon(name, theme) {
   const fill = theme === 'light' ? '#ffffff' : '#000000';
   const stroke = theme === 'light' ? '#000000' : '#ffffff';
-  console.log("Rendering icon for theme ", theme, " using fill of ", fill, " and stroke of ", stroke)
   switch (name) {
     case 'punchCard':
       return (

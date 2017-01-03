@@ -26,7 +26,6 @@ export default function (state = initialEditorState, action) {
       break;
 
     default:
-      console.log("Initial is" + initialEditorState);
       return state;
   }
   return newState;
