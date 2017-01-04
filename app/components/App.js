@@ -37,7 +37,7 @@ export default function (props) {
         <NavPaneItem
           title='results'
           icon={renderIcon('printout', props.theme)}
-          onSelect={() => hashHistory.push('/config')}
+          onSelect={() => hashHistory.push('/results')}
           push
           >
         </NavPaneItem>

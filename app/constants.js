@@ -9,3 +9,6 @@ export const SET_FTP_PASSWORD = 'SET_FTP_PASSWORD';
 export const SET_THEME_DARK = 'SET_THEME_DARK';
 export const SET_THEME_LIGHT = 'SET_THEME_LIGHT';
 export const SET_COLOR = 'SET_COLOR';
+
+export const SET_RESULTS_CONTENT = 'SET_RESULTS_CONTENT';
+export const SET_JOB_STATUS = 'SET_JOB_STATUS';
