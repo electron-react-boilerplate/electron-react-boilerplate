@@ -1,4 +1,6 @@
-import {openFilePicker, newFile, saveFile} from './nativeDialogs';
+import { openFilePicker, newFile, saveFile } from './nativeDialogs';
+
+const { app } = require('electron').remote;
 
 export default function generateMenuTemplate() {
   const template = [
@@ -9,7 +11,7 @@ export default function generateMenuTemplate() {
           label: 'New File',
           accelerator: "CmdOrCtrl+N",
           click() {
-            newFile()
+            newFile();
           }
         },
         {
@@ -19,7 +21,7 @@ export default function generateMenuTemplate() {
           label: 'Open File',
           accelerator: "CmdOrCtrl+O",
           click() {
-            openFilePicker()
+            openFilePicker();
           }
         },
         {
