@@ -29,37 +29,26 @@ export default function (props) {
       <TextInput
         theme={theme}
         placeholder="192.168.0.1"
-        onChange={(evt) => {
-          evt.preventDefault();
-          setHostName(evt.target.value);
-        } }
+        onChange={(evt) => setHostName(evt.target.value)}
         value={hostName}
         />
       <Label color={theme === 'dark' ? 'white' : '#333'}>FTP Port</Label>
       <TextInput
-        onChange={(evt) => {
-          evt.preventDefault();
-          setFtpPort(evt.target.value);
-        } }
+        onChange={(evt) => setFtpPort(evt.target.value)}
         value={ftpPort}
         />
       <Label color={theme === 'dark' ? 'white' : '#333'}>FTP User Name</Label>
       <TextInput
         placeholder="Gene.Amdahl"
-        onChange={(evt) => {
-          evt.preventDefault();
-          setFtpUserName(evt.target.value);
-        } }
+        onChange={(evt) => setFtpUserName(evt.target.value)}
         value={ftpUserName}
         />
       <Label color={theme === 'dark' ? 'white' : '#333'}>FTP Password</Label>
       <TextInput
         placeholder="Password"
-        onChange={(evt) => {
-          evt.preventDefault();
-          setFtpPassword(evt.target.value);
-        } }
+        type='password'
         value={ftpPassword}
+        onChange={(evt) => setFtpPassword(evt.target.value)}
         />
       <Label color={theme === 'dark' ? 'white' : '#333'}>Theme</Label>
       <View layout="horizontal" theme={theme}>
@@ -68,10 +57,8 @@ export default function (props) {
           color={color}
           label="Dark"
           name="radio0"
-          onChange={(evt) => {
-            setThemeDark();
-          } }
-          defaultChecked= {theme === 'dark' ? true : false}
+          onChange={(evt) => setThemeDark()}
+          defaultChecked={theme === 'dark' ? true : false}
           />
         <span
           style={{ marginLeft: '5px' }}
@@ -81,9 +68,7 @@ export default function (props) {
           color={color}
           label="Light"
           name="radio0"
-          onChange={(evt) => {
-            setThemeLight();
-          } }
+          onChange={(evt) => setThemeLight()}
           defaultValue="Light was checked!"
           defaultChecked={theme === 'light' ? true : false}
           />
