@@ -19,6 +19,7 @@ export function openFilePicker() {
 export function newFile() {
   //TODO: Check to see if the current open file has unsaved changes
   store.dispatch(setEditorContent(''));
+  store.dispatch(setEditorPath(''));
 }
 
 export function saveFile(overwrite = false) {
