@@ -20,7 +20,7 @@ export default function (props) { //props is now from MY POV
       editorProps={{ $blockScrolling: Infinity }}
       value={editorContent}
       width='100%'
-      height='100vh-1px'
+      height='100%'
       fontSize={20}
       />
 

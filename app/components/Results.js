@@ -21,7 +21,7 @@ export default function (props) { //props is now from MY POV
         readOnly: true
        }}
       width='100%'
-      height='100vh-1px'
+      height='95vh'
       fontSize={20}
       />
 
