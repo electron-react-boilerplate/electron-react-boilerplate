@@ -2,6 +2,7 @@ const {dialog} = require('electron').remote;
 import { readFileSync, writeFileSync } from 'fs';
 // import { loadFile, saveFile } from './filesystem';
 import { setEditorContent, setEditorPath } from '../actions/editor';
+import { setCurrentStep, setIsConnected, setIsSubmitted, setIsRetrieved, setIsDisconnected } from '../actions/results';
 import { store } from '../index';
 
 //HACK: Bypassing react-redux to directly dispatch to store.
@@ -40,4 +41,28 @@ export function saveFile(overwrite = false) {
     //If SaveAs was saved, not cancelled, save the file to disk
   }
   //TODO: Check to see if the current open file has unsaved changes
+}
+
+export function testIndicators() {
+  let tests = [
+    () => setCurrentStep('connecting'),
+    () => setCurrentStep('submitting'),
+    () => setCurrentStep('retrieving'),
+    () => setCurrentStep('disconnecting'),
+    () => setCurrentStep(''),
+    () => setIsConnected(true),
+    () => setIsSubmitted(true),
+    () => setIsRetrieved(true),
+    () => setIsDisconnected(true),
+    () => setIsConnected(false),
+    () => setIsSubmitted(false),
+    () => setIsRetrieved(false),
+    () => setIsDisconnected(false),
+  ];
+  tests.forEach((test, index) => {
+    window.setTimeout(
+      () => { store.dispatch(test()) },
+      2000 * (index)
+    )
+  });
 }

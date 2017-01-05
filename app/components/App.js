@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Window, NavPane, NavPaneItem } from 'react-desktop/windows';
-import renderIcon from '../utils/renderIcon';
-
+import { renderIcon, renderIndicator } from '../utils/renderIcon';
+import StatusBar from '../containers/StatusBar';
 import { hashHistory } from 'react-router'
 
 export default function (props) {
@@ -23,7 +23,7 @@ export default function (props) {
         >
         <View
           //action bar and content
-         height="100vh"
+          height="100vh"
           width="100%"
           >
           <NavPane
@@ -61,15 +61,7 @@ export default function (props) {
           </NavPane>
           {props.children}
         </View>
-        <View
-          position='absolute'
-          style={{ bottom: '0', zIndex: '10' }}
-          background='#aaa'
-          width='100%'
-          height='35px'
-          overflow='hidden'
-          >
-        </View>
+          <StatusBar></StatusBar>
       </View>
     </Window>
   )
