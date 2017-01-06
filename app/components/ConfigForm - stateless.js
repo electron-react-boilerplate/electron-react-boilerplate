@@ -26,75 +26,32 @@ export default function (props) {
       height='100%'
       >
       <Label color={theme === 'dark' ? 'white' : '#333'}>Hostname or IP</Label>
-      <input
+      <TextInput
         key='hostName'
-        style={
-          theme === 'dark' ?
-            {
-              background: 'black',
-              color: 'white',
-            } :
-            {
-              background: 'white',
-              color: 'black',
-            }
-        }
+        theme={theme}
         placeholder="192.168.0.1"
         onChange={(evt) => setHostName(evt.target.value)}
-        value={hostName}
+        // value={hostName}
         />
       <Label color={theme === 'dark' ? 'white' : '#333'}>FTP Port</Label>
-      <input
+      <TextInput
         key='ftpPort'
-        style={
-          theme === 'dark' ?
-            {
-              background: 'black',
-              color: 'white',
-            } :
-            {
-              background: 'white',
-              color: 'black',
-            }
-        }
         onChange={(evt) => setFtpPort(evt.target.value)}
-        value={ftpPort}
+        // value={ftpPort}
         />
       <Label color={theme === 'dark' ? 'white' : '#333'}>FTP User Name</Label>
-      <input
+      <TextInput
         key='ftpUserName'
-        style={
-          theme === 'dark' ?
-            {
-              background: 'black',
-              color: 'white',
-            } :
-            {
-              background: 'white',
-              color: 'black',
-            }
-        }
         placeholder="Gene.Amdahl"
         onChange={(evt) => setFtpUserName(evt.target.value)}
-        value={ftpUserName}
+        // value={ftpUserName}
         />
       <Label color={theme === 'dark' ? 'white' : '#333'}>FTP Password</Label>
-      <input
+      <TextInput
         key='ftpPassword'
-        style={
-          theme === 'dark' ?
-            {
-              background: 'black',
-              color: 'white',
-            } :
-            {
-              background: 'white',
-              color: 'black',
-            }
-        }
         placeholder="Password"
         type='password'
-        value={ftpPassword}
+        // value={ftpPassword}
         onChange={(evt) => setFtpPassword(evt.target.value)}
         />
       <Label color={theme === 'dark' ? 'white' : '#333'}>Theme</Label>
