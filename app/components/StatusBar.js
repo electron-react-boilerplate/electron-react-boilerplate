@@ -7,7 +7,6 @@ import { testIndicators } from '../utils/nativeDialogs';
 export default function (props) {
   return (
     <View
-      position='absolute'
       style={{
         bottom: '0',
         display: 'flex',
