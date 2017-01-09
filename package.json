@@ -93,7 +93,7 @@
   ],
   "homepage": "https://github.com/chentsulin/electron-react-boilerplate#readme",
   "devDependencies": {
-    "asar": "^0.12.4",
+    "asar": "^0.13.0",
     "babel-core": "^6.21.0",
     "babel-eslint": "^7.1.1",
     "babel-loader": "^6.2.10",
