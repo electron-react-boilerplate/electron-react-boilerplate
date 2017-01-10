@@ -2,7 +2,7 @@ import React from 'react';
 import Indicator from './Indicator';
 import { renderIndicator } from '../utils/renderIcon';
 import { View } from 'react-desktop/windows';
-import { testIndicators } from '../utils/nativeDialogs';
+import { testIndicators, testMainframeJobConnect } from '../utils/nativeDialogs';
 
 export default function (props) {
   return (
@@ -152,7 +152,8 @@ export default function (props) {
         }}
         onClick={(evt) => {
           console.log('LOAD');
-          testIndicators()
+          // testIndicators()
+          testMainframeJobConnect()
         } }
         >
         LOAD

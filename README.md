@@ -7,10 +7,15 @@ Keypunch is a lightweight text editor designed to accelerate the ease of learnin
 Because all client and Node.js logic is encapsulated in a single Electron app, Keypunch can run on corporate laptops behind the firewall. Because it uses `mainframe-job` to abstract away the details of interfacing with the mainframe's Job Entry Subsystem, Keypunch supports the long-tail of back-leveled z/OS systems. The goal is to help your developers learn to develop without a SysGen or other major impacts to your core business apps.
 
 While this is a work in progress focused on delivering an initial MVP, this app offers a foundational platform that may be eventually enhanced to provide features such as:
-* lessons for PL/1, COBOL, REXX, FORTRAN, HLASM, etc. that run entirely on the client app by parsing the JES output. 
+* lessons for PL/1, COBOL, REXX, FORTRAN, HLASM, etc. that run entirely on the client app by parsing the JES output.
 * enhancement to support z/VSE
 * Use of socket.io to provide remote pair-programming for two corporate employees over the intranet.
 * Gamification and Badges to encourage learning without compromising core business data.
+
+
+Useful Resources
+* http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.halu001/intfjesexample.htm
+* http://www2.latech.edu/~acm/helloworld/mvsjcl.html
 
 ---------------------------------------------------------------------------
 

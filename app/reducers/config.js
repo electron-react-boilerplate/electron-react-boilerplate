@@ -2,7 +2,7 @@ import { SET_HOST_NAME, SET_FTP_PORT, SET_FTP_USER_NAME, SET_FTP_PASSWORD } from
 
 const initialConfigState = {
   hostName: '',
-  ftpPort: '23',
+  ftpPort: '21',
   ftpUserName: '',
   ftpPassword: ''
 };
