@@ -120,7 +120,7 @@
     "css-loader": "^0.26.1",
     "devtron": "^1.4.0",
     "electron": "^1.4.13",
-    "electron-builder": "^11.2.0",
+    "electron-builder": "^11.3.0",
     "electron-devtools-installer": "^2.0.1",
     "enzyme": "^2.7.0",
     "eslint": "^3.13.0",
