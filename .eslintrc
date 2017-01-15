@@ -39,6 +39,5 @@
         "config": "webpack.config.eslint.js"
       }
     }
-  },
-  "browserslist": ["chrome 50"]
+  }
 }
