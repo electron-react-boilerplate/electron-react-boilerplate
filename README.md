@@ -13,8 +13,21 @@ While this is a work in progress focused on delivering an initial MVP, this app 
 * Use of socket.io to provide remote pair-programming for two corporate employees over the intranet.
 * Gamification and Badges to encourage learning without compromising core business data.
 
+## Screenshot
+TODO
 
-Useful Resources
+## Build with love using
+* [React Desktop](https://github.com/gabrielbull/react-desktop)
+* [Electron React Boilerplate](https://github.com/chentsulin/electron-react-boilerplate) 
+* [Electron](http://electron.atom.io/) 
+* [React](https://facebook.github.io/react/)
+* [Redux](https://github.com/reactjs/redux)
+* [React Router](https://github.com/reactjs/react-router)
+* [Webpack](http://webpack.github.io/docs/)
+* [React Transform HMR](https://github.com/gaearon/react-transform-hmr)
+
+
+## Useful Resources
 * http://www.ibm.com/support/knowledgecenter/SSLTBW_2.1.0/com.ibm.zos.v2r1.halu001/intfjesexample.htm
 * http://www2.latech.edu/~acm/helloworld/mvsjcl.html
 
