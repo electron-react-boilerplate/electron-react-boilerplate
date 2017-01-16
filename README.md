@@ -1,4 +1,5 @@
 # Keypunch-Electron
+![David-DM Dependency Badge](https://david-dm.org/spmcbride1201/keypunch-electron.svg)
 
 IN PROGRESS: Not yet complete!!!
 
