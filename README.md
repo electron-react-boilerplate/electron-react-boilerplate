@@ -1,5 +1,5 @@
 # Keypunch-Electron
-![David-DM Dependency Badge](https://david-dm.org/spmcbride1201/keypunch-electron.svg)
+[![Code Climate](https://codeclimate.com/github/spmcbride1201/keypunch-electron/badges/gpa.svg)](https://codeclimate.com/github/spmcbride1201/keypunch-electron) ![David-DM Dependency Badge](https://david-dm.org/spmcbride1201/keypunch-electron.svg)
 
 IN PROGRESS: Not yet complete!!!
 
