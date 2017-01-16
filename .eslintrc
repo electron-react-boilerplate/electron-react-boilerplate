@@ -12,7 +12,7 @@
     "consistent-return": 0,
     "comma-dangle": 0,
     "generator-star-spacing": 0,
-    "import/no-unresolved": ["error", { "ignore": ["electron"] }],
+    "import/no-unresolved": 0,
     "import/no-extraneous-dependencies": 0,
     "no-console": 0,
     "no-use-before-define": 0,
@@ -21,7 +21,7 @@
     "promise/catch-or-return": 2,
     "promise/no-native": 0,
     "react/jsx-no-bind": 0,
-    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
+    "react/jsx-filename-extension": 0,
     "react/prefer-stateless-function": 0,
     "flowtype-errors/show-errors": 2
   },
