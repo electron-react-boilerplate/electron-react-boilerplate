@@ -7,7 +7,7 @@
     "node": true
   },
   "rules": {
-    "arrow-parens": ["off"],
+    "arrow-parens": 0,
     "compat/compat": 2,
     "consistent-return": "off",
     "comma-dangle": "off",
