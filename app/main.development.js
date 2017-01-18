@@ -35,7 +35,7 @@ const installExtensions = async () => {
     // TODO: Use async interation statement.
     //       Waiting on https://github.com/tc39/proposal-async-iteration
     //       Promises will fail silently, which isn't what we want in development
-    Promise
+    return Promise
       .all(extensions.map(name => installer.default(installer[name], forceDownload)))
       .catch(console.log);
   }
