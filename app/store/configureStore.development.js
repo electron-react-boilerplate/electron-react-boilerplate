@@ -36,7 +36,8 @@ const enhancer = composeEnhancers(
   applyMiddleware(thunk, router, logger)
 );
 
-export default function configureStore(initialState?: counterStateType) {
+export default function configureStore(initialState) {
+// export default function configureStore(initialState?: counterStateType) {
   const store = createStore(rootReducer, initialState, enhancer);
 
   if (module.hot) {
