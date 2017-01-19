@@ -4,6 +4,7 @@ import { setEditorContent, setEditorPath } from '../actions/editor';
 import { setCurrentStep, setIsConnected, setIsSubmitted, setIsRetrieved, setIsDisconnected } from '../actions/results';
 import { store } from '../index';
 const PromiseFtp = require('promise-ftp');
+var ftp;
 
 //HACK: Bypassing react-redux to directly dispatch to store.
 export function openFilePicker() {
@@ -88,7 +89,7 @@ export function testMainframeJobConnect() {
   store.dispatch(setCurrentStep('connecting'));
   console.log({ host, port, user, password });
 
-  var ftp = new PromiseFtp();
+  ftp = new PromiseFtp();
   var connectionStatus = '';
   ftp.connect({ host, port, user, password })
     // Step 2: Set as Connected
@@ -102,32 +103,16 @@ export function testMainframeJobConnect() {
       }
     })
     // Step 3: Switch to JES
-    .then(() => {
-      store.dispatch(setCurrentStep('submitting'));
-      return ftp.site('FILETYPE=jes');
-    })
-    .then((resultsObj) => {
-      console.log("Server responded to FILETYPE=jes with " + resultsObj.code + ' ' + resultsObj.text);
-    })
+    .then(store.dispatch(setCurrentStep('submitting')))
+    .then(() => _switchToJESMode())
     // Step 4: Submit Content to JES as Job
     // This is accepted... not sure if it really is submitting the source. It produces '0 Spool Files' as output
-    .then(() => ftp.ascii())
-    .then((buffer) => ftp.put(Buffer.from(store.getState().editor.editorContent), '/'))
-    // Step 5: Query Jobs
-    .then(() => ftp.list(''))
-    .then((results) => {
-      console.log("Lists shows: ", results);
-      if (!results || results.length === 0) {
-        throw new Error("No jobs found on JES Queue. Did you forget to name your JCL job using your FTP username?");
-      }
-      let mostRecentJob = results[results.length - 1];
-      let mostRecentJobSplit = mostRecentJob.split(' ');
-      let job = {
-        name: mostRecentJobSplit[0],
-        number: mostRecentJobSplit[1],
-        status: mostRecentJobSplit[2]
-      }
-    })
+    .then(() => _submitCurrentEditorContent())
+    // Step 5: Query status of jobs repeatedly until status shows that batch processing is complete
+    .then(() => _getMostRecentJob(20, 200))
+    .then((job) => console.log("After func, getting: ", job))
+    // Step 6: Query status of job periodically until complete
+    // Step 7: Retrieve Results of Job, rendering in results pane
     // Step 99: Disconnect
     .then(async () => {
       ftp.end();
@@ -153,7 +138,21 @@ export function testMainframeJobConnect() {
       store.dispatch(setIsRetrieved(false));
       store.dispatch(setIsDisconnected(false));
     })
+    // Attempt to troubleshoot common FTP issues communicating with mainframe
     .catch((err) => {
+      switch (err.code) {
+        case 451:
+          alert("File Error. Do you have a valid file open in the editor?");
+          console.log(err);
+          break;
+        case "Error: PASS command failed(…)":
+          alert("What is a PASS command?");
+          break;
+        default:
+          console.log("|", err, "|");
+          // console.log(err.parse(':'));
+          alert(JSON.stringify(err));
+      }
       console.log("Error of ", err);
       store.dispatch(setCurrentStep(''));
     })
@@ -162,4 +161,58 @@ export function testMainframeJobConnect() {
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function _switchToJESMode() {
+  return ftp.site('FILETYPE=jes')
+    .then((resultsObj) => {
+      console.log("Server responded to FILETYPE=jes with " + resultsObj.code + ' ' + resultsObj.text);
+    })
+}
+
+// Get all JES jobs and return as an array of objects;
+function _getJobs() {
+  return ftp.list('')
+    .then(results => {
+      if (!results || results.length === 0) {
+        throw new Error("No jobs found on JES Queue. Did you forget to name your JCL job using your FTP username?");
+      }
+      let resultsArr = []
+      let jobs = results.forEach((job) => {
+        let jobSplit = job.trim().split(/\ +/);
+        resultsArr.push({
+          userName: jobSplit[0],
+          jobNumber: jobSplit[1],
+          status: jobSplit[2],
+          numberOfSpoolFiles: job.includes('Spool Files') ? jobSplit[3] : null,
+          fullString: job.trim()
+        });
+      });
+      return resultsArr;
+    })
+    .catch(err => console.log('_getJobs ERR: ' + err));
+}
+
+async function _getMostRecentJob(maxRetries, timeToWait) {
+  console.log("Attempting to get most recent job");
+  let mostRecentJob;
+  while (!mostRecentJob || mostRecentJob.status !== 'OUTPUT' && maxRetries > 0) {
+  console.log("TriesRemaining: ", maxRetries);
+    let jobs = await _getJobs(ftp);
+    mostRecentJob = jobs[jobs.length - 1]; //This is a moving target technically, not a set jobID
+    if (mostRecentJob.status === 'OUTPUT') {
+      console.log("Most recent job has status of OUTPUT, so returning");
+      return mostRecentJob;
+    }
+    sleep(timeToWait)
+    maxRetries--;
+  }
+  return mostRecentJob;
+}
+
+function _submitCurrentEditorContent() {
+  return ftp.ascii()
+    .then(buffer =>
+      ftp.put(Buffer.from(store.getState().editor.editorContent), '/'))
+    .catch(err => console.log('_submitCurrentEditorContent ERR: ' + err));
 }
