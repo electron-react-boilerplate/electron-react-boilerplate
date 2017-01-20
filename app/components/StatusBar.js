@@ -2,7 +2,6 @@ import React from 'react';
 import Indicator from './Indicator';
 import { renderIndicator } from '../utils/renderIcon';
 import { View } from 'react-desktop/windows';
-import { testIndicators, testMainframeJobConnect } from '../utils/nativeDialogs';
 
 export default function (props) {
   return (
@@ -19,19 +18,45 @@ export default function (props) {
       height='50px'
       overflow='hidden'
       >
-
       <button
         style={{
-          backgroundColor: '#C0101D',
+          backgroundColor: 'orange',
           border: 'none',
           color: 'white',
           margin: '4px',
-          width: '90px',
-
+          width: '90px'
         }}
+        onClick={props.pollJobStatus}
         >
-        INTERRUPT
+        REFRESH
       </button>
+      {!props.isConnected ?
+        <button
+          style={{
+            backgroundColor: 'green',
+            border: 'none',
+            color: 'white',
+            margin: '4px',
+            width: '90px'
+          }}
+          onClick={props.jesConnect}
+          >
+          CONNECT
+      </button>
+        :
+        <button
+          style={{
+            backgroundColor: '#C0101D',
+            border: 'none',
+            color: 'white',
+            margin: '4px',
+            width: '90px'
+          }}
+          onClick={props.disconnect}
+          >
+          INTERRUPT
+      </button>
+      }
 
       <div
         style={{

@@ -58,6 +58,13 @@ export default function (props) {
               push
               >
             </NavPaneItem>
+            <NavPaneItem
+              title='jobs'
+              icon={renderIcon('settings', props.theme)}
+              onSelect={() => hashHistory.push('/jobsTree')}
+              push
+              >
+            </NavPaneItem>
           </NavPane>
           {props.children}
         </View>

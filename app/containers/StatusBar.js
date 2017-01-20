@@ -1,6 +1,8 @@
 // @flow
 import { connect } from 'react-redux';
 import StatusBar from '../components/StatusBar';
+import { testIndicators, testMainframeJobConnect } from '../utils/nativeDialogs';
+import jes from '../utils/jesFtp';
 
 function mapStateToProps(state) {
   return {
@@ -12,4 +14,26 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(StatusBar);
+function mapDispatchToProps(dispatch) {
+  return {
+    testIndicators: (evt) => {
+      evt.preventDefault();
+      dispatch(testIndicators)
+    },
+    jesConnect: (evt) => {
+      evt.preventDefault();
+      dispatch(jes.connect)
+    },
+    disconnect: (evt) => {
+      evt.preventDefault();
+      dispatch(jes.disconnect)
+    },
+    pollJobStatus: (evt) => {
+      console.log("Polling Job Status");
+      dispatch(jes.pollJobStatus)
+      evt.preventDefault();
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(StatusBar);
