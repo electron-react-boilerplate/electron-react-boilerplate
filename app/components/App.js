@@ -36,18 +36,14 @@ export default function (props) {
             // openLength='100px'	//string, number	Sets the length of the pane when expanded. Default value "200px"
             theme={props.theme} //Sets the UI theme that is used by this component and its children elements. Property value "light", "dark"
             // push
+            style={{
+              flex: '0 0 0%'
+            }}
             >
             <NavPaneItem
               title='edit'
               icon={renderIcon('punchCard', props.theme)}
               onSelect={() => hashHistory.push('/editor')}
-              push
-              >
-            </NavPaneItem>
-            <NavPaneItem
-              title='config'
-              icon={renderIcon('mainframe', props.theme)}
-              onSelect={() => hashHistory.push('/config')}
               push
               >
             </NavPaneItem>
@@ -59,17 +55,24 @@ export default function (props) {
               >
             </NavPaneItem>
             <NavPaneItem
-              title='jobs'
+              title='explorer'
+              icon={renderIcon('mainframe', props.theme)}
+              onSelect={() => hashHistory.push('/explorer')}
+              push
+              >
+            </NavPaneItem>
+            <NavPaneItem
+              title='config'
               icon={renderIcon('settings', props.theme)}
-              onSelect={() => hashHistory.push('/jobsTree')}
+              onSelect={() => hashHistory.push('/config')}
               push
               >
             </NavPaneItem>
           </NavPane>
           {props.children}
         </View>
-          <StatusBar></StatusBar>
+        <StatusBar></StatusBar>
       </View>
-    </Window>
+    </Window >
   )
 }

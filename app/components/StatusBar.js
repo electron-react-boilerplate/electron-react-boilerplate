@@ -26,9 +26,9 @@ export default function (props) {
           margin: '4px',
           width: '90px'
         }}
-        onClick={props.pollJobStatus}
+        onClick={props.testIndicators}
         >
-        REFRESH
+        TEST
       </button>
       {!props.isConnected ?
         <button
@@ -78,7 +78,7 @@ export default function (props) {
           >
           <Indicator
             isLit={props.isConnected}
-            isBlinking={props.currentStep === 'connecting' ? true : false}
+            isBlinking={props.isConnecting}
             />
         </div>
       </div>
@@ -104,7 +104,7 @@ export default function (props) {
           >
           <Indicator
             isLit={props.isSubmitted}
-            isBlinking={props.currentStep === 'submitting' ? true : false}
+            isBlinking={props.isSubmitting}
             />
         </div>
       </div>
@@ -133,7 +133,7 @@ export default function (props) {
           >
           <Indicator
             isLit={props.isRetrieved}
-            isBlinking={props.currentStep === 'retrieving' ? true : false}
+            isBlinking={props.isRetrieving}
             />
         </div>
       </div>
@@ -160,7 +160,7 @@ export default function (props) {
           >
           <Indicator
             isLit={props.isDisconnected}
-            isBlinking={props.currentStep == 'disconnecting' ? true : false}
+            isBlinking={props.isDisconnecting}
             />
         </div>
       </div>
@@ -175,11 +175,7 @@ export default function (props) {
           marginLeft: '10px',
           width: '90px'
         }}
-        onClick={(evt) => {
-          console.log('LOAD');
-          // testIndicators()
-          testMainframeJobConnect()
-        } }
+        onClick={props.submitJob}
         >
         LOAD
           </button>

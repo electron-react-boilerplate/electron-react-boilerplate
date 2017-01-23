@@ -34,7 +34,7 @@ export default function (props) { //props is now from MY POV
                 {jobID}
               </MasterDetailsViewItemMaster>
               {props.jobs[jobID].results ?
-                <MasterDetailsViewItemDetails background theme={props.theme}>
+                <MasterDetailsViewItemDetails theme={props.theme}>
                   <Editor
                     mode="java"
                     theme={props.theme === 'dark' ? 'twilight' : 'github'}
@@ -63,7 +63,7 @@ export default function (props) { //props is now from MY POV
               </Button>
                   {(props.jobs[jobID].numberOfSpoolFiles > 0) ?
                     <Button push color='green'
-                      onClick={() => {props.retrieveJob(jobID)}}>
+                      onClick={() => props.retrieveJob(jobID)}>
                       Download
                     </Button>
                     : ''}

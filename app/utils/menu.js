@@ -1,5 +1,5 @@
 import { openFilePicker, newFile, saveFile } from './nativeDialogs';
-
+import jes from './jesFtp';
 const { app } = require('electron').remote;
 
 export default function generateMenuTemplate() {
@@ -121,6 +121,10 @@ export default function generateMenuTemplate() {
         {
           label: 'View on GitHub',
           click() { require('electron').shell.openExternal('https://github.com/spmcbride1201/keypunch-electron') }
+        },
+        {
+          label: 'Kill FTP',
+          click() {jes.disconnect() }
         }
       ]
     }
