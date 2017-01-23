@@ -113,7 +113,7 @@
     "babel-preset-react-optimize": "^1.0.1",
     "babel-preset-stage-0": "^6.16.0",
     "babel-register": "^6.18.0",
-    "babili-webpack-plugin": "^0.0.7",
+    "babili-webpack-plugin": "^0.0.8",
     "boiler-room-custodian": "^0.6.1",
     "chai": "^3.5.0",
     "concurrently": "^3.1.0",
