@@ -1,8 +1,8 @@
 {
   "name": "electron-react-boilerplate",
-  "productName": "ElectronReact",
-  "version": "0.10.0",
-  "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
+  "productName": "Keypunch",
+  "version": "0.1.0",
+  "description": "Lightweight text editor designed to accelerate the ease of learning core IBM Mainframe languages like COBOL, PL/I, or z/Architecture Assembler by providing a dynamic hot reloading experience similar to Code School or Codecademy.",
   "main": "main.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 mocha --retries 2 --compilers js:babel-register --recursive --require ./test/setup.js test/**/*.spec.js",
@@ -28,7 +28,7 @@
     "cleanup": "mop -v"
   },
   "build": {
-    "productName": "ElectronReact",
+    "productName": "Keypunch",
     "appId": "org.develar.ElectronReact",
     "category": "public.app-category.tools",
     "dmg": {
@@ -73,27 +73,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chentsulin/electron-react-boilerplate.git"
+    "url": "git+https://github.com/spmcbride1201/keypunch-electron.git"
   },
   "author": {
-    "name": "C. T. Lin",
-    "email": "chentsulin@gmail.com",
-    "url": "https://github.com/chentsulin"
+    "name": "Sean P. McBride",
+    "email": "spmcbride1201@gmail.com",
+    "url": "https://github.com/spmcbride1201"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/chentsulin/electron-react-boilerplate/issues"
+    "url": "https://github.com/spmcbride1201/keypunch-electron/issues"
   },
   "keywords": [
-    "electron",
-    "boilerplate",
-    "react",
-    "react-router",
-    "flux",
-    "webpack",
-    "react-hot"
+    "mainframe"
   ],
-  "homepage": "https://github.com/chentsulin/electron-react-boilerplate#readme",
+  "homepage": "https://github.com/spmcbride1201/keypunch-electron#readme",
   "devDependencies": {
     "asar": "^0.12.4",
     "babel-core": "^6.21.0",
