@@ -1,7 +1,6 @@
-// flow-typed signature: e5aa81c42ca6ea865682f7caf64c5940
-// flow-typed version: be297a96f4/chai_v3.5.x/flow_>=v0.24.0
+// flow-typed signature: 9e3d57d259619cd3fcf8c7c3eced99f5
+// flow-typed version: 60acee2512/chai_v3.5.x/flow_>=v0.24.0
 
-/* @flow */
 declare module "chai" {
 
     declare type ExpectChain<T> = {
@@ -48,7 +47,7 @@ declare module "chai" {
           & (name: string) => ExpectChain<mixed>
         ),
 
-        length: ExpectChain<number>,
+        length: (value: number) => ExpectChain<T> | ExpectChain<number>,
         lengthOf: (value: number) => ExpectChain<T>,
 
         match: (regex: RegExp) => ExpectChain<T>,
@@ -186,6 +185,6 @@ declare module "chai" {
     declare var config: {
         includeStack: boolean,
         showDiff: boolean,
-        truncateThreshold: boolean
+        truncateThreshold: number
     };
 }

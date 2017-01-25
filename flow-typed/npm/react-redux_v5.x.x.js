@@ -1,5 +1,5 @@
-// flow-typed signature: e0de1bae8e4653952fd0d24ea3610669
-// flow-typed version: c4bbd91cfc/react-redux_v4.x.x/flow_>=v0.30.x
+// flow-typed signature: 0ed284c5a2e97a9e3c0e87af3dedc09d
+// flow-typed version: bdf1e66252/react-redux_v5.x.x/flow_>=v0.30.x
 
 import type { Dispatch, Store } from 'redux'
 
