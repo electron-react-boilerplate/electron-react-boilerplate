@@ -25,7 +25,7 @@ export default validate(merge(baseConfig, {
      */
     new BabiliPlugin({
       // Disable deadcode until https://github.com/babel/babili/issues/385 fixed
-      babili: ['babel-preset-babili', { deadcode: false }],
+      deadcode: false,
     }),
 
     /**
