@@ -40,6 +40,18 @@ describe('main window', function spec() {
     expect(title).to.equal('Hello Electron React!');
   });
 
+  it('should haven\'t any logs in console of main window', async () => {
+    const { client } = this.app;
+    const logs = await client.getRenderProcessLogs();
+    // Print renderer process logs
+    logs.forEach(log => {
+      console.log(log.message);
+      console.log(log.source);
+      console.log(log.level);
+    });
+    expect(logs).to.be.empty;
+  });
+
   it('should to Counter with click "to Counter" link', async () => {
     const { client } = this.app;
 

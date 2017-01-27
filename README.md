@@ -54,7 +54,7 @@ $ npm run dev
 ## Editor Configuration
 **Atom**
 ```bash
-apm install editorconfig es6-javascript atom-ternjs javascript-snippets linter linter-eslint language-babel autocomplete-modules
+apm install editorconfig es6-javascript atom-ternjs javascript-snippets linter linter-eslint language-babel autocomplete-modules file-icons
 ```
 
 **Sublime**

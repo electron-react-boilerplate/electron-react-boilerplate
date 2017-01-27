@@ -4,9 +4,7 @@
 
 import path from 'path';
 import validate from 'webpack-validator';
-import {
-  dependencies as externals
-} from './app/package.json';
+import { dependencies as externals } from './app/package.json';
 
 export default validate({
   module: {
@@ -28,7 +26,9 @@ export default validate({
     libraryTarget: 'commonjs2'
   },
 
-  // https://webpack.github.io/docs/configuration.html#resolve
+  /**
+   * Determine the array of extensions that should be used to resolve modules.
+   */
   resolve: {
     extensions: ['', '.js', '.jsx', '.json'],
     packageMains: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main']
