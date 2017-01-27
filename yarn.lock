@@ -1363,9 +1363,9 @@ babel-types@^6.15.0, babel-types@^6.19.0, babel-types@^6.22.0, babel-types@^6.3.
     lodash "^4.2.0"
     to-fast-properties "^1.0.1"
 
-babili-webpack-plugin@^0.0.8:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/babili-webpack-plugin/-/babili-webpack-plugin-0.0.8.tgz#6c6ef2624320d324014edc4265c6f810d91d013e"
+babili-webpack-plugin@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/babili-webpack-plugin/-/babili-webpack-plugin-0.0.9.tgz#9bdb3041cea93cc38259e140e1bd7741f4877337"
   dependencies:
     babel-core "^6.22.1"
     babel-preset-babili "^0.0.10"
