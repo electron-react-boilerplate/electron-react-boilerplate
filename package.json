@@ -123,7 +123,7 @@
     "electron": "^1.4.15",
     "electron-builder": "^11.4.4",
     "electron-devtools-installer": "^2.0.1",
-    "enzyme": "^2.7.0",
+    "enzyme": "^2.7.1",
     "eslint": "^3.14.0",
     "eslint-config-airbnb": "^14.0.0",
     "eslint-formatter-pretty": "^1.1.0",
