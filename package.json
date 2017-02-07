@@ -150,7 +150,7 @@
     "react-addons-test-utils": "^15.4.2",
     "redux-logger": "^2.7.4",
     "sinon": "^1.17.7",
-    "spectron": "^3.4.1",
+    "spectron": "^3.6.0",
     "style-loader": "^0.13.1",
     "tcomb": "^3.2.16",
     "url-loader": "^0.5.7",
