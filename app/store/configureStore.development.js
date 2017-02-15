@@ -5,11 +5,14 @@ import { routerMiddleware, push } from 'react-router-redux';
 import createLogger from 'redux-logger';
 import rootReducer from '../reducers';
 
-import * as counterActions from '../actions/counter';
-import type { counterStateType } from '../reducers/counter';
+import * as configFormActions from '../actions/configForm';
+import * as editorActions from '../actions/editor';
+import * as uiStyleActions from '../actions/uiStyle';
 
 const actionCreators = {
-  ...counterActions,
+  ...configFormActions,
+  ...editorActions,
+  ...uiStyleActions,
   push,
 };
 
@@ -33,7 +36,8 @@ const enhancer = composeEnhancers(
   applyMiddleware(thunk, router, logger)
 );
 
-export default function configureStore(initialState?: counterStateType) {
+export default function configureStore(initialState) {
+// export default function configureStore(initialState?: counterStateType) {
   const store = createStore(rootReducer, initialState, enhancer);
 
   if (module.hot) {

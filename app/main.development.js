@@ -45,6 +45,8 @@ app.on('ready', async () => {
   await installExtensions();
 
   mainWindow = new BrowserWindow({
+    title: 'Keypunch',
+    icon: '/resources/icon.ico',
     show: false,
     width: 1024,
     height: 728
