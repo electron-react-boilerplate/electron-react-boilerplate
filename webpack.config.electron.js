@@ -20,13 +20,23 @@ export default validate(merge(baseConfig, {
   },
 
   plugins: [
-    new BabiliPlugin(),
-    // Add source map support for stack traces in node
-    // https://github.com/evanw/node-source-map-support
-    // new webpack.BannerPlugin(
-    //   'require("source-map-support").install();',
-    //   { raw: true, entryOnly: false }
-    // ),
+    /**
+     * Babli is an ES6+ aware minifier based on the Babel toolchain (beta)
+     */
+    new BabiliPlugin({
+      // Disable deadcode until https://github.com/babel/babili/issues/385 fixed
+      deadcode: false,
+    }),
+
+    /**
+     * Create global constants which can be configured at compile time.
+     *
+     * Useful for allowing different behaviour between development builds and
+     * release builds
+     *
+     * NODE_ENV should be production so that modules do not perform certain
+     * development checks
+     */
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production')
