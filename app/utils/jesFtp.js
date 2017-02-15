@@ -137,7 +137,8 @@ class JES {
       .then(() => this.ftp.list(''))
       .then(results => {
         console.log('Checking results of list: ', results);
-        // Because the mainframe returns an information message if the queue is empty, this is an error
+        // Because the mainframe returns an information message if the queue is empty,
+        // this is an error
         if (!results || results.length === 0) {
           throw new Error("Unable to retrieve jobs from the mainframe JES Queue.");
         }
@@ -145,6 +146,8 @@ class JES {
         // We need to explicitly check for this and any other such informational messages.
         else if (results[0] === "No jobs found on Held queue") {
           store.dispatch(refreshJobs({}));
+          store.dispatch(setIsSubmitting(false));
+          store.dispatch(setIsRetrieving(false));
         } else {
           let jobs = {}
           results.forEach((job) => {
@@ -370,14 +373,14 @@ class JES {
     store.dispatch(setIsRetrieving(true));
     console.log(`Retrieving member ${memberName} from dataset ${datasetName}`);
     return this.connect()
-      .then((msg) => this.setEncoding('ascii'))
+      .then(() => this.setEncoding('ascii'))
       .then((msg) => console.log('After setting encoding to ASCII: ', msg))
-      .then((msg) => this.setFiletype('seq'))
+      .then(() => this.setFiletype('seq'))
       .then(() => this.ftp.cwd('~'))
       .then((msg) => console.log('After cwd: ', msg))
       .then(() => this.ftp.cwd(datasetName))
       .then((msg) => console.log('After cwd: ', msg))
-      .then((msg) => this.ftp.get(memberName))
+      .then(() => this.ftp.get(memberName))
       .then((stream) => {
         console.log(`After invoking get on ${memberName}:`)
         let results = '';
