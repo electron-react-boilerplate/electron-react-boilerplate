@@ -1,6 +1,5 @@
-import { store } from '../index';
 import Promise from 'bluebird';
-const PromiseFtp = require('promise-ftp');
+import { store } from '../index';
 import {
   setCurrentStep,
   setIsConnected,
@@ -16,6 +15,7 @@ import { refreshJobs, loadJobResults } from '../actions/jobs';
 import { setExplorerContent } from '../actions/explorer';
 import { refreshDatasets } from '../actions/datasets';
 
+const PromiseFtp = require('promise-ftp');
 
 class JES {
   constructor() {
@@ -136,7 +136,7 @@ class JES {
       .then(() => this.setFiletype('jes'))
       .then(() => this.ftp.list(''))
       .then(results => {
-        console.log("Checking results of list: ", results);
+        console.log('Checking results of list: ', results);
         // Because the mainframe returns an information message if the queue is empty, this is an error
         if (!results || results.length === 0) {
           throw new Error("Unable to retrieve jobs from the mainframe JES Queue.");
@@ -238,63 +238,51 @@ class JES {
       .catch(err => this._errorLookup(err));
   }
 
-  // const data = {
-  //     name: 'root',
-  //     toggled: true,
-  //     children: [
-  //         {
-  //             name: 'parent',
-  //             children: [
-  //                 { name: 'child1' },
-  //                 { name: 'child2' }
-  //             ]
-  //         },
-
   listDatasets() {
     store.dispatch(setIsSubmitting(true));
     store.dispatch(setIsRetrieving(true));
     let datasets = [];
     return this.connect()
-      .then((msg) => this.setEncoding('ascii'))
-      .then((msg) => this.setFiletype('seq'))
-      .then((msg) => this.ftp.list(''))
+      .then(() => this.setEncoding('ascii'))
+      .then(() => this.setFiletype('seq'))
+      .then(() => this.ftp.list(''))
       .then(results => {
-        console.log("Checking results of list: ", results);
+        console.log('Checking results of list: ', results);
         if (!results || results.length === 0) {
           throw new Error("Unable to list datasets.");
         }
         results.shift(); // Filter out the first row, which is table headers
         let highLevelQualifier = store.getState().config.ftpUserName + '.';
         results.forEach((dataset) => {
-          let datasetSplit = dataset.trim().split(/\ +/);
-          let volume = datasetSplit[0];
-          let unit = datasetSplit[1];
-          let referred = datasetSplit[2];
-          let ext = datasetSplit[3];
-          let used = datasetSplit[4];
-          let recfm = datasetSplit[5];
-          let lrecl = datasetSplit[6];
-          let blksz = datasetSplit[7];
-          let dsorg = datasetSplit[8];
+          const datasetSplit = dataset.trim().split(/\ +/);
+          const volume = datasetSplit[0];
+          const unit = datasetSplit[1];
+          const referred = datasetSplit[2];
+          const ext = datasetSplit[3];
+          const used = datasetSplit[4];
+          const recfm = datasetSplit[5];
+          const lrecl = datasetSplit[6];
+          const blksz = datasetSplit[7];
+          const dsorg = datasetSplit[8];
           // let dsname = highLevelQualifier + datasetSplit[9];
-          let dsname = datasetSplit[9];
+          const dsname = datasetSplit[9];
           datasets.push({
             name: dsname,
             toggled: false,
             children: [],
             attributes: {
-              volume: volume,
-              unit: unit,
-              referred: referred,
-              ext: ext,
-              used: used,
-              recfm: recfm,
-              lrecl: lrecl,
-              blksz: blksz,
-              dsorg: dsorg,
-              dsname: datasetSplit[9]
+              volume,
+              unit,
+              referred,
+              ext,
+              used,
+              recfm,
+              lrecl,
+              blksz,
+              dsorg,
+              dsname
             }
-          })
+          });
         });
         console.log(datasets);
       })

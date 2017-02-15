@@ -8,14 +8,11 @@ class Indicator extends Component {
       isBlinking: false,
       blinkingInterval: null,
       isLit: false
-    }
+    };
     super(props);
     this.state = Object.assign({}, initialState, props);
   }
 
-  toggle() {
-    this.setState({ isLit: !this.state.isLit });
-  }
 
   componentDidMount() {
     if (this.state.isBlinking) {
@@ -41,6 +38,10 @@ class Indicator extends Component {
         }
       }
     );
+  }
+
+  toggle() {
+    this.setState({ isLit: !this.state.isLit });
   }
 
   render() {
