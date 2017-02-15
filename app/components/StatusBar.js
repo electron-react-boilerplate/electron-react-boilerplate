@@ -1,9 +1,15 @@
 import React from 'react';
-import Indicator from './Indicator';
-import { renderIndicator } from '../utils/renderIcon';
 import { View } from 'react-desktop/windows';
+import { connect } from 'react-redux';
 
-export default function (props) {
+import Indicator from './Indicator';
+import { store } from '../index';
+import { testIndicators } from '../utils/nativeDialogs';
+import jes from '../utils/jesFtp';
+
+const { dialog } = require('electron').remote;
+
+function StatusBar(props) {
   return (
     <View
       style={{
@@ -13,11 +19,11 @@ export default function (props) {
         justifyContent: 'center',
         zIndex: '10'
       }}
-      background='#aaa'
-      width='100%'
-      height='50px'
-      overflow='hidden'
-      >
+      background="#aaa"
+      width="100%"
+      height="50px"
+      overflow="hidden"
+    >
       <button
         style={{
           backgroundColor: 'orange',
@@ -27,7 +33,7 @@ export default function (props) {
           width: '90px'
         }}
         onClick={props.testIndicators}
-        >
+      >
         TEST
       </button>
       {!props.isConnected ?
@@ -40,7 +46,7 @@ export default function (props) {
             width: '90px'
           }}
           onClick={props.jesConnect}
-          >
+        >
           CONNECT
       </button>
         :
@@ -53,7 +59,7 @@ export default function (props) {
             width: '90px'
           }}
           onClick={props.disconnect}
-          >
+        >
           INTERRUPT
       </button>
       }
@@ -67,7 +73,7 @@ export default function (props) {
           width: '30px'
 
         }}
-        >
+      >
         CONN
         <br />
         <div
@@ -75,11 +81,11 @@ export default function (props) {
             marginLeft: '10px',
             marginTop: '3px'
           }}
-          >
+        >
           <Indicator
             isLit={props.isConnected}
             isBlinking={props.isConnecting}
-            />
+          />
         </div>
       </div>
 
@@ -93,7 +99,7 @@ export default function (props) {
           color: 'black',
           width: '30px'
         }}
-        >
+      >
         SENT
         <br />
         <div
@@ -101,18 +107,13 @@ export default function (props) {
             marginLeft: '9px',
             marginTop: '3px'
           }}
-          >
+        >
           <Indicator
             isLit={props.isSubmitted}
             isBlinking={props.isSubmitting}
-            />
+          />
         </div>
       </div>
-
-
-
-
-
 
       <div
         style={{
@@ -122,7 +123,7 @@ export default function (props) {
           color: 'black',
           width: '30px'
         }}
-        >
+      >
         RETR
         <br />
         <div
@@ -130,16 +131,13 @@ export default function (props) {
             marginLeft: '9px',
             marginTop: '3px'
           }}
-          >
+        >
           <Indicator
             isLit={props.isRetrieved}
             isBlinking={props.isRetrieving}
-            />
+          />
         </div>
       </div>
-
-
-
 
       <div
         style={{
@@ -149,7 +147,7 @@ export default function (props) {
           color: 'black',
           width: '30px'
         }}
-        >
+      >
         DISC
         <br />
         <div
@@ -157,14 +155,13 @@ export default function (props) {
             marginLeft: '7px',
             marginTop: '3px'
           }}
-          >
+        >
           <Indicator
             isLit={props.isDisconnected}
             isBlinking={props.isDisconnecting}
-            />
+          />
         </div>
       </div>
-
 
       <button
         style={{
@@ -176,9 +173,61 @@ export default function (props) {
           width: '90px'
         }}
         onClick={props.submitJob}
-        >
+      >
         LOAD
           </button>
     </View >
-  )
+  );
 }
+
+function mapStateToProps(state) {
+  return {
+    currentStep: state.results.currentStep,
+    isConnected: state.results.isConnected,
+    isConnecting: state.results.isConnecting,
+    isSubmitted: state.results.isSubmitted,
+    isSubmitting: state.results.isSubmitting,
+    isRetrieved: state.results.isRetrieved,
+    isRetrieving: state.results.isRetrieving,
+    isDisconnected: state.results.isDisconnected,
+    isDisconnecting: state.results.isDisconnecting
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    testIndicators: (evt) => {
+      evt.preventDefault();
+      dispatch(testIndicators);
+    },
+    jesConnect: (evt) => {
+      evt.preventDefault();
+      dispatch(jes.connect);
+    },
+    disconnect: (evt) => {
+      evt.preventDefault();
+      dispatch(jes.disconnect);
+    },
+
+    submitJob: (evt) => {
+      evt.preventDefault();
+      dialog.showMessageBox({
+        type: 'question',
+        buttons: ['Cancel', 'Submit'],
+        defaultId: 0,
+        title: 'Confirm Job Submission',
+        message: 'Are you sure that you want to submit your batch job?',
+        noLink: true
+      },
+        (response) => {
+          console.log('Button chosed was:', response);
+          if (response === 1) {
+            console.log('Job Sumbission was confirmed');
+            jes.submitJob(Buffer.from(store.getState().editor.editorContent));
+          }
+        });
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(StatusBar);

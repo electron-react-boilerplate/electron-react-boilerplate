@@ -1,30 +1,39 @@
-import brace from 'brace';
+import brace from 'brace'; // This is needed
 import 'brace/mode/java';
 import 'brace/theme/github';
 import 'brace/theme/twilight';
-import Editor from 'react-ace';
+import AceEditor from 'react-ace';
 import React from 'react';
+import { connect } from 'react-redux';
+import { setEditorContent } from '../actions/editor';
 
-export default function (props) { //props is now from MY POV
-  const editorContent = props.editorContent;
-  const setEditorContent = props.setEditorContent;
-  const theme = props.theme;
-  const color = props.color;
-
+function Editor(props) {
   return (
-    <Editor
+    <AceEditor
       mode="java"
-      theme={theme === 'dark' ? 'twilight' : 'github'}
-      onChange={setEditorContent}
-      name="EDITOR" //TODO: Change this to a generated value when we add multiple editors
+      theme={props.theme === 'dark' ? 'twilight' : 'github'}
+      onChange={props.setEditorContent}
+      name="EDITOR" // TODO: Change this to a generated value when we add multiple editors
       editorProps={{ $blockScrolling: Infinity }}
-      value={editorContent}
-      width='100%'
-      height='100%'
+      value={props.editorContent}
+      width="100%"
+      height="100%"
       fontSize={20}
-      />
-
-  )
+    />
+  );
 }
 
+function mapStateToProps(state) {
+  return {
+    editorContent: state.editor.editorContent,
+    theme: state.uiStyle.theme,
+    color: state.uiStyle.color
+  };
+}
 
+function mapDispatchToProps(dispatch) {
+  return {
+    setEditorContent: (newValue) => dispatch(setEditorContent(newValue))
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Editor);

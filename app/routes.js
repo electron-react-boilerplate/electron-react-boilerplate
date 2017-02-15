@@ -1,11 +1,11 @@
 // @flow
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import App from './containers/App';
-import Editor from './containers/Editor';
-import Explorer from './containers/Explorer';
-import ConfigForm from './containers/ConfigForm';
-import Results from './containers/Results';
+import App from './components/App';
+import Editor from './components/Editor';
+import Explorer from './components/Explorer';
+import ConfigForm from './components/ConfigForm';
+import Results from './components/Results';
 import { listDatasets, pollJobStatus } from './utils/jesFtp';
 
 export default (
