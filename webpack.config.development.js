@@ -53,7 +53,7 @@ export default validate(merge(baseConfig, {
       {
         test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
         loader: 'url-loader'
-      },
+      }
     ]
   },
 
