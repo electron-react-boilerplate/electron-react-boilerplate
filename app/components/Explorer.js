@@ -181,7 +181,7 @@ class Explorer extends React.Component {
     // Should not have a children attribute... needs to be enhanced to open things other than members in PDS
     if (!node.children) {
       console.log(`${node.name} is a member in ${node.attributes.dsname}`);
-      this.props.retrieveMember(node.attributes.dsname, node.name);
+      jesFtp.retrieveMember(node.attributes.dsname, node.name);
     } else {
       console.log(`${node.name} is dataset`);
     }
@@ -226,9 +226,4 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    retrieveMember: (dsName, memberName) => jesFtp.retrieveMember(dsName, memberName)
-  };
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Explorer);
+export default connect(mapStateToProps)(Explorer);
