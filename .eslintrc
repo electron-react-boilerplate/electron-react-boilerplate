@@ -16,6 +16,7 @@
     "import/no-extraneous-dependencies": "off",
     "no-console": 0,
     "no-use-before-define": "off",
+    "no-multi-assign": 0,
     "promise/param-names": 2,
     "promise/always-return": 2,
     "promise/catch-or-return": 2,
