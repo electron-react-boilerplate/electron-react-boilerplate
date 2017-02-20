@@ -1,23 +1,13 @@
 {
   "env": {
-    "mocha": true
+    "jest/globals": true
   },
   "plugins": [
-    "mocha"
+    "jest"
   ],
   "rules": {
-    "mocha/no-exclusive-tests": 2,
-    "mocha/no-skipped-tests": 0,
-    "mocha/no-pending-tests": 2,
-    "mocha/handle-done-callback": 2,
-    "mocha/no-synchronous-tests": 0,
-    "mocha/no-global-tests": 2,
-    "mocha/valid-test-description": 2,
-    "mocha/valid-suite-description": 2,
-    "mocha/no-sibling-hooks": 0,
-    "mocha/no-mocha-arrows": 0,
-    "mocha/no-hooks": 0,
-    "mocha/no-top-level-hooks": 0,
-    "no-unused-expressions": 0
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error"
   }
 }
