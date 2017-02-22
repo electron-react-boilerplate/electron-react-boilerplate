@@ -2,15 +2,14 @@
 
 // for babel-plugin-webpack-loaders
 require('babel-register');
-const validate = require('webpack-validator');
 const devConfig = require('./webpack.config.development');
 
-module.exports = validate({
+module.exports = {
   output: {
     libraryTarget: 'commonjs2'
   },
   module: {
     // Use base + development loaders, but exclude 'babel-loader'
-    loaders: devConfig.module.loaders.slice(1)
+    loaders: devConfig.module.rules.slice(1)
   }
-});
+};
