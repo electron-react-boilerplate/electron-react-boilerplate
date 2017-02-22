@@ -17,7 +17,7 @@ export default merge(baseConfig, {
 
   entry: [
     'react-hot-loader/patch',
-    `webpack-dev-server/client?http://localhost:${port}`,
+    `webpack-dev-server/client?http://localhost:${port}/`,
     'webpack/hot/only-dev-server',
     path.join(__dirname, 'app/index.js'),
   ],
@@ -140,9 +140,11 @@ export default merge(baseConfig, {
     contentBase: path.join(__dirname, 'dist'),
     publicPath,
     setup() {
-      spawn('npm', ['run', 'start-hot'], { shell: true, env: process.env, stdio: 'inherit' })
-        .on('close', code => process.exit(code))
-        .on('error', spawnError => console.error(spawnError));
+      if (process.env.START_HOT) {
+        spawn('npm', ['run', 'start-hot'], { shell: true, env: process.env, stdio: 'inherit' })
+          .on('close', code => process.exit(code))
+          .on('error', spawnError => console.error(spawnError));
+      }
     }
   },
 });
