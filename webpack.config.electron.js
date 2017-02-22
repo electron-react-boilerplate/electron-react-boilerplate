@@ -3,12 +3,11 @@
  */
 
 import webpack from 'webpack';
-import validate from 'webpack-validator';
 import merge from 'webpack-merge';
 import BabiliPlugin from 'babili-webpack-plugin';
 import baseConfig from './webpack.config.base';
 
-export default validate(merge(baseConfig, {
+export default merge(baseConfig, {
   devtool: 'source-map',
 
   entry: ['babel-polyfill', './app/main.development'],
@@ -59,4 +58,4 @@ export default validate(merge(baseConfig, {
     __dirname: false,
     __filename: false
   },
-}));
+});
