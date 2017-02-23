@@ -17,11 +17,6 @@
         "react-hot-loader/babel",
         "tcomb"
       ]
-    },
-    "test": {
-      "plugins": [
-        ["webpack-loaders", { "config": "webpack.config.test.js", "verbose": false }]
-      ],
     }
   }
 }
