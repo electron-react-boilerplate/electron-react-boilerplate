@@ -1,6 +1,7 @@
 {
   "presets": [
     ["env", { "targets": { "node": 6 }, "useBuiltIns": true }],
+    ["es2015", { "modules": false }],
     "stage-0",
     "react"
   ],
@@ -12,6 +13,7 @@
     },
     "development": {
       "plugins": [
+        "transform-runtime",
         "transform-class-properties",
         "transform-es2015-classes",
         "react-hot-loader/babel",
