@@ -107,7 +107,7 @@ export default merge(baseConfig, {
   },
 
   plugins: [
-    // https://webpack.github.io/docs/hot-module-replacement-with-webpack.html
+    // https://webpack.js.org/concepts/hot-module-replacement/
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     /**
