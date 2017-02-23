@@ -5,10 +5,10 @@
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
   "main": "main.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 mocha --retries 2 --compilers js:babel-register --recursive --require ./test/setup.js test/**/*.spec.js",
+    "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 jest \"(\\\\|/)test(\\\\|/)(?!.*e2e\\.spec\\.js).+\\.spec\\.js\"",
     "test-all": "npm run lint && npm run flow && npm run test && npm run build",
     "test-watch": "npm test -- --watch",
-    "test-e2e": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 mocha --retries 2 --compilers js:babel-register --require ./test/setup.js ./test/e2e.js",
+    "test-e2e": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 jest ./test/e2e.spec.js",
     "lint": "eslint --cache --format=node_modules/eslint-formatter-pretty .",
     "lint-fix": "npm run lint -- --fix",
     "hot-server": "cross-env NODE_ENV=development node --max_old_space_size=2096 -r babel-register server.js",
@@ -63,11 +63,11 @@
         "deb",
         "AppImage"
       ]
+    },
+    "directories": {
+      "buildResources": "resources",
+      "output": "release"
     }
-  },
-  "directories": {
-    "buildResources": "resources",
-    "output": "release"
   },
   "bin": {
     "electron": "./node_modules/.bin/electron"
@@ -95,17 +95,33 @@
     "react-hot"
   ],
   "homepage": "https://github.com/chentsulin/electron-react-boilerplate#readme",
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/mocks/fileMock.js",
+      "\\.(css|less|sass|scss)$": "identity-obj-proxy"
+    },
+    "moduleFileExtensions": [
+      "js"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "app/node_modules"
+    ],
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    }
+  },
   "devDependencies": {
     "asar": "^0.13.0",
     "babel-core": "^6.22.1",
     "babel-eslint": "^7.1.1",
+    "babel-jest": "^19.0.0",
     "babel-loader": "^6.2.10",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-dev-expression": "^0.2.1",
     "babel-plugin-tcomb": "^0.3.24",
     "babel-plugin-transform-class-properties": "^6.22.0",
     "babel-plugin-transform-es2015-classes": "^6.22.0",
-    "babel-plugin-webpack-loaders": "^0.8.0",
     "babel-polyfill": "^6.22.0",
     "babel-preset-env": "^1.1.8",
     "babel-preset-react": "^6.22.0",
@@ -115,7 +131,6 @@
     "babel-register": "^6.22.0",
     "babili-webpack-plugin": "^0.0.9",
     "boiler-room-custodian": "^0.6.1",
-    "chai": "^3.5.0",
     "concurrently": "^3.1.0",
     "cross-env": "^3.1.4",
     "css-loader": "^0.26.1",
@@ -132,8 +147,8 @@
     "eslint-plugin-flowtype": "^2.30.0",
     "eslint-plugin-flowtype-errors": "^3.0.0",
     "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jest": "^19.0.0",
     "eslint-plugin-jsx-a11y": "^3.0.2",
-    "eslint-plugin-mocha": "^4.8.0",
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-react": "^6.9.0",
     "express": "^4.14.0",
@@ -143,11 +158,13 @@
     "flow-bin": "^0.38.0",
     "flow-typed": "^2.0.0",
     "html-webpack-plugin": "^2.26.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^18.1.0",
     "jsdom": "^9.9.1",
     "json-loader": "^0.5.4",
     "minimist": "^1.2.0",
-    "mocha": "^3.2.0",
     "react-addons-test-utils": "^15.4.2",
+    "react-test-renderer": "^15.4.2",
     "redux-logger": "^2.7.4",
     "sinon": "^1.17.7",
     "spectron": "^3.4.1",
