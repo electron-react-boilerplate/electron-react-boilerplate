@@ -1,4 +1,4 @@
-// flow-typed signature: 470f4f8e06492465d32c88bab53d4c5b
+// flow-typed signature: 18701b3ca59341fb92cab6762f44a94c
 // flow-typed version: <<STUB>>/eslint_v^3.14.0/flow_v0.38.0
 
 /**
@@ -35,6 +35,10 @@ declare module 'eslint/conf/environments' {
 }
 
 declare module 'eslint/conf/eslint-all' {
+  declare module.exports: any;
+}
+
+declare module 'eslint/conf/eslint-recommended' {
   declare module.exports: any;
 }
 
@@ -1134,6 +1138,10 @@ declare module 'eslint/lib/rules/template-curly-spacing' {
   declare module.exports: any;
 }
 
+declare module 'eslint/lib/rules/template-tag-spacing' {
+  declare module.exports: any;
+}
+
 declare module 'eslint/lib/rules/unicode-bom' {
   declare module.exports: any;
 }
@@ -1182,7 +1190,55 @@ declare module 'eslint/lib/timing' {
   declare module.exports: any;
 }
 
-declare module 'eslint/lib/token-store' {
+declare module 'eslint/lib/token-store/backward-token-comment-cursor' {
+  declare module.exports: any;
+}
+
+declare module 'eslint/lib/token-store/backward-token-cursor' {
+  declare module.exports: any;
+}
+
+declare module 'eslint/lib/token-store/cursor' {
+  declare module.exports: any;
+}
+
+declare module 'eslint/lib/token-store/cursors' {
+  declare module.exports: any;
+}
+
+declare module 'eslint/lib/token-store/decorative-cursor' {
+  declare module.exports: any;
+}
+
+declare module 'eslint/lib/token-store/filter-cursor' {
+  declare module.exports: any;
+}
+
+declare module 'eslint/lib/token-store/forward-token-comment-cursor' {
+  declare module.exports: any;
+}
+
+declare module 'eslint/lib/token-store/forward-token-cursor' {
+  declare module.exports: any;
+}
+
+declare module 'eslint/lib/token-store/index' {
+  declare module.exports: any;
+}
+
+declare module 'eslint/lib/token-store/limit-cursor' {
+  declare module.exports: any;
+}
+
+declare module 'eslint/lib/token-store/padded-token-cursor' {
+  declare module.exports: any;
+}
+
+declare module 'eslint/lib/token-store/skip-cursor' {
+  declare module.exports: any;
+}
+
+declare module 'eslint/lib/token-store/utils' {
   declare module.exports: any;
 }
 
@@ -1262,6 +1318,9 @@ declare module 'eslint/conf/environments.js' {
 }
 declare module 'eslint/conf/eslint-all.js' {
   declare module.exports: $Exports<'eslint/conf/eslint-all'>;
+}
+declare module 'eslint/conf/eslint-recommended.js' {
+  declare module.exports: $Exports<'eslint/conf/eslint-recommended'>;
 }
 declare module 'eslint/lib/api.js' {
   declare module.exports: $Exports<'eslint/lib/api'>;
@@ -2085,6 +2144,9 @@ declare module 'eslint/lib/rules/symbol-description.js' {
 declare module 'eslint/lib/rules/template-curly-spacing.js' {
   declare module.exports: $Exports<'eslint/lib/rules/template-curly-spacing'>;
 }
+declare module 'eslint/lib/rules/template-tag-spacing.js' {
+  declare module.exports: $Exports<'eslint/lib/rules/template-tag-spacing'>;
+}
 declare module 'eslint/lib/rules/unicode-bom.js' {
   declare module.exports: $Exports<'eslint/lib/rules/unicode-bom'>;
 }
@@ -2121,8 +2183,44 @@ declare module 'eslint/lib/testers/rule-tester.js' {
 declare module 'eslint/lib/timing.js' {
   declare module.exports: $Exports<'eslint/lib/timing'>;
 }
-declare module 'eslint/lib/token-store.js' {
-  declare module.exports: $Exports<'eslint/lib/token-store'>;
+declare module 'eslint/lib/token-store/backward-token-comment-cursor.js' {
+  declare module.exports: $Exports<'eslint/lib/token-store/backward-token-comment-cursor'>;
+}
+declare module 'eslint/lib/token-store/backward-token-cursor.js' {
+  declare module.exports: $Exports<'eslint/lib/token-store/backward-token-cursor'>;
+}
+declare module 'eslint/lib/token-store/cursor.js' {
+  declare module.exports: $Exports<'eslint/lib/token-store/cursor'>;
+}
+declare module 'eslint/lib/token-store/cursors.js' {
+  declare module.exports: $Exports<'eslint/lib/token-store/cursors'>;
+}
+declare module 'eslint/lib/token-store/decorative-cursor.js' {
+  declare module.exports: $Exports<'eslint/lib/token-store/decorative-cursor'>;
+}
+declare module 'eslint/lib/token-store/filter-cursor.js' {
+  declare module.exports: $Exports<'eslint/lib/token-store/filter-cursor'>;
+}
+declare module 'eslint/lib/token-store/forward-token-comment-cursor.js' {
+  declare module.exports: $Exports<'eslint/lib/token-store/forward-token-comment-cursor'>;
+}
+declare module 'eslint/lib/token-store/forward-token-cursor.js' {
+  declare module.exports: $Exports<'eslint/lib/token-store/forward-token-cursor'>;
+}
+declare module 'eslint/lib/token-store/index.js' {
+  declare module.exports: $Exports<'eslint/lib/token-store/index'>;
+}
+declare module 'eslint/lib/token-store/limit-cursor.js' {
+  declare module.exports: $Exports<'eslint/lib/token-store/limit-cursor'>;
+}
+declare module 'eslint/lib/token-store/padded-token-cursor.js' {
+  declare module.exports: $Exports<'eslint/lib/token-store/padded-token-cursor'>;
+}
+declare module 'eslint/lib/token-store/skip-cursor.js' {
+  declare module.exports: $Exports<'eslint/lib/token-store/skip-cursor'>;
+}
+declare module 'eslint/lib/token-store/utils.js' {
+  declare module.exports: $Exports<'eslint/lib/token-store/utils'>;
 }
 declare module 'eslint/lib/util/comment-event-generator.js' {
   declare module.exports: $Exports<'eslint/lib/util/comment-event-generator'>;

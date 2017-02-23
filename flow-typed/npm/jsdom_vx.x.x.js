@@ -1,4 +1,4 @@
-// flow-typed signature: 93a0f8b93e28b4e1cd4ffa98fe28029a
+// flow-typed signature: 77063c39c76ebb5ad3b82b20cae2001b
 // flow-typed version: <<STUB>>/jsdom_v^9.9.1/flow_v0.38.0
 
 /**
@@ -74,14 +74,6 @@ declare module 'jsdom/lib/jsdom/living/attributes/Attr-impl' {
   declare module.exports: any;
 }
 
-declare module 'jsdom/lib/jsdom/living/blob-symbols' {
-  declare module.exports: any;
-}
-
-declare module 'jsdom/lib/jsdom/living/blob' {
-  declare module.exports: any;
-}
-
 declare module 'jsdom/lib/jsdom/living/dom-token-list' {
   declare module.exports: any;
 }
@@ -142,23 +134,19 @@ declare module 'jsdom/lib/jsdom/living/events/UIEvent-impl' {
   declare module.exports: any;
 }
 
-declare module 'jsdom/lib/jsdom/living/file-reader' {
+declare module 'jsdom/lib/jsdom/living/file-api/Blob-impl' {
   declare module.exports: any;
 }
 
-declare module 'jsdom/lib/jsdom/living/file-symbols' {
+declare module 'jsdom/lib/jsdom/living/file-api/File-impl' {
   declare module.exports: any;
 }
 
-declare module 'jsdom/lib/jsdom/living/file' {
+declare module 'jsdom/lib/jsdom/living/file-api/FileList-impl' {
   declare module.exports: any;
 }
 
-declare module 'jsdom/lib/jsdom/living/filelist-symbols' {
-  declare module.exports: any;
-}
-
-declare module 'jsdom/lib/jsdom/living/filelist' {
+declare module 'jsdom/lib/jsdom/living/file-api/FileReader-impl' {
   declare module.exports: any;
 }
 
@@ -171,6 +159,14 @@ declare module 'jsdom/lib/jsdom/living/generated/AddEventListenerOptions' {
 }
 
 declare module 'jsdom/lib/jsdom/living/generated/Attr' {
+  declare module.exports: any;
+}
+
+declare module 'jsdom/lib/jsdom/living/generated/Blob' {
+  declare module.exports: any;
+}
+
+declare module 'jsdom/lib/jsdom/living/generated/BlobPropertyBag' {
   declare module.exports: any;
 }
 
@@ -255,6 +251,22 @@ declare module 'jsdom/lib/jsdom/living/generated/EventModifierInit' {
 }
 
 declare module 'jsdom/lib/jsdom/living/generated/EventTarget' {
+  declare module.exports: any;
+}
+
+declare module 'jsdom/lib/jsdom/living/generated/File' {
+  declare module.exports: any;
+}
+
+declare module 'jsdom/lib/jsdom/living/generated/FileList' {
+  declare module.exports: any;
+}
+
+declare module 'jsdom/lib/jsdom/living/generated/FilePropertyBag' {
+  declare module.exports: any;
+}
+
+declare module 'jsdom/lib/jsdom/living/generated/FileReader' {
   declare module.exports: any;
 }
 
@@ -602,6 +614,10 @@ declare module 'jsdom/lib/jsdom/living/generated/MouseEventInit' {
   declare module.exports: any;
 }
 
+declare module 'jsdom/lib/jsdom/living/generated/MutationEvent' {
+  declare module.exports: any;
+}
+
 declare module 'jsdom/lib/jsdom/living/generated/Navigator' {
   declare module.exports: any;
 }
@@ -695,10 +711,6 @@ declare module 'jsdom/lib/jsdom/living/generated/UIEventInit' {
 }
 
 declare module 'jsdom/lib/jsdom/living/generated/utils' {
-  declare module.exports: any;
-}
-
-declare module 'jsdom/lib/jsdom/living/generated/Window' {
   declare module.exports: any;
 }
 
@@ -1298,12 +1310,6 @@ declare module 'jsdom/lib/jsdom/living/attributes.js' {
 declare module 'jsdom/lib/jsdom/living/attributes/Attr-impl.js' {
   declare module.exports: $Exports<'jsdom/lib/jsdom/living/attributes/Attr-impl'>;
 }
-declare module 'jsdom/lib/jsdom/living/blob-symbols.js' {
-  declare module.exports: $Exports<'jsdom/lib/jsdom/living/blob-symbols'>;
-}
-declare module 'jsdom/lib/jsdom/living/blob.js' {
-  declare module.exports: $Exports<'jsdom/lib/jsdom/living/blob'>;
-}
 declare module 'jsdom/lib/jsdom/living/dom-token-list.js' {
   declare module.exports: $Exports<'jsdom/lib/jsdom/living/dom-token-list'>;
 }
@@ -1349,20 +1355,17 @@ declare module 'jsdom/lib/jsdom/living/events/TouchEvent-impl.js' {
 declare module 'jsdom/lib/jsdom/living/events/UIEvent-impl.js' {
   declare module.exports: $Exports<'jsdom/lib/jsdom/living/events/UIEvent-impl'>;
 }
-declare module 'jsdom/lib/jsdom/living/file-reader.js' {
-  declare module.exports: $Exports<'jsdom/lib/jsdom/living/file-reader'>;
+declare module 'jsdom/lib/jsdom/living/file-api/Blob-impl.js' {
+  declare module.exports: $Exports<'jsdom/lib/jsdom/living/file-api/Blob-impl'>;
 }
-declare module 'jsdom/lib/jsdom/living/file-symbols.js' {
-  declare module.exports: $Exports<'jsdom/lib/jsdom/living/file-symbols'>;
+declare module 'jsdom/lib/jsdom/living/file-api/File-impl.js' {
+  declare module.exports: $Exports<'jsdom/lib/jsdom/living/file-api/File-impl'>;
 }
-declare module 'jsdom/lib/jsdom/living/file.js' {
-  declare module.exports: $Exports<'jsdom/lib/jsdom/living/file'>;
+declare module 'jsdom/lib/jsdom/living/file-api/FileList-impl.js' {
+  declare module.exports: $Exports<'jsdom/lib/jsdom/living/file-api/FileList-impl'>;
 }
-declare module 'jsdom/lib/jsdom/living/filelist-symbols.js' {
-  declare module.exports: $Exports<'jsdom/lib/jsdom/living/filelist-symbols'>;
-}
-declare module 'jsdom/lib/jsdom/living/filelist.js' {
-  declare module.exports: $Exports<'jsdom/lib/jsdom/living/filelist'>;
+declare module 'jsdom/lib/jsdom/living/file-api/FileReader-impl.js' {
+  declare module.exports: $Exports<'jsdom/lib/jsdom/living/file-api/FileReader-impl'>;
 }
 declare module 'jsdom/lib/jsdom/living/form-data-symbols.js' {
   declare module.exports: $Exports<'jsdom/lib/jsdom/living/form-data-symbols'>;
@@ -1372,6 +1375,12 @@ declare module 'jsdom/lib/jsdom/living/generated/AddEventListenerOptions.js' {
 }
 declare module 'jsdom/lib/jsdom/living/generated/Attr.js' {
   declare module.exports: $Exports<'jsdom/lib/jsdom/living/generated/Attr'>;
+}
+declare module 'jsdom/lib/jsdom/living/generated/Blob.js' {
+  declare module.exports: $Exports<'jsdom/lib/jsdom/living/generated/Blob'>;
+}
+declare module 'jsdom/lib/jsdom/living/generated/BlobPropertyBag.js' {
+  declare module.exports: $Exports<'jsdom/lib/jsdom/living/generated/BlobPropertyBag'>;
 }
 declare module 'jsdom/lib/jsdom/living/generated/CDATASection.js' {
   declare module.exports: $Exports<'jsdom/lib/jsdom/living/generated/CDATASection'>;
@@ -1435,6 +1444,18 @@ declare module 'jsdom/lib/jsdom/living/generated/EventModifierInit.js' {
 }
 declare module 'jsdom/lib/jsdom/living/generated/EventTarget.js' {
   declare module.exports: $Exports<'jsdom/lib/jsdom/living/generated/EventTarget'>;
+}
+declare module 'jsdom/lib/jsdom/living/generated/File.js' {
+  declare module.exports: $Exports<'jsdom/lib/jsdom/living/generated/File'>;
+}
+declare module 'jsdom/lib/jsdom/living/generated/FileList.js' {
+  declare module.exports: $Exports<'jsdom/lib/jsdom/living/generated/FileList'>;
+}
+declare module 'jsdom/lib/jsdom/living/generated/FilePropertyBag.js' {
+  declare module.exports: $Exports<'jsdom/lib/jsdom/living/generated/FilePropertyBag'>;
+}
+declare module 'jsdom/lib/jsdom/living/generated/FileReader.js' {
+  declare module.exports: $Exports<'jsdom/lib/jsdom/living/generated/FileReader'>;
 }
 declare module 'jsdom/lib/jsdom/living/generated/FocusEvent.js' {
   declare module.exports: $Exports<'jsdom/lib/jsdom/living/generated/FocusEvent'>;
@@ -1694,6 +1715,9 @@ declare module 'jsdom/lib/jsdom/living/generated/MouseEvent.js' {
 declare module 'jsdom/lib/jsdom/living/generated/MouseEventInit.js' {
   declare module.exports: $Exports<'jsdom/lib/jsdom/living/generated/MouseEventInit'>;
 }
+declare module 'jsdom/lib/jsdom/living/generated/MutationEvent.js' {
+  declare module.exports: $Exports<'jsdom/lib/jsdom/living/generated/MutationEvent'>;
+}
 declare module 'jsdom/lib/jsdom/living/generated/Navigator.js' {
   declare module.exports: $Exports<'jsdom/lib/jsdom/living/generated/Navigator'>;
 }
@@ -1765,9 +1789,6 @@ declare module 'jsdom/lib/jsdom/living/generated/UIEventInit.js' {
 }
 declare module 'jsdom/lib/jsdom/living/generated/utils.js' {
   declare module.exports: $Exports<'jsdom/lib/jsdom/living/generated/utils'>;
-}
-declare module 'jsdom/lib/jsdom/living/generated/Window.js' {
-  declare module.exports: $Exports<'jsdom/lib/jsdom/living/generated/Window'>;
 }
 declare module 'jsdom/lib/jsdom/living/generated/WindowEventHandlers.js' {
   declare module.exports: $Exports<'jsdom/lib/jsdom/living/generated/WindowEventHandlers'>;
