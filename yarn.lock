@@ -1178,7 +1178,7 @@ babel-preset-env@^1.1.8:
     babel-plugin-transform-regenerator "^6.6.0"
     browserslist "^1.4.0"
 
-babel-preset-es2015@^6.3.13:
+babel-preset-es2015@^6.22.0, babel-preset-es2015@^6.3.13:
   version "6.22.0"
   resolved "https://registry.yarnpkg.com/babel-preset-es2015/-/babel-preset-es2015-6.22.0.tgz#af5a98ecb35eb8af764ad8a5a05eb36dc4386835"
   dependencies:
@@ -5980,8 +5980,8 @@ rechoir@^0.6.2:
     resolve "^1.1.6"
 
 redbox-react@^1.2.5:
-  version "1.3.3"
-  resolved "https://registry.yarnpkg.com/redbox-react/-/redbox-react-1.3.3.tgz#63ec9c2cb9c620c46e2b9f8543b4898f1b787e41"
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/redbox-react/-/redbox-react-1.3.4.tgz#3d882bb62cc7c8f6256279d12f05c6a5a96d24c6"
   dependencies:
     error-stack-parser "^1.3.6"
     object-assign "^4.0.1"
