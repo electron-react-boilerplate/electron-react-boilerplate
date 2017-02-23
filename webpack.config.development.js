@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 /**
  * Build config for development process that uses Hot-Module-Replacement
- * https://webpack.github.io/docs/hot-module-replacement-with-webpack.html
+ * https://webpack.js.org/concepts/hot-module-replacement/
  */
 import path from 'path';
 import webpack from 'webpack';
