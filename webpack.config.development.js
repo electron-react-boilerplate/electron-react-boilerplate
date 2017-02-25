@@ -12,7 +12,7 @@ import baseConfig from './webpack.config.base';
 const port = process.env.PORT || 3000;
 
 export default validate(merge(baseConfig, {
-  debug: true,
+  debug: false,
 
   devtool: 'inline-source-map',
 
