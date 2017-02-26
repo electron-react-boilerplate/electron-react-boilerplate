@@ -17,7 +17,8 @@ export default validate(merge(baseConfig, {
   devtool: 'inline-source-map',
 
   entry: [
-    `webpack-hot-middleware/client?path=http://localhost:${port}/__webpack_hmr`,
+    'webpack-hot-middleware/client'
+    + `?path=http://localhost:${port}/__webpack_hmr`,
     'babel-polyfill',
     './app/index'
   ],
@@ -40,7 +41,13 @@ export default validate(merge(baseConfig, {
         test: /^((?!\.global).)*\.css$/,
         loaders: [
           'style-loader',
-          'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
+          'css-loader'
+          + '?modules'
+          + '&sourceMap'
+          + '&localIdentName=[name]__[local]__[hash:base64:5]'
+          + '&importLoaders=1',
+          'postcss-loader'
+          // see postcss.confnig.js for options
         ]
       },
 
