@@ -47,7 +47,7 @@ export default validate(merge(baseConfig, {
           + '&localIdentName=[name]__[local]__[hash:base64:5]'
           + '&importLoaders=1',
           'postcss-loader'
-          // see postcss.confnig.js for options
+          // see postcss.config.js for options
         ]
       },
 

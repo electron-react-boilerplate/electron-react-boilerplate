@@ -5,7 +5,6 @@
 import path from 'path';
 import webpack from 'webpack';
 import validate from 'webpack-validator';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import merge from 'webpack-merge';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import BabiliPlugin from 'babili-webpack-plugin';
@@ -23,26 +22,24 @@ export default validate(merge(baseConfig, {
 
   module: {
     loaders: [
-      // Extract all .global.css to style.css as is
       {
         test: /\.global\.css$/,
-        loader: ExtractTextPlugin.extract(
+        loaders: [
           'style-loader',
           'css-loader'
-        )
+        ]
       },
 
-      // Pipe other styles through css modules and append to style.css
       {
         test: /^((?!\.global).)*\.css$/,
-        loader: ExtractTextPlugin.extract(
+        loaders: [
           'style-loader',
           'css-loader'
           + '?modules'
           + '&localIdentName=[name]__[local]__[hash:base64:5]'
           + '&importLoaders=1',
           'postcss-loader'
-        )
+        ]
       },
 
       // Fonts
@@ -101,8 +98,6 @@ export default validate(merge(baseConfig, {
       // Disable deadcode until https://github.com/babel/babili/issues/385 fixed
       deadcode: false,
     }),
-
-    new ExtractTextPlugin('style.css', { allChunks: true }),
 
     /**
      * Dynamically generate index.html page
