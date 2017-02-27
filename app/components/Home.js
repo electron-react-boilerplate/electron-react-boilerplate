@@ -12,13 +12,13 @@ export default class Home extends Component {
     return (
       <div>
         <div className={styles.container} data-tid="container">
-          <AppBar label="Electron React Toolbox">
+          <AppBar title="Electron React Toolbox">
             <Navigation type="horizontal">
               <Link to="/counter">to Counter</Link>
             </Navigation>
           </AppBar>
           <h2>Home</h2>
-          <Button label="click me" />
+          <Button icon="favorite" label="click me" raised primary />
         </div>
       </div>
     );

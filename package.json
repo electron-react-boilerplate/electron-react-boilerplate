@@ -30,7 +30,6 @@
   "build": {
     "productName": "ElectronReact",
     "appId": "org.develar.ElectronReact",
-    "category": "public.app-category.tools",
     "dmg": {
       "contents": [
         {
@@ -190,6 +189,7 @@
     "babel-polyfill": "^6.23.0",
     "electron-debug": "^1.1.0",
     "font-awesome": "^4.7.0",
+    "material-design-icons": "^3.0.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.3",
