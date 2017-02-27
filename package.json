@@ -137,7 +137,6 @@
     "concurrently": "^3.3.0",
     "cross-env": "^3.1.4",
     "css-loader": "^0.26.1",
-    "cssnext-loader": "^1.0.1",
     "devtron": "^1.4.0",
     "electron": "^1.4.15",
     "electron-builder": "^14.4.0",
