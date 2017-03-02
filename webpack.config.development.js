@@ -26,6 +26,10 @@ export default validate(merge(baseConfig, {
     publicPath: `http://localhost:${port}/dist/`
   },
 
+  resolve: {
+    packageMains: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main']
+  },
+
   module: {
     loaders: [
       {

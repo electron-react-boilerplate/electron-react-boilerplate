@@ -19,6 +19,10 @@ export default validate(merge(baseConfig, {
     filename: './app/main.js'
   },
 
+  resolve: {
+    packageMains: ['webpackNode', 'node', 'main']
+  },
+
   plugins: [
     /**
      * Babli is an ES6+ aware minifier based on the Babel toolchain (beta)
