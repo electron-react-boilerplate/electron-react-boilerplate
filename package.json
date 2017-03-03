@@ -152,7 +152,6 @@
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-react": "^6.9.0",
     "express": "^4.14.0",
-    "extract-text-webpack-plugin": "beta",
     "fbjs-scripts": "^0.7.1",
     "file-loader": "^0.10.0",
     "flow-bin": "^0.38.0",
@@ -161,7 +160,6 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^18.1.0",
     "jsdom": "^9.9.1",
-    "json-loader": "^0.5.4",
     "minimist": "^1.2.0",
     "react-addons-test-utils": "^15.4.2",
     "react-test-renderer": "^15.4.2",
@@ -172,13 +170,12 @@
     "tcomb": "^3.2.16",
     "url-loader": "^0.5.7",
     "webpack": "^2.2.1",
-    "webpack-dev-middleware": "^1.9.0",
-    "webpack-hot-middleware": "^2.15.0",
-    "webpack-merge": "^2.4.0",
-    "webpack-validator": "^2.3.0"
+    "webpack-dev-server": "^2.4.1",
+    "webpack-merge": "^2.4.0"
   },
   "dependencies": {
     "electron-debug": "^1.1.0",
+    "extract-text-webpack-plugin": "^2.0.0",
     "font-awesome": "^4.7.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
@@ -188,8 +185,7 @@
     "react-router-redux": "^4.0.7",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
-    "source-map-support": "^0.4.10",
-    "webpack-dev-server": "^2.4.1"
+    "source-map-support": "^0.4.10"
   },
   "devEngines": {
     "node": ">=6.x",

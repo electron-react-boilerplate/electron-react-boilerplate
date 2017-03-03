@@ -98,12 +98,6 @@ export default merge(baseConfig, {
 
   plugins: [
     /**
-     * Assign the module and chunk ids by occurrence count
-     * Reduces total file size and is recommended
-     */
-    new webpack.optimize.OccurrenceOrderPlugin(),
-
-    /**
      * Create global constants which can be configured at compile time.
      *
      * Useful for allowing different behaviour between development builds and
