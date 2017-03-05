@@ -11,7 +11,7 @@
     "consistent-return": "off",
     "comma-dangle": "off",
     "generator-star-spacing": "off",
-    "import/no-unresolved": ["error", { "ignore": ["electron"] }],
+    "import/no-unresolved": 2,
     "import/no-extraneous-dependencies": "off",
     "no-console": 0,
     "no-use-before-define": "off",
