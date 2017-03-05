@@ -1,10 +1,9 @@
-import { Menu, shell } from 'electron';
+import { app, Menu, shell } from 'electron';
 
 export default class MenuBuilder {
 
-  constructor(mainWindow, app) {
+  constructor(mainWindow) {
     this.mainWindow = mainWindow;
-    this.app = app;
   }
 
   buildMenu(env, platform) {
@@ -50,7 +49,7 @@ export default class MenuBuilder {
         { label: 'Hide Others', accelerator: 'Command+Shift+H', selector: 'hideOtherApplications:' },
         { label: 'Show All', selector: 'unhideAllApplications:' },
         { type: 'separator' },
-        { label: 'Quit', accelerator: 'Command+Q', click: () => { this.app.quit(); } }
+        { label: 'Quit', accelerator: 'Command+Q', click: () => { app.quit(); } }
       ]
     };
     const subMenuEdit = {
