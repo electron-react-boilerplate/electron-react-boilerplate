@@ -1,7 +1,6 @@
 import { app, BrowserWindow } from 'electron';
 import MenuBuilder from './menu';
 
-let menu;
 let mainWindow = null;
 
 if (process.env.NODE_ENV === 'production') {
