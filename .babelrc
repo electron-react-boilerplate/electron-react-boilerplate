@@ -1,6 +1,6 @@
 {
   "presets": [
-    ["env", { "targets": { "electron": "1.4" }, "useBuiltIns": true }],
+    ["env", { "targets": { "node": "current" }, "useBuiltIns": true }],
     "stage-2",
     "react"
   ],
