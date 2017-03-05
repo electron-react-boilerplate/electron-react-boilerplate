@@ -41,7 +41,6 @@ const installExtensions = async () => {
 };
 
 app.on('ready', async () => {
-
   await installExtensions();
 
   mainWindow = new BrowserWindow({
@@ -62,6 +61,5 @@ app.on('ready', async () => {
   });
 
   const menuBuilder = new MenuBuilder(mainWindow);
-  menu = menuBuilder.buildMenu(process.env.NODE_ENV, process.platform);
-
+  menuBuilder.buildMenu(process.env.NODE_ENV, process.platform);
 });
