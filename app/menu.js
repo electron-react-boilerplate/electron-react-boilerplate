@@ -6,14 +6,14 @@ export default class MenuBuilder {
     this.mainWindow = mainWindow;
   }
 
-  buildMenu(env, platform) {
-    if (env === 'development') {
+  buildMenu() {
+    if (process.env.NODE_ENV === 'development') {
       this.setupDevelopmentEnvironment();
     }
 
     let template;
 
-    if (platform === 'darwin') {
+    if (process.platform === 'darwin') {
       template = this.buildDarwinTemplate();
     } else {
       template = this.buildDefaultTemplate();

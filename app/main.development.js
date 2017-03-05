@@ -61,5 +61,5 @@ app.on('ready', async () => {
   });
 
   const menuBuilder = new MenuBuilder(mainWindow);
-  menuBuilder.buildMenu(process.env.NODE_ENV, process.platform);
+  menuBuilder.buildMenu();
 });
