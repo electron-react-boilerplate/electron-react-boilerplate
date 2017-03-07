@@ -1,3 +1,4 @@
+// @flow
 import { app, Menu, shell } from 'electron';
 
 export default class MenuBuilder {
