@@ -1,3 +1,4 @@
+// @flow
 import { app, BrowserWindow } from 'electron';
 import MenuBuilder from './menu';
 
@@ -52,8 +53,8 @@ app.on('ready', async () => {
   mainWindow.loadURL(`file://${__dirname}/app.html`);
 
   mainWindow.webContents.on('did-finish-load', () => {
-    mainWindow.show();
-    mainWindow.focus();
+    mainWindow.show(); // eslint-disable-line
+    mainWindow.focus(); // eslint-disable-line
   });
 
   mainWindow.on('closed', () => {
