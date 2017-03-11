@@ -14,7 +14,10 @@
       "plugins": [
         "transform-class-properties",
         "transform-es2015-classes",
-        "tcomb"
+        ["flow-runtime", {
+          "assert": true,
+          "annotate": true
+        }]
       ],
       "presets": ["react-hmre"]
     }
