@@ -3,12 +3,11 @@
  */
 
 import webpack from 'webpack';
-import validate from 'webpack-validator';
 import merge from 'webpack-merge';
 import BabiliPlugin from 'babili-webpack-plugin';
 import baseConfig from './webpack.config.base';
 
-export default validate(merge(baseConfig, {
+export default merge(baseConfig, {
   devtool: 'source-map',
 
   entry: ['babel-polyfill', './app/main.development'],
@@ -23,10 +22,7 @@ export default validate(merge(baseConfig, {
     /**
      * Babli is an ES6+ aware minifier based on the Babel toolchain (beta)
      */
-    new BabiliPlugin({
-      // Disable deadcode until https://github.com/babel/babili/issues/385 fixed
-      deadcode: false,
-    }),
+    new BabiliPlugin(),
 
     /**
      * Create global constants which can be configured at compile time.
@@ -59,4 +55,4 @@ export default validate(merge(baseConfig, {
     __dirname: false,
     __filename: false
   },
-}));
+});

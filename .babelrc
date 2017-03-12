@@ -14,9 +14,12 @@
       "plugins": [
         "transform-class-properties",
         "transform-es2015-classes",
-        "tcomb"
-      ],
-      "presets": ["react-hmre"]
+        "react-hot-loader/babel",
+        ["flow-runtime", {
+          "assert": true,
+          "annotate": true
+        }]
+      ]
     }
   }
 }
