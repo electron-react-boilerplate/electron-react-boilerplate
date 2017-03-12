@@ -179,7 +179,7 @@ This boilerplate uses a [two package.json structure](https://github.com/electron
 3. Otherwise, modules used for building, testing and debugging should be included in `devDependencies` in `./package.json`.
 
 ## Static Type Checking
-This project comes with Flow support out of the box! You can annotate your code with types, [get Flow errors as ESLint errors](https://github.com/amilajack/eslint-plugin-flowtype-errors), and get [type errors during runtime](https://github.com/gcanti/babel-plugin-tcomb-boilerplate) during development. Types are completely optional.
+This project comes with Flow support out of the box! You can annotate your code with types, [get Flow errors as ESLint errors](https://github.com/amilajack/eslint-plugin-flowtype-errors), and get [type errors during runtime](https://github.com/codemix/flow-runtime) during development. Types are completely optional.
 
 ## Native-like UI
 
