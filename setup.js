@@ -21,6 +21,7 @@ module.exports = {
     { file: 'test/actions/counter.spec.js' },
     { file: 'test/components/Counter.spec.js' },
     { file: 'test/containers/CounterPage.spec.js' },
+    { file: 'test/e2e/e2e.spec.js' },
     { file: 'test/reducers/counter.spec.js' },
     { file: 'CHANGELOG.md' },
     { file: 'erb-logo.png' }
@@ -57,10 +58,6 @@ module.exports = {
       pattern: /CounterPage/
     },
     {
-      file: 'test/e2e.js',
-      clear: true
-    },
-    {
       file: 'README.md',
       clear: true
     },
@@ -76,6 +73,7 @@ module.exports = {
     { file: 'test/actions/.gitkeep' },
     { file: 'test/components/.gitkeep' },
     { file: 'test/containers/.gitkeep' },
-    { file: 'test/reducers/.gitkeep' }
+    { file: 'test/reducers/.gitkeep' },
+    { file: 'test/e2e/.gitkeep' }
   ]
 };
