@@ -34,7 +34,7 @@ export default class MenuBuilder {
 
       Menu.buildFromTemplate([{
         label: 'Inspect element',
-        click() {
+        click: () => {
           this.mainWindow.inspectElement(x, y);
         }
       }]).popup(this.mainWindow);
