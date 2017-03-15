@@ -163,6 +163,7 @@
     "jest": "^18.1.0",
     "jsdom": "^9.9.1",
     "minimist": "^1.2.0",
+    "node-loader": "^0.6.0",
     "react-addons-test-utils": "^15.4.2",
     "react-test-renderer": "^15.4.2",
     "redux-logger": "^2.7.4",
