@@ -15,6 +15,9 @@ export default {
     }, {
       test: /\.node$/,
       use: 'node-loader'
+    }, {
+      test: /\.json$/,
+      use: 'json-loader'
     }]
   },
 
