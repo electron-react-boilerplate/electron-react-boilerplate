@@ -155,7 +155,7 @@
     "express": "^4.14.0",
     "fbjs-scripts": "^0.7.1",
     "file-loader": "^0.10.0",
-    "flow-bin": "^0.38.0",
+    "flow-bin": "^0.42.0",
     "flow-runtime": "^0.8.0",
     "flow-typed": "^2.0.0",
     "html-webpack-plugin": "^2.26.0",
