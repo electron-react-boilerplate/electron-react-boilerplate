@@ -1,4 +1,4 @@
-// flow-typed signature: 4a64c2ee58dc3dd1bd3facdbbc7cd5de
+// flow-typed signature: 5a00581b56facf6bb7169104ad4e5271
 // flow-typed version: <<STUB>>/eslint-config-airbnb_v^14.1.0/flow_v0.42.0
 
 /**
@@ -38,14 +38,6 @@ declare module 'eslint-config-airbnb/rules/react' {
   declare module.exports: any;
 }
 
-declare module 'eslint-config-airbnb/test/test-base' {
-  declare module.exports: any;
-}
-
-declare module 'eslint-config-airbnb/test/test-react-order' {
-  declare module.exports: any;
-}
-
 // Filename aliases
 declare module 'eslint-config-airbnb/base.js' {
   declare module.exports: $Exports<'eslint-config-airbnb/base'>;
@@ -64,10 +56,4 @@ declare module 'eslint-config-airbnb/rules/react-a11y.js' {
 }
 declare module 'eslint-config-airbnb/rules/react.js' {
   declare module.exports: $Exports<'eslint-config-airbnb/rules/react'>;
-}
-declare module 'eslint-config-airbnb/test/test-base.js' {
-  declare module.exports: $Exports<'eslint-config-airbnb/test/test-base'>;
-}
-declare module 'eslint-config-airbnb/test/test-react-order.js' {
-  declare module.exports: $Exports<'eslint-config-airbnb/test/test-react-order'>;
 }

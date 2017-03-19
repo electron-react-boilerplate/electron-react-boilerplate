@@ -3,7 +3,7 @@
   "productName": "ElectronReact",
   "version": "0.10.0",
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
-  "main": "main.js",
+  "main": "main.entry.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node --trace-warnings ./test/runTests.js",
     "test-all": "npm run lint && npm run flow && npm run test && npm run build",
@@ -19,7 +19,7 @@
     "start": "cross-env NODE_ENV=production electron ./app/",
     "flow": "flow",
     "flow-typed": "flow-typed install",
-    "start-hot-renderer": "cross-env HOT=1 NODE_ENV=development electron -r babel-register -r babel-polyfill ./app/main.development",
+    "start-hot-renderer": "cross-env HOT=1 NODE_ENV=development electron ./app/",
     "postinstall": "concurrently \"npm run build-dll\" \"install-app-deps\" \"node node_modules/fbjs-scripts/node/check-dev-engines.js package.json\"",
     "dev": "cross-env START_HOT=1 npm run hot-updates-server",
     "package": "npm run build && build --publish never",
@@ -38,7 +38,8 @@
       "app.html",
       "main.js",
       "main.js.map",
-      "package.json"
+      "package.json",
+      "main.entry.js"
     ],
     "dmg": {
       "contents": [
