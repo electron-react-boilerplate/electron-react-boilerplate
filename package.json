@@ -166,7 +166,7 @@
     "react-addons-test-utils": "^15.4.2",
     "react-test-renderer": "^15.4.2",
     "redux-logger": "^2.7.4",
-    "sinon": "^1.17.7",
+    "sinon": "^2.1.0",
     "spectron": "^3.4.1",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
