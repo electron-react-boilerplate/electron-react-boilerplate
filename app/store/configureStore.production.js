@@ -7,7 +7,7 @@ import rootReducer from '../reducers';
 import type { counterStateType } from '../reducers/counter';
 
 const history = createBrowserHistory();
-const router = routerMiddleware(hashHistory);
+const router = routerMiddleware(history);
 
 const enhancer = applyMiddleware(thunk, router);
 
@@ -15,4 +15,4 @@ function configureStore(initialState?: counterStateType) {
   return createStore(rootReducer, initialState, enhancer); // eslint-disable-line
 }
 
-export default { configureStore, history }
+export default { configureStore, history };
