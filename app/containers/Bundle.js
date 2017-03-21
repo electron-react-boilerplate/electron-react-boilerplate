@@ -1,30 +1,28 @@
 // @flow
-import React, { Component } from 'react';
+import { Component } from 'react';
 import type { Children } from 'react';
 
+type Props = {children: Children, load: () => Promise<*>};
 class Bundle extends Component {
-
-  componentWillMount() {
-    this.load(this.props);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.load !== this.props.load) {
-      this.load(nextProps);
-    }
-  }
-
-  props: {
-    children: Children,
-    load: () => Promise
-  }
 
   state = {
     // short for "module" but that's a keyword in js, so "mod"
     mod: null
   }
 
-  load(props) {
+  componentWillMount() {
+    this.load(this.props);
+  }
+
+  componentWillReceiveProps(nextProps: Props) {
+    if (nextProps.load !== this.props.load) {
+      this.load(nextProps);
+    }
+  }
+
+  props: Props
+
+  load(props: Props) {
     this.setState({
       mod: null
     });
