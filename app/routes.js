@@ -9,14 +9,14 @@ import Bundle from './containers/Bundle';
 const HomePage = () => (
   <Bundle load={() => import('./containers/HomePage')}>
     { (HomePageComponent) => (HomePageComponent ?
-      <HomePage /> : <div> Loading HomePage... </div>) }
+      <HomePageComponent /> : <div> Loading HomePage... </div>) }
   </Bundle>
 );
 
 const CounterPage = () => (
   <Bundle load={() => import('./containers/CounterPage')}>
     { (CounterPageComponent) => (CounterPageComponent ?
-      <CounterPage /> : <div> Loading CounterPage... </div>) }
+      <CounterPageComponent /> : <div> Loading CounterPage... </div>) }
   </Bundle>
 );
 
