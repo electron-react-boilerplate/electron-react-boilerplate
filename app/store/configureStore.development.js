@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import { hashHistory } from 'react-router';
+import { createBrowserHistory } from 'history';
 import { routerMiddleware, push } from 'react-router-redux';
 import createLogger from 'redux-logger';
 import rootReducer from '../reducers';
@@ -18,7 +18,8 @@ const logger = createLogger({
   collapsed: true
 });
 
-const router = routerMiddleware(hashHistory);
+const history = createBrowserHistory();
+const router = routerMiddleware(history);
 
 // If Redux DevTools Extension is installed use it, otherwise use Redux compose
 /* eslint-disable no-underscore-dangle */
@@ -33,7 +34,7 @@ const enhancer = composeEnhancers(
   applyMiddleware(thunk, router, logger)
 );
 
-export default function configureStore(initialState?: counterStateType) {
+function configureStore(initialState?: counterStateType) {
   const store = createStore(rootReducer, initialState, enhancer);
 
   if (module.hot) {
@@ -44,3 +45,5 @@ export default function configureStore(initialState?: counterStateType) {
 
   return store;
 }
+
+export default { configureStore, history };
