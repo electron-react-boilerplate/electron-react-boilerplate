@@ -4,7 +4,7 @@
     "stage-0",
     "react"
   ],
-  "plugins": ["add-module-exports"],
+  "plugins": ["add-module-exports","syntax-dynamic-import"],
   "env": {
     "production": {
       "presets": ["react-optimize"],

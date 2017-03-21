@@ -2,9 +2,19 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import App from './containers/App';
-import HomePage from './containers/HomePage';
-import CounterPage from './containers/CounterPage';
+import Bundle from './containers/Bundle';
 
+const HomePage = () => (
+  <Bundle load={() => import('./containers/HomePage')}>
+    {(HomePage) => HomePage ? <HomePage/> : <div> Loading HomePage... </div>}
+  </Bundle>
+);
+
+const CounterPage = () => (
+  <Bundle load={() => import('./containers/CounterPage')}>
+    {(CounterPage) => CounterPage ? <CounterPage/> : <div> Loading CounterPage... </div>}
+  </Bundle>
+);
 
 const Routes = () => (
   <App>
