@@ -4,15 +4,19 @@ import { Route, Switch } from 'react-router-dom';
 import App from './containers/App';
 import Bundle from './containers/Bundle';
 
+// Dynamic Import Flow: https://github.com/facebook/flow/pull/3544
+
 const HomePage = () => (
   <Bundle load={() => import('./containers/HomePage')}>
-    {(HomePage) => HomePage ? <HomePage/> : <div> Loading HomePage... </div>}
+    { (HomePageComponent) => (HomePageComponent ?
+      <HomePage /> : <div> Loading HomePage... </div>) }
   </Bundle>
 );
 
 const CounterPage = () => (
   <Bundle load={() => import('./containers/CounterPage')}>
-    {(CounterPage) => CounterPage ? <CounterPage/> : <div> Loading CounterPage... </div>}
+    { (CounterPageComponent) => (CounterPageComponent ?
+      <CounterPage /> : <div> Loading CounterPage... </div>) }
   </Bundle>
 );
 
