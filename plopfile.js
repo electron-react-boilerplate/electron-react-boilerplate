@@ -1,9 +1,22 @@
 module.exports = function (plop) {
   // create your generators here
-  plop.setGenerator('basics', {
-    description: 'this is a skeleton plopfile',
-    prompts: [],
-    actions: []
+  plop.setGenerator('helper', {
+    description: 'Create a utils file',
+    prompts: [{
+      type: 'input',
+      name: 'name',
+      message: 'What is the name of your file?',
+      validate: function (value) {
+        if ((/.+/).test(value)) { return true; }
+        return 'name is required';
+      }
+    }],
+    actions: [{
+      type: 'add',
+      path: './app/utils/{{camelCase name}}.js',
+      templateFile: 'templates/helper.js',
+      abortOnFail: true
+    }]
   }),
 
   plop.setGenerator('component', {
