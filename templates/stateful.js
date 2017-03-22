@@ -13,7 +13,7 @@ class {{ properCase name }} extends Component {
     const { increment, decrement, value } = this.props;
     return (
       <div>
-        <h4>A stateful component with a single value <p{{#if styled}}className={styles.value}{{/if}}>{value}</p></h4>
+        <h4>A stateful component with a single value <p{{#if styled}} className={styles.value}{{/if}}>{value}</p></h4>
 
         <button className={styles.btn} onClick={increment} data-tclass="btn">
           <i className="fa fa-plus" />
