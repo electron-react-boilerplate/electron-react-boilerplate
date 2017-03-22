@@ -12,6 +12,12 @@ export default {
       test: /\.jsx?$/,
       use: 'babel-loader',
       exclude: /node_modules/
+    }, {
+      test: /\.node$/,
+      use: 'node-loader'
+    }, {
+      test: /\.json$/,
+      use: 'json-loader'
     }]
   },
 

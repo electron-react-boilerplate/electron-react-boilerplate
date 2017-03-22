@@ -3,6 +3,7 @@
  * Build config for development process that uses Hot-Module-Replacement
  * https://webpack.js.org/concepts/hot-module-replacement/
  */
+
 import path from 'path';
 import webpack from 'webpack';
 import merge from 'webpack-merge';
