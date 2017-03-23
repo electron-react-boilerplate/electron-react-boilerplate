@@ -140,7 +140,7 @@
     "electron-builder": "^13.3.2",
     "electron-devtools-installer": "^2.0.1",
     "enzyme": "^2.7.1",
-    "eslint": "^3.14.0",
+    "eslint": "^3.14.1",
     "eslint-config-airbnb": "^14.0.0",
     "eslint-formatter-pretty": "^1.1.0",
     "eslint-import-resolver-webpack": "^0.8.1",
