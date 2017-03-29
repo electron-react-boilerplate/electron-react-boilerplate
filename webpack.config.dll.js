@@ -2,47 +2,50 @@ import webpack from 'webpack';
 import path from 'path';
 import merge from 'webpack-merge';
 import baseConfig from './webpack.config.base';
-import { devDependencies, dependencies } from './package.json';
+import { dependencies } from './package.json';
+
+const dist = path.resolve(process.cwd(), 'dist');
 
 export default merge(baseConfig, {
-  context: path.join(__dirname, 'app', 'dist'),
+  context: process.cwd(),
 
   devtool: 'eval',
 
-  // entry: ['react'],
+  target: 'electron-renderer',
 
-  entry: {
-    dll: Object.keys({ ...devDependencies, ...dependencies })
-      // .filter(external => !external.includes('babel'))
-      .filter(external => !external.includes('webpack'))
-      .filter(external => !external.includes('eslint'))
-      .filter(external => !external.includes('flow'))
-      .filter(external => !external.includes('jest'))
-      .filter(external => external !== 'electron-builder')
-      .filter(external => external !== 'jest-cli')
-      .filter(external => external !== 'boiler-room-custodian')
-      .filter(external => external !== 'concurrently')
-      .filter(external => external !== 'enzyme')
-      .filter(external => external !== 'electron-chromedriver')
-      .filter(external => external !== 'spectron')
-      .filter(external => external !== 'font-awesome')
-      .filter(external => external !== 'fbjs-scripts'),
+  resolve: {
+    modules: [
+      'app',
+      'node_modules',
+    ],
   },
 
+  entry: {
+    vendor: [
+      'babel-polyfill',
+      ...Object.keys(dependencies)
+    ]
+    .filter(dependency => dependency !== 'font-awesome'),
+  },
 
   output: {
-    library: 'vendor_lib',
-    path: 'dist/',
-    filename: 'dll.js',
+    library: 'vendor',
+    path: dist,
+    filename: '[name].dll.js',
     libraryTarget: 'var'
   },
 
-  target: 'electron-renderer',
-
   plugins: [
     new webpack.DllPlugin({
-      name: 'vendor_lib',
-      path: './dist/dll.json'
+      // The path to the manifest file which maps between
+      // modules included in a bundle and the internal IDs
+      // within that bundle
+      path: path.join(dist, '[name].json'),
+
+      // The name of the global variable which the library's
+      // require function has been assigned to. This must match the
+      // output.library option above
+      name: '[name]',
     }),
     /**
      * Create global constants which can be configured at compile time.
@@ -54,11 +57,19 @@ export default merge(baseConfig, {
      * development checks
      */
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('development')
+      'process.env.NODE_ENV': JSON.stringify('development'),
+      // __DEV__: true
     }),
     // turn debug mode on.
     new webpack.LoaderOptionsPlugin({
-      debug: true
+      debug: true,
+      options: {
+        context: path.resolve(process.cwd(), 'app'),
+        output: {
+          path: path.resolve(process.cwd(), 'dist'),
+        },
+      },
     })
-  ]
+  ],
+  externals: ['fsevents']
 });

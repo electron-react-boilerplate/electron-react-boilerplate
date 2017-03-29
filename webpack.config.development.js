@@ -11,6 +11,8 @@ import baseConfig from './webpack.config.base';
 
 const port = process.env.PORT || 3000;
 const publicPath = `http://localhost:${port}/dist`;
+const dist = path.resolve(process.cwd(), 'dist');
+const manifest = path.resolve(dist, 'vendor.json');
 
 export default merge(baseConfig, {
   devtool: 'inline-source-map',
@@ -19,6 +21,7 @@ export default merge(baseConfig, {
     'react-hot-loader/patch',
     `webpack-dev-server/client?http://localhost:${port}/`,
     'webpack/hot/only-dev-server',
+    // './app/webpack-public-path.js',
     path.join(__dirname, 'app/index.js'),
   ],
 
@@ -108,15 +111,15 @@ export default merge(baseConfig, {
 
   plugins: [
     new webpack.DllReferencePlugin({
-      manifest: require('./dist/dll.json'),
-      context: '.',
-      name: 'vendor_lib',
+      context: process.cwd(),
+      manifest: require(manifest),
       sourceType: 'var',
-      extensions: ['.js', '.jsx']
     }),
 
     // https://webpack.js.org/concepts/hot-module-replacement/
-    new webpack.HotModuleReplacementPlugin(),
+    new webpack.HotModuleReplacementPlugin({
+      multiStep: true
+    }),
     new webpack.NoEmitOnErrorsPlugin(),
     /**
      * Create global constants which can be configured at compile time.
