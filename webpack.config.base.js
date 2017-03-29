@@ -14,7 +14,10 @@ export default {
       exclude: /node_modules/,
       use: {
         loader: 'babel-loader',
-        options: babelrc
+        options: {
+          ...babelrc,
+          cacheDirectory: true
+        }
       }
     }]
   },
