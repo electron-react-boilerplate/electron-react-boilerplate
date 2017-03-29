@@ -17,18 +17,25 @@
   </head>
   <body>
     <div id="root"></div>
-    <script src="../dll/vendor.dll.js"></script>
     <script>
       {
+        // Dynamically include DLL if in development
+        if (process.env.NODE_ENV === 'development') {
+          const dllScript = document.createElement('script');
+          dllScript.src = '../dll/vendor.dll.js';
+          document.body.appendChild(dllScript);
+        }
+
         // Dynamically insert the renderer process
         const script = document.createElement('script');
         const port = process.env.PORT || 3000;
 
         script.src = (process.env.HOT)
-          ? `http://localhost:${port}/dist/bundle.js`
+          ? 'http://localhost:' + port + '/dist/bundle.js'
           : './dist/bundle.js';
 
-        // HACK: Writing the script path should be done with webpack
+        // @HACK: Writing the script path should be done
+        //        with HtmlWebpackPlugin
         document.body.appendChild(script);
       }
     </script>
