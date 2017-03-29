@@ -127,6 +127,5 @@ export default merge(baseConfig, {
     })
   ],
 
-  // https://github.com/chentsulin/webpack-target-electron-renderer#how-this-module-works
   target: 'electron-renderer'
 });

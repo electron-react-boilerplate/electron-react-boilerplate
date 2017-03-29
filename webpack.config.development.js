@@ -107,6 +107,14 @@ export default merge(baseConfig, {
   },
 
   plugins: [
+    new webpack.DllReferencePlugin({
+      manifest: require('./dist/dll.json'),
+      context: '.',
+      name: 'vendor_lib',
+      sourceType: 'var',
+      extensions: ['.js', '.jsx']
+    }),
+
     // https://webpack.js.org/concepts/hot-module-replacement/
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
@@ -125,13 +133,11 @@ export default merge(baseConfig, {
     // turn debug mode on.
     new webpack.LoaderOptionsPlugin({
       debug: true
-    }),
+    })
   ],
 
-  /**
-   * https://github.com/chentsulin/webpack-target-electron-renderer#how-this-module-works
-   */
   target: 'electron-renderer',
+
   devServer: {
     port,
     hot: true,

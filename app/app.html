@@ -17,8 +17,18 @@
   </head>
   <body>
     <div id="root"></div>
-    <script>
+    <h1>asdf</h1>
+    <script src="../dist/dll.js"></script>
+    <script src="http://localhost:3000/dist/bundle.js"></script>
+    <!--<script>
       {
+        // @HACK: Only require script in development
+        // Dynamically insert
+        // const dllScript = document.createElement('script');
+        // dllScript.src = '../dist/dll.js'
+        // document.body.appendChild(dllScript);
+
+        // Dynamically insert the renderer process
         const script = document.createElement('script');
         const port = process.env.PORT || 3000;
         script.src = (process.env.HOT)
@@ -27,6 +37,6 @@
         // HACK: Writing the script path should be done with webpack
         document.body.appendChild(script);
       }
-    </script>
+    </script>-->
   </body>
 </html>
