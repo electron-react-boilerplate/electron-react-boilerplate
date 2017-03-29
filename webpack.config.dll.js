@@ -4,7 +4,7 @@ import merge from 'webpack-merge';
 import baseConfig from './webpack.config.base';
 import { dependencies } from './package.json';
 
-const dist = path.resolve(process.cwd(), 'dist');
+const dist = path.resolve(process.cwd(), 'dll');
 
 export default merge(baseConfig, {
   context: process.cwd(),
@@ -37,16 +37,10 @@ export default merge(baseConfig, {
 
   plugins: [
     new webpack.DllPlugin({
-      // The path to the manifest file which maps between
-      // modules included in a bundle and the internal IDs
-      // within that bundle
       path: path.join(dist, '[name].json'),
-
-      // The name of the global variable which the library's
-      // require function has been assigned to. This must match the
-      // output.library option above
       name: '[name]',
     }),
+
     /**
      * Create global constants which can be configured at compile time.
      *
@@ -58,15 +52,14 @@ export default merge(baseConfig, {
      */
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development'),
-      // __DEV__: true
     }),
-    // turn debug mode on.
+
     new webpack.LoaderOptionsPlugin({
       debug: true,
       options: {
         context: path.resolve(process.cwd(), 'app'),
         output: {
-          path: path.resolve(process.cwd(), 'dist'),
+          path: path.resolve(process.cwd(), 'dll'),
         },
       },
     })

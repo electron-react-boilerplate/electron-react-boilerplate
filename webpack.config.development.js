@@ -1,8 +1,10 @@
-/* eslint-disable max-len */
+/* eslint global-require: 0, import/no-dynamic-require: 0 */
+
 /**
  * Build config for development process that uses Hot-Module-Replacement
  * https://webpack.js.org/concepts/hot-module-replacement/
  */
+
 import path from 'path';
 import webpack from 'webpack';
 import merge from 'webpack-merge';
@@ -11,8 +13,8 @@ import baseConfig from './webpack.config.base';
 
 const port = process.env.PORT || 3000;
 const publicPath = `http://localhost:${port}/dist`;
-const dist = path.resolve(process.cwd(), 'dist');
-const manifest = path.resolve(dist, 'vendor.json');
+const dll = path.resolve(process.cwd(), 'dll');
+const manifest = path.resolve(dll, 'vendor.json');
 
 export default merge(baseConfig, {
   devtool: 'inline-source-map',
@@ -21,7 +23,6 @@ export default merge(baseConfig, {
     'react-hot-loader/patch',
     `webpack-dev-server/client?http://localhost:${port}/`,
     'webpack/hot/only-dev-server',
-    // './app/webpack-public-path.js',
     path.join(__dirname, 'app/index.js'),
   ],
 
@@ -116,11 +117,15 @@ export default merge(baseConfig, {
       sourceType: 'var',
     }),
 
-    // https://webpack.js.org/concepts/hot-module-replacement/
+    /**
+     * https://webpack.js.org/concepts/hot-module-replacement/
+     */
     new webpack.HotModuleReplacementPlugin({
       multiStep: true
     }),
+
     new webpack.NoEmitOnErrorsPlugin(),
+
     /**
      * Create global constants which can be configured at compile time.
      *
@@ -133,7 +138,7 @@ export default merge(baseConfig, {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development')
     }),
-    // turn debug mode on.
+
     new webpack.LoaderOptionsPlugin({
       debug: true
     })
@@ -143,16 +148,32 @@ export default merge(baseConfig, {
 
   devServer: {
     port,
-    hot: true,
-    inline: false,
-    historyApiFallback: true,
-    contentBase: path.join(__dirname, 'dist'),
     publicPath,
+    compress: true,
+    noInfo: true,
+    stats: 'errors-only',
+    inline: true,
+    lazy: false,
+    hot: true,
+    headers: { 'Access-Control-Allow-Origin': '*' },
+    contentBase: path.join(__dirname, 'dist'),
+    watchOptions: {
+      aggregateTimeout: 300,
+      poll: 100
+    },
+    historyApiFallback: {
+      verbose: true,
+      disableDotRule: false,
+    },
     setup() {
       if (process.env.START_HOT) {
-        spawn('npm', ['run', 'start-hot'], { shell: true, env: process.env, stdio: 'inherit' })
-          .on('close', code => process.exit(code))
-          .on('error', spawnError => console.error(spawnError));
+        spawn(
+          'npm',
+          ['run', 'start-hot'],
+          { shell: true, env: process.env, stdio: 'inherit' }
+        )
+        .on('close', code => process.exit(code))
+        .on('error', spawnError => console.error(spawnError));
       }
     }
   },

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Hello Electron React!</title>
     <script>
-      (function() {
+      (() => {
         if (!process.env.HOT) {
           const link = document.createElement('link');
           link.rel = 'stylesheet';
@@ -12,31 +12,25 @@
           // HACK: Writing the script path should be done with webpack
           document.getElementsByTagName('head')[0].appendChild(link);
         }
-      }());
+      })();
     </script>
   </head>
   <body>
     <div id="root"></div>
-    <h1>asdf</h1>
-    <script src="../dist/vendor.dll.js"></script>
-    <script src="http://localhost:3000/dist/bundle.js"></script>
-    <!--<script>
+    <script src="../dll/vendor.dll.js"></script>
+    <script>
       {
-        // @HACK: Only require script in development
-        // Dynamically insert
-        // const dllScript = document.createElement('script');
-        // dllScript.src = '../dist/dll.js'
-        // document.body.appendChild(dllScript);
-
         // Dynamically insert the renderer process
         const script = document.createElement('script');
         const port = process.env.PORT || 3000;
+
         script.src = (process.env.HOT)
-          ? 'http://localhost:' + port + '/dist/bundle.js'
+          ? `http://localhost:${port}/dist/bundle.js`
           : './dist/bundle.js';
+
         // HACK: Writing the script path should be done with webpack
         document.body.appendChild(script);
       }
-    </script>-->
+    </script>
   </body>
 </html>
