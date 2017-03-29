@@ -64,5 +64,5 @@ export default merge(baseConfig, {
       },
     })
   ],
-  externals: ['fsevents']
+  externals: ['fsevents', 'crypto-browserify']
 });

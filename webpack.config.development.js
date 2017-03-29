@@ -6,7 +6,9 @@
  */
 
 import path from 'path';
+import fs from 'fs';
 import webpack from 'webpack';
+import chalk from 'chalk';
 import merge from 'webpack-merge';
 import { spawn } from 'child_process';
 import baseConfig from './webpack.config.base';
@@ -15,6 +17,16 @@ const port = process.env.PORT || 3000;
 const publicPath = `http://localhost:${port}/dist`;
 const dll = path.resolve(process.cwd(), 'dll');
 const manifest = path.resolve(dll, 'vendor.json');
+
+/**
+ * Warn if the DLL is not built
+ */
+if (!(fs.existsSync(dll) && fs.existsSync(manifest))) {
+  console.log(chalk.white.bgRed.bold(
+    'The DLL manifest is missing. Please run `npm run build-dll`'
+  ));
+  process.exit(0);
+}
 
 export default merge(baseConfig, {
   devtool: 'inline-source-map',
