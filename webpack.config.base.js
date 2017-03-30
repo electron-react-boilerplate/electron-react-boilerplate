@@ -4,8 +4,27 @@
 
 import path from 'path';
 import webpack from 'webpack';
+import fs from 'fs';
 import { dependencies as externals } from './app/package.json';
-import babelrc from './.babelrc.js';
+
+const babelrc = JSON.parse(
+    fs.readFileSync(path.join(__dirname, '.babelrc'), 'utf-8')
+  );
+
+/**
+ * @HACK: Webpack 2 has native import/export support. Our `.babelrc`
+ *        still needs module transpilation for node-register.
+ *        Here, we override the 'env' preset in our babelrc by setting
+ *        `modules` to `false`
+ */
+const presets = [['env', {
+  targets: { node: 6 },
+  useBuiltIns: true,
+  modules: false
+}]]
+.concat((babelrc.presets || []).filter(preset =>
+  !Array.isArray(preset) || preset[0] !== 'env'
+));
 
 export default {
   module: {
@@ -16,6 +35,8 @@ export default {
         loader: 'babel-loader',
         options: {
           ...babelrc,
+          presets,
+          babelrc: false,
           cacheDirectory: true
         }
       }
