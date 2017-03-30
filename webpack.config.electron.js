@@ -17,7 +17,11 @@ export default merge(baseConfig, {
     path: __dirname,
     filename: './app/main.js'
   },
-
+  
+  resolve: {
+    packageAlias: 'main'
+  },
+  
   plugins: [
     /**
      * Babli is an ES6+ aware minifier based on the Babel toolchain (beta)
