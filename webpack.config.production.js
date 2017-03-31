@@ -46,6 +46,33 @@ export default merge(baseConfig, {
         }),
       },
       {
+        test: /\.global\.scss$/,
+        use: ExtractTextPlugin.extract({
+          use: [
+            {
+              loader: 'css-loader'
+            },
+            { loader: 'sass-loader' }
+          ],
+          fallback: 'style-loader',
+        })
+      },
+      {
+        test: /^((?!\.global).)*\.scss$/,
+        use: ExtractTextPlugin.extract({
+          use: [{
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              importLoaders: 1,
+              localIdentName: '[name]__[local]__[hash:base64:5]',
+            }
+          },
+          { loader: 'sass-loader' }]
+        }),
+      },
+
+      {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
         use: {
           loader: 'url-loader',
