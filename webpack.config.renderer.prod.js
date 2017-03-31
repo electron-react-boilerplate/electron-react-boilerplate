@@ -1,5 +1,5 @@
 /**
- * Build config for electron 'Renderer Process' file
+ * Build config for electron renderer process
  */
 
 import path from 'path';
