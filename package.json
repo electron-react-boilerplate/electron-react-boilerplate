@@ -167,7 +167,7 @@
     "minimist": "^1.2.0",
     "react-addons-test-utils": "^15.4.2",
     "react-test-renderer": "^15.4.2",
-    "redux-logger": "^2.7.4",
+    "redux-logger": "^3.0.1",
     "sinon": "^1.17.7",
     "spectron": "^3.4.1",
     "style-loader": "^0.15.0",
