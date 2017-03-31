@@ -73,6 +73,19 @@ export default merge(baseConfig, {
         ]
       },
       {
+        test: /\.global\.scss$/,
+        use: [
+          { loader: 'style-loader' },
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
+          { loader: "sass-loader" }
+        ]
+      },
+      {
         test: /^((?!\.global).)*\.scss$/,
         use: [
           { loader: 'style-loader' },
