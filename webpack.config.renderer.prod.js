@@ -1,5 +1,5 @@
 /**
- * Build config for electron 'Renderer Process' file
+ * Build config for electron renderer process
  */
 
 import path from 'path';
@@ -30,7 +30,6 @@ export default merge(baseConfig, {
           fallback: 'style-loader',
         })
       },
-
       // Pipe other styles through css modules and append to style.css
       {
         test: /^((?!\.global).)*\.css$/,
@@ -45,6 +44,39 @@ export default merge(baseConfig, {
           }
         }),
       },
+      // Add SASS support  - compile all .global.scss files and pipe it to style.css
+      {
+        test: /\.global\.scss$/,
+        use: ExtractTextPlugin.extract({
+          use: [
+            {
+              loader: 'css-loader'
+            },
+            {
+              loader: 'sass-loader'
+            }
+          ],
+          fallback: 'style-loader',
+        })
+      },
+      // Add SASS support  - compile all other .scss files and pipe it to style.css
+      {
+        test: /^((?!\.global).)*\.scss$/,
+        use: ExtractTextPlugin.extract({
+          use: [{
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              importLoaders: 1,
+              localIdentName: '[name]__[local]__[hash:base64:5]',
+            }
+          },
+          {
+            loader: 'sass-loader'
+          }]
+        }),
+      },
+      // WOFF Font
       {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
         use: {
@@ -55,6 +87,7 @@ export default merge(baseConfig, {
           }
         },
       },
+      // WOFF2 Font
       {
         test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
         use: {
@@ -65,6 +98,7 @@ export default merge(baseConfig, {
           }
         }
       },
+      // TTF Font
       {
         test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
         use: {
@@ -75,10 +109,12 @@ export default merge(baseConfig, {
           }
         }
       },
+      // EOT Font
       {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
         use: 'file-loader',
       },
+      // SVG Font
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
         use: {
@@ -89,6 +125,7 @@ export default merge(baseConfig, {
           }
         }
       },
+      // Common Image Formats
       {
         test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
         use: 'url-loader',
