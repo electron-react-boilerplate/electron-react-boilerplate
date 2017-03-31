@@ -4,7 +4,6 @@ import { hashHistory } from 'react-router';
 import { routerMiddleware, push } from 'react-router-redux';
 import createLogger from 'redux-logger';
 import rootReducer from '../reducers';
-
 import * as counterActions from '../actions/counter';
 import type { counterStateType } from '../reducers/counter';
 
@@ -34,12 +33,12 @@ export default (initialState: counterStateType) => {
   };
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose
   /* eslint-disable no-underscore-dangle */
-  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
       // Options: http://zalmoxisus.github.io/redux-devtools-extension/API/Arguments.html
       actionCreators,
-    }) :
-    compose;
+    })
+    : compose;
   /* eslint-enable no-underscore-dangle */
 
   // Apply Middleware & Compose Enhancers
