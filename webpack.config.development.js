@@ -1,16 +1,32 @@
-/* eslint-disable max-len */
+/* eslint global-require: 0, import/no-dynamic-require: 0 */
+
 /**
  * Build config for development process that uses Hot-Module-Replacement
  * https://webpack.js.org/concepts/hot-module-replacement/
  */
+
 import path from 'path';
+import fs from 'fs';
 import webpack from 'webpack';
+import chalk from 'chalk';
 import merge from 'webpack-merge';
 import { spawn } from 'child_process';
 import baseConfig from './webpack.config.base';
 
 const port = process.env.PORT || 3000;
 const publicPath = `http://localhost:${port}/dist`;
+const dll = path.resolve(process.cwd(), 'dll');
+const manifest = path.resolve(dll, 'vendor.json');
+
+/**
+ * Warn if the DLL is not built
+ */
+if (!(fs.existsSync(dll) && fs.existsSync(manifest))) {
+  console.log(chalk.white.bgRed.bold(
+    'The DLL manifest is missing. Please run `npm run build-dll`'
+  ));
+  process.exit(0);
+}
 
 export default merge(baseConfig, {
   devtool: 'inline-source-map',
@@ -107,9 +123,21 @@ export default merge(baseConfig, {
   },
 
   plugins: [
-    // https://webpack.js.org/concepts/hot-module-replacement/
-    new webpack.HotModuleReplacementPlugin(),
+    new webpack.DllReferencePlugin({
+      context: process.cwd(),
+      manifest: require(manifest),
+      sourceType: 'var',
+    }),
+
+    /**
+     * https://webpack.js.org/concepts/hot-module-replacement/
+     */
+    new webpack.HotModuleReplacementPlugin({
+      multiStep: true
+    }),
+
     new webpack.NoEmitOnErrorsPlugin(),
+
     /**
      * Create global constants which can be configured at compile time.
      *
@@ -125,28 +153,42 @@ export default merge(baseConfig, {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
     }),
-    // turn debug mode on.
+
     new webpack.LoaderOptionsPlugin({
       debug: true
-    }),
+    })
   ],
 
-  /**
-   * https://github.com/chentsulin/webpack-target-electron-renderer#how-this-module-works
-   */
   target: 'electron-renderer',
+
   devServer: {
     port,
-    hot: true,
-    inline: false,
-    historyApiFallback: true,
-    contentBase: path.join(__dirname, 'dist'),
     publicPath,
+    compress: true,
+    noInfo: true,
+    stats: 'errors-only',
+    inline: true,
+    lazy: false,
+    hot: true,
+    headers: { 'Access-Control-Allow-Origin': '*' },
+    contentBase: path.join(__dirname, 'dist'),
+    watchOptions: {
+      aggregateTimeout: 300,
+      poll: 100
+    },
+    historyApiFallback: {
+      verbose: true,
+      disableDotRule: false,
+    },
     setup() {
       if (process.env.START_HOT) {
-        spawn('npm', ['run', 'start-hot'], { shell: true, env: process.env, stdio: 'inherit' })
-          .on('close', code => process.exit(code))
-          .on('error', spawnError => console.error(spawnError));
+        spawn(
+          'npm',
+          ['run', 'start-hot'],
+          { shell: true, env: process.env, stdio: 'inherit' }
+        )
+        .on('close', code => process.exit(code))
+        .on('error', spawnError => console.error(spawnError));
       }
     }
   },

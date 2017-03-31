@@ -10,8 +10,13 @@ export default {
   module: {
     rules: [{
       test: /\.jsx?$/,
-      use: 'babel-loader',
-      exclude: /node_modules/
+      exclude: /node_modules/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          cacheDirectory: true
+        }
+      }
     }]
   },
 

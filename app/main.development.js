@@ -2,18 +2,21 @@
 import { app, BrowserWindow } from 'electron';
 import MenuBuilder from './menu';
 
+
+/* eslint global-require: 1, flowtype-errors/show-errors: 0 */
+
 let mainWindow = null;
 
 if (process.env.NODE_ENV === 'production') {
-  const sourceMapSupport = require('source-map-support'); // eslint-disable-line
+  const sourceMapSupport = require('source-map-support');
   sourceMapSupport.install();
 }
 
 if (process.env.NODE_ENV === 'development') {
-  require('electron-debug')(); // eslint-disable-line global-require
-  const path = require('path'); // eslint-disable-line
-  const p = path.join(__dirname, '..', 'app', 'node_modules'); // eslint-disable-line
-  require('module').globalPaths.push(p); // eslint-disable-line
+  require('electron-debug')();
+  const path = require('path');
+  const p = path.join(__dirname, '..', 'app', 'node_modules');
+  require('module').globalPaths.push(p);
 }
 
 app.on('window-all-closed', () => {
@@ -23,7 +26,7 @@ app.on('window-all-closed', () => {
 
 const installExtensions = async () => {
   if (process.env.NODE_ENV === 'development') {
-    const installer = require('electron-devtools-installer'); // eslint-disable-line global-require
+    const installer = require('electron-devtools-installer');
 
     const extensions = [
       'REACT_DEVELOPER_TOOLS',
