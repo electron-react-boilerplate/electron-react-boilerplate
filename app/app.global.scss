@@ -30,10 +30,10 @@ a {
   color: white;
   opacity: .75;
   text-decoration: none;
-}
 
-a:hover {
-  opacity: 1;
-  text-decoration: none;
-  cursor: pointer;
+  &:hover {
+    opacity: 1;
+    text-decoration: none;
+    cursor: pointer;
+  }
 }

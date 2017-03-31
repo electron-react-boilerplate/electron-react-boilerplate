@@ -29,9 +29,9 @@
   opacity: .7;
   cursor: pointer;
   font-family: Arial, Helvetica, Helvetica Neue;
-}
 
-.btn:hover {
-  color: white;
-  background-color: rgba(0, 0, 0, 0.5);
+  &:hover {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
 }
