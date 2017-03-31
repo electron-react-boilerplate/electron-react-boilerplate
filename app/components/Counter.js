@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import styles from './Counter.css';
+import styles from './Counter.scss';
 
 class Counter extends Component {
   props: {
