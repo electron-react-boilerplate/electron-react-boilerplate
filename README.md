@@ -1,5 +1,9 @@
 # electron-react-boilerplate
 
+### A Boilerplate for Scalable Cross-Platform Desktop Apps
+
+<br/>
+
 [![Build Status][travis-image]][travis-url]
 [![Appveyor Build Status][appveyor-image]][appveyor-url]
 [![Dependency Status][david_img]][david_site]
@@ -8,9 +12,14 @@
 [![OpenCollective](https://opencollective.com/electron-react-boilerplate/backers/badge.svg)](#backers) 
 [![OpenCollective](https://opencollective.com/electron-react-boilerplate/sponsors/badge.svg)](#sponsors)
 
-![](./erb-logo.png)
-
-> Live editing development on desktop app
+[![React](/img/react-padded-90.png)](https://facebook.github.io/react/)
+[![Webpack](/img/webpack-padded-90.png)](https://webpack.github.io/)
+[![Redux](/img/redux-padded-90.png)](http://redux.js.org/)
+[![React Router](/img/react-router-padded-90.png)](https://github.com/ReactTraining/react-router)
+[![Flow](/img/flow-padded-90.png)](https://flowtype.org/)
+[![ESLint](/img/eslint-padded-90.png)](http://eslint.org/)
+[![Jest](/img/jest-padded-90.png)](https://facebook.github.io/jest/)
+[![Yarn](/img/yarn-padded-90.png)](https://yarnpkg.com/)
 
 [Electron](http://electron.atom.io/) application boilerplate based on [React](https://facebook.github.io/react/), [Redux](https://github.com/reactjs/redux), [React Router](https://github.com/reactjs/react-router), [Webpack](http://webpack.github.io/docs/), [React Transform HMR](https://github.com/gaearon/react-transform-hmr) for rapid application development
 
