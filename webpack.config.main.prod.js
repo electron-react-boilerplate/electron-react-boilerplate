@@ -1,5 +1,5 @@
 /**
- * Build config for electron 'Main Process' file
+ * Webpack config for production electron main process
  */
 
 import webpack from 'webpack';

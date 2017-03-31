@@ -2,11 +2,15 @@
 import { Component } from 'react';
 import type { Children } from 'react';
 
-type Props = {children: Children, load: () => Promise<*>};
+type Props = {
+  children: Children, load: () => Promise<*>
+};
+
 class Bundle extends Component {
+  props: Props
 
   state = {
-    // short for "module" but that's a keyword in js, so "mod"
+    // short for 'module' but that's a keyword in js, so 'mod'
     mod: null
   }
 
@@ -20,21 +24,21 @@ class Bundle extends Component {
     }
   }
 
-  props: Props
-
   load(props: Props) {
     this.setState({
       mod: null
     });
-    props.load().then(mod => {
-      this.setState({
-        // handle both es imports and cjs
-        mod: mod.default ? mod.default : mod
-      });
-      return mod;
-    }).catch(err => {
-      console.log(err);
-    });
+
+    props
+      .load()
+      .then(mod => {
+        this.setState({
+          // Handle both es imports and cjs
+          mod: mod.default ? mod.default : mod
+        });
+        return mod;
+      })
+      .catch(console.log);
   }
 
   render() {

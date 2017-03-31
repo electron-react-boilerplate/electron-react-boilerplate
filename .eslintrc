@@ -1,8 +1,8 @@
 {
   "parser": "babel-eslint",
   "parserOptions": {
-    sourceType: "module",
-    allowImportExportEverywhere: true,
+    "sourceType": "module",
+    "allowImportExportEverywhere": true
   },
   "extends": "airbnb",
   "env": {
@@ -24,6 +24,7 @@
     "promise/always-return": "error",
     "promise/catch-or-return": "error",
     "promise/no-native": "off",
+    "react/sort-comp": "off",
     "react/jsx-no-bind": "off",
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
     "react/prefer-stateless-function": "off",
