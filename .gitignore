@@ -21,6 +21,7 @@ coverage
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
+.eslintcache
 
 # Dependency directory
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
@@ -39,5 +40,9 @@ app/bundle.js.map
 app/style.css
 app/style.css.map
 dist
+dll
 main.js
 main.js.map
+
+.idea
+npm-debug.log.*

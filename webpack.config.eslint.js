@@ -1,3 +1,3 @@
 require('babel-register');
 
-module.exports = require('./webpack.config.development');
+module.exports = require('./webpack.config.renderer.dev');
