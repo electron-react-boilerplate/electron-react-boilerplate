@@ -45,6 +45,8 @@ export default merge(baseConfig, {
           }
         }),
       },
+
+      // Extract and compile all .global.scss to style.css as is
       {
         test: /\.global\.scss$/,
         use: ExtractTextPlugin.extract({
@@ -57,6 +59,8 @@ export default merge(baseConfig, {
           fallback: 'style-loader',
         })
       },
+
+      // Pipe other styles through css modules, compile it to css and append to style.css
       {
         test: /^((?!\.global).)*\.scss$/,
         use: ExtractTextPlugin.extract({
