@@ -238,7 +238,7 @@ export default merge(baseConfig, {
       if (process.env.START_HOT) {
         spawn(
           'npm',
-          ['run', 'start-hot'],
+          ['run', 'start-hot-renderer'],
           { shell: true, env: process.env, stdio: 'inherit' }
         )
         .on('close', code => process.exit(code))
