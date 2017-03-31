@@ -1,8 +1,8 @@
 // @flow
 import React from 'react';
 import { Provider } from 'react-redux';
-import { Router } from 'react-router';
-import routes from '../routes';
+import { ConnectedRouter } from 'react-router-redux';
+import Routes from '../routes';
 
 type RootType = {
   store: {},
@@ -12,7 +12,9 @@ type RootType = {
 export default function Root({ store, history }: RootType) {
   return (
     <Provider store={store}>
-      <Router key={Math.random()} history={history} routes={routes} />
+      <ConnectedRouter history={history}>
+        <Routes />
+      </ConnectedRouter>
     </Provider>
   );
 }
