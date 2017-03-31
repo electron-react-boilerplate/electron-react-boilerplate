@@ -12,7 +12,7 @@ type RootType = {
 export default function Root({ store, history }: RootType) {
   return (
     <Provider store={store}>
-      <Router history={history} routes={routes} />
+      <Router key={Math.random()} history={history} routes={routes} />
     </Provider>
   );
 }
