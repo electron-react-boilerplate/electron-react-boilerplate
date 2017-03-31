@@ -1,7 +1,9 @@
 /* eslint global-require: 0, import/no-dynamic-require: 0 */
 
 /**
- * Build config for development process that uses Hot-Module-Replacement
+ * Build config for development electron renderer process that uses
+ * Hot-Module-Replacement
+ *
  * https://webpack.js.org/concepts/hot-module-replacement/
  */
 
@@ -48,7 +50,9 @@ export default merge(baseConfig, {
       {
         test: /\.global\.css$/,
         use: [
-          { loader: 'style-loader' },
+          {
+            loader: 'style-loader'
+          },
           {
             loader: 'css-loader',
             options: {
@@ -60,7 +64,9 @@ export default merge(baseConfig, {
       {
         test: /^((?!\.global).)*\.css$/,
         use: [
-          { loader: 'style-loader' },
+          {
+            loader: 'style-loader'
+          },
           {
             loader: 'css-loader',
             options: {
@@ -72,27 +78,31 @@ export default merge(baseConfig, {
           },
         ]
       },
-
       // Add SASS support  - compile all .global.scss files and pipe it to style.css
       {
         test: /\.global\.scss$/,
         use: [
-          { loader: 'style-loader' },
+          {
+            loader: 'style-loader'
+          },
           {
             loader: 'css-loader',
             options: {
               sourceMap: true,
             },
           },
-          { loader: 'sass-loader' }
+          {
+            loader: 'sass-loader'
+          }
         ]
       },
-
       // Add SASS support  - compile all other .scss files and pipe it to style.css
       {
         test: /^((?!\.global).)*\.scss$/,
         use: [
-          { loader: 'style-loader' },
+          {
+            loader: 'style-loader'
+          },
           {
             loader: 'css-loader',
             options: {
@@ -102,9 +112,12 @@ export default merge(baseConfig, {
               localIdentName: '[name]__[local]__[hash:base64:5]',
             }
           },
-          { loader: 'sass-loader' }
+          {
+            loader: 'sass-loader'
+          }
         ]
       },
+      // WOFF Font
       {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
         use: {
@@ -115,6 +128,7 @@ export default merge(baseConfig, {
           }
         },
       },
+      // WOFF2 Font
       {
         test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
         use: {
@@ -125,6 +139,7 @@ export default merge(baseConfig, {
           }
         }
       },
+      // TTF Font
       {
         test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
         use: {
@@ -135,10 +150,12 @@ export default merge(baseConfig, {
           }
         }
       },
+      // EOT Font
       {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
         use: 'file-loader',
       },
+      // SVG Font
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
         use: {
@@ -149,6 +166,7 @@ export default merge(baseConfig, {
           }
         }
       },
+      // Common Image Formats
       {
         test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
         use: 'url-loader',
@@ -222,7 +240,7 @@ export default merge(baseConfig, {
       if (process.env.START_HOT) {
         spawn(
           'npm',
-          ['run', 'start-hot'],
+          ['run', 'start-hot-renderer'],
           { shell: true, env: process.env, stdio: 'inherit' }
         )
         .on('close', code => process.exit(code))
