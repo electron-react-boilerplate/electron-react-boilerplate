@@ -7,7 +7,7 @@ import rootReducer from '../reducers';
 import * as counterActions from '../actions/counter';
 import type { counterStateType } from '../reducers/counter';
 
-export default (initialState: counterStateType) => {
+export default (initialState: ?counterStateType) => {
   // Redux Configuration
   const middleware = [];
   const enhancers = [];
