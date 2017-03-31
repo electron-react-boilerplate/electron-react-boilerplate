@@ -1,5 +1,7 @@
 # electron-react-boilerplate
 
+### A Boilerplate for Scalable Cross-Platform Desktop Apps
+
 [![Build Status][travis-image]][travis-url]
 [![Appveyor Build Status][appveyor-image]][appveyor-url]
 [![Dependency Status][david_img]][david_site]
@@ -16,8 +18,6 @@
 [![ESLint](/img/eslint-padded-90.png)](http://eslint.org/)
 [![Jest](/img/jest-padded-90.png)](https://facebook.github.io/jest/)
 [![Yarn](/img/yarn-padded-90.png)](https://yarnpkg.com/)
-
-> Live editing development on desktop app
 
 [Electron](http://electron.atom.io/) application boilerplate based on [React](https://facebook.github.io/react/), [Redux](https://github.com/reactjs/redux), [React Router](https://github.com/reactjs/react-router), [Webpack](http://webpack.github.io/docs/), [React Transform HMR](https://github.com/gaearon/react-transform-hmr) for rapid application development
 
