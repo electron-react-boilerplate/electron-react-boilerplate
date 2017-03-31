@@ -32,22 +32,6 @@
   "build": {
     "productName": "ElectronReact",
     "appId": "org.develar.ElectronReact",
-    "category": "public.app-category.tools",
-    "dmg": {
-      "contents": [
-        {
-          "x": 410,
-          "y": 150,
-          "type": "link",
-          "path": "/Applications"
-        },
-        {
-          "x": 130,
-          "y": 150,
-          "type": "file"
-        }
-      ]
-    },
     "files": [
       "dist/",
       "node_modules/",
@@ -56,8 +40,22 @@
       "main.js.map",
       "package.json"
     ],
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
     "win": {
-      "target": "nsis"
+      "target": ["nsis"]
     },
     "linux": {
       "target": [
@@ -69,9 +67,6 @@
       "buildResources": "resources",
       "output": "release"
     }
-  },
-  "bin": {
-    "electron": "./node_modules/.bin/electron"
   },
   "repository": {
     "type": "git",
@@ -141,7 +136,7 @@
     "css-loader": "^0.26.1",
     "devtron": "^1.4.0",
     "electron": "^1.4.15",
-    "electron-builder": "^13.3.2",
+    "electron-builder": "^16.6.0",
     "electron-devtools-installer": "^2.0.1",
     "enzyme": "^2.7.1",
     "eslint": "^3.14.0",
