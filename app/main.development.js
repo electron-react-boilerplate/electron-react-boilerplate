@@ -2,7 +2,6 @@
 import { app, BrowserWindow } from 'electron';
 import MenuBuilder from './menu';
 
-
 /* eslint global-require: 1, flowtype-errors/show-errors: 0 */
 
 let mainWindow = null;
@@ -35,9 +34,9 @@ const installExtensions = async () => {
 
     const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
 
-    // TODO: Use async interation statement.
-    //       Waiting on https://github.com/tc39/proposal-async-iteration
-    //       Promises will fail silently, which isn't what we want in development
+    // @TODO: Use async interation statement.
+    //        Waiting on https://github.com/tc39/proposal-async-iteration
+    //        Promises will fail silently, which isn't what we want in development
     return Promise
       .all(extensions.map(name => installer.default(installer[name], forceDownload)))
       .catch(console.log);

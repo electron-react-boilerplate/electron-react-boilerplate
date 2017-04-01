@@ -8,7 +8,6 @@ import type { counterStateType } from '../reducers/counter';
 
 const history = createBrowserHistory();
 const router = routerMiddleware(history);
-
 const enhancer = applyMiddleware(thunk, router);
 
 function configureStore(initialState?: counterStateType) {

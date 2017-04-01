@@ -1,5 +1,5 @@
-// flow-typed signature: e49570b0f5e396c7206dda452bd6f004
-// flow-typed version: 1590d813f4/jest_v18.x.x/flow_>=v0.33.x
+// flow-typed signature: b3ed97c44539e6cdbaf9032b315a2b31
+// flow-typed version: ea7ac31527/jest_v19.x.x/flow_>=v0.33.x
 
 type JestMockFn = {
   (...args: Array<any>): any,
@@ -248,6 +248,11 @@ type JestObjectType = {
    */
   autoMockOn(): JestObjectType,
   /**
+   * Clears the mock.calls and mock.instances properties of all mocks.
+   * Equivalent to calling .mockClear() on every mocked function.
+   */
+  clearAllMocks(): JestObjectType,
+  /**
    * Resets the state of all mocks. Equivalent to calling .mockReset() on every
    * mocked function.
    */
@@ -342,6 +347,11 @@ type JestObjectType = {
    * Instructs Jest to use the real versions of the standard timer functions.
    */
   useRealTimers(): JestObjectType,
+  /**
+   * Creates a mock function similar to jest.fn but also tracks calls to
+   * object[methodName].
+   */
+  spyOn(object: Object, methodName: string): JestMockFn,
 }
 
 type JestSpyType = {
@@ -408,12 +418,16 @@ declare var expect: {
   (value: any): JestExpectType,
   /** Add additional Jasmine matchers to Jest's roster */
   extend(matchers: {[name:string]: JestMatcher}): void,
+  /** Add a module that formats application-specific data structures. */
+  addSnapshotSerializer(serializer: (input: Object) => string): void,
   assertions(expectedAssertions: number): void,
   any(value: mixed): JestAsymmetricEqualityType,
   anything(): void,
   arrayContaining(value: Array<mixed>): void,
   objectContaining(value: Object): void,
-  stringMatching(value: string): void,
+  /** Matches any received string that contains the exact expected string. */
+  stringContaining(value: string): void,
+  stringMatching(value: string | RegExp): void,
 };
 
 // TODO handle return type
