@@ -135,7 +135,7 @@
     "concurrently": "^3.1.0",
     "cross-env": "^3.1.4",
     "cross-spawn": "^5.0.1",
-    "css-loader": "^0.26.1",
+    "css-loader": "^0.28.0",
     "devtron": "^1.4.0",
     "electron": "^1.4.15",
     "electron-builder": "^16.6.0",
