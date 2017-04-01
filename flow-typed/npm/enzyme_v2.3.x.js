@@ -1,5 +1,5 @@
-// flow-typed signature: f3b75915e82ea23b5d37b8b584eddb76
-// flow-typed version: d4e590e9bf/enzyme_v2.3.x/flow_>=v0.28.x
+// flow-typed signature: 473141b7c854ed9ae66b92c537f09107
+// flow-typed version: f09afd9fb1/enzyme_v2.3.x/flow_>=v0.28.x
 
 declare module 'enzyme' {
   declare type PredicateFunction<T: Wrapper> = (wrapper: T) => boolean;
@@ -19,6 +19,8 @@ declare module 'enzyme' {
     containsMatchingElement(node: React$Element<any>): boolean;
     containsAllMatchingElements(nodes: NodeOrNodes): boolean;
     containsAnyMatchingElements(nodes: NodeOrNodes): boolean;
+    dive(option?: { context?: Object }): this;
+    exists(): boolean;
     matchesElement(node: React$Element<any>): boolean;
     hasClass(className: string): boolean;
     is(selector: EnzymeSelector): boolean;
