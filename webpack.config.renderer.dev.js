@@ -31,8 +31,10 @@ if (!(fs.existsSync(dll) && fs.existsSync(manifest))) {
   process.exit(0);
 }
 
-export default merge(baseConfig, {
+export default merge.smart(baseConfig, {
   devtool: 'inline-source-map',
+
+  target: 'electron-renderer',
 
   entry: [
     'react-hot-loader/patch',
@@ -214,8 +216,6 @@ export default merge(baseConfig, {
       filename: '[name].css'
     })
   ],
-
-  target: 'electron-renderer',
 
   devServer: {
     port,

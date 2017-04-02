@@ -6,16 +6,21 @@ import webpack from 'webpack';
 import path from 'path';
 import merge from 'webpack-merge';
 import baseConfig from './webpack.config.base';
+import { module as devModule } from './webpack.config.renderer.dev';
 import { dependencies } from './package.json';
 
 const dist = path.resolve(process.cwd(), 'dll');
 
-export default merge(baseConfig, {
+export default merge.smart(baseConfig, {
   context: process.cwd(),
 
   devtool: 'eval',
 
   target: 'electron-renderer',
+
+  externals: ['fsevents', 'crypto-browserify'],
+
+  module: merge.smart(devModule),
 
   resolve: {
     modules: [
@@ -68,5 +73,4 @@ export default merge(baseConfig, {
       },
     })
   ],
-  externals: ['fsevents', 'crypto-browserify']
 });
