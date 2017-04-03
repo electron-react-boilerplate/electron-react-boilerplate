@@ -7,8 +7,10 @@ import merge from 'webpack-merge';
 import BabiliPlugin from 'babili-webpack-plugin';
 import baseConfig from './webpack.config.base';
 
-export default merge(baseConfig, {
+export default merge.smart(baseConfig, {
   devtool: 'source-map',
+
+  target: 'electron-main',
 
   entry: ['babel-polyfill', './app/main.development'],
 
@@ -34,15 +36,9 @@ export default merge(baseConfig, {
      * development checks
      */
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
     })
   ],
-
-  /**
-   * Set target to Electron specific node.js env.
-   * https://github.com/chentsulin/webpack-target-electron-renderer#how-this-module-works
-   */
-  target: 'electron-main',
 
   /**
    * Disables webpack processing of __dirname and __filename.
