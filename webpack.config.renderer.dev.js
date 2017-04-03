@@ -12,7 +12,7 @@ import fs from 'fs';
 import webpack from 'webpack';
 import chalk from 'chalk';
 import merge from 'webpack-merge';
-import { spawn } from 'child_process';
+import { spawn, execSync } from 'child_process';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import baseConfig from './webpack.config.base';
 
@@ -25,10 +25,10 @@ const manifest = path.resolve(dll, 'vendor.json');
  * Warn if the DLL is not built
  */
 if (!(fs.existsSync(dll) && fs.existsSync(manifest))) {
-  console.log(chalk.white.bgRed.bold(
-    'The DLL manifest is missing. Please run `npm run build-dll`'
+  console.log(chalk.black.bgYellow.bold(
+    'The DLL files are missing. Sit back while we build them for you with "npm run build-dll"'
   ));
-  process.exit(0);
+  execSync('npm run build-dll');
 }
 
 export default merge.smart(baseConfig, {
