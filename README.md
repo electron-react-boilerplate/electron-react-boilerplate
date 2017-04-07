@@ -52,8 +52,8 @@ $ cd your-project-name && npm install
 Run these two commands __simultaneously__ in different console tabs.
 
 ```bash
-$ npm run hot-server
-$ npm run start-hot
+$ npm run hot-updates-server
+$ npm run start-hot-renderer
 ```
 
 or run two servers with one command
