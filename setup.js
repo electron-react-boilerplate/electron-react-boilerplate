@@ -24,7 +24,6 @@ module.exports = {
     { file: 'test/e2e/e2e.spec.js' },
     { file: 'test/reducers/counter.spec.js' },
     { file: 'CHANGELOG.md' },
-    { file: 'erb-logo.png' }
   ],
   // clean the following files by either clearing them
   // (by specifying {clear: true}) or by removing lines
