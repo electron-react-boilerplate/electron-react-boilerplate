@@ -8,7 +8,7 @@
   left: 45%;
   font-size: 10rem;
   font-weight: bold;
-  letter-spacing: -.025em;
+  letter-spacing: -0.025em;
 }
 
 .btnGroup {
@@ -21,12 +21,12 @@
 .btn {
   font-size: 1.6rem;
   font-weight: bold;
-  background-color: #fff;
+  background-color: #FFF;
   border-radius: 50%;
   margin: 10px;
   width: 100px;
   height: 100px;
-  opacity: .7;
+  opacity: 0.7;
   cursor: pointer;
   font-family: Arial, Helvetica, Helvetica Neue;
 }
