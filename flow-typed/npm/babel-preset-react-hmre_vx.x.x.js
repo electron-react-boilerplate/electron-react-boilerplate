@@ -1,4 +1,4 @@
-// flow-typed signature: f8ee01ab93f1ec0fb7f6efb1d77e2264
+// flow-typed signature: bce58a28dc5b81452d11c05ed224e4af
 // flow-typed version: <<STUB>>/babel-preset-react-hmre_v^1.1.1/flow_v0.42.0
 
 /**
@@ -22,9 +22,7 @@ declare module 'babel-preset-react-hmre' {
  * require those files directly. Feel free to delete any files that aren't
  * needed.
  */
-declare module 'babel-preset-react-hmre/test/Test' {
-  declare module.exports: any;
-}
+
 
 // Filename aliases
 declare module 'babel-preset-react-hmre/index' {
@@ -32,7 +30,4 @@ declare module 'babel-preset-react-hmre/index' {
 }
 declare module 'babel-preset-react-hmre/index.js' {
   declare module.exports: $Exports<'babel-preset-react-hmre'>;
-}
-declare module 'babel-preset-react-hmre/test/Test.js' {
-  declare module.exports: $Exports<'babel-preset-react-hmre/test/Test'>;
 }

@@ -1,4 +1,4 @@
-// flow-typed signature: 148b86329dce36331bc8fc1e5818d0a2
+// flow-typed signature: e93789fabdc2f3317bbe82c0c7b9f5b3
 // flow-typed version: <<STUB>>/identity-obj-proxy_v^3.0.0/flow_v0.42.0
 
 /**
@@ -22,42 +22,6 @@ declare module 'identity-obj-proxy' {
  * require those files directly. Feel free to delete any files that aren't
  * needed.
  */
-declare module 'identity-obj-proxy/src/__tests__/import-es6-export-test' {
-  declare module.exports: any;
-}
-
-declare module 'identity-obj-proxy/src/__tests__/import-es6-import-export-test' {
-  declare module.exports: any;
-}
-
-declare module 'identity-obj-proxy/src/__tests__/import-es6-import-test' {
-  declare module.exports: any;
-}
-
-declare module 'identity-obj-proxy/src/__tests__/import-vanilla-test' {
-  declare module.exports: any;
-}
-
-declare module 'identity-obj-proxy/src/__tests__/index-test' {
-  declare module.exports: any;
-}
-
-declare module 'identity-obj-proxy/src/__tests__/require-es6-export-test' {
-  declare module.exports: any;
-}
-
-declare module 'identity-obj-proxy/src/__tests__/require-es6-import-export-test' {
-  declare module.exports: any;
-}
-
-declare module 'identity-obj-proxy/src/__tests__/require-es6-import-test' {
-  declare module.exports: any;
-}
-
-declare module 'identity-obj-proxy/src/__tests__/require-vanilla-test' {
-  declare module.exports: any;
-}
-
 declare module 'identity-obj-proxy/src/index' {
   declare module.exports: any;
 }
@@ -75,33 +39,6 @@ declare module 'identity-obj-proxy/src/test-redirections/idObjES6ImportExport' {
 }
 
 // Filename aliases
-declare module 'identity-obj-proxy/src/__tests__/import-es6-export-test.js' {
-  declare module.exports: $Exports<'identity-obj-proxy/src/__tests__/import-es6-export-test'>;
-}
-declare module 'identity-obj-proxy/src/__tests__/import-es6-import-export-test.js' {
-  declare module.exports: $Exports<'identity-obj-proxy/src/__tests__/import-es6-import-export-test'>;
-}
-declare module 'identity-obj-proxy/src/__tests__/import-es6-import-test.js' {
-  declare module.exports: $Exports<'identity-obj-proxy/src/__tests__/import-es6-import-test'>;
-}
-declare module 'identity-obj-proxy/src/__tests__/import-vanilla-test.js' {
-  declare module.exports: $Exports<'identity-obj-proxy/src/__tests__/import-vanilla-test'>;
-}
-declare module 'identity-obj-proxy/src/__tests__/index-test.js' {
-  declare module.exports: $Exports<'identity-obj-proxy/src/__tests__/index-test'>;
-}
-declare module 'identity-obj-proxy/src/__tests__/require-es6-export-test.js' {
-  declare module.exports: $Exports<'identity-obj-proxy/src/__tests__/require-es6-export-test'>;
-}
-declare module 'identity-obj-proxy/src/__tests__/require-es6-import-export-test.js' {
-  declare module.exports: $Exports<'identity-obj-proxy/src/__tests__/require-es6-import-export-test'>;
-}
-declare module 'identity-obj-proxy/src/__tests__/require-es6-import-test.js' {
-  declare module.exports: $Exports<'identity-obj-proxy/src/__tests__/require-es6-import-test'>;
-}
-declare module 'identity-obj-proxy/src/__tests__/require-vanilla-test.js' {
-  declare module.exports: $Exports<'identity-obj-proxy/src/__tests__/require-vanilla-test'>;
-}
 declare module 'identity-obj-proxy/src/index.js' {
   declare module.exports: $Exports<'identity-obj-proxy/src/index'>;
 }

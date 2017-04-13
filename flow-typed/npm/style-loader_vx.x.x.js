@@ -1,4 +1,4 @@
-// flow-typed signature: 03656d834e98ffab4b2fb880cb88ae48
+// flow-typed signature: 972b8d11e4fadb34aa9bae77570fa3e6
 // flow-typed version: <<STUB>>/style-loader_v^0.16.1/flow_v0.42.0
 
 /**
@@ -34,18 +34,6 @@ declare module 'style-loader/fixUrls' {
   declare module.exports: any;
 }
 
-declare module 'style-loader/test/basicTest' {
-  declare module.exports: any;
-}
-
-declare module 'style-loader/test/fixUrlsTest' {
-  declare module.exports: any;
-}
-
-declare module 'style-loader/test/utils' {
-  declare module.exports: any;
-}
-
 declare module 'style-loader/url' {
   declare module.exports: any;
 }
@@ -69,15 +57,6 @@ declare module 'style-loader/index' {
 }
 declare module 'style-loader/index.js' {
   declare module.exports: $Exports<'style-loader'>;
-}
-declare module 'style-loader/test/basicTest.js' {
-  declare module.exports: $Exports<'style-loader/test/basicTest'>;
-}
-declare module 'style-loader/test/fixUrlsTest.js' {
-  declare module.exports: $Exports<'style-loader/test/fixUrlsTest'>;
-}
-declare module 'style-loader/test/utils.js' {
-  declare module.exports: $Exports<'style-loader/test/utils'>;
 }
 declare module 'style-loader/url.js' {
   declare module.exports: $Exports<'style-loader/url'>;

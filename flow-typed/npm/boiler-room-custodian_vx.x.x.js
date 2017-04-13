@@ -1,4 +1,4 @@
-// flow-typed signature: 8b3139640cb95cb4bad886cb19338cf3
+// flow-typed signature: bce591cd464dc0281ca5abd6b71b6731
 // flow-typed version: <<STUB>>/boiler-room-custodian_v^0.6.1/flow_v0.42.0
 
 /**
@@ -34,22 +34,6 @@ declare module 'boiler-room-custodian/app/mop' {
   declare module.exports: any;
 }
 
-declare module 'boiler-room-custodian/test/mop-tests' {
-  declare module.exports: any;
-}
-
-declare module 'boiler-room-custodian/test/refresh' {
-  declare module.exports: any;
-}
-
-declare module 'boiler-room-custodian/test/repo/setup' {
-  declare module.exports: any;
-}
-
-declare module 'boiler-room-custodian/test/util' {
-  declare module.exports: any;
-}
-
 // Filename aliases
 declare module 'boiler-room-custodian/app/modules/config.js' {
   declare module.exports: $Exports<'boiler-room-custodian/app/modules/config'>;
@@ -59,16 +43,4 @@ declare module 'boiler-room-custodian/app/modules/file-ops.js' {
 }
 declare module 'boiler-room-custodian/app/mop.js' {
   declare module.exports: $Exports<'boiler-room-custodian/app/mop'>;
-}
-declare module 'boiler-room-custodian/test/mop-tests.js' {
-  declare module.exports: $Exports<'boiler-room-custodian/test/mop-tests'>;
-}
-declare module 'boiler-room-custodian/test/refresh.js' {
-  declare module.exports: $Exports<'boiler-room-custodian/test/refresh'>;
-}
-declare module 'boiler-room-custodian/test/repo/setup.js' {
-  declare module.exports: $Exports<'boiler-room-custodian/test/repo/setup'>;
-}
-declare module 'boiler-room-custodian/test/util.js' {
-  declare module.exports: $Exports<'boiler-room-custodian/test/util'>;
 }

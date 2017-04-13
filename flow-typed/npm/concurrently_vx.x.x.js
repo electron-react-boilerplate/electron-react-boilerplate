@@ -1,4 +1,4 @@
-// flow-typed signature: 7d2dbc3e59e9954e8c7719d162a6af19
+// flow-typed signature: dd1fcd3db4d540c9bc3edfee683480a3
 // flow-typed version: <<STUB>>/concurrently_v^3.4.0/flow_v0.42.0
 
 /**
@@ -26,18 +26,6 @@ declare module 'concurrently/src/main' {
   declare module.exports: any;
 }
 
-declare module 'concurrently/test/support/signal' {
-  declare module.exports: any;
-}
-
-declare module 'concurrently/test/test-functional' {
-  declare module.exports: any;
-}
-
-declare module 'concurrently/test/utils' {
-  declare module.exports: any;
-}
-
 declare module 'concurrently/tst' {
   declare module.exports: any;
 }
@@ -45,15 +33,6 @@ declare module 'concurrently/tst' {
 // Filename aliases
 declare module 'concurrently/src/main.js' {
   declare module.exports: $Exports<'concurrently/src/main'>;
-}
-declare module 'concurrently/test/support/signal.js' {
-  declare module.exports: $Exports<'concurrently/test/support/signal'>;
-}
-declare module 'concurrently/test/test-functional.js' {
-  declare module.exports: $Exports<'concurrently/test/test-functional'>;
-}
-declare module 'concurrently/test/utils.js' {
-  declare module.exports: $Exports<'concurrently/test/utils'>;
 }
 declare module 'concurrently/tst.js' {
   declare module.exports: $Exports<'concurrently/tst'>;
