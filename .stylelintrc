@@ -1,6 +1,3 @@
 {
-  "extends": "stylelint-config-standard",
-  "rules": {
-    "color-hex-case": "upper"
-  }
+  "extends": "stylelint-config-standard"
 }
