@@ -613,6 +613,12 @@ babel-plugin-dev-expression@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/babel-plugin-dev-expression/-/babel-plugin-dev-expression-0.2.1.tgz#d4a7beefefbb50e3f2734990a82a2486cf9eb9ee"
 
+babel-plugin-fail-explicit@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/babel-plugin-fail-explicit/-/babel-plugin-fail-explicit-0.0.6.tgz#b811f074c9ecd311bc0d92c9c92ed40c2cbb2e12"
+  dependencies:
+    safe-access-check "^0.0.15"
+
 babel-plugin-flow-runtime@^0.10.0:
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-flow-runtime/-/babel-plugin-flow-runtime-0.10.0.tgz#de60b8c64ce0eec6b13663a129d79ec46b97cb2d"
@@ -6958,6 +6964,10 @@ rx@2.3.24:
 rx@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/rx/-/rx-4.1.0.tgz#a5f13ff79ef3b740fe30aa803fb09f98805d4782"
+
+safe-access-check@^0.0.15:
+  version "0.0.15"
+  resolved "https://registry.yarnpkg.com/safe-access-check/-/safe-access-check-0.0.15.tgz#4af57abae5a83f008bea90dfa7ec683a67134722"
 
 safe-buffer@^5.0.1:
   version "5.0.1"

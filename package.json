@@ -120,6 +120,7 @@
     "babel-loader": "^6.4.1",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-dev-expression": "^0.2.1",
+    "babel-plugin-fail-explicit": "^0.0.6",
     "babel-plugin-flow-runtime": "^0.10.0",
     "babel-plugin-transform-class-properties": "^6.23.0",
     "babel-plugin-transform-es2015-classes": "^6.23.0",
