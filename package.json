@@ -17,6 +17,7 @@
     "build-main": "cross-env NODE_ENV=production node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.main.prod.js --progress --profile --colors",
     "build-renderer": "cross-env NODE_ENV=production node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.renderer.prod.js --progress --profile --colors",
     "start": "cross-env NODE_ENV=production electron ./app/",
+    "prestart": "npm run build",
     "flow": "flow",
     "flow-typed": "flow-typed install",
     "start-hot-renderer": "cross-env HOT=1 NODE_ENV=development electron -r babel-register -r babel-polyfill ./app/main.development",
