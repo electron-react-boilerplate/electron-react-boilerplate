@@ -36,7 +36,11 @@
 
         // @HACK: Writing the script path should be done
         //        with HtmlWebpackPlugin
-        document.body.appendChild(script);
+        //
+        //        Currently we're using a timeout hack to
+        //        prevent race conditions from dynamically
+        //        injected scripts
+        setTimeout(() => document.body.appendChild(script), 200);
       }
     </script>
   </body>
