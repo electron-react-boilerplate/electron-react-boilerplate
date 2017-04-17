@@ -186,9 +186,7 @@ export default merge.smart(baseConfig, {
     /**
      * https://webpack.js.org/concepts/hot-module-replacement/
      */
-    new webpack.HotModuleReplacementPlugin({
-      multiStep: true
-    }),
+    new webpack.HotModuleReplacementPlugin(),
 
     new webpack.NoEmitOnErrorsPlugin(),
 
