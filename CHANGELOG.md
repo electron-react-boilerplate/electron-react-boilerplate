@@ -26,6 +26,7 @@ Here's the most notable changes since `v0.10.0`. Its been about a year since a r
 - **Added support for appveyor:** [#280](https://github.com/chentsulin/electron-react-boilerplate/pull/280)
 - **Added support for webpack dlls:** [#860](https://github.com/chentsulin/electron-react-boilerplate/pull/860)
 - **Route based code splitting:** [#884](https://github.com/chentsulin/electron-react-boilerplate/pull/884)
+- **Added support for Webpack Bundle Analyzer:** [#922](https://github.com/chentsulin/electron-react-boilerplate/pull/922)
 
 #### Improvements
 
