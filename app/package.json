@@ -9,6 +9,9 @@
     "email": "chentsulin@gmail.com",
     "url": "https://github.com/chentsulin"
   },
+  "scripts": {
+    "postinstall": "npm rebuild --runtime=electron --target=1.6.1 --disturl=https://atom.io/download/atom-shell --build-from-source"
+  },
   "license": "MIT",
   "dependencies": {
   }
