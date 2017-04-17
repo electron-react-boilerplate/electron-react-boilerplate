@@ -1,5 +1,7 @@
 [ignore]
 .*/node_modules/fbjs/.*
+.*/node_modules/stylelint/.*
+.*/node_modules/babel-plugin-flow-runtime/.*
 .*/app/main.js
 .*/app/dist/.*
 .*/release/.*

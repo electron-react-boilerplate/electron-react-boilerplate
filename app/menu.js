@@ -32,12 +32,14 @@ export default class MenuBuilder {
     this.mainWindow.webContents.on('context-menu', (e, props) => {
       const { x, y } = props;
 
-      Menu.buildFromTemplate([{
-        label: 'Inspect element',
-        click: () => {
-          this.mainWindow.inspectElement(x, y);
-        }
-      }]).popup(this.mainWindow);
+      Menu
+        .buildFromTemplate([{
+          label: 'Inspect element',
+          click: () => {
+            this.mainWindow.inspectElement(x, y);
+          }
+        }])
+        .popup(this.mainWindow);
     });
   }
 
@@ -101,7 +103,9 @@ export default class MenuBuilder {
       ]
     };
 
-    const subMenuView = process.env.NODE_ENV === 'development' ? subMenuViewDev : subMenuViewProd;
+    const subMenuView = process.env.NODE_ENV === 'development'
+      ? subMenuViewDev
+      : subMenuViewProd;
 
     return [
       subMenuAbout,

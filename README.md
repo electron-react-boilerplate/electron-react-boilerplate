@@ -9,7 +9,7 @@
 [![Dependency Status][david_img]][david_site]
 [![NPM version][npm-image]][npm-url]
 [![Join the chat at https://gitter.im/electron-react-boilerplate/Lobby](https://badges.gitter.im/electron-react-boilerplate/Lobby.svg)](https://gitter.im/electron-react-boilerplate/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![OpenCollective](https://opencollective.com/electron-react-boilerplate/backers/badge.svg)](#backers) 
+[![OpenCollective](https://opencollective.com/electron-react-boilerplate/backers/badge.svg)](#backers)
 [![OpenCollective](https://opencollective.com/electron-react-boilerplate/sponsors/badge.svg)](#sponsors)
 
 [![React](/img/react-padded-90.png)](https://facebook.github.io/react/)
@@ -39,7 +39,7 @@ git clone --depth=1 https://github.com/chentsulin/electron-react-boilerplate.git
 ```
 
 And then install dependencies.
-**ProTip**: Install with [yarn](https://github.com/yarnpkg/yarn) for faster and safer installation
+**ProTip**: Install with [yarn](https://github.com/yarnpkg/yarn) for faster and safer installation:
 
 ```bash
 $ cd your-project-name && npm install
@@ -49,17 +49,17 @@ $ cd your-project-name && npm install
 
 ## Run
 
-Run these two commands __simultaneously__ in different console tabs.
-
-```bash
-$ npm run hot-server
-$ npm run start-hot
-```
-
-or run two servers with one command
+Start the app in the `dev` environment. This starts the renderer process in [**hot-module-replacement**](https://webpack.js.org/guides/hmr-react/) mode and starts a server sends hot updates to the renderer process:
 
 ```bash
 $ npm run dev
+```
+
+You Run these two commands __simultaneously__ in different console tabs:
+
+```bash
+$ npm run hot-updates-server
+$ npm run start-hot-renderer
 ```
 
 ## Editor Configuration
