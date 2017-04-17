@@ -166,9 +166,8 @@ export default merge.smart(baseConfig, {
      * Dynamically generate index.html page
      */
     new HtmlWebpackPlugin({
-      filename: '../app.html',
-      template: 'app/app.html',
-      inject: false
+      filename: 'app.html',
+      template: 'app/app.html'
     })
   ],
 });

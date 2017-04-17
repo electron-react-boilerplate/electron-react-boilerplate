@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-expressions */
 import { spy } from 'sinon';
 import * as actions from '../../app/actions/counter';
 
