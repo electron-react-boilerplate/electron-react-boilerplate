@@ -1,3 +1,27 @@
+# 0.11.0 (2017.4.17)
+
+#### Breaking Changes
+
+- **Dropped support for node < 6**
+- **Refactored webpack config files**
+- **Migrate to two-package.json project structure**
+- **Updated all devDeps to latest semver**
+
+#### Additions
+
+- **Migrated to Jest:** [#768](https://github.com/chentsulin/electron-react-boilerplate/pull/768)
+- **Added support for Yarn:** [#451](https://github.com/chentsulin/electron-react-boilerplate/pull/451)
+- **Added support for Flow:** [#425](https://github.com/chentsulin/electron-react-boilerplate/pull/425)
+- **Added support for stylelint:** [#911](https://github.com/chentsulin/electron-react-boilerplate/pull/911)
+- **Added optional support for SASS:** [#880](https://github.com/chentsulin/electron-react-boilerplate/pull/880)
+- **Added support for eslint-plugin-flowtype:** [#911](https://github.com/chentsulin/electron-react-boilerplate/pull/911)
+- **Added support for appveyor:**
+
+#### Improvements
+
+- **Dynamically generate electron app menu**
+- **Improved vscode integration:** [#856](https://github.com/chentsulin/electron-react-boilerplate/pull/856)
+
 # 0.10.0 (2016.4.18)
 
 #### Improvements
