@@ -50,3 +50,4 @@ main.js.map
 
 .idea
 npm-debug.log.*
+__snapshots__

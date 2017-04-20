@@ -1,3 +1,43 @@
+# 0.11.0 (2017.4.19)
+
+Here's the most notable changes since `v0.10.0`. Its been about a year since a release has been pushed. Expect a new release to be published every 3-4 weeks.
+
+#### Breaking Changes
+
+- **Dropped support for node < 6**
+- **Refactored webpack config files**
+- **Migrate to two-package.json project structure**
+- **Updated all devDeps to latest semver**
+- **Migrated to Jest:** [#768](https://github.com/chentsulin/electron-react-boilerplate/pull/768)
+- **Migrated to `react-router@4`**
+- **Migrated to `electron-builder@4`**
+- **Migrated to `webpack@2`**
+- **Migrated to `react-hot-loader@3`**
+- **Changed default live reload server PORT to `1212` from `3000`**
+
+#### Additions
+
+- **Added support for Yarn:** [#451](https://github.com/chentsulin/electron-react-boilerplate/pull/451)
+- **Added support for Flow:** [#425](https://github.com/chentsulin/electron-react-boilerplate/pull/425)
+- **Added support for stylelint:** [#911](https://github.com/chentsulin/electron-react-boilerplate/pull/911)
+- **Added support for electron-builder:** [#876](https://github.com/chentsulin/electron-react-boilerplate/pull/876)
+- **Added optional support for SASS:** [#880](https://github.com/chentsulin/electron-react-boilerplate/pull/880)
+- **Added support for eslint-plugin-flowtype:** [#911](https://github.com/chentsulin/electron-react-boilerplate/pull/911)
+- **Added support for appveyor:** [#280](https://github.com/chentsulin/electron-react-boilerplate/pull/280)
+- **Added support for webpack dlls:** [#860](https://github.com/chentsulin/electron-react-boilerplate/pull/860)
+- **Route based code splitting:** [#884](https://github.com/chentsulin/electron-react-boilerplate/pull/884)
+- **Added support for Webpack Bundle Analyzer:** [#922](https://github.com/chentsulin/electron-react-boilerplate/pull/922)
+
+#### Improvements
+
+- **Parallelize renderer and main build processes when running `npm run build`**
+- **Dynamically generate electron app menu**
+- **Improved vscode integration:** [#856](https://github.com/chentsulin/electron-react-boilerplate/pull/856)
+
+#### Bug Fixes
+
+- **Fixed hot module replacement race condition bug:** [#917](https://github.com/chentsulin/electron-react-boilerplate/pull/917) [#920](https://github.com/chentsulin/electron-react-boilerplate/pull/920)
+
 # 0.10.0 (2016.4.18)
 
 #### Improvements

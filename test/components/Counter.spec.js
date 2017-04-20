@@ -1,7 +1,8 @@
-/* eslint-disable no-unused-expressions */
 import { spy } from 'sinon';
 import React from 'react';
 import { shallow } from 'enzyme';
+import { BrowserRouter as Router } from 'react-router-dom';
+import renderer from 'react-test-renderer';
 import Counter from '../../app/components/Counter';
 
 function setup() {
@@ -30,6 +31,21 @@ describe('Counter component', () => {
     const { buttons, actions } = setup();
     buttons.at(0).simulate('click');
     expect(actions.increment.called).toBe(true);
+  });
+
+  it('should match exact snapshot', () => {
+    const { actions } = setup();
+    const tree = renderer
+      .create(
+        <div>
+          <Router>
+            <Counter counter={1} {...actions} />
+          </Router>
+        </div>
+      )
+      .toJSON();
+
+    expect(tree).toMatchSnapshot();
   });
 
   it('should second button should call decrement', () => {

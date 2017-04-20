@@ -3,3 +3,4 @@ app/dist/
 app/main.js
 node_modules
 dll
+__snapshots__
