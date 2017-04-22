@@ -121,6 +121,10 @@ $ UPGRADE_EXTENSIONS=1 npm run dev
 $ set UPGRADE_EXTENSIONS=1 && npm run dev
 ```
 
+:bulb: You can debug your production build with devtools by simply setting the `DEBUG_PROD` env variable:
+```
+DEBUG_PROD=true npm run package
+```
 
 
 ## CSS Modules
