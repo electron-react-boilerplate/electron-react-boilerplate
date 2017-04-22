@@ -161,13 +161,5 @@ export default merge.smart(baseConfig, {
       analyzerMode: process.env.OPEN_ANALYZER === 'true' ? 'server' : 'disabled',
       openAnalyzer: process.env.OPEN_ANALYZER === 'true'
     }),
-
-    /**
-     * Dynamically generate index.html page
-     */
-    new HtmlWebpackPlugin({
-      filename: 'app.html',
-      template: 'app/app.html'
-    })
   ],
 });

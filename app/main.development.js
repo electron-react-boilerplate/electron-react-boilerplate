@@ -51,10 +51,7 @@ app.on('ready', async () => {
     height: 728
   });
 
-  const url = (process.env.NODE_ENV === 'development')
-    ? `http://localhost:${process.env.PORT || 1212}/dist/app.html`
-    : `file://${__dirname}/dist/app.html`;
-  mainWindow.loadURL(url);
+  mainWindow.loadURL(`file://${__dirname}/app.html`);
 
   // @TODO: Use 'ready-to-show' event
   //        https://github.com/electron/electron/blob/master/docs/api/browser-window.md#using-ready-to-show-event
