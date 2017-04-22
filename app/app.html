@@ -19,24 +19,28 @@
     <div id="root"></div>
     <script>
       {
-        // Dynamically include DLL if in development
+        const scripts = [];
+
+        // Dynamically insert the DLL script in development env in the
+        // renderer process
         if (process.env.NODE_ENV === 'development') {
-          const dllScript = document.createElement('script');
-          dllScript.src = '../dll/vendor.dll.js';
-          document.body.appendChild(dllScript);
+          scripts.push('../dll/vendor.dll.js');
         }
 
-        // Dynamically insert the renderer process
-        const script = document.createElement('script');
+        // Dynamically insert the bundled app script in the renderer process
         const port = process.env.PORT || 1212;
 
-        script.src = (process.env.HOT)
-          ? 'http://localhost:' + port + '/dist/bundle.js'
-          : './dist/bundle.js';
+        scripts.push(
+          (process.env.HOT)
+            ? 'http://localhost:' + port + '/dist/bundle.js'
+            : './dist/bundle.js'
+        );
 
-        // @HACK: Writing the script path should be done
-        //        with HtmlWebpackPlugin
-        document.body.appendChild(script);
+        document.write(
+          scripts
+            .map(script => '<script defer src="' + script + '"><\/script>')
+            .join('')
+        );
       }
     </script>
   </body>
