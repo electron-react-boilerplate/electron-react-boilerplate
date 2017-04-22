@@ -12,8 +12,10 @@ import fs from 'fs';
 import webpack from 'webpack';
 import chalk from 'chalk';
 import merge from 'webpack-merge';
+import express from 'express';
 import { spawn, execSync } from 'child_process';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 import baseConfig from './webpack.config.base';
 
 const port = process.env.PORT || 1212;
@@ -215,6 +217,15 @@ export default merge.smart(baseConfig, {
 
     new ExtractTextPlugin({
       filename: '[name].css'
+    }),
+
+    /**
+     * Dynamically generate index.html page
+     */
+    new HtmlWebpackPlugin({
+      filename: 'app.html',
+      template: 'app/app.html',
+      dll: `${publicPath}/dll/vendor.dll.js`
     })
   ],
 
@@ -238,7 +249,9 @@ export default merge.smart(baseConfig, {
       rewrites: [{ from: /./, to: '/dist/app.html' }],
       disableDotRule: false,
     },
-    setup() {
+    setup(app) {
+      app.use('/dist/dll/', express.static(dll));
+
       if (process.env.START_HOT) {
         spawn(
           'npm',
