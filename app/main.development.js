@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === 'production') {
   sourceMapSupport.install();
 }
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
   require('electron-debug')();
   const path = require('path');
   const p = path.join(__dirname, '..', 'app', 'node_modules');
@@ -41,7 +41,7 @@ app.on('window-all-closed', () => {
 
 
 app.on('ready', async () => {
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
     await installExtensions();
   }
 
@@ -51,10 +51,7 @@ app.on('ready', async () => {
     height: 728
   });
 
-  const url = (process.env.NODE_ENV === 'development')
-    ? `http://localhost:${process.env.PORT || 1212}/dist/app.html`
-    : `file://${__dirname}/dist/app.html`;
-  mainWindow.loadURL(url);
+  mainWindow.loadURL(`file://${__dirname}/app.html`);
 
   // @TODO: Use 'ready-to-show' event
   //        https://github.com/electron/electron/blob/master/docs/api/browser-window.md#using-ready-to-show-event

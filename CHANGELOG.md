@@ -1,3 +1,21 @@
+# 0.11.1 (2017.4.23)
+
+You can now debug the production build with devtools like so:
+```
+DEBUG_PROD=true npm run package
+```
+
+🎉🎉🎉
+
+#### Additions
+- **Added support for debugging production build:** [#fab245a](https://github.com/chentsulin/electron-react-boilerplate/pull/941/commits/fab245a077d02a09630f74270806c0c534a4ff95)
+
+#### Bug Fixes
+- **Fixed bug related to importing native dependencies:** [#933](https://github.com/chentsulin/electron-react-boilerplate/pull/933)
+
+#### Improvements
+- **Updated all deps to latest semver**
+
 # 0.11.0 (2017.4.19)
 
 Here's the most notable changes since `v0.10.0`. Its been about a year since a release has been pushed. Expect a new release to be published every 3-4 weeks.

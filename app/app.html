@@ -3,11 +3,44 @@
   <head>
     <meta charset="utf-8">
     <title>Hello Electron React!</title>
+    <script>
+      (function() {
+        if (!process.env.HOT) {
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = './dist/style.css';
+          // HACK: Writing the script path should be done with webpack
+          document.getElementsByTagName('head')[0].appendChild(link);
+        }
+      }());
+    </script>
   </head>
   <body>
     <div id="root"></div>
-    <% if (htmlWebpackPlugin.options.dll) { %>
-    <script src="<%= htmlWebpackPlugin.options.dll %>"></script>
-    <% } %>
+    <script>
+      {
+        const scripts = [];
+
+        // Dynamically insert the DLL script in development env in the
+        // renderer process
+        if (process.env.NODE_ENV === 'development') {
+          scripts.push('../dll/vendor.dll.js');
+        }
+
+        // Dynamically insert the bundled app script in the renderer process
+        const port = process.env.PORT || 1212;
+        scripts.push(
+          (process.env.HOT)
+            ? 'http://localhost:' + port + '/dist/bundle.js'
+            : './dist/bundle.js'
+        );
+
+        document.write(
+          scripts
+            .map(script => '<script defer src="' + script + '"><\/script>')
+            .join('')
+        );
+      }
+    </script>
   </body>
 </html>
