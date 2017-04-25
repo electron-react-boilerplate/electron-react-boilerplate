@@ -34,7 +34,9 @@ describe('actions', () => {
     const dispatch = spy();
     fn(dispatch);
     setTimeout(() => {
-      expect(dispatch.calledWith({ type: actions.INCREMENT_COUNTER })).toBe(true);
+      expect(dispatch.calledWith({ type: actions.INCREMENT_COUNTER })).toBe(
+        true
+      );
       done();
     }, 5);
   });
