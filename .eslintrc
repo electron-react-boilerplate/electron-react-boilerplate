@@ -43,7 +43,7 @@
   "settings": {
     "import/resolver": {
       "webpack": {
-        "config": "webpack/webpack.config.eslint.js"
+        "config": "config/webpack/webpack.config.eslint.js"
       }
     }
   }

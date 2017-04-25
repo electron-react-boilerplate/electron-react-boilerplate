@@ -1,10 +1,14 @@
+/* eslint global-require: 0, import/no-dynamic-require: 0 */
+
 /**
  * Base webpack config used across other specific configs
  */
 
 import path from 'path';
 import webpack from 'webpack';
-import { dependencies as externals } from '../app/package.json';
+
+const pkg = require(path.resolve(process.cwd(), './app/package.json'));
+const externals = pkg.dependencies;
 
 export default {
   externals: Object.keys(externals || {}),
