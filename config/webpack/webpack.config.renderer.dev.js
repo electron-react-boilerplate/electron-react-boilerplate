@@ -25,11 +25,9 @@ const manifest = path.resolve(dll, 'vendor.json');
  * Warn if the DLL is not built
  */
 if (!(fs.existsSync(dll) && fs.existsSync(manifest))) {
-  console.log(
-    chalk.black.bgYellow.bold(
-      'The DLL files are missing. Sit back while we build them for you with "npm run build-dll"'
-    )
-  );
+  console.log(chalk.black.bgYellow.bold(
+    'The DLL files are missing. Sit back while we build them for you with "npm run build-dll"'
+  ));
   execSync('npm run build-dll');
 }
 
@@ -42,7 +40,7 @@ export default merge.smart(baseConfig, {
     'react-hot-loader/patch',
     `webpack-dev-server/client?http://localhost:${port}/`,
     'webpack/hot/only-dev-server',
-    path.join(process.cwd(), 'app/index.js')
+    path.join(process.cwd(), 'app/index.js'),
   ],
 
   output: {
@@ -60,8 +58,8 @@ export default merge.smart(baseConfig, {
           {
             loader: 'css-loader',
             options: {
-              sourceMap: true
-            }
+              sourceMap: true,
+            },
           }
         ]
       },
@@ -77,9 +75,9 @@ export default merge.smart(baseConfig, {
               modules: true,
               sourceMap: true,
               importLoaders: 1,
-              localIdentName: '[name]__[local]__[hash:base64:5]'
+              localIdentName: '[name]__[local]__[hash:base64:5]',
             }
-          }
+          },
         ]
       },
       // Add SASS support  - compile all .global.scss files and pipe it to style.css
@@ -92,8 +90,8 @@ export default merge.smart(baseConfig, {
           {
             loader: 'css-loader',
             options: {
-              sourceMap: true
-            }
+              sourceMap: true,
+            },
           },
           {
             loader: 'sass-loader'
@@ -113,7 +111,7 @@ export default merge.smart(baseConfig, {
               modules: true,
               sourceMap: true,
               importLoaders: 1,
-              localIdentName: '[name]__[local]__[hash:base64:5]'
+              localIdentName: '[name]__[local]__[hash:base64:5]',
             }
           },
           {
@@ -128,9 +126,9 @@ export default merge.smart(baseConfig, {
           loader: 'url-loader',
           options: {
             limit: 10000,
-            mimetype: 'application/font-woff'
+            mimetype: 'application/font-woff',
           }
-        }
+        },
       },
       // WOFF2 Font
       {
@@ -139,7 +137,7 @@ export default merge.smart(baseConfig, {
           loader: 'url-loader',
           options: {
             limit: 10000,
-            mimetype: 'application/font-woff'
+            mimetype: 'application/font-woff',
           }
         }
       },
@@ -157,7 +155,7 @@ export default merge.smart(baseConfig, {
       // EOT Font
       {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-        use: 'file-loader'
+        use: 'file-loader',
       },
       // SVG Font
       {
@@ -166,14 +164,14 @@ export default merge.smart(baseConfig, {
           loader: 'url-loader',
           options: {
             limit: 10000,
-            mimetype: 'image/svg+xml'
+            mimetype: 'image/svg+xml',
           }
         }
       },
       // Common Image Formats
       {
         test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
-        use: 'url-loader'
+        use: 'url-loader',
       }
     ]
   },
@@ -182,18 +180,16 @@ export default merge.smart(baseConfig, {
     new webpack.DllReferencePlugin({
       context: process.cwd(),
       manifest: require(manifest),
-      sourceType: 'var'
+      sourceType: 'var',
     }),
 
     /**
      * https://webpack.js.org/concepts/hot-module-replacement/
      */
-    new webpack.HotModuleReplacementPlugin(
-      {
-        // @TODO: Waiting on https://github.com/jantimon/html-webpack-plugin/issues/533
-        // multiStep: true
-      }
-    ),
+    new webpack.HotModuleReplacementPlugin({
+      // @TODO: Waiting on https://github.com/jantimon/html-webpack-plugin/issues/533
+      // multiStep: true
+    }),
 
     new webpack.NoEmitOnErrorsPlugin(),
 
@@ -210,9 +206,7 @@ export default merge.smart(baseConfig, {
      * 'staging', for example, by changing the ENV variables in the npm scripts
      */
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(
-        process.env.NODE_ENV || 'development'
-      )
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
     }),
 
     new webpack.LoaderOptionsPlugin({
@@ -221,7 +215,7 @@ export default merge.smart(baseConfig, {
 
     new ExtractTextPlugin({
       filename: '[name].css'
-    })
+    }),
   ],
 
   devServer: {
@@ -241,18 +235,18 @@ export default merge.smart(baseConfig, {
     },
     historyApiFallback: {
       verbose: true,
-      disableDotRule: false
+      disableDotRule: false,
     },
     setup() {
       if (process.env.START_HOT) {
-        spawn('npm', ['run', 'start-hot-renderer'], {
-          shell: true,
-          env: process.env,
-          stdio: 'inherit'
-        })
-          .on('close', code => process.exit(code))
-          .on('error', spawnError => console.error(spawnError));
+        spawn(
+          'npm',
+          ['run', 'start-hot-renderer'],
+          { shell: true, env: process.env, stdio: 'inherit' }
+        )
+        .on('close', code => process.exit(code))
+        .on('error', spawnError => console.error(spawnError));
       }
     }
-  }
+  },
 });

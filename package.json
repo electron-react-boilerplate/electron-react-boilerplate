@@ -28,15 +28,7 @@
     "package-win": "npm run build && build --win --x64",
     "package-linux": "npm run build && build --linux",
     "package-all": "npm run build && build -mwl",
-    "cleanup": "mop -v",
-    "precommit": "lint-staged",
-    "prettier": "prettier --single-quote --write '{app,config,test}/**/*.js'"
-  },
-  "lint-staged": {
-    "*.js": [
-      "prettier --single-quote --write",
-      "git add"
-    ]
+    "cleanup": "mop -v"
   },
   "browserslist": "electron 1.4",
   "build": {
@@ -154,7 +146,6 @@
     "enzyme": "^2.8.2",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
-    "eslint-config-prettier": "^1.7.0",
     "eslint-formatter-pretty": "^1.1.0",
     "eslint-import-resolver-webpack": "^0.8.1",
     "eslint-plugin-compat": "^1.0.2",
@@ -163,7 +154,6 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jest": "^19.0.1",
     "eslint-plugin-jsx-a11y": "^4.0.0",
-    "eslint-plugin-prettier": "^2.0.1",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-react": "^6.10.3",
     "express": "^4.15.2",
@@ -173,14 +163,11 @@
     "flow-runtime": "^0.10.0",
     "flow-typed": "^2.1.1",
     "html-webpack-plugin": "^2.28.0",
-    "husky": "^0.13.3",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^19.0.2",
     "jsdom": "^9.12.0",
-    "lint-staged": "^3.4.0",
     "minimist": "^1.2.0",
     "node-sass": "^4.5.2",
-    "prettier": "^1.2.2",
     "react-addons-test-utils": "^15.5.1",
     "react-test-renderer": "^15.5.4",
     "redux-logger": "^3.0.1",

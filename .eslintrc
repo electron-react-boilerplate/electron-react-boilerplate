@@ -4,12 +4,7 @@
     "sourceType": "module",
     "allowImportExportEverywhere": true
   },
-  "extends": [
-    "airbnb",
-    "prettier",
-    "prettier/flowtype",
-    "prettier/react"
-  ],
+  "extends": "airbnb",
   "env": {
     "browser": true,
     "node": true
@@ -43,8 +38,7 @@
     "import",
     "promise",
     "compat",
-    "react",
-    "prettier"
+    "react"
   ],
   "settings": {
     "import/resolver": {

@@ -14,18 +14,16 @@ export default {
   externals: Object.keys(externals || {}),
 
   module: {
-    rules: [
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            cacheDirectory: true
-          }
+    rules: [{
+      test: /\.jsx?$/,
+      exclude: /node_modules/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          cacheDirectory: true
         }
       }
-    ]
+    }]
   },
 
   output: {
@@ -40,8 +38,13 @@ export default {
    */
   resolve: {
     extensions: ['.js', '.jsx', '.json'],
-    modules: [path.join(process.cwd(), 'app'), 'node_modules']
+    modules: [
+      path.join(process.cwd(), 'app'),
+      'node_modules',
+    ],
   },
 
-  plugins: [new webpack.NamedModulesPlugin()]
+  plugins: [
+    new webpack.NamedModulesPlugin(),
+  ],
 };
