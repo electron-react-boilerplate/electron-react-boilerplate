@@ -176,7 +176,7 @@
     "sinon": "^2.1.0",
     "spectron": "^3.6.2",
     "style-loader": "^0.16.1",
-	"stylefmt": "^5.3.2",
+    "stylefmt": "^5.3.2",
     "stylelint": "^7.10.1",
     "stylelint-config-standard": "^16.0.0",
     "url-loader": "^0.5.8",
