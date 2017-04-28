@@ -7,7 +7,7 @@
 [![Build Status][travis-image]][travis-url]
 [![Appveyor Build Status][appveyor-image]][appveyor-url]
 [![Dependency Status][david_img]][david_site]
-[![NPM version][npm-image]][npm-url]
+[![Github Tag][github-tag-image]][github-tag-url]
 [![Join the chat at https://gitter.im/electron-react-boilerplate/Lobby](https://badges.gitter.im/electron-react-boilerplate/Lobby.svg)](https://gitter.im/electron-react-boilerplate/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![OpenCollective](https://opencollective.com/electron-react-boilerplate/backers/badge.svg)](#backers)
 [![OpenCollective](https://opencollective.com/electron-react-boilerplate/sponsors/badge.svg)](#sponsors)
@@ -121,6 +121,10 @@ $ UPGRADE_EXTENSIONS=1 npm run dev
 $ set UPGRADE_EXTENSIONS=1 && npm run dev
 ```
 
+:bulb: You can debug your production build with devtools by simply setting the `DEBUG_PROD` env variable:
+```
+DEBUG_PROD=true npm run package
+```
 
 
 ## CSS Modules
@@ -302,7 +306,8 @@ Become a sponsor and get your logo on our README on Github with a link to your s
 MIT © [C. T. Lin](https://github.com/chentsulin)
 
 [npm-image]: https://img.shields.io/npm/v/electron-react-boilerplate.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/electron-react-boilerplate
+[github-tag-image]: https://img.shields.io/github/tag/chentsulin/electron-react-boilerplate.svg
+[github-tag-url]: https://github.com/chentsulin/electron-react-boilerplate/releases/latest
 [travis-image]: https://travis-ci.org/chentsulin/electron-react-boilerplate.svg?branch=master
 [travis-url]: https://travis-ci.org/chentsulin/electron-react-boilerplate
 [appveyor-image]: https://ci.appveyor.com/api/projects/status/github/chentsulin/electron-react-boilerplate?svg=true
