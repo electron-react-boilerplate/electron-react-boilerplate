@@ -1,3 +1,5 @@
+/* eslint global-require: 0, import/no-dynamic-require: 0 */
+
 /**
  * Builds the DLL for development electron renderer process
  */
@@ -6,8 +8,9 @@ import webpack from 'webpack';
 import path from 'path';
 import merge from 'webpack-merge';
 import baseConfig from './webpack.config.base';
-import { dependencies } from './package.json';
 
+const pkg = require(path.resolve(process.cwd(), 'package.json'));
+const dependencies = pkg.dependencies;
 const dist = path.resolve(process.cwd(), 'dll');
 
 export default merge.smart(baseConfig, {

@@ -18,7 +18,7 @@ export default merge.smart(baseConfig, {
   entry: ['babel-polyfill', './app/index'],
 
   output: {
-    path: path.join(__dirname, 'app/dist'),
+    path: path.join(process.cwd(), 'app/dist'),
     publicPath: '../dist/'
   },
 
