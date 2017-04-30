@@ -43,10 +43,6 @@ install:
 #   - refreshenv
 #   - yarn
 
-test_script:
-  - node --version
-  - npm run lint
-  - npm run test
-  - npm run build
-  - npm run test-e2e
+script:
+  - npm run test-all
   - npm run package
