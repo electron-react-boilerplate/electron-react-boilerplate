@@ -3,11 +3,11 @@ import * as actions from '../../app/actions/counter';
 
 describe('actions', () => {
   it('should increment should create increment action', () => {
-    expect(actions.increment()).toEqual({ type: actions.INCREMENT_COUNTER });
+    expect(actions.increment()).toMatchSnapshot();
   });
 
   it('should decrement should create decrement action', () => {
-    expect(actions.decrement()).toEqual({ type: actions.DECREMENT_COUNTER });
+    expect(actions.decrement()).toMatchSnapshot();
   });
 
   it('should incrementIfOdd should create increment action', () => {
