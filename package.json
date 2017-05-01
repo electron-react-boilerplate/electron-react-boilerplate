@@ -1,9 +1,8 @@
 {
   "name": "electron-react-boilerplate",
   "productName": "ElectronReact",
-  "version": "0.11.0",
+  "version": "0.11.2",
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
-  "main": "main.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node --trace-warnings ./test/runTests.js",
     "test-all": "npm run lint && npm run flow && npm run test && npm run build && npm run test-e2e",
@@ -22,7 +21,7 @@
     "prestart": "npm run build",
     "flow": "flow",
     "flow-typed": "rm -rf flow-typed && flow-typed install --overwrite || true",
-    "start-hot-renderer": "cross-env HOT=1 NODE_ENV=development electron -r babel-register -r babel-polyfill ./app/main.development",
+    "start-hot-renderer": "cross-env HOT=1 NODE_ENV=development electron -r babel-register -r babel-polyfill ./app/main.dev",
     "postinstall": "concurrently \"npm run flow-typed\" \"npm run build-dll\" \"install-app-deps\" \"node node_modules/fbjs-scripts/node/check-dev-engines.js package.json\"",
     "dev": "cross-env START_HOT=1 npm run hot-updates-server",
     "package": "npm run build && build --publish never",
@@ -39,8 +38,8 @@
       "dist/",
       "node_modules/",
       "app.html",
-      "main.js",
-      "main.js.map",
+      "main.prod.js",
+      "main.prod.js.map",
       "package.json"
     ],
     "dmg": {
@@ -123,7 +122,7 @@
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-dev-expression": "^0.2.1",
     "babel-plugin-dynamic-import-webpack": "^1.0.1",
-    "babel-plugin-flow-runtime": "^0.10.0",
+    "babel-plugin-flow-runtime": "^0.11.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-es2015-classes": "^6.24.1",
     "babel-polyfill": "^6.23.0",
@@ -141,17 +140,18 @@
     "cross-spawn": "^5.1.0",
     "css-loader": "^0.28.0",
     "devtron": "^1.4.0",
-    "electron": "^1.6.5",
-    "electron-builder": "^17.0.1",
+    "electron": "^1.6.6",
+    "electron-builder": "^17.1.1",
     "electron-devtools-installer": "^2.2.0",
     "enzyme": "^2.8.2",
+    "enzyme-to-json": "^1.5.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-formatter-pretty": "^1.1.0",
     "eslint-import-resolver-webpack": "^0.8.1",
     "eslint-plugin-compat": "^1.0.2",
     "eslint-plugin-flowtype": "^2.32.1",
-    "eslint-plugin-flowtype-errors": "^3.0.3",
+    "eslint-plugin-flowtype-errors": "^3.2.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jest": "^19.0.1",
     "eslint-plugin-jsx-a11y": "^4.0.0",
@@ -160,13 +160,13 @@
     "express": "^4.15.2",
     "fbjs-scripts": "^0.7.1",
     "file-loader": "^0.11.1",
-    "flow-bin": "^0.44.2",
-    "flow-runtime": "^0.10.0",
-    "flow-typed": "^2.1.1",
+    "flow-bin": "^0.45.0",
+    "flow-runtime": "^0.11.1",
+    "flow-typed": "^2.1.2",
     "html-webpack-plugin": "^2.28.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^19.0.2",
-    "jsdom": "^9.12.0",
+    "jsdom": "^10.1.0",
     "minimist": "^1.2.0",
     "node-sass": "^4.5.2",
     "react-addons-test-utils": "^15.5.1",
@@ -182,7 +182,7 @@
     "url-loader": "^0.5.8",
     "webpack": "^2.4.1",
     "webpack-bundle-analyzer": "^2.4.0",
-    "webpack-dev-server": "^2.4.3",
+    "webpack-dev-server": "^2.4.5",
     "webpack-merge": "^4.1.0"
   },
   "dependencies": {
@@ -199,11 +199,11 @@
     "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
-    "source-map-support": "^0.4.14"
+    "source-map-support": "^0.4.15"
   },
   "devEngines": {
     "node": ">=6.x",
     "npm": ">=3.x",
-    "yarn": "0.21.3"
+    "yarn": ">=0.21.3"
   }
 }

@@ -1,3 +1,18 @@
+# 0.11.2 (2017.5.1)
+
+Yay! Another patch release. This release mostly includes refactorings and router bug fixes. Huge thanks to @anthonyraymond!
+
+⚠️ Windows electron builds are failing because of [this issue](https://github.com/electron/electron/issues/9321). This is not an issue with the boilerplate ⚠️
+
+#### Breaking
+- **Renamed `./app/main.development.js` => `./app/main.{dev,prod}.js`:** [#963](https://github.com/chentsulin/electron-react-boilerplate/pull/963)
+
+#### Fixes
+- **Fixed reloading when not on `/` path:** [#958](https://github.com/chentsulin/electron-react-boilerplate/pull/958) [#949](https://github.com/chentsulin/electron-react-boilerplate/pull/949)
+
+#### Additions
+- **Added support for stylefmt:** [#960](https://github.com/chentsulin/electron-react-boilerplate/pull/960)
+
 # 0.11.1 (2017.4.23)
 
 You can now debug the production build with devtools like so:

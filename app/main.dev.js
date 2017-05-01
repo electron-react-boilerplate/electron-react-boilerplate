@@ -1,5 +1,15 @@
 /* eslint global-require: 1, flowtype-errors/show-errors: 0 */
-// @flow
+
+/**
+ * This module executes inside of electron's main process. You can start
+ * electron renderer process from here and communicate with the other processes
+ * through IPC.
+ *
+ * When running `npm run build` or `npm run build-main`, this file is compiled to
+ * `./app/main.prod.js` using webpack. This gives us some performance wins.
+ *
+ * @flow
+ */
 import { app, BrowserWindow } from 'electron';
 import MenuBuilder from './menu';
 
@@ -30,6 +40,10 @@ const installExtensions = async () => {
     .catch(console.log);
 };
 
+
+/**
+ * Add event listeners...
+ */
 
 app.on('window-all-closed', () => {
   // Respect the OSX convention of having the application in memory even

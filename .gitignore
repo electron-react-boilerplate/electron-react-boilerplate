@@ -37,8 +37,8 @@ flow-typed/npm/*
 
 # App packaged
 release
-app/main.js
-app/main.js.map
+app/main.prod.js
+app/main.prod.js.map
 app/bundle.js
 app/bundle.js.map
 app/style.css
@@ -50,4 +50,3 @@ main.js.map
 
 .idea
 npm-debug.log.*
-__snapshots__
