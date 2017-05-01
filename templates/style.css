@@ -1,0 +1,9 @@
+{{#if stateless}}
+.someStyle {
+  color: red;
+}
+{{else}}
+.value {
+  color: red;
+}
+{{/if}}
