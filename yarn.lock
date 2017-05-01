@@ -332,8 +332,8 @@ async@^1.4.0, async@^1.5.2:
   resolved "https://registry.yarnpkg.com/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
 
 async@^2.0.0, async@^2.1.2, async@^2.1.4, async@^2.1.5:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/async/-/async-2.3.0.tgz#1013d1051047dd320fe24e494d5c66ecaf6147d9"
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/async/-/async-2.4.0.tgz#4990200f18ea5b837c2cc4f8c031a6985c385611"
   dependencies:
     lodash "^4.14.0"
 
@@ -619,9 +619,9 @@ babel-plugin-dynamic-import-webpack@^1.0.1:
     babel-plugin-syntax-dynamic-import "^6.18.0"
     babel-template "^6.16.0"
 
-babel-plugin-flow-runtime@^0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/babel-plugin-flow-runtime/-/babel-plugin-flow-runtime-0.10.0.tgz#de60b8c64ce0eec6b13663a129d79ec46b97cb2d"
+babel-plugin-flow-runtime@^0.11.1:
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/babel-plugin-flow-runtime/-/babel-plugin-flow-runtime-0.11.1.tgz#5bccef681c75a126d6c81db3560dabf075e19d22"
   dependencies:
     babel-generator "^6.21.0"
     babel-traverse "^6.20.0"
@@ -1429,8 +1429,8 @@ binary-extensions@^1.0.0:
     chainsaw "~0.1.0"
 
 bl@^1.0.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/bl/-/bl-1.2.0.tgz#1397e7ec42c5f5dc387470c500e34a9f6be9ea98"
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/bl/-/bl-1.2.1.tgz#cac328f7bee45730d404b692203fcb590e172d5e"
   dependencies:
     readable-stream "^2.0.5"
 
@@ -1654,7 +1654,7 @@ camelcase@^1.0.2:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-1.2.1.tgz#9bb5304d2e0b56698b2c758b08a3eaa9daa58a39"
 
-camelcase@^2.0.0:
+camelcase@^2.0.0, camelcase@^2.0.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-2.1.1.tgz#7c1d16d679a1bbe59ca02cacecfb011e201f5a1f"
 
@@ -1822,7 +1822,7 @@ cliui@^2.1.0:
     right-align "^0.1.1"
     wordwrap "0.0.2"
 
-cliui@^3.2.0:
+cliui@^3.0.3, cliui@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/cliui/-/cliui-3.2.0.tgz#120601537a916d29940f934da3b48d585a39213d"
   dependencies:
@@ -3327,8 +3327,8 @@ extract-text-webpack-plugin@^2.1.0:
     webpack-sources "^0.1.0"
 
 extract-zip@^1.0.3, extract-zip@^1.6.0:
-  version "1.6.4"
-  resolved "https://registry.yarnpkg.com/extract-zip/-/extract-zip-1.6.4.tgz#0ee810e214c83ce4ce416d2898c903e3e7f6c3cf"
+  version "1.6.5"
+  resolved "https://registry.yarnpkg.com/extract-zip/-/extract-zip-1.6.5.tgz#99a06735b6ea20ea9b705d779acffcc87cff0440"
   dependencies:
     concat-stream "1.6.0"
     debug "2.2.0"
@@ -3447,8 +3447,8 @@ fileset@^2.0.2:
     minimatch "^3.0.3"
 
 filesize@^3.5.6:
-  version "3.5.8"
-  resolved "https://registry.yarnpkg.com/filesize/-/filesize-3.5.8.tgz#5cd23aef46eeeaf812707f7098d245de513e4328"
+  version "3.5.9"
+  resolved "https://registry.yarnpkg.com/filesize/-/filesize-3.5.9.tgz#9e3dd8a9b124f5b2f1fb2ee9cd13a86c707bb222"
 
 fill-range@^2.1.0:
   version "2.2.3"
@@ -3518,9 +3518,9 @@ flow-config-parser@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/flow-config-parser/-/flow-config-parser-0.3.0.tgz#704916efba88cd2518ab4d8f933079571276138f"
 
-flow-runtime@^0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/flow-runtime/-/flow-runtime-0.10.0.tgz#20a70432fb20e8bba43769078c7a17d99dd1acab"
+flow-runtime@^0.11.1:
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/flow-runtime/-/flow-runtime-0.11.1.tgz#cd4266e2c0cb7954af87e1168393164a877eb623"
 
 flow-typed@^2.1.2:
   version "2.1.2"
@@ -4829,9 +4829,9 @@ jsbn@~0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/jsbn/-/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
 
-jsdom@^10.0.0:
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/jsdom/-/jsdom-10.0.0.tgz#3dda0b760aa248dd9b1392f8bb82e93ad70377b4"
+jsdom@^10.1.0:
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/jsdom/-/jsdom-10.1.0.tgz#7765e00fd5c3567f34985a1c86ff466a61dacc6a"
   dependencies:
     abab "^1.0.3"
     acorn "^4.0.4"
@@ -5577,8 +5577,8 @@ node-forge@^0.7.1:
   resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-0.7.1.tgz#9da611ea08982f4b94206b3beb4cc9665f20c300"
 
 node-gyp@^3.3.1:
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/node-gyp/-/node-gyp-3.6.0.tgz#7474f63a3a0501161dda0b6341f022f14c423fa6"
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/node-gyp/-/node-gyp-3.6.1.tgz#19561067ff185464aded478212681f47fd578cbc"
   dependencies:
     fstream "^1.0.0"
     glob "^7.0.3"
@@ -7333,7 +7333,7 @@ source-map-resolve@^0.3.0:
     source-map-url "~0.3.0"
     urix "~0.1.0"
 
-source-map-support@^0.4.14, source-map-support@^0.4.2:
+source-map-support@^0.4.14, source-map-support@^0.4.15, source-map-support@^0.4.2:
   version "0.4.15"
   resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.4.15.tgz#03202df65c06d2bd8c7ec2362a193056fef8d3b1"
   dependencies:
@@ -7881,8 +7881,8 @@ to-arraybuffer@^1.0.0:
   resolved "https://registry.yarnpkg.com/to-arraybuffer/-/to-arraybuffer-1.0.1.tgz#7d229b1fcc637e466ca081180836a7aabff83f43"
 
 to-fast-properties@^1.0.1:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/to-fast-properties/-/to-fast-properties-1.0.2.tgz#f3f5c0c3ba7299a7ef99427e44633257ade43320"
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/to-fast-properties/-/to-fast-properties-1.0.3.tgz#b83571fa4d8c25b82e231b06e3a3055de4ca1a47"
 
 toposort@^1.0.0:
   version "1.0.3"
@@ -8212,8 +8212,8 @@ wdio-dot-reporter@~0.0.8:
   resolved "https://registry.yarnpkg.com/wdio-dot-reporter/-/wdio-dot-reporter-0.0.8.tgz#36195576da0d998210c71948cbb65f5bf11bfc65"
 
 webdriverio@^4.0.4:
-  version "4.7.1"
-  resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-4.7.1.tgz#2248d1c6a2e05a89c840d4d62e9e550997a43854"
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-4.8.0.tgz#d52929b749080f89967f6e1614051cbc8172d132"
   dependencies:
     archiver "~1.3.0"
     babel-runtime "~6.23.0"
@@ -8399,6 +8399,10 @@ window-size@0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/window-size/-/window-size-0.1.0.tgz#5438cd2ea93b202efa3a19fe8887aee7c94f9c9d"
 
+window-size@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/window-size/-/window-size-0.1.4.tgz#f8e1aa1ee5a53ec5bf151ffa09742a6ad7697876"
+
 window-size@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/window-size/-/window-size-0.2.0.tgz#b4315bb4214a3d7058ebeee892e13fa24d98b075"
@@ -8477,7 +8481,7 @@ xtend@~2.1.1:
   dependencies:
     object-keys "~0.4.0"
 
-y18n@^3.2.1:
+y18n@^3.2.0, y18n@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/y18n/-/y18n-3.2.1.tgz#6d15fba884c08679c0d77e88e7759e811e07fa41"
 
@@ -8508,14 +8512,17 @@ yargs@^1.2.6:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-1.3.3.tgz#054de8b61f22eefdb7207059eaef9d6b83fb931a"
 
-yargs@^3.5.4, yargs@~3.10.0:
-  version "3.10.0"
-  resolved "https://registry.yarnpkg.com/yargs/-/yargs-3.10.0.tgz#f7ee7bd857dd7c1d2d38c0e74efbd681d1431fd1"
+yargs@^3.5.4:
+  version "3.32.0"
+  resolved "https://registry.yarnpkg.com/yargs/-/yargs-3.32.0.tgz#03088e9ebf9e756b69751611d2a5ef591482c995"
   dependencies:
-    camelcase "^1.0.2"
-    cliui "^2.1.0"
-    decamelize "^1.0.0"
-    window-size "0.1.0"
+    camelcase "^2.0.1"
+    cliui "^3.0.3"
+    decamelize "^1.1.1"
+    os-locale "^1.4.0"
+    string-width "^1.0.1"
+    window-size "^0.1.4"
+    y18n "^3.2.0"
 
 yargs@^4.2.0:
   version "4.8.1"
@@ -8571,6 +8578,15 @@ yargs@^7.1.0:
     which-module "^1.0.0"
     y18n "^3.2.1"
     yargs-parser "^5.0.0"
+
+yargs@~3.10.0:
+  version "3.10.0"
+  resolved "https://registry.yarnpkg.com/yargs/-/yargs-3.10.0.tgz#f7ee7bd857dd7c1d2d38c0e74efbd681d1431fd1"
+  dependencies:
+    camelcase "^1.0.2"
+    cliui "^2.1.0"
+    decamelize "^1.0.0"
+    window-size "0.1.0"
 
 yauzl@2.4.1:
   version "2.4.1"
