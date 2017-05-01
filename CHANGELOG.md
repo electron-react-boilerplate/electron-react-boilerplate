@@ -1,4 +1,4 @@
-# 0.11.2 (2017.4.29)
+# 0.11.2 (2017.5.1)
 
 Yay! Another patch release. This release mostly includes refactorings and router bug fixes. Huge thanks to @anthonyraymond!
 
