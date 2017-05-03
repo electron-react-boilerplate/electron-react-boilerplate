@@ -1,8 +1,5 @@
 [ignore]
 <PROJECT_ROOT>/node_modules/*
-<PROJECT_ROOT>/node_modules/fbjs/.*
-<PROJECT_ROOT>/node_modules/stylelint/.*
-<PROJECT_ROOT>/node_modules/babel-plugin-flow-runtime/.*
 <PROJECT_ROOT>/app/main.prod.js
 <PROJECT_ROOT>/app/main.prod.js.map
 <PROJECT_ROOT>/app/dist/.*
