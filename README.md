@@ -12,14 +12,14 @@
 [![OpenCollective](https://opencollective.com/electron-react-boilerplate/backers/badge.svg)](#backers)
 [![OpenCollective](https://opencollective.com/electron-react-boilerplate/sponsors/badge.svg)](#sponsors)
 
-[![React](/img/react-padded-90.png)](https://facebook.github.io/react/)
-[![Webpack](/img/webpack-padded-90.png)](https://webpack.github.io/)
-[![Redux](/img/redux-padded-90.png)](http://redux.js.org/)
-[![React Router](/img/react-router-padded-90.png)](https://github.com/ReactTraining/react-router)
-[![Flow](/img/flow-padded-90.png)](https://flowtype.org/)
-[![ESLint](/img/eslint-padded-90.png)](http://eslint.org/)
-[![Jest](/img/jest-padded-90.png)](https://facebook.github.io/jest/)
-[![Yarn](/img/yarn-padded-90.png)](https://yarnpkg.com/)
+[![React](/internals/img/react-padded-90.png)](https://facebook.github.io/react/)
+[![Webpack](/internals/img/webpack-padded-90.png)](https://webpack.github.io/)
+[![Redux](/internals/img/redux-padded-90.png)](http://redux.js.org/)
+[![React Router](/internals/img/react-router-padded-90.png)](https://github.com/ReactTraining/react-router)
+[![Flow](/internals/img/flow-padded-90.png)](https://flowtype.org/)
+[![ESLint](/internals/img/eslint-padded-90.png)](http://eslint.org/)
+[![Jest](/internals/img/jest-padded-90.png)](https://facebook.github.io/jest/)
+[![Yarn](/internals/img/yarn-padded-90.png)](https://yarnpkg.com/)
 
 [Electron](http://electron.atom.io/) application boilerplate based on [React](https://facebook.github.io/react/), [Redux](https://github.com/reactjs/redux), [React Router](https://github.com/reactjs/react-router), [Webpack](http://webpack.github.io/docs/), [React Transform HMR](https://github.com/gaearon/react-transform-hmr) for rapid application development
 
@@ -44,8 +44,6 @@ And then install dependencies.
 ```bash
 $ cd your-project-name && npm install
 ```
-
-:bulb: *In order to remove boilerplate sample code, simply run `npm run cleanup`. After this is run, the initial sample boilerplate code will be removed in order for a clean project for starting custom dev*
 
 ## Run
 

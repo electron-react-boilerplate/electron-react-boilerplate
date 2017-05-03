@@ -1,7 +1,7 @@
 {
   "name": "electron-react-boilerplate",
   "productName": "ElectronReact",
-  "version": "0.11.2",
+  "version": "0.12.0",
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
   "scripts": {
     "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node --trace-warnings ./test/runTests.js",
@@ -27,8 +27,7 @@
     "package": "npm run build && build --publish never",
     "package-win": "npm run build && build --win --x64",
     "package-linux": "npm run build && build --linux",
-    "package-all": "npm run build && build -mwl",
-    "cleanup": "mop -v"
+    "package-all": "npm run build && build -mwl"
   },
   "browserslist": "electron 1.4",
   "build": {
@@ -99,7 +98,7 @@
   "homepage": "https://github.com/chentsulin/electron-react-boilerplate#readme",
   "jest": {
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/mocks/fileMock.js",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/internals/mocks/fileMock.js",
       "\\.(css|less|sass|scss)$": "identity-obj-proxy"
     },
     "moduleFileExtensions": [
@@ -133,7 +132,6 @@
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.24.1",
     "babili-webpack-plugin": "^0.0.11",
-    "boiler-room-custodian": "^0.6.2",
     "chalk": "^1.1.3",
     "concurrently": "^3.4.0",
     "cross-env": "^4.0.0",
@@ -158,6 +156,7 @@
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-react": "^6.10.3",
     "express": "^4.15.2",
+    "extract-text-webpack-plugin": "^2.1.0",
     "fbjs-scripts": "^0.7.1",
     "file-loader": "^0.11.1",
     "flow-bin": "^0.45.0",
@@ -187,7 +186,6 @@
   },
   "dependencies": {
     "electron-debug": "^1.1.0",
-    "extract-text-webpack-plugin": "^2.1.0",
     "font-awesome": "^4.7.0",
     "history": "^4.6.1",
     "react": "^15.5.4",
