@@ -50,4 +50,3 @@ before_script:
 
 script:
   - npm run test-all
-  - npm run package

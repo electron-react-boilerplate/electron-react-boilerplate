@@ -45,4 +45,3 @@ install:
 
 script:
   - npm run test-all
-  - npm run package
