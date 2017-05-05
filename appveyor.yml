@@ -43,5 +43,4 @@ install:
 #   - refreshenv
 #   - yarn
 
-script:
-  - npm run test-all
+script: npm run test-all
