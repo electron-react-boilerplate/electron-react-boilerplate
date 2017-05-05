@@ -29,7 +29,7 @@
     "package-linux": "npm run build && build --linux",
     "package-all": "npm run build && build -mwl"
   },
-  "browserslist": "electron 1.4",
+  "browserslist": "electron 1.6",
   "build": {
     "productName": "ElectronReact",
     "appId": "org.develar.ElectronReact",
