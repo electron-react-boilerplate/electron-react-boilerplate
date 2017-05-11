@@ -3,9 +3,17 @@
   "flow.useNPMPackagedFlow": true,
   "search.exclude": {
     ".git": true,
-    "node_modules": true,
+    ".eslintcache": true,
+    "app/dist": true,
+    "app/main.prod.js": true,
+    "app/main.prod.js.map": true,
+    "bower_components": true,
+    "dll": true,
     "flow-typed": true,
-    "__snapshots__": true,
-    "bower_components": true
+    "release": true,
+    "node_modules": true,
+    "npm-debug.log.*": true,
+    "test/**/__snapshots__": true,
+    "yarn.lock": true
   }
 }
