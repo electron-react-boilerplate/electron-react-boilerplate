@@ -169,6 +169,7 @@
     "minimist": "^1.2.0",
     "node-sass": "^4.5.2",
     "react-addons-test-utils": "^15.5.1",
+    "react-error-overlay": "^1.0.0",
     "react-test-renderer": "^15.5.4",
     "redux-logger": "^3.0.1",
     "rimraf": "^2.6.1",
