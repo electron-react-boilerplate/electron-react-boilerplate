@@ -5,7 +5,7 @@
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
   "scripts": {
     "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node --trace-warnings ./test/runTests.js",
-    "test-all": "npm run lint && npm run flow && npm run test && npm run build && npm run test-e2e",
+    "test-all": "npm run lint && npm run flow && npm run test && npm run test-e2e",
     "test-watch": "npm test -- --watch",
     "test-e2e": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node --trace-warnings ./test/runTests.js e2e",
     "lint": "eslint --cache --format=node_modules/eslint-formatter-pretty .",
@@ -22,7 +22,7 @@
     "flow": "flow check",
     "flow-typed": "rimraf flow-typed/npm && flow-typed install --overwrite || true",
     "start-hot-renderer": "cross-env HOT=1 NODE_ENV=development electron -r babel-register -r babel-polyfill ./app/main.dev",
-    "postinstall": "concurrently \"npm run flow-typed\" \"npm run build-dll\" \"install-app-deps\" \"node node_modules/fbjs-scripts/node/check-dev-engines.js package.json\"",
+    "postinstall": "concurrently \"npm run flow-typed\" \"npm run build\" \"npm run build-dll\" \"install-app-deps\" \"node node_modules/fbjs-scripts/node/check-dev-engines.js package.json\"",
     "dev": "cross-env START_HOT=1 npm run hot-updates-server",
     "package": "npm run build && build --publish never",
     "package-win": "npm run build && build --win --x64",
