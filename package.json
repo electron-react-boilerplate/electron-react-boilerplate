@@ -165,7 +165,7 @@
     "html-webpack-plugin": "^2.28.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^20.0.1",
-    "jsdom": "^10.1.0",
+    "jsdom": "^11.0.0",
     "minimist": "^1.2.0",
     "node-sass": "^4.5.2",
     "react-addons-test-utils": "^15.5.1",
