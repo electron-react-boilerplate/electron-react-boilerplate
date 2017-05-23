@@ -175,7 +175,7 @@
     "sass-loader": "^6.0.5",
     "sinon": "^2.2.0",
     "spectron": "^3.7.0",
-    "style-loader": "^0.17.0",
+    "style-loader": "^0.18.1",
     "stylefmt": "^5.3.2",
     "stylelint": "^7.10.1",
     "stylelint-config-standard": "^16.0.0",
