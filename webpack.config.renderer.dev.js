@@ -11,6 +11,7 @@ import path from 'path';
 import fs from 'fs';
 import webpack from 'webpack';
 import chalk from 'chalk';
+import errorOverlayMiddleware from 'react-error-overlay/middleware';
 import merge from 'webpack-merge';
 import { spawn, execSync } from 'child_process';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
@@ -40,6 +41,7 @@ export default merge.smart(baseConfig, {
     'react-hot-loader/patch',
     `webpack-dev-server/client?http://localhost:${port}/`,
     'webpack/hot/only-dev-server',
+    require.resolve('react-error-overlay'),
     path.join(__dirname, 'app/index.js'),
   ],
 
@@ -231,13 +233,17 @@ export default merge.smart(baseConfig, {
     contentBase: path.join(__dirname, 'dist'),
     watchOptions: {
       aggregateTimeout: 300,
-      poll: 100
+      ignored: /node_modules/,
+      poll: 100,
     },
+    quiet: true,
     historyApiFallback: {
       verbose: true,
       disableDotRule: false,
     },
-    setup() {
+    setup(app) {
+      app.use(errorOverlayMiddleware());
+
       if (process.env.START_HOT) {
         spawn(
           'npm',
