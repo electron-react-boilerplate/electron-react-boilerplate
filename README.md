@@ -1,5 +1,7 @@
 # electron-react-boilerplate
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/chentsulin/electron-react-boilerplate.svg)](https://greenkeeper.io/)
+
 ### A Boilerplate for Scalable Cross-Platform Desktop Apps
 
 <br/>
