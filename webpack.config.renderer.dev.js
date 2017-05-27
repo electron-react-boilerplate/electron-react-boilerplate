@@ -50,6 +50,23 @@ export default merge.smart(baseConfig, {
   module: {
     rules: [
       {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            cacheDirectory: true,
+            plugins: [
+              'react-hot-loader/babel',
+              ['flow-runtime', {
+                assert: true,
+                annotate: true
+              }]
+            ],
+          }
+        }
+      },
+      {
         test: /\.global\.css$/,
         use: [
           {
@@ -239,9 +256,10 @@ export default merge.smart(baseConfig, {
     },
     setup() {
       if (process.env.START_HOT) {
+        console.log('Staring Main Process...');
         spawn(
           'npm',
-          ['run', 'start-hot-renderer'],
+          ['run', 'start-main-dev'],
           { shell: true, env: process.env, stdio: 'inherit' }
         )
         .on('close', code => process.exit(code))

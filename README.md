@@ -56,8 +56,8 @@ $ npm run dev
 You Run these two commands __simultaneously__ in different console tabs:
 
 ```bash
-$ npm run hot-updates-server
-$ npm run start-hot-renderer
+$ npm run start-renderer-dev
+$ npm run start-main-dev
 ```
 
 ## Editor Configuration
