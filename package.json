@@ -137,6 +137,7 @@
     "cross-env": "^5.0.0",
     "cross-spawn": "^5.1.0",
     "css-loader": "^0.28.3",
+    "electron": "^1.6.10",
     "electron-builder": "^18.0.1",
     "electron-devtools-installer": "^2.2.0",
     "enzyme": "^2.8.2",
@@ -185,7 +186,6 @@
   },
   "dependencies": {
     "devtron": "^1.4.0",
-    "electron": "^1.6.10",
     "electron-debug": "^1.1.0",
     "font-awesome": "^4.7.0",
     "history": "^4.6.1",
