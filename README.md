@@ -63,7 +63,7 @@ $ npm run start-hot-renderer
 ## Editor Configuration
 **Atom**
 ```bash
-apm install editorconfig es6-javascript atom-ternjs javascript-snippets linter linter-eslint language-babel autocomplete-modules file-icons
+npm install editorconfig es6-javascript atom-ternjs javascript-snippets linter linter-eslint language-babel autocomplete-modules file-icons
 ```
 
 **VSCode**
