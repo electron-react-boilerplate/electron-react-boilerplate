@@ -157,7 +157,7 @@
     "eslint-plugin-react": "^7.0.1",
     "express": "^4.15.3",
     "extract-text-webpack-plugin": "^2.1.0",
-    "fbjs-scripts": "^0.7.1",
+    "fbjs-scripts": "^0.8.0",
     "file-loader": "^0.11.1",
     "flow-bin": "^0.47.0",
     "flow-runtime": "^0.12.0",
