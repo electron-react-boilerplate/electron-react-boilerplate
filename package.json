@@ -21,7 +21,7 @@
     "package-win": "npm run build && build --win --x64",
     "postinstall": "concurrently \"npm run flow-typed\" \"npm run build\" \"npm run build-dll\" \"install-app-deps\" \"node node_modules/fbjs-scripts/node/check-dev-engines.js package.json\"",
     "prestart": "npm run build",
-    "start": "cross-env NODE_ENV=production electron ./app/",
+    "start": "cross-env NODE_ENV=production electron -r babel-register ./app/",
     "start-main-dev": "cross-env HOT=1 NODE_ENV=development electron -r babel-register -r babel-polyfill ./app/main.dev",
     "start-renderer-dev": "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack-dev-server/bin/webpack-dev-server --config webpack.config.renderer.dev.js",
     "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node --trace-warnings ./test/runTests.js",
