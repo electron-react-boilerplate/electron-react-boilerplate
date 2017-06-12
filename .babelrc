@@ -1,7 +1,7 @@
 {
   "presets": [
     ["env", {
-      "targets": { "node": 6 },
+      "targets": { "node": 7 },
       "useBuiltIns": true
     }],
     "stage-0",
@@ -15,6 +15,8 @@
     },
     "development": {
       "plugins": [
+				"transform-class-properties",
+      	"transform-es2015-classes",
         ["flow-runtime", {
           "assert": true,
           "annotate": true
