@@ -10,7 +10,7 @@ cache:
   yarn: true
   directories:
     - node_modules
-		- app/node_modules
+    - app/node_modules
 
 addons:
   apt:
@@ -25,8 +25,7 @@ addons:
 
 install:
   - export CXX="g++-4.8"
-  - npm install -g npm@latest
-  - npm install
+  - yarn
   - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
 
 before_script:
@@ -37,5 +36,5 @@ before_script:
 script:
   - npm run lint
   - npm run test
+	- npm run package
   - npm run test-e2e
-  - npm run package
