@@ -22,7 +22,7 @@
     "postinstall": "concurrently \"npm run flow-typed\" \"npm run build\" \"npm run build-dll\" \"install-app-deps\" \"node node_modules/fbjs-scripts/node/check-dev-engines.js package.json\"",
     "prestart": "npm run build",
     "start": "cross-env NODE_ENV=production electron ./app/",
-    "start-main-dev": "cross-env HOT=1 NODE_ENV=development electron -r babel-register -r babel-polyfill ./app/main.dev",
+    "start-main-dev": "cross-env HOT=1 NODE_ENV=development electron -r babel-register ./app/main.dev",
     "start-renderer-dev": "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack-dev-server/bin/webpack-dev-server --config webpack.config.renderer.dev.js",
     "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node --trace-warnings ./test/runTests.js",
     "test-all": "npm run lint && npm run flow && npm run test && npm run build && npm run test-e2e",
@@ -124,7 +124,6 @@
     "babel-plugin-flow-runtime": "^0.11.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-es2015-classes": "^6.24.1",
-    "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.5.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-react-hmre": "^1.1.1",
@@ -201,8 +200,8 @@
     "source-map-support": "^0.4.15"
   },
   "devEngines": {
-    "node": ">=6.x",
-    "npm": ">=3.x",
+    "node": ">=7.x",
+    "npm": ">=4.x",
     "yarn": ">=0.21.3"
   }
 }
