@@ -32,5 +32,5 @@ test_script:
   - node --version
   - npm run lint
   - npm run test
-	- npm run package
+  - npm run package
   - npm run test-e2e
