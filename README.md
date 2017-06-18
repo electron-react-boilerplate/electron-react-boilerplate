@@ -44,7 +44,7 @@ And then install dependencies with yarn.
 $ cd your-project-name
 $ yarn
 ```
-**Note**: If you can't use [yarn](https://github.com/yarnpkg/yarn) for some reason, try $ npm install. 
+**Note**: If you can't use [yarn](https://github.com/yarnpkg/yarn) for some reason, try `npm install`.
 
 ## Run
 
