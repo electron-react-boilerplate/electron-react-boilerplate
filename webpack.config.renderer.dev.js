@@ -22,7 +22,7 @@ CheckNodeEnv('development');
 const port = process.env.PORT || 1212;
 const publicPath = `http://localhost:${port}/dist`;
 const dll = path.resolve(process.cwd(), 'dll');
-const manifest = path.resolve(dll, 'vendor.json');
+const manifest = path.resolve(dll, 'renderer.json');
 
 /**
  * Warn if the DLL is not built
@@ -257,7 +257,7 @@ export default merge.smart(baseConfig, {
     contentBase: path.join(__dirname, 'dist'),
     watchOptions: {
       aggregateTimeout: 300,
-      ignored: 'app/dist,app/main.prod.js,dll,flow-typed,node_modules,app/node_modules,release',
+      ignored: /node_modules/,
       poll: 100
     },
     historyApiFallback: {

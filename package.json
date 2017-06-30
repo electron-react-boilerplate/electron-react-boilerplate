@@ -25,7 +25,7 @@
     "start-main-dev": "cross-env HOT=1 NODE_ENV=development electron -r babel-register ./app/main.dev",
     "start-renderer-dev": "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack-dev-server/bin/webpack-dev-server --config webpack.config.renderer.dev.js",
     "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node --trace-warnings ./test/runTests.js",
-    "test-all": "npm run lint && npm run flow && npm run test && npm run build && npm run test-e2e",
+    "test-all": "npm run lint && npm run flow && npm run build && npm run test && npm run test-e2e",
     "test-e2e": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node --trace-warnings ./test/runTests.js e2e",
     "test-watch": "npm test -- --watch"
   },
@@ -110,7 +110,10 @@
     ],
     "transform": {
       "^.+\\.js$": "babel-jest"
-    }
+    },
+    "setupFiles": [
+      "./internals/scripts/CheckBuiltsExist.js"
+    ]
   },
   "devDependencies": {
     "asar": "^0.13.0",
@@ -131,7 +134,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.24.1",
     "babili-webpack-plugin": "^0.1.2",
-    "chalk": "^1.1.3",
+    "chalk": "^2.0.1",
     "concurrently": "^3.5.0",
     "cross-env": "^5.0.0",
     "cross-spawn": "^5.1.0",
