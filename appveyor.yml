@@ -29,7 +29,7 @@ install:
 
 test_script:
   - node --version
-  - npm run lint
-  - npm run test
-  - npm run package
-  - npm run test-e2e
+  - yarn lint
+  - yarn test
+  - yarn package
+  - yarn test-e2e

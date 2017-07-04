@@ -110,7 +110,10 @@
     ],
     "transform": {
       "^.+\\.js$": "babel-jest"
-    }
+    },
+    "setupFiles": [
+      "./internals/scripts/CheckBuiltsExist.js"
+    ]
   },
   "devDependencies": {
     "asar": "^0.13.0",
@@ -131,7 +134,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.24.1",
     "babili-webpack-plugin": "^0.1.2",
-    "chalk": "^1.1.3",
+    "chalk": "^2.0.1",
     "concurrently": "^3.5.0",
     "cross-env": "^5.0.0",
     "cross-spawn": "^5.1.0",

@@ -12,6 +12,7 @@ describe('main window', function spec() {
       path: electronPath,
       args: [path.join(__dirname, '..', '..', 'app')],
     });
+
     return this.app.start();
   });
 
