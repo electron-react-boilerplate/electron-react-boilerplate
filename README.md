@@ -21,7 +21,7 @@
 [![Jest](/internals/img/jest-padded-90.png)](https://facebook.github.io/jest/)
 [![Yarn](/internals/img/yarn-padded-90.png)](https://yarnpkg.com/)
 
-[Electron](http://electron.atom.io/) application boilerplate based on [React](https://facebook.github.io/react/), [Redux](https://github.com/reactjs/redux), [React Router](https://github.com/reactjs/react-router), [Webpack](http://webpack.github.io/docs/), [React Transform HMR](https://github.com/gaearon/react-transform-hmr) for rapid application development
+[Electron](http://electron.atom.io/) application boilerplate based on [React](https://facebook.github.io/react/), [Redux](https://github.com/reactjs/redux), [React Router](https://github.com/reactjs/react-router), [Webpack](http://webpack.github.io/docs/), [React Transform HMR](https://github.com/gaearon/react-transform-hmr) for rapid application development.
 
 ## Screenshot
 
@@ -48,7 +48,7 @@ $ yarn
 
 ## Run
 
-Start the app in the `dev` environment. This starts the renderer process in [**hot-module-replacement**](https://webpack.js.org/guides/hmr-react/) mode and starts a server sends hot updates to the renderer process:
+Start the app in the `dev` environment. This starts the renderer process in [**hot-module-replacement**](https://webpack.js.org/guides/hmr-react/) mode and starts a server that sends hot updates to the renderer process:
 
 ```bash
 $ npm run dev
@@ -103,7 +103,7 @@ apm install editorconfig es6-javascript atom-ternjs javascript-snippets linter l
 
 #### DevTools extension
 
-This boilerplate is included following DevTools extensions:
+This boilerplate includes the following DevTools extensions:
 
 * [Devtron](https://github.com/electron/devtron) - Install via [electron-debug](https://github.com/sindresorhus/electron-debug).
 * [React Developer Tools](https://github.com/facebook/react-devtools) - Install via [electron-devtools-installer](https://github.com/GPMDP/electron-devtools-installer).
@@ -128,7 +128,7 @@ DEBUG_PROD=true npm run package
 
 ## CSS Modules
 
-This boilerplate out of the box is configured to use [css-modules](https://github.com/css-modules/css-modules).
+This boilerplate is configured to use [css-modules](https://github.com/css-modules/css-modules) out of the box.
 
 All `.css` file extensions will use css-modules unless it has `.global.css`.
 
@@ -147,7 +147,6 @@ If you want to use Sass in your app, you only need to import `.sass` files inste
 ```js
 import './app.global.scss';
 ```
-
 
 ## Packaging
 
