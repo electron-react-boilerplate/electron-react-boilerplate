@@ -110,7 +110,8 @@
     ],
     "transform": {
       "^.+\\.js$": "babel-jest"
-    }
+    },
+    "setupTestFrameworkScriptFile": "./test/setup.js"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
