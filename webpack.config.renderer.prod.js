@@ -9,17 +9,21 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import merge from 'webpack-merge';
 import BabiliPlugin from 'babili-webpack-plugin';
 import baseConfig from './webpack.config.base';
+import CheckNodeEnv from './internals/scripts/CheckNodeEnv';
+
+CheckNodeEnv('production');
 
 export default merge.smart(baseConfig, {
   devtool: 'source-map',
 
   target: 'electron-renderer',
 
-  entry: ['babel-polyfill', './app/index'],
+  entry: './app/index',
 
   output: {
     path: path.join(__dirname, 'app/dist'),
-    publicPath: '../dist/'
+    publicPath: '../dist/',
+    filename: 'renderer.prod.js'
   },
 
   module: {

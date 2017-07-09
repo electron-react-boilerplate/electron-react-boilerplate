@@ -1,3 +1,17 @@
+# 0.12.0 (2017.7.8)
+
+#### Misc
+- Removed `babel-polyfill`
+- Renamed and alphabetized npm scripts
+
+#### Breaking
+- Changed node dev `__dirname` and `__filename` to node built in fn's (https://github.com/chentsulin/electron-react-boilerplate/pull/1035)
+- Renamed `app/bundle.js` to `app/renderer.prod.js` for consistency
+- Renamed `dll/vendor.js` to `dll/renderer.dev.dll.js` for consistency
+
+#### Additions
+- Enable node_modules cache on CI
+
 # 0.11.2 (2017.5.1)
 
 Yay! Another patch release. This release mostly includes refactorings and router bug fixes. Huge thanks to @anthonyraymond!

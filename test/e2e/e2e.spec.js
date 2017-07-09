@@ -12,6 +12,7 @@ describe('main window', function spec() {
       path: electronPath,
       args: [path.join(__dirname, '..', '..', 'app')],
     });
+
     return this.app.start();
   });
 
@@ -95,7 +96,7 @@ describe('main window', function spec() {
     const buttons = await findButtons();
     await client.elementIdClick(buttons[3]);  // async
     expect(await findCounter().getText()).toBe('2');
-    await delay(1000);
+    await delay(1500);
     expect(await findCounter().getText()).toBe('3');
   });
 

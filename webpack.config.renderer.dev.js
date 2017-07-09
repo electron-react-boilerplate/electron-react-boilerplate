@@ -15,11 +15,14 @@ import merge from 'webpack-merge';
 import { spawn, execSync } from 'child_process';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import baseConfig from './webpack.config.base';
+import CheckNodeEnv from './internals/scripts/CheckNodeEnv';
+
+CheckNodeEnv('development');
 
 const port = process.env.PORT || 1212;
 const publicPath = `http://localhost:${port}/dist`;
 const dll = path.resolve(process.cwd(), 'dll');
-const manifest = path.resolve(dll, 'vendor.json');
+const manifest = path.resolve(dll, 'renderer.json');
 
 /**
  * Warn if the DLL is not built
@@ -49,6 +52,24 @@ export default merge.smart(baseConfig, {
 
   module: {
     rules: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            cacheDirectory: true,
+            plugins: [
+              // Here, we include babel plugins that are only required for the
+              // renderer process. The 'transform-*' plugins must be included
+              // before react-hot-loader/babel
+              'transform-class-properties',
+              'transform-es2015-classes',
+              'react-hot-loader/babel'
+            ],
+          }
+        }
+      },
       {
         test: /\.global\.css$/,
         use: [
@@ -218,6 +239,11 @@ export default merge.smart(baseConfig, {
     }),
   ],
 
+  node: {
+    __dirname: false,
+    __filename: false
+  },
+
   devServer: {
     port,
     publicPath,
@@ -231,6 +257,7 @@ export default merge.smart(baseConfig, {
     contentBase: path.join(__dirname, 'dist'),
     watchOptions: {
       aggregateTimeout: 300,
+      ignored: /node_modules/,
       poll: 100
     },
     historyApiFallback: {
@@ -239,9 +266,10 @@ export default merge.smart(baseConfig, {
     },
     setup() {
       if (process.env.START_HOT) {
+        console.log('Staring Main Process...');
         spawn(
           'npm',
-          ['run', 'start-hot-renderer'],
+          ['run', 'start-main-dev'],
           { shell: true, env: process.env, stdio: 'inherit' }
         )
         .on('close', code => process.exit(code))

@@ -2,18 +2,13 @@ os: unstable
 
 environment:
   matrix:
+    - nodejs_version: 8
     - nodejs_version: 7
-    - nodejs_version: 6
 
 cache:
+  - "%LOCALAPPDATA%/Yarn"
   - node_modules -> package.json
   - app/node_modules -> app/package.json
-
-# Enable when https://github.com/yarnpkg/yarn/issues/1233 and
-# https://github.com/yarnpkg/yarn/issues/1059 are resolved and disable npm cache
-#
-# cache:
-#   - "%LOCALAPPDATA%/Yarn"
 
 matrix:
   fast_finish: true
@@ -29,23 +24,12 @@ clone_depth: 1
 install:
   - ps: Install-Product node $env:nodejs_version
   - set CI=true
-  - npm install -g npm@latest
-  - set PATH=%APPDATA%\npm;%PATH%
-  - npm install
-
-# Enable when https://github.com/yarnpkg/yarn/issues/1233 and
-# https://github.com/yarnpkg/yarn/issues/1059 are resolved and disable npm cache
-#
-# install:
-#   - ps: Install-Product node $env:nodejs_version
-#   - set CI=true
-#   - choco install yarn
-#   - refreshenv
-#   - yarn
+  - yarn
+  - cd app && yarn
 
 test_script:
   - node --version
-  - npm run lint
-  - npm run test
-  - npm run test-e2e
-  - npm run package
+  - yarn lint
+  - yarn package
+  - yarn test
+  - yarn test-e2e
