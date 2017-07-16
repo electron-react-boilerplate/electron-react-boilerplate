@@ -29,7 +29,7 @@
 
 ## Install
 
-* **Note: requires a node version >= 6 and an npm version >= 3.**
+* **Note: requires a node version >= 7 and an npm version >= 4.**
 * **If you have installation or compilation issues with this project, please see [our debugging guide](https://github.com/chentsulin/electron-react-boilerplate/issues/400)**
 
 First, clone the repo via git:
