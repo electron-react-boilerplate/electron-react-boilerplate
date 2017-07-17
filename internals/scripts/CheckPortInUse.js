@@ -12,4 +12,4 @@ import detectPort from 'detect-port';
       ));
     }
   });
-})()
+}());
