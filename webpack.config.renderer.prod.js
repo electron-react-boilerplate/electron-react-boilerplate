@@ -32,7 +32,12 @@ export default merge.smart(baseConfig, {
       {
         test: /\.global\.css$/,
         use: ExtractTextPlugin.extract({
-          use: 'css-loader',
+          use: {
+            loader: 'css-loader',
+            options: {
+              minimize: true,
+            }
+          },
           fallback: 'style-loader',
         })
       },
@@ -44,6 +49,7 @@ export default merge.smart(baseConfig, {
             loader: 'css-loader',
             options: {
               modules: true,
+              minimize: true,
               importLoaders: 1,
               localIdentName: '[name]__[local]__[hash:base64:5]',
             }
@@ -56,7 +62,10 @@ export default merge.smart(baseConfig, {
         use: ExtractTextPlugin.extract({
           use: [
             {
-              loader: 'css-loader'
+              loader: 'css-loader',
+              options: {
+                minimize: true,
+              }
             },
             {
               loader: 'sass-loader'
@@ -73,6 +82,7 @@ export default merge.smart(baseConfig, {
             loader: 'css-loader',
             options: {
               modules: true,
+              minimize: true,
               importLoaders: 1,
               localIdentName: '[name]__[local]__[hash:base64:5]',
             }
