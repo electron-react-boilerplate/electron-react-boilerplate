@@ -10,7 +10,8 @@
     "url": "https://github.com/chentsulin"
   },
   "scripts": {
-    "postinstall": "../node_modules/.bin/electron-rebuild --version=1.7.0 --force --types prod,dev,optional --module-dir ."
+    "electron-rebuild": "../node_modules/.bin/electron-rebuild --version=1.7.0 --force --types prod,dev,optional --module-dir .",
+    "postinstall": "npm run electron-rebuild"
   },
   "license": "MIT",
   "dependencies": {}
