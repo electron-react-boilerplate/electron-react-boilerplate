@@ -1,15 +1,20 @@
-/* eslint flowtype-errors/show-errors: 0 */
 import React from 'react';
 import { Switch, Route } from 'react-router';
+import Loadable from 'react-loadable';
 import App from './containers/App';
 import HomePage from './containers/HomePage';
-import CounterPage from './containers/CounterPage';
+
+const CounterPage = Loadable({
+  loader: () => import('./containers/CounterPage'),
+  loading: () => <div>Loading...</div>,
+  delay: 2000,
+});
 
 export default () => (
   <App>
     <Switch>
-      <Route path="/counter" component={CounterPage} />
-      <Route path="/" component={HomePage} />
+      <Route key={Math.random()} path="/counter" component={CounterPage} />
+      <Route key={Math.random()} path="/" component={HomePage} />
     </Switch>
   </App>
 );
