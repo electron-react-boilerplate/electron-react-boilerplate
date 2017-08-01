@@ -11,7 +11,7 @@
   "env": {
     "production": {
       "presets": ["react-optimize"],
-      "plugins": ["babel-plugin-dev-expression"]
+      "plugins": ["dev-expression"]
     },
     "development": {
       "plugins": [
