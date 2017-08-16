@@ -165,7 +165,8 @@ export default merge.smart(baseConfig, {
     }),
 
     new UglifyJSPlugin({
-      parallel: true
+      parallel: true,
+      sourceMap: true
     }),
 
     new ExtractTextPlugin('style.css'),
