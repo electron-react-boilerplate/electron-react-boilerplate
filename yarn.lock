@@ -3252,13 +3252,6 @@ eslint-plugin-compat@^1.0.4:
     caniuse-db "1.0.30000671"
     requireindex "^1.1.0"
 
-eslint-plugin-flowtype-errors@^3.3.1:
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-flowtype-errors/-/eslint-plugin-flowtype-errors-3.3.1.tgz#318a194cce958d3fb7bea7ca84461082573cc9ff"
-  dependencies:
-    babel-runtime "^6.23.0"
-    slash "^1.0.0"
-
 eslint-plugin-flowtype@^2.35.0:
   version "2.35.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-2.35.0.tgz#d17494f0ae8b727c632d8b9d4b4a848e7e0c04af"

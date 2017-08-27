@@ -14,7 +14,6 @@
     "compat/compat": "error",
     "consistent-return": "off",
     "comma-dangle": "off",
-    "flowtype-errors/show-errors": "error",
     "generator-star-spacing": "off",
     "import/no-unresolved": "error",
     "import/no-extraneous-dependencies": "off",
