@@ -151,7 +151,7 @@
     "eslint-plugin-flowtype": "^2.33.0",
     "eslint-plugin-flowtype-errors": "^3.3.0",
     "eslint-plugin-import": "^2.6.0",
-    "eslint-plugin-jest": "^20.0.3",
+    "eslint-plugin-jest": "^21.0.0",
     "eslint-plugin-jsx-a11y": "5.0.3",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-react": "^7.1.0",
