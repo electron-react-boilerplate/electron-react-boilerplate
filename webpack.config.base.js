@@ -3,7 +3,9 @@
  */
 
 import path from 'path';
+
 import webpack from 'webpack';
+
 import { dependencies as externals } from './app/package.json';
 
 export default {
