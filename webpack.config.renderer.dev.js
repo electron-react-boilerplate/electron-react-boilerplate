@@ -23,8 +23,8 @@ CheckNodeEnv('development');
 
 const port = process.env.PORT || 1212;
 const publicPath = `http://localhost:${port}/dist`;
-const dll = path.resolve(process.cwd(), 'dll');
-const manifest = path.resolve(dll, 'renderer.json');
+const dll = path.resolve('./dll');
+const manifest = path.join(dll, 'renderer.json');
 
 /**
  * Warn if the DLL is not built
@@ -45,7 +45,7 @@ export default merge.smart(baseConfig, {
     'react-hot-loader/patch',
     `webpack-dev-server/client?http://localhost:${port}/`,
     'webpack/hot/only-dev-server',
-    path.join(__dirname, 'app/index.js'),
+    path.join(__dirname, 'app', 'index.js'),
   ],
 
   output: {
