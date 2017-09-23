@@ -140,19 +140,6 @@ export default merge.smart(baseConfig, {
 
   plugins: [
     /**
-     * Create global constants which can be configured at compile time.
-     *
-     * Useful for allowing different behaviour between development builds and
-     * release builds
-     *
-     * NODE_ENV should be production so that modules do not perform certain
-     * development checks
-     */
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
-    }),
-
-    /**
      * Babli is an ES6+ aware minifier based on the Babel toolchain (beta)
      */
     new BabiliPlugin(),
@@ -163,5 +150,10 @@ export default merge.smart(baseConfig, {
       analyzerMode: process.env.OPEN_ANALYZER === 'true' ? 'server' : 'disabled',
       openAnalyzer: process.env.OPEN_ANALYZER === 'true'
     }),
+
+    /**
+     * No need to define NODE_ENV
+     * It's already defined in webpack.config.base.js
+     */
   ],
 });
