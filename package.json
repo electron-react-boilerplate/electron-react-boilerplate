@@ -173,7 +173,7 @@
     "redux-logger": "^3.0.6",
     "rimraf": "^2.6.1",
     "sass-loader": "^6.0.6",
-    "sinon": "^2.3.5",
+    "sinon": "^4.0.0",
     "spectron": "^3.7.0",
     "style-loader": "^0.18.1",
     "stylefmt": "^6.0.0",
