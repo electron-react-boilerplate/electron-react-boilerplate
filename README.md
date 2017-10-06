@@ -158,7 +158,7 @@ $ npm run package
 
 To package apps for all platforms:
 
-First, refer to [Multi Platform Build](https://github.com/electron-userland/electron-builder/wiki/Multi-Platform-Build) for dependencies.
+First, refer to [Multi Platform Build](https://www.electron.build/multi-platform-build) for dependencies.
 
 Then,
 ```bash
