@@ -1,5 +1,6 @@
-const spawn = require('cross-spawn');
 const path = require('path');
+
+const spawn = require('cross-spawn');
 
 const s = `\\${path.sep}`;
 const pattern = process.argv[2] === 'e2e'
