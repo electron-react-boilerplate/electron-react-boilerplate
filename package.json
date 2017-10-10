@@ -192,7 +192,7 @@
     "history": "^4.6.3",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-hot-loader": "3.0.0-beta.6",
+    "react-hot-loader": "3.0.0",
     "react-redux": "^5.0.5",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
