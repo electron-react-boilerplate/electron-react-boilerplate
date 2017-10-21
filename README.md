@@ -61,6 +61,12 @@ $ npm run start-renderer-dev
 $ npm run start-main-dev
 ```
 
+If you don't need autofocus when your files was changed, then run `dev` with env `WITHOUT_FOCUS=true`:
+
+```bash
+$ WITHOUT_FOCUS=true npm run dev
+```
+
 ## Editor Configuration
 **Atom**
 ```bash
@@ -193,7 +199,7 @@ See [electron-builder CLI Usage](https://github.com/electron-userland/electron-b
 
 ## How to add modules to the project
 
-You will need to add other modules to this boilerplate, depending on the requirements of your project. For example, you may want to add [node-postgres](https://github.com/brianc/node-postgres) to communicate with PostgreSQL database, or 
+You will need to add other modules to this boilerplate, depending on the requirements of your project. For example, you may want to add [node-postgres](https://github.com/brianc/node-postgres) to communicate with PostgreSQL database, or
 [material-ui](http://www.material-ui.com/) to reuse react UI components.
 
 ⚠️ Please read the following section before installing any dependencies ⚠️
