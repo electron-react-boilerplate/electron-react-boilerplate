@@ -11,9 +11,13 @@
  * @flow
  */
 import { app, BrowserWindow } from 'electron';
+import * as printer from 'printer';
 import MenuBuilder from './menu';
 
+
 let mainWindow = null;
+
+console.log(printer.getPrinters());
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
