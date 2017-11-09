@@ -169,7 +169,7 @@
     "minimist": "^1.2.0",
     "node-sass": "^4.5.3",
     "react-addons-test-utils": "^15.6.0",
-    "react-test-renderer": "^15.6.1",
+    "react-test-renderer": "^16.1.0",
     "redux-logger": "^3.0.6",
     "rimraf": "^2.6.1",
     "sass-loader": "^6.0.6",
