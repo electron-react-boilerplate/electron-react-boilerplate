@@ -62,8 +62,13 @@ app.on('ready', async () => {
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
-    height: 728
+    height: 728,
+    skipTaskbar: true,
+    titleBarStyle: 'hidden',
+    frame: false
   });
+
+  mainWindow.setMenu(null);
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
 
