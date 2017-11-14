@@ -13,7 +13,7 @@ export default class SocialPage extends Component {
         <div className="col-3">
           <NavBar />
         </div>
-        <div className="col-lg-9 col-md-8 col-sm-6 col-xs-4">
+        <div className="col-lg-9 col-md-9 col-sm-8 col-xs-5 padContainer">
           <Social />
           <StyleGuide />
         </div>

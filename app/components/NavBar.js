@@ -7,9 +7,12 @@ export default class NavBar extends Component {
   render() {
     return (
         <nav>
-            <img src="img/path-logo.png" />
           <br/>
+            <img src="img/sway-logo.png" />
+          <br/><br/>
             <ul>
+              <li><Link to="/counter">Counter</Link></li>
+              <li><Link to="/social">Social</Link></li>
               <li><a href="#home">Home</a></li>
               <li><a href="#news">Contacts</a></li>
               <li><a href="#contact">Conversations</a></li>

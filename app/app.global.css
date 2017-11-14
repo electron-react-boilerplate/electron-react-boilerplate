@@ -3,7 +3,7 @@
 @import "https://fonts.googleapis.com/icon?family=Material+Icons";
 
 /* theme */
-:root {
+/*:root {
   --navBG: #ffffff;
   --navItemColor: #354052;
   --navItemColorHover: #2a9ff6;
@@ -15,8 +15,23 @@
   --ice:#1991eb;
   --honey:#f7981c;
   --stone:#3b4958;
-}
+  --navBorder: #73479c 0%, #ed2b54 15%, #f16828 25%, #f7e00f 35%, #82c341 45%, #52c5d6 50%, #82c341 60%, #f7e00f 70%, #f16828 80%, #ed2b54 90%, #73479c 100%;
+}*/
 
+:root {
+  --navBG: #F8F8FA;
+  --navItemColor: #383F45;
+  --navItemColorHover: #FFFFFF;
+  --navItemColorActive: #FFFFFF;
+  --navListItemColorHover: #2D9EE0;
+  --defaultC: #7f8fa4;
+  --grass: #36af47;
+  --fire:#ed1c24;
+  --ice:#1991eb;
+  --honey:#f7981c;
+  --stone:#3b4958;
+  --navBorder: rgb(255, 194, 194) 0%, #DC5960 100%;
+}
 
 /*flex grid*/
 .container-fluid,
@@ -1472,9 +1487,9 @@ nav {
 	background-color: var(--navBG);
 	color: var(--navItemColor);
 	border-right: solid transparent 3px;
-	-moz-border-image: -moz-linear-gradient(top, #73479c 0%, #ed2b54 15%, #f16828 25%, #f7e00f 35%, #82c341 45%, #52c5d6 50%, #82c341 60%, #f7e00f 70%, #f16828 80%, #ed2b54 90%, #73479c 100%);
-	-webkit-border-image: -webkit-linear-gradient(top, #73479c 0%, #ed2b54 15%, #f16828 25%, #f7e00f 35%, #82c341 45%, #52c5d6 50%, #82c341 60%, #f7e00f 70%, #f16828 80%, #ed2b54 90%, #73479c 100%);
-	border-image: linear-gradient(to bottom, #73479c 0%, #ed2b54 15%, #f16828 25%, #f7e00f 35%, #82c341 45%, #52c5d6 50%, #82c341 60%, #f7e00f 70%, #f16828 80%, #ed2b54 90%, #73479c 100%);
+	-moz-border-image: -moz-linear-gradient(top, var(--navBorder));
+	-webkit-border-image: -webkit-linear-gradient(top, var(--navBorder));
+	border-image: linear-gradient(to bottom, var(--navBorder));
 
 	border-image-slice: 1;
 }
@@ -1588,4 +1603,8 @@ th {
 	border:solid 1px #eff3f6;
 	padding: 10px;
 	margin: 10px;
+}
+
+.padContainer {
+  padding-left: 25px;
 }
