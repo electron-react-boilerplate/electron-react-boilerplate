@@ -3,7 +3,7 @@
 @import "https://fonts.googleapis.com/icon?family=Material+Icons";
 
 /* theme */
-/*:root {
+:root {
   --navBG: #ffffff;
   --navItemColor: #354052;
   --navItemColorHover: #2a9ff6;
@@ -16,8 +16,8 @@
   --honey:#f7981c;
   --stone:#3b4958;
   --navBorder: #73479c 0%, #ed2b54 15%, #f16828 25%, #f7e00f 35%, #82c341 45%, #52c5d6 50%, #82c341 60%, #f7e00f 70%, #f16828 80%, #ed2b54 90%, #73479c 100%;
-}*/
-
+}
+/*
 :root {
   --navBG: #F8F8FA;
   --navItemColor: #383F45;
@@ -32,6 +32,7 @@
   --stone:#3b4958;
   --navBorder: rgb(255, 194, 194) 0%, #DC5960 100%;
 }
+*/
 
 /*flex grid*/
 .container-fluid,
@@ -1505,6 +1506,7 @@ nav ul {
     line-height: 50px;
     margin-bottom: 10px;
 }
+
 .navName {
   margin-bottom: 40px;
   vertical-align: middle;

@@ -1,9 +1,9 @@
 // @flow
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import styles from './Counter.css';
+import styles from './ApiExample.css';
 
-class Counter extends Component {
+class ApiExample extends Component {
   props: {
     increment: () => void,
     incrementIfOdd: () => void,
@@ -16,13 +16,15 @@ class Counter extends Component {
     const { increment, incrementIfOdd, incrementAsync, decrement, counter } = this.props;
     return (
       <div>
-        <div className={styles.backButton} data-tid="backButton">
-          <Link to="/">
-            <i className="fa fa-arrow-left fa-3x" />
-          </Link>
+        <div>
+            <Link to="/">
+            <br/>
+              <i className="material-icons md-16">&#xE314;</i> Back
+            </Link>
         </div>
+
         <div className={`counter ${styles.counter}`} data-tid="counter">
-          {counter}
+
         </div>
         <div className={styles.btnGroup}>
           <button className={styles.btn} onClick={increment} data-tclass="btn">
@@ -39,4 +41,4 @@ class Counter extends Component {
   }
 }
 
-export default Counter;
+export default ApiExample;

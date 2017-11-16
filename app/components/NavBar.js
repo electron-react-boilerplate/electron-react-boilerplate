@@ -8,15 +8,12 @@ export default class NavBar extends Component {
     return (
         <nav>
           <br/>
-            <img src="img/sway-logo.png" />
+            <img src="img/path-logo.png"/>
           <br/><br/>
             <ul>
-              <li><Link to="/counter">Counter</Link></li>
-              <li><Link to="/social">Social</Link></li>
-              <li><a href="#home">Home</a></li>
-              <li><a href="#news">Contacts</a></li>
-              <li><a href="#contact">Conversations</a></li>
-              <li><a href="#about">Audience Automation</a></li>
+            <li><Link to="/">Home</Link></li>
+              <li><Link to="/styleGuide">Style Guide</Link></li>
+              <li><Link to="/apiExample">Api</Link></li>
             </ul>
             <div className="navUser">
                 <img className="userIcon" src="img/userIcon.jpg" />

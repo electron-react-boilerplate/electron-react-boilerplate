@@ -6,8 +6,15 @@ export default class Social extends Component {
   render() {
     return (
         <div  data-tid="container">
-              <h2>Social</h2>
-              <Link to="/">to Home</Link>
+          <div>
+              <Link to="/">
+              <br/>
+                <i className="material-icons md-16">&#xE314;</i> Back
+              </Link>
+          </div>
+
+          <h2>Social Page</h2>
+
         </div>
     );
   }

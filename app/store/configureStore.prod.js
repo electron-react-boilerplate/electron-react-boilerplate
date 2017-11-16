@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import { createBrowserHistory } from 'history';
 import { routerMiddleware } from 'react-router-redux';
 import rootReducer from '../reducers';
-import type { counterStateType } from '../reducers/counter';
+import type { counterStateType } from '../reducers/Api';
 
 const history = createBrowserHistory();
 const router = routerMiddleware(history);

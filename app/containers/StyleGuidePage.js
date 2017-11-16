@@ -1,10 +1,9 @@
 // @flow
 import React, { Component } from 'react';
-import Social from '../components/Social';
 import NavBar from '../components/NavBar';
 import StyleGuide from '../components/StyleGuide';
 
-export default class SocialPage extends Component {
+export default class StyleGuidePage extends Component {
   render() {
     return (
     <div>
@@ -14,7 +13,6 @@ export default class SocialPage extends Component {
           <NavBar />
         </div>
         <div className="col-lg-9 col-md-9 col-sm-8 col-xs-5 padContainer">
-          <Social />
           <StyleGuide />
         </div>
       </div>
