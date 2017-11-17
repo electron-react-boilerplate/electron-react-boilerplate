@@ -1,5 +1,5 @@
 // @flow
-import type { counterStateType } from '../reducers/counter';
+import type { counterStateType } from '../reducers/Api';
 
 type actionType = {
   +type: string
@@ -38,4 +38,32 @@ export function incrementAsync(delay: number = 1000) {
       dispatch(increment());
     }, delay);
   };
+}
+
+// nicks new stuff
+export function logResult(result) {
+  console.log(result);
+}
+
+export function logError(error) {
+  console.log('Looks like there was a problem: \n', error);
+}
+
+export function validateResponse(response) {
+  if (!response.ok) {
+    throw Error(response.statusText);
+  }
+  return response;
+}
+
+export function readResponseAsJSON(response) {
+  return response.json();
+}
+
+export function fetchJSON(pathToResource) {
+  fetch(pathToResource) // 1
+  .then(validateResponse) // 2
+  .then(readResponseAsJSON) // 3
+  .then(logResult) // 4
+  .catch(logError);
 }

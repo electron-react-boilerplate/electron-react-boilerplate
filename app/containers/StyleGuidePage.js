@@ -1,10 +1,9 @@
 // @flow
 import React, { Component } from 'react';
-import Home from '../components/Home';
 import NavBar from '../components/NavBar';
 import StyleGuide from '../components/StyleGuide';
 
-export default class HomePage extends Component {
+export default class StyleGuidePage extends Component {
   render() {
     return (
     <div>
@@ -14,7 +13,7 @@ export default class HomePage extends Component {
           <NavBar />
         </div>
         <div className="col-lg-9 col-md-9 col-sm-8 col-xs-5 padContainer">
-          <Home />
+          <StyleGuide />
         </div>
       </div>
     </div>

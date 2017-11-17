@@ -188,6 +188,7 @@
   "dependencies": {
     "devtron": "^1.4.0",
     "electron-debug": "^1.2.0",
+    "fetch": "^1.1.0",
     "font-awesome": "^4.7.0",
     "history": "^4.6.3",
     "react": "^15.6.1",
