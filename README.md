@@ -29,7 +29,7 @@
 
 ## Install
 
-* **Note: requires a node version >= 6 and an npm version >= 3.**
+* **Note: requires a node version >= 7 and an npm version >= 4.**
 * **If you have installation or compilation issues with this project, please see [our debugging guide](https://github.com/chentsulin/electron-react-boilerplate/issues/400)**
 
 First, clone the repo via git:
@@ -54,7 +54,7 @@ Start the app in the `dev` environment. This starts the renderer process in [**h
 $ npm run dev
 ```
 
-You Run these two commands __simultaneously__ in different console tabs:
+Run these two commands __simultaneously__ in different console tabs:
 
 ```bash
 $ npm run start-renderer-dev
@@ -158,7 +158,7 @@ $ npm run package
 
 To package apps for all platforms:
 
-First, refer to [Multi Platform Build](https://github.com/electron-userland/electron-builder/wiki/Multi-Platform-Build) for dependencies.
+First, refer to [Multi Platform Build](https://www.electron.build/multi-platform-build) for dependencies.
 
 Then,
 ```bash
@@ -196,7 +196,7 @@ See [electron-builder CLI Usage](https://github.com/electron-userland/electron-b
 You will need to add other modules to this boilerplate, depending on the requirements of your project. For example, you may want to add [node-postgres](https://github.com/brianc/node-postgres) to communicate with PostgreSQL database, or 
 [material-ui](http://www.material-ui.com/) to reuse react UI components.
 
-⚠️ Please read following section before installing any dependencies ⚠️
+⚠️ Please read the following section before installing any dependencies ⚠️
 
 ### Module Structure
 
