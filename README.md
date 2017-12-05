@@ -54,7 +54,7 @@ Start the app in the `dev` environment. This starts the renderer process in [**h
 $ npm run dev
 ```
 
-Run these two commands __simultaneously__ in different console tabs:
+Alternatively, run these two commands __simultaneously__ in different console tabs:
 
 ```bash
 $ npm run start-renderer-dev
