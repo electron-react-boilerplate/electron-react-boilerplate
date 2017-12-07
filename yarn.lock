@@ -1972,7 +1972,7 @@ commander@2.6.0:
   version "2.6.0"
   resolved "https://registry.npmjs.org/commander/-/commander-2.6.0.tgz#9df7e52fb2a0cb0fb89058ee80c3104225f37e1d"
 
-commander@^2.11.0, commander@^2.9.0, commander@~2.11.0:
+commander@^2.9.0, commander@~2.11.0:
   version "2.11.0"
   resolved "https://registry.npmjs.org/commander/-/commander-2.11.0.tgz#157152fd1e7a6c8d98a5b715cf376df928004563"
 
@@ -6135,6 +6135,10 @@ normalize-url@^1.4.0:
 npm-install-package@~2.1.0:
   version "2.1.0"
   resolved "https://registry.npmjs.org/npm-install-package/-/npm-install-package-2.1.0.tgz#d7efe3cfcd7ab00614b896ea53119dc9ab259125"
+
+npm-logical-tree@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.npmjs.org/npm-logical-tree/-/npm-logical-tree-1.2.0.tgz#cd1926e80e593c56978fe446d67154752be8a1aa"
 
 npm-run-path@^2.0.0:
   version "2.0.2"
