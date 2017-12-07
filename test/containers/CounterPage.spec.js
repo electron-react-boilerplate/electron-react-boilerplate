@@ -12,11 +12,14 @@ Enzyme.configure({ adapter: new Adapter() });
 function setup(initialState) {
   const store = configureStore(initialState);
   const history = createBrowserHistory();
-  const app = mount(<Provider store={store}>
-    <ConnectedRouter history={history}>
-      <CounterPage />
-    </ConnectedRouter>
-                    </Provider>);
+  const provider = (
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <CounterPage />
+      </ConnectedRouter>
+    </Provider>
+  );
+  const app = mount(provider);
   return {
     app,
     buttons: app.find('button'),
