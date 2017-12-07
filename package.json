@@ -170,6 +170,7 @@
     "jsdom": "^11.3.0",
     "minimist": "^1.2.0",
     "node-sass": "^4.5.3",
+    "npm-logical-tree": "^1.2.0",
     "react-addons-test-utils": "^15.6.2",
     "react-test-renderer": "^16.0.0",
     "redux-logger": "^3.0.6",
@@ -189,7 +190,6 @@
     "webpack-merge": "^4.1.1"
   },
   "dependencies": {
-    "commander": "^2.11.0",
     "devtron": "^1.4.0",
     "electron-debug": "^1.4.0",
     "font-awesome": "^4.7.0",
