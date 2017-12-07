@@ -33,7 +33,6 @@
   },
   "plugins": [
     "flowtype",
-    "flowtype-errors",
     "import",
     "promise",
     "compat",
