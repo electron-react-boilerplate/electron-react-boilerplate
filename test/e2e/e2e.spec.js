@@ -102,12 +102,8 @@ describe('main window', function spec() {
 
   it('should back to home if back button clicked', async () => {
     const { client } = this.app;
-    await client.element(
-      '[data-tid="backButton"] > a'
-    ).click();
+    await client.element('[data-tid="backButton"] > a').click();
 
-    expect(
-      await client.isExisting('[data-tid="container"]')
-    ).toBe(true);
+    expect(await client.isExisting('[data-tid="container"]')).toBe(true);
   });
 });
