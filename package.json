@@ -65,7 +65,8 @@
       "target": [
         "deb",
         "AppImage"
-      ]
+      ],
+      "category": "Development"
     },
     "directories": {
       "buildResources": "resources",
