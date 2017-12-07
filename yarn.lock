@@ -3200,13 +3200,6 @@ eslint-plugin-compat@^2.0.1:
     caniuse-db "^1.0.30000741"
     requireindex "^1.1.0"
 
-eslint-plugin-flowtype-errors@^3.3.5:
-  version "3.3.5"
-  resolved "https://registry.npmjs.org/eslint-plugin-flowtype-errors/-/eslint-plugin-flowtype-errors-3.3.5.tgz#eeeba3231a33aea6f70c22c4c5a42c16dae0ed21"
-  dependencies:
-    babel-runtime "^6.26.0"
-    slash "^1.0.0"
-
 eslint-plugin-flowtype@^2.39.1:
   version "2.39.1"
   resolved "https://registry.npmjs.org/eslint-plugin-flowtype/-/eslint-plugin-flowtype-2.39.1.tgz#b5624622a0388bcd969f4351131232dcb9649cd5"
@@ -7158,10 +7151,6 @@ rc@^1.0.1, rc@^1.1.2, rc@^1.1.6, rc@^1.1.7, rc@^1.2.1:
     ini "~1.3.0"
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
-
-react-addons-test-utils@^15.6.2:
-  version "15.6.2"
-  resolved "https://registry.npmjs.org/react-addons-test-utils/-/react-addons-test-utils-15.6.2.tgz#c12b6efdc2247c10da7b8770d185080a7b047156"
 
 react-deep-force-update@^1.0.0:
   version "1.1.1"
