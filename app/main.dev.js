@@ -13,6 +13,7 @@
 import { app, BrowserWindow } from 'electron';
 import MenuBuilder from './menu';
 
+const WITHOUT_FOCUS = Boolean(process.env.WITHOUT_FOCUS);
 let mainWindow = null;
 
 if (process.env.NODE_ENV === 'production') {
@@ -53,6 +54,15 @@ app.on('window-all-closed', () => {
   }
 });
 
+// For first show window if WITHOUT_FOCUS is true
+if (WITHOUT_FOCUS) {
+  app.on('web-contents-created', () => {
+    if (mainWindow) {
+      mainWindow.show();
+      mainWindow.focus();
+    }
+  });
+}
 
 app.on('ready', async () => {
   if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
@@ -73,8 +83,10 @@ app.on('ready', async () => {
     if (!mainWindow) {
       throw new Error('"mainWindow" is not defined');
     }
-    mainWindow.show();
-    mainWindow.focus();
+    if (!WITHOUT_FOCUS) {
+      mainWindow.show();
+      mainWindow.focus();
+    }
   });
 
   mainWindow.on('closed', () => {
