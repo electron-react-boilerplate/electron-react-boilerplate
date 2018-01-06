@@ -28,9 +28,7 @@ const manifest = path.resolve(dll, 'renderer.json');
  * Warn if the DLL is not built
  */
 if (!(fs.existsSync(dll) && fs.existsSync(manifest))) {
-  console.log(chalk.black.bgYellow.bold(
-    'The DLL files are missing. Sit back while we build them for you with "npm run build-dll"'
-  ));
+  console.log(chalk.black.bgYellow.bold('The DLL files are missing. Sit back while we build them for you with "npm run build-dll"'));
   execSync('npm run build-dll');
 }
 
@@ -47,7 +45,8 @@ export default merge.smart(baseConfig, {
   ],
 
   output: {
-    publicPath: `http://localhost:${port}/dist/`
+    publicPath: `http://localhost:${port}/dist/`,
+    filename: 'renderer.dev.js'
   },
 
   module: {
@@ -101,7 +100,7 @@ export default merge.smart(baseConfig, {
           },
         ]
       },
-      // Add SASS support  - compile all .global.scss files and pipe it to style.css
+      // SASS support - compile all .global.scss files and pipe it to style.css
       {
         test: /\.global\.scss$/,
         use: [
@@ -119,7 +118,7 @@ export default merge.smart(baseConfig, {
           }
         ]
       },
-      // Add SASS support  - compile all other .scss files and pipe it to style.css
+      // SASS support - compile all other .scss files and pipe it to style.css
       {
         test: /^((?!\.global).)*\.scss$/,
         use: [
@@ -204,12 +203,8 @@ export default merge.smart(baseConfig, {
       sourceType: 'var',
     }),
 
-    /**
-     * https://webpack.js.org/concepts/hot-module-replacement/
-     */
     new webpack.HotModuleReplacementPlugin({
-      // @TODO: Waiting on https://github.com/jantimon/html-webpack-plugin/issues/533
-      // multiStep: true
+      multiStep: true
     }),
 
     new webpack.NoEmitOnErrorsPlugin(),
@@ -226,8 +221,8 @@ export default merge.smart(baseConfig, {
      * By default, use 'development' as NODE_ENV. This can be overriden with
      * 'staging', for example, by changing the ENV variables in the npm scripts
      */
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+    new webpack.EnvironmentPlugin({
+      NODE_ENV: 'development'
     }),
 
     new webpack.LoaderOptionsPlugin({
@@ -272,8 +267,8 @@ export default merge.smart(baseConfig, {
           ['run', 'start-main-dev'],
           { shell: true, env: process.env, stdio: 'inherit' }
         )
-        .on('close', code => process.exit(code))
-        .on('error', spawnError => console.error(spawnError));
+          .on('close', code => process.exit(code))
+          .on('error', spawnError => console.error(spawnError));
       }
     }
   },

@@ -10,9 +10,9 @@
     "url": "https://github.com/chentsulin"
   },
   "scripts": {
-    "postinstall": "npm rebuild --runtime=electron --target=1.6.6 --disturl=https://atom.io/download/atom-shell --build-from-source"
+    "electron-rebuild": "../node_modules/.bin/electron-rebuild --parallel --force --types prod,dev,optional --module-dir .",
+    "postinstall": "npm run electron-rebuild"
   },
   "license": "MIT",
-  "dependencies": {
-  }
+  "dependencies": {}
 }

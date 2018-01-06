@@ -24,7 +24,6 @@ export default {
 
   output: {
     path: path.join(__dirname, 'app'),
-    filename: 'renderer.dev.js',
     // https://github.com/webpack/webpack/issues/1114
     libraryTarget: 'commonjs2'
   },
@@ -41,8 +40,8 @@ export default {
   },
 
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
+    new webpack.EnvironmentPlugin({
+      NODE_ENV: 'production'
     }),
 
     new webpack.NamedModulesPlugin(),

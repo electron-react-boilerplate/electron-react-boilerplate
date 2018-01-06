@@ -3,17 +3,21 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Counter.css';
 
-class Counter extends Component {
-  props: {
-    increment: () => void,
-    incrementIfOdd: () => void,
-    incrementAsync: () => void,
-    decrement: () => void,
-    counter: number
-  };
+type Props = {
+  increment: () => void,
+  incrementIfOdd: () => void,
+  incrementAsync: () => void,
+  decrement: () => void,
+  counter: number
+};
+
+class Counter extends Component<Props> {
+  props: Props;
 
   render() {
-    const { increment, incrementIfOdd, incrementAsync, decrement, counter } = this.props;
+    const {
+      increment, incrementIfOdd, incrementAsync, decrement, counter
+    } = this.props;
     return (
       <div>
         <div className={styles.backButton} data-tid="backButton">
