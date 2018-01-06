@@ -1,3 +1,9 @@
+# 0.13.0 (2018.1.6)
+
+#### Additions
+- Add native dependencies check on postinstall
+- Updated all dependencies to latest semver
+
 # 0.12.0 (2017.7.8)
 
 #### Misc
