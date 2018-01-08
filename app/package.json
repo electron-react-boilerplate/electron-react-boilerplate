@@ -10,7 +10,7 @@
     "url": "https://github.com/chentsulin"
   },
   "scripts": {
-    "electron-rebuild": "../node_modules/.bin/electron-rebuild --parallel --force --types prod,dev,optional --module-dir .",
+    "electron-rebuild": "node -r babel-register ../internals/scripts/ElectronRebuild.js",
     "postinstall": "npm run electron-rebuild"
   },
   "license": "MIT",

@@ -1,10 +1,9 @@
-const spawn = require('cross-spawn');
-const path = require('path');
+import spawn from 'cross-spawn';
+import path from 'path';
 
-const s = `\\${path.sep}`;
 const pattern = process.argv[2] === 'e2e'
-  ? `test${s}e2e${s}.+\\.spec\\.js`
-  : `test${s}(?!e2e${s})[^${s}]+${s}.+\\.spec\\.js$`;
+  ? 'test/e2e/.+\\.spec\\.js'
+  : 'test/(?!e2e/)[^/]+/.+\\.spec\\.js$';
 
 const result = spawn.sync(
   path.normalize('./node_modules/.bin/jest'),
