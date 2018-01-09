@@ -22,7 +22,10 @@ const configureStore = (initialState?: counterStateType) => {
     level: 'info',
     collapsed: true
   });
-  middleware.push(logger);
+
+  if (process.env.NODE_ENV !== 'test') {
+    middleware.push(logger);
+  }
 
   // Router Middleware
   const router = routerMiddleware(history);
