@@ -23,6 +23,7 @@ const configureStore = (initialState?: counterStateType) => {
     collapsed: true
   });
 
+  // Skip redux logs in console during the tests
   if (process.env.NODE_ENV !== 'test') {
     middleware.push(logger);
   }
