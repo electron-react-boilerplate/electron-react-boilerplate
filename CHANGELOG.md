@@ -3,6 +3,7 @@
 - Bumped all dependencies to latest semver
 - Fixed electron-rebuild script
 - Fixed tests scripts to run on all platforms
+- Skip redux logs in console in test ENV
 
 # 0.13.0 (2018.1.6)
 
