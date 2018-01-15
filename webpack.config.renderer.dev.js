@@ -261,7 +261,7 @@ export default merge.smart(baseConfig, {
     },
     before() {
       if (process.env.START_HOT) {
-        console.log('Staring Main Process...');
+        console.log('Starting Main Process...');
         spawn(
           'npm',
           ['run', 'start-main-dev'],
