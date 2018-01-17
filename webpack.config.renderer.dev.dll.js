@@ -5,7 +5,7 @@
 import webpack from 'webpack';
 import path from 'path';
 import merge from 'webpack-merge';
-import baseConfig from './webpack.config.base';
+import baseConfig, { rendererModule as module } from './webpack.config.base';
 import { dependencies } from './package.json';
 import CheckNodeEnv from './internals/scripts/CheckNodeEnv';
 
