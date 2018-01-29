@@ -1,0 +1,14 @@
+.tokenForm {
+  position: relative;
+  top: 10px;
+}
+
+.tokenForm input {
+  width: 40px;
+  height: 50px;
+  margin: 0 10px;
+  text-align: center;
+  font-size: 3rem;
+  border-radius: 5px;
+  border: 0;
+}

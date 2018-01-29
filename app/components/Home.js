@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Home.css';
+import TokenForm from './TokenForm';
 
 type Props = {};
 
@@ -12,7 +13,9 @@ export default class Home extends Component<Props> {
     return (
       <div>
         <div className={styles.container} data-tid="container">
-          <h2>Home</h2>
+          <img src="images/icon.png" alt="Logo" />
+          <h2>Universal Presenter Remote</h2>
+          <TokenForm />
           <Link to="/counter">to Counter</Link>
         </div>
       </div>
