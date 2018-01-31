@@ -9,7 +9,7 @@ type Props = {
   history: {}
 };
 
-export default class Root extends Component<Props, {}> {
+export default class Root extends Component<Props> {
   render() {
     return (
       <Provider store={this.props.store}>
