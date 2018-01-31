@@ -19,3 +19,7 @@
   top: 50px;
   position: relative;
 }
+
+.container img {
+  width: 250px;
+}

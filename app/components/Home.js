@@ -16,7 +16,7 @@ export default class Home extends Component<Props> {
           <img src="images/icon.png" alt="Logo" />
           <h2>Universal Presenter Remote</h2>
           <TokenForm />
-          <Link to="/counter">to Counter</Link>
+          <Link to="/counter">Start Presenting</Link>
         </div>
       </div>
     );
