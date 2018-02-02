@@ -202,8 +202,8 @@
     "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
-    "source-map-support": "^0.5.3"
     "send-keys-native": "file:../send-keys-native",
+    "source-map-support": "^0.5.3"
   },
   "devEngines": {
     "node": ">=7.x",
