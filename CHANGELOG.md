@@ -1,3 +1,8 @@
+# 0.13.2 (2018.1.31)
+- Hot Module Reload (HMR) fixes
+- Bumped all dependencies to latest semver
+- Prevent error propagation of `CheckNativeDeps` script
+
 # 0.13.1 (2018.1.13)
 - Hot Module Reload (HMR) fixes
 - Bumped all dependencies to latest semver
