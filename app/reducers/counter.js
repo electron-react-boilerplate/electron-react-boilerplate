@@ -2,11 +2,11 @@
 import { INCREMENT_COUNTER, DECREMENT_COUNTER } from '../actions/counter';
 
 export type counterStateType = {
-  +counter: number
+  counter: number
 };
 
 type actionType = {
-  +type: string
+  type: string
 };
 
 export default function counter(state: number = 0, action: actionType) {
