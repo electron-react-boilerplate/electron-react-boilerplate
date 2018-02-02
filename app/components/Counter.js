@@ -11,7 +11,7 @@ type Props = {
   counter: number
 };
 
-class Counter extends Component<Props> {
+export default class Counter extends Component<Props> {
   props: Props;
 
   render() {
@@ -42,5 +42,3 @@ class Counter extends Component<Props> {
     );
   }
 }
-
-export default Counter;

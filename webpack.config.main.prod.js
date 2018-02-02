@@ -18,7 +18,6 @@ export default merge.smart(baseConfig, {
 
   entry: './app/main.dev',
 
-  // 'main.js' in root
   output: {
     path: __dirname,
     filename: './app/main.prod.js'
