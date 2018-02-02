@@ -9,17 +9,6 @@
   font-size: 3rem;
 }
 
-.container a {
-  width: 300px;
-  background: white;
-  color: #232c39;
-  font-size: 1.4rem;
-  padding: 10px 100px;
-  border-radius: 5px;
-  top: 50px;
-  position: relative;
-}
-
 .container img {
   width: 250px;
 }

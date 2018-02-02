@@ -1,15 +1,11 @@
 // @flow
-import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Home from '../components/Home';
 
-type Props = {};
-
-export default class HomePage extends Component<Props> {
-  props: Props;
-
-  render() {
-    return (
-      <Home />
-    );
-  }
+function mapStateToProps(state) {
+  return {
+    token: state.token
+  };
 }
+
+export default connect(mapStateToProps, null)(Home);
