@@ -27,11 +27,18 @@ export default class TokenForm extends Component<Props> {
   }
 
   tokenChanged(event) {
-    const next = parseInt(event.target.id, 10) + 1;
-    if (next < this.inputs.length) {
-      this.inputs[next].focus();
+    const numberVal = parseInt(event.target.value, 10);
+
+    if (numberVal && numberVal < 10) {
+      const next = parseInt(event.target.id, 10) + 1;
+      if (next < this.inputs.length) {
+        this.inputs[next].focus();
+        this.inputs[next].select();
+      }
+      this.props.updateToken(event);
+    } else if (event.target.value === '') {
+      this.props.updateToken(event);
     }
-    this.props.updateToken(event);
   }
 
   render() {
