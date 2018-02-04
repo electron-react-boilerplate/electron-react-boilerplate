@@ -2,3 +2,15 @@
 # yarn lockfile v1
 
 
+applescript@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/applescript/-/applescript-1.0.0.tgz#bb87af568cad034a4e48c4bdaf6067a3a2701317"
+
+"send-keys-native-windows@file:../../send-keys-native-windows":
+  version "1.0.0"
+
+"send-keys-native@file:../../send-keys-native":
+  version "1.0.0"
+  dependencies:
+    applescript "^1.0.0"
+    send-keys-native-windows "file:../../../../AppData/Local/Yarn/cache/v1/send-keys-native-windows"
