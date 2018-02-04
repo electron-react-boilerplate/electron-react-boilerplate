@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import styles from './Home.css';
+import styles from './Login.css';
 import TokenForm from '../containers/TokenForm';
 import ConnectButton from '../components/ConnectButton';
 
