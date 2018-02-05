@@ -14,14 +14,14 @@ export default class TokenForm extends Component<Props> {
     if (this.props.token.includes('_')) {
       return (
         <div className={styles.connectButton}>
-          <a>Disabled</a>
+          <a>Enter a token...</a>
         </div>
       );
     }
 
     return (
       <div className={styles.connectButton}>
-        <Link to="/counter">Start Presenting</Link>
+        <Link to="/present">Start Presenting</Link>
       </div>
     );
   }

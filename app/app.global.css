@@ -12,6 +12,7 @@ body {
   background-image: linear-gradient(45deg, rgba(179, 2, 152, 0.5) 10%, rgba(52, 6, 54, 0.7));
   font-family: Arial, Helvetica, Helvetica Neue, serif;
   overflow-y: hidden;
+  margin: 0;
 }
 
 h2 {
