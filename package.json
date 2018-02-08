@@ -162,7 +162,7 @@
     "fbjs-scripts": "^0.8.1",
     "file-loader": "^1.1.6",
     "flow-bin": "^0.64.0",
-    "flow-runtime": "^0.16.0",
+    "flow-runtime": "^0.17.0",
     "flow-typed": "^2.3.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^22.1.4",
