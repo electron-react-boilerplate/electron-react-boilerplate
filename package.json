@@ -12,6 +12,8 @@
     "electron-rebuild": "electron-rebuild --parallel --force --types prod,dev,optional --module-dir app",
     "flow": "flow",
     "flow-typed": "rimraf flow-typed/npm && flow-typed install --overwrite || true",
+    "format": "prettier --single-quote --list-different '**/*.js'",
+    "format-fix": "prettier --single-quote --write '**/*.js'",
     "lint": "cross-env NODE_ENV=development eslint --cache --format=node_modules/eslint-formatter-pretty .",
     "lint-fix": "npm run lint -- --fix",
     "lint-styles": "stylelint app/*.css app/components/*.css --syntax scss",
@@ -21,6 +23,7 @@
     "package-linux": "npm run build && build --linux",
     "package-win": "npm run build && build --win --x64",
     "postinstall": "node -r babel-register internals/scripts/CheckNativeDep.js && npm run flow-typed && npm run build-dll && electron-builder install-app-deps && node node_modules/fbjs-scripts/node/check-dev-engines.js package.json",
+    "precommit": "lint-staged",
     "prestart": "npm run build",
     "start": "cross-env NODE_ENV=production electron ./app/",
     "start-main-dev": "cross-env HOT=1 NODE_ENV=development electron -r babel-register ./app/main.dev",
@@ -28,9 +31,7 @@
     "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node --trace-warnings -r babel-register ./internals/scripts/RunTests.js",
     "test-all": "npm run lint && npm run flow && npm run build && npm run test && npm run test-e2e",
     "test-e2e": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node --trace-warnings -r babel-register ./internals/scripts/RunTests.js e2e",
-    "test-watch": "npm test -- --watch",
-    "format": "prettier --single-quote --write '*/*.js' '*/!(node_modules)/**/*.js'",
-    "precommit": "lint-staged"
+    "test-watch": "npm test -- --watch"
   },
   "browserslist": "electron 1.6",
   "lint-staged": {
