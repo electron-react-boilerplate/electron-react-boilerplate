@@ -28,9 +28,17 @@
     "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node --trace-warnings -r babel-register ./internals/scripts/RunTests.js",
     "test-all": "npm run lint && npm run flow && npm run build && npm run test && npm run test-e2e",
     "test-e2e": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node --trace-warnings -r babel-register ./internals/scripts/RunTests.js e2e",
-    "test-watch": "npm test -- --watch"
+    "test-watch": "npm test -- --watch",
+    "format": "prettier --single-quote --trailing-comma es5 --write '*/*.js' '*/!(node_modules)/**/*.js'",
+    "precommit": "lint-staged"
   },
   "browserslist": "electron 1.6",
+  "lint-staged": {
+    "*.js": [
+      "prettier --single-quote --trailing-comma es5 --write",
+      "git add"
+    ]
+  },
   "build": {
     "productName": "ElectronReact",
     "appId": "org.develar.ElectronReact",
@@ -148,6 +156,7 @@
     "enzyme-to-json": "^3.3.1",
     "eslint": "^4.16.0",
     "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
     "eslint-formatter-pretty": "^1.3.0",
     "eslint-import-resolver-webpack": "^0.8.4",
     "eslint-plugin-compat": "^2.2.0",
@@ -164,11 +173,14 @@
     "flow-bin": "^0.64.0",
     "flow-runtime": "^0.16.0",
     "flow-typed": "^2.3.0",
+    "husky": "^0.14.3",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^22.1.4",
+    "lint-staged": "^6.1.0",
     "minimist": "^1.2.0",
     "node-sass": "^4.7.2",
     "npm-logical-tree": "^1.2.1",
+    "prettier": "^1.10.2",
     "react-test-renderer": "^16.2.0",
     "redux-logger": "^3.0.6",
     "rimraf": "^2.6.2",
