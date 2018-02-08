@@ -13,14 +13,14 @@ function setup() {
     increment: spy(),
     incrementIfOdd: spy(),
     incrementAsync: spy(),
-    decrement: spy(),
+    decrement: spy()
   };
   const component = shallow(<Counter counter={1} {...actions} />);
   return {
     component,
     actions,
     buttons: component.find('button'),
-    p: component.find('.counter'),
+    p: component.find('.counter')
   };
 }
 

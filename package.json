@@ -29,13 +29,13 @@
     "test-all": "npm run lint && npm run flow && npm run build && npm run test && npm run test-e2e",
     "test-e2e": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node --trace-warnings -r babel-register ./internals/scripts/RunTests.js e2e",
     "test-watch": "npm test -- --watch",
-    "format": "prettier --single-quote --trailing-comma es5 --write '*/*.js' '*/!(node_modules)/**/*.js'",
+    "format": "prettier --single-quote --write '*/*.js' '*/!(node_modules)/**/*.js'",
     "precommit": "lint-staged"
   },
   "browserslist": "electron 1.6",
   "lint-staged": {
     "*.js": [
-      "prettier --single-quote --trailing-comma es5 --write",
+      "prettier --single-quote --write",
       "git add"
     ]
   },

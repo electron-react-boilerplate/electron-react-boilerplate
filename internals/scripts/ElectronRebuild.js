@@ -19,6 +19,6 @@ if (
       : electronRebuildCmd;
 
   execSync(cmd, {
-    cwd: path.join(__dirname, '..', '..', 'app'),
+    cwd: path.join(__dirname, '..', '..', 'app')
   });
 }
