@@ -46,6 +46,7 @@ export default merge.smart(baseConfig, {
       {
         test: /^((?!\.global).)*\.css$/,
         use: ExtractTextPlugin.extract({
+          publicPath: './',
           use: {
             loader: 'css-loader',
             options: {
@@ -61,6 +62,7 @@ export default merge.smart(baseConfig, {
       {
         test: /\.global\.scss$/,
         use: ExtractTextPlugin.extract({
+          publicPath: './',
           use: [
             {
               loader: 'css-loader',
@@ -79,6 +81,7 @@ export default merge.smart(baseConfig, {
       {
         test: /^((?!\.global).)*\.scss$/,
         use: ExtractTextPlugin.extract({
+          publicPath: './',
           use: [{
             loader: 'css-loader',
             options: {
