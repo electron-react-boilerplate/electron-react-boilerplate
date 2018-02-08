@@ -20,7 +20,7 @@ const configureStore = (initialState?: counterStateType) => {
   // Logging Middleware
   const logger = createLogger({
     level: 'info',
-    collapsed: true
+    collapsed: true,
   });
 
   // Skip redux logs in console during the tests
@@ -41,9 +41,9 @@ const configureStore = (initialState?: counterStateType) => {
   /* eslint-disable no-underscore-dangle */
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-      // Options: http://zalmoxisus.github.io/redux-devtools-extension/API/Arguments.html
-      actionCreators,
-    })
+        // Options: http://zalmoxisus.github.io/redux-devtools-extension/API/Arguments.html
+        actionCreators,
+      })
     : compose;
   /* eslint-enable no-underscore-dangle */
 
@@ -56,7 +56,8 @@ const configureStore = (initialState?: counterStateType) => {
 
   if (module.hot) {
     module.hot.accept('../reducers', () =>
-      store.replaceReducer(require('../reducers'))); // eslint-disable-line global-require
+      store.replaceReducer(require('../reducers'))
+    ); // eslint-disable-line global-require
   }
 
   return store;

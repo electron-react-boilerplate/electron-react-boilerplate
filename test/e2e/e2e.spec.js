@@ -38,7 +38,7 @@ describe('main window', function spec() {
     expect(title).toBe('Hello Electron React!');
   });
 
-  it('should haven\'t any logs in console of main window', async () => {
+  it("should haven't any logs in console of main window", async () => {
     const { client } = this.app;
     const logs = await client.getRenderProcessLogs();
     // Print renderer process logs
