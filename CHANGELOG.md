@@ -1,7 +1,6 @@
 # 0.13.3 (2018.2.8)
 - Add git precommit hook, when git commit will use `prettier` to format git add code
-- Add `format` npm script which use `prettier` to list which js files need to format
-- Add `format-fix` npm script which use `prettier` to format project js code
+- Add format code function in `lint-fix` npm script which can use `prettier` to format project js code
 
 # 0.13.2 (2018.1.31)
 - Hot Module Reload (HMR) fixes
