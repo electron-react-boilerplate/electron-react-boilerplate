@@ -1,5 +1,5 @@
-import io from 'socket.io-client';
 import SendKeys from 'send-keys-native';
+import io from 'socket.io-client';
 
 export const SLIDE_UP = 'SlideUp';
 export const SLIDE_DOWN = 'SlideDown';
