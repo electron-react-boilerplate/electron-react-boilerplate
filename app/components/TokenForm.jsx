@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import styles from './TokenForm.css';
 
+
 type Props = {
   updateToken: () => void,
   token: string
@@ -29,7 +30,7 @@ export default class TokenForm extends Component<Props> {
   tokenChanged(event) {
     const numberVal = parseInt(event.target.value, 10);
 
-    if (numberVal && numberVal < 10) {
+    if (!Number.isNaN(numberVal) && numberVal < 10) {
       const next = parseInt(event.target.id, 10) + 1;
       if (next < this.inputs.length) {
         this.inputs[next].focus();

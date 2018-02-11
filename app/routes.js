@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router';
 import App from './containers/App';
 import LoginPage from './containers/LoginPage';
 import CounterPage from './containers/CounterPage';
-import PresentPage from './components/Present';
+import PresentPage from './containers/Present';
 
 export default () => (
   <App>

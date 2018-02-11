@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import styles from './Login.css';
 import TokenForm from '../containers/TokenForm';
-import ConnectButton from '../components/ConnectButton';
+import ConnectButton from '../containers/ConnectButton';
 import Logo from '../images/icon.png';
 
 type Props = {

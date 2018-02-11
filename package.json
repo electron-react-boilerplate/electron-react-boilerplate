@@ -187,6 +187,7 @@
     "webpack-merge": "^4.1.1"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "devtron": "^1.4.0",
     "electron-debug": "^1.5.0",
     "font-awesome": "^4.7.0",

@@ -1,14 +1,19 @@
 // @flow
 import React, { Component } from 'react';
 import styles from './Present.css';
-import NavBar from './NavBar';
+import NavBar from '../containers/NavBar';
+import UPRKit from '../UPRKit';
 
-type Props = {};
+type Props = {
+  token: string,
+  holdFor: string
+};
 
 export default class Home extends Component<Props> {
   props: Props;
 
   render() {
+    UPRKit.Utils.listenForEvents(this.props.token, this.props.holdFor);
     return (
       <div>
         <NavBar title="Present" />
