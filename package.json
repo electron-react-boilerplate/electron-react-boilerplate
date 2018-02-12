@@ -44,7 +44,7 @@
     ],
     "mac": {
       "type": "distribution",
-      "artifactName": "upr-desktop-${version}-setup.${ext}"
+      "artifactName": "upr-desktop-${version}-mac.${ext}"
     },
     "dmg": {
       "contents": [
@@ -59,7 +59,7 @@
           "path": "/Applications"
         }
       ],
-      "artifactName": "upr-desktop-${version}-setup.${ext}"
+      "artifactName": "upr-desktop-${version}-mac.${ext}"
     },
     "nsis": {
       "artifactName": "upr-desktop-${version}-setup.${ext}"
