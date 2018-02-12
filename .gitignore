@@ -36,7 +36,7 @@ flow-typed/npm/*
 !flow-typed/npm/module_vx.x.x.js
 
 # App packaged
-release
+release/win-unpacked
 app/main.prod.js
 app/main.prod.js.map
 app/renderer.prod.js
