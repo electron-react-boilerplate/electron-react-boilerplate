@@ -43,7 +43,8 @@
       "package.json"
     ],
     "mac": {
-      "type": "distribution"
+      "type": "distribution",
+      "artifactName": "upr-desktop-${version}-setup.${ext}"
     },
     "dmg": {
       "contents": [
