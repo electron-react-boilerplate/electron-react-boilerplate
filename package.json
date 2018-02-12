@@ -32,7 +32,7 @@
   },
   "browserslist": "electron 1.6",
   "build": {
-    "productName": "upr-desktop",
+    "productName": "Universal Presenter Remote",
     "appId": "com.universalpresenterremote.desktop",
     "files": [
       "dist/",
@@ -57,7 +57,7 @@
       ]
     },
     "nsis": {
-      "artifactName": "${productName}-${version}.${ext}"
+      "artifactName": "upr-desktop-${version}-setup.${ext}"
     },
     "win": {
       "target": [

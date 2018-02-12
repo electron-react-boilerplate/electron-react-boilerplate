@@ -1,7 +1,7 @@
 directories:
   output: release
   buildResources: resources
-productName: upr-desktop
+productName: Universal Presenter Remote
 appId: com.universalpresenterremote.desktop
 files:
   - dist/
@@ -19,7 +19,7 @@ dmg:
       type: link
       path: /Applications
 nsis:
-  artifactName: '${productName}-${version}.${ext}'
+  artifactName: 'upr-desktop-${version}-setup.${ext}'
 win:
   target:
     - nsis
