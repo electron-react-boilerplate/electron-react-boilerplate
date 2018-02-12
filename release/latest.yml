@@ -1,9 +1,9 @@
-version: 1.0.0
+version: 1.0.1
 files:
-  - url: upr-desktop-setup-1.0.0.exe
-    sha512: 76lE9nFoatPSyQlvX8NoQYHv+I5SN1q2G42uzx89sy/3jvIHdvCUXAfyHDjHsZRKpNbJJCyGK3SOz7D/D+rJwQ==
-    size: 39342812
-path: upr-desktop-setup-1.0.0.exe
-sha512: 76lE9nFoatPSyQlvX8NoQYHv+I5SN1q2G42uzx89sy/3jvIHdvCUXAfyHDjHsZRKpNbJJCyGK3SOz7D/D+rJwQ==
-sha2: 07753aa19938089cf5b9406f15e264712a8ed3a6d2107174deb529835c6563a4
-releaseDate: '2018-02-12T05:50:53.568Z'
+  - url: upr-desktop-setup-1.0.1.exe
+    sha512: azwc1hJhlitwQThzJSZxeWgPASHQ75ebFaiXewOgjv95CGbsPeYe6/9qmn2L0WOe8Dkk539M1uuL8BADwPPc0Q==
+    size: 39344372
+path: upr-desktop-setup-1.0.1.exe
+sha512: azwc1hJhlitwQThzJSZxeWgPASHQ75ebFaiXewOgjv95CGbsPeYe6/9qmn2L0WOe8Dkk539M1uuL8BADwPPc0Q==
+sha2: 4549c3af13a9ae982b888fdd72aadc49aeda90d5cb9214f9ab88ec1551eb76aa
+releaseDate: '2018-02-12T06:09:49.920Z'
