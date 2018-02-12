@@ -1,7 +1,7 @@
 {
   "name": "upr-desktop",
   "productName": "upr-desktop",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Control your presentations from any platform.",
   "main": "./main.prod.js",
   "author": {
