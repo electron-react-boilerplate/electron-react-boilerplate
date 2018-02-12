@@ -99,7 +99,8 @@ export default class MenuBuilder {
       label: 'Help',
       submenu: [
         { label: 'Learn More', click() { shell.openExternal('https://universalpresenterremote.com'); } },
-        { label: 'Support', click() { shell.openExternal('mailto:support@dbztech.com'); } }
+        { label: 'Support', click() { shell.openExternal('mailto:support@dbztech.com'); } },
+        { label: 'Check For Updates', click: () => { MenuBuilder.checkForUpdates(); } }
       ]
     };
 
