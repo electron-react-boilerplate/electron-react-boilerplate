@@ -1,7 +1,7 @@
 {
   "name": "upr-desktop",
   "productName": "Universal Presenter Remote",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Control your presentations from any platform.",
   "main": "./main.prod.js",
   "author": {
