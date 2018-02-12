@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import styles from './NavBar.css';
+import UPRKit from '../UPRKit';
 
 type Props = {
   title: string,
@@ -29,6 +29,7 @@ export default class TokenForm extends Component<Props> {
   goBack() {
     this.props.actions.holdForActions.clearHoldFor();
     this.props.actions.tokenActions.resetToken();
+    UPRKit.Utils.disconnect();
     this.props.history.push('/');
   }
 

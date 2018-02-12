@@ -5,7 +5,7 @@ export const SLIDE_UP = 'SlideUp';
 export const SLIDE_DOWN = 'SlideDown';
 export const PLAY_MEDIA = 'PlayMedia';
 
-const socket = io('https://universalpresenterremote.com');
+let socket;
 
 type messageType = {
   action: string,
@@ -13,6 +13,7 @@ type messageType = {
 };
 
 function listenForEvents(token: string, holdFor: string) {
+  socket = io('https://universalpresenterremote.com');
   socket.on(token, (message: messageType) => {
     if (message.holdfor === holdFor) {
       switch (message.action) {
@@ -35,6 +36,14 @@ function listenForEvents(token: string, holdFor: string) {
   });
 }
 
+function disconnect() {
+  if (socket) {
+    socket.close();
+    socket = undefined;
+  }
+}
+
 export default {
-  listenForEvents
+  listenForEvents,
+  disconnect
 };
