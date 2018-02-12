@@ -42,6 +42,10 @@
       "main.prod.js.map",
       "package.json"
     ],
+    "mac": {
+      "type": "distribution",
+      "artifactName": "upr-desktop-${version}-mac.${ext}"
+    },
     "dmg": {
       "contents": [
         {
@@ -54,7 +58,11 @@
           "type": "link",
           "path": "/Applications"
         }
-      ]
+      ],
+      "artifactName": "upr-desktop-${version}-mac.${ext}"
+    },
+    "nsis": {
+      "artifactName": "upr-desktop-${version}-setup.${ext}"
     },
     "win": {
       "target": [

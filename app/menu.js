@@ -1,5 +1,7 @@
 // @flow
-import { app, Menu, shell, BrowserWindow } from 'electron';
+import { app, Menu, shell, BrowserWindow, dialog } from 'electron';
+import { autoUpdater } from 'electron-updater';
+import ElectronLog from 'electron-log';
 
 export default class MenuBuilder {
   mainWindow: BrowserWindow;
@@ -97,7 +99,8 @@ export default class MenuBuilder {
       label: 'Help',
       submenu: [
         { label: 'Learn More', click() { shell.openExternal('https://universalpresenterremote.com'); } },
-        { label: 'Support', click() { shell.openExternal('mailto:support@dbztech.com'); } }
+        { label: 'Support', click() { shell.openExternal('mailto:support@dbztech.com'); } },
+        { label: 'Check For Updates', click: () => { MenuBuilder.checkForUpdates(); } }
       ]
     };
 
@@ -163,9 +166,25 @@ export default class MenuBuilder {
         click() {
           shell.openExternal('mailto:support@dbztech.com');
         }
+      }, {
+        label: 'Check For Updates',
+        click: () => {
+          MenuBuilder.checkForUpdates();
+        }
       }]
     }];
 
     return templateDefault;
+  }
+
+  static checkForUpdates() {
+    ElectronLog.info('Checking for updates...');
+    autoUpdater.on('update-not-available', () => {
+      dialog.showMessageBox({
+        title: 'No Updates',
+        message: 'Current version is up-to-date.'
+      });
+    });
+    autoUpdater.checkForUpdates();
   }
 }
