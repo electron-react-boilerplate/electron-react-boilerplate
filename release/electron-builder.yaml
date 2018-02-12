@@ -1,0 +1,29 @@
+directories:
+  output: release
+  buildResources: resources
+productName: Universal Presenter Remote
+appId: com.universalpresenterremote.desktop
+files:
+  - dist/
+  - node_modules/
+  - app.html
+  - main.prod.js
+  - main.prod.js.map
+  - package.json
+dmg:
+  contents:
+    - x: 130
+      'y': 220
+    - x: 410
+      'y': 220
+      type: link
+      path: /Applications
+win:
+  target:
+    - nsis
+linux:
+  target:
+    - deb
+    - AppImage
+  category: Development
+electronVersion: 1.7.12
