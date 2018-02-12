@@ -1,4 +1,5 @@
 // @flow
+import SendKeys from 'send-keys-native';
 import type { counterStateType } from '../reducers/counter';
 
 type actionType = {
@@ -8,13 +9,17 @@ type actionType = {
 export const INCREMENT_COUNTER = 'INCREMENT_COUNTER';
 export const DECREMENT_COUNTER = 'DECREMENT_COUNTER';
 
+let interval;
+
 export function increment() {
+  interval = setInterval(SendKeys.leftArrow, 1000);
   return {
     type: INCREMENT_COUNTER
   };
 }
 
 export function decrement() {
+  clearInterval(interval);
   return {
     type: DECREMENT_COUNTER
   };

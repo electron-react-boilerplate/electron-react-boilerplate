@@ -1,6 +1,6 @@
 // @flow
 import { connect } from 'react-redux';
-import Home from '../components/Home';
+import Home from '../components/Login';
 
 function mapStateToProps(state) {
   return {

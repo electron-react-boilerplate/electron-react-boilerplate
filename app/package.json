@@ -14,5 +14,8 @@
     "postinstall": "npm run electron-rebuild"
   },
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {
+    "socket.io-client": "^2.0.4",
+    "send-keys-native": "file:../../send-keys-native"
+  }
 }

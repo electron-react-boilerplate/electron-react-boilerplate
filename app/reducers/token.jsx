@@ -1,23 +1,19 @@
 // @flow
-import { UPDATE_TOKEN } from '../actions/token';
+import { UPDATE_TOKEN, RESET_TOKEN } from '../actions/token';
 
 type actionType = {
-  type: string,
-  payload?: {
-    index?: number,
-    value?: string
-  }
+  type: string
 };
 
 export default function token(state: string = '______', action: actionType) {
   let digits;
   let newState = '';
   switch (action.type) {
-    case UPDATE_TOKEN:
+    case UPDATE_TOKEN: {
       const numberVal = parseInt(action.payload.value, 10);
       let stringVal = action.payload.value;
 
-      if (!numberVal || numberVal > 9) {
+      if (Number.isNaN(numberVal) || numberVal > 9) {
         stringVal = '_';
       }
 
@@ -33,6 +29,9 @@ export default function token(state: string = '______', action: actionType) {
       }
 
       return newState;
+    }
+    case RESET_TOKEN:
+      return '______';
     default:
       return state;
   }
