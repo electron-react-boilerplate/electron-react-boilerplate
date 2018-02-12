@@ -10,8 +10,10 @@
  *
  * @flow
  */
-import { app, BrowserWindow, autoUpdater, dialog } from 'electron';
+import { app, BrowserWindow } from 'electron';
 import IsDev from 'electron-is-dev';
+import { autoUpdater } from 'electron-updater';
+import ElectronLog from 'electron-log';
 import MenuBuilder from './menu';
 
 let mainWindow = null;
@@ -85,33 +87,14 @@ app.on('ready', async () => {
   const menuBuilder = new MenuBuilder(mainWindow);
   menuBuilder.buildMenu();
 
+  ElectronLog.transports.file.level = 'debug';
+  ElectronLog.info('App Started!');
+
   if (!IsDev) {
-    const server = 'https://update.universalpresenterremote.com';
-    const feed = `${server}/update/${process.platform}/${app.getVersion()}`;
-
-    autoUpdater.setFeedURL(feed);
-
+    autoUpdater.logger = ElectronLog;
+    autoUpdater.checkForUpdatesAndNotify();
     setInterval(() => {
-      autoUpdater.checkForUpdates();
+      autoUpdater.checkForUpdatesAndNotify();
     }, 60000);
-
-    autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
-      const dialogOpts = {
-        type: 'info',
-        buttons: ['Restart', 'Later'],
-        title: 'Application Update',
-        message: process.platform === 'win32' ? releaseNotes : releaseName,
-        detail: 'A new version has been downloaded. Restart the application to apply the updates.'
-      };
-
-      dialog.showMessageBox(dialogOpts, (response) => {
-        if (response === 0) autoUpdater.quitAndInstall();
-      });
-    });
-
-    autoUpdater.on('error', message => {
-      console.error('There was a problem updating the application');
-      console.error(message);
-    });
   }
 });

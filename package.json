@@ -1,7 +1,7 @@
 {
   "name": "upr-desktop",
   "productName": "Universal Presenter Remote",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Control your presentations from any platform.",
   "scripts": {
     "build": "concurrently \"npm run build-main\" \"npm run build-renderer\"",
@@ -186,6 +186,8 @@
     "devtron": "^1.4.0",
     "electron-debug": "^1.5.0",
     "electron-is-dev": "^0.3.0",
+    "electron-log": "^2.2.14",
+    "electron-updater": "^2.20.1",
     "font-awesome": "^4.7.0",
     "history": "^4.7.2",
     "react": "^16.2.0",
