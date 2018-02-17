@@ -179,7 +179,7 @@
     "stylefmt": "^6.0.0",
     "stylelint": "^8.4.0",
     "stylelint-config-standard": "^18.0.0",
-    "uglifyjs-webpack-plugin": "1.1.8",
+    "uglifyjs-webpack-plugin": "1.2.0",
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
     "webpack-bundle-analyzer": "^2.9.2",
