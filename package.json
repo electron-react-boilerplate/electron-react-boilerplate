@@ -13,7 +13,7 @@
     "flow": "flow",
     "flow-typed": "rimraf flow-typed/npm && flow-typed install --overwrite || true",
     "lint": "cross-env NODE_ENV=development eslint --cache --format=node_modules/eslint-formatter-pretty .",
-    "lint-fix": "npm run lint -- --fix",
+    "lint-fix": "npm run lint -- --fix && prettier --single-quote --write '**/*.js'",
     "lint-styles": "stylelint app/*.css app/components/*.css --syntax scss",
     "lint-styles-fix": "stylefmt -r app/*.css app/components/*.css",
     "package": "npm run build && build --publish never",
@@ -21,6 +21,7 @@
     "package-linux": "npm run build && build --linux",
     "package-win": "npm run build && build --win --x64",
     "postinstall": "node -r babel-register internals/scripts/CheckNativeDep.js && npm run flow-typed && npm run build-dll && electron-builder install-app-deps && node node_modules/fbjs-scripts/node/check-dev-engines.js package.json",
+    "precommit": "lint-staged",
     "prestart": "npm run build",
     "start": "cross-env NODE_ENV=production electron ./app/",
     "start-main-dev": "cross-env HOT=1 NODE_ENV=development electron -r babel-register ./app/main.dev",
@@ -31,6 +32,12 @@
     "test-watch": "npm test -- --watch"
   },
   "browserslist": "electron 1.6",
+  "lint-staged": {
+    "*.js": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
+  },
   "build": {
     "productName": "ElectronReact",
     "appId": "org.develar.ElectronReact",
@@ -124,7 +131,6 @@
     "babel-loader": "^7.1.2",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-dev-expression": "^0.2.1",
-    "babel-plugin-dynamic-import-webpack": "^1.0.2",
     "babel-plugin-flow-runtime": "^0.15.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-es2015-classes": "^6.24.1",
@@ -149,6 +155,7 @@
     "enzyme-to-json": "^3.3.1",
     "eslint": "^4.16.0",
     "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
     "eslint-formatter-pretty": "^1.3.0",
     "eslint-import-resolver-webpack": "^0.8.4",
     "eslint-plugin-compat": "^2.2.0",
@@ -165,12 +172,14 @@
     "flow-bin": "^0.64.0",
     "flow-runtime": "^0.16.0",
     "flow-typed": "^2.3.0",
+    "husky": "^0.14.3",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^22.1.4",
-    "jsdom": "^11.6.2",
+    "lint-staged": "^6.1.0",
     "minimist": "^1.2.0",
     "node-sass": "^4.7.2",
     "npm-logical-tree": "^1.2.1",
+    "prettier": "^1.10.2",
     "react-test-renderer": "^16.2.0",
     "redux-logger": "^3.0.6",
     "rimraf": "^2.6.2",

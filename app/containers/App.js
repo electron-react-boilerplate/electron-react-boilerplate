@@ -9,10 +9,6 @@ export default class App extends React.Component<Props> {
   props: Props;
 
   render() {
-    return (
-      <div>
-        {this.props.children}
-      </div>
-    );
+    return <div>{this.props.children}</div>;
   }
 }

@@ -30,7 +30,8 @@ export default merge.smart(baseConfig, {
     }),
 
     new BundleAnalyzerPlugin({
-      analyzerMode: process.env.OPEN_ANALYZER === 'true' ? 'server' : 'disabled',
+      analyzerMode:
+        process.env.OPEN_ANALYZER === 'true' ? 'server' : 'disabled',
       openAnalyzer: process.env.OPEN_ANALYZER === 'true'
     }),
 
@@ -48,4 +49,14 @@ export default merge.smart(baseConfig, {
       DEBUG_PROD: 'false'
     })
   ],
+
+  /**
+   * Disables webpack processing of __dirname and __filename.
+   * If you run the bundle in node.js it falls back to these values of node.js.
+   * https://github.com/webpack/webpack/issues/2010
+   */
+  node: {
+    __dirname: false,
+    __filename: false
+  }
 });
