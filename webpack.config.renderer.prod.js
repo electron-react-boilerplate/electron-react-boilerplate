@@ -16,6 +16,8 @@ CheckNodeEnv('production');
 export default merge.smart(baseConfig, {
   devtool: 'source-map',
 
+  mode: 'production',
+
   target: 'electron-renderer',
 
   entry: './app/index',
