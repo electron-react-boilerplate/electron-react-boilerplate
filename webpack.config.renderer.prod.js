@@ -22,7 +22,6 @@ export default merge.smart(baseConfig, {
 
   output: {
     path: path.join(__dirname, 'app/dist'),
-    publicPath: './dist/',
     filename: 'renderer.prod.js'
   },
 
@@ -32,7 +31,6 @@ export default merge.smart(baseConfig, {
       {
         test: /\.global\.css$/,
         use: ExtractTextPlugin.extract({
-          publicPath: './',
           use: {
             loader: 'css-loader',
             options: {
