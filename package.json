@@ -181,7 +181,7 @@
     "stylelint-config-standard": "^18.0.0",
     "uglifyjs-webpack-plugin": "1.1.8",
     "url-loader": "^0.6.2",
-    "webpack": "^3.10.0",
+    "webpack": "^4.2.0",
     "webpack-bundle-analyzer": "^2.9.2",
     "webpack-dev-server": "^2.11.1",
     "webpack-merge": "^4.1.1"
