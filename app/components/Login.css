@@ -1,0 +1,57 @@
+
+.leftColumn {
+  width: 512px;
+  height: 728px;
+  float: left;
+  //background-color: white;
+}
+
+.rightColumn {
+  width: 512px;
+  height: 728px;
+  float: right;
+}
+
+.loginBg {
+  width: 512px;
+  height: 728px;
+  margin: 0 auto; /* センタリング */
+}
+
+.container {
+  text-align: center;
+}
+
+.container h2 {
+  font-size: 20px;
+  color: black;
+}
+
+.container a {
+  font-size: 1.4rem;
+}
+
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 500px;
+  height: 50px;
+  background-color: #000;
+}
+
+.loginLogo {
+  width: 128px;
+  height: 128px;
+  margin: 0 auto; /* センタリング */
+}
+
+.row {
+  width: 100%;
+  display: inline-block;
+}
+
+.loginBtn {
+  width: 100px;
+  height: 40px;
+}
