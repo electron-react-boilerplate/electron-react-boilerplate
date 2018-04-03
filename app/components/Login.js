@@ -22,7 +22,7 @@ export default class LoginForm extends React.Component {
   }
 
   handleSubmit(event) {
-    alert(`A name was submitted: ${ this.state.email }`);
+    alert(`A name was submitted: ${this.state.email}`);
     event.preventDefault();
   }
 
@@ -42,7 +42,7 @@ export default class LoginForm extends React.Component {
           </label>
           <label htmlFor="password">
             Password:
-            <input name="password" type="password" value={this.state.password} onChange={this.handlePasswordChange}/>
+            <input name="password" type="password" value={this.state.password} onChange={this.handlePasswordChange} />
           </label>
           <input type="submit" value="Submit" />
         </form>
