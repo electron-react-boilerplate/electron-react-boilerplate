@@ -12,8 +12,10 @@ export default class Home extends Component<Props> {
     return (
       <div>
         <div className={styles.container} data-tid="container">
-          <h2>dbl.local Electron</h2>
+          <h2>electron.dbl.local</h2>
           <Link to="/counter">to Counter</Link>
+          <p />
+          <Link to="/login">to Login</Link>
         </div>
       </div>
     );
