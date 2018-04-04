@@ -43,10 +43,10 @@ export default class LoginForm extends React.Component {
               <h6 className="text-center">Connect to the DBL</h6>
               <form onSubmit={this.handleSubmit}>
                 <div className="form-group">
-                  <input placeholder="username" name="email" type="email" className="form-control" value={this.state.email} onChange={this.handleEmailChange} />
+                  <input placeholder="username" name="email" type="email" className="form-control" value={this.state.email} onChange={this.handleEmailChange} required />
                 </div>
                 <div className="form-group">
-                  <input placeholder="password" name="password" type="password" className="form-control" value={this.state.password} onChange={this.handlePasswordChange} />
+                  <input placeholder="password" name="password" type="password" className="form-control" value={this.state.password} onChange={this.handlePasswordChange} required />
                 </div>
                 <div className="text-center">
                   <button type="submit" className="btn btn-block btn-primary center-block">Login</button>
