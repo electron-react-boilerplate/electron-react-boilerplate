@@ -1,4 +1,14 @@
-import { connect } from 'react-redux';
+import React, { Component } from 'react';
 import Login from '../components/Login';
 
-export default connect()(Login);
+type Props = {};
+
+export default class LoginPage extends Component<Props> {
+    props: Props;
+
+    render() {
+      return (
+        <Login />
+      );
+    }
+}

@@ -10,7 +10,7 @@ export default class App extends React.Component<Props> {
 
   render() {
     return (
-      <div>
+      <div className="h-100">
         {this.props.children}
       </div>
     );

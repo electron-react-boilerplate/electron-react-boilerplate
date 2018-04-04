@@ -28,24 +28,30 @@ export default class LoginForm extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="h-100">
         <div className={styles.backButton} data-tid="backButton">
           <Link to="/">
             <i className="fa fa-arrow-left fa-3x" />
           </Link>
         </div>
-        <div>Connect to the DBL</div>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="email">
-            Email:
-            <input name="email" type="text" value={this.state.email} onChange={this.handleEmailChange} />
-          </label>
-          <label htmlFor="password">
-            Password:
-            <input name="password" type="password" value={this.state.password} onChange={this.handlePasswordChange} />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
+        <div className="row align-items-center h-100">
+          <div className="col-6 mx-auto">
+            <div className="card h-100 border-primary justify-content-center">
+              <div>Connect to the DBL</div>
+              <form onSubmit={this.handleSubmit}>
+                <label htmlFor="email">
+                  Email:
+                  <input name="email" type="text" value={this.state.email} onChange={this.handleEmailChange} />
+                </label>
+                <label htmlFor="password">
+                  Password:
+                  <input name="password" type="password" value={this.state.password} onChange={this.handlePasswordChange} />
+                </label>
+                <input type="submit" value="Submit" />
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
