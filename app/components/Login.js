@@ -3,6 +3,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Login.css';
 
+/*
+ * See Login form/page mockup at https://share.goabstract.com/a8fa671d-82d4-4c2b-9635-24bcc2656f75
+ */
 export default class LoginForm extends React.Component {
   constructor(props) {
     super(props);
@@ -36,18 +39,18 @@ export default class LoginForm extends React.Component {
         </div>
         <div className="row align-items-center h-100">
           <div className="col-6 mx-auto">
-            <div className="card h-100 border-primary justify-content-center">
-              <div>Connect to the DBL</div>
+            <div className="container h-100 border-primary justify-content-center">
+              <h6 className="text-center">Connect to the DBL</h6>
               <form onSubmit={this.handleSubmit}>
-                <label htmlFor="email">
-                  Email:
-                  <input name="email" type="text" value={this.state.email} onChange={this.handleEmailChange} />
-                </label>
-                <label htmlFor="password">
-                  Password:
-                  <input name="password" type="password" value={this.state.password} onChange={this.handlePasswordChange} />
-                </label>
-                <input type="submit" value="Submit" />
+                <div className="form-group">
+                  <input placeholder="username" name="email" type="email" className="form-control" value={this.state.email} onChange={this.handleEmailChange} />
+                </div>
+                <div className="form-group">
+                  <input placeholder="password" name="password" type="password" className="form-control" value={this.state.password} onChange={this.handlePasswordChange} />
+                </div>
+                <div className="text-center">
+                  <button type="submit" className="btn btn-block btn-primary center-block">Login</button>
+                </div>
               </form>
             </div>
           </div>
