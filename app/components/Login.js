@@ -1,7 +1,5 @@
 // @flow
 import React from 'react';
-import { Link } from 'react-router-dom';
-import styles from './Login.css';
 
 /*
  * See Login form/page mockup at https://share.goabstract.com/a8fa671d-82d4-4c2b-9635-24bcc2656f75
@@ -32,11 +30,6 @@ export default class LoginForm extends React.Component {
   render() {
     return (
       <div className="h-100">
-        <div className={styles.backButton} data-tid="backButton">
-          <Link to="/">
-            <i className="fa fa-arrow-left fa-3x" />
-          </Link>
-        </div>
         <div className="row align-items-center h-100">
           <div className="col-6 mx-auto">
             <div className="container h-100 border-primary justify-content-center">
