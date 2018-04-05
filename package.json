@@ -104,7 +104,7 @@
       "\\.(css|less|sass|scss)$": "identity-obj-proxy"
     },
     "moduleFileExtensions": [
-      "js"
+      "js", "ts"
     ],
     "moduleDirectories": [
       "node_modules",
@@ -190,6 +190,7 @@
     "bootstrap": "4.0.0",
     "devtron": "^1.4.0",
     "electron-debug": "^1.5.0",
+    "electron-store": "^1.3.0",
     "font-awesome": "^4.7.0",
     "history": "^4.7.2",
     "jquery": "^3.3.1",
