@@ -23,11 +23,12 @@ const port = process.env.PORT || 1212;
 const publicPath = `http://localhost:${port}/dist`;
 const dll = path.resolve(process.cwd(), 'dll');
 const manifest = path.resolve(dll, 'renderer.json');
+const requiredByDLLConfig = module.parent.filename.indexOf('webpack.config.renderer.dev.dll') !== -1;
 
 /**
  * Warn if the DLL is not built
  */
-if (!(fs.existsSync(dll) && fs.existsSync(manifest))) {
+if (!requiredByDLLConfig && !(fs.existsSync(dll) && fs.existsSync(manifest))) {
   console.log(chalk.black.bgYellow.bold('The DLL files are missing. Sit back while we build them for you with "npm run build-dll"'));
   execSync('npm run build-dll');
 }
@@ -197,11 +198,13 @@ export default merge.smart(baseConfig, {
   },
 
   plugins: [
-    new webpack.DllReferencePlugin({
-      context: process.cwd(),
-      manifest: require(manifest),
-      sourceType: 'var',
-    }),
+    requiredByDLLConfig
+      ? null
+      : new webpack.DllReferencePlugin({
+        context: process.cwd(),
+        manifest: require(manifest),
+        sourceType: 'var',
+      }),
 
     new webpack.HotModuleReplacementPlugin({
       multiStep: true
