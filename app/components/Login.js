@@ -1,9 +1,94 @@
 // @flow
 import React from 'react';
+// import { connect } from 'react-redux';
+import { userActions } from '../actions';
 
 /*
  * See Login form/page mockup at https://share.goabstract.com/a8fa671d-82d4-4c2b-9635-24bcc2656f75
  */
+export default class LoginForm extends React.Component {
+  constructor(props) {
+    super(props);
+
+    // reset login status
+    // TODO: this.props.dispatch(userActions.logout());
+
+    this.state = {
+      username: '',
+      password: '',
+      submitted: false
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(e) {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+
+    this.setState({ submitted: true });
+    const { username, password } = this.state;
+    const { dispatch } = this.props;
+    if (username && password) {
+      dispatch(userActions.login(username, password));
+    }
+  }
+
+  render() {
+    const { loggingIn } = this.props;
+    const { username, password, submitted } = this.state;
+    return (
+      <div className="h-100">
+        <div className="row align-items-center h-100">
+          <div className="col-6 mx-auto">
+            <div className="container h-100 border-primary justify-content-center">
+              <h6 className="text-center">Connect to the DBL</h6>
+              <form name="form" onSubmit={this.handleSubmit}>
+                <div className={`form-group${submitted && !username ? ' has-error' : ''}`}>
+                  <input placeholder="username" type="text" className="form-control" name="username" value={username} onChange={this.handleChange} />
+                  {submitted && !username &&
+                  <div className="help-block">Username is required</div>
+                            }
+                </div>
+                <div className={`form-group${submitted && !password ? ' has-error' : ''}`}>
+                  <input placeholder="password" type="password" className="form-control" name="password" value={password} onChange={this.handleChange} />
+                  {submitted && !password &&
+                  <div className="help-block">Password is required</div>
+                            }
+                </div>
+                <div className="text-center">
+                  <button className="btn btn-primary btn-block center-block">Login</button>
+                  {loggingIn &&
+                  <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" alt="loading..." />
+                            }
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+/*
+function mapStateToProps(state) {
+  const { loggingIn } = state.authentication;
+  return {
+    loggingIn
+  };
+}
+
+const connectedLoginForm = connect(mapStateToProps)(LoginForm);
+export { connectedLoginForm as LoginForm };
+*/
+
+/*
 export default class LoginForm extends React.Component {
   constructor(props) {
     super(props);
@@ -36,13 +121,18 @@ export default class LoginForm extends React.Component {
               <h6 className="text-center">Connect to the DBL</h6>
               <form onSubmit={this.handleSubmit}>
                 <div className="form-group">
-                  <input placeholder="username" name="email" type="email" className="form-control" value={this.state.email} onChange={this.handleEmailChange} required />
+                  <input placeholder="username" name="email" type="email"
+                   className="form-control" value={this.state.email}
+                   onChange={this.handleEmailChange} required />
                 </div>
                 <div className="form-group">
-                  <input placeholder="password" name="password" type="password" className="form-control" value={this.state.password} onChange={this.handlePasswordChange} required />
+                  <input placeholder="password" name="password" type="password"
+                   className="form-control" value={this.state.password}
+                    onChange={this.handlePasswordChange} required />
                 </div>
                 <div className="text-center">
-                  <button type="submit" className="btn btn-block btn-primary center-block">Login</button>
+                  <button type="submit"
+                   className="btn btn-block btn-primary center-block">Login</button>
                 </div>
               </form>
             </div>
@@ -52,3 +142,5 @@ export default class LoginForm extends React.Component {
     );
   }
 }
+*/
+
