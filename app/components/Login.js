@@ -50,7 +50,7 @@ export default class LoginForm extends React.Component {
               <h6 className="text-center">Connect to the DBL</h6>
               <form name="form" onSubmit={this.handleSubmit}>
                 <div className={`form-group${submitted && !username ? ' has-error' : ''}`}>
-                  <input placeholder="username" type="text" className="form-control" name="username" value={username} onChange={this.handleChange} />
+                  <input placeholder="username" type="email" className="form-control" name="username" value={username} onChange={this.handleChange} />
                   {submitted && !username &&
                   <div className="help-block">Username is required</div>
                             }
