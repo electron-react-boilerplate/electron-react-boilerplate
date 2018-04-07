@@ -1,17 +1,23 @@
 // @flow
 import React from 'react';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import { userActions } from '../actions';
+
+type Props = {
+  dispatch: () => void,
+  loggingIn: boolean
+};
 
 /*
  * See Login form/page mockup at https://share.goabstract.com/a8fa671d-82d4-4c2b-9635-24bcc2656f75
  */
 export default class LoginForm extends React.Component {
+  props: Props;
   constructor(props) {
     super(props);
-
+    const { dispatch } = this.props;
     // reset login status
-    // TODO: this.props.dispatch(userActions.logout());
+    dispatch(userActions.logout());
 
     this.state = {
       username: '',
@@ -75,6 +81,7 @@ export default class LoginForm extends React.Component {
     );
   }
 }
+
 
 /*
 function mapStateToProps(state) {

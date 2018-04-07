@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Login from '../components/Login';
 
-type Props = {};
+/*
+function mapStateToProps(state) {
+  const { loggingIn } = state.authentication;
+  return {
+    loggingIn
+  };
+} */
 
-export default class LoginPage extends Component<Props> {
-    props: Props;
-
-    render() {
-      return (
-        <Login />
-      );
-    }
-}
+export default connect()(Login);
