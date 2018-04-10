@@ -9,7 +9,8 @@ type Props = {
 };
 
 /*
- * See Login form/page mockup at https://share.goabstract.com/a8fa671d-82d4-4c2b-9635-24bcc2656f75
+ * From https://github.com/cornflourblue/react-redux-registration-login-example/blob/master/src/LoginPage/LoginPage.jsx
+ * See also Login form/page mockup at https://share.goabstract.com/a8fa671d-82d4-4c2b-9635-24bcc2656f75
  */
 export default class LoginForm extends React.Component {
   props: Props;
