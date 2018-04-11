@@ -18,21 +18,21 @@ function login(username, password) {
     dispatch(request({ username }));
 
     userService.login(username, password)
-      .then(
-        user => {
-          dispatch(success(user));
-          history.push('/');
-        },
-        error => {
-          dispatch(failure(error));
-          dispatch(alertActions.error(error));
-        }
-      );
+      .then(user => {
+        dispatch(success(user));
+        history.push('/');
+        return true;
+      })
+      .catch(error => {
+        dispatch(failure(error));
+        dispatch(alertActions.error(error));
+        return true;
+      });
   };
 
-  function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
-  function success(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
-  function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
+  function request(user) { return { type: userConstants.LOGIN_REQUEST, user }; }
+  function success(user) { return { type: userConstants.LOGIN_SUCCESS, user }; }
+  function failure(error) { return { type: userConstants.LOGIN_FAILURE, error }; }
 }
 
 function logout() {
@@ -45,38 +45,37 @@ function register(user) {
     dispatch(request(user));
 
     userService.register(user)
-      .then(
-        user => {
-          dispatch(success());
-          history.push('/login');
-          dispatch(alertActions.success('Registration successful'));
-        },
-        error => {
-          dispatch(failure(error));
-          dispatch(alertActions.error(error));
-        }
-      );
+      .then(() => {
+        dispatch(success());
+        history.push('/login');
+        dispatch(alertActions.success('Registration successful'));
+        return true;
+      })
+      .catch(error => {
+        dispatch(failure(error));
+        dispatch(alertActions.error(error));
+      });
   };
 
-  function request(user) { return { type: userConstants.REGISTER_REQUEST, user } }
-  function success(user) { return { type: userConstants.REGISTER_SUCCESS, user } }
-  function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
+  function request(_user) { return { type: userConstants.REGISTER_REQUEST, _user }; }
+  function success(_user) { return { type: userConstants.REGISTER_SUCCESS, _user }; }
+  function failure(error) { return { type: userConstants.REGISTER_FAILURE, error }; }
 }
 
 function getAll() {
   return dispatch => {
     dispatch(request());
 
-    userService.getAll()
+    return userService.getAll()
       .then(
         users => dispatch(success(users)),
         error => dispatch(failure(error))
       );
   };
 
-  function request() { return { type: userConstants.GETALL_REQUEST } }
-  function success(users) { return { type: userConstants.GETALL_SUCCESS, users } }
-  function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
+  function request() { return { type: userConstants.GETALL_REQUEST }; }
+  function success(users) { return { type: userConstants.GETALL_SUCCESS, users }; }
+  function failure(error) { return { type: userConstants.GETALL_FAILURE, error }; }
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
@@ -85,17 +84,16 @@ function remove(id) {
     dispatch(request(id));
 
     userService.delete(id)
-      .then(
-        user => {
-          dispatch(success(id));
-        },
-        error => {
-          dispatch(failure(id, error));
-        }
-      );
+      .then(() => {
+        dispatch(success(id));
+        return true;
+      }).catch(error => {
+        dispatch(failure(id, error));
+        return true;
+      });
   };
 
-  function request(id) { return { type: userConstants.DELETE_REQUEST, id } }
-  function success(id) { return { type: userConstants.DELETE_SUCCESS, id } }
-  function failure(id, error) { return { type: userConstants.DELETE_FAILURE, id, error } }
+  function request(_id) { return { type: userConstants.DELETE_REQUEST, _id }; }
+  function success(_id) { return { type: userConstants.DELETE_SUCCESS, _id }; }
+  function failure(_id, error) { return { type: userConstants.DELETE_FAILURE, _id, error }; }
 }
