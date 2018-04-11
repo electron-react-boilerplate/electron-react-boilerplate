@@ -112,14 +112,25 @@ export default class MenuBuilder {
     ];
   }
 
+  /* from https://github.com/SimulatedGREG/electron-vue/issues/394
+   */
+  navigate(routePath) {
+    if (this.mainWindow.webContents) {
+      this.mainWindow.webContents.send('navigate', routePath);
+    }
+  }
+
   buildDefaultTemplate() {
     const templateDefault = [{
       label: '&File',
       submenu: [{
-        label: '&Open',
-        accelerator: 'Ctrl+O'
+        label: '&Login/Logout',
+        accelerator: 'Ctrl+L',
+        click: () => {
+          this.navigate('/login');
+        }
       }, {
-        label: '&Close',
+        label: '&Exit',
         accelerator: 'Ctrl+W',
         click: () => {
           this.mainWindow.close();
