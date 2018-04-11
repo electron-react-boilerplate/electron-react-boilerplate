@@ -19,7 +19,15 @@ class Root extends Component<Props> {
     super(props);
     const { dispatch, history } = this.props;
     // from https://github.com/chentsulin/electron-react-boilerplate/issues/293
-    ipcRenderer.on('navigate', (evt, route) => { history.push(route); });
+    ipcRenderer.on(
+      'navigate',
+      (evt, route) => {
+        if (history.location.pathname === route) {
+          return false;
+        }
+        history.push(route);
+      }
+    );
     history.listen(() => {
       // clear alert on location change
       dispatch(alertActions.clear());
