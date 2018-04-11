@@ -1,6 +1,17 @@
 // @flow
 import { app, Menu, shell, BrowserWindow } from 'electron';
 
+const storage = require('electron-json-storage');
+
+function getUserData() {
+  return new Promise((resolve, reject) => {
+    storage.get('user', (error, data) => {
+      if (error) reject(error);
+      resolve(data);
+    });
+  });
+}
+
 export default class MenuBuilder {
   mainWindow: BrowserWindow;
 
@@ -120,11 +131,15 @@ export default class MenuBuilder {
     }
   }
 
-  buildDefaultTemplate() {
+  buildDefaultTemplate(userData) {
+    let loginLabel = '&Login/Logout';
+    if (userData !== undefined) {
+      loginLabel = '&Logout';
+    }
     const templateDefault = [{
       label: '&File',
       submenu: [{
-        label: '&Login/Logout',
+        label: loginLabel,
         accelerator: 'Ctrl+L',
         click: () => {
           this.navigate('/login');
