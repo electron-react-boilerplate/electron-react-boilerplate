@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import { connect } from 'react-redux';
 import { userActions } from '../actions';
 
 type Props = {
