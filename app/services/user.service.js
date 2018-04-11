@@ -10,6 +10,8 @@ export const userService = {
   update,
   delete: _delete
 };
+export default userService;
+
 
 function login(username, password) {
   const requestOptions = {
