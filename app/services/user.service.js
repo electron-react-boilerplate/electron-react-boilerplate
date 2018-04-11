@@ -1,5 +1,6 @@
 import { authHeader } from '../helpers';
 
+const storage = window.require('electron-json-storage');
 
 export const userService = {
   login,
@@ -8,10 +9,11 @@ export const userService = {
   getAll,
   getById,
   update,
-  delete: _delete
+  delete: remove
 };
 export default userService;
 
+const KEY_STORAGE_USER = 'user';
 
 function login(username, password) {
   const requestOptions = {
@@ -27,7 +29,9 @@ function login(username, password) {
       if (json && json.auth_token) {
         // store user details and jwt token in local storage
         // to keep user logged in between page refreshes
-        localStorage.setItem('user', JSON.stringify(json));
+        const userData = JSON.stringify(json);
+        localStorage.setItem(KEY_STORAGE_USER, userData);
+        storage.set(KEY_STORAGE_USER, userData);
         return json;
       }
       const errorMsg = `Error (${json.error_code} ${json.status_code}): ${json.message}`;
@@ -37,7 +41,8 @@ function login(username, password) {
 
 function logout() {
   // remove user from local storage to log user out
-  localStorage.removeItem('user');
+  localStorage.removeItem(KEY_STORAGE_USER);
+  storage.remove(KEY_STORAGE_USER);
 }
 
 function getAll() {
@@ -79,7 +84,7 @@ function update(user) {
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
-function _delete(id) {
+function remove(id) {
   const requestOptions = {
     method: 'DELETE',
     headers: authHeader()

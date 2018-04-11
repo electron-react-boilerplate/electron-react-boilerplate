@@ -3120,6 +3120,16 @@ electron-is-dev@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/electron-is-dev/-/electron-is-dev-0.3.0.tgz#14e6fda5c68e9e4ecbeff9ccf037cbd7c05c5afe"
 
+electron-json-storage@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/electron-json-storage/-/electron-json-storage-4.0.3.tgz#3979d96353fcb0e4761d05391fa38563794a770a"
+  dependencies:
+    async "^2.0.0"
+    lodash "^4.0.1"
+    mkdirp "^0.5.1"
+    rimraf "^2.5.1"
+    rwlock "^5.0.0"
+
 electron-localshortcut@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/electron-localshortcut/-/electron-localshortcut-3.1.0.tgz#10c1ffd537b8d39170aaf6e1551341f7780dd2ce"
@@ -6129,6 +6139,10 @@ lodash@^4.0.0, lodash@^4.1.0, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.15.0, lo
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
+lodash@^4.0.1:
+  version "4.17.5"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
+
 log-symbols@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/log-symbols/-/log-symbols-1.0.2.tgz#376ff7b58ea3086a0f09facc74617eca501e1a18"
@@ -8537,6 +8551,10 @@ run-queue@^1.0.0, run-queue@^1.0.3:
   resolved "https://registry.yarnpkg.com/run-queue/-/run-queue-1.0.3.tgz#e848396f057d223f24386924618e25694161ec47"
   dependencies:
     aproba "^1.1.1"
+
+rwlock@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/rwlock/-/rwlock-5.0.0.tgz#888d6a77a3351cc1a209204ef2ee1722093836cf"
 
 rx-lite-aggregates@^4.0.8:
   version "4.0.8"
