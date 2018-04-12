@@ -10,6 +10,7 @@ const { ipcRenderer } = window.require('electron'); // from https://github.com/e
 type Props = {
   store: {},
   history: {},
+  authentication: {},
   dispatch: () => void,
   alert: {}
 };
@@ -17,7 +18,7 @@ type Props = {
 class Root extends Component<Props> {
   constructor(props) {
     super(props);
-    const { dispatch, history } = this.props;
+    const { dispatch, history, authentication } = this.props;
     // from https://github.com/chentsulin/electron-react-boilerplate/issues/293
     ipcRenderer.on(
       'navigate',
@@ -28,6 +29,8 @@ class Root extends Component<Props> {
         history.push(route);
       }
     );
+    console.log(authentication);
+    ipcRenderer.send('userAuthentication', authentication);
     history.listen(() => {
       // clear alert on location change
       dispatch(alertActions.clear());
@@ -56,9 +59,9 @@ class Root extends Component<Props> {
 }
 
 function mapStateToProps(state) {
-  const { alert } = state;
+  const { alert, authentication } = state;
   return {
-    alert
+    alert, authentication
   };
 }
 
