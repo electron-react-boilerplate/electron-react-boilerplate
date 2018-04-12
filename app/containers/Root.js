@@ -15,6 +15,8 @@ type Props = {
   alert: {}
 };
 
+const KEY_IPC_USER_AUTHENTICATION = 'userAuthentication';
+
 class Root extends Component<Props> {
   constructor(props) {
     super(props);
@@ -29,12 +31,24 @@ class Root extends Component<Props> {
         history.push(route);
       }
     );
-    console.log(authentication);
-    ipcRenderer.send('userAuthentication', authentication);
+    ipcRenderer.send(KEY_IPC_USER_AUTHENTICATION, authentication);
+    // console.log('constructor');
+    // console.log(authentication);
     history.listen(() => {
       // clear alert on location change
       dispatch(alertActions.clear());
     });
+  }
+
+  componentDidUpdate(prevProps) {
+    const { authentication } = this.props;
+    const prevAuth = JSON.stringify(prevProps.authentication);
+    const currentAuth = JSON.stringify(authentication);
+    if (prevAuth !== currentAuth) {
+      // console.log('componentDidUpdate');
+      // console.log(currentAuth);
+      ipcRenderer.send(KEY_IPC_USER_AUTHENTICATION, authentication);
+    }
   }
 
   render() {

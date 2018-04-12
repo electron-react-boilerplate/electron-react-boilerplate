@@ -34,7 +34,7 @@ function login(username, password) {
         const userData = JSON.stringify(newUserObj);
         localStorage.setItem(KEY_STORAGE_USER, userData);
         storage.set(KEY_STORAGE_USER, userData);
-        return userData;
+        return newUserObj;
       }
       const errorMsg = `Error (${json.error_code} ${json.status_code}): ${json.message}`;
       return Promise.reject(errorMsg);

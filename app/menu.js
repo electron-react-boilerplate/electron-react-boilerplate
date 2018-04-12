@@ -7,6 +7,7 @@ export default class MenuBuilder {
   constructor(mainWindow: BrowserWindow) {
     this.mainWindow = mainWindow;
     ipcMain.on('userAuthentication', (event, authentication) => {
+      // console.log(JSON.stringify(authentication));
       this.buildMenu(authentication);
     });
   }
@@ -126,8 +127,11 @@ export default class MenuBuilder {
   buildDefaultTemplate(authentication) {
     let loginLabel = '&Login';
     if (authentication && authentication.loggedIn) {
-      loginLabel = `&Logout ${authentication.username}`;
+      const username = (authentication.user ? authentication.user.username : null) || '';
+      loginLabel = `&Logout ${username}`;
     }
+    // console.log('menu/buildDefaultTemplate');
+    // console.log(loginLabel);
     const templateDefault = [{
       label: '&File',
       submenu: [{
