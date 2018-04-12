@@ -5,22 +5,66 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch",
             "type": "node",
             "request": "launch",
-            "program": "${workspaceRoot}/main.js",
+            "name": "Launch Program",
+            "program": "${workspaceRoot}/app/main.dev.js",
+            "cwd": "${workspaceRoot}",
+            "env": {
+                "HOT": "1",
+                "NODE_ENV": "development"
+            },
+            "runtimeArgs": [
+                "--max_old_space_size=2096",
+                "-r",
+                "babel-register"
+            ],
+            "sourceMaps": true
+        },
+        {
+            "name": "Launch2",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/app/main.dev.js",
             "stopOnEntry": false,
             "args": [],
-            "cwd": "${workspaceRoot}",
+            "cwd": "${workspaceRoot}/app",
+            "preLaunchTask": null,
+            "runtimeExecutable": null,
+            "runtimeArgs": [
+                "--nolazy",
+                "--require",
+                "babel-register"
+            ],
+            "env": {
+                "NODE_ENV": "development"
+            },
+            "console": "internalConsole",
+            "sourceMaps": true,
+            "outFiles": []
+        },
+        {
+            "name": "Launch Main",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/app/main.dev.js",
+            "stopOnEntry": false,
+            "args": [],
+            "cwd": "${workspaceRoot}/app",
             "preLaunchTask": null,
             "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd",
             "runtimeArgs": [
                 ".",
-                "--enable-logging"
+                "-r", 
+                "babel-register"
             ],
-            "env": {},
+            "env": {
+                "cross-env": "",
+                "HOT": "1",
+                "NODE_ENV": "development",
+            },
             "console": "internalConsole",
-            "sourceMaps": false,
+            "sourceMaps": true,
             "outFiles": []
         },
         {
@@ -36,6 +80,32 @@
             "remoteRoot": null
         },
         {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch Chrome",
+            "windows": {
+                "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
+            },
+            "linux": {
+                "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron"
+            },
+            "osx": {
+                "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron"
+            },
+            "runtimeArgs": [
+                "${workspaceRoot}/app",
+                "--debug=9876"
+            ],
+            "webRoot": "${workspaceRoot}/app"
+        },
+        {
+            "type": "node",
+            "request": "attach",
+            "name": "Attach to Main",
+            "port": 9876,
+            "protocol": "legacy"
+        },
+        {
             "type": "node",
             "request": "launch",
             "name": "Jest Tests",
@@ -48,5 +118,11 @@
                 "${workspaceRoot}/dist/**/*"
             ],
         },
+    ],
+    "compounds": [
+        {
+            "name": "Electron",
+            "configurations": ["Launch Electron", "Attach to Main"]
+        }
     ]
 }
