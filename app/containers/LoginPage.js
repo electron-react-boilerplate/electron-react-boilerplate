@@ -2,12 +2,12 @@ import { connect } from 'react-redux';
 import Login from '../components/Login';
 
 function mapStateToProps(state) {
-  const { loggingIn } = state.authentication;
-  if (loggingIn === undefined) {
-    return { loggingIn: false };
+  const { authentication, alert } = state;
+  if (authentication.loggingIn === undefined) {
+    return { loggingIn: false, alert };
   }
   return {
-    loggingIn
+    loggingIn: authentication.loggingIn, alert
   };
 }
 
