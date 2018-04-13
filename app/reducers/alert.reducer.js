@@ -18,3 +18,5 @@ export function alert(state = {}, action) {
       return state;
   }
 }
+
+export default alert;

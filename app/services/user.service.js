@@ -1,4 +1,6 @@
 import { authHeader } from '../helpers';
+import { localStorageConstants } from '../constants/localStorage.constants';
+import { dblDotLocalConstants } from '../constants/dblDotLocal.constants';
 
 const storage = window.require('electron-json-storage');
 
@@ -13,8 +15,6 @@ export const userService = {
 };
 export default userService;
 
-const KEY_STORAGE_USER = 'user';
-
 function login(username, password) {
   const requestOptions = {
     method: 'POST',
@@ -22,7 +22,7 @@ function login(username, password) {
     body: `username=${username}&password=${password}`
   };
 
-  return fetch('http://127.0.0.1:8080/login', requestOptions)
+  return fetch(`${dblDotLocalConstants.HTTP_DBL_DOT_LOCAL_BASE_URL}/login`, requestOptions)
     .then(response => response.json())
     .then(json => {
       // login successful if there's a jwt token in the response
@@ -32,19 +32,19 @@ function login(username, password) {
         const newUserObj = JSON.parse(JSON.stringify(json));
         newUserObj.username = username;
         const userData = JSON.stringify(newUserObj);
-        localStorage.setItem(KEY_STORAGE_USER, userData);
-        storage.set(KEY_STORAGE_USER, userData);
+        localStorage.setItem(localStorageConstants.KEY_LOCAL_STORAGE_USER, userData);
+        storage.set(localStorageConstants.KEY_LOCAL_STORAGE_USER, userData);
         return newUserObj;
       }
-      const errorMsg = `${json.error_code} (${json.status_code}) ${json.message}`;
+      const errorMsg = `${json.message} ${json.error_code} Error (HTTP ${json.status_code})`;
       return Promise.reject(errorMsg);
     });
 }
 
 function logout() {
   // remove user from local storage to log user out
-  localStorage.removeItem(KEY_STORAGE_USER);
-  storage.remove(KEY_STORAGE_USER);
+  localStorage.removeItem(localStorageConstants.KEY_LOCAL_STORAGE_USER);
+  storage.remove(localStorageConstants.KEY_LOCAL_STORAGE_USER);
 }
 
 function getAll() {

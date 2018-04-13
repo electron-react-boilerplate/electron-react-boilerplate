@@ -2,6 +2,7 @@ import { userConstants } from '../constants';
 import { userService } from '../services';
 import { alertActions } from './';
 import { history } from '../store/configureStore';
+import { dblDotLocalConstants } from '../constants/dblDotLocal.constants';
 
 export const userActions = {
   login,
@@ -25,7 +26,15 @@ function login(username, password) {
       })
       .catch(error => {
         dispatch(failure(error));
-        dispatch(alertActions.error(error));
+        let errorMsg = error.toString();
+        if (error.stack) {
+          if (error.message === 'Failed to fetch') {
+            errorMsg = `${error.message}. Check that 'DBL dot Local' process is running at ${dblDotLocalConstants.HTTP_DBL_DOT_LOCAL_BASE_URL}`;
+          } else {
+            errorMsg = error.message;
+          }
+        }
+        dispatch(alertActions.error(errorMsg));
         return true;
       });
   };
