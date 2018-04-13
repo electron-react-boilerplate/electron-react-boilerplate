@@ -1,3 +1,38 @@
+# dbl.local.electron 
+
+### Electron Front End to DBL dot Local 
+[DBL dot Local](https://github.com/ubsicap/dbl-uploader-clients)
+
+## Install
+
+* **Note: requires a node version >= 7 and an npm version >= 4.**
+* **If you have installation or compilation issues with this project, please see [the boilerplate's debugging guide]
+(https://github.com/chentsulin/electron-react-boilerplate/issues/400)**
+
+First, clone the repo via git:
+
+```bash
+git clone --depth=1 https://github.com/ubsicap/dbl.local.electron.git your-project-name
+```
+
+And then install dependencies with yarn.
+
+```bash
+$ cd your-project-name
+$ yarn
+```
+**Note**: If you can't use [yarn](https://github.com/yarnpkg/yarn), run `npm install`.
+
+## Run
+
+Start the app in the `dev` environment. This starts the renderer process in [**hot-module-replacement**](https://webpack.js.org/guides/hmr-react/) mode and starts a webpack dev server that sends hot updates to the renderer process:
+
+```bash
+$ npm run dev
+```
+
+Forked from electron-react-boilerplate. Details below
+
 # electron-react-boilerplate
 
 ### A Boilerplate for Scalable Cross-Platform Desktop Apps
