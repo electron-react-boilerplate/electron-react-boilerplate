@@ -1,15 +1,16 @@
 # dbl.local.electron 
 
 ### Electron Front End to DBL dot Local 
-[DBL dot Local](https://github.com/ubsicap/dbl-uploader-clients)
 
 ## Install
+
+First install and run the flask DBL dot Local proxy server from https://github.com/ubsicap/dbl-uploader-clients
 
 * **Note: requires a node version >= 7 and an npm version >= 4.**
 * **If you have installation or compilation issues with this project, please see [the boilerplate's debugging guide]
 (https://github.com/chentsulin/electron-react-boilerplate/issues/400)**
 
-First, clone the repo via git:
+Next, clone this repo via git:
 
 ```bash
 git clone --depth=1 https://github.com/ubsicap/dbl.local.electron.git your-project-name
