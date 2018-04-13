@@ -4,6 +4,7 @@ import { Provider, connect } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 import Routes from '../routes';
 import { alertActions } from '../actions';
+import { ipcRendererConstants } from '../constants/ipcRenderer.constants';
 
 const { ipcRenderer } = window.require('electron'); // from https://github.com/electron/electron/issues/9920
 
@@ -14,15 +15,13 @@ type Props = {
   dispatch: () => void
 };
 
-const KEY_IPC_USER_AUTHENTICATION = 'userAuthentication';
-
 class Root extends Component<Props> {
   constructor(props) {
     super(props);
     const { dispatch, history, authentication } = this.props;
     // from https://github.com/chentsulin/electron-react-boilerplate/issues/293
     ipcRenderer.on(
-      'navigate',
+      ipcRendererConstants.KEY_IPC_NAVIGATE,
       (evt, route) => {
         if (history.location.pathname === route) {
           return false;
@@ -30,7 +29,7 @@ class Root extends Component<Props> {
         history.push(route);
       }
     );
-    ipcRenderer.send(KEY_IPC_USER_AUTHENTICATION, authentication);
+    ipcRenderer.send(ipcRendererConstants.KEY_IPC_USER_AUTHENTICATION, authentication);
     // console.log('constructor');
     // console.log(authentication);
     history.listen(() => {
@@ -46,7 +45,7 @@ class Root extends Component<Props> {
     if (prevAuth !== currentAuth) {
       // console.log('componentDidUpdate');
       // console.log(currentAuth);
-      ipcRenderer.send(KEY_IPC_USER_AUTHENTICATION, authentication);
+      ipcRenderer.send(ipcRendererConstants.KEY_IPC_USER_AUTHENTICATION, authentication);
     }
   }
 
