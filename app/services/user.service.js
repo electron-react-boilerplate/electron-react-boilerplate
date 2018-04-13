@@ -19,10 +19,10 @@ function login(username, password) {
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: `email=${username}&password=${password}`
+    body: `username=${username}&password=${password}`
   };
 
-  return fetch('https://api.thedigitalbiblelibrary.org/auth/login', requestOptions)
+  return fetch('http://127.0.0.1:8080/login', requestOptions)
     .then(response => response.json())
     .then(json => {
       // login successful if there's a jwt token in the response
@@ -36,7 +36,7 @@ function login(username, password) {
         storage.set(KEY_STORAGE_USER, userData);
         return newUserObj;
       }
-      const errorMsg = `Error (${json.error_code} ${json.status_code}): ${json.message}`;
+      const errorMsg = `${json.error_code} (${json.status_code}) ${json.message}`;
       return Promise.reject(errorMsg);
     });
 }
