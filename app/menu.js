@@ -1,12 +1,13 @@
 // @flow
 import { app, Menu, shell, BrowserWindow, ipcMain } from 'electron';
+import { ipcRendererConstants } from './constants/ipcRenderer.constants';
 
 export default class MenuBuilder {
   mainWindow: BrowserWindow;
 
   constructor(mainWindow: BrowserWindow) {
     this.mainWindow = mainWindow;
-    ipcMain.on('userAuthentication', (event, authentication) => {
+    ipcMain.on(ipcRendererConstants.KEY_IPC_USER_AUTHENTICATION, (event, authentication) => {
       // console.log(JSON.stringify(authentication));
       this.buildMenu(authentication);
     });
@@ -120,7 +121,7 @@ export default class MenuBuilder {
    */
   navigate(routePath) {
     if (this.mainWindow.webContents) {
-      this.mainWindow.webContents.send('navigate', routePath);
+      this.mainWindow.webContents.send(ipcRendererConstants.KEY_IPC_NAVIGATE, routePath);
     }
   }
 
