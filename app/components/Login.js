@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { userActions, alertActions } from '../actions';
+import { userActions } from '../actions';
 
 type Props = {
   dispatch: () => void,
@@ -42,7 +42,6 @@ export default class LoginForm extends React.Component {
     const { username, password } = this.state;
     const { dispatch } = this.props;
     if (username && password) {
-      dispatch(alertActions.clear());
       dispatch(userActions.login(username, password));
     }
   }
