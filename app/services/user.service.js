@@ -58,9 +58,9 @@ function logout() {
         storage.remove(localStorageConstants.KEY_LOCAL_STORAGE_USER);
         return response;
       }
-      throw response;
-    }).catch(response => response.json())
-    .catch(error => Promise.reject(error));
+      // const errorMsg = `${json.message} ${json.error_code} Error (HTTP ${json.status_code})`;
+      return Promise.reject(response.json());
+    });
 }
 
 function getAll() {

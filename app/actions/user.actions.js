@@ -20,12 +20,22 @@ function login(username, password) {
 
     userService.login(username, password)
       .then(user => {
+        dispatch(success(user));
         history.push('/');
-        return dispatch(success(user));
+        return true;
       })
       .catch(error => {
         dispatch(failure(error));
-        dispatch(alertActions.error(formatErrorMessage(error)));
+        let errorMsg = error.toString();
+        if (error.stack) {
+          if (error.message === 'Failed to fetch') {
+            errorMsg = `${error.message}. Check that 'DBL dot Local' process is running at ${dblDotLocalConstants.HTTP_DBL_DOT_LOCAL_BASE_URL}`;
+          } else {
+            errorMsg = error.message;
+          }
+        }
+        dispatch(alertActions.error(errorMsg));
+        return true;
       });
   };
 
@@ -34,28 +44,9 @@ function login(username, password) {
   function failure(error) { return { type: userConstants.LOGIN_FAILURE, error }; }
 }
 
-function formatErrorMessage(error) {
-  let errorMsg = error.toString();
-  if (error.message) {
-    if (error.message === 'Failed to fetch') {
-      errorMsg = `${error.message}. Check that 'DBL dot Local' process is running at ${dblDotLocalConstants.HTTP_DBL_DOT_LOCAL_BASE_URL}`;
-    } else {
-      errorMsg = error.message;
-    }
-  }
-  return errorMsg;
-}
-
 function logout() {
-  return dispatch => {
-    userService.logout()
-      .then({ type: userConstants.LOGOUT })
-      .catch(error => {
-        dispatch(failure(error));
-        dispatch(alertActions.error(formatErrorMessage(error)));
-      });
-  };
-  function failure(error) { return { type: userConstants.LOGOUT_FAILURE, error }; }
+  userService.logout();
+  return { type: userConstants.LOGOUT };
 }
 
 function register(user) {
