@@ -43,24 +43,31 @@ function login(username, password) {
 
 function logout() {
   // remove user from local storage to log user out
+  const auth = authHeader();
+  removeUser();
+  if (!auth.Authorization) {
+    return true;
+  }
   const requestOptions = {
     method: 'POST',
-    headers: authHeader()
+    headers: auth
   };
-
   return fetch(`${dblDotLocalConstants.HTTP_DBL_DOT_LOCAL_BASE_URL}/logout`, requestOptions)
     .then(response => {
       // login successful if there's a jwt token in the response
       if (response.ok) {
         // store user details and jwt token in local storage
         // to keep user logged in between page refreshes
-        localStorage.removeItem(localStorageConstants.KEY_LOCAL_STORAGE_USER);
-        storage.remove(localStorageConstants.KEY_LOCAL_STORAGE_USER);
-        return response;
+        return Promise.resolve(response);
       }
       // const errorMsg = `${json.message} ${json.error_code} Error (HTTP ${json.status_code})`;
       return Promise.reject(response.json());
     });
+}
+
+function removeUser() {
+  localStorage.removeItem(localStorageConstants.KEY_LOCAL_STORAGE_USER);
+  storage.remove(localStorageConstants.KEY_LOCAL_STORAGE_USER);
 }
 
 function getAll() {
