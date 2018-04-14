@@ -54,14 +54,18 @@ function logout() {
   };
   return fetch(`${dblDotLocalConstants.HTTP_DBL_DOT_LOCAL_BASE_URL}/logout`, requestOptions)
     .then(response => {
-      // login successful if there's a jwt token in the response
-      if (response.ok) {
-        // store user details and jwt token in local storage
-        // to keep user logged in between page refreshes
-        return Promise.resolve(response);
+      if (response.size > 0) {
+        return response.json();
+      }
+      return response;
+    })
+    .then(json => {
+      // logout successful if there is no message
+      if (!json.message) {
+        return true;
       }
       // const errorMsg = `${json.message} ${json.error_code} Error (HTTP ${json.status_code})`;
-      return Promise.reject(response.json());
+      return Promise.reject(json);
     });
 }
 
