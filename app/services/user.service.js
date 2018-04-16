@@ -67,13 +67,16 @@ function logout() {
       return response;
     })
     .then(json => {
+      removeUser();
       // logout successful if there is no message
       if (!json.message) {
         return true;
       }
-      removeUser();
       // const errorMsg = `${json.message} ${json.error_code} Error (HTTP ${json.status_code})`;
       return Promise.reject(json);
+    }).catch(error => {
+      removeUser();
+      return Promise.reject(error);
     });
 }
 
