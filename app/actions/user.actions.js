@@ -3,6 +3,7 @@ import { userService } from '../services';
 import { alertActions } from './';
 import { history } from '../store/configureStore';
 import { dblDotLocalConstants } from '../constants/dblDotLocal.constants';
+import { navigationConstants } from '../constants/navigation.constants';
 
 export const userActions = {
   login,
@@ -37,7 +38,7 @@ function login(username, password) {
       .login(username, password)
       .then(user => {
         dispatch(success(user));
-        history.push('/');
+        history.push(navigationConstants.NAVIGATION_BUNDLES);
         return true;
       })
       .catch(error => {

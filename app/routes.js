@@ -2,15 +2,17 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
 import App from './containers/App';
-import HomePage from './containers/HomePage';
+import BundlesPage from './containers/BundlesPage';
 import LoginPage from './containers/LoginPage';
 import { PrivateRoute } from './components/PrivateRoute';
+import { navigationConstants } from './constants/navigation.constants';
 
 export default () => (
   <App>
     <Switch>
-      <Route path="/login" component={LoginPage} />
-      <PrivateRoute exact path="/" component={HomePage} />
+      <Route path={navigationConstants.NAVIGATION_LOGIN} component={LoginPage} />
+      <PrivateRoute exact path="/" component={BundlesPage} />
+      <PrivateRoute exact path={navigationConstants.NAVIGATION_BUNDLES} component={BundlesPage} />
     </Switch>
   </App>
 );

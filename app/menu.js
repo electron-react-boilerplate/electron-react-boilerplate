@@ -1,6 +1,7 @@
 // @flow
 import { app, Menu, shell, BrowserWindow, ipcMain } from 'electron';
 import { ipcRendererConstants } from './constants/ipcRenderer.constants';
+import { navigationConstants } from './constants/navigation.constants';
 
 export default class MenuBuilder {
   mainWindow: BrowserWindow;
@@ -139,7 +140,7 @@ export default class MenuBuilder {
         label: loginLabel,
         accelerator: 'Ctrl+L',
         click: () => {
-          this.navigate('/login');
+          this.navigate(navigationConstants.NAVIGATION_LOGIN);
         }
       }, {
         label: '&Exit',
