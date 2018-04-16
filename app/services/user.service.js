@@ -7,6 +7,7 @@ const storage = window.require('electron-json-storage');
 export const userService = {
   login,
   logout,
+  getUser,
   register,
   getAll,
   getById,
@@ -41,12 +42,16 @@ function login(username, password) {
     });
 }
 
+function getUser() {
+  return localStorage.getItem(localStorageConstants.KEY_LOCAL_STORAGE_USER) || {};
+}
+
 function logout() {
   // remove user from local storage to log user out
   const auth = authHeader();
   removeUser();
   if (!auth.Authorization) {
-    return true;
+    return new Promise(resolve => resolve({}));
   }
   const requestOptions = {
     method: 'POST',

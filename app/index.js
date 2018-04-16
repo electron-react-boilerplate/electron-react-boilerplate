@@ -5,6 +5,7 @@ import Root from './containers/Root';
 import { configureStore, history } from './store/configureStore';
 import './app.global.css';
 import { userService } from './services/user.service';
+import { localStorageConstants } from './constants/localStorage.constants';
 
 userService.logout();
 const store = configureStore();
