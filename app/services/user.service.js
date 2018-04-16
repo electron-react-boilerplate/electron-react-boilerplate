@@ -49,9 +49,11 @@ function getUser() {
 function logout() {
   // remove user from local storage to log user out
   const auth = authHeader();
-  removeUser();
   if (!auth.Authorization) {
-    return new Promise(resolve => resolve({}));
+    return new Promise(resolve => {
+      removeUser();
+      resolve({});
+    });
   }
   const requestOptions = {
     method: 'POST',
@@ -69,6 +71,7 @@ function logout() {
       if (!json.message) {
         return true;
       }
+      removeUser();
       // const errorMsg = `${json.message} ${json.error_code} Error (HTTP ${json.status_code})`;
       return Promise.reject(json);
     });
