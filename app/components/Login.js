@@ -70,7 +70,7 @@ export default class LoginForm extends React.Component {
                                   }
                       </div>
                       <div className={`form-group${submitted && !password ? ' has-error' : ''}`}>
-                        <input placeholder="password" type="password" className="form-control" name="password" value={password} onChange={this.handleChange} />
+                        <input placeholder="password" type="password" className="form-control" name="password" value={password} onChange={this.handleChange} onFocus={e => e.target.select()} />
                         {submitted && !password &&
                         <div className="help-block">Password is required</div>
                                   }

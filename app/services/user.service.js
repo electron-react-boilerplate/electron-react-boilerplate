@@ -30,15 +30,15 @@ function login(username, password) {
       if (json && json.auth_token) {
         // store user details and jwt token in local storage
         // to keep user logged in between page refreshes
-        const newUserObj = JSON.parse(JSON.stringify(json));
-        newUserObj.username = username;
+        const newUserObj = { ...json, username };
         const userData = JSON.stringify(newUserObj);
         localStorage.setItem(localStorageConstants.KEY_LOCAL_STORAGE_USER, userData);
         storage.set(localStorageConstants.KEY_LOCAL_STORAGE_USER, userData);
         return newUserObj;
       }
-      const errorMsg = `${json.message} ${json.error_code} Error (HTTP ${json.status_code})`;
-      return Promise.reject(errorMsg);
+      const messageDisplayAs = `${json.message} ${json.error_code} Error (HTTP ${json.status_code})`;
+      const newError = { ...json, messageDisplayAs };
+      return Promise.reject(newError);
     });
 }
 
