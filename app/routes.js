@@ -1,6 +1,6 @@
 /* eslint flowtype-errors/show-errors: 0 */
 import React from 'react';
-import { Switch, Route } from 'react-router';
+import { Switch, Route, Redirect } from 'react-router';
 import App from './containers/App';
 import BundlesPage from './containers/BundlesPage';
 import LoginPage from './containers/LoginPage';
@@ -11,7 +11,7 @@ export default () => (
   <App>
     <Switch>
       <Route path={navigationConstants.NAVIGATION_LOGIN} component={LoginPage} />
-      <PrivateRoute exact path="/" component={BundlesPage} />
+      <Redirect exact from="/" to={navigationConstants.NAVIGATION_LOGIN} />
       <PrivateRoute exact path={navigationConstants.NAVIGATION_BUNDLES} component={BundlesPage} />
     </Switch>
   </App>
