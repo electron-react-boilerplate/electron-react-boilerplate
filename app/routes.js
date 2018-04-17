@@ -11,8 +11,8 @@ export default () => (
   <App>
     <Switch>
       <Route path={navigationConstants.NAVIGATION_LOGIN} component={LoginPage} />
-      <Redirect exact from="/" to={navigationConstants.NAVIGATION_LOGIN} />
-      <PrivateRoute exact path={navigationConstants.NAVIGATION_BUNDLES} component={BundlesPage} />
+      <Redirect exact from="/" to={navigationConstants.NAVIGATION_BUNDLES} />
+      <Route exact path={navigationConstants.NAVIGATION_BUNDLES} component={BundlesPage} />
     </Switch>
   </App>
 );

@@ -1,14 +1,27 @@
-.container {
-  position: absolute;
-  top: 30%;
-  left: 10px;
-  text-align: center;
-}
-
 .container h2 {
   font-size: 5rem;
 }
 
 .container a {
   font-size: 1.4rem;
+}
+
+.bundleRow {
+  height: 50px;
+}
+
+/* .progress css From https://stackoverflow.com/a/18647217 */
+.progress {
+  background: -webkit-linear-gradient(left, black 50%, white 50%);
+  background: -moz-linear-gradient(left, black 50%, white 50%);
+  background: -ms-linear-gradient(left, black 50%, white 50%);
+  background: linear-gradient(left, black 50%, white 50%);
+}
+
+.leftSide {
+  float:left;
+}
+.rightSide {
+  text-align: right;
+  width: 100%;
 }
