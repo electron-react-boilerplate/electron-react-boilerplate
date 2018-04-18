@@ -11,6 +11,7 @@
   vertical-align: middle;
   height: 50px;
   width: 100%;
+  margin-bottom: 2px;
 }
 
 /* .progress css From https://stackoverflow.com/a/18647217 */
