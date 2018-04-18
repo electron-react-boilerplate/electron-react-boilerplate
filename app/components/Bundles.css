@@ -8,6 +8,8 @@
 
 .bundleRow {
   height: 50px;
+  margin-bottom: 2px;
+  padding: 2% 0;
 }
 
 /* .progress css From https://stackoverflow.com/a/18647217 */
@@ -19,9 +21,11 @@
 }
 
 .leftSide {
+  margin-left: 20px;
   float:left;
+  text-align: left;
 }
 .rightSide {
   text-align: right;
-  width: 100%;
+  margin-right: 20px;
 }

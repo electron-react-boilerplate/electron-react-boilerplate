@@ -56,16 +56,12 @@ export default class Bundles extends Component<Props> {
   render() {
     const { bundles } = this.state;
     return (
-      <div>
-        <div className={styles.container} data-tid="container">
-          <div className="container">
-            {bundles.map((d) => (
-              <div className={styles.bundleRow} key={d.id} style={{ background: `-webkit-linear-gradient(left, ${pickBackgroundColor(d.status)} ${d.progress || 100}%, white ${remainder(d.progress)}%)` }}>
-                <div className={styles.leftSide}>{d.nameDisplayAs}</div>
-                <div className={styles.rightSide}>{d.statusDisplayAs}</div>
-              </div>))}
-          </div>
-        </div>
+      <div className={styles.container} data-tid="container">
+        {bundles.map((d) => (
+          <div className={styles.bundleRow} key={d.id} style={{ background: `-webkit-linear-gradient(left, ${pickBackgroundColor(d.status)} ${d.progress || 100}%, white ${remainder(d.progress)}%)` }}>
+            <div className={styles.leftSide}>{d.nameDisplayAs}</div>
+            <div className={styles.rightSide}>{d.statusDisplayAs}</div>
+          </div>))}
       </div>
     );
   }
