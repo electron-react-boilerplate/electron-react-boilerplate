@@ -13,7 +13,7 @@ function getBundles() {
       id: 'bundle02', nameDisplayAs: 'Another Bundle', revision: 3, task: 'UPLOAD', statusDisplayAs: 'Uploading (63%)', status: 'UPLOADING', progress: 63, mode: 'PAUSED'
     },
     {
-      id: 'bundle03', nameDisplayAs: 'Audio Bundle', revision: 52, task: 'UPLOAD', statusDisplayAs: 'Uploading (82%)', status: 'UPLOADING', progress: 82, mode: 'RUNNING'
+      id: 'bundle03', nameDisplayAs: 'Audio Bundle', revision: 52, task: 'DOWNLOAD', statusDisplayAs: 'Downloading (12%)', status: 'DOWNLOADING', progress: 12, mode: 'RUNNING'
     },
     {
       id: 'bundle04', nameDisplayAs: 'Unfinished Bundle', task: 'UPLOAD', statusDisplayAs: 'Draft', status: 'DRAFT'
@@ -38,15 +38,13 @@ function getBundles() {
   return sortedBundles;
 }
 
-function remainder(progress) {
-  return 100 - (progress || 0);
-}
-
 function pickBackgroundColor(status) {
   switch (status) {
     case 'DRAFT': return '#F5D2D2';
     case 'NOT_STARTED': return '#EDEDED';
-    case 'UPLOADING': return '#6DCBC4';
+    case 'UPLOADING':
+    case 'DOWNLOADING':
+      return '#6DCBC4';
     case 'COMPLETED': return '#A1CB6D';
     default:
       return 'white';
@@ -68,7 +66,7 @@ export default class Bundles extends Component<Props> {
     return (
       <div className={styles.container} data-tid="container">
         {bundles.map((d) => (
-          <div className={styles.bundleRow} key={d.id} style={{ background: `-webkit-linear-gradient(left, ${pickBackgroundColor(d.status)} ${d.progress || 100}%, white ${remainder(d.progress)}%)` }}>
+          <div className={styles.bundleRow} key={d.id} style={{ background: `linear-gradient(to right, ${pickBackgroundColor(d.status)} 0%, ${pickBackgroundColor(d.status)} ${d.progress || 100}%, transparent 0%), linear-gradient(to bottom, white 0%, white 100%)` }}>
             <div className={styles.leftSide}>{d.nameDisplayAs}</div>
             <div className={styles.rightSide}>{d.statusDisplayAs}</div>
           </div>))}
