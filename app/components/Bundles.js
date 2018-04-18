@@ -1,31 +1,41 @@
 // @flow
 import React, { Component } from 'react';
+import sort from 'fast-sort';
 import styles from './Bundles.css';
 
+
 function getBundles() {
-  return [
+  const bundles = [
     {
-      id: 'bundle01', nameDisplayAs: 'Test Bundle #1', revision: 3, statusDisplayAs: 'Uploaded', status: 'UPLOADED'
+      id: 'bundle01', nameDisplayAs: 'Test Bundle #1', revision: 3, task: 'UPLOAD', statusDisplayAs: 'Uploaded', status: 'COMPLETED'
     },
     {
-      id: 'bundle02', nameDisplayAs: 'Another Bundle', revision: 3, statusDisplayAs: 'Uploading (63%)', status: 'UPLOADING', progress: 63, mode: 'PAUSED'
+      id: 'bundle02', nameDisplayAs: 'Another Bundle', revision: 3, task: 'UPLOAD', statusDisplayAs: 'Uploading (63%)', status: 'UPLOADING', progress: 63, mode: 'PAUSED'
     },
     {
-      id: 'bundle03', nameDisplayAs: 'Audio Bundle', revision: 52, statusDisplayAs: 'Uploading (82%)', status: 'UPLOADING', progress: 82, mode: 'RUNNING'
+      id: 'bundle03', nameDisplayAs: 'Audio Bundle', revision: 52, task: 'UPLOAD', statusDisplayAs: 'Uploading (82%)', status: 'UPLOADING', progress: 82, mode: 'RUNNING'
     },
     {
-      id: 'bundle04', nameDisplayAs: 'Unfinished Bundle', statusDisplayAs: 'Draft', status: 'DRAFT'
+      id: 'bundle04', nameDisplayAs: 'Unfinished Bundle', task: 'UPLOAD', statusDisplayAs: 'Draft', status: 'DRAFT'
     },
     {
-      id: 'bundle05', nameDisplayAs: 'Unfinished Video Bundle', statusDisplayAs: 'Draft', status: 'DRAFT'
+      id: 'bundle05', nameDisplayAs: 'Unfinished Video Bundle', task: 'UPLOAD', statusDisplayAs: 'Draft', status: 'DRAFT'
     },
     {
-      id: 'bundle06', nameDisplayAs: 'DBL Bundle', statusDisplayAs: 'Download', status: 'IN_DBL'
+      id: 'bundle06', nameDisplayAs: 'DBL Bundle', task: 'DOWNLOAD', statusDisplayAs: 'Download', status: 'NOT_STARTED'
     },
     {
-      id: 'bundle07', nameDisplayAs: 'DBL Bundle 3', statusDisplayAs: 'Download', status: 'IN_DBL'
+      id: 'bundle07', nameDisplayAs: 'DBL Bundle 3', task: 'DOWNLOAD', statusDisplayAs: 'Download', status: 'NOT_STARTED'
     }
   ];
+  const taskOrder = ['UPLOAD', 'DOWNLOAD'];
+  const statusOrder = ['UPLOADING', 'COMPLETED', 'DRAFT', 'NOT_STARTED'];
+  const sortedBundles = sort(bundles).asc([
+    (b) => taskOrder.indexOf(b.task),
+    (b) => statusOrder.indexOf(b.status),
+    (b) => b.name,
+  ]);
+  return sortedBundles;
 }
 
 function remainder(progress) {
@@ -35,9 +45,9 @@ function remainder(progress) {
 function pickBackgroundColor(status) {
   switch (status) {
     case 'DRAFT': return '#F5D2D2';
-    case 'IN_DBL': return '#EDEDED';
+    case 'NOT_STARTED': return '#EDEDED';
     case 'UPLOADING': return '#6DCBC4';
-    case 'UPLOADED': return '#A1CB6D';
+    case 'COMPLETED': return '#A1CB6D';
     default:
       return 'white';
   }
