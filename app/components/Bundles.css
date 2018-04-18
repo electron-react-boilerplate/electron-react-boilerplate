@@ -7,9 +7,10 @@
 }
 
 .bundleRow {
+  display: table;
+  vertical-align: middle;
   height: 50px;
-  margin-bottom: 2px;
-  padding: 2% 0;
+  width: 100%;
 }
 
 /* .progress css From https://stackoverflow.com/a/18647217 */
@@ -21,11 +22,13 @@
 }
 
 .leftSide {
-  margin-left: 20px;
-  float:left;
-  text-align: left;
+  display: table-cell;
+  padding-left: 20px;
+  vertical-align: middle;
 }
 .rightSide {
+  display: table-cell;
   text-align: right;
-  margin-right: 20px;
+  padding-right: 20px;
+  vertical-align: middle;
 }
