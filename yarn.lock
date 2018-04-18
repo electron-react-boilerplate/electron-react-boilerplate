@@ -3851,6 +3851,10 @@ fast-levenshtein@^2.0.6, fast-levenshtein@~2.0.4:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz#3d8a5c66883a16a30ca8643e851f19baa7797917"
 
+fast-sort@^1.2.6:
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/fast-sort/-/fast-sort-1.2.6.tgz#23b4a6f049dfc3307c9e1672b498d7a52447db9d"
+
 fastparse@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/fastparse/-/fastparse-1.1.1.tgz#d1e2643b38a94d7583b479060e6c4affc94071f8"
