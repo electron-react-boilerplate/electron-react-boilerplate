@@ -30,30 +30,39 @@
 }
 
 .bundleRow {
-  display: table;
-  vertical-align: middle;
-  height: 50px;
   width: 100%;
   margin-bottom: 2px;
 }
 
-/* .progress css From https://stackoverflow.com/a/18647217 */
-.progress {
-  background: -webkit-linear-gradient(left, black 50%, white 50%);
-  background: -moz-linear-gradient(left, black 50%, white 50%);
-  background: -ms-linear-gradient(left, black 50%, white 50%);
-  background: linear-gradient(left, black 50%, white 50%);
+.bundleRowTop {
+  display: table;
+  width: 100%;
+  vertical-align: middle;
+  height: 50px;
 }
 
-.leftSide {
+.bundleRowTopLeftSide {
   display: table-cell;
   padding-left: 20px;
   vertical-align: middle;
 }
 
-.rightSide {
+.bundleRowTopRightSide {
   display: table-cell;
   text-align: right;
   padding-right: 20px;
   vertical-align: middle;
+}
+
+.bundleRowBottom {
+  display: table;
+  width: 100%;
+  vertical-align: middle;
+  height: 30px;
+}
+
+.bundleRowBottomMenuItem {
+  vertical-align: middle;
+  text-align: left;
+  padding-left: 20px;
 }

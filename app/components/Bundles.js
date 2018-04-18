@@ -71,8 +71,18 @@ export default class Bundles extends Component<Props> {
         </div>
         {bundles.map((d) => (
           <div className={styles.bundleRow} key={d.id} style={{ background: `linear-gradient(to right, ${pickBackgroundColor(d.status)} 0%, ${pickBackgroundColor(d.status)} ${d.progress || 100}%, transparent 0%), linear-gradient(to bottom, white 0%, white 100%)` }}>
-            <div className={styles.leftSide}>{d.nameDisplayAs}</div>
-            <div className={styles.rightSide}>{d.statusDisplayAs}</div>
+            <div className={styles.bundleRowTop}>
+              <div className={styles.bundleRowTopLeftSide}>{d.nameDisplayAs}</div>
+              <div className={styles.bundleRowTopRightSide}>{d.statusDisplayAs}</div>
+            </div>
+            {d.selected &&
+              <div className="row container">
+                <div className={styles.bundleRowBottomMenuItem}>Revise</div>
+                <div className={styles.bundleRowBottomMenuItem}>Download</div>
+                <div className={styles.bundleRowBottomMenuItem}>Info</div>
+                <div className={styles.bundleRowBottomMenuItem}>Delete</div>
+              </div>
+            }
           </div>))}
       </div>
     );
