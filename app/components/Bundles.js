@@ -28,8 +28,19 @@ function getBundles() {
   ];
 }
 
-function remainder(progress){
+function remainder(progress) {
   return 100 - (progress || 0);
+}
+
+function pickBackgroundColor(status) {
+  switch (status) {
+    case 'DRAFT': return '#F5D2D2';
+    case 'IN_DBL': return '#EDEDED';
+    case 'UPLOADING': return '#6DCBC4';
+    case 'UPLOADED': return '#A1CB6D';
+    default:
+      return 'white';
+  }
 }
 
 type Props = {};
@@ -49,8 +60,9 @@ export default class Bundles extends Component<Props> {
         <div className={styles.container} data-tid="container">
           <div className="container">
             {bundles.map((d) => (
-              <div className={styles.bundleRow} key={d.id} style={{ background: `-webkit-linear-gradient(left, powderblue ${d.progress || 100}%, white ${remainder(d.progress)}%)` }}>
-                <div className={styles.leftSide}>{d.nameDisplayAs}</div><div className={styles.rightSide}>{d.statusDisplayAs}</div>
+              <div className={styles.bundleRow} key={d.id} style={{ background: `-webkit-linear-gradient(left, ${pickBackgroundColor(d.status)} ${d.progress || 100}%, white ${remainder(d.progress)}%)` }}>
+                <div className={styles.leftSide}>{d.nameDisplayAs}</div>
+                <div className={styles.rightSide}>{d.statusDisplayAs}</div>
               </div>))}
           </div>
         </div>
