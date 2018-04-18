@@ -7,7 +7,7 @@ import styles from './Bundles.css';
 function getBundles() {
   const bundles = [
     {
-      id: 'bundle01', nameDisplayAs: 'Test Bundle #1', revision: 3, task: 'UPLOAD', statusDisplayAs: 'Uploaded', status: 'COMPLETED'
+      id: 'bundle01', nameDisplayAs: 'Test Bundle #1', revision: 3, task: 'UPLOAD', statusDisplayAs: 'Uploaded', status: 'COMPLETED', selected: true,
     },
     {
       id: 'bundle02', nameDisplayAs: 'Another Bundle', revision: 3, task: 'UPLOAD', statusDisplayAs: 'Uploading (63%)', status: 'UPLOADING', progress: 63, mode: 'PAUSED'
@@ -65,6 +65,10 @@ export default class Bundles extends Component<Props> {
     const { bundles } = this.state;
     return (
       <div className={styles.container} data-tid="container">
+        <div className={styles.searchBar}>
+          <div className={styles.searchBarFilters}>Show: <span>All</span> </div>
+          <div className={styles.searchBarSearch}>Search: <input type="text" name="search" /></div>
+        </div>
         {bundles.map((d) => (
           <div className={styles.bundleRow} key={d.id} style={{ background: `linear-gradient(to right, ${pickBackgroundColor(d.status)} 0%, ${pickBackgroundColor(d.status)} ${d.progress || 100}%, transparent 0%), linear-gradient(to bottom, white 0%, white 100%)` }}>
             <div className={styles.leftSide}>{d.nameDisplayAs}</div>

@@ -6,6 +6,27 @@
   font-size: 1.4rem;
 }
 
+.searchBar {
+  display: table;
+  vertical-align: middle;
+  height: 25px;
+  width: 100%;
+  background-color: rgb(240,240,240);
+}
+
+.searchBarFilters {
+  padding-left: 20px;
+  display: cell;
+  vertical-align: middle;
+}
+
+.searchBarSearch {
+  display: table-cell;
+  text-align: right;
+  padding-right: 20px;
+  vertical-align: middle;
+}
+
 .bundleRow {
   display: table;
   vertical-align: middle;
@@ -27,6 +48,7 @@
   padding-left: 20px;
   vertical-align: middle;
 }
+
 .rightSide {
   display: table-cell;
   text-align: right;
