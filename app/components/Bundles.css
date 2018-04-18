@@ -12,6 +12,9 @@
   height: 25px;
   width: 100%;
   background-color: rgb(240,240,240);
+  border-color: lightgray;
+  border-style: solid none none;
+  border-width: 1px;
 }
 
 .searchBarFilters {
