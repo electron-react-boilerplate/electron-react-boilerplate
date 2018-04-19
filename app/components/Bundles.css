@@ -56,6 +56,10 @@
   float: right;
 }
 
+.iconRightOfText {
+  padding-left: 5px;
+}
+
 .bundleRowBottom {
   display: table;
   width: 100%;
