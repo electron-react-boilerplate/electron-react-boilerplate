@@ -32,10 +32,10 @@ function getBundles() {
     },
   ];
   const taskOrder = ['UPLOAD', 'DOWNLOAD'];
-  const statusOrder = ['UPLOADING', 'COMPLETED', 'DRAFT', 'NOT_STARTED'];
+  const statusOrder = ['UPLOADING', 'DOWNLOADING', 'DRAFT', 'COMPLETED', 'NOT_STARTED'];
   const sortedBundles = sort(bundles).asc([
-    (b) => taskOrder.indexOf(b.task),
     (b) => statusOrder.indexOf(b.status),
+    (b) => taskOrder.indexOf(b.task),
     (b) => b.name,
   ]);
   return sortedBundles;
