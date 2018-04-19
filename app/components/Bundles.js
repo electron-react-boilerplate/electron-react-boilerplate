@@ -73,7 +73,9 @@ export default class Bundles extends Component<Props> {
           <div className={styles.bundleRow} key={d.id} style={{ background: `linear-gradient(to right, ${pickBackgroundColor(d.status)} 0%, ${pickBackgroundColor(d.status)} ${d.progress || 100}%, transparent 0%), linear-gradient(to bottom, white 0%, white 100%)` }}>
             <div className={styles.bundleRowTop}>
               <div className={styles.bundleRowTopLeftSide}>{d.nameDisplayAs}</div>
-              <div className={styles.bundleRowTopRightSide}>{d.statusDisplayAs}</div>
+              <div className={styles.bundleRowTopRightSide}>
+                {d.statusDisplayAs} {d.task === 'DOWNLOAD' && d.status === 'NOT_STARTED' && <i className="material-icons">file_download</i>}
+              </div>
             </div>
             {d.selected &&
               <div className={`${styles.menuBar} + row`}>
