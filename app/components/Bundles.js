@@ -36,6 +36,10 @@ class Bundles extends Component<Props> {
           <div className={styles.searchBarFilters}>Show: <span>All</span> </div>
           <div className={styles.searchBarSearch}>Search: <input type="text" name="search" /></div>
         </div>
+        {bundles.loading &&
+        <svg className={styles.spinner} width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+          <circle className="path" fill="none" strokeWidth="6" strokeLinecap="round" cx="33" cy="33" r="30" />
+        </svg>}
         {bundles.items && bundles.items.map((d) => (
           <div className={styles.bundleRow} key={d.id} style={{ background: `linear-gradient(to right, ${pickBackgroundColor(d.status)} 0%, ${pickBackgroundColor(d.status)} ${d.progress || 100}%, transparent 0%), linear-gradient(to bottom, white 0%, white 100%)` }}>
             <div className={styles.bundleRowTop}>
