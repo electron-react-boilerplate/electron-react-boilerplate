@@ -76,11 +76,11 @@ export default class Bundles extends Component<Props> {
               <div className={styles.bundleRowTopRightSide}>{d.statusDisplayAs}</div>
             </div>
             {d.selected &&
-              <div className="row container">
-                <div className={styles.bundleRowBottomMenuItem}>Revise</div>
-                <div className={styles.bundleRowBottomMenuItem}>Download</div>
-                <div className={styles.bundleRowBottomMenuItem}>Info</div>
-                <div className={styles.bundleRowBottomMenuItem}>Delete</div>
+              <div className={`${styles.menuBar} + row`}>
+                <div className={styles.bundleRowBottomMenuItem}><i className="material-icons">call_split</i> Revise</div>
+                <div className={styles.bundleRowBottomMenuItem}><i className="material-icons">file_download</i> Download</div>
+                <div className={styles.bundleRowBottomMenuItem}><i className="material-icons">info_outline</i>&nbsp;Info</div>
+                <div className={styles.bundleRowBottomMenuItem}><i className="material-icons">delete</i> Delete</div>
               </div>
             }
           </div>))}

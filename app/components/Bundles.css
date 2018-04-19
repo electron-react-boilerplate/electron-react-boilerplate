@@ -61,8 +61,16 @@
   height: 30px;
 }
 
+.menuBar {
+  padding-left: 30px;
+}
+
 .bundleRowBottomMenuItem {
   vertical-align: middle;
   text-align: left;
-  padding-left: 20px;
+  font-size: small;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 10px;
+  display: inline-flex;
 }
