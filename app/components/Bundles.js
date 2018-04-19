@@ -26,7 +26,10 @@ function getBundles() {
     },
     {
       id: 'bundle07', nameDisplayAs: 'DBL Bundle 3', task: 'DOWNLOAD', statusDisplayAs: 'Download', status: 'NOT_STARTED'
-    }
+    },
+    {
+      id: 'bundle08', nameDisplayAs: 'Audio Bundle #2', revision: 40, task: 'DOWNLOAD', statusDisplayAs: 'Downloaded', status: 'COMPLETED'
+    },
   ];
   const taskOrder = ['UPLOAD', 'DOWNLOAD'];
   const statusOrder = ['UPLOADING', 'COMPLETED', 'DRAFT', 'NOT_STARTED'];
