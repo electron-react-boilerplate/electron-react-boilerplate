@@ -11,8 +11,7 @@ export const userService = {
   register,
   getAll,
   getById,
-  update,
-  delete: remove
+  update
 };
 export default userService;
 
@@ -121,16 +120,6 @@ function update(user) {
   };
 
   return fetch(`/users/${user.id}`, requestOptions).then(handleResponse);
-}
-
-// prefixed function name with underscore because delete is a reserved word in javascript
-function remove(id) {
-  const requestOptions = {
-    method: 'DELETE',
-    headers: authHeader()
-  };
-
-  return fetch(`/users/${id}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {

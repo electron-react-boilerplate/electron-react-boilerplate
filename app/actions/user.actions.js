@@ -8,8 +8,7 @@ import { navigationConstants } from '../constants/navigation.constants';
 export const userActions = {
   login,
   logout,
-  getAll,
-  delete: remove
+  getAll
 };
 
 export default userActions;
@@ -109,33 +108,5 @@ function getAll() {
   }
   function failure(error) {
     return { type: userConstants.GETALL_FAILURE, error };
-  }
-}
-
-// prefixed function name with underscore because delete is a reserved word in javascript
-function remove(id) {
-  return dispatch => {
-    dispatch(request(id));
-
-    userService
-      .delete(id)
-      .then(() => {
-        dispatch(success(id));
-        return true;
-      })
-      .catch(error => {
-        dispatch(failure(id, error));
-        return true;
-      });
-  };
-
-  function request(_id) {
-    return { type: userConstants.DELETE_REQUEST, _id };
-  }
-  function success(_id) {
-    return { type: userConstants.DELETE_SUCCESS, _id };
-  }
-  function failure(_id, error) {
-    return { type: userConstants.DELETE_FAILURE, _id, error };
   }
 }
