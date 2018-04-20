@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { mockFetchAll } from '../actions/bundle.actions';
+import { mockFetchAll, toggleSelectBundle } from '../actions/bundle.actions';
 import styles from './Bundles.css';
 
 function pickBackgroundColor(status) {
@@ -17,9 +17,15 @@ function pickBackgroundColor(status) {
 }
 
 type Props = {
+  dispatch: () => void,
   mockFetchAll: () => {},
+  toggleSelectBundle: (id) => {},
   bundles: {}
 };
+
+function onKeyPressHandler(event) {
+  event.preventDefault();
+}
 
 class Bundles extends Component<Props> {
   props: Props;
@@ -29,7 +35,7 @@ class Bundles extends Component<Props> {
   }
 
   render() {
-    const { bundles } = this.props;
+    const { bundles, dispatch } = this.props;
     return (
       <div className={styles.container} data-tid="container">
         <div className={styles.searchBar}>
@@ -42,7 +48,15 @@ class Bundles extends Component<Props> {
         </svg>
         }
         {bundles.items && bundles.items.map((d) => (
-          <div className={styles.bundleRow} key={d.id} style={{ background: `linear-gradient(to right, ${pickBackgroundColor(d.status)} 0%, ${pickBackgroundColor(d.status)} ${d.progress || 100}%, transparent 0%), linear-gradient(to bottom, white 0%, white 100%)` }}>
+          <div
+            className={styles.bundleRow}
+            key={d.id}
+            onKeyPress={onKeyPressHandler}
+            onClick={dispatch(toggleSelectBundle(d.id))}
+            tabIndex={0}
+            role="button"
+            style={{ background: `linear-gradient(to right, ${pickBackgroundColor(d.status)} 0%, ${pickBackgroundColor(d.status)} ${d.progress || 100}%, transparent 0%), linear-gradient(to bottom, white 0%, white 100%)` }}
+          >
             <div className={styles.bundleRowTop}>
               <div className={styles.bundleRowTopLeftSide}>{d.nameDisplayAs}</div>
               <div className={styles.bundleRowTopRightSide}>
@@ -51,7 +65,7 @@ class Bundles extends Component<Props> {
                 {d.mode === 'RUNNING' && <i className={`${styles.iconRightOfText} + material-icons`}>pause_circle_filled</i>}
               </div>
             </div>
-            {d.selected &&
+            {bundles.selectedBundle && bundles.selectedBundle.id === d.id &&
               <div className={`${styles.menuBar} + row`}>
                 <div className={styles.bundleRowBottomMenuItem}><i className="material-icons">call_split</i> Revise</div>
                 <div className={styles.bundleRowBottomMenuItem}><i className="material-icons">file_download</i> Download</div>

@@ -5,7 +5,8 @@ import { bundleService } from '../services/bundle.service';
 export const bundleActions = {
   mockFetchAll,
   fetchAll,
-  delete: removeBundle
+  delete: removeBundle,
+  toggleSelectBundle,
 };
 
 export default bundleActions;
@@ -70,7 +71,6 @@ export function mockFetchAll() {
   }
 }
 
-
 function fetchAll() {
   return dispatch => {
     dispatch(request());
@@ -111,12 +111,16 @@ function removeBundle(id) {
   };
 
   function request(_id) {
-    return { type: bundleConstants.DELETE_REQUEST, _id };
+    return { type: bundleConstants.DELETE_REQUEST, id: _id };
   }
   function success(_id) {
-    return { type: bundleConstants.DELETE_SUCCESS, _id };
+    return { type: bundleConstants.DELETE_SUCCESS, id: _id };
   }
   function failure(_id, error) {
-    return { type: bundleConstants.DELETE_FAILURE, _id, error };
+    return { type: bundleConstants.DELETE_FAILURE, id: _id, error };
   }
+}
+
+export function toggleSelectBundle(id) {
+  return { type: bundleConstants.TOGGLE_SELECT, id };
 }

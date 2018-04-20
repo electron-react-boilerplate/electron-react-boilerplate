@@ -23,11 +23,14 @@ export function bundles(state = {}, action) {
             ? { ...bundle, deleting: true }
             : bundle))
       };
-    case bundleConstants.DELETE_SUCCESS:
-      // remove deleted bundle from state
+    case bundleConstants.TOGGLE_SELECT: {
+      const selectedBundle = state.selectedBundle && state.selectedBundle.id === action.id ?
+        {} : state.items.filter(bundle => bundle.id === action.id);
       return {
-        items: state.items.filter(bundle => bundle.id !== action.id)
+        selectedBundle,
+        items: state.items
       };
+    }
     case bundleConstants.DELETE_FAILURE:
       // remove 'deleting:true' property and add 'deleteError:[error]' property to bundle
       return {
