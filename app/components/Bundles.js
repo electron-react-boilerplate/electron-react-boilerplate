@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bundleActions } from '../actions/bundle.actions';
+import { mockFetchAll } from '../actions/bundle.actions';
 import styles from './Bundles.css';
 
 function pickBackgroundColor(status) {
@@ -17,7 +17,7 @@ function pickBackgroundColor(status) {
 }
 
 type Props = {
-  dispatch: () => {},
+  mockFetchAll: () => {},
   bundles: {}
 };
 
@@ -25,7 +25,7 @@ class Bundles extends Component<Props> {
   props: Props;
 
   componentDidMount() {
-    this.props.dispatch(bundleActions.mockFetchAll());
+    this.props.mockFetchAll();
   }
 
   render() {
@@ -71,4 +71,4 @@ function mapStateToProps(state) {
     bundles
   };
 }
-export default connect(mapStateToProps)(Bundles);
+export default connect(mapStateToProps, { mockFetchAll })(Bundles);

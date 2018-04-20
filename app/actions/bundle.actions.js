@@ -47,7 +47,7 @@ function getMockBundles() {
   return sortedBundles;
 }
 
-function mockFetchAll() {
+export function mockFetchAll() {
   return dispatch => {
     dispatch(request());
     return new Promise((resolve) => {
