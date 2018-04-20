@@ -17,9 +17,11 @@ function pickBackgroundColor(status) {
 }
 
 type Props = {
-  dispatch: () => void,
+  dispatch: () => {},
+  /*
   mockFetchAll: () => {},
   toggleSelectBundle: (id) => {},
+  */
   bundles: {}
 };
 
@@ -31,7 +33,7 @@ class Bundles extends Component<Props> {
   props: Props;
 
   componentDidMount() {
-    this.props.mockFetchAll();
+    this.props.dispatch(mockFetchAll());
   }
 
   render() {
@@ -85,4 +87,4 @@ function mapStateToProps(state) {
     bundles
   };
 }
-export default connect(mapStateToProps, { mockFetchAll })(Bundles);
+export default connect(mapStateToProps)(Bundles);
