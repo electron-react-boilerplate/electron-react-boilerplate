@@ -42,6 +42,11 @@
       "main.prod.js.map",
       "package.json"
     ],
+    "publish": {
+      "provider": "generic",
+      "url": "http://localhost:8080",
+      "channel": "latest"
+    },
     "dmg": {
       "contents": [
         {
@@ -189,6 +194,8 @@
   "dependencies": {
     "devtron": "^1.4.0",
     "electron-debug": "^1.5.0",
+    "electron-log": "^2.2.14",
+    "electron-updater": "^2.21.8",
     "font-awesome": "^4.7.0",
     "history": "^4.7.2",
     "react": "^16.2.0",
