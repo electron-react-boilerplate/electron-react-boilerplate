@@ -97,10 +97,10 @@ const connectAutoUpdater = () => {
       buttons: ['Restart', 'Later'],
       title: 'Application Update',
       detail: 'A new version has been downloaded. Restart the application to apply the updates.'
-    }
+    };
 
     dialog.showMessageBox(dialogOpts, (response) => {
-      if (response === 0) autoUpdater.quitAndInstall()
+      if (response === 0) autoUpdater.quitAndInstall();
     });
   });
 };
