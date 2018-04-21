@@ -18,7 +18,6 @@ import MenuBuilder from './menu';
 
 const log = require('electron-log');
 
-
 function logger() {
   // Same as for console transport
   log.transports.file.level = 'warn';
