@@ -71,28 +71,28 @@ const connectAutoUpdater = () => {
   autoUpdater.autoDownload = false;
   autoUpdater.logger = log;
 
-  autoUpdater.on("error", e => {
+  autoUpdater.on('error', e => {
     log.error(`update error ${e.message}`);
   });
-  autoUpdater.on("update-available", () => {
-    log.info("Update is available so prompting user to update");
+  autoUpdater.on('update-available', () => {
+    log.info('Update is available so prompting user to update');
     autoUpdater.downloadUpdate();
   });
-  autoUpdater.on("checking-for-update", () => {
-    log.info("checking-for-update");
+  autoUpdater.on('checking-for-update', () => {
+    log.info('checking-for-update');
   });
-  autoUpdater.on("update-not-available", () => {
-    log.info("update-not-available");
+  autoUpdater.on('update-not-available', () => {
+    log.info('update-not-available');
     // showMainWindow();
   });
-  autoUpdater.on("download-progress", progressObj => {
+  autoUpdater.on('download-progress', progressObj => {
     let msg = `Download speed: ${progressObj.bytesPerSecond}`;
     msg = `${msg} - Downloaded ${progressObj.percent}%`;
     msg = `${msg} (${progressObj.transferred}/${progressObj.total})`;
     log.info(msg);
   });
-  autoUpdater.on("update-downloaded", () => {
-    log.info("update-downloaded");
+  autoUpdater.on('update-downloaded', () => {
+    log.info('update-downloaded');
     const dialogOpts = {
       type: 'info',
       buttons: ['Restart', 'Later'],
