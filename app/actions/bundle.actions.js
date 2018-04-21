@@ -122,5 +122,5 @@ function removeBundle(id) {
 }
 
 export function toggleSelectBundle(id) {
-  return dispatch => { dispatch({ type: bundleConstants.TOGGLE_SELECT, id }); };
+  return { type: bundleConstants.TOGGLE_SELECT, id };
 }

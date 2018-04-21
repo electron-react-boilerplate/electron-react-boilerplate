@@ -17,11 +17,8 @@ function pickBackgroundColor(status) {
 }
 
 type Props = {
-  dispatch: () => {},
-  /*
   mockFetchAll: () => {},
-  toggleSelectBundle: (id) => {},
-  */
+  toggleSelectBundle: () => {},
   bundles: {}
 };
 
@@ -31,13 +28,16 @@ function onKeyPressHandler(event) {
 
 class Bundles extends Component<Props> {
   props: Props;
-
   componentDidMount() {
-    this.props.dispatch(mockFetchAll());
+    this.props.mockFetchAll();
+  }
+
+  onClickHandlerBundleRow(bundleId) {
+    this.props.toggleSelectBundle(bundleId);
   }
 
   render() {
-    const { bundles, dispatch } = this.props;
+    const { bundles } = this.props;
     return (
       <div className={styles.container} data-tid="container">
         <div className={styles.searchBar}>
@@ -54,7 +54,7 @@ class Bundles extends Component<Props> {
             className={styles.bundleRow}
             key={d.id}
             onKeyPress={onKeyPressHandler}
-            onClick={dispatch(toggleSelectBundle(d.id))}
+            onClick={() => this.onClickHandlerBundleRow(d.id)}
             tabIndex={0}
             role="button"
             style={{ background: `linear-gradient(to right, ${pickBackgroundColor(d.status)} 0%, ${pickBackgroundColor(d.status)} ${d.progress || 100}%, transparent 0%), linear-gradient(to bottom, white 0%, white 100%)` }}
@@ -87,4 +87,4 @@ function mapStateToProps(state) {
     bundles
   };
 }
-export default connect(mapStateToProps)(Bundles);
+export default connect(mapStateToProps, { mockFetchAll, toggleSelectBundle })(Bundles);
