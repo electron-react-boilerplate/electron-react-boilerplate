@@ -22,17 +22,20 @@ type Props = {
   bundles: {}
 };
 
-function onKeyPressHandler(event) {
-  event.preventDefault();
-}
-
 class Bundles extends Component<Props> {
   props: Props;
   componentDidMount() {
     this.props.mockFetchAll();
   }
 
-  onClickHandlerBundleRow(bundleId) {
+  onKeyPressHandler(event, bundleId) {
+    if (['Enter', ' '].includes(event.key)) {
+      this.onClickHandlerBundleRow(event, bundleId);
+    }
+    console.log(event.key);
+  }
+
+  onClickHandlerBundleRow(event, bundleId) {
     this.props.toggleSelectBundle(bundleId);
   }
 
@@ -53,8 +56,8 @@ class Bundles extends Component<Props> {
           <div
             className={styles.bundleRow}
             key={d.id}
-            onKeyPress={onKeyPressHandler}
-            onClick={() => this.onClickHandlerBundleRow(d.id)}
+            onKeyPress={(e) => this.onKeyPressHandler(e, d.id)}
+            onClick={(e) => this.onClickHandlerBundleRow(e, d.id)}
             tabIndex={0}
             role="button"
             style={{ background: `linear-gradient(to right, ${pickBackgroundColor(d.status)} 0%, ${pickBackgroundColor(d.status)} ${d.progress || 100}%, transparent 0%), linear-gradient(to bottom, white 0%, white 100%)` }}
