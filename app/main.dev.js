@@ -75,7 +75,7 @@ const connectAutoUpdater = () => {
     log.error(`update error ${e.message}`);
   });
   autoUpdater.on('update-available', () => {
-    log.info('Update is available so prompting user to update');
+    log.info('Update is available');
     autoUpdater.downloadUpdate();
   });
   autoUpdater.on('checking-for-update', () => {
@@ -83,7 +83,6 @@ const connectAutoUpdater = () => {
   });
   autoUpdater.on('update-not-available', () => {
     log.info('update-not-available');
-    // showMainWindow();
   });
   autoUpdater.on('download-progress', progressObj => {
     let msg = `Download speed: ${progressObj.bytesPerSecond}`;
