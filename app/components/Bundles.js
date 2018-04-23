@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import FontIcon from 'material-ui/FontIcon';
+import IconButton from 'material-ui/IconButton';
+import ActionHome from 'material-ui/svg-icons/action/home';
 import { mockFetchAll, toggleSelectBundle } from '../actions/bundle.actions';
 import styles from './Bundles.css';
 
@@ -66,7 +69,11 @@ class Bundles extends Component<Props> {
               <div className={styles.bundleRowTopLeftSide}>{d.nameDisplayAs}</div>
               <div className={styles.bundleRowTopRightSide}>
                 {d.statusDisplayAs} {d.task === 'DOWNLOAD' && d.status === 'NOT_STARTED' && <i className={`${styles.iconRightOfText} + material-icons`}>file_download</i>}
-                {d.mode === 'PAUSED' && <i className={`${styles.iconRightOfText} + material-icons`}>play_circle_filled</i>}
+                {d.mode === 'PAUSED' &&
+                <IconButton tooltip="SVG Icon" className={styles.iconRightOfText}>
+                  <ActionHome />
+                </IconButton>
+                }
                 {d.mode === 'RUNNING' && <i className={`${styles.iconRightOfText} + material-icons`}>pause_circle_filled</i>}
               </div>
             </div>
