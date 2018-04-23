@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import FontIcon from 'material-ui/FontIcon';
-import IconButton from 'material-ui/IconButton';
-import ActionHome from 'material-ui/svg-icons/action/home';
+import FlatButton from 'material-ui/FlatButton';
+import FileDownload from 'material-ui/svg-icons/file/file-download';
+import PlayCircleFilled from 'material-ui/svg-icons/av/play-circle-filled';
+import PauseCircleFilled from 'material-ui/svg-icons/av/pause-circle-filled';
+import CallSplit from 'material-ui/svg-icons/communication/call-split';
+import ActionInfo from 'material-ui/svg-icons/action/info';
+import ActionDelete from 'material-ui/svg-icons/action/delete';
 import { mockFetchAll, toggleSelectBundle } from '../actions/bundle.actions';
 import styles from './Bundles.css';
 
@@ -68,21 +72,47 @@ class Bundles extends Component<Props> {
             <div className={styles.bundleRowTop}>
               <div className={styles.bundleRowTopLeftSide}>{d.nameDisplayAs}</div>
               <div className={styles.bundleRowTopRightSide}>
-                {d.statusDisplayAs} {d.task === 'DOWNLOAD' && d.status === 'NOT_STARTED' && <i className={`${styles.iconRightOfText} + material-icons`}>file_download</i>}
-                {d.mode === 'PAUSED' &&
-                <IconButton tooltip="SVG Icon" className={styles.iconRightOfText}>
-                  <ActionHome />
-                </IconButton>
+                {d.task === 'DOWNLOAD' && d.status === 'NOT_STARTED' &&
+                <FlatButton
+                  labelPosition="before"
+                  label={d.statusDisplayAs}
+                  icon={<FileDownload />}
+                />
                 }
-                {d.mode === 'RUNNING' && <i className={`${styles.iconRightOfText} + material-icons`}>pause_circle_filled</i>}
+                {d.mode === 'PAUSED' &&
+                <FlatButton
+                  labelPosition="before"
+                  label={d.statusDisplayAs}
+                  icon={<PlayCircleFilled />}
+                />
+                }
+                {d.mode === 'RUNNING' &&
+                <FlatButton
+                  labelPosition="before"
+                  label={d.statusDisplayAs}
+                  icon={<PauseCircleFilled />}
+                />
+                }
               </div>
             </div>
             {bundles.selectedBundle && bundles.selectedBundle.id === d.id &&
               <div className={`${styles.menuBar} + row`}>
-                <div className={styles.bundleRowBottomMenuItem}><i className="material-icons">call_split</i> Revise</div>
-                <div className={styles.bundleRowBottomMenuItem}><i className="material-icons">file_download</i> Download</div>
-                <div className={styles.bundleRowBottomMenuItem}><i className="material-icons">info</i>&nbsp;Info</div>
-                <div className={styles.bundleRowBottomMenuItem}><i className="material-icons">delete</i> Delete</div>
+                <FlatButton
+                  label="Revise"
+                  icon={<CallSplit />}
+                />
+                <FlatButton
+                  label="Download"
+                  icon={<FileDownload />}
+                />
+                <FlatButton
+                  label="Info"
+                  icon={<ActionInfo />}
+                />
+                <FlatButton
+                  label="Delete"
+                  icon={<ActionDelete />}
+                />
               </div>
             }
           </div>))}
