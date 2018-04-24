@@ -13,6 +13,7 @@
     "node": true
   },
   "rules": {
+    "prettier/prettier": "error",
     "arrow-parens": ["off"],
     "compat/compat": "error",
     "consistent-return": "off",
@@ -44,7 +45,8 @@
     "import",
     "promise",
     "compat",
-    "react"
+    "react",
+    "prettier"
   ],
   "settings": {
     "import/resolver": {
