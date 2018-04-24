@@ -142,6 +142,13 @@ export default class MenuBuilder {
         click: () => {
           this.navigate(navigationConstants.NAVIGATION_LOGIN);
         }
+      },
+      {
+        label: 'Bundles (Demo)',
+        accelerator: 'Ctrl+B',
+        click: () => {
+          this.navigate(navigationConstants.NAVIGATION_BUNDLES);
+        }
       }, {
         label: '&Exit',
         accelerator: 'Ctrl+W',
