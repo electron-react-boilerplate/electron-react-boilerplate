@@ -21,8 +21,8 @@ CheckNodeEnv('development');
 
 const port = process.env.PORT || 1212;
 const publicPath = `http://localhost:${port}/dist`;
-const dll = path.resolve(process.cwd(), 'dll');
-const manifest = path.resolve(dll, 'renderer.json');
+const dll = path.join(process.cwd(), 'dll');
+const manifest = path.join(dll, 'renderer.json');
 
 /**
  * Warn if the DLL is not built
