@@ -15,6 +15,7 @@ import webpack from 'webpack';
 import chalk from 'chalk';
 import merge from 'webpack-merge';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 import baseConfig from './webpack.config.base';
 import CheckNodeEnv from './internals/scripts/CheckNodeEnv';
@@ -23,7 +24,7 @@ CheckNodeEnv('development');
 
 const port = process.env.PORT || 1212;
 const publicPath = `http://localhost:${port}/dist`;
-const dll = path.join(process.cwd(), 'dll');
+const dll = path.join(process.cwd(), 'dist/dll');
 const manifest = path.join(dll, 'renderer.json');
 
 /**
@@ -49,7 +50,7 @@ export default merge.smart(baseConfig, {
     'react-hot-loader/patch',
     `webpack-dev-server/client?http://localhost:${port}/`,
     'webpack/hot/only-dev-server',
-    path.join(__dirname, 'app/index.js')
+    './app/index.js'
   ],
 
   output: {
@@ -239,7 +240,13 @@ export default merge.smart(baseConfig, {
 
     new ExtractTextPlugin({
       filename: '[name].css'
-    })
+    }),
+
+    new CopyWebpackPlugin([
+      './app/app.html',
+      './app/package.json',
+      './app/node_modules'
+    ])
   ],
 
   node: {

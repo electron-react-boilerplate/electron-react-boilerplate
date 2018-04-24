@@ -1,6 +1,7 @@
 /**
  * Webpack config for production electron main process
  */
+import path from 'path';
 
 import webpack from 'webpack';
 import merge from 'webpack-merge';
@@ -22,8 +23,7 @@ export default merge.smart(baseConfig, {
   entry: './app/main.dev',
 
   output: {
-    path: __dirname,
-    filename: './app/main.prod.js'
+    filename: './main.prod.js'
   },
 
   plugins: [

@@ -13,7 +13,7 @@ import CheckNodeEnv from './internals/scripts/CheckNodeEnv';
 
 CheckNodeEnv('development');
 
-const dist = path.join(process.cwd(), './dll');
+const dist = path.join(process.cwd(), 'dist/dll');
 
 export default merge.smart(baseConfig, {
   context: process.cwd(),

@@ -23,7 +23,7 @@
     "postinstall": "node -r babel-register internals/scripts/CheckNativeDep.js && npm run flow-typed && npm run build-dll && electron-builder install-app-deps && node node_modules/fbjs-scripts/node/check-dev-engines.js package.json",
     "precommit": "lint-staged",
     "prestart": "npm run build",
-    "start": "cross-env NODE_ENV=production electron ./app/",
+    "start": "cross-env NODE_ENV=production electron ./dist/",
     "start-main-dev": "cross-env HOT=1 NODE_ENV=development electron -r babel-register ./app/main.dev.js",
     "start-renderer-dev": "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack-dev-server/bin/webpack-dev-server --config webpack.config.renderer.dev.js",
     "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node --trace-warnings -r babel-register ./internals/scripts/RunTests.js",
@@ -44,9 +44,6 @@
     "files": [
       "dist/",
       "node_modules/",
-      "app.html",
-      "main.prod.js",
-      "main.prod.js.map",
       "package.json"
     ],
     "dmg": {
@@ -141,6 +138,7 @@
     "babel-register": "^6.26.0",
     "chalk": "^2.3.2",
     "concurrently": "^3.5.1",
+    "copy-webpack-plugin": "^4.5.1",
     "cross-env": "^5.1.4",
     "cross-spawn": "^6.0.5",
     "css-loader": "^0.28.11",
