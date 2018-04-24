@@ -84,6 +84,7 @@ class Bundles extends Component<Props> {
                   labelPosition="before"
                   label={d.statusDisplayAs}
                   icon={<FileDownload />}
+                  onClick={(e) => this.onClickTogglePauseResume(e, d.id)}
                 />
                 }
                 {d.mode === 'PAUSED' &&

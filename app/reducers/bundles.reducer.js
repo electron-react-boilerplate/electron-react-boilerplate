@@ -66,24 +66,32 @@ function forkArray(array, condition, createItem) {
 }
 
 function buildToggledBundle(bundle) {
-  const newMode = bundle.mode === 'PAUSED' ? 'RUNNING' : 'PAUSED';  
+  const newMode = bundle.status === 'NOT_STARTED' || bundle.mode === 'PAUSED' ? 'RUNNING' : 'PAUSED';
+  const newStatus = bundle.status === 'NOT_STARTED' ? `${bundle.task}ING` : bundle.status;
+  const formattedProgress = formatProgress(bundle);
+  const uploadingMsg = `Uploading ${formattedProgress}`;
+  const downloadingMsg = `Downloading ${formattedProgress}`;
   let newStatusDisplayAs;
-  if (bundle.status === 'UPLOADING') {
-    newStatusDisplayAs = (newMode === 'PAUSED' ? `Resume Uploading ${formatProgress(bundle)}` : `Uploading ${formatProgress(bundle)}`);
+  if (bundle.status === 'NOT_STARTED') {
+    newStatusDisplayAs = (bundle.task === 'DOWNLOAD' ? downloadingMsg : uploadingMsg);
+  } else if (bundle.status === 'UPLOADING') {
+    newStatusDisplayAs = (newMode === 'PAUSED' ? `Resume Uploading ${formattedProgress}` : uploadingMsg);
   } else if (bundle.status === 'DOWNLOADING') {
-    newStatusDisplayAs = (newMode === 'PAUSED' ? `Resume Downloading ${formatProgress(bundle)}` : `Downloading ${formatProgress(bundle)}`);
+    newStatusDisplayAs = (newMode === 'PAUSED' ? `Resume Downloading ${formattedProgress}` : downloadingMsg);
   } else {
     newStatusDisplayAs = bundle.statusDisplayAs;
   }
   return {
     ...bundle,
+    status: newStatus,
     mode: newMode,
     statusDisplayAs: newStatusDisplayAs
   };
 }
 
 function formatProgress(bundle) {
-  return `(${bundle.progress}%)`;
+  const progress = bundle.progress ? bundle.progress : 0;
+  return `(${progress}%)`;
 }
 
 export default bundles;
