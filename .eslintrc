@@ -4,10 +4,7 @@
     "sourceType": "module",
     "allowImportExportEverywhere": true
   },
-  "extends": [
-    "airbnb",
-    "prettier"
-  ],
+  "extends": ["airbnb", "prettier"],
   "env": {
     "browser": true,
     "node": true
@@ -20,10 +17,13 @@
     "comma-dangle": "off",
     "generator-star-spacing": "off",
     "import/no-unresolved": "error",
-    "import/order": ["error", {
-      "newlines-between": "always",
-      "groups": ["builtin", "external", ["sibling", "parent"], "index"]
-    }],
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always",
+        "groups": ["builtin", "external", ["sibling", "parent"], "index"]
+      }
+    ],
     "import/no-extraneous-dependencies": "off",
     "jsx-a11y/anchor-is-valid": "off",
     "no-console": "off",
@@ -33,21 +33,26 @@
     "promise/always-return": "error",
     "promise/catch-or-return": "error",
     "promise/no-native": "off",
-    "react/sort-comp": ["error", {
-      "order": ["type-annotations", "static-methods", "lifecycle", "everything-else", "render"]
-    }],
+    "react/sort-comp": [
+      "error",
+      {
+        "order": [
+          "type-annotations",
+          "static-methods",
+          "lifecycle",
+          "everything-else",
+          "render"
+        ]
+      }
+    ],
     "react/jsx-no-bind": "off",
-    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
+    "react/jsx-filename-extension": [
+      "error",
+      { "extensions": [".js", ".jsx"] }
+    ],
     "react/prefer-stateless-function": "off"
   },
-  "plugins": [
-    "flowtype",
-    "import",
-    "promise",
-    "compat",
-    "react",
-    "prettier"
-  ],
+  "plugins": ["flowtype", "import", "promise", "compat", "react", "prettier"],
   "settings": {
     "import/resolver": {
       "webpack": {
