@@ -108,18 +108,22 @@ class Bundles extends Component<Props> {
                 <FlatButton
                   label="Revise"
                   icon={<CallSplit />}
+                  onClick={(e) => stopPropagation(e)}
                 />
                 <FlatButton
                   label="Download"
                   icon={<FileDownload />}
+                  onClick={(e) => stopPropagation(e)}
                 />
                 <FlatButton
                   label="Info"
                   icon={<ActionInfo />}
+                  onClick={(e) => stopPropagation(e)}
                 />
                 <FlatButton
                   label="Delete"
                   icon={<ActionDelete />}
+                  onClick={(e) => stopPropagation(e)}
                 />
               </div>
             }
@@ -127,6 +131,10 @@ class Bundles extends Component<Props> {
       </div>
     );
   }
+}
+
+function stopPropagation(event) {
+  event.stopPropagation();
 }
 
 function mapStateToProps(state) {
