@@ -108,21 +108,25 @@ class Bundles extends Component<Props> {
                 <FlatButton
                   label="Revise"
                   icon={<CallSplit />}
+                  onKeyPress={(e) => stopPropagation(e)}
                   onClick={(e) => stopPropagation(e)}
                 />
                 <FlatButton
                   label="Download"
                   icon={<FileDownload />}
+                  onKeyPress={(e) => stopPropagation(e)}
                   onClick={(e) => stopPropagation(e)}
                 />
                 <FlatButton
                   label="Info"
                   icon={<ActionInfo />}
+                  onKeyPress={(e) => stopPropagation(e)}
                   onClick={(e) => stopPropagation(e)}
                 />
                 <FlatButton
                   label="Delete"
                   icon={<ActionDelete />}
+                  onKeyPress={(e) => stopPropagation(e)}
                   onClick={(e) => stopPropagation(e)}
                 />
               </div>
