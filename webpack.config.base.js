@@ -2,9 +2,11 @@
  * Base webpack config used across other specific configs
  */
 
-import path from 'path';
-import webpack from 'webpack';
 import fs from 'fs';
+import path from 'path';
+
+import webpack from 'webpack';
+
 import { dependencies as externals } from './app/package.json';
 import { dependencies as possibleExternals } from './package.json';
 
@@ -16,12 +18,13 @@ function filterDepWithoutEntryPoints(dep: string): boolean {
     if (fs.existsSync(path.join(__dirname, `node_modules/${dep}/index.js`))) {
       return false;
     }
-    const pgkString =
-      fs.readFileSync(path.join(__dirname, `node_modules/${dep}/package.json`)).toString();
+    const pgkString = fs
+      .readFileSync(path.join(__dirname, `node_modules/${dep}/package.json`))
+      .toString();
     const pkg = JSON.parse(pgkString);
     const fields = ['main', 'module', 'jsnext:main', 'browser'];
     return !fields.some(field => field in pkg);
-  } catch(e) {
+  } catch (e) {
     console.log(e);
     return true;
   }

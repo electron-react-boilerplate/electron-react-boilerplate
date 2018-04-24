@@ -19,6 +19,10 @@
     "comma-dangle": "off",
     "generator-star-spacing": "off",
     "import/no-unresolved": "error",
+    "import/order": ["error", {
+      "newlines-between": "always",
+      "groups": ["builtin", "external", ["sibling", "parent"], "index"]
+    }],
     "import/no-extraneous-dependencies": "off",
     "jsx-a11y/anchor-is-valid": "off",
     "no-console": "off",
