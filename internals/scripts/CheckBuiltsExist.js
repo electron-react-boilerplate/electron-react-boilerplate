@@ -6,14 +6,8 @@ import fs from 'fs';
 import chalk from 'chalk';
 
 function CheckBuildsExist() {
-  const mainPath = path.join(__dirname, '..', '..', 'dist', 'main.prod.js');
-  const rendererPath = path.join(
-    __dirname,
-    '..',
-    '..',
-    'dist',
-    'renderer.prod.js'
-  );
+  const mainPath = path.join(__dirname, '../../dist/main.prod.js');
+  const rendererPath = path.join(__dirname, '../../dist/renderer.prod.js');
 
   if (!fs.existsSync(mainPath)) {
     throw new Error(

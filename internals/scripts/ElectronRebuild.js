@@ -5,7 +5,7 @@ import fs from 'fs';
 
 import dependencies from '../../app/package.json';
 
-const nodeModulesPath = path.join(__dirname, '..', '..', 'app', 'node_modules');
+const nodeModulesPath = path.join(__dirname, '../../app/node_modules');
 
 if (
   Object.keys(dependencies || {}).length > 0 &&
@@ -20,6 +20,6 @@ if (
       : electronRebuildCmd;
 
   execSync(cmd, {
-    cwd: path.join(__dirname, '..', '..', 'app')
+    cwd: path.join(__dirname, '../../app')
   });
 }
