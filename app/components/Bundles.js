@@ -78,7 +78,7 @@ class Bundles extends Component<Props> {
             <div className={styles.bundleRowTop}>
               <div className={styles.bundleRowTopLeftSide}>{d.nameDisplayAs}</div>
               <div className={styles.bundleRowTopRightSide}>
-                {(d.status === 'COMPLETED' || d.status === 'DRAFT') && <div style={{ 'padding-right': '20px', 'padding-top': '6px' }}>{d.statusDisplayAs}</div>}
+                {(d.status === 'COMPLETED' || d.status === 'DRAFT') && <div style={{ paddingRight: '20px', paddingTop: '6px' }}>{d.statusDisplayAs}</div>}
                 {d.task === 'DOWNLOAD' && d.status === 'NOT_STARTED' &&
                 <FlatButton
                   labelPosition="before"
