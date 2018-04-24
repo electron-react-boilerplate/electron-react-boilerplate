@@ -1,8 +1,6 @@
 /**
  * Webpack config for production electron main process
  */
-import path from 'path';
-
 import webpack from 'webpack';
 import merge from 'webpack-merge';
 import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
