@@ -18,7 +18,7 @@ function getMockBundles() {
       id: 'bundle01', nameDisplayAs: 'Test Bundle #1', revision: 3, task: 'UPLOAD', statusDisplayAs: 'Uploaded', status: 'COMPLETED', selected: true,
     },
     {
-      id: 'bundle02', nameDisplayAs: 'Another Bundle', revision: 3, task: 'UPLOAD', statusDisplayAs: 'Paused Uploading (63%)', status: 'UPLOADING', progress: 63, mode: 'PAUSED'
+      id: 'bundle02', nameDisplayAs: 'Another Bundle', revision: 3, task: 'UPLOAD', statusDisplayAs: 'Resume Uploading (63%)', status: 'UPLOADING', progress: 63, mode: 'PAUSED'
     },
     {
       id: 'bundle03', nameDisplayAs: 'Audio Bundle', revision: 52, task: 'DOWNLOAD', statusDisplayAs: 'Downloading (12%)', status: 'DOWNLOADING', progress: 12, mode: 'RUNNING'

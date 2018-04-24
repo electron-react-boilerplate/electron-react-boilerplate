@@ -69,9 +69,9 @@ function buildToggledBundle(bundle) {
   const newMode = bundle.mode === 'PAUSED' ? 'RUNNING' : 'PAUSED';  
   let newStatusDisplayAs;
   if (bundle.status === 'UPLOADING') {
-    newStatusDisplayAs = (newMode === 'PAUSED' ? 'Paused Uploading' : 'Uploading');
+    newStatusDisplayAs = (newMode === 'PAUSED' ? `Resume Uploading ${formatProgress(bundle)}` : `Uploading ${formatProgress(bundle)}`);
   } else if (bundle.status === 'DOWNLOADING') {
-    newStatusDisplayAs = (newMode === 'PAUSED' ? 'Paused Downloading' : 'Downloading');
+    newStatusDisplayAs = (newMode === 'PAUSED' ? `Resume Downloading ${formatProgress(bundle)}` : `Downloading ${formatProgress(bundle)}`);
   } else {
     newStatusDisplayAs = bundle.statusDisplayAs;
   }
@@ -80,6 +80,10 @@ function buildToggledBundle(bundle) {
     mode: newMode,
     statusDisplayAs: newStatusDisplayAs
   };
+}
+
+function formatProgress(bundle) {
+  return `(${bundle.progress}%)`;
 }
 
 export default bundles;
