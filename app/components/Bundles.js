@@ -46,6 +46,16 @@ class Bundles extends Component<Props> {
     this.props.toggleSelectBundle(bundleId);
   }
 
+  onClickHandlerResume(event, bundleId) {
+    console.log(`Resuming ${bundleId}`);
+    event.stopPropagation();
+  }
+
+  onClickHandlerPause(event, bundleId) {
+    console.log(`Pausing ${bundleId}`);
+    event.stopPropagation();
+  }
+
   render() {
     const { bundles } = this.props;
     return (
@@ -84,6 +94,7 @@ class Bundles extends Component<Props> {
                   labelPosition="before"
                   label={d.statusDisplayAs}
                   icon={<PlayCircleFilled />}
+                  onClick={(e) => this.onClickHandlerResume(e, d.id)}
                 />
                 }
                 {d.mode === 'RUNNING' &&
@@ -91,6 +102,7 @@ class Bundles extends Component<Props> {
                   labelPosition="before"
                   label={d.statusDisplayAs}
                   icon={<PauseCircleFilled />}
+                  onClick={(e) => this.onClickHandlerPause(e, d.id)}
                 />
                 }
               </div>

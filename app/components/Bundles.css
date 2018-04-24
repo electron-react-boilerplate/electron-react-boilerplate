@@ -49,11 +49,13 @@
 
 .bundleRowTopRightSide {
   text-align: right;
+  padding-top: 6px;
+/*
   padding-right: 20px;
-  padding-top: 10px;
   vertical-align: middle;
   display: inline-flex;
   float: right;
+ */
 }
 
 .iconRightOfText {
