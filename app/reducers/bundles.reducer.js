@@ -27,7 +27,7 @@ export function bundles(state = {}, action) {
       const updatedItems = forkArray(
         state.items,
         bundle => bundle.id === action.id,
-        bundle => ({ ...bundle, mode: bundle.mode === 'PAUSED' ? 'RUNNING' : 'PAUSED' })
+        bundle => buildToggledBundle(bundle)
       );
       return {
         ...state,
@@ -63,6 +63,23 @@ export function bundles(state = {}, action) {
 
 function forkArray(array, condition, createItem) {
   return array.map((item, index) => (condition(item, index) ? createItem(item) : item));
+}
+
+function buildToggledBundle(bundle) {
+  const newMode = bundle.mode === 'PAUSED' ? 'RUNNING' : 'PAUSED';  
+  let newStatusDisplayAs;
+  if (bundle.status === 'UPLOADING') {
+    newStatusDisplayAs = (newMode === 'PAUSED' ? 'Paused Uploading' : 'Uploading');
+  } else if (bundle.status === 'DOWNLOADING') {
+    newStatusDisplayAs = (newMode === 'PAUSED' ? 'Paused Downloading' : 'Downloading');
+  } else {
+    newStatusDisplayAs = bundle.statusDisplayAs;
+  }
+  return {
+    ...bundle,
+    mode: newMode,
+    statusDisplayAs: newStatusDisplayAs
+  };
 }
 
 export default bundles;
