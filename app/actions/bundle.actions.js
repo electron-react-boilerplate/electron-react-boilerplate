@@ -6,6 +6,7 @@ export const bundleActions = {
   mockFetchAll,
   fetchAll,
   delete: removeBundle,
+  toggleModePauseResume,
   toggleSelectBundle,
 };
 
@@ -119,6 +120,10 @@ function removeBundle(id) {
   function failure(_id, error) {
     return { type: bundleConstants.DELETE_FAILURE, id: _id, error };
   }
+}
+
+export function toggleModePauseResume(id) {
+  return { type: bundleConstants.TOGGLE_MODE_PAUSE_RESUME, id };
 }
 
 export function toggleSelectBundle(id) {

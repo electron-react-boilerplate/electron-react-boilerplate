@@ -7,7 +7,7 @@ import PauseCircleFilled from 'material-ui/svg-icons/av/pause-circle-filled';
 import CallSplit from 'material-ui/svg-icons/communication/call-split';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 import ActionDelete from 'material-ui/svg-icons/action/delete';
-import { mockFetchAll, toggleSelectBundle } from '../actions/bundle.actions';
+import { mockFetchAll, toggleSelectBundle, toggleModePauseResume } from '../actions/bundle.actions';
 import styles from './Bundles.css';
 
 function pickBackgroundColor(status) {
@@ -26,6 +26,7 @@ function pickBackgroundColor(status) {
 type Props = {
   mockFetchAll: () => {},
   toggleSelectBundle: () => {},
+  toggleModePauseResume: () => {},
   bundles: {}
 };
 
@@ -35,24 +36,19 @@ class Bundles extends Component<Props> {
     this.props.mockFetchAll();
   }
 
-  onKeyPressHandler(event, bundleId) {
+  onKeyPress(event, bundleId) {
     if (['Enter', ' '].includes(event.key)) {
-      this.onClickHandlerBundleRow(event, bundleId);
+      this.onClickBundleRow(event, bundleId);
     }
     console.log(event.key);
   }
 
-  onClickHandlerBundleRow(event, bundleId) {
+  onClickBundleRow(event, bundleId) {
     this.props.toggleSelectBundle(bundleId);
   }
 
-  onClickHandlerResume(event, bundleId) {
-    console.log(`Resuming ${bundleId}`);
-    event.stopPropagation();
-  }
-
-  onClickHandlerPause(event, bundleId) {
-    console.log(`Pausing ${bundleId}`);
+  onClickTogglePauseResume(event, bundleId) {
+    this.props.toggleModePauseResume(bundleId);
     event.stopPropagation();
   }
 
@@ -73,8 +69,8 @@ class Bundles extends Component<Props> {
           <div
             className={styles.bundleRow}
             key={d.id}
-            onKeyPress={(e) => this.onKeyPressHandler(e, d.id)}
-            onClick={(e) => this.onClickHandlerBundleRow(e, d.id)}
+            onKeyPress={(e) => this.onKeyPress(e, d.id)}
+            onClick={(e) => this.onClickBundleRow(e, d.id)}
             tabIndex={0}
             role="button"
             style={{ background: `linear-gradient(to right, ${pickBackgroundColor(d.status)} 0%, ${pickBackgroundColor(d.status)} ${d.progress || 100}%, transparent 0%), linear-gradient(to bottom, white 0%, white 100%)` }}
@@ -94,7 +90,7 @@ class Bundles extends Component<Props> {
                   labelPosition="before"
                   label={d.statusDisplayAs}
                   icon={<PlayCircleFilled />}
-                  onClick={(e) => this.onClickHandlerResume(e, d.id)}
+                  onClick={(e) => this.onClickTogglePauseResume(e, d.id)}
                 />
                 }
                 {d.mode === 'RUNNING' &&
@@ -102,7 +98,7 @@ class Bundles extends Component<Props> {
                   labelPosition="before"
                   label={d.statusDisplayAs}
                   icon={<PauseCircleFilled />}
-                  onClick={(e) => this.onClickHandlerPause(e, d.id)}
+                  onClick={(e) => this.onClickTogglePauseResume(e, d.id)}
                 />
                 }
               </div>
@@ -139,4 +135,4 @@ function mapStateToProps(state) {
     bundles
   };
 }
-export default connect(mapStateToProps, { mockFetchAll, toggleSelectBundle })(Bundles);
+export default connect(mapStateToProps, { mockFetchAll, toggleSelectBundle, toggleModePauseResume })(Bundles);

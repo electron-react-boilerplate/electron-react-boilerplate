@@ -23,6 +23,17 @@ export function bundles(state = {}, action) {
             ? { ...bundle, deleting: true }
             : bundle))
       };
+    case bundleConstants.TOGGLE_MODE_PAUSE_RESUME: {
+      const updatedItems = forkArray(
+        state.items,
+        bundle => bundle.id === action.id,
+        bundle => ({ ...bundle, mode: bundle.mode === 'PAUSED' ? 'RUNNING' : 'PAUSED' })
+      );
+      return {
+        ...state,
+        items: updatedItems
+      };
+    }
     case bundleConstants.TOGGLE_SELECT: {
       const selectedBundle = state.selectedBundle && state.selectedBundle.id === action.id ?
         {} : state.items.find(bundle => bundle.id === action.id);
@@ -48,6 +59,10 @@ export function bundles(state = {}, action) {
     default:
       return state;
   }
+}
+
+function forkArray(array, condition, createItem) {
+  return array.map((item, index) => (condition(item, index) ? createItem(item) : item));
 }
 
 export default bundles;
