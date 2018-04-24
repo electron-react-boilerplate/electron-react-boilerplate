@@ -2,8 +2,6 @@ import { authHeader } from '../helpers';
 import { localStorageConstants } from '../constants/localStorage.constants';
 import { dblDotLocalConstants } from '../constants/dblDotLocal.constants';
 
-const storage = window.require('electron-json-storage');
-
 export const userService = {
   login,
   logout,
@@ -32,7 +30,6 @@ function login(username, password) {
         const newUserObj = { ...json, username };
         const userData = JSON.stringify(newUserObj);
         localStorage.setItem(localStorageConstants.KEY_LOCAL_STORAGE_USER, userData);
-        storage.set(localStorageConstants.KEY_LOCAL_STORAGE_USER, userData);
         return newUserObj;
       }
       const messageDisplayAs = `${json.message} ${json.error_code} Error (HTTP ${json.status_code})`;
@@ -81,7 +78,6 @@ function logout() {
 
 function removeUser() {
   localStorage.removeItem(localStorageConstants.KEY_LOCAL_STORAGE_USER);
-  storage.remove(localStorageConstants.KEY_LOCAL_STORAGE_USER);
 }
 
 function getAll() {

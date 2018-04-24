@@ -191,7 +191,6 @@
     "bootstrap": "4.0.0",
     "devtron": "^1.4.0",
     "electron-debug": "^1.5.0",
-    "electron-json-storage": "^4.0.3",
     "electron-store": "^1.3.0",
     "fast-sort": "^1.2.6",
     "font-awesome": "^4.7.0",
