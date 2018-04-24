@@ -21,7 +21,7 @@
     "package-linux": "npm run build && build --linux",
     "package-win": "npm run build && build --win --x64",
     "postinstall": "node -r babel-register internals/scripts/CheckNativeDep.js && npm run flow-typed && npm run build-dll && electron-builder install-app-deps && node node_modules/fbjs-scripts/node/check-dev-engines.js package.json",
-    "postlint-fix": "prettier --ignore-path .eslintignore --single-quote --write '**/*.js'",
+    "postlint-fix": "prettier --single-quote --write '**/*.js'",
     "precommit": "lint-staged",
     "prestart": "npm run build",
     "start": "cross-env NODE_ENV=production electron ./app/",
