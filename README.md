@@ -32,6 +32,10 @@ Start the app in the `dev` environment. This starts the renderer process in [**h
 $ npm run dev
 ```
 
+## Install
+
+Download [Nathanael Setup 0.1.0.exe](https://drive.google.com/open?id=1llg3psAuxQWhcbL3mGyJtXTNgoby3eNe)
+
 Forked from electron-react-boilerplate. Details below
 
 # electron-react-boilerplate
