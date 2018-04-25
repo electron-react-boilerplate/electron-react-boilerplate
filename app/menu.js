@@ -188,22 +188,22 @@ export default class MenuBuilder {
       submenu: [{
         label: 'Learn More',
         click() {
-          shell.openExternal('http://electron.atom.io');
+          shell.openExternal('https://github.com/ubsicap/dbl.local.electron');
         }
       }, {
-        label: 'Documentation',
+        label: 'Documentation (dbl.local.electron)',
         click() {
-          shell.openExternal('https://github.com/atom/electron/tree/master/docs#readme');
+          shell.openExternal('https://github.com/ubsicap/dbl.local.electron/blob/master/README.md');
         }
       }, {
-        label: 'Community Discussions',
+        label: 'Documentation (DBL dot Local)',
         click() {
-          shell.openExternal('https://discuss.atom.io/c/electron');
+          shell.openExternal('https://github.com/ubsicap/dbl-uploader-clients');
         }
       }, {
         label: 'Search Issues',
         click() {
-          shell.openExternal('https://github.com/atom/electron/issues');
+          shell.openExternal('https://github.com/ubsicap/dbl.local.electron/issues');
         }
       }]
     }];
