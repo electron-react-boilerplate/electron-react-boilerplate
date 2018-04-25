@@ -41,11 +41,6 @@
   "build": {
     "productName": "ElectronReact",
     "appId": "org.develar.ElectronReact",
-    "files": [
-      "dist/",
-      "node_modules/",
-      "package.json"
-    ],
     "dmg": {
       "contents": [
         {
@@ -74,7 +69,8 @@
     },
     "directories": {
       "buildResources": "resources",
-      "output": "release"
+      "output": "release",
+      "app": "dist"
     }
   },
   "repository": {
