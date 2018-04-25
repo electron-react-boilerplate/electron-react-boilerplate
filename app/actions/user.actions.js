@@ -2,7 +2,7 @@ import { userConstants } from '../constants';
 import { userService } from '../services';
 import { alertActions } from './';
 import { history } from '../store/configureStore';
-import { dblDotLocalConstants } from '../constants/dblDotLocal.constants';
+import { dblDotLocalConfig } from '../constants/dblDotLocal.constants';
 import { navigationConstants } from '../constants/navigation.constants';
 
 export const userActions = {
@@ -22,7 +22,7 @@ function formatErrorMessage(error) {
       errorMsg = `${
         error.message
       }. Check that 'DBL dot Local' process is running at ${
-        dblDotLocalConstants.HTTP_DBL_DOT_LOCAL_BASE_URL
+        dblDotLocalConfig.getHttpDblDotLocalBaseUrl()
       }`;
     } else {
       errorMsg = error.message;
@@ -43,7 +43,7 @@ function login(username, password) {
       })
       .catch(error => {
         dispatch(failure(error));
-        const errorMsg = formatErrorMessage(error, dblDotLocalConstants);
+        const errorMsg = formatErrorMessage(error, dblDotLocalConfig);
         dispatch(alertActions.error({ error, message: errorMsg }));
         return true;
       });
@@ -72,7 +72,7 @@ function logout() {
       })
       .catch(error => {
         dispatch(failure({ user, error }));
-        const message = formatErrorMessage(error, dblDotLocalConstants);
+        const message = formatErrorMessage(error, dblDotLocalConfig);
         dispatch(alertActions.error({ error, message }));
         return true;
       });

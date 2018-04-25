@@ -1,6 +1,6 @@
 import { authHeader } from '../helpers';
 import { localStorageConstants } from '../constants/localStorage.constants';
-import { dblDotLocalConstants } from '../constants/dblDotLocal.constants';
+import { dblDotLocalConfig } from '../constants/dblDotLocal.constants';
 
 export const userService = {
   login,
@@ -20,7 +20,7 @@ function login(username, password) {
     body: `username=${username}&password=${password}`
   };
 
-  return fetch(`${dblDotLocalConstants.HTTP_DBL_DOT_LOCAL_BASE_URL}/login`, requestOptions)
+  return fetch(`${dblDotLocalConfig.getHttpDblDotLocalBaseUrl()}/login`, requestOptions)
     .then(response => response.json())
     .then(json => {
       // login successful if there's a jwt token in the response
@@ -55,7 +55,7 @@ function logout() {
     method: 'POST',
     headers: auth
   };
-  return fetch(`${dblDotLocalConstants.HTTP_DBL_DOT_LOCAL_BASE_URL}/logout`, requestOptions)
+  return fetch(`${dblDotLocalConfig.getHttpDblDotLocalBaseUrl()}/logout`, requestOptions)
     .then(response => {
       if (response.size > 0) {
         return response.json();

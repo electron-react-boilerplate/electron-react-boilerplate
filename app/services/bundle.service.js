@@ -1,5 +1,5 @@
 import { authHeader } from '../helpers';
-import { dblDotLocalConstants } from '../constants/dblDotLocal.constants';
+import { dblDotLocalConfig } from '../constants/dblDotLocal.constants';
 
 export const bundleService = {
   create,
@@ -15,7 +15,7 @@ function fetchAll() {
     method: 'GET',
     headers: authHeader()
   };
-  return fetch(`${dblDotLocalConstants.HTTP_DBL_DOT_LOCAL_BASE_URL}/bundles`, requestOptions)
+  return fetch(`${dblDotLocalConfig.getHttpDblDotLocalBaseUrl()}/bundles`, requestOptions)
     .then(handleResponse);
 }
 
@@ -24,7 +24,7 @@ function fetchById(id) {
     method: 'GET',
     headers: authHeader()
   };
-  return fetch(`${dblDotLocalConstants.HTTP_DBL_DOT_LOCAL_BASE_URL}/bundles/${id}`, requestOptions)
+  return fetch(`${dblDotLocalConfig.getHttpDblDotLocalBaseUrl()}/bundles/${id}`, requestOptions)
     .then(handleResponse);
 }
 
@@ -35,7 +35,7 @@ function create(bundle) {
     body: JSON.stringify(bundle)
   };
 
-  return fetch(`${dblDotLocalConstants.HTTP_DBL_DOT_LOCAL_BASE_URL}/bundles/create`, requestOptions)
+  return fetch(`${dblDotLocalConfig.getHttpDblDotLocalBaseUrl()}/bundles/create`, requestOptions)
     .then(handleResponse);
 }
 

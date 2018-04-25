@@ -41,7 +41,8 @@ export default {
 
   plugins: [
     new webpack.EnvironmentPlugin({
-      NODE_ENV: 'production'
+      NODE_ENV: 'production',
+      HTTP_DBL_DOT_LOCAL_FLASK_API: 'http://127.0.0.1:44151'
     }),
 
     new webpack.NamedModulesPlugin(),
