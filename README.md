@@ -56,7 +56,7 @@ $ cd release
 ```
 ### on linux
 ```bash
-$ npm run package-linux --icon ./resources/icon.ico
+$ npm run package --icon ./resources/icon.ico
 $ cd release
 ```
 
