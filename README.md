@@ -24,6 +24,12 @@ $ yarn
 ```
 **Note**: If you can't use [yarn](https://github.com/yarnpkg/yarn), run `npm install`.
 
+### on Linux (if encountering `npm ERR! Error: SSL Error: CERT_UNTRUSTED`)
+```bash
+$ npm config set strict-ssl false
+$ npm install
+```
+
 ## Run
 
 Start the app in the `dev` environment. This starts the renderer process in [**hot-module-replacement**](https://webpack.js.org/guides/hmr-react/) mode and starts a webpack dev server that sends hot updates to the renderer process:
@@ -31,8 +37,21 @@ Start the app in the `dev` environment. This starts the renderer process in [**h
 ```bash
 $ npm run dev
 ```
+## Making Distribution Packages
 
-## Install
+### on windows
+```bash
+$ npm run package --icon .\resources\icon.ico
+$ cd release
+```
+### on linux
+```bash
+$ npm run package-linux --icon ./resources/icon.ico
+$ cd release
+```
+
+
+## Distribution Packages
 
 Download [Nathanael Setup 0.1.0.exe](https://drive.google.com/open?id=1llg3psAuxQWhcbL3mGyJtXTNgoby3eNe)
 
