@@ -24,10 +24,20 @@ $ yarn
 ```
 **Note**: If you can't use [yarn](https://github.com/yarnpkg/yarn), run `npm install`.
 
-### on Linux (if encountering `npm ERR! Error: SSL Error: CERT_UNTRUSTED`)
+### on Linux
+
+I recommend using `nvm` to make sure you have the latest versions of `node` and `npm`
+
+To install nvm (see [nvm webpage](https://github.com/creationix/nvm#install-script)):
+
 ```bash
-$ npm config set strict-ssl false
-$ npm install
+$ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+```
+
+Then close and reopen the terminal.
+
+```bash
+$ nvm install --lts
 ```
 
 ## Run
