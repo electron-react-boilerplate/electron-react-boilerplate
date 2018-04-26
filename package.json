@@ -59,7 +59,8 @@
     "win": {
       "target": [
         "nsis"
-      ]
+      ],
+      "publish": ["github"]
     },
     "linux": {
       "target": [
@@ -187,7 +188,6 @@
     "devtron": "^1.4.0",
     "electron-debug": "^1.5.0",
     "electron-store": "^1.3.0",
-    "electron-updater": "^2.21.8",
     "fast-sort": "^1.2.6",
     "font-awesome": "^4.7.0",
     "history": "^4.7.2",
