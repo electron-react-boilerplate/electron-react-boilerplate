@@ -1,6 +1,10 @@
-const {app, BrowserWindow, Menu, protocol, ipcMain} = require('electron');
-const log = require('electron-log');
-const {autoUpdater} = require("electron-updater");
+import log from 'electron-log';
+import { autoUpdater } from 'electron-updater';
+
+export const autoUpdaterServices = {
+  setupAutoUpdater
+};
+export default autoUpdaterServices;
 
 /*
  * Adapted from https://github.com/iffy/electron-updater-example/blob/master/main.js
@@ -8,113 +12,114 @@ const {autoUpdater} = require("electron-updater");
  * See LICENSE for details
  */
 
-//-------------------------------------------------------------------
-// Logging
-//
-// THIS SECTION IS NOT REQUIRED
-//
-// This logging setup is not required for auto-updates to work,
-// but it sure makes debugging easier :)
-//-------------------------------------------------------------------
-autoUpdater.logger = log;
-autoUpdater.logger.transports.file.level = 'info';
-log.info('App starting...');
+function setupAutoUpdater(app, BrowserWindow, Menu) {
+  //-------------------------------------------------------------------
+  // Logging
+  //
+  // THIS SECTION IS NOT REQUIRED
+  //
+  // This logging setup is not required for auto-updates to work,
+  // but it sure makes debugging easier :)
+  //-------------------------------------------------------------------
+  autoUpdater.logger = log;
+  autoUpdater.logger.transports.file.level = 'info';
+  log.info('App starting...');
 
-//-------------------------------------------------------------------
-// Define the menu
-//
-// THIS SECTION IS NOT REQUIRED
-//-------------------------------------------------------------------
-let template = []
-if (process.platform === 'darwin') {
+  //-------------------------------------------------------------------
+  // Define the menu
+  //
+  // THIS SECTION IS NOT REQUIRED
+  //-------------------------------------------------------------------
+  const template = [];
+  if (process.platform === 'darwin') {
   // OS X
-  const name = app.getName();
-  template.unshift({
-    label: name,
-    submenu: [
-      {
-        label: 'About ' + name,
-        role: 'about'
-      },
-      {
-        label: 'Quit',
-        accelerator: 'Command+Q',
-        click() { app.quit(); }
-      },
-    ]
-  })
-}
+    const name = app.getName();
+    template.unshift({
+      label: name,
+      submenu: [
+        {
+          label: `About ${name}`,
+          role: 'about'
+        },
+        {
+          label: 'Quit',
+          accelerator: 'Command+Q',
+          click() { app.quit(); }
+        },
+      ]
+    });
+  }
 
 
-//-------------------------------------------------------------------
-// Open a window that displays the version
-//
-// THIS SECTION IS NOT REQUIRED
-//
-// This isn't required for auto-updates to work, but it's easier
-// for the app to show a window than to have to click "About" to see
-// that updates are working.
-//-------------------------------------------------------------------
-let win;
+  //-------------------------------------------------------------------
+  // Open a window that displays the version
+  //
+  // THIS SECTION IS NOT REQUIRED
+  //
+  // This isn't required for auto-updates to work, but it's easier
+  // for the app to show a window than to have to click "About" to see
+  // that updates are working.
+  //-------------------------------------------------------------------
+  let win;
 
-function sendStatusToWindow(text) {
-  log.info(text);
-  win.webContents.send('message', text);
-}
-function createDefaultWindow() {
-  win = new BrowserWindow();
-  win.webContents.openDevTools();
-  win.on('closed', () => {
-    win = null;
+  function sendStatusToWindow(text) {
+    log.info(text);
+    win.webContents.send('message', text);
+  }
+  function createDefaultWindow() {
+    win = new BrowserWindow();
+    win.webContents.openDevTools();
+    win.on('closed', () => {
+      win = null;
+    });
+    win.loadURL(`file://${__dirname}/version.html#v${app.getVersion()}`);
+    return win;
+  }
+  autoUpdater.on('checking-for-update', () => {
+    sendStatusToWindow('Checking for update...');
   });
-  win.loadURL(`file://${__dirname}/version.html#v${app.getVersion()}`);
-  return win;
-}
-autoUpdater.on('checking-for-update', () => {
-  sendStatusToWindow('Checking for update...');
-})
-autoUpdater.on('update-available', (info) => {
-  sendStatusToWindow('Update available.');
-})
-autoUpdater.on('update-not-available', (info) => {
-  sendStatusToWindow('Update not available.');
-})
-autoUpdater.on('error', (err) => {
-  sendStatusToWindow('Error in auto-updater. ' + err);
-})
-autoUpdater.on('download-progress', (progressObj) => {
-  let log_message = "Download speed: " + progressObj.bytesPerSecond;
-  log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
-  log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
-  sendStatusToWindow(log_message);
-})
-autoUpdater.on('update-downloaded', (info) => {
-  sendStatusToWindow('Update downloaded');
-});
-app.on('ready', function() {
+  autoUpdater.on('update-available', () => {
+    sendStatusToWindow('Update available.');
+  });
+  autoUpdater.on('update-not-available', () => {
+    sendStatusToWindow('Update not available.');
+  });
+  autoUpdater.on('error', (err) => {
+    sendStatusToWindow(`Error in auto-updater. ${err}`);
+  });
+  autoUpdater.on('download-progress', (progressObj) => {
+    let logMessage = `Download speed: ${progressObj.bytesPerSecond}`;
+    logMessage = `${logMessage} - Downloaded ${progressObj.percent}%`;
+    logMessage = `${logMessage} (${progressObj.transferred}/${progressObj.total})`;
+    sendStatusToWindow(logMessage);
+  });
+  autoUpdater.on('update-downloaded', () => {
+    sendStatusToWindow('Update downloaded');
+  });
+  app.on('ready', () => {
   // Create the Menu
-  const menu = Menu.buildFromTemplate(template);
-  Menu.setApplicationMenu(menu);
+    const menu = Menu.buildFromTemplate(template);
+    Menu.setApplicationMenu(menu);
 
-  createDefaultWindow();
-});
-app.on('window-all-closed', () => {
-  app.quit();
-});
+    createDefaultWindow();
+  });
+  app.on('window-all-closed', () => {
+    app.quit();
+  });
 
-//
-// CHOOSE one of the following options for Auto updates
-//
+  //
+  // CHOOSE one of the following options for Auto updates
+  //
 
-//-------------------------------------------------------------------
-// Auto updates - Option 1 - Simplest version
-//
-// This will immediately download an update, then install when the
-// app quits.
-//-------------------------------------------------------------------
-app.on('ready', function()  {
-  autoUpdater.checkForUpdatesAndNotify();
-});
+  //-------------------------------------------------------------------
+  // Auto updates - Option 1 - Simplest version
+  //
+  // This will immediately download an update, then install when the
+  // app quits.
+  //-------------------------------------------------------------------
+  app.on('ready', () => {
+    autoUpdater.checkForUpdatesAndNotify();
+  });
 
 //-------------------------------------------------------------------
 // Auto updates - Option 2 - More control
@@ -143,3 +148,4 @@ app.on('ready', function()  {
 // autoUpdater.on('update-downloaded', (info) => {
 //   autoUpdater.quitAndInstall();
 // })
+}
