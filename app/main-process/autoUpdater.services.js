@@ -12,7 +12,7 @@ export default autoUpdaterServices;
  * See LICENSE for details
  */
 
-function setupAutoUpdater(app, BrowserWindow, Menu) {
+function setupAutoUpdater(app) {
   //-------------------------------------------------------------------
   // Logging
   //
@@ -66,6 +66,7 @@ function setupAutoUpdater(app, BrowserWindow, Menu) {
     log.info(text);
     win.webContents.send('message', text);
   }
+  /*
   function createDefaultWindow() {
     win = new BrowserWindow();
     win.webContents.openDevTools();
@@ -75,6 +76,7 @@ function setupAutoUpdater(app, BrowserWindow, Menu) {
     win.loadURL(`file://${__dirname}/version.html#v${app.getVersion()}`);
     return win;
   }
+  */
   autoUpdater.on('checking-for-update', () => {
     sendStatusToWindow('Checking for update...');
   });
@@ -96,6 +98,7 @@ function setupAutoUpdater(app, BrowserWindow, Menu) {
   autoUpdater.on('update-downloaded', () => {
     sendStatusToWindow('Update downloaded');
   });
+  /*
   app.on('ready', () => {
   // Create the Menu
     const menu = Menu.buildFromTemplate(template);
@@ -106,6 +109,7 @@ function setupAutoUpdater(app, BrowserWindow, Menu) {
   app.on('window-all-closed', () => {
     app.quit();
   });
+   */
 
   //
   // CHOOSE one of the following options for Auto updates

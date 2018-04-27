@@ -12,6 +12,7 @@
  */
 import { app, BrowserWindow } from 'electron';
 import MenuBuilder from './menu';
+import { autoUpdaterServices } from './main-process/autoUpdater.services';
 import { navigationConstants } from './constants/navigation.constants';
 
 let mainWindow = null;
@@ -45,6 +46,7 @@ const installExtensions = async () => {
 /**
  * Add event listeners...
  */
+autoUpdaterServices.setupAutoUpdater(app);
 
 app.on('window-all-closed', () => {
   // Respect the OSX convention of having the application in memory even
