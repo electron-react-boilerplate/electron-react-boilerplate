@@ -51,23 +51,26 @@ $ npm run dev
 
 ### on windows
 ```bash
-$ npm run package --icon .\resources\icon.ico
+$ npm run package
 $ cd release
 ```
 ### on linux
 ```bash
-$ npm run package --icon ./resources/icon.ico
+$ npm run package
 $ cd release
 ```
 
 
-## Distribution Packages
+## Releases
 
-Download [Nathanael Setup 0.1.0.exe](https://drive.google.com/open?id=1llg3psAuxQWhcbL3mGyJtXTNgoby3eNe)
+See latest releases here:
 
-Forked from electron-react-boilerplate. Details below
+https://github.com/ubsicap/dbl.local.electron/releases/
+
 
 # electron-react-boilerplate
+
+This repo was forked from the electron-react-boilerplate.
 
 ### A Boilerplate for Scalable Cross-Platform Desktop Apps
 
