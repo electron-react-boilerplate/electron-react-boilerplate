@@ -45,6 +45,7 @@
   display: table-cell;
   padding-left: 20px;
   vertical-align: middle;
+  width: 33%;
 }
 
 .bundleRowTopRightSide {
