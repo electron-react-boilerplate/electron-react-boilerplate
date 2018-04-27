@@ -28,6 +28,7 @@ function setupAutoUpdater(browserWindow) {
    * on Windows: %USERPROFILE%\AppData\Roaming\<app name>\log.log
    */
   autoUpdater.logger = log;
+  autoUpdater.allowPrerelease = true;
   if (process.env.NODE_ENV === 'development') {
     log.transports.file.level = 'debug';
     log.transports.file.file = `${__dirname}/log-dev.txt`;
