@@ -191,6 +191,7 @@
     "electron-debug": "^1.5.0",
     "electron-log": "^2.2.14",
     "electron-store": "^1.3.0",
+    "electron-updater": "^2.21.8",
     "fast-sort": "^1.2.6",
     "font-awesome": "^4.7.0",
     "history": "^4.7.2",
