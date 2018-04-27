@@ -46,8 +46,6 @@ const installExtensions = async () => {
 /**
  * Add event listeners...
  */
-autoUpdaterServices.setupAutoUpdater(app);
-
 app.on('window-all-closed', () => {
   // Respect the OSX convention of having the application in memory even
   // after all windows have been closed
@@ -86,4 +84,8 @@ app.on('ready', async () => {
 
   const menuBuilder = new MenuBuilder(mainWindow);
   menuBuilder.buildMenu();
+
+  const autoUpdater = autoUpdaterServices.setupAutoUpdater(mainWindow);
+  autoUpdater.logger.info('Request checkForUpdatesAndNotify');
+  autoUpdater.checkForUpdatesAndNotify();
 });
