@@ -9,6 +9,7 @@ import CallSplit from 'material-ui/svg-icons/communication/call-split';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 import ActionDelete from 'material-ui/svg-icons/action/delete';
 import { mockFetchAll, toggleSelectBundle, toggleModePauseResume } from '../actions/bundle.actions';
+import { updateSearchInput, addSearchMatch, clearSearch } from '../actions/bundleFilter.actions';
 import styles from './Bundles.css';
 
 function pickBackgroundColor(status) {
@@ -28,17 +29,9 @@ type Props = {
   mockFetchAll: () => {},
   toggleSelectBundle: () => {},
   toggleModePauseResume: () => {},
+  updateSearchInput: () => {},
   bundles: {}
 };
-
-
-function changeSearchInput(searchInput) {
-  console.log(searchInput);
-  if (searchInput.trim().length === 0) {
-    return { type: 'BUNDLE_FILTER_CLEAR' };
-  }
-  return { type: 'BUNDLE_FILTER_BEGIN', searchInput };
-}
 
 class Bundles extends Component<Props> {
   props: Props;
@@ -62,6 +55,10 @@ class Bundles extends Component<Props> {
     event.stopPropagation();
   }
 
+  onChangeSearchInput(inputValue) {
+    this.props.updateSearchInput(inputValue, this.props.bundles);
+  }
+
   render() {
     const { bundles } = this.props;
     return (
@@ -72,7 +69,7 @@ class Bundles extends Component<Props> {
             <DebounceInput
               minLength={2}
               debounceTimeout={300}
-              onChange={event => changeSearchInput(event.target.value)}
+              onChange={(event) => this.onChangeSearchInput(event.target.value)}
             />
           </div>
         </div>
@@ -169,6 +166,11 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   {
-    mockFetchAll, toggleSelectBundle, toggleModePauseResume, changeSearchInput
+    mockFetchAll,
+    toggleSelectBundle,
+    toggleModePauseResume,
+    updateSearchInput,
+    addSearchMatch,
+    clearSearch
   }
 )(Bundles);

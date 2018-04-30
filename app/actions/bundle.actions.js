@@ -12,43 +12,6 @@ export const bundleActions = {
 
 export default bundleActions;
 
-function getMockBundles() {
-  const bundles = [
-    {
-      id: 'bundle01', nameDisplayAs: 'Test Bundle #1', revision: 3, task: 'UPLOAD', statusDisplayAs: 'Uploaded', status: 'COMPLETED', selected: true,
-    },
-    {
-      id: 'bundle02', nameDisplayAs: 'Another Bundle', revision: 3, task: 'UPLOAD', statusDisplayAs: 'Resume Uploading (63%)', status: 'UPLOADING', progress: 63, mode: 'PAUSED'
-    },
-    {
-      id: 'bundle03', nameDisplayAs: 'Audio Bundle', revision: 52, task: 'DOWNLOAD', statusDisplayAs: 'Downloading (12%)', status: 'DOWNLOADING', progress: 12, mode: 'RUNNING'
-    },
-    {
-      id: 'bundle04', nameDisplayAs: 'Unfinished Bundle', task: 'UPLOAD', statusDisplayAs: 'Draft', status: 'DRAFT'
-    },
-    {
-      id: 'bundle05', nameDisplayAs: 'Unfinished Video Bundle', task: 'UPLOAD', statusDisplayAs: 'Draft', status: 'DRAFT'
-    },
-    {
-      id: 'bundle06', nameDisplayAs: 'DBL Bundle', task: 'DOWNLOAD', statusDisplayAs: 'Download', status: 'NOT_STARTED'
-    },
-    {
-      id: 'bundle07', nameDisplayAs: 'DBL Bundle 3', task: 'DOWNLOAD', statusDisplayAs: 'Download', status: 'NOT_STARTED'
-    },
-    {
-      id: 'bundle08', nameDisplayAs: 'Audio Bundle #2', revision: 40, task: 'DOWNLOAD', statusDisplayAs: 'Downloaded', status: 'COMPLETED'
-    },
-  ];
-  const taskOrder = ['UPLOAD', 'DOWNLOAD'];
-  const statusOrder = ['UPLOADING', 'DOWNLOADING', 'DRAFT', 'COMPLETED', 'NOT_STARTED'];
-  const sortedBundles = sort(bundles).asc([
-    (b) => statusOrder.indexOf(b.status),
-    (b) => taskOrder.indexOf(b.task),
-    (b) => b.name,
-  ]);
-  return sortedBundles;
-}
-
 export function mockFetchAll() {
   return dispatch => {
     dispatch(request());
@@ -128,4 +91,41 @@ export function toggleModePauseResume(id) {
 
 export function toggleSelectBundle(id) {
   return { type: bundleConstants.TOGGLE_SELECT, id };
+}
+
+function getMockBundles() {
+  const bundles = [
+    {
+      id: 'bundle01', nameDisplayAs: 'Test Bundle #1', revision: 3, task: 'UPLOAD', statusDisplayAs: 'Uploaded', status: 'COMPLETED', selected: true,
+    },
+    {
+      id: 'bundle02', nameDisplayAs: 'Another Bundle', revision: 3, task: 'UPLOAD', statusDisplayAs: 'Resume Uploading (63%)', status: 'UPLOADING', progress: 63, mode: 'PAUSED'
+    },
+    {
+      id: 'bundle03', nameDisplayAs: 'Audio Bundle', revision: 52, task: 'DOWNLOAD', statusDisplayAs: 'Downloading (12%)', status: 'DOWNLOADING', progress: 12, mode: 'RUNNING'
+    },
+    {
+      id: 'bundle04', nameDisplayAs: 'Unfinished Bundle', task: 'UPLOAD', statusDisplayAs: 'Draft', status: 'DRAFT'
+    },
+    {
+      id: 'bundle05', nameDisplayAs: 'Unfinished Video Bundle', task: 'UPLOAD', statusDisplayAs: 'Draft', status: 'DRAFT'
+    },
+    {
+      id: 'bundle06', nameDisplayAs: 'DBL Bundle', task: 'DOWNLOAD', statusDisplayAs: 'Download', status: 'NOT_STARTED'
+    },
+    {
+      id: 'bundle07', nameDisplayAs: 'DBL Bundle 3', task: 'DOWNLOAD', statusDisplayAs: 'Download', status: 'NOT_STARTED'
+    },
+    {
+      id: 'bundle08', nameDisplayAs: 'Audio Bundle #2', revision: 40, task: 'DOWNLOAD', statusDisplayAs: 'Downloaded', status: 'COMPLETED'
+    },
+  ];
+  const taskOrder = ['UPLOAD', 'DOWNLOAD'];
+  const statusOrder = ['UPLOADING', 'DOWNLOADING', 'DRAFT', 'COMPLETED', 'NOT_STARTED'];
+  const sortedBundles = sort(bundles).asc([
+    (b) => statusOrder.indexOf(b.status),
+    (b) => taskOrder.indexOf(b.task),
+    (b) => b.name,
+  ]);
+  return sortedBundles;
 }
