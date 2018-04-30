@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { DebounceInput } from 'react-debounce-input';
 import FlatButton from 'material-ui/FlatButton';
 import FileDownload from 'material-ui/svg-icons/file/file-download';
 import PlayCircleFilled from 'material-ui/svg-icons/av/play-circle-filled';
@@ -30,6 +31,15 @@ type Props = {
   bundles: {}
 };
 
+
+function changeSearchInput(searchInput) {
+  console.log(searchInput);
+  if (searchInput.trim().length === 0) {
+    return { type: 'BUNDLE_FILTER_CLEAR' };
+  }
+  return { type: 'BUNDLE_FILTER_BEGIN', searchInput };
+}
+
 class Bundles extends Component<Props> {
   props: Props;
   componentDidMount() {
@@ -58,7 +68,13 @@ class Bundles extends Component<Props> {
       <div className={styles.container} data-tid="container">
         <div className={styles.searchBar}>
           <div className={styles.searchBarFilters}>Show: <span>All</span> </div>
-          <div className={styles.searchBarSearch}>Search: <input type="text" name="search" /></div>
+          <div className={styles.searchBarSearch}>Search:
+            <DebounceInput
+              minLength={2}
+              debounceTimeout={300}
+              onChange={event => changeSearchInput(event.target.value)}
+            />
+          </div>
         </div>
         {bundles.loading &&
         <svg className="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
@@ -150,4 +166,9 @@ function mapStateToProps(state) {
     bundles
   };
 }
-export default connect(mapStateToProps, { mockFetchAll, toggleSelectBundle, toggleModePauseResume })(Bundles);
+export default connect(
+  mapStateToProps,
+  {
+    mockFetchAll, toggleSelectBundle, toggleModePauseResume, changeSearchInput
+  }
+)(Bundles);
