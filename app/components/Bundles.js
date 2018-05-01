@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { DebounceInput } from 'react-debounce-input';
 import Highlighter from 'react-highlight-words';
+import { findChunks } from 'highlight-words-core';
 import FlatButton from 'material-ui/FlatButton';
 import FileDownload from 'material-ui/svg-icons/file/file-download';
 import PlayCircleFilled from 'material-ui/svg-icons/av/play-circle-filled';
@@ -10,7 +11,7 @@ import CallSplit from 'material-ui/svg-icons/communication/call-split';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 import ActionDelete from 'material-ui/svg-icons/action/delete';
 import { mockFetchAll, toggleSelectBundle, toggleModePauseResume } from '../actions/bundle.actions';
-import { updateSearchInput } from '../actions/bundleFilter.actions';
+import { updateSearchInput, addSearchMatch } from '../actions/bundleFilter.actions';
 import styles from './Bundles.css';
 
 function pickBackgroundColor(status) {
@@ -31,6 +32,7 @@ type Props = {
   toggleSelectBundle: () => {},
   toggleModePauseResume: () => {},
   updateSearchInput: () => {},
+  addSearchMatch: () => {},
   bundles: {},
   bundlesFilter: {}
 };
@@ -59,6 +61,19 @@ class Bundles extends Component<Props> {
 
   onChangeSearchInput(event, inputValue) {
     this.props.updateSearchInput(inputValue, this.props.bundles);
+  }
+
+  updateFilter(bundle, options) {
+    const { bundlesFilter } = this.props;
+    if (!bundlesFilter.isSearchActive) {
+      return [];
+    }
+    const results = findChunks(options);
+    const isAlreadyMatched = bundle.id in bundlesFilter.searchResults.bundlesMatching;
+    if (results.length > 0 && !isAlreadyMatched) {
+      this.props.addSearchMatch(bundle, options.textToHighlight, results);
+    }
+    return results;
   }
 
   render() {
@@ -95,6 +110,7 @@ class Bundles extends Component<Props> {
                 <Highlighter
                   searchWords={bundlesFilter.isSearchActive ? bundlesFilter.searchKeywords : []}
                   textToHighlight={d.nameDisplayAs}
+                  findChunks={(options) => this.updateFilter(d, options)}
                 />
               </div>
               <div className={styles.bundleRowTopLeftSide}>{d.revision && ` Revision ${d.revision}`}</div>
@@ -177,6 +193,7 @@ export default connect(
     mockFetchAll,
     toggleSelectBundle,
     toggleModePauseResume,
-    updateSearchInput
+    updateSearchInput,
+    addSearchMatch
   }
 )(Bundles);

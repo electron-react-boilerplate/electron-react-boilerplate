@@ -4,25 +4,22 @@ export function bundlesFilter(state = { isSearchActive: false }, action) {
   switch (action.type) {
     case bundleFilterConstants.UPDATE_SEARCH_INPUT: {
       const bundles = { ...action.bundles };
-      const bundleCount = bundles.length;
       return {
         isSearchActive: true,
         searchInput: action.searchInput,
         searchKeywords: action.searchKeywords,
         bundles,
         searchResults: {
-          bundlesProcessed: bundleCount > 0 ? 0 : 100,
           bundlesMatching: {},
         }
       };
     } case bundleFilterConstants.ADD_SEARCH_MATCH: {
-      const oldBundlesProcessed = state.searchResults.bundlesProcessed;
       const oldBundlesMatching = state.searchResults.bundlesMatching;
-      const newMatchingBundle = { id: action.bundle.id, bundle: action.bundle };
+      const key = action.bundle.id;
+      const newMatchingBundle = { [key]: action.bundle };
       return {
         ...state,
         searchResults: {
-          bundlesProcessed: oldBundlesProcessed + 1,
           bundlesMatching: { ...oldBundlesMatching, ...newMatchingBundle },
         }
       };
