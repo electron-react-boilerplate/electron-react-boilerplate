@@ -9,7 +9,7 @@ import CallSplit from 'material-ui/svg-icons/communication/call-split';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 import ActionDelete from 'material-ui/svg-icons/action/delete';
 import { mockFetchAll, toggleSelectBundle, toggleModePauseResume } from '../actions/bundle.actions';
-import { updateSearchInput, addSearchMatch, clearSearch } from '../actions/bundleFilter.actions';
+import { updateSearchInput } from '../actions/bundleFilter.actions';
 import styles from './Bundles.css';
 
 function pickBackgroundColor(status) {
@@ -55,7 +55,7 @@ class Bundles extends Component<Props> {
     event.stopPropagation();
   }
 
-  onChangeSearchInput(inputValue) {
+  onChangeSearchInput(event, inputValue) {
     this.props.updateSearchInput(inputValue, this.props.bundles);
   }
 
@@ -69,7 +69,7 @@ class Bundles extends Component<Props> {
             <DebounceInput
               minLength={2}
               debounceTimeout={300}
-              onChange={(event) => this.onChangeSearchInput(event.target.value)}
+              onChange={(event) => this.onChangeSearchInput(event, event.target.value)}
             />
           </div>
         </div>
@@ -169,8 +169,6 @@ export default connect(
     mockFetchAll,
     toggleSelectBundle,
     toggleModePauseResume,
-    updateSearchInput,
-    addSearchMatch,
-    clearSearch
+    updateSearchInput
   }
 )(Bundles);

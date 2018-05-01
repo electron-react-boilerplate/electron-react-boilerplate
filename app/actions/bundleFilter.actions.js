@@ -8,13 +8,11 @@ export const bundleFilterActions = {
 
 export default bundleFilterActions;
 
-function updateSearchInput(searchInput, bundles) {
-  return dispatch => {
-    if (searchInput.length > 0) {
-      return { type: bundleFilterConstants.UPDATE_SEARCH_INPUT, searchInput, bundles };
-    }
-    dispatch(clearSearch());
-  };
+export function updateSearchInput(searchInput, bundles) {
+  if (searchInput.length > 0) {
+    return { type: bundleFilterConstants.UPDATE_SEARCH_INPUT, searchInput, bundles };
+  }
+  return clearSearch();
 }
 
 function addSearchMatch(bundle) {
