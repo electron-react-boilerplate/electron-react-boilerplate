@@ -202,6 +202,7 @@
     "react": "^16.2.0",
     "react-debounce-input": "^3.2.0",
     "react-dom": "^16.2.0",
+    "react-highlight-words": "^0.11.0",
     "react-hot-loader": "^4.0.0-beta.13",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
