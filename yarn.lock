@@ -90,6 +90,10 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
+"@sellside/emitter@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@sellside/emitter/-/emitter-1.2.1.tgz#0dd839c30cdf01087f4dc63613503da6bcdf5f1e"
+
 "@types/node@*":
   version "9.4.0"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-9.4.0.tgz#b85a0bcf1e1cc84eb4901b7e96966aedc6f078d1"
@@ -5952,7 +5956,7 @@ kind-of@^5.0.0, kind-of@^5.0.2:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-5.1.0.tgz#729c91e2d857b7a419a1f9aa65685c4c33f5845d"
 
-kind-of@^6.0.0, kind-of@^6.0.2:
+kind-of@^6.0.0, kind-of@^6.0.1, kind-of@^6.0.2:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.2.tgz#01146b36a6218e64e58f3a8d66de5d7fc6f6d051"
 
@@ -8986,6 +8990,22 @@ slice-ansi@1.0.0:
   dependencies:
     is-fullwidth-code-point "^2.0.0"
 
+snapdragon-handlers@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/snapdragon-handlers/-/snapdragon-handlers-1.0.0.tgz#9d7cb466f59625fbd54958880c6a65c64d988a1a"
+  dependencies:
+    "@sellside/emitter" "^1.2.1"
+    use "^3.1.0"
+
+snapdragon-lexer@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/snapdragon-lexer/-/snapdragon-lexer-3.1.0.tgz#d5a67fa96c17d339362fe0296c6c3f3383aabfa0"
+  dependencies:
+    kind-of "^6.0.2"
+    snapdragon-handlers "^1.0.0"
+    snapdragon-stack "^2.1.0"
+    snapdragon-token "^3.0.1"
+
 snapdragon-node@^2.0.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/snapdragon-node/-/snapdragon-node-2.1.1.tgz#6c175f86ff14bdb0724563e8f3c1b021a286853b"
@@ -8993,6 +9013,16 @@ snapdragon-node@^2.0.1:
     define-property "^1.0.0"
     isobject "^3.0.0"
     snapdragon-util "^3.0.1"
+
+snapdragon-stack@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/snapdragon-stack/-/snapdragon-stack-2.1.0.tgz#133cb5bca0322be94bb5e75f6dff91997f14b3a8"
+
+snapdragon-token@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/snapdragon-token/-/snapdragon-token-3.0.1.tgz#74b5000ed22aacfa4f2d259a471767a580527f4c"
+  dependencies:
+    kind-of "^6.0.1"
 
 snapdragon-util@^3.0.1:
   version "3.0.1"
@@ -9205,6 +9235,13 @@ split-string@^3.0.1, split-string@^3.0.2:
   resolved "https://registry.yarnpkg.com/split-string/-/split-string-3.1.0.tgz#7cb09dda3a86585705c64b39a6466038682e8fe2"
   dependencies:
     extend-shallow "^3.0.0"
+
+split-string@^5.0.4:
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/split-string/-/split-string-5.0.4.tgz#7c9ea7190d90b70e99260c285f4558b5678e01a3"
+  dependencies:
+    arr-union "^3.1.0"
+    snapdragon-lexer "^3.1.0"
 
 split2@^0.2.1:
   version "0.2.1"
@@ -10184,6 +10221,12 @@ use@^2.0.0:
     define-property "^0.2.5"
     isobject "^3.0.0"
     lazy-cache "^2.0.2"
+
+use@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/use/-/use-3.1.0.tgz#14716bf03fdfefd03040aef58d8b4b85f3a7c544"
+  dependencies:
+    kind-of "^6.0.2"
 
 utf8-byte-length@^1.0.1:
   version "1.0.4"
