@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { DebounceInput } from 'react-debounce-input';
+import Highlighter from 'react-highlight-words';
 import FlatButton from 'material-ui/FlatButton';
 import FileDownload from 'material-ui/svg-icons/file/file-download';
 import PlayCircleFilled from 'material-ui/svg-icons/av/play-circle-filled';
@@ -30,7 +31,8 @@ type Props = {
   toggleSelectBundle: () => {},
   toggleModePauseResume: () => {},
   updateSearchInput: () => {},
-  bundles: {}
+  bundles: {},
+  bundlesFilter: {}
 };
 
 class Bundles extends Component<Props> {
@@ -60,7 +62,7 @@ class Bundles extends Component<Props> {
   }
 
   render() {
-    const { bundles } = this.props;
+    const { bundles, bundlesFilter } = this.props;
     return (
       <div className={styles.container} data-tid="container">
         <div className={styles.searchBar}>
@@ -89,7 +91,12 @@ class Bundles extends Component<Props> {
             style={{ background: `linear-gradient(to right, ${pickBackgroundColor(d.status)} 0%, ${pickBackgroundColor(d.status)} ${d.progress || 100}%, transparent 0%), linear-gradient(to bottom, white 0%, white 100%)` }}
           >
             <div className={styles.bundleRowTop}>
-              <div className={styles.bundleRowTopLeftSide}>{d.nameDisplayAs}</div>
+              <div className={styles.bundleRowTopLeftSide}>
+                <Highlighter
+                  searchWords={bundlesFilter.isSearchActive ? [bundlesFilter.searchInput] : []}
+                  textToHighlight={d.nameDisplayAs}
+                />
+              </div>
               <div className={styles.bundleRowTopLeftSide}>{d.revision && ` Revision ${d.revision}`}</div>
               <div className={styles.bundleRowTopRightSide}>
                 {(d.status === 'COMPLETED' || d.status === 'DRAFT') && <div style={{ paddingRight: '20px', paddingTop: '6px' }}>{d.statusDisplayAs}</div>}
@@ -158,9 +165,10 @@ function stopPropagation(event) {
 }
 
 function mapStateToProps(state) {
-  const { bundles } = state;
+  const { bundles, bundlesFilter } = state;
   return {
-    bundles
+    bundles,
+    bundlesFilter
   };
 }
 export default connect(

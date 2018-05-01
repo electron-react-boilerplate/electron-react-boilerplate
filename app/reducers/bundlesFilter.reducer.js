@@ -1,6 +1,6 @@
 import { bundleFilterConstants } from '../constants/bundleFilter.constants';
 
-export function bundlesFilter(state = {}, action) {
+export function bundlesFilter(state = { isSearchActive: false }, action) {
   switch (action.type) {
     case bundleFilterConstants.UPDATE_SEARCH_INPUT: {
       const bundles = { ...action.bundles };
