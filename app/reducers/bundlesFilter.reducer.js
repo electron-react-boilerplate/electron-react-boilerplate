@@ -8,6 +8,7 @@ export function bundlesFilter(state = { isSearchActive: false }, action) {
       return {
         isSearchActive: true,
         searchInput: action.searchInput,
+        searchKeywords: action.searchKeywords,
         bundles,
         searchResults: {
           bundlesProcessed: bundleCount > 0 ? 0 : 100,
@@ -29,6 +30,7 @@ export function bundlesFilter(state = { isSearchActive: false }, action) {
       return {
         isSearchActive: false,
         searchInput: '',
+        searchKeywords: [],
         searchResults: {}
       };
     default:

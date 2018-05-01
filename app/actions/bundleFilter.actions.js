@@ -1,3 +1,4 @@
+import split from 'split-string';
 import { bundleFilterConstants } from '../constants/bundleFilter.constants';
 
 export const bundleFilterActions = {
@@ -9,8 +10,15 @@ export const bundleFilterActions = {
 export default bundleFilterActions;
 
 export function updateSearchInput(searchInput, bundles) {
-  if (searchInput.length > 0) {
-    return { type: bundleFilterConstants.UPDATE_SEARCH_INPUT, searchInput, bundles };
+  const trimmedSearchInput = searchInput.trim();
+  const searchKeywords = split(searchInput, { separator: ' ' });
+  if (trimmedSearchInput.length > 0) {
+    return {
+      type: bundleFilterConstants.UPDATE_SEARCH_INPUT,
+      searchInput: trimmedSearchInput,
+      searchKeywords,
+      bundles
+    };
   }
   return clearSearch();
 }

@@ -93,7 +93,7 @@ class Bundles extends Component<Props> {
             <div className={styles.bundleRowTop}>
               <div className={styles.bundleRowTopLeftSide}>
                 <Highlighter
-                  searchWords={bundlesFilter.isSearchActive ? [bundlesFilter.searchInput] : []}
+                  searchWords={bundlesFilter.isSearchActive ? bundlesFilter.searchKeywords : []}
                   textToHighlight={d.nameDisplayAs}
                 />
               </div>
