@@ -109,17 +109,17 @@ class Bundles extends Component<Props> {
               <div className={styles.bundleRowTopLeftSide}>
                 <Highlighter
                   searchWords={bundlesFilter.isSearchActive ? bundlesFilter.searchKeywords : []}
-                  textToHighlight={d.nameDisplayAs}
+                  textToHighlight={d.displayAs.name}
                   findChunks={(options) => this.updateFilter(d, options)}
                 />
               </div>
-              <div className={styles.bundleRowTopLeftSide}>{d.revision && ` Revision ${d.revision}`}</div>
+              <div className={styles.bundleRowTopLeftSide}>{d.displayAs.revision}</div>
               <div className={styles.bundleRowTopRightSide}>
                 {(d.status === 'COMPLETED' || d.status === 'DRAFT') && <div style={{ paddingRight: '20px', paddingTop: '6px' }}>{d.statusDisplayAs}</div>}
                 {d.task === 'DOWNLOAD' && d.status === 'NOT_STARTED' &&
                 <FlatButton
                   labelPosition="before"
-                  label={d.statusDisplayAs}
+                  label={d.displayAs.status}
                   icon={<FileDownload />}
                   onClick={(e) => this.onClickTogglePauseResume(e, d.id)}
                 />
@@ -127,7 +127,7 @@ class Bundles extends Component<Props> {
                 {d.mode === 'PAUSED' &&
                 <FlatButton
                   labelPosition="before"
-                  label={d.statusDisplayAs}
+                  label={d.displayAs.status}
                   icon={<PlayCircleFilled />}
                   onClick={(e) => this.onClickTogglePauseResume(e, d.id)}
                 />
@@ -135,7 +135,7 @@ class Bundles extends Component<Props> {
                 {d.mode === 'RUNNING' &&
                 <FlatButton
                   labelPosition="before"
-                  label={d.statusDisplayAs}
+                  label={d.displayAs.status}
                   icon={<PauseCircleFilled />}
                   onClick={(e) => this.onClickTogglePauseResume(e, d.id)}
                 />

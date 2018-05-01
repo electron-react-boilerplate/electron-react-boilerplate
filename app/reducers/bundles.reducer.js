@@ -8,7 +8,7 @@ export function bundles(state = {}, action) {
       };
     case bundleConstants.FETCH_SUCCESS:
       return {
-        items: action.bundles
+        items: action.bundles.map(bundle => updateDisplayAs(bundle))
       };
     case bundleConstants.FETCH_FAILURE:
       return {
@@ -68,25 +68,44 @@ function forkArray(array, condition, createItem) {
 function buildToggledBundle(bundle) {
   const newMode = bundle.status === 'NOT_STARTED' || bundle.mode === 'PAUSED' ? 'RUNNING' : 'PAUSED';
   const newStatus = bundle.status === 'NOT_STARTED' ? `${bundle.task}ING` : bundle.status;
+  const updatedBundle = {
+    ...bundle,
+    status: newStatus,
+    mode: newMode,
+  };
+  return updateDisplayAs(updatedBundle);
+}
+
+function updateDisplayAs(bundle) {
+  return { ...bundle, ...formatDisplayAs(bundle) };
+}
+
+
+function formatDisplayAs(bundle) {
+  return {
+    displayAs: {
+      name: bundle.name || bundle.nameDisplayAs,
+      revision: `Revision ${bundle.revision || '0'}`,
+      status: formatStatus(bundle)
+    }
+  };
+}
+
+function formatStatus(bundle) {
   const formattedProgress = formatProgress(bundle);
   const uploadingMsg = `Uploading ${formattedProgress}`;
   const downloadingMsg = `Downloading ${formattedProgress}`;
   let newStatusDisplayAs;
   if (bundle.status === 'NOT_STARTED') {
-    newStatusDisplayAs = (bundle.task === 'DOWNLOAD' ? downloadingMsg : uploadingMsg);
+    newStatusDisplayAs = 'Download';
   } else if (bundle.status === 'UPLOADING') {
-    newStatusDisplayAs = (newMode === 'PAUSED' ? `Resume Uploading ${formattedProgress}` : uploadingMsg);
+    newStatusDisplayAs = (bundle.mode === 'PAUSED' ? `Resume Uploading ${formattedProgress}` : uploadingMsg);
   } else if (bundle.status === 'DOWNLOADING') {
-    newStatusDisplayAs = (newMode === 'PAUSED' ? `Resume Downloading ${formattedProgress}` : downloadingMsg);
+    newStatusDisplayAs = (bundle.mode === 'PAUSED' ? `Resume Downloading ${formattedProgress}` : downloadingMsg);
   } else {
-    newStatusDisplayAs = bundle.statusDisplayAs;
+    newStatusDisplayAs = bundle.statusDisplayAs || bundle.status;
   }
-  return {
-    ...bundle,
-    status: newStatus,
-    mode: newMode,
-    statusDisplayAs: newStatusDisplayAs
-  };
+  return newStatusDisplayAs;
 }
 
 function formatProgress(bundle) {

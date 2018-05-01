@@ -96,28 +96,28 @@ export function toggleSelectBundle(id) {
 function getMockBundles() {
   const bundles = [
     {
-      id: 'bundle01', nameDisplayAs: 'Test Bundle #1', revision: 3, task: 'UPLOAD', statusDisplayAs: 'Uploaded', status: 'COMPLETED', selected: true,
+      id: 'bundle01', name: 'Test Bundle #1', revision: 3, task: 'UPLOAD', status: 'COMPLETED', selected: true,
     },
     {
-      id: 'bundle02', nameDisplayAs: 'Another Bundle', revision: 3, task: 'UPLOAD', statusDisplayAs: 'Resume Uploading (63%)', status: 'UPLOADING', progress: 63, mode: 'PAUSED'
+      id: 'bundle02', name: 'Another Bundle', revision: 3, task: 'UPLOAD', status: 'UPLOADING', progress: 63, mode: 'PAUSED'
     },
     {
-      id: 'bundle03', nameDisplayAs: 'Audio Bundle', revision: 52, task: 'DOWNLOAD', statusDisplayAs: 'Downloading (12%)', status: 'DOWNLOADING', progress: 12, mode: 'RUNNING'
+      id: 'bundle03', name: 'Audio Bundle', revision: 52, task: 'DOWNLOAD', status: 'DOWNLOADING', progress: 12, mode: 'RUNNING'
     },
     {
-      id: 'bundle04', nameDisplayAs: 'Unfinished Bundle', task: 'UPLOAD', statusDisplayAs: 'Draft', status: 'DRAFT'
+      id: 'bundle04', name: 'Unfinished Bundle', task: 'UPLOAD', status: 'DRAFT'
     },
     {
-      id: 'bundle05', nameDisplayAs: 'Unfinished Video Bundle', task: 'UPLOAD', statusDisplayAs: 'Draft', status: 'DRAFT'
+      id: 'bundle05', name: 'Unfinished Video Bundle', task: 'UPLOAD', status: 'DRAFT'
     },
     {
-      id: 'bundle06', nameDisplayAs: 'DBL Bundle', task: 'DOWNLOAD', statusDisplayAs: 'Download', status: 'NOT_STARTED'
+      id: 'bundle06', name: 'DBL Bundle', task: 'DOWNLOAD', status: 'NOT_STARTED'
     },
     {
-      id: 'bundle07', nameDisplayAs: 'DBL Bundle 3', task: 'DOWNLOAD', statusDisplayAs: 'Download', status: 'NOT_STARTED'
+      id: 'bundle07', name: 'DBL Bundle 3', task: 'DOWNLOAD', status: 'NOT_STARTED'
     },
     {
-      id: 'bundle08', nameDisplayAs: 'Audio Bundle #2', revision: 40, task: 'DOWNLOAD', statusDisplayAs: 'Downloaded', status: 'COMPLETED'
+      id: 'bundle08', name: 'Audio Bundle #2', revision: 40, task: 'DOWNLOAD', status: 'COMPLETED'
     },
   ];
   const taskOrder = ['UPLOAD', 'DOWNLOAD'];
