@@ -1,3 +1,4 @@
+import { findChunks } from 'highlight-words-core';
 import { bundleFilterConstants } from '../constants/bundleFilter.constants';
 
 export function bundlesFilter(state = { isSearchActive: false }, action) {
@@ -10,6 +11,7 @@ export function bundlesFilter(state = { isSearchActive: false }, action) {
         searchKeywords: action.searchKeywords,
         bundles,
         searchResults: {
+          chunks: findChunksInBundlesDisplayAsData(bundles.items, action.searchKeywords),
           bundlesMatching: {},
         }
       };
@@ -34,5 +36,26 @@ export function bundlesFilter(state = { isSearchActive: false }, action) {
       return state;
   }
 }
-
 export default bundlesFilter;
+
+/*
+ findChunks({
+  autoEscape,
+  caseSensitive,
+  sanitize,
+  searchWords,
+  textToHighlight})
+*/
+function findChunksInBundlesDisplayAsData(bundles, searchKeywords) {
+  const chunks = {};
+  bundles.forEach((bundle) => {
+    Object.values(bundle.displayAs).forEach((searchString) => {
+      if (searchString in chunks) {
+        return;
+      }
+      const results = findChunks({ searchWords: searchKeywords, textToHighlight: searchString });
+      chunks[searchString] = results;
+    });
+  });
+  return chunks;
+}
