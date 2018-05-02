@@ -22,8 +22,9 @@ export function updateSearchInput(searchInput, bundles) {
         bundles
       });
       updateAllSearchMatches(dispatch, bundles.items, searchKeywords);
+    } else {
+      dispatch(clearSearch());
     }
-    dispatch(clearSearch());
   };
 
   /*

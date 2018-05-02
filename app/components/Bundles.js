@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { DebounceInput } from 'react-debounce-input';
 import Highlighter from 'react-highlight-words';
-import { findChunks } from 'highlight-words-core';
 import FlatButton from 'material-ui/FlatButton';
 import FileDownload from 'material-ui/svg-icons/file/file-download';
 import PlayCircleFilled from 'material-ui/svg-icons/av/play-circle-filled';
@@ -11,7 +10,7 @@ import CallSplit from 'material-ui/svg-icons/communication/call-split';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 import ActionDelete from 'material-ui/svg-icons/action/delete';
 import { mockFetchAll, toggleSelectBundle, toggleModePauseResume } from '../actions/bundle.actions';
-import { updateSearchInput, addSearchMatch } from '../actions/bundleFilter.actions';
+import { updateSearchInput } from '../actions/bundleFilter.actions';
 import styles from './Bundles.css';
 
 function pickBackgroundColor(status) {
@@ -32,7 +31,6 @@ type Props = {
   toggleSelectBundle: () => {},
   toggleModePauseResume: () => {},
   updateSearchInput: () => {},
-  addSearchMatch: () => {},
   bundles: {},
   bundlesFilter: {}
 };
@@ -63,17 +61,18 @@ class Bundles extends Component<Props> {
     this.props.updateSearchInput(inputValue, this.props.bundles);
   }
 
-  updateFilter(bundle, options) {
+  updateMatches(bundle, options) {
     const { bundlesFilter } = this.props;
     if (!bundlesFilter.isSearchActive) {
       return [];
     }
-    const results = findChunks(options);
-    const isAlreadyMatched = bundle.id in bundlesFilter.searchResults.bundlesMatching;
-    if (results.length > 0 && !isAlreadyMatched) {
-      this.props.addSearchMatch(bundle, options.textToHighlight, results);
+    const { searchResults } = bundlesFilter;
+    const { bundlesMatching, chunks } = searchResults;
+    const hasMatchInBundle = bundle.id in bundlesMatching;
+    if (hasMatchInBundle) {
+      return chunks[options.textToHighlight];
     }
-    return results;
+    return [];
   }
 
   render() {
@@ -95,7 +94,7 @@ class Bundles extends Component<Props> {
           <circle className="path" fill="none" strokeWidth="6" strokeLinecap="round" cx="33" cy="33" r="30" />
         </svg>
         }
-        {bundles.items && bundles.items.map((d) => (
+        {bundles.items && bundles.items.filter((b) => displayRow(bundlesFilter, b)).map((d) => (
           <div
             className={styles.bundleRow}
             key={d.id}
@@ -110,10 +109,16 @@ class Bundles extends Component<Props> {
                 <Highlighter
                   searchWords={bundlesFilter.isSearchActive ? bundlesFilter.searchKeywords : []}
                   textToHighlight={d.displayAs.name}
-                  /* findChunks={(options) => this.updateFilter(d, options)} */
+                  /* findChunks={(options) => this.updateMatches(d, options)} */
                 />
               </div>
-              <div className={styles.bundleRowTopLeftSide}>{d.displayAs.revision}</div>
+              <div className={styles.bundleRowTopLeftSide}>
+                <Highlighter
+                  searchWords={bundlesFilter.isSearchActive ? bundlesFilter.searchKeywords : []}
+                  textToHighlight={d.displayAs.revision}
+                    /* findChunks={(options) => this.updateMatches(d, options)} */
+                />
+              </div>
               <div className={styles.bundleRowTopRightSide}>
                 {(d.status === 'COMPLETED' || d.status === 'DRAFT') && <div style={{ paddingRight: '20px', paddingTop: '6px' }}>{d.statusDisplayAs}</div>}
                 {d.task === 'DOWNLOAD' && d.status === 'NOT_STARTED' &&
@@ -176,6 +181,11 @@ class Bundles extends Component<Props> {
   }
 }
 
+function displayRow(bundlesFilter, bundle) {
+  return !(bundlesFilter.isSearchActive) ||
+   bundle.id in bundlesFilter.searchResults.bundlesMatching;
+}
+
 function stopPropagation(event) {
   event.stopPropagation();
 }
@@ -193,7 +203,6 @@ export default connect(
     mockFetchAll,
     toggleSelectBundle,
     toggleModePauseResume,
-    updateSearchInput,
-    addSearchMatch
+    updateSearchInput
   }
 )(Bundles);
