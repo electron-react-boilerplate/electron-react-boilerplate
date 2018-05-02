@@ -83,7 +83,6 @@ class Bundles extends Component<Props> {
           <div className={styles.searchBarFilters}>Show: <span>All</span> </div>
           <div className={styles.searchBarSearch}>Search:
             <DebounceInput
-              minLength={2}
               debounceTimeout={300}
               onChange={(event) => this.onChangeSearchInput(event, event.target.value)}
             />
