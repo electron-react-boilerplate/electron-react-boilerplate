@@ -5,6 +5,10 @@ import Root from './containers/Root';
 import { configureStore, history } from './store/configureStore';
 import './app.global.css';
 
+import TestClass from './TestClass';
+
+const testObject = new TestClass();
+
 const store = configureStore();
 
 render(
