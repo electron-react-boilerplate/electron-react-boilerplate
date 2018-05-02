@@ -1,13 +1,15 @@
 // @flow
 import { app, Menu, shell, BrowserWindow, ipcMain } from 'electron';
+import { AppUpdater } from 'electron-builder';
 import { ipcRendererConstants } from './constants/ipcRenderer.constants';
 import { navigationConstants } from './constants/navigation.constants';
 
 export default class MenuBuilder {
   mainWindow: BrowserWindow;
-
-  constructor(mainWindow: BrowserWindow) {
+  autoUpdater: AppUpdater;
+  constructor(mainWindow: BrowserWindow, autoUpdater: AppUpdater) {
     this.mainWindow = mainWindow;
+    this.autoUpdater = autoUpdater;
     ipcMain.on(ipcRendererConstants.KEY_IPC_USER_AUTHENTICATION, (event, authentication) => {
       // console.log(JSON.stringify(authentication));
       this.buildMenu(authentication);
@@ -204,6 +206,12 @@ export default class MenuBuilder {
         label: 'Search Issues',
         click() {
           shell.openExternal('https://github.com/ubsicap/dbl.local.electron/issues');
+        }
+      },
+      {
+        label: 'Open Log',
+        click() {
+          shell.openItem(this.autoUpdater.logger.transports.file.file);
         }
       }]
     }];

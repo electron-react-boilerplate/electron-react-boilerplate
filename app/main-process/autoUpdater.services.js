@@ -33,7 +33,7 @@ function setupAutoUpdater(browserWindow) {
     log.transports.file.level = 'debug';
     log.transports.file.file = `${__dirname}/log-dev.txt`;
   } else {
-    autoUpdater.logger.transports.file.level = 'info';
+    log.transports.file.level = 'info';
   }
   log.info(`Log file: ${log.transports.file.file}`);
   log.info('App starting...');

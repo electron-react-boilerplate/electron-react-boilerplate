@@ -82,10 +82,10 @@ app.on('ready', async () => {
     mainWindow = null;
   });
 
-  const menuBuilder = new MenuBuilder(mainWindow);
+  const autoUpdater = autoUpdaterServices.setupAutoUpdater(mainWindow);
+  const menuBuilder = new MenuBuilder(mainWindow, autoUpdater);
   menuBuilder.buildMenu();
 
-  const autoUpdater = autoUpdaterServices.setupAutoUpdater(mainWindow);
   autoUpdater.logger.info('Request checkForUpdatesAndNotify');
   autoUpdater.checkForUpdatesAndNotify();
 });
