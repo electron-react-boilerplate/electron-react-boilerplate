@@ -20,6 +20,8 @@ export default merge.smart(baseConfig, {
 
   devtool: 'eval',
 
+  mode: 'development',
+
   target: 'electron-renderer',
 
   externals: ['fsevents', 'crypto-browserify'],
@@ -30,10 +32,8 @@ export default merge.smart(baseConfig, {
   module: require('./webpack.config.renderer.dev').module,
 
   entry: {
-    renderer: (
-      Object
-        .keys(dependencies || {})
-        .filter(dependency => dependency !== 'font-awesome')
+    renderer: Object.keys(dependencies || {}).filter(
+      dependency => dependency !== 'font-awesome'
     )
   },
 
@@ -47,7 +47,7 @@ export default merge.smart(baseConfig, {
   plugins: [
     new webpack.DllPlugin({
       path: path.join(dist, '[name].json'),
-      name: '[name]',
+      name: '[name]'
     }),
 
     /**
@@ -68,9 +68,9 @@ export default merge.smart(baseConfig, {
       options: {
         context: path.resolve(process.cwd(), 'app'),
         output: {
-          path: path.resolve(process.cwd(), 'dll'),
-        },
-      },
+          path: path.resolve(process.cwd(), 'dll')
+        }
+      }
     })
-  ],
+  ]
 });

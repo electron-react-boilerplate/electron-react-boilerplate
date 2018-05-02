@@ -14,6 +14,8 @@ CheckNodeEnv('production');
 export default merge.smart(baseConfig, {
   devtool: 'source-map',
 
+  mode: 'production',
+
   target: 'electron-main',
 
   entry: './app/main.dev',
@@ -30,7 +32,8 @@ export default merge.smart(baseConfig, {
     }),
 
     new BundleAnalyzerPlugin({
-      analyzerMode: process.env.OPEN_ANALYZER === 'true' ? 'server' : 'disabled',
+      analyzerMode:
+        process.env.OPEN_ANALYZER === 'true' ? 'server' : 'disabled',
       openAnalyzer: process.env.OPEN_ANALYZER === 'true'
     }),
 
@@ -57,5 +60,5 @@ export default merge.smart(baseConfig, {
   node: {
     __dirname: false,
     __filename: false
-  },
+  }
 });
