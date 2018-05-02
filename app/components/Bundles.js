@@ -108,14 +108,14 @@ class Bundles extends Component<Props> {
                 <Highlighter
                   searchWords={bundlesFilter.isSearchActive ? bundlesFilter.searchKeywords : []}
                   textToHighlight={d.displayAs.name}
-                  /* findChunks={(options) => this.updateMatches(d, options)} */
+                  findChunks={(options) => this.updateMatches(d, options)}
                 />
               </div>
               <div className={styles.bundleRowTopLeftSide}>
                 <Highlighter
                   searchWords={bundlesFilter.isSearchActive ? bundlesFilter.searchKeywords : []}
                   textToHighlight={d.displayAs.revision}
-                    /* findChunks={(options) => this.updateMatches(d, options)} */
+                  findChunks={(options) => this.updateMatches(d, options)}
                 />
               </div>
               <div className={styles.bundleRowTopRightSide}>
