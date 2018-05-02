@@ -1,4 +1,3 @@
-import { findChunks } from 'highlight-words-core';
 import { bundleFilterConstants } from '../constants/bundleFilter.constants';
 
 export function bundlesFilter(state = { isSearchActive: false }, action) {
@@ -11,18 +10,25 @@ export function bundlesFilter(state = { isSearchActive: false }, action) {
         searchKeywords: action.searchKeywords,
         bundles,
         searchResults: {
-          chunks: findChunksInBundlesDisplayAsData(bundles.items, action.searchKeywords),
+          chunks: {},
+          foundChunks: {},
           bundlesMatching: {},
         }
       };
     } case bundleFilterConstants.ADD_SEARCH_MATCH: {
       const oldBundlesMatching = state.searchResults.bundlesMatching;
+      const oldChunks = state.searchResults.chunks;
+      const oldMatches = state.searchResults.matches;
       const key = action.bundle.id;
       const newMatchingBundle = { [key]: action.bundle };
+      const newChunks = action.chunks;
+      const newMatches = action.matches;
       return {
         ...state,
         searchResults: {
           bundlesMatching: { ...oldBundlesMatching, ...newMatchingBundle },
+          chunks: { ...oldChunks, ...newChunks },
+          matches: { ...oldMatches, ...newMatches }
         }
       };
     } case bundleFilterConstants.CLEAR_SEARCH_RESULTS:
@@ -37,25 +43,3 @@ export function bundlesFilter(state = { isSearchActive: false }, action) {
   }
 }
 export default bundlesFilter;
-
-/*
- findChunks({
-  autoEscape,
-  caseSensitive,
-  sanitize,
-  searchWords,
-  textToHighlight})
-*/
-function findChunksInBundlesDisplayAsData(bundles, searchKeywords) {
-  const chunks = {};
-  bundles.forEach((bundle) => {
-    Object.values(bundle.displayAs).forEach((searchString) => {
-      if (searchString in chunks) {
-        return;
-      }
-      const results = findChunks({ searchWords: searchKeywords, textToHighlight: searchString });
-      chunks[searchString] = results;
-    });
-  });
-  return chunks;
-}
