@@ -35,6 +35,7 @@ function setupAutoUpdater(browserWindow) {
   } else {
     autoUpdater.logger.transports.file.level = 'info';
   }
+  log.info(`Log file: ${log.transports.file.file}`);
   log.info('App starting...');
 
   //-------------------------------------------------------------------
