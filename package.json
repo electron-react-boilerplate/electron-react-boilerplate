@@ -42,7 +42,6 @@
       "git add"
     ],
     "{*.json,.stylelintrc,.prettierrc,.eslintrc,.babelrc}": [
-      "echo",
       "prettier --write",
       "npm run lint-fix",
       "git add"
