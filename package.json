@@ -12,7 +12,7 @@
     "electron-rebuild": "electron-rebuild --parallel --force --types prod,dev,optional --module-dir app",
     "flow": "flow",
     "flow-typed": "rimraf flow-typed/npm && flow-typed install --overwrite || true",
-    "lint": "cross-env NODE_ENV=development eslint --cache --format=node_modules/eslint-formatter-pretty .",
+    "lint": "cross-env NODE_ENV=development eslint --cache --format=node_modules/eslint-formatter-pretty --ext .html --ext .js --ext .json .",
     "lint-fix": "npm run lint -- --fix",
     "lint-styles": "stylelint app/*.css app/components/*.css --syntax scss",
     "lint-styles-fix": "stylefmt -r app/*.css app/components/*.css",
@@ -38,12 +38,13 @@
       "git add"
     ],
     "*.html": [
-      "prettier --write",
+      "npm run lint-fix",
       "git add"
     ],
     "{*.json,.stylelintrc,.prettierrc,.eslintrc,.babelrc}": [
       "echo",
       "prettier --write",
+      "npm run lint-fix",
       "git add"
     ]
   },
@@ -162,8 +163,10 @@
     "eslint-import-resolver-webpack": "^0.8.4",
     "eslint-plugin-compat": "^2.2.0",
     "eslint-plugin-flowtype": "^2.46.1",
+    "eslint-plugin-html": "^4.0.3",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jest": "^21.15.0",
+    "eslint-plugin-json": "^1.2.0",
     "eslint-plugin-jsx-a11y": "6.0.3",
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-react": "^7.7.0",

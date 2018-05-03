@@ -52,7 +52,16 @@
     ],
     "react/prefer-stateless-function": "off"
   },
-  "plugins": ["flowtype", "import", "promise", "compat", "react", "prettier"],
+  "plugins": [
+    "flowtype",
+    "import",
+    "promise",
+    "compat",
+    "react",
+    "prettier",
+    "html",
+    "json"
+  ],
   "settings": {
     "import/resolver": {
       "webpack": {

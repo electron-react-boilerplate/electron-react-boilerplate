@@ -5,7 +5,8 @@
   <meta charset="utf-8">
   <title>Hello Electron React!</title>
   <script>
-    (function () {
+    // eslint-disable-next-line func-names
+    (function() {
       if (!process.env.HOT) {
         const link = document.createElement('link');
         link.rel = 'stylesheet';
@@ -13,7 +14,7 @@
         // HACK: Writing the script path should be done with webpack
         document.getElementsByTagName('head')[0].appendChild(link);
       }
-    }());
+    })();
   </script>
 </head>
 
@@ -32,13 +33,13 @@
       // Dynamically insert the bundled app script in the renderer process
       const port = process.env.PORT || 1212;
       scripts.push(
-        (process.env.HOT)
+        process.env.HOT // eslint-disable-next-line prefer-template
           ? 'http://localhost:' + port + '/renderer.dev.js'
           : './renderer.prod.js'
       );
 
       document.write(
-        scripts
+        scripts // eslint-disable-next-line prefer-template, no-useless-escape, prettier/prettier
           .map(script => '<script defer src="' + script + '"><\/script>')
           .join('')
       );
