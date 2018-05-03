@@ -1,5 +1,9 @@
 # 0.2.1
 
+#### Features
+
+- Added Open Log to the Help menu
+
 #### Fixes
 
 - Fix status column
