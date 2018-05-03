@@ -36,6 +36,15 @@
     "*.js": [
       "npm run lint-fix",
       "git add"
+    ],
+    "*.html": [
+      "prettier --write",
+      "git add"
+    ],
+    "{*.json,.stylelintrc,.prettierrc,.eslintrc,.babelrc}": [
+      "echo",
+      "prettier --write",
+      "git add"
     ]
   },
   "build": {
