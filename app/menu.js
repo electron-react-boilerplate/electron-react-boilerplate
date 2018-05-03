@@ -208,9 +208,9 @@ export default class MenuBuilder {
         }
       },
       {
-        label: 'Open Log',
+        label: `Open Log: ${logFile}`,
         click() {
-          shell.openExternal(logFile);
+          shell.openItem(logFile);
         }
       }]
     }];
