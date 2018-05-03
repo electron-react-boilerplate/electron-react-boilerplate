@@ -27,6 +27,11 @@
       // renderer process
       if (process.env.NODE_ENV === 'development') {
         scripts.push('./dll/renderer.dev.dll.js');
+        document.write(
+          scripts
+            .map(script => `<script defer src="${script}"><\/script>`)
+            .join('')
+        );
       }
 
       // Dynamically insert the bundled app script in the renderer process
