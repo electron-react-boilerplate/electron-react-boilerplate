@@ -1,3 +1,10 @@
+# 0.2.1
+
+#### Fixes
+
+- Fix status column
+- Fix highlighting to have zero padding (+ bolded)
+
 # 0.2.0 
 
 #### Features
