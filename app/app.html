@@ -5,8 +5,7 @@
   <meta charset="utf-8">
   <title>Hello Electron React!</title>
   <script>
-    // eslint-disable-next-line func-names
-    (function() {
+    (() => {
       if (!process.env.HOT) {
         const link = document.createElement('link');
         link.rel = 'stylesheet';
@@ -33,15 +32,14 @@
       // Dynamically insert the bundled app script in the renderer process
       const port = process.env.PORT || 1212;
       scripts.push(
-        process.env.HOT // eslint-disable-next-line prefer-template
-          ? 'http://localhost:' + port + '/renderer.dev.js'
+        process.env.HOT
+          ? `http://localhost:${port}/renderer.dev.js`
           : './renderer.prod.js'
       );
 
       document.write(
-        scripts // eslint-disable-next-line prefer-template, no-useless-escape, prettier/prettier
-          .map(script => '<script defer src="' + script + '"><\/script>')
-          .join('')
+        // eslint-disable-next-line no-useless-escape
+        scripts.map(script => `<script defer src="${script}"><\/script>`).join('')
       );
     }
   </script>
