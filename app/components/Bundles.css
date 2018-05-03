@@ -34,6 +34,13 @@
   margin-bottom: 2px;
 }
 
+/* override .mark in bootstrap.css */
+.Highlight {
+  background-color: inherit;
+  font-weight: bold;
+  padding: 0;
+}
+
 .bundleRowTop {
   display: table;
   width: 100%;
