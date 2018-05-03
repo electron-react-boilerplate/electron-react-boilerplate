@@ -1,17 +1,15 @@
 // @flow
 import { app, Menu, shell, BrowserWindow, ipcMain } from 'electron';
-import { AppUpdater } from 'electron-builder';
 import { ipcRendererConstants } from './constants/ipcRenderer.constants';
 import { navigationConstants } from './constants/navigation.constants';
 
 export default class MenuBuilder {
   mainWindow: BrowserWindow;
-  autoUpdater: AppUpdater;
-  constructor(mainWindow: BrowserWindow, autoUpdater: AppUpdater) {
+  autoUpdater;
+  constructor(mainWindow: BrowserWindow, autoUpdater) {
     this.mainWindow = mainWindow;
     this.autoUpdater = autoUpdater;
     ipcMain.on(ipcRendererConstants.KEY_IPC_USER_AUTHENTICATION, (event, authentication) => {
-      // console.log(JSON.stringify(authentication));
       this.buildMenu(authentication);
     });
   }
@@ -134,6 +132,7 @@ export default class MenuBuilder {
       const username = (authentication.user ? authentication.user.username : null) || '';
       loginLabel = `&Logout ${username}`;
     }
+    const logFile = this.autoUpdater.logger.transports.file.file;
     // console.log('menu/buildDefaultTemplate');
     // console.log(loginLabel);
     const templateDefault = [{
@@ -211,7 +210,7 @@ export default class MenuBuilder {
       {
         label: 'Open Log',
         click() {
-          shell.openItem(this.autoUpdater.logger.transports.file.file);
+          shell.openExternal(logFile);
         }
       }]
     }];

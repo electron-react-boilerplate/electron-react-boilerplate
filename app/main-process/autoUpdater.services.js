@@ -35,8 +35,8 @@ function setupAutoUpdater(browserWindow) {
   } else {
     log.transports.file.level = 'info';
   }
-  log.info(`Log file: ${log.transports.file.file}`);
   log.info('App starting...');
+  log.info(`Log file: ${log.transports.file.file}`);
 
   //-------------------------------------------------------------------
   // Define the menu
