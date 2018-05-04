@@ -133,7 +133,12 @@ class Bundles extends Component<Props> {
                 {d.task === 'DOWNLOAD' && d.status === 'NOT_STARTED' &&
                 <FlatButton
                   labelPosition="before"
-                  label={d.displayAs.status}
+                  label={<Highlighter
+                    highlightClassName={styles.Highlight}
+                    searchWords={bundlesFilter.isSearchActive ? bundlesFilter.searchKeywords : []}
+                    textToHighlight={d.displayAs.status}
+                    findChunks={(options) => this.updateMatches(d, options)}
+                  />}
                   icon={<FileDownload />}
                   onClick={(e) => this.onClickTogglePauseResume(e, d.id)}
                 />
@@ -141,7 +146,12 @@ class Bundles extends Component<Props> {
                 {d.mode === 'PAUSED' &&
                 <FlatButton
                   labelPosition="before"
-                  label={d.displayAs.status}
+                  label={<Highlighter
+                    highlightClassName={styles.Highlight}
+                    searchWords={bundlesFilter.isSearchActive ? bundlesFilter.searchKeywords : []}
+                    textToHighlight={d.displayAs.status}
+                    findChunks={(options) => this.updateMatches(d, options)}
+                  />}
                   icon={<PlayCircleFilled />}
                   onClick={(e) => this.onClickTogglePauseResume(e, d.id)}
                 />
@@ -149,7 +159,12 @@ class Bundles extends Component<Props> {
                 {d.mode === 'RUNNING' &&
                 <FlatButton
                   labelPosition="before"
-                  label={d.displayAs.status}
+                  label={<Highlighter
+                    highlightClassName={styles.Highlight}
+                    searchWords={bundlesFilter.isSearchActive ? bundlesFilter.searchKeywords : []}
+                    textToHighlight={d.displayAs.status}
+                    findChunks={(options) => this.updateMatches(d, options)}
+                  />}
                   icon={<PauseCircleFilled />}
                   onClick={(e) => this.onClickTogglePauseResume(e, d.id)}
                 />
