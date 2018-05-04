@@ -80,8 +80,8 @@ function convertBundleApiListToBundles(apiBundles) {
       id: bundleId,
       name: metadata.name,
       revision: dbl.currentRevision,
-      task: 'UPLOAD',
-      status: 'DRAFT',
+      task: dbl.currentRevision === 0 ? 'UPLOAD' : 'DOWNLOAD',
+      status: dbl.currentRevision === 0 ? 'DRAFT' : 'COMPLETED',
     };
   });
   return bundles;
