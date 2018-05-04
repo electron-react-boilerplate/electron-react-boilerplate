@@ -77,6 +77,11 @@ class Bundles extends Component<Props> {
 
   render() {
     const { bundles, bundlesFilter } = this.props;
+    const highlighterSharedProps = (bundle) => ({
+      searchWords: bundlesFilter.isSearchActive ? bundlesFilter.searchKeywords : [],
+      highlightClassName: styles.Highlight,
+      findChunks: (options) => this.updateMatches(bundle, options)
+    });
     return (
       <div className={styles.container} data-tid="container">
         <div className={styles.searchBar}>
@@ -105,40 +110,20 @@ class Bundles extends Component<Props> {
           >
             <div className={styles.bundleRowTop}>
               <div className={styles.bundleRowTopLeftSide}>
-                <Highlighter
-                  highlightClassName={styles.Highlight}
-                  searchWords={bundlesFilter.isSearchActive ? bundlesFilter.searchKeywords : []}
-                  textToHighlight={d.displayAs.name}
-                  findChunks={(options) => this.updateMatches(d, options)}
-                />
+                <Highlighter textToHighlight={d.displayAs.name} {...highlighterSharedProps(d)} />
               </div>
               <div className={styles.bundleRowTopLeftSide}>
-                <Highlighter
-                  highlightClassName={styles.Highlight}
-                  searchWords={bundlesFilter.isSearchActive ? bundlesFilter.searchKeywords : []}
-                  textToHighlight={d.displayAs.revision}
-                  findChunks={(options) => this.updateMatches(d, options)}
-                />
+                <Highlighter textToHighlight={d.displayAs.revision} {...highlighterSharedProps(d)} />
               </div>
               <div className={styles.bundleRowTopRightSide}>
                 {(d.status === 'COMPLETED' || d.status === 'DRAFT') &&
                   <div style={{ paddingRight: '20px', paddingTop: '6px' }}>
-                    <Highlighter
-                      highlightClassName={styles.Highlight}
-                      searchWords={bundlesFilter.isSearchActive ? bundlesFilter.searchKeywords : []}
-                      textToHighlight={d.displayAs.status}
-                      findChunks={(options) => this.updateMatches(d, options)}
-                    />
+                    <Highlighter textToHighlight={d.displayAs.status} {...highlighterSharedProps(d)} />
                   </div>}
                 {d.task === 'DOWNLOAD' && d.status === 'NOT_STARTED' &&
                 <FlatButton
                   labelPosition="before"
-                  label={<Highlighter
-                    highlightClassName={styles.Highlight}
-                    searchWords={bundlesFilter.isSearchActive ? bundlesFilter.searchKeywords : []}
-                    textToHighlight={d.displayAs.status}
-                    findChunks={(options) => this.updateMatches(d, options)}
-                  />}
+                  label={<Highlighter textToHighlight={d.displayAs.status} {...highlighterSharedProps(d)} />}
                   icon={<FileDownload />}
                   onClick={(e) => this.onClickTogglePauseResume(e, d.id)}
                 />
@@ -146,12 +131,7 @@ class Bundles extends Component<Props> {
                 {d.mode === 'PAUSED' &&
                 <FlatButton
                   labelPosition="before"
-                  label={<Highlighter
-                    highlightClassName={styles.Highlight}
-                    searchWords={bundlesFilter.isSearchActive ? bundlesFilter.searchKeywords : []}
-                    textToHighlight={d.displayAs.status}
-                    findChunks={(options) => this.updateMatches(d, options)}
-                  />}
+                  label={<Highlighter textToHighlight={d.displayAs.status} {...highlighterSharedProps(d)} />}
                   icon={<PlayCircleFilled />}
                   onClick={(e) => this.onClickTogglePauseResume(e, d.id)}
                 />
@@ -159,12 +139,7 @@ class Bundles extends Component<Props> {
                 {d.mode === 'RUNNING' &&
                 <FlatButton
                   labelPosition="before"
-                  label={<Highlighter
-                    highlightClassName={styles.Highlight}
-                    searchWords={bundlesFilter.isSearchActive ? bundlesFilter.searchKeywords : []}
-                    textToHighlight={d.displayAs.status}
-                    findChunks={(options) => this.updateMatches(d, options)}
-                  />}
+                  label={<Highlighter textToHighlight={d.displayAs.status} {...highlighterSharedProps(d)} />}
                   icon={<PauseCircleFilled />}
                   onClick={(e) => this.onClickTogglePauseResume(e, d.id)}
                 />
