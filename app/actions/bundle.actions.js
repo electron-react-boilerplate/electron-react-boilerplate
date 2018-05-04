@@ -35,7 +35,7 @@ export function mockFetchAll() {
   }
 }
 
-function fetchAll() {
+export function fetchAll() {
   return dispatch => {
     dispatch(request());
 
@@ -96,7 +96,7 @@ export function toggleSelectBundle(id) {
 function getMockBundles() {
   const bundles = [
     {
-      id: 'bundle01', name: 'Test Bundle #1', revision: 3, task: 'UPLOAD', status: 'COMPLETED', selected: true,
+      id: 'bundle01', name: 'Test Bundle #1', revision: 3, task: 'UPLOAD', status: 'COMPLETED'
     },
     {
       id: 'bundle02', name: 'Another Bundle', revision: 3, task: 'UPLOAD', status: 'UPLOADING', progress: 63, mode: 'PAUSED'

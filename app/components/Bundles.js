@@ -9,7 +9,7 @@ import PauseCircleFilled from 'material-ui/svg-icons/av/pause-circle-filled';
 import CallSplit from 'material-ui/svg-icons/communication/call-split';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 import ActionDelete from 'material-ui/svg-icons/action/delete';
-import { mockFetchAll, toggleSelectBundle, toggleModePauseResume } from '../actions/bundle.actions';
+import { mockFetchAll, fetchAll, toggleSelectBundle, toggleModePauseResume } from '../actions/bundle.actions';
 import { updateSearchInput } from '../actions/bundleFilter.actions';
 import styles from './Bundles.css';
 
@@ -27,6 +27,7 @@ function pickBackgroundColor(status) {
 }
 
 type Props = {
+  fetchAll: () => {},
   mockFetchAll: () => {},
   toggleSelectBundle: () => {},
   toggleModePauseResume: () => {},
@@ -38,7 +39,7 @@ type Props = {
 class Bundles extends Component<Props> {
   props: Props;
   componentDidMount() {
-    this.props.mockFetchAll();
+    this.props.fetchAll();
   }
 
   onKeyPress(event, bundleId) {
@@ -199,6 +200,7 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   {
+    fetchAll,
     mockFetchAll,
     toggleSelectBundle,
     toggleModePauseResume,

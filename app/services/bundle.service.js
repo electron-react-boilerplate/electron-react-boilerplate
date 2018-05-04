@@ -10,21 +10,90 @@ export const bundleService = {
 };
 export default bundleService;
 
+const BUNDLE_API = 'bundle';
+const BUNDLE_API_LIST = `${BUNDLE_API}/list`;
+const BUNDLE_API_COUNT = `${BUNDLE_API}/count`;
+
+/*
+{
+  "099a30a6-b707-4df8-b4dd-7149f25658b7": {
+    "local_id": "099a30a6-b707-4df8-b4dd-7149f25658b7",
+    "mode": "store",
+    "dbl": {
+      "id": "65885538a6d64ec8",
+      "currentRevision": "0",
+      "medium": "text"
+    },
+    "store": {
+      "created": "2018-05-04 11:02:14",
+      "modified": "2018-05-04 11:02:14",
+      "history": [
+        {
+          "type": "initialize",
+          "timestamp": "2018-05-04 11:02:14",
+          "message": ""
+        },
+        {
+          "type": "writeMetadata",
+          "timestamp": "2018-05-04 11:02:14",
+          "message": "metadata.xml"
+        }
+      ],
+      "tasks": [],
+      "labels": {},
+      "file_info": {
+        "metadata.xml": {
+          "is_dir": false,
+          "size": 1224,
+          "modified": "2018-05-04 11:02:14"
+        }
+      }
+    },
+    "download": null,
+    "metadata": {
+      "name": "Empty Text Bundle",
+      "abbreviation": "<none>",
+      "language": "<none>",
+      "dateUpdated": "2018-05-04 11:02:14"
+    }
+  },
+
+  TO this format:
+   {
+      id: 'bundle02', name: 'Another Bundle', revision: 3, task: 'UPLOAD', status: 'UPLOADING', progress: 63, mode: 'PAUSED'
+   },
+ */
 function fetchAll() {
   const requestOptions = {
     method: 'GET',
     headers: authHeader()
   };
-  return fetch(`${dblDotLocalConfig.getHttpDblDotLocalBaseUrl()}/bundles`, requestOptions)
-    .then(handleResponse);
+  return fetch(`${dblDotLocalConfig.getHttpDblDotLocalBaseUrl()}/${BUNDLE_API_LIST}`, requestOptions)
+    .then(handleResponse).then(convertBundleApiListToBundles);
 }
+
+function convertBundleApiListToBundles(apiBundles) {
+  const bundles = Object.keys(apiBundles).map((bundleId) => {
+    const apiBundle = apiBundles[bundleId];
+    const { metadata, dbl } = apiBundle;
+    return {
+      id: bundleId,
+      name: metadata.name,
+      revision: dbl.currentRevision,
+      task: 'UPLOAD',
+      status: 'DRAFT',
+    };
+  });
+  return bundles;
+}
+
 
 function fetchById(id) {
   const requestOptions = {
     method: 'GET',
     headers: authHeader()
   };
-  return fetch(`${dblDotLocalConfig.getHttpDblDotLocalBaseUrl()}/bundles/${id}`, requestOptions)
+  return fetch(`${dblDotLocalConfig.getHttpDblDotLocalBaseUrl()}/${BUNDLE_API}/${id}`, requestOptions)
     .then(handleResponse);
 }
 
@@ -35,7 +104,7 @@ function create(bundle) {
     body: JSON.stringify(bundle)
   };
 
-  return fetch(`${dblDotLocalConfig.getHttpDblDotLocalBaseUrl()}/bundles/create`, requestOptions)
+  return fetch(`${dblDotLocalConfig.getHttpDblDotLocalBaseUrl()}/${BUNDLE_API}/create`, requestOptions)
     .then(handleResponse);
 }
 
@@ -46,7 +115,7 @@ function update(bundle) {
     body: JSON.stringify(bundle)
   };
 
-  return fetch(`/bundles/${bundle.id}`, requestOptions).then(handleResponse);
+  return fetch(`/${BUNDLE_API}/${bundle.id}`, requestOptions).then(handleResponse);
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
@@ -56,7 +125,7 @@ function removeBundle(id) {
     headers: authHeader()
   };
 
-  return fetch(`/bundles/${id}`, requestOptions).then(handleResponse);
+  return fetch(`/${BUNDLE_API}/${id}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {
@@ -66,3 +135,4 @@ function handleResponse(response) {
 
   return response.json();
 }
+
