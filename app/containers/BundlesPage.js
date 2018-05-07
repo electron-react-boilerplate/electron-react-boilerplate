@@ -9,7 +9,7 @@ export default class BundlesPage extends Component<Props> {
 
   render() {
     return (
-      <Bundles />
+      <Bundles {...this.props} />
     );
   }
 }

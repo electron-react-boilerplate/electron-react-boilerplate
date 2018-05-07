@@ -148,7 +148,7 @@ export default class MenuBuilder {
         label: 'Bundles (Demo)',
         accelerator: 'Ctrl+B',
         click: () => {
-          this.navigate(navigationConstants.NAVIGATION_BUNDLES);
+          this.navigate(navigationConstants.NAVIGATION_BUNDLES_DEMO);
         }
       }, {
         label: '&Exit',

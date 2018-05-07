@@ -27,6 +27,7 @@ function pickBackgroundColor(status) {
 }
 
 type Props = {
+  demo: boolean,
   fetchAll: () => {},
   mockFetchAll: () => {},
   toggleSelectBundle: () => {},
@@ -39,7 +40,11 @@ type Props = {
 class Bundles extends Component<Props> {
   props: Props;
   componentDidMount() {
-    this.props.fetchAll();
+    if (this.props.demo) {
+      this.props.mockFetchAll();
+    } else {
+      this.props.fetchAll();
+    }
   }
 
   onKeyPress(event, bundleId) {

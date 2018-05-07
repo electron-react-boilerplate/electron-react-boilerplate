@@ -12,7 +12,22 @@ export default () => (
     <Switch>
       <Route path={navigationConstants.NAVIGATION_LOGIN} component={LoginPage} />
       <Redirect exact from="/" to={navigationConstants.NAVIGATION_BUNDLES} />
-      <Route exact path={navigationConstants.NAVIGATION_BUNDLES} component={BundlesPage} />
+      <PrivateRoute exact path={navigationConstants.NAVIGATION_BUNDLES} component={BundlesPage} />
+      <PropsRoute exact path={navigationConstants.NAVIGATION_BUNDLES_DEMO} component={BundlesPage} demo />
     </Switch>
   </App>
+);
+
+const renderMergedProps = (component, ...rest) => {
+  const finalProps = Object.assign({}, ...rest);
+  return (
+    React.createElement(component, finalProps)
+  );
+};
+
+const PropsRoute = ({ component, ...rest }) => (
+  <Route
+    {...rest}
+    render={routeProps => renderMergedProps(component, routeProps, rest)}
+  />
 );
