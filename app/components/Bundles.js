@@ -9,6 +9,7 @@ import PauseCircleFilled from 'material-ui/svg-icons/av/pause-circle-filled';
 import CallSplit from 'material-ui/svg-icons/communication/call-split';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 import ActionDelete from 'material-ui/svg-icons/action/delete';
+import { navigationConstants } from '../constants/navigation.constants';
 import { mockFetchAll, fetchAll, toggleSelectBundle, toggleModePauseResume } from '../actions/bundle.actions';
 import { updateSearchInput } from '../actions/bundleFilter.actions';
 import styles from './Bundles.css';
@@ -27,12 +28,12 @@ function pickBackgroundColor(status) {
 }
 
 type Props = {
-  demo: boolean,
   fetchAll: () => {},
   mockFetchAll: () => {},
   toggleSelectBundle: () => {},
   toggleModePauseResume: () => {},
   updateSearchInput: () => {},
+  history: {},
   bundles: {},
   bundlesFilter: {}
 };
@@ -40,7 +41,8 @@ type Props = {
 class Bundles extends Component<Props> {
   props: Props;
   componentDidMount() {
-    if (this.props.demo) {
+    const { history } = this.props;
+    if (history.location.pathname === navigationConstants.NAVIGATION_BUNDLES_DEMO) {
       this.props.mockFetchAll();
     } else {
       this.props.fetchAll();
