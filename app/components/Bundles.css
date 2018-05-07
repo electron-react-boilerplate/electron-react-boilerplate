@@ -55,6 +55,13 @@
   width: 33%;
 }
 
+.bundleRowTopMiddle {
+  display: table-cell;
+  padding-left: 20px;
+  vertical-align: middle;
+  width: 150px;
+}
+
 .bundleRowTopRightSide {
   text-align: right;
   padding-top: 6px;

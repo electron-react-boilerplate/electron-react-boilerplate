@@ -118,7 +118,7 @@ class Bundles extends Component<Props> {
               <div className={styles.bundleRowTopLeftSide}>
                 <Highlighter textToHighlight={d.displayAs.name} {...highlighterSharedProps(d)} />
               </div>
-              <div className={styles.bundleRowTopLeftSide}>
+              <div className={styles.bundleRowTopMiddle}>
                 <Highlighter textToHighlight={d.displayAs.revision} {...highlighterSharedProps(d)} />
               </div>
               <div className={styles.bundleRowTopRightSide}>
