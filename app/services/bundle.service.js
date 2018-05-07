@@ -75,13 +75,24 @@ function fetchAll() {
 function convertBundleApiListToBundles(apiBundles) {
   const bundles = Object.keys(apiBundles).map((bundleId) => {
     const apiBundle = apiBundles[bundleId];
-    const { metadata, dbl } = apiBundle;
+    const {
+      mode, metadata, dbl, store
+    } = apiBundle;
+    let task = dbl.currentRevision === 0 ? 'UPLOAD' : 'DOWNLOAD';
+    let status = dbl.currentRevision === 0 ? 'DRAFT' : 'COMPLETED';
+    if (mode === 'store') {
+      const { history } = store;
+      const historyReversed = history.slice().reverse();
+      const action = historyReversed.find((event) => event.type === 'updateStore');
+      task = action.message.toUpperCase();
+      status = 'COMPLETED';
+    }
     return {
       id: bundleId,
       name: metadata.name,
       revision: dbl.currentRevision,
-      task: dbl.currentRevision === 0 ? 'UPLOAD' : 'DOWNLOAD',
-      status: dbl.currentRevision === 0 ? 'DRAFT' : 'COMPLETED',
+      task,
+      status,
     };
   });
   return bundles;

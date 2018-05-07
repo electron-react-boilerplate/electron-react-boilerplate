@@ -102,6 +102,8 @@ function formatStatus(bundle) {
     newStatusDisplayAs = (bundle.mode === 'PAUSED' ? `Resume Uploading ${formattedProgress}` : uploadingMsg);
   } else if (bundle.status === 'DOWNLOADING') {
     newStatusDisplayAs = (bundle.mode === 'PAUSED' ? `Resume Downloading ${formattedProgress}` : downloadingMsg);
+  } else if (bundle.status === 'COMPLETED') {
+    newStatusDisplayAs = `${bundle.task}ED`;
   } else {
     newStatusDisplayAs = bundle.statusDisplayAs || bundle.status;
   }
