@@ -1,4 +1,5 @@
 import log from 'electron-log';
+import path from 'path';
 import { autoUpdater } from 'electron-updater';
 
 export const autoUpdaterServices = {
@@ -31,7 +32,7 @@ function setupAutoUpdater(browserWindow) {
   autoUpdater.allowPrerelease = true;
   if (process.env.NODE_ENV === 'development') {
     log.transports.file.level = 'debug';
-    log.transports.file.file = `${__dirname}/log-dev.txt`;
+    log.transports.file.file = path.join(__dirname, 'log-dev.txt');
   } else {
     log.transports.file.level = 'info';
   }
