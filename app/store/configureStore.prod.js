@@ -1,15 +1,12 @@
 // @flow
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import { createBrowserHistory } from 'history';
+import { createHashHistory } from 'history';
 import { routerMiddleware } from 'react-router-redux';
 import rootReducer from '../reducers';
 import type { counterStateType } from '../reducers/counter';
 
-// fix initial page loading. see https://github.com/chentsulin/electron-react-boilerplate/issues/1178
-const history = createBrowserHistory({
-  basename: window.location.pathname
-});
+const history = createHashHistory();
 const router = routerMiddleware(history);
 const enhancer = applyMiddleware(thunk, router);
 
