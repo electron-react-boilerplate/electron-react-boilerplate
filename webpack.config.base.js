@@ -2,9 +2,11 @@
  * Base webpack config used across other specific configs
  */
 
-import path from 'path';
-import webpack from 'webpack';
 import fs from 'fs';
+import path from 'path';
+
+import webpack from 'webpack';
+
 import { dependencies as externals } from './app/package.json';
 import { dependencies as possibleExternals } from './package.json';
 
@@ -50,7 +52,7 @@ export default {
   },
 
   output: {
-    path: path.join(__dirname, 'app'),
+    path: path.join(__dirname, 'dist'),
     // https://github.com/webpack/webpack/issues/1114
     libraryTarget: 'commonjs2'
   },

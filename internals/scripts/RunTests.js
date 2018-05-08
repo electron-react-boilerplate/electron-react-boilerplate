@@ -1,5 +1,6 @@
-import spawn from 'cross-spawn';
 import path from 'path';
+
+import spawn from 'cross-spawn';
 
 const pattern =
   process.argv[2] === 'e2e'

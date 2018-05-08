@@ -42,3 +42,6 @@ dist
 .idea
 npm-debug.log.*
 __snapshots__
+
+# We don't want to format package.json because npm formats it differently
+package.json

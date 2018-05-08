@@ -12,8 +12,8 @@
     "electron-rebuild": "electron-rebuild --parallel --force --types prod,dev,optional --module-dir app",
     "flow": "flow",
     "flow-typed": "rimraf flow-typed/npm && flow-typed install --overwrite || true",
-    "lint": "cross-env NODE_ENV=development eslint --cache --format=node_modules/eslint-formatter-pretty .",
-    "lint-fix": "npm run --silent lint -- --fix; exit 0",
+    "lint": "cross-env NODE_ENV=development eslint --cache --format=node_modules/eslint-formatter-pretty --ext .html --ext .js --ext .json .",
+    "lint-fix": "npm run lint -- --fix",
     "lint-styles": "stylelint app/*.css app/components/*.css --syntax scss",
     "lint-styles-fix": "stylefmt -r app/*.css app/components/*.css",
     "package": "npm run build && build --publish never",
@@ -21,10 +21,9 @@
     "package-linux": "npm run build && build --linux",
     "package-win": "npm run build && build --win --x64",
     "postinstall": "node -r babel-register internals/scripts/CheckNativeDep.js && npm run flow-typed && npm run build-dll && electron-builder install-app-deps && node node_modules/fbjs-scripts/node/check-dev-engines.js package.json",
-    "postlint-fix": "prettier --ignore-path .eslintignore --single-quote --write '**/*.js'",
     "precommit": "lint-staged",
     "prestart": "npm run build",
-    "start": "cross-env NODE_ENV=production electron ./app/",
+    "start": "cross-env NODE_ENV=production electron ./dist/",
     "start-main-dev": "cross-env HOT=1 NODE_ENV=development electron -r babel-register ./app/main.dev.js",
     "start-renderer-dev": "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack-dev-server/bin/webpack-dev-server --config webpack.config.renderer.dev.js",
     "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node --trace-warnings -r babel-register ./internals/scripts/RunTests.js",
@@ -35,22 +34,22 @@
   "browserslist": "electron 1.6",
   "lint-staged": {
     "*.js": [
-      "cross-env NODE_ENV=development eslint --cache --format=node_modules/eslint-formatter-pretty",
-      "prettier --ignore-path .eslintignore --single-quote --write",
+      "npm run lint-fix",
+      "git add"
+    ],
+    "*.html": [
+      "npm run lint-fix",
+      "git add"
+    ],
+    "{*.json,.stylelintrc,.prettierrc,.eslintrc,.babelrc}": [
+      "prettier --write",
+      "npm run lint-fix",
       "git add"
     ]
   },
   "build": {
     "productName": "ElectronReact",
     "appId": "org.develar.ElectronReact",
-    "files": [
-      "dist/",
-      "node_modules/",
-      "app.html",
-      "main.prod.js",
-      "main.prod.js.map",
-      "package.json"
-    ],
     "dmg": {
       "contents": [
         {
@@ -79,7 +78,8 @@
     },
     "directories": {
       "buildResources": "resources",
-      "output": "release"
+      "output": "release",
+      "app": "dist"
     }
   },
   "repository": {
@@ -143,6 +143,7 @@
     "babel-register": "^6.26.0",
     "chalk": "^2.4.1",
     "concurrently": "^3.5.1",
+    "copy-webpack-plugin": "^4.5.1",
     "cross-env": "^5.1.4",
     "cross-spawn": "^6.0.5",
     "css-loader": "^0.28.11",
@@ -161,8 +162,10 @@
     "eslint-import-resolver-webpack": "^0.9.0",
     "eslint-plugin-compat": "^2.2.0",
     "eslint-plugin-flowtype": "^2.46.3",
+    "eslint-plugin-html": "^4.0.3",
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-jest": "^21.15.1",
+    "eslint-plugin-json": "^1.2.0",
     "eslint-plugin-jsx-a11y": "6.0.3",
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-react": "^7.7.0",
@@ -202,6 +205,7 @@
   "dependencies": {
     "devtron": "^1.4.0",
     "electron-debug": "^1.5.0",
+    "eslint-plugin-prettier": "^2.6.0",
     "font-awesome": "^4.7.0",
     "history": "^4.7.2",
     "react": "^16.3.2",
