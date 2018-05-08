@@ -6,6 +6,7 @@ import { navigationConstants } from './constants/navigation.constants';
 export default class MenuBuilder {
   mainWindow: BrowserWindow;
   autoUpdater;
+  initializedMenu = false;
   constructor(mainWindow: BrowserWindow, autoUpdater) {
     this.mainWindow = mainWindow;
     this.autoUpdater = autoUpdater;
@@ -15,7 +16,7 @@ export default class MenuBuilder {
   }
 
   buildMenu(authentication) {
-    if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
+    if (!this.initializedMenu && (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true')) {
       this.setupDevelopmentEnvironment();
     }
 
@@ -25,7 +26,7 @@ export default class MenuBuilder {
 
     const menu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(menu);
-
+    this.initializedMenu = true;
     return menu;
   }
 
