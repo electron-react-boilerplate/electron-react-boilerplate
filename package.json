@@ -1,7 +1,7 @@
 {
   "name": "nathanael",
   "productName": "Nathanael",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Electron frontend to DBL dot Local",
   "scripts": {
     "build": "concurrently \"npm run build-main\" \"npm run build-renderer\"",

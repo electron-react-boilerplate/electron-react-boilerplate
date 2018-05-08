@@ -1,3 +1,21 @@
+### Version 0.3.0
+
+#### Features
+
+- Add highlighting to buttons!
+- By default load bundles from dbl dot local api 
+- Can access `File > Bundles (Demo)` for demo list  (w/o login)
+- Changed "Completed" status to "Downloaded" or "Uploaded"
+- Uses bundle history to determine status
+
+#### Fixes
+- Fixed operating system paths in `Help > Open Log`
+- Styled top-right icons with more padding
+- Styled wider login user/password
+- Styled login loading animation margin
+- Fix loading dev tools/menu on `did-finish-load` so dev tools do not cover up UI. 
+- Fix context menu so `Inspect element` doesn't keep popping up by only loading dev tools first time menu is installed.
+
 # 0.2.1
 
 #### Features
