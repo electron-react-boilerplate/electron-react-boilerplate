@@ -4,6 +4,7 @@ import { DebounceInput } from 'react-debounce-input';
 import Highlighter from 'react-highlight-words';
 import FlatButton from 'material-ui/FlatButton';
 import FileDownload from 'material-ui/svg-icons/file/file-download';
+import SaveTo from 'material-ui/svg-icons/content/save';
 import PlayCircleFilled from 'material-ui/svg-icons/av/play-circle-filled';
 import PauseCircleFilled from 'material-ui/svg-icons/av/pause-circle-filled';
 import CallSplit from 'material-ui/svg-icons/communication/call-split';
@@ -169,8 +170,8 @@ class Bundles extends Component<Props> {
                   onClick={(e) => stopPropagation(e)}
                 />
                 <FlatButton
-                  label="Download"
-                  icon={<FileDownload />}
+                  label="Save To"
+                  icon={<SaveTo />}
                   onKeyPress={(e) => stopPropagation(e)}
                   onClick={(e) => stopPropagation(e)}
                 />
