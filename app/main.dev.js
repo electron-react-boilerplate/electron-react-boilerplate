@@ -10,13 +10,33 @@
  *
  * @flow
  */
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, session, ipcMain } from 'electron';
 import downloadMgr from 'electron-dl';
 import MenuBuilder from './menu';
 import { autoUpdaterServices } from './main-process/autoUpdater.services';
 import { navigationConstants } from './constants/navigation.constants';
+import { dblDotLocalConfig } from './constants/dblDotLocal.constants';
+import { ipcRendererConstants } from './constants/ipcRenderer.constants';
+
+ipcMain.on(ipcRendererConstants.KEY_IPC_USER_AUTHENTICATION, (event, authentication) => {
+  const filter = {
+    urls: [`${dblDotLocalConfig.getHttpDblDotLocalBaseUrl()}/*`]
+  };
+  session.defaultSession.webRequest.onBeforeSendHeaders(filter, (details, callback) => {
+    let authHeaders = {};
+    if (authentication && authentication.loggedIn) {
+      const jwt = authentication.user.auth_token;
+      authHeaders = { Authorization: `Bearer ${jwt}` };
+    }
+    console.log(authHeaders);
+    const requestHeaders = { ...details.requestHeaders, authHeaders };
+    callback({ cancel: false, requestHeaders });
+  });
+});
+
 
 downloadMgr();
+
 let mainWindow = null;
 
 if (process.env.NODE_ENV === 'production') {
@@ -81,7 +101,7 @@ app.on('ready', async () => {
     const autoUpdater = autoUpdaterServices.setupAutoUpdater(mainWindow);
     const menuBuilder = new MenuBuilder(mainWindow, autoUpdater);
     menuBuilder.buildMenu();
-  
+
     autoUpdater.logger.info('Request checkForUpdatesAndNotify');
     autoUpdater.checkForUpdatesAndNotify();
   });
