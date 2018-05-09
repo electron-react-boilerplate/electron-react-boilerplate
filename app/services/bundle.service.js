@@ -148,15 +148,12 @@ function handleResponse(response) {
   return response.json();
 }
 
-const { remote } = require('electron');
+const currentWindow = require('electron').remote.getCurrentWindow();
+const downloadMgr = require('electron').remote.require('electron-dl');
 
 function requestSaveBundleTo(bundleId) {
-  const { BrowserWindow } = remote;
-  const downloadMgr = remote.require('electron-dl');
   const resourcePath = 'resource/metadata.xml';
-  return downloadMgr.download(
-    BrowserWindow.getFocusedWindow(),
-    `${dblDotLocalConfig.getHttpDblDotLocalBaseUrl()}/${BUNDLE_API}/${bundleId}/${resourcePath}`
-  );
+  const url = `${dblDotLocalConfig.getHttpDblDotLocalBaseUrl()}/${BUNDLE_API}/${bundleId}/${resourcePath}`;
+  return downloadMgr.download(currentWindow, url, { saveAs: true });
 }
 
