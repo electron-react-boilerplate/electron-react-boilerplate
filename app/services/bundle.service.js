@@ -6,6 +6,7 @@ export const bundleService = {
   fetchAll,
   fetchById,
   update,
+  requestSaveBundleTo,
   delete: removeBundle
 };
 export default bundleService;
@@ -145,5 +146,17 @@ function handleResponse(response) {
   }
 
   return response.json();
+}
+
+const { remote } = require('electron');
+
+function requestSaveBundleTo(bundleId) {
+  const { BrowserWindow } = remote;
+  const downloadMgr = remote.require('electron-dl');
+  const resourcePath = 'resource/metadata.xml';
+  return downloadMgr.download(
+    BrowserWindow.getFocusedWindow(),
+    `${dblDotLocalConfig.getHttpDblDotLocalBaseUrl()}/${BUNDLE_API}/${bundleId}/${resourcePath}`
+  );
 }
 

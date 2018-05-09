@@ -11,10 +11,12 @@
  * @flow
  */
 import { app, BrowserWindow } from 'electron';
+import downloadMgr from 'electron-dl';
 import MenuBuilder from './menu';
 import { autoUpdaterServices } from './main-process/autoUpdater.services';
 import { navigationConstants } from './constants/navigation.constants';
 
+downloadMgr();
 let mainWindow = null;
 
 if (process.env.NODE_ENV === 'production') {

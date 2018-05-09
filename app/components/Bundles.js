@@ -11,33 +11,41 @@ import CallSplit from 'material-ui/svg-icons/communication/call-split';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 import ActionDelete from 'material-ui/svg-icons/action/delete';
 import { navigationConstants } from '../constants/navigation.constants';
-import { mockFetchAll, fetchAll, toggleSelectBundle, toggleModePauseResume } from '../actions/bundle.actions';
+import { mockFetchAll, fetchAll, toggleSelectBundle, toggleModePauseResume, requestSaveBundleTo } from '../actions/bundle.actions';
 import { updateSearchInput, clearSearch } from '../actions/bundleFilter.actions';
 import styles from './Bundles.css';
-
-function pickBackgroundColor(status) {
-  switch (status) {
-    case 'DRAFT': return '#F5D2D2';
-    case 'NOT_STARTED': return '#EDEDED';
-    case 'UPLOADING':
-    case 'DOWNLOADING':
-      return '#6DCBC4';
-    case 'COMPLETED': return '#A1CB6D';
-    default:
-      return 'white';
-  }
-}
 
 type Props = {
   fetchAll: () => {},
   mockFetchAll: () => {},
+  requestSaveBundleTo: () => {},
   toggleSelectBundle: () => {},
   toggleModePauseResume: () => {},
   updateSearchInput: () => {},
   clearSearch: () => {},
   history: {},
   bundles: {},
-  bundlesFilter: {}
+  bundlesFilter: {},
+  bundlesSaveTo: {}
+};
+
+function mapStateToProps(state) {
+  const { bundles, bundlesFilter, bundlesSaveTo } = state;
+  return {
+    bundles,
+    bundlesFilter,
+    bundlesSaveTo
+  };
+}
+
+const mapDispatchToProps = {
+  fetchAll,
+  mockFetchAll,
+  requestSaveBundleTo,
+  toggleSelectBundle,
+  toggleModePauseResume,
+  updateSearchInput,
+  clearSearch
 };
 
 class Bundles extends Component<Props> {
@@ -64,6 +72,11 @@ class Bundles extends Component<Props> {
 
   onClickBundleRow(event, bundleId) {
     this.props.toggleSelectBundle(bundleId);
+  }
+
+  startSaveBundleTo(event, bundle) {
+    stopPropagation(event);
+    this.props.requestSaveBundleTo(bundle.id);
   }
 
   onClickTogglePauseResume(event, bundleId) {
@@ -172,8 +185,8 @@ class Bundles extends Component<Props> {
                 <FlatButton
                   label="Save To"
                   icon={<SaveTo />}
-                  onKeyPress={(e) => stopPropagation(e)}
-                  onClick={(e) => stopPropagation(e)}
+                  onKeyPress={(e) => this.startSaveBundleTo(e, d)}
+                  onClick={(e) => this.startSaveBundleTo(e, d)}
                 />
                 <FlatButton
                   label="Info"
@@ -195,6 +208,11 @@ class Bundles extends Component<Props> {
   }
 }
 
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Bundles);
+
 function displayRow(bundlesFilter, bundle) {
   return !(bundlesFilter.isSearchActive) ||
    bundle.id in bundlesFilter.searchResults.bundlesMatching;
@@ -204,21 +222,15 @@ function stopPropagation(event) {
   event.stopPropagation();
 }
 
-function mapStateToProps(state) {
-  const { bundles, bundlesFilter } = state;
-  return {
-    bundles,
-    bundlesFilter
-  };
-}
-export default connect(
-  mapStateToProps,
-  {
-    fetchAll,
-    mockFetchAll,
-    toggleSelectBundle,
-    toggleModePauseResume,
-    updateSearchInput,
-    clearSearch
+function pickBackgroundColor(status) {
+  switch (status) {
+    case 'DRAFT': return '#F5D2D2';
+    case 'NOT_STARTED': return '#EDEDED';
+    case 'UPLOADING':
+    case 'DOWNLOADING':
+      return '#6DCBC4';
+    case 'COMPLETED': return '#A1CB6D';
+    default:
+      return 'white';
   }
-)(Bundles);
+}

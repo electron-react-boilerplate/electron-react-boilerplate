@@ -60,6 +60,7 @@ export function bundles(state = {}, action) {
       return state;
   }
 }
+export default bundles;
 
 function forkArray(array, condition, createItem) {
   return array.map((item, index) => (condition(item, index) ? createItem(item) : item));
@@ -114,5 +115,3 @@ function formatProgress(bundle) {
   const progress = bundle.progress ? bundle.progress : 0;
   return `(${progress}%)`;
 }
-
-export default bundles;

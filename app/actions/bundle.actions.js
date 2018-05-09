@@ -6,6 +6,7 @@ export const bundleActions = {
   mockFetchAll,
   fetchAll,
   delete: removeBundle,
+  requestSaveBundleTo,
   toggleModePauseResume,
   toggleSelectBundle,
 };
@@ -82,6 +83,28 @@ function removeBundle(id) {
   }
   function failure(_id, error) {
     return { type: bundleConstants.DELETE_FAILURE, id: _id, error };
+  }
+}
+
+export function requestSaveBundleTo(id) {
+  return dispatch => {
+    bundleService
+      .requestSaveBundleTo(id)
+      .then((downloadItem) => {
+        dispatch(request(id, downloadItem));
+        return true;
+      })
+      .catch(error => {
+        dispatch(failure(id, error));
+        return true;
+      });
+  };
+
+  function request(_id, downloadItem) {
+    return { type: bundleConstants.SAVETO_REQUEST, id: _id, downloadItem };
+  }
+  function failure(_id, error) {
+    return { type: bundleConstants.SAVETO_FAILURE, id: _id, error };
   }
 }
 
