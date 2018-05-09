@@ -11,7 +11,7 @@ import ActionInfo from 'material-ui/svg-icons/action/info';
 import ActionDelete from 'material-ui/svg-icons/action/delete';
 import { navigationConstants } from '../constants/navigation.constants';
 import { mockFetchAll, fetchAll, toggleSelectBundle, toggleModePauseResume } from '../actions/bundle.actions';
-import { updateSearchInput } from '../actions/bundleFilter.actions';
+import { updateSearchInput, clearSearch } from '../actions/bundleFilter.actions';
 import styles from './Bundles.css';
 
 function pickBackgroundColor(status) {
@@ -33,6 +33,7 @@ type Props = {
   toggleSelectBundle: () => {},
   toggleModePauseResume: () => {},
   updateSearchInput: () => {},
+  clearSearch: () => {},
   history: {},
   bundles: {},
   bundlesFilter: {}
@@ -41,12 +42,16 @@ type Props = {
 class Bundles extends Component<Props> {
   props: Props;
   componentDidMount() {
-    const { history } = this.props;
+    const { history, clearSearch: clearSearchResults } = this.props;
     if (history.location.pathname === navigationConstants.NAVIGATION_BUNDLES_DEMO) {
       this.props.mockFetchAll();
     } else {
       this.props.fetchAll();
     }
+    history.listen(() => {
+      // clear search results on location change
+      clearSearchResults();
+    });
   }
 
   onKeyPress(event, bundleId) {
@@ -97,6 +102,7 @@ class Bundles extends Component<Props> {
           <div className={styles.searchBarSearch}>Search:
             <DebounceInput
               debounceTimeout={300}
+              value={bundlesFilter.isSearchActive ? bundlesFilter.searchInput : ''}
               onChange={(event) => this.onChangeSearchInput(event, event.target.value)}
             />
           </div>
@@ -211,6 +217,7 @@ export default connect(
     mockFetchAll,
     toggleSelectBundle,
     toggleModePauseResume,
-    updateSearchInput
+    updateSearchInput,
+    clearSearch
   }
 )(Bundles);
