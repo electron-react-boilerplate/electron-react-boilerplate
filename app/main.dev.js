@@ -15,25 +15,17 @@ import downloadMgr from 'electron-dl';
 import MenuBuilder from './menu';
 import { autoUpdaterServices } from './main-process/autoUpdater.services';
 import { navigationConstants } from './constants/navigation.constants';
-import { dblDotLocalConfig } from './constants/dblDotLocal.constants';
 import { ipcRendererConstants } from './constants/ipcRenderer.constants';
 
+let authHeaders = {};
 ipcMain.on(ipcRendererConstants.KEY_IPC_USER_AUTHENTICATION, (event, authentication) => {
-  const filter = {
-    urls: [`${dblDotLocalConfig.getHttpDblDotLocalBaseUrl()}/*`]
-  };
-  session.defaultSession.webRequest.onBeforeSendHeaders(filter, (details, callback) => {
-    let authHeaders = {};
-    if (authentication && authentication.loggedIn) {
-      const jwt = authentication.user.auth_token;
-      authHeaders = { Authorization: `Bearer ${jwt}` };
-    }
-    console.log(authHeaders);
-    const requestHeaders = { ...details.requestHeaders, authHeaders };
-    callback({ cancel: false, requestHeaders });
-  });
+  if (authentication && authentication.loggedIn) {
+    const jwt = authentication.user.auth_token;
+    authHeaders = { Authorization: `Bearer ${jwt}` };
+  } else {
+    authHeaders = {};
+  }
 });
-
 
 downloadMgr();
 
@@ -104,6 +96,16 @@ app.on('ready', async () => {
 
     autoUpdater.logger.info('Request checkForUpdatesAndNotify');
     autoUpdater.checkForUpdatesAndNotify();
+
+    const baseUrl = process.env.HTTP_DBL_DOT_LOCAL_FLASK_API;
+    const filter = {
+      urls: [`${baseUrl}/*`]
+    };
+    session.defaultSession.webRequest.onBeforeSendHeaders(filter, (details, callback) => {
+      console.log({ details, authHeaders });
+      const requestHeaders = { ...details.requestHeaders, authHeaders };
+      callback({ cancel: false, requestHeaders });
+    });
   });
 
   mainWindow.on('closed', () => {
