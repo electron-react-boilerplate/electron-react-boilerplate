@@ -14,7 +14,8 @@ export default bundleService;
 const BUNDLE_API = 'bundle';
 const BUNDLE_API_LIST = `${BUNDLE_API}/list`;
 const BUNDLE_API_COUNT = `${BUNDLE_API}/count`;
-
+const RESOURCE_API = 'resource';
+const RESOURCE_API_LIST = RESOURCE_API;
 /*
 {
   "099a30a6-b707-4df8-b4dd-7149f25658b7": {
@@ -154,8 +155,8 @@ const currentWindow = require('electron').remote.getCurrentWindow();
 const downloadMgr = require('electron').remote.require('electron-dl');
 
 function requestSaveBundleTo(bundleId) {
-  const resourcePath = 'resource/metadata.xml';
-  const url = `${dblDotLocalConfig.getHttpDblDotLocalBaseUrl()}/${BUNDLE_API}/${bundleId}/${resourcePath}`;
+  const resourcePath = 'metadata.xml';
+  const url = `${dblDotLocalConfig.getHttpDblDotLocalBaseUrl()}/${BUNDLE_API}/${bundleId}/${RESOURCE_API}/${resourcePath}`;
   return downloadMgr.download(currentWindow, url, { saveAs: true });
 }
 
