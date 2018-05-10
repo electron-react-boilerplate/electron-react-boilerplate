@@ -17,16 +17,6 @@ import { autoUpdaterServices } from './main-process/autoUpdater.services';
 import { navigationConstants } from './constants/navigation.constants';
 import { ipcRendererConstants } from './constants/ipcRenderer.constants';
 
-let authHeaders = {};
-ipcMain.on(ipcRendererConstants.KEY_IPC_USER_AUTHENTICATION, (event, authentication) => {
-  if (authentication && authentication.loggedIn) {
-    const jwt = authentication.user.auth_token;
-    authHeaders = { Authorization: `Bearer ${jwt}` };
-  } else {
-    authHeaders = {};
-  }
-});
-
 downloadMgr();
 
 let mainWindow = null;
@@ -102,13 +92,30 @@ app.on('ready', async () => {
       urls: [`${baseUrl}/*`]
     };
     session.defaultSession.webRequest.onBeforeSendHeaders(filter, (details, callback) => {
-      console.log({ details, authHeaders });
-      const requestHeaders = { ...details.requestHeaders, authHeaders };
-      callback({ cancel: false, requestHeaders });
+      if (authorizationValue) {
+        // NOTE: eslint complains about 'details'
+        // ("Assignment to property of function parameter 'details'..."),
+        // but it's the only way to work to get this to work
+        // see https://github.com/electron/electron/blob/master/docs/api/web-request.md#class-webrequest
+        details.requestHeaders[HEADER_AUTHORIZATION] = authorizationValue;
+      }
+      // console.log({ details });
+      callback({ cancel: false, requestHeaders: details.requestHeaders });
     });
   });
 
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
+});
+
+const HEADER_AUTHORIZATION = 'Authorization';
+let authorizationValue = null;
+ipcMain.on(ipcRendererConstants.KEY_IPC_USER_AUTHENTICATION, (event, authentication) => {
+  if (authentication && authentication.loggedIn) {
+    const jwt = authentication.user.auth_token;
+    authorizationValue = `Bearer ${jwt}`;
+  } else {
+    authorizationValue = null;
+  }
 });
