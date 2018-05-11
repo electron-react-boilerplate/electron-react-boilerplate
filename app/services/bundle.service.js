@@ -81,14 +81,18 @@ function convertBundleApiListToBundles(apiBundles) {
       mode, metadata, dbl, store
     } = apiBundle;
     let task = dbl.currentRevision === '0' ? 'UPLOAD' : 'DOWNLOAD';
-    let status = dbl.currentRevision === '0' ? 'DRAFT' : 'COMPLETED';
+    let status = dbl.currentRevision === '0' ? 'DRAFT' : 'NOT_STARTED';
     if (mode === 'store') {
       const { history } = store;
       const historyReversed = history.slice().reverse();
-      const action = historyReversed.find((event) => event.type === 'updateStore');
-      if (action && action.message) {
-        task = action.message.toUpperCase();
-        status = 'COMPLETED';
+      const eventUpdateStore = historyReversed.find((event) => event.type === 'updateStore');
+      if (eventUpdateStore && eventUpdateStore.message && eventUpdateStore.message === 'download') {
+        task = eventUpdateStore.message.toUpperCase();
+        const indexOfUpdateStoreDownload = historyReversed.indexOf(eventUpdateStore);
+        const indexOfDownloadResources = historyReversed.findIndex((event) => event.type === 'executeTask' && event.message === 'downloadResources');
+        if (indexOfUpdateStoreDownload < indexOfDownloadResources) {
+          status = 'COMPLETED';
+        }
       }
     }
     return {
