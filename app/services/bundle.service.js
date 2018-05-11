@@ -1,3 +1,4 @@
+import path from 'path';
 import { authHeader } from '../helpers';
 import { dblDotLocalConfig } from '../constants/dblDotLocal.constants';
 
@@ -166,11 +167,15 @@ function getResourcePaths(bundleId) {
     .then(handleResponse);
 }
 
+const { app } = require('electron').remote;
 const currentWindow = require('electron').remote.getCurrentWindow();
 const downloadMgr = require('electron').remote.require('electron-dl');
 
 function requestSaveResourceTo(bundleId, resourcePath) {
   const url = `${dblDotLocalConfig.getHttpDblDotLocalBaseUrl()}/${BUNDLE_API}/${bundleId}/${RESOURCE_API}/${resourcePath}`;
-  return downloadMgr.download(currentWindow, url, { saveAs: true });
+  const relPath = path.dirname(resourcePath);
+  const directory = path.join(app.getPath('downloads'), bundleId, relPath);
+  console.log(directory);
+  return downloadMgr.download(currentWindow, url, { directory });
 }
 
