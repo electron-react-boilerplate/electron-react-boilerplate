@@ -1,6 +1,7 @@
 import path from 'path';
 import { authHeader } from '../helpers';
 import { dblDotLocalConfig } from '../constants/dblDotLocal.constants';
+import { download } from './download-with-fetch.flow';
 
 export const bundleService = {
   create,
@@ -168,14 +169,14 @@ function getResourcePaths(bundleId) {
 }
 
 const { app } = require('electron').remote;
-const currentWindow = require('electron').remote.getCurrentWindow();
-const downloadMgr = require('electron').remote.require('electron-dl');
 
+/*
+ * Downloader.download('https://download.damieng.com/fonts/original/EnvyCodeR-PR7.zip',
+ *  'envy-code-r.zip', (bytes, percent) => console.log(`Downloaded ${bytes} (${percent})`));
+ */
 function requestSaveResourceTo(bundleId, resourcePath) {
   const url = `${dblDotLocalConfig.getHttpDblDotLocalBaseUrl()}/${BUNDLE_API}/${bundleId}/${RESOURCE_API}/${resourcePath}`;
-  const relPath = path.dirname(resourcePath);
-  const directory = path.join(app.getPath('downloads'), bundleId, relPath);
-  console.log(directory);
-  return downloadMgr.download(currentWindow, url, { directory });
+  const targetPath = path.join(app.getPath('downloads'), bundleId, resourcePath);
+  console.log(targetPath);
+  return download(url, targetPath);
 }
-

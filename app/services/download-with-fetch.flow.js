@@ -2,6 +2,11 @@
 
 import fs from 'fs';
 
+/*
+ * Downloader.download('https://download.damieng.com/fonts/original/EnvyCodeR-PR7.zip',
+ *  'envy-code-r.zip', (bytes, percent) => console.log(`Downloaded ${bytes} (${percent})`));
+ */
+
 // Public: Download a file and store it on a file system using streaming with appropriate progress callback.
 //
 // * `sourceUrl`        Url to download from.
@@ -16,11 +21,11 @@ import fs from 'fs';
 export default async function download(
   sourceUrl: string,
   targetFile: string,
-   progressCallback: ?ByteProgressCallback, 
-   length: ?number
+  progressCallback: ?ByteProgressCallback,
+  length: ?number
 ): Promise<void> {
   const request = new Request(sourceUrl, {
-    headers: new Headers({'Content-Type': 'application/octet-stream'})
+    headers: new Headers({ 'Content-Type': 'application/octet-stream' })
   });
 
   const response = await fetch(request);
@@ -52,9 +57,9 @@ export default async function download(
 // Returns a {Promise} that will accept when complete.
 async function streamWithProgress(
   length: number,
-   reader: ReadableStreamReader,
-   writer: fs.WriteStream,
-   progressCallback: ?ByteProgressCallback
+  reader: ReadableStreamReader,
+  writer: fs.WriteStream,
+  progressCallback: ?ByteProgressCallback
 ): Promise<void> {
   let bytesDone = 0;
 
@@ -76,9 +81,9 @@ async function streamWithProgress(
         bytesDone += chunk.byteLength;
         const percent: ?number = length === 0 ? null : Math.floor(bytesDone / length * 100);
         progressCallback(bytesDone, percent);
-       }
-     }
-   }
+      }
+    }
+  }
 }
 
 // Public: Progress callback function signature indicating the bytesDone and
