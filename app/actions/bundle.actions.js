@@ -87,17 +87,18 @@ function removeBundle(id) {
 }
 
 export function requestSaveBundleTo(id) {
-  return dispatch => {
-    bundleService
-      .requestSaveBundleTo(id)
-      .then((downloadItem) => {
+  return async dispatch => {
+    const resources = await bundleService.getResourcePaths(id);
+    resources.unshift('metadata.xml');
+    resources.forEach(async (resourcePath) => {
+      try {
+        const downloadItem = await bundleService.requestSaveResourceTo(id, resourcePath);
         dispatch(request(id, downloadItem));
-        return true;
-      })
-      .catch(error => {
+        return downloadItem;
+      } catch (error) {
         dispatch(failure(id, error));
-        return true;
-      });
+      }
+    });
   };
 
   function request(_id, downloadItem) {

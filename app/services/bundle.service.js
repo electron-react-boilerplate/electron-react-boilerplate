@@ -6,7 +6,8 @@ export const bundleService = {
   fetchAll,
   fetchById,
   update,
-  requestSaveBundleTo,
+  getResourcePaths,
+  requestSaveResourceTo,
   delete: removeBundle
 };
 export default bundleService;
@@ -155,11 +156,20 @@ function handleResponse(response) {
   return response.json();
 }
 
+function getResourcePaths(bundleId) {
+  const requestOptions = {
+    method: 'GET',
+    headers: authHeader()
+  };
+  const url = `${dblDotLocalConfig.getHttpDblDotLocalBaseUrl()}/${BUNDLE_API}/${bundleId}/${RESOURCE_API_LIST}`;
+  return fetch(url, requestOptions)
+    .then(handleResponse);
+}
+
 const currentWindow = require('electron').remote.getCurrentWindow();
 const downloadMgr = require('electron').remote.require('electron-dl');
 
-function requestSaveBundleTo(bundleId) {
-  const resourcePath = 'metadata.xml';
+function requestSaveResourceTo(bundleId, resourcePath) {
   const url = `${dblDotLocalConfig.getHttpDblDotLocalBaseUrl()}/${BUNDLE_API}/${bundleId}/${RESOURCE_API}/${resourcePath}`;
   return downloadMgr.download(currentWindow, url, { saveAs: true });
 }
