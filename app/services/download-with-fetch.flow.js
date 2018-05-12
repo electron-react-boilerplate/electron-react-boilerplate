@@ -1,6 +1,6 @@
 // @flow
-
-import fs from 'fs';
+import fs from 'fs-extra';
+import path from 'path';
 
 /*
  * Downloader.download('https://download.damieng.com/fonts/original/EnvyCodeR-PR7.zip',
@@ -40,6 +40,8 @@ export default async function download(
 
   const finalLength = length || parseInt(response.headers.get('Content-Length') || '0', 10);
   const reader = body.getReader();
+  const directory = path.dirname(targetFile);
+  await fs.ensureDir(directory);
   const writer = fs.createWriteStream(targetFile);
 
   await streamWithProgress(finalLength, reader, writer, progressCallback);
