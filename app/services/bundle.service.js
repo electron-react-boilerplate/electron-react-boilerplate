@@ -1,7 +1,7 @@
 import path from 'path';
 import { authHeader } from '../helpers';
 import { dblDotLocalConfig } from '../constants/dblDotLocal.constants';
-import { download } from './download-with-fetch.flow';
+import download from './download-with-fetch.flow';
 
 export const bundleService = {
   create,
