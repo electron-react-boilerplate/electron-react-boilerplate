@@ -212,7 +212,8 @@
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "source-map-support": "^0.5.3",
-    "split-string": "^5.0.4"
+    "split-string": "^5.0.4",
+    "traverse": "^0.6.6"
   },
   "devEngines": {
     "node": ">=7.x",
