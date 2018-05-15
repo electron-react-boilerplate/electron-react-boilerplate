@@ -1,4 +1,5 @@
 import sort from 'fast-sort';
+import traverse from 'traverse';
 import { bundleConstants } from '../constants/bundle.constants';
 import { bundleService } from '../services/bundle.service';
 
@@ -88,12 +89,17 @@ function removeBundle(id) {
 
 export function requestSaveBundleTo(id) {
   return async dispatch => {
+    const bundleInfo = await bundleService.fetchById(id);
+    const totalBytesToDownload = traverse(bundleInfo.store.file_info).reduce(addByteSize);
+    dispatch(request(id, totalBytesToDownload));
     const resources = await bundleService.getResourcePaths(id);
     resources.unshift('metadata.xml');
     resources.forEach(async (resourcePath) => {
       try {
-        const downloadItem = await bundleService.requestSaveResourceTo(id, resourcePath);
-        dispatch(request(id, downloadItem));
+        const downloadItem = await bundleService.requestSaveResourceTo(
+          id, resourcePath,
+          (newBytesDownloaded) => { dispatch(updated(id, newBytesDownloaded)); }
+        );
         return downloadItem;
       } catch (error) {
         dispatch(failure(id, error));
@@ -101,8 +107,18 @@ export function requestSaveBundleTo(id) {
     });
   };
 
-  function request(_id, downloadItem) {
-    return { type: bundleConstants.SAVETO_REQUEST, id: _id, downloadItem };
+  function addByteSize(accBytes, fileInfoNode) {
+    if (this.isDir) {
+      return accBytes;
+    }
+    return accBytes + fileInfoNode.size;
+  }
+
+  function request(_id, totalBytesToDownload) {
+    return { type: bundleConstants.SAVETO_REQUEST, id: _id, totalBytesToDownload };
+  }
+  function updated(_id, newBytesDownloaded) {
+    return { type: bundleConstants.SAVETO_UPDATED, id: _id, newBytesDownloaded };
   }
   function failure(_id, error) {
     return { type: bundleConstants.SAVETO_FAILURE, id: _id, error };

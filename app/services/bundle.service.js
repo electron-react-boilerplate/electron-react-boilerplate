@@ -174,9 +174,9 @@ const { app } = require('electron').remote;
  * Downloader.download('https://download.damieng.com/fonts/original/EnvyCodeR-PR7.zip',
  *  'envy-code-r.zip', (bytes, percent) => console.log(`Downloaded ${bytes} (${percent})`));
  */
-function requestSaveResourceTo(bundleId, resourcePath) {
+function requestSaveResourceTo(bundleId, resourcePath, progressCallback) {
   const url = `${dblDotLocalConfig.getHttpDblDotLocalBaseUrl()}/${BUNDLE_API}/${bundleId}/${RESOURCE_API}/${resourcePath}`;
   const targetPath = path.join(app.getPath('downloads'), bundleId, resourcePath);
   console.log(targetPath);
-  return download(url, targetPath);
+  return download(url, targetPath, progressCallback);
 }
