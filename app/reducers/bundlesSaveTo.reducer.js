@@ -10,8 +10,8 @@ export function bundlesSaveTo(state = {}, action) {
         }, {});
       return {
         ...state,
-        downloadBundles: {
-          ...state.downloadBundles,
+        savedToHistory: {
+          ...state.savedToHistory,
           ...{
             [action.id]: {
               totalBytesToDownload: action.totalBytesToDownload,
@@ -22,7 +22,7 @@ export function bundlesSaveTo(state = {}, action) {
         }
       };
     } case bundleConstants.SAVETO_UPDATED: {
-      const bundleToUpdate = state.downloadBundles[action.id];
+      const bundleToUpdate = state.savedToHistory[action.id];
       const originalResourcePathsBytesTransfered = bundleToUpdate.resourcePathsBytesTransfered;
       const resourcePathBytesTransferedOriginal = originalResourcePathsBytesTransfered[action.resourcePath];
       const resourceBytesDiff = action.resourceTotalBytesDownloaded - resourcePathBytesTransferedOriginal;
@@ -34,8 +34,8 @@ export function bundlesSaveTo(state = {}, action) {
       const updatedBundle = { ...bundleToUpdate, totalBytesDownloaded, resourcePathsBytesTransfered };
       return {
         ...state,
-        downloadBundles: {
-          ...state.downloadBundles,
+        savedToHistory: {
+          ...state.savedToHistory,
           [action.id]: updatedBundle
         }
       };

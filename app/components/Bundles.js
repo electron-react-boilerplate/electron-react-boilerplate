@@ -104,7 +104,7 @@ class Bundles extends Component<Props> {
 
   render() {
     const { bundles, bundlesFilter, bundlesSaveTo } = this.props;
-    const { downloadBundles } = bundlesSaveTo;
+    const { savedToHistory } = bundlesSaveTo;
     const highlighterSharedProps = (bundle) => ({
       searchWords: bundlesFilter.isSearchActive ? bundlesFilter.searchKeywords : [],
       highlightClassName: styles.Highlight,
@@ -135,7 +135,7 @@ class Bundles extends Component<Props> {
             onClick={(e) => this.onClickBundleRow(e, d.id)}
             tabIndex={0}
             role="button"
-            style={{ background: `linear-gradient(to right, ${pickBackgroundColor(d.status)} 0%, ${pickBackgroundColor(d.status)} ${calculateBundleProgress(d, downloadBundles) || 100}%, transparent 0%), linear-gradient(to bottom, white 0%, white 100%)` }}
+            style={{ background: `linear-gradient(to right, ${pickBackgroundColor(d.status)} 0%, ${pickBackgroundColor(d.status)} ${calculateBundleProgress(d, savedToHistory) || 100}%, transparent 0%), linear-gradient(to bottom, white 0%, white 100%)` }}
           >
             <div className={styles.bundleRowTop}>
               <div className={styles.bundleRowTopLeftSide}>
@@ -219,8 +219,8 @@ function displayRow(bundlesFilter, bundle) {
    bundle.id in bundlesFilter.searchResults.bundlesMatching;
 }
 
-function calculateBundleProgress(bundle, downloadBundles) {
-  const bundleExportingInfo = downloadBundles ? downloadBundles[bundle.id] : null;
+function calculateBundleProgress(bundle, savedToHistory) {
+  const bundleExportingInfo = savedToHistory ? savedToHistory[bundle.id] : null;
   if (bundleExportingInfo) {
     const { totalBytesToDownload, totalBytesDownloaded } = bundleExportingInfo;
     return Math.floor((totalBytesDownloaded / totalBytesToDownload) * 100);
