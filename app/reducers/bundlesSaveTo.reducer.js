@@ -14,6 +14,7 @@ export function bundlesSaveTo(state = {}, action) {
           ...state.savedToHistory,
           ...{
             [action.id]: {
+              folderName: action.folderName,
               totalBytesToSavedTo: action.totalBytesToSavedTo,
               totalBytesSavedTo: 0,
               resourcePathsBytesTransfered

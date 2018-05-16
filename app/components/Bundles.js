@@ -4,6 +4,7 @@ import { DebounceInput } from 'react-debounce-input';
 import Highlighter from 'react-highlight-words';
 import FlatButton from 'material-ui/FlatButton';
 import FileDownload from 'material-ui/svg-icons/file/file-download';
+import FolderOpen from 'material-ui/svg-icons/file/folder-open';
 import SaveTo from 'material-ui/svg-icons/content/save';
 import PlayCircleFilled from 'material-ui/svg-icons/av/play-circle-filled';
 import PauseCircleFilled from 'material-ui/svg-icons/av/pause-circle-filled';
@@ -16,6 +17,7 @@ import { updateSearchInput, clearSearch } from '../actions/bundleFilter.actions'
 import styles from './Bundles.css';
 
 const { dialog, app } = require('electron').remote;
+const { shell } = require('electron');
 
 type Props = {
   fetchAll: () => {},
@@ -82,6 +84,9 @@ class Bundles extends Component<Props> {
       defaultPath: app.getPath('downloads'),
       properties: ['openDirectory']
     }, (folderName) => {
+      if (!folderName) {
+        return; // canceled.
+      }
       console.log(folderName.toString());
       this.props.requestSaveBundleTo(bundle.id, folderName.toString());
     });
@@ -153,7 +158,16 @@ class Bundles extends Component<Props> {
                 <Highlighter textToHighlight={d.displayAs.revision} {...highlighterSharedProps(d)} />
               </div>
               <div className={styles.bundleRowTopRightSide}>
-                {(d.status === 'COMPLETED' || d.status === 'DRAFT') &&
+                {d.status === 'COMPLETED' && hasRequestedSaveToFolder(d, savedToHistory)
+                  ?
+                  (<FlatButton
+                    labelPosition="before"
+                    label={<Highlighter textToHighlight="Open In Folder" {...highlighterSharedProps(d)} />}
+                    icon={<FolderOpen />}
+                    onClick={(e) => openInFolder(e, d, savedToHistory)}
+                  />)
+                  :
+                  (d.status === 'COMPLETED' || d.status === 'DRAFT') &&
                   <div style={{ paddingRight: '20px', paddingTop: '6px' }}>
                     <Highlighter textToHighlight={d.displayAs.status} {...highlighterSharedProps(d)} />
                   </div>}
@@ -227,13 +241,34 @@ function displayRow(bundlesFilter, bundle) {
    bundle.id in bundlesFilter.searchResults.bundlesMatching;
 }
 
+function getBundleExportInfo(bundle, savedToHistory) {
+  return savedToHistory ? savedToHistory[bundle.id] : null;
+}
+
+function hasRequestedSaveToFolder(bundle, savedToHistory) {
+  const bundleSavedToInfo = getBundleExportInfo(bundle, savedToHistory);
+  if (bundleSavedToInfo) {
+    return true;
+  }
+  return false;
+}
+
 function calculateBundleProgress(bundle, savedToHistory) {
-  const bundleExportingInfo = savedToHistory ? savedToHistory[bundle.id] : null;
-  if (bundleExportingInfo) {
-    const { totalBytesToSavedTo, totalBytesSavedTo } = bundleExportingInfo;
+  const bundleSavedToInfo = getBundleExportInfo(bundle, savedToHistory);
+  if (bundleSavedToInfo) {
+    const { totalBytesToSavedTo, totalBytesSavedTo } = bundleSavedToInfo;
     return Math.floor((totalBytesSavedTo / totalBytesToSavedTo) * 100);
   }
   return bundle.progress;
+}
+
+function openInFolder(event, bundle, savedToHistory) {
+  stopPropagation(event);
+  const bundleSavedToInfo = getBundleExportInfo(bundle, savedToHistory);
+  if (bundleSavedToInfo) {
+    const { folderName } = bundleSavedToInfo;
+    shell.openItem(folderName);
+  }
 }
 
 function stopPropagation(event) {
