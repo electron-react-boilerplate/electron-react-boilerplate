@@ -87,17 +87,17 @@ function removeBundle(id) {
   }
 }
 
-export function requestSaveBundleTo(id) {
+export function requestSaveBundleTo(id, selectedFolder) {
   return async dispatch => {
     const bundleInfo = await bundleService.fetchById(id);
     const totalBytesToSavedTo = traverse(bundleInfo.store.file_info).reduce(addByteSize, 0);
     const resourcePaths = await bundleService.getResourcePaths(id);
     resourcePaths.unshift('metadata.xml');
-    dispatch(request(id, totalBytesToSavedTo, resourcePaths));
+    dispatch(request(id, selectedFolder, totalBytesToSavedTo, resourcePaths));
     resourcePaths.forEach(async (resourcePath) => {
       try {
         const downloadItem = await bundleService.requestSaveResourceTo(
-          id, resourcePath,
+          selectedFolder, id, resourcePath,
           (resourceTotalBytesSavedTo) => { dispatch(updated(id, resourcePath, resourceTotalBytesSavedTo)); }
         );
         return downloadItem;
@@ -114,9 +114,13 @@ export function requestSaveBundleTo(id) {
     return accBytes + fileInfoNode.size;
   }
 
-  function request(_id, totalBytesToSavedTo, resourcePaths) {
+  function request(_id, _folderName, totalBytesToSavedTo, resourcePaths) {
     return {
-      type: bundleConstants.SAVETO_REQUEST, id: _id, totalBytesToSavedTo, resourcePaths
+      type: bundleConstants.SAVETO_REQUEST,
+      id: _id,
+      folderName: _folderName,
+      totalBytesToSavedTo,
+      resourcePaths
     };
   }
   function updated(_id, resourcePath, resourceTotalBytesSavedTo) {

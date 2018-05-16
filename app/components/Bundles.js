@@ -15,6 +15,8 @@ import { mockFetchAll, fetchAll, toggleSelectBundle, toggleModePauseResume, requ
 import { updateSearchInput, clearSearch } from '../actions/bundleFilter.actions';
 import styles from './Bundles.css';
 
+const { dialog, app } = require('electron').remote;
+
 type Props = {
   fetchAll: () => {},
   mockFetchAll: () => {},
@@ -76,7 +78,13 @@ class Bundles extends Component<Props> {
 
   startSaveBundleTo(event, bundle) {
     stopPropagation(event);
-    this.props.requestSaveBundleTo(bundle.id);
+    dialog.showOpenDialog({
+      defaultPath: app.getPath('downloads'),
+      properties: ['openDirectory']
+    }, (folderName) => {
+      console.log(folderName.toString());
+      this.props.requestSaveBundleTo(bundle.id, folderName.toString());
+    });
   }
 
   onClickTogglePauseResume(event, bundleId) {
