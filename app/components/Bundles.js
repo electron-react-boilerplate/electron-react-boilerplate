@@ -222,8 +222,8 @@ function displayRow(bundlesFilter, bundle) {
 function calculateBundleProgress(bundle, savedToHistory) {
   const bundleExportingInfo = savedToHistory ? savedToHistory[bundle.id] : null;
   if (bundleExportingInfo) {
-    const { totalBytesToDownload, totalBytesDownloaded } = bundleExportingInfo;
-    return Math.floor((totalBytesDownloaded / totalBytesToDownload) * 100);
+    const { totalBytesToSavedTo, totalBytesSavedTo } = bundleExportingInfo;
+    return Math.floor((totalBytesSavedTo / totalBytesToSavedTo) * 100);
   }
   return bundle.progress;
 }
