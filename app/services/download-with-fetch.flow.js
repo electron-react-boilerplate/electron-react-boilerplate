@@ -69,7 +69,7 @@ async function streamWithProgress(
     const result = await reader.read();
     if (result.done) {
       if (progressCallback != null) {
-        progressCallback(length, 100);
+        progressCallback(bytesDone, 100);
       }
       return;
     }
