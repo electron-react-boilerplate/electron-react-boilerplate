@@ -78,10 +78,12 @@ class Bundles extends Component<Props> {
     this.props.toggleSelectBundle(bundleId);
   }
 
-  startSaveBundleTo(event, bundle) {
+  startSaveBundleTo(event, bundle, savedToHistory) {
     stopPropagation(event);
+    const bundleSavedToInfo = getBundleExportInfo(bundle, savedToHistory);
+    const defaultPath = bundleSavedToInfo ? bundleSavedToInfo.folderName : app.getPath('downloads');
     dialog.showOpenDialog({
-      defaultPath: app.getPath('downloads'),
+      defaultPath,
       properties: ['openDirectory']
     }, (folderName) => {
       if (!folderName) {
@@ -208,8 +210,8 @@ class Bundles extends Component<Props> {
                 <FlatButton
                   label="Save To"
                   icon={<SaveTo />}
-                  onKeyPress={(e) => this.startSaveBundleTo(e, d)}
-                  onClick={(e) => this.startSaveBundleTo(e, d)}
+                  onKeyPress={(e) => this.startSaveBundleTo(e, d, savedToHistory)}
+                  onClick={(e) => this.startSaveBundleTo(e, d, savedToHistory)}
                 />
                 <FlatButton
                   label="Info"
