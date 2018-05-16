@@ -2,22 +2,41 @@ import { bundleConstants } from '../constants/bundle.constants';
 
 export function bundlesSaveTo(state = {}, action) {
   switch (action.type) {
-    case bundleConstants.SAVETO_REQUEST:
+    case bundleConstants.SAVETO_REQUEST: {
+      const resourcePathsBytesTransfered = action.resourcePaths
+        .reduce((acc, resourcePath) => {
+          acc[resourcePath] = 0;
+          return acc;
+        }, {});
       return {
         ...state,
         downloadBundles: {
           ...state.downloadBundles,
-          ...{ [action.id]: { totalBytesToDownload: action.totalBytesToDownload, totalBytesDownloaded: 0 } }
+          ...{
+            [action.id]: {
+              totalBytesToDownload: action.totalBytesToDownload,
+              totalBytesDownloaded: 0,
+              resourcePathsBytesTransfered
+            }
+          }
         }
       };
-    case bundleConstants.SAVETO_UPDATED: {
-      const bundleToUpdate = state.downloadedBundles[action.id];
-      const updatedBundle = { ...bundleToUpdate, totalBytesDownloaded: bundleToUpdate.totalBytesDownloaded + action.newBytesDownloaded };
+    } case bundleConstants.SAVETO_UPDATED: {
+      const bundleToUpdate = state.downloadBundles[action.id];
+      const originalResourcePathsBytesTransfered = bundleToUpdate.resourcePathsBytesTransfered;
+      const resourcePathBytesTransferedOriginal = originalResourcePathsBytesTransfered[action.resourcePath];
+      const resourceBytesDiff = action.resourceTotalBytesDownloaded - resourcePathBytesTransferedOriginal;
+      const totalBytesDownloaded = bundleToUpdate.totalBytesDownloaded + resourceBytesDiff;
+      const resourcePathsBytesTransfered = {
+        ...originalResourcePathsBytesTransfered,
+        [action.resourcePath]: action.resourceTotalBytesDownloaded
+      };
+      const updatedBundle = { ...bundleToUpdate, totalBytesDownloaded, resourcePathsBytesTransfered };
       return {
         ...state,
         downloadBundles: {
           ...state.downloadBundles,
-          ...{ [action.id]: updatedBundle }
+          [action.id]: updatedBundle
         }
       };
     }

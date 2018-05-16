@@ -90,15 +90,15 @@ function removeBundle(id) {
 export function requestSaveBundleTo(id) {
   return async dispatch => {
     const bundleInfo = await bundleService.fetchById(id);
-    const totalBytesToDownload = traverse(bundleInfo.store.file_info).reduce(addByteSize);
-    dispatch(request(id, totalBytesToDownload));
-    const resources = await bundleService.getResourcePaths(id);
-    resources.unshift('metadata.xml');
-    resources.forEach(async (resourcePath) => {
+    const totalBytesToDownload = traverse(bundleInfo.store.file_info).reduce(addByteSize, 0);
+    const resourcePaths = await bundleService.getResourcePaths(id);
+    resourcePaths.unshift('metadata.xml');
+    dispatch(request(id, totalBytesToDownload, resourcePaths));
+    resourcePaths.forEach(async (resourcePath) => {
       try {
         const downloadItem = await bundleService.requestSaveResourceTo(
           id, resourcePath,
-          (newBytesDownloaded) => { dispatch(updated(id, newBytesDownloaded)); }
+          (resourceTotalBytesDownloaded) => { dispatch(updated(id, resourcePath, resourceTotalBytesDownloaded)); }
         );
         return downloadItem;
       } catch (error) {
@@ -108,17 +108,21 @@ export function requestSaveBundleTo(id) {
   };
 
   function addByteSize(accBytes, fileInfoNode) {
-    if (this.isDir) {
+    if (fileInfoNode.is_dir || this.isRoot || fileInfoNode.size === undefined) {
       return accBytes;
     }
     return accBytes + fileInfoNode.size;
   }
 
-  function request(_id, totalBytesToDownload) {
-    return { type: bundleConstants.SAVETO_REQUEST, id: _id, totalBytesToDownload };
+  function request(_id, totalBytesToDownload, resourcePaths) {
+    return {
+      type: bundleConstants.SAVETO_REQUEST, id: _id, totalBytesToDownload, resourcePaths
+    };
   }
-  function updated(_id, newBytesDownloaded) {
-    return { type: bundleConstants.SAVETO_UPDATED, id: _id, newBytesDownloaded };
+  function updated(_id, resourcePath, resourceTotalBytesDownloaded) {
+    return {
+      type: bundleConstants.SAVETO_UPDATED, id, resourcePath, resourceTotalBytesDownloaded
+    };
   }
   function failure(_id, error) {
     return { type: bundleConstants.SAVETO_FAILURE, id: _id, error };
