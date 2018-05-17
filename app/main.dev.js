@@ -10,14 +10,10 @@
  *
  * @flow
  */
-import { app, BrowserWindow, session, ipcMain } from 'electron';
-import downloadMgr from 'electron-dl';
+import { app, BrowserWindow } from 'electron';
 import MenuBuilder from './menu';
 import { autoUpdaterServices } from './main-process/autoUpdater.services';
 import { navigationConstants } from './constants/navigation.constants';
-import { ipcRendererConstants } from './constants/ipcRenderer.constants';
-
-downloadMgr();
 
 let mainWindow = null;
 
@@ -86,36 +82,9 @@ app.on('ready', async () => {
 
     autoUpdater.logger.info('Request checkForUpdatesAndNotify');
     autoUpdater.checkForUpdatesAndNotify();
-
-    const baseUrl = process.env.HTTP_DBL_DOT_LOCAL_FLASK_API;
-    const filter = {
-      urls: [`${baseUrl}/*`]
-    };
-    session.defaultSession.webRequest.onBeforeSendHeaders(filter, (details, callback) => {
-      if (authorizationValue) {
-        // NOTE: eslint complains about 'details'
-        // ("Assignment to property of function parameter 'details'..."),
-        // but it's the only way to work to get this to work
-        // see https://github.com/electron/electron/blob/master/docs/api/web-request.md#class-webrequest
-        details.requestHeaders[HEADER_AUTHORIZATION] = authorizationValue;
-      }
-      // console.log({ details });
-      callback({ cancel: false, requestHeaders: details.requestHeaders });
-    });
   });
 
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
-});
-
-const HEADER_AUTHORIZATION = 'Authorization';
-let authorizationValue = null;
-ipcMain.on(ipcRendererConstants.KEY_IPC_USER_AUTHENTICATION, (event, authentication) => {
-  if (authentication && authentication.loggedIn) {
-    const jwt = authentication.user.auth_token;
-    authorizationValue = `Bearer ${jwt}`;
-  } else {
-    authorizationValue = null;
-  }
 });
