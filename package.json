@@ -169,6 +169,7 @@
     "minimist": "^1.2.0",
     "node-sass": "^4.7.2",
     "npm-logical-tree": "^1.2.1",
+    "prettier-eslint": "^8.8.1",
     "react-test-renderer": "^16.2.0",
     "redux-logger": "^3.0.6",
     "rimraf": "^2.6.2",
