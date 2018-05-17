@@ -3,7 +3,7 @@ import { bundleConstants } from '../constants/bundle.constants';
 export function bundlesSaveTo(state = {}, action) {
   switch (action.type) {
     case bundleConstants.SAVETO_REQUEST: {
-      const resourcePathsBytesTransfered = action.resourcePaths
+      const resourcePathsBytesSaved = action.resourcePaths
         .reduce((acc, resourcePath) => {
           acc[resourcePath] = 0;
           return acc;
@@ -15,24 +15,24 @@ export function bundlesSaveTo(state = {}, action) {
           ...{
             [action.id]: {
               folderName: action.folderName,
-              totalBytesToSavedTo: action.totalBytesToSavedTo,
-              totalBytesSavedTo: 0,
-              resourcePathsBytesTransfered
+              bundleBytesToSave: action.bundleBytesToSave,
+              bundleBytesSaved: 0,
+              resourcePathsBytesSaved
             }
           }
         }
       };
     } case bundleConstants.SAVETO_UPDATED: {
       const bundleToUpdate = state.savedToHistory[action.id];
-      const originalResourcePathsBytesTransfered = bundleToUpdate.resourcePathsBytesTransfered;
+      const originalResourcePathsBytesTransfered = bundleToUpdate.resourcePathsBytesSaved;
       const resourcePathBytesTransferedOriginal = originalResourcePathsBytesTransfered[action.resourcePath];
-      const resourceBytesDiff = action.resourceTotalBytesSavedTo - resourcePathBytesTransferedOriginal;
-      const totalBytesSavedTo = bundleToUpdate.totalBytesSavedTo + resourceBytesDiff;
-      const resourcePathsBytesTransfered = {
+      const resourceBytesDiff = action.resourceTotalBytesSaved - resourcePathBytesTransferedOriginal;
+      const bundleBytesSaved = bundleToUpdate.bundleBytesSaved + resourceBytesDiff;
+      const resourcePathsBytesSaved = {
         ...originalResourcePathsBytesTransfered,
-        [action.resourcePath]: action.resourceTotalBytesSavedTo
+        [action.resourcePath]: action.resourceTotalBytesSaved
       };
-      const updatedBundle = { ...bundleToUpdate, totalBytesSavedTo, resourcePathsBytesTransfered };
+      const updatedBundle = { ...bundleToUpdate, bundleBytesSaved, resourcePathsBytesSaved };
       return {
         ...state,
         savedToHistory: {

@@ -263,8 +263,8 @@ function hasRequestedSaveToFolder(bundle, savedToHistory) {
 function calculateBundleProgress(bundle, savedToHistory) {
   const bundleSavedToInfo = getBundleExportInfo(bundle, savedToHistory);
   if (bundleSavedToInfo) {
-    const { totalBytesToSavedTo, totalBytesSavedTo } = bundleSavedToInfo;
-    return Math.floor((totalBytesSavedTo / totalBytesToSavedTo) * 100);
+    const { bundleBytesToSave, bundleBytesSaved } = bundleSavedToInfo;
+    return Math.floor((bundleBytesSaved / bundleBytesToSave) * 100);
   }
   return bundle.progress;
 }
