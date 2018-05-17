@@ -175,5 +175,5 @@ function getResourcePaths(bundleId) {
 function requestSaveResourceTo(selectedFolder, bundleId, resourcePath, progressCallback) {
   const url = `${dblDotLocalConfig.getHttpDblDotLocalBaseUrl()}/${BUNDLE_API}/${bundleId}/${RESOURCE_API}/${resourcePath}`;
   const targetPath = path.join(selectedFolder, resourcePath);
-  return download(url, targetPath, progressCallback);
+  return download(url, targetPath, progressCallback, authHeader());
 }

@@ -22,10 +22,11 @@ export default async function download(
   sourceUrl: string,
   targetFile: string,
   progressCallback: ?ByteProgressCallback,
-  length: ?number
+  headers: ?{},
+  length: ?number,
 ): Promise<void> {
   const request = new Request(sourceUrl, {
-    headers: new Headers({ 'Content-Type': 'application/octet-stream' })
+    headers: new Headers({ 'Content-Type': 'application/octet-stream', ...(headers || {}) })
   });
 
   const response = await fetch(request);
@@ -33,7 +34,7 @@ export default async function download(
     throw Error(`Unable to download, server returned ${response.status} ${response.statusText}`);
   }
 
-  const body = response.body;
+  const { body } = response;
   if (body == null) {
     throw Error('No response body');
   }
