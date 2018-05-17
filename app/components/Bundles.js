@@ -164,7 +164,7 @@ class Bundles extends Component<Props> {
                   ?
                   (<FlatButton
                     labelPosition="before"
-                    label={<Highlighter textToHighlight="Open In Folder" {...highlighterSharedProps(d)} />}
+                    label={<Highlighter textToHighlight={getSaveToMessage(d, savedToHistory)} {...highlighterSharedProps(d)} />}
                     icon={<FolderOpen />}
                     onClick={(e) => openInFolder(e, d, savedToHistory)}
                   />)
@@ -241,6 +241,11 @@ export default connect(
 function displayRow(bundlesFilter, bundle) {
   return !(bundlesFilter.isSearchActive) ||
    bundle.id in bundlesFilter.searchResults.bundlesMatching;
+}
+
+function getSaveToMessage(bundle, savedToHistory) {
+  const bundleProgress = calculateBundleProgress(bundle, savedToHistory);
+  return (bundleProgress === 100) ? 'Open In Folder' : `Saving to Folder (${calculateBundleProgress(bundle, savedToHistory)})%`;
 }
 
 function getBundleExportInfo(bundle, savedToHistory) {

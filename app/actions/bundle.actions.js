@@ -99,7 +99,7 @@ export function requestSaveBundleTo(id, selectedFolder) {
         const downloadItem = await bundleService.requestSaveResourceTo(
           selectedFolder, id, resourcePath,
           (resourceTotalBytesSavedTo, resourceProgress) => {
-            if (resourceProgress % 50 === 0) {
+            if (resourceProgress % 25 === 0) {
               dispatch(updated(id, resourcePath, resourceTotalBytesSavedTo));
             }
           }
