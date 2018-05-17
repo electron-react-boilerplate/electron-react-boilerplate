@@ -242,30 +242,8 @@ function displayRow(bundlesFilter, bundle) {
    bundle.id in bundlesFilter.searchResults.bundlesMatching;
 }
 
-function getSaveToMessage(bundle, savedToHistory) {
-  const bundleProgress = calculateBundleProgress(bundle, savedToHistory);
-  return (bundleProgress === 100) ? 'Open In Folder' : `Saving to Folder (${bundle.progress || 0})%`;
-}
-
 function getBundleExportInfo(bundle, savedToHistory) {
   return savedToHistory ? savedToHistory[bundle.id] : null;
-}
-
-function hasRequestedSaveToFolder(bundle, savedToHistory) {
-  const bundleSavedToInfo = getBundleExportInfo(bundle, savedToHistory);
-  if (bundleSavedToInfo) {
-    return true;
-  }
-  return false;
-}
-
-function calculateBundleProgress(bundle, savedToHistory) {
-  const bundleSavedToInfo = getBundleExportInfo(bundle, savedToHistory);
-  if (bundleSavedToInfo) {
-    const { bundleBytesToSave, bundleBytesSaved } = bundleSavedToInfo;
-    return Math.floor((bundleBytesSaved / bundleBytesToSave) * 100);
-  }
-  return bundle.progress;
 }
 
 function openInFolder(event, bundle, savedToHistory) {
