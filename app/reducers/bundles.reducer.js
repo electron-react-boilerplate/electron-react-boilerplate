@@ -24,14 +24,15 @@ export function bundles(state = {}, action) {
             : bundle))
       };
     case bundleConstants.SAVETO_REQUEST: {
-      return updateProgress(action.id, 0);
+      return updateTaskStatusProgress(action.id, 'SAVETO', 'IN_PROGRESS', 0);
     }
     case bundleConstants.SAVETO_UPDATED: {
       const progress = Math.floor((action.bundleBytesSaved / action.bundleBytesToSave) * 100);
-      return updateProgress(action.id, progress);
+      const status = progress === 100 ? 'COMPLETED' : 'IN_PROGRESS';
+      return updateTaskStatusProgress(action.id, 'SAVETO', status, progress);
     }
     case bundleConstants.UPDATE_PROGRESS: {
-      return updateProgress(action.id, action.progress);
+      return updateTaskStatusProgress(action.id, null, null, action.progress);
     }
     case bundleConstants.TOGGLE_MODE_PAUSE_RESUME: {
       const updatedItems = forkArray(
@@ -70,9 +71,11 @@ export function bundles(state = {}, action) {
       return state;
   }
 
-  function updateProgress(bundleId, progress) {
+  function updateTaskStatusProgress(bundleId, task, status, progress) {
     const items = state.items.map(bundle => (bundle.id === bundleId
-      ? updateDisplayAs({ ...bundle, progress })
+      ? updateDisplayAs({
+        ...bundle, task: (task || bundle.task), status: (status || bundle.status), progress: (progress || bundle.progress) 
+      })
       : bundle));
     return {
       ...state,
@@ -119,12 +122,16 @@ function formatStatus(bundle) {
   let newStatusDisplayAs;
   if (bundle.status === 'NOT_STARTED') {
     newStatusDisplayAs = 'Download';
-  } else if (bundle.status === 'UPLOADING') {
+  } else if (bundle.task === 'UPLOAD' && bundle.status === 'IN_PROGRESS') {
     newStatusDisplayAs = (bundle.mode === 'PAUSED' ? `Resume Uploading ${formattedProgress}` : uploadingMsg);
-  } else if (bundle.status === 'DOWNLOADING') {
+  } else if (bundle.task === 'DOWNLOAD' && bundle.status === 'IN_PROGRESS') {
     newStatusDisplayAs = (bundle.mode === 'PAUSED' ? `Resume Downloading ${formattedProgress}` : downloadingMsg);
-  } else if (bundle.status === 'COMPLETED') {
+  } else if (bundle.task === 'SAVETO' && bundle.status === 'IN_PROGRESS') {
+    newStatusDisplayAs = `Saving to Folder ${formattedProgress}`;
+  } else if (['UPLOAD', 'DOWNLOAD'].includes(bundle.task) && bundle.status === 'COMPLETED') {
     newStatusDisplayAs = `${bundle.task}ED`;
+  } else if (['SAVETO'].includes(bundle.task) && bundle.status === 'COMPLETED') {
+    newStatusDisplayAs = 'Open in Folder';
   } else {
     newStatusDisplayAs = bundle.statusDisplayAs || bundle.status;
   }

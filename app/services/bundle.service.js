@@ -65,7 +65,7 @@ const RESOURCE_API_LIST = RESOURCE_API;
 
   TO this format:
    {
-      id: 'bundle02', name: 'Another Bundle', revision: 3, task: 'UPLOAD', status: 'UPLOADING', progress: 63, mode: 'PAUSED'
+      id: 'bundle02', name: 'Another Bundle', revision: 3, task: 'UPLOAD', status: 'IN_PROGRESS', progress: 63, mode: 'PAUSED'
    },
  */
 function fetchAll() {

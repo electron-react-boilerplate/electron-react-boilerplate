@@ -182,7 +182,7 @@ function getMockBundles() {
       name: 'Another Bundle',
       revision: 3,
       task: 'UPLOAD',
-      status: 'UPLOADING',
+      status: 'IN_PROGRESS',
       progress: 63,
       mode: 'PAUSED'
     },
@@ -191,7 +191,7 @@ function getMockBundles() {
       name: 'Audio Bundle',
       revision: 52,
       task: 'DOWNLOAD',
-      status: 'DOWNLOADING',
+      status: 'IN_PROGRESS',
       progress: 12,
       mode: 'RUNNING'
     },
@@ -225,10 +225,34 @@ function getMockBundles() {
       revision: 40,
       task: 'DOWNLOAD',
       status: 'COMPLETED'
+    },
+    {
+      id: 'bundle09',
+      name: 'Audio Bundle #3',
+      revision: 5,
+      task: 'SAVETO',
+      status: 'IN_PROGRESS',
+      progress: 0,
+    },
+    {
+      id: 'bundle10',
+      name: 'Audio Bundle #4',
+      revision: 4,
+      task: 'SAVETO',
+      status: 'IN_PROGRESS',
+      progress: 66,
+    },
+    {
+      id: 'bundle11',
+      name: 'Audio Bundle #5',
+      revision: 5,
+      task: 'SAVETO',
+      status: 'COMPLETED',
+      progress: 100,
     }
   ];
-  const taskOrder = ['UPLOAD', 'DOWNLOAD'];
-  const statusOrder = ['UPLOADING', 'DOWNLOADING', 'DRAFT', 'COMPLETED', 'NOT_STARTED'];
+  const taskOrder = ['UPLOAD', 'DOWNLOAD', 'SAVETO'];
+  const statusOrder = ['IN_PROGRESS', 'DRAFT', 'COMPLETED', 'NOT_STARTED'];
   const sortedBundles = sort(bundles).asc([
     b => statusOrder.indexOf(b.status),
     b => taskOrder.indexOf(b.task),

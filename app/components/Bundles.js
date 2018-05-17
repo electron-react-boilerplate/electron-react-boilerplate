@@ -150,7 +150,7 @@ class Bundles extends Component<Props> {
             onClick={(e) => this.onClickBundleRow(e, d.id)}
             tabIndex={0}
             role="button"
-            style={{ background: `linear-gradient(to right, ${pickBackgroundColor(d.status)} 0%, ${pickBackgroundColor(d.status)} ${d.progress === undefined ? 100 : d.progress}%, transparent 0%), linear-gradient(to bottom, white 0%, white 100%)` }}
+            style={{ background: `linear-gradient(to right, ${pickBackgroundColor(d.task, d.status)} 0%, ${pickBackgroundColor(d.task, d.status)} ${d.progress === undefined ? 100 : d.progress}%, transparent 0%), linear-gradient(to bottom, white 0%, white 100%)` }}
           >
             <div className={styles.bundleRowTop}>
               <div className={styles.bundleRowTopLeftSide}>
@@ -160,16 +160,15 @@ class Bundles extends Component<Props> {
                 <Highlighter textToHighlight={d.displayAs.revision} {...highlighterSharedProps(d)} />
               </div>
               <div className={styles.bundleRowTopRightSide}>
-                {d.status === 'COMPLETED' && hasRequestedSaveToFolder(d, savedToHistory)
-                  ?
+                {d.task === 'SAVETO' &&
                   (<FlatButton
                     labelPosition="before"
-                    label={<Highlighter textToHighlight={getSaveToMessage(d, savedToHistory)} {...highlighterSharedProps(d)} />}
+                    label={<Highlighter textToHighlight={d.displayAs.status} {...highlighterSharedProps(d)} />}
                     icon={<FolderOpen />}
                     onClick={(e) => openInFolder(e, d, savedToHistory)}
                   />)
-                  :
-                  (d.status === 'COMPLETED' || d.status === 'DRAFT') &&
+                }
+                {(d.task === 'UPLOAD' || d.task === 'DOWNLOAD') && (d.status === 'COMPLETED' || d.status === 'DRAFT') &&
                   <div style={{ paddingRight: '20px', paddingTop: '6px' }}>
                     <Highlighter textToHighlight={d.displayAs.status} {...highlighterSharedProps(d)} />
                   </div>}
@@ -282,12 +281,14 @@ function stopPropagation(event) {
   event.stopPropagation();
 }
 
-function pickBackgroundColor(status) {
+function pickBackgroundColor(task, status) {
+  if (task === 'SAVETO') {
+    return '#FFE793';
+  }
   switch (status) {
     case 'DRAFT': return '#F5D2D2';
     case 'NOT_STARTED': return '#EDEDED';
-    case 'UPLOADING':
-    case 'DOWNLOADING':
+    case 'IN_PROGRESS':
       return '#6DCBC4';
     case 'COMPLETED': return '#A1CB6D';
     default:
