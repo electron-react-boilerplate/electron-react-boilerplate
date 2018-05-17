@@ -98,7 +98,11 @@ export function requestSaveBundleTo(id, selectedFolder) {
       try {
         const downloadItem = await bundleService.requestSaveResourceTo(
           selectedFolder, id, resourcePath,
-          (resourceTotalBytesSavedTo) => { dispatch(updated(id, resourcePath, resourceTotalBytesSavedTo)); }
+          (resourceTotalBytesSavedTo, resourceProgress) => {
+            if (resourceProgress % 50 === 0) {
+              dispatch(updated(id, resourcePath, resourceTotalBytesSavedTo));
+            }
+          }
         );
         return downloadItem;
       } catch (error) {
