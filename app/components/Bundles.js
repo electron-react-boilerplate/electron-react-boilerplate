@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { DebounceInput } from 'react-debounce-input';
+import LinearProgress from 'material-ui/LinearProgress';
 import Highlighter from 'react-highlight-words';
 import FlatButton from 'material-ui/FlatButton';
 import FileDownload from 'material-ui/svg-icons/file/file-download';
@@ -150,7 +151,7 @@ class Bundles extends Component<Props> {
             onClick={(e) => this.onClickBundleRow(e, d.id)}
             tabIndex={0}
             role="button"
-            style={{ background: `linear-gradient(to right, ${pickBackgroundColor(d.task, d.status)} 0%, ${pickBackgroundColor(d.task, d.status)} ${d.progress === undefined ? 100 : d.progress}%, transparent 0%), linear-gradient(to bottom, white 0%, white 100%)` }}
+            style={{ background: `${pickBackgroundColor(d.task, d.status)}` }}
           >
             <div className={styles.bundleRowTop}>
               <div className={styles.bundleRowTopLeftSide}>
@@ -198,6 +199,10 @@ class Bundles extends Component<Props> {
                 }
               </div>
             </div>
+            {d.status === 'IN_PROGRESS' &&
+            <div className="row">
+              <LinearProgress mode="determinate" value={d.progress} style={{ height: '20px' }} />
+            </div>}
             {bundles.selectedBundle && bundles.selectedBundle.id === d.id &&
               <div className={`${styles.menuBar} + row`}>
                 <FlatButton
