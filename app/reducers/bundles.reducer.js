@@ -23,6 +23,18 @@ export function bundles(state = {}, action) {
             ? { ...bundle, deleting: true }
             : bundle))
       };
+    case bundleConstants.SAVETO_UPDATED: {
+      // resourcePath, resourceTotalBytesSaved, bundleBytesSaved, bundleBytesToSave
+      const progress = Math.floor((action.bundleBytesSaved / action.bundleBytesToSave) * 100);
+      const items = state.items.map(bundle =>
+        (bundle.id === action.id
+          ? updateDisplayAs({ ...bundle, progress })
+          : bundle));
+      return {
+        ...state,
+        items
+      };
+    }
     case bundleConstants.UPDATE_PROGRESS: {
       const items = state.items.map(bundle =>
         (bundle.id === action.id

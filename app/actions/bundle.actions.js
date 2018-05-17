@@ -9,7 +9,7 @@ export const bundleActions = {
   delete: removeBundle,
   requestSaveBundleTo,
   toggleModePauseResume,
-  toggleSelectBundle,
+  toggleSelectBundle
 };
 
 export default bundleActions;
@@ -17,13 +17,10 @@ export default bundleActions;
 export function mockFetchAll() {
   return dispatch => {
     dispatch(request());
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       const mockBundles = getMockBundles();
       resolve(mockBundles);
-    }).then(
-      bundles => dispatch(success(bundles)),
-      error => dispatch(failure(error))
-    );
+    }).then(bundles => dispatch(success(bundles)), error => dispatch(failure(error)));
   };
 
   function request() {
@@ -43,10 +40,7 @@ export function fetchAll() {
 
     return bundleService
       .fetchAll()
-      .then(
-        bundles => dispatch(success(bundles)),
-        error => dispatch(failure(error))
-      );
+      .then(bundles => dispatch(success(bundles)), error => dispatch(failure(error)));
   };
 
   function request() {
@@ -93,25 +87,30 @@ export function requestSaveBundleTo(id, selectedFolder) {
     const bundleBytesToSave = traverse(bundleInfo.store.file_info).reduce(addByteSize, 0);
     const resourcePaths = await bundleService.getResourcePaths(id);
     resourcePaths.unshift('metadata.xml');
-    const resourcePathsProgress = resourcePaths
-      .reduce((acc, resourcePath) => {
-        acc[resourcePath] = 0;
-        return acc;
-      }, {});
+    const resourcePathsProgress = resourcePaths.reduce((acc, resourcePath) => {
+      acc[resourcePath] = 0;
+      return acc;
+    }, {});
     let bundleBytesSaved = 0;
     dispatch(request(id, selectedFolder, bundleBytesToSave, resourcePaths));
-    resourcePaths.forEach(async (resourcePath) => {
+    resourcePaths.forEach(async resourcePath => {
       try {
         const downloadItem = await bundleService.requestSaveResourceTo(
-          selectedFolder, id, resourcePath,
+          selectedFolder,
+          id,
+          resourcePath,
           (resourceTotalBytesSaved, resourceProgress) => {
             const originalResourceBytesTransferred = resourcePathsProgress[resourcePath];
             const bytesDiff = resourceTotalBytesSaved - originalResourceBytesTransferred;
             bundleBytesSaved += bytesDiff;
-            const newProgressPercentage = Math.floor((bundleBytesSaved / bundleBytesToSave) * 100);
             if (resourceProgress && resourceProgress % 100 === 0) {
-              dispatch(updateBundleProgress(id, newProgressPercentage));
-              dispatch(updated(id, resourcePath, resourceTotalBytesSaved, bundleBytesSaved, bundleBytesToSave));
+              dispatch(updated(
+                id,
+                resourcePath,
+                resourceTotalBytesSaved,
+                bundleBytesSaved,
+                bundleBytesToSave
+              ));
             }
           }
         );
@@ -129,14 +128,6 @@ export function requestSaveBundleTo(id, selectedFolder) {
     return accBytes + fileInfoNode.size;
   }
 
-  function updateBundleProgress(_id, newBundleProgress) {
-    return {
-      type: bundleConstants.UPDATE_PROGRESS,
-      id: _id,
-      progress: newBundleProgress
-    };
-  }
-
   function request(_id, _folderName, bundleBytesToSave, resourcePaths) {
     return {
       type: bundleConstants.SAVETO_REQUEST,
@@ -146,9 +137,21 @@ export function requestSaveBundleTo(id, selectedFolder) {
       resourcePaths
     };
   }
-  function updated(_id, resourcePath, resourceTotalBytesSaved) {
+
+  function updated(
+    _id,
+    resourcePath,
+    resourceTotalBytesSaved,
+    bundleBytesSaved,
+    bundleBytesToSave
+  ) {
     return {
-      type: bundleConstants.SAVETO_UPDATED, id, resourcePath, resourceTotalBytesSaved
+      type: bundleConstants.SAVETO_UPDATED,
+      id,
+      resourcePath,
+      resourceTotalBytesSaved,
+      bundleBytesSaved,
+      bundleBytesToSave
     };
   }
   function failure(_id, error) {
@@ -167,36 +170,68 @@ export function toggleSelectBundle(id) {
 function getMockBundles() {
   const bundles = [
     {
-      id: 'bundle01', name: 'Test Bundle #1', revision: 3, task: 'UPLOAD', status: 'COMPLETED'
+      id: 'bundle01',
+      name: 'Test Bundle #1',
+      revision: 3,
+      task: 'UPLOAD',
+      status: 'COMPLETED'
     },
     {
-      id: 'bundle02', name: 'Another Bundle', revision: 3, task: 'UPLOAD', status: 'UPLOADING', progress: 63, mode: 'PAUSED'
+      id: 'bundle02',
+      name: 'Another Bundle',
+      revision: 3,
+      task: 'UPLOAD',
+      status: 'UPLOADING',
+      progress: 63,
+      mode: 'PAUSED'
     },
     {
-      id: 'bundle03', name: 'Audio Bundle', revision: 52, task: 'DOWNLOAD', status: 'DOWNLOADING', progress: 12, mode: 'RUNNING'
+      id: 'bundle03',
+      name: 'Audio Bundle',
+      revision: 52,
+      task: 'DOWNLOAD',
+      status: 'DOWNLOADING',
+      progress: 12,
+      mode: 'RUNNING'
     },
     {
-      id: 'bundle04', name: 'Unfinished Bundle', task: 'UPLOAD', status: 'DRAFT'
+      id: 'bundle04',
+      name: 'Unfinished Bundle',
+      task: 'UPLOAD',
+      status: 'DRAFT'
     },
     {
-      id: 'bundle05', name: 'Unfinished Video Bundle', task: 'UPLOAD', status: 'DRAFT'
+      id: 'bundle05',
+      name: 'Unfinished Video Bundle',
+      task: 'UPLOAD',
+      status: 'DRAFT'
     },
     {
-      id: 'bundle06', name: 'DBL Bundle', task: 'DOWNLOAD', status: 'NOT_STARTED'
+      id: 'bundle06',
+      name: 'DBL Bundle',
+      task: 'DOWNLOAD',
+      status: 'NOT_STARTED'
     },
     {
-      id: 'bundle07', name: 'DBL Bundle 3', task: 'DOWNLOAD', status: 'NOT_STARTED'
+      id: 'bundle07',
+      name: 'DBL Bundle 3',
+      task: 'DOWNLOAD',
+      status: 'NOT_STARTED'
     },
     {
-      id: 'bundle08', name: 'Audio Bundle #2', revision: 40, task: 'DOWNLOAD', status: 'COMPLETED'
-    },
+      id: 'bundle08',
+      name: 'Audio Bundle #2',
+      revision: 40,
+      task: 'DOWNLOAD',
+      status: 'COMPLETED'
+    }
   ];
   const taskOrder = ['UPLOAD', 'DOWNLOAD'];
   const statusOrder = ['UPLOADING', 'DOWNLOADING', 'DRAFT', 'COMPLETED', 'NOT_STARTED'];
   const sortedBundles = sort(bundles).asc([
-    (b) => statusOrder.indexOf(b.status),
-    (b) => taskOrder.indexOf(b.task),
-    (b) => b.name,
+    b => statusOrder.indexOf(b.status),
+    b => taskOrder.indexOf(b.task),
+    b => b.name
   ]);
   return sortedBundles;
 }
