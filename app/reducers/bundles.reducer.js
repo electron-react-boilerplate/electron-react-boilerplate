@@ -23,27 +23,15 @@ export function bundles(state = {}, action) {
             ? { ...bundle, deleting: true }
             : bundle))
       };
+    case bundleConstants.SAVETO_REQUEST: {
+      return updateProgress(action.id, 0);
+    }
     case bundleConstants.SAVETO_UPDATED: {
-      // resourcePath, resourceTotalBytesSaved, bundleBytesSaved, bundleBytesToSave
       const progress = Math.floor((action.bundleBytesSaved / action.bundleBytesToSave) * 100);
-      const items = state.items.map(bundle =>
-        (bundle.id === action.id
-          ? updateDisplayAs({ ...bundle, progress })
-          : bundle));
-      return {
-        ...state,
-        items
-      };
+      return updateProgress(action.id, progress);
     }
     case bundleConstants.UPDATE_PROGRESS: {
-      const items = state.items.map(bundle =>
-        (bundle.id === action.id
-          ? updateDisplayAs({ ...bundle, progress: action.progress })
-          : bundle));
-      return {
-        ...state,
-        items
-      };
+      return updateProgress(action.id, action.progress);
     }
     case bundleConstants.TOGGLE_MODE_PAUSE_RESUME: {
       const updatedItems = forkArray(
@@ -80,6 +68,16 @@ export function bundles(state = {}, action) {
       };
     default:
       return state;
+  }
+
+  function updateProgress(bundleId, progress) {
+    const items = state.items.map(bundle => (bundle.id === bundleId
+      ? updateDisplayAs({ ...bundle, progress })
+      : bundle));
+    return {
+      ...state,
+      items
+    };
   }
 }
 export default bundles;

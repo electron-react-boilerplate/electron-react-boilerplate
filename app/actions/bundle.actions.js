@@ -101,6 +101,7 @@ export function requestSaveBundleTo(id, selectedFolder) {
           resourcePath,
           (resourceTotalBytesSaved, resourceProgress) => {
             const originalResourceBytesTransferred = resourcePathsProgress[resourcePath];
+            resourcePathsProgress[resourcePath] = resourceTotalBytesSaved;
             const bytesDiff = resourceTotalBytesSaved - originalResourceBytesTransferred;
             bundleBytesSaved += bytesDiff;
             if (resourceProgress && resourceProgress % 100 === 0) {
