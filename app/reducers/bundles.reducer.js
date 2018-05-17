@@ -23,6 +23,16 @@ export function bundles(state = {}, action) {
             ? { ...bundle, deleting: true }
             : bundle))
       };
+    case bundleConstants.UPDATE_PROGRESS: {
+      const items = state.items.map(bundle =>
+        (bundle.id === action.id
+          ? updateDisplayAs({ ...bundle, progress: action.progress })
+          : bundle));
+      return {
+        ...state,
+        items
+      };
+    }
     case bundleConstants.TOGGLE_MODE_PAUSE_RESUME: {
       const updatedItems = forkArray(
         state.items,

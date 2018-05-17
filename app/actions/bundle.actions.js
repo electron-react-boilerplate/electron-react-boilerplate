@@ -93,13 +93,24 @@ export function requestSaveBundleTo(id, selectedFolder) {
     const totalBytesToSavedTo = traverse(bundleInfo.store.file_info).reduce(addByteSize, 0);
     const resourcePaths = await bundleService.getResourcePaths(id);
     resourcePaths.unshift('metadata.xml');
+    const resourcePathsProgress = resourcePaths
+      .reduce((acc, resourcePath) => {
+        acc[resourcePath] = 0;
+        return acc;
+      }, {});
+    let totalBundleBytesTransferred = 0;
     dispatch(request(id, selectedFolder, totalBytesToSavedTo, resourcePaths));
     resourcePaths.forEach(async (resourcePath) => {
       try {
         const downloadItem = await bundleService.requestSaveResourceTo(
           selectedFolder, id, resourcePath,
           (resourceTotalBytesSavedTo, resourceProgress) => {
-            if (resourceProgress % 25 === 0) {
+            const originalResourceBytesTransferred = resourcePathsProgress[resourcePath];
+            const bytesDiff = resourceTotalBytesSavedTo - originalResourceBytesTransferred;
+            totalBundleBytesTransferred += bytesDiff;
+            const newProgressPercentage = Math.floor((totalBundleBytesTransferred / totalBytesToSavedTo) * 100);
+            if (resourceProgress && resourceProgress % 100 === 0) {
+              dispatch(updateBundleProgress(id, newProgressPercentage));
               dispatch(updated(id, resourcePath, resourceTotalBytesSavedTo));
             }
           }
@@ -116,6 +127,14 @@ export function requestSaveBundleTo(id, selectedFolder) {
       return accBytes;
     }
     return accBytes + fileInfoNode.size;
+  }
+
+  function updateBundleProgress(_id, newBundleProgress) {
+    return {
+      type: bundleConstants.UPDATE_PROGRESS,
+      id: _id,
+      progress: newBundleProgress
+    };
   }
 
   function request(_id, _folderName, totalBytesToSavedTo, resourcePaths) {

@@ -150,7 +150,7 @@ class Bundles extends Component<Props> {
             onClick={(e) => this.onClickBundleRow(e, d.id)}
             tabIndex={0}
             role="button"
-            style={{ background: `linear-gradient(to right, ${pickBackgroundColor(d.status)} 0%, ${pickBackgroundColor(d.status)} ${calculateBundleProgress(d, savedToHistory) || 100}%, transparent 0%), linear-gradient(to bottom, white 0%, white 100%)` }}
+            style={{ background: `linear-gradient(to right, ${pickBackgroundColor(d.status)} 0%, ${pickBackgroundColor(d.status)} ${d.progress || 100}%, transparent 0%), linear-gradient(to bottom, white 0%, white 100%)` }}
           >
             <div className={styles.bundleRowTop}>
               <div className={styles.bundleRowTopLeftSide}>
@@ -245,7 +245,7 @@ function displayRow(bundlesFilter, bundle) {
 
 function getSaveToMessage(bundle, savedToHistory) {
   const bundleProgress = calculateBundleProgress(bundle, savedToHistory);
-  return (bundleProgress === 100) ? 'Open In Folder' : `Saving to Folder (${calculateBundleProgress(bundle, savedToHistory)})%`;
+  return (bundleProgress === 100) ? 'Open In Folder' : `Saving to Folder (${bundle.progress || 0})%`;
 }
 
 function getBundleExportInfo(bundle, savedToHistory) {
