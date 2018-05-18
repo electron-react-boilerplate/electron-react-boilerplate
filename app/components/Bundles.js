@@ -32,15 +32,17 @@ type Props = {
   history: {},
   bundles: {},
   bundlesFilter: {},
-  bundlesSaveTo: {}
+  bundlesSaveTo: {},
+  authentication: {}
 };
 
 function mapStateToProps(state) {
-  const { bundles, bundlesFilter, bundlesSaveTo } = state;
+  const { bundles, bundlesFilter, bundlesSaveTo, authentication } = state;
   return {
     bundles,
     bundlesFilter,
-    bundlesSaveTo
+    bundlesSaveTo,
+    authentication
   };
 }
 
@@ -67,6 +69,28 @@ class Bundles extends Component<Props> {
       // clear search results on location change
       clearSearchResults();
     });
+    console.log('Bundles Did mount');
+    const { authentication } = this.props;
+    if (authentication.user) {
+      console.log('SSE connect to Bundles');
+      const eventSource = new EventSource(`http://127.0.0.1:44151/events/${authentication.user.auth_token}`);
+      eventSource.onmessage = (event) => {
+        console.log(event);
+      };
+      ['storer/update_from_download', 'storer/execute_task'].forEach((evType) => {
+        eventSource.addEventListener(evType, (event) => {
+          console.log(event);
+        });
+      });
+
+      eventSource.onopen = () => {
+        console.log('Connection to server opened.');
+      };
+      eventSource.onerror = (error) => {
+        console.log('EventSource failed.');
+        console.log(error);
+      };
+    }
   }
 
   onKeyPress(event, bundleId) {
