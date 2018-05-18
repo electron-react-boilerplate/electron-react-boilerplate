@@ -122,8 +122,8 @@ export function downloadResources(id) {
     try {
       const manifestResourcePaths = await bundleService.getManifestResourcePaths(id);
       manifestResourcePaths.unshift('metadata.xml');
-      await bundleService.downloadResources(id);
       dispatch(request(id, manifestResourcePaths));
+      await bundleService.downloadResources(id);
     } catch (error) {
       dispatch(failure(id, error));
     }

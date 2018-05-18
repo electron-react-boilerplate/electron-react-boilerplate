@@ -23,6 +23,14 @@ export function bundles(state = {}, action) {
             ? { ...bundle, deleting: true }
             : bundle))
       };
+    case bundleConstants.DOWNLOAD_RESOURCES_REQUEST: {
+      return updateTaskStatusProgress(action.id, 'DOWNLOAD', 'IN_PROGRESS', 0);
+    }
+    case bundleConstants.DOWNLOAD_RESOURCES_UPDATED: {
+      const progress = Math.floor((action.resourcesDownloaded / action.resourcesToDownload) * 100);
+      const status = progress === 100 ? 'COMPLETED' : 'IN_PROGRESS';
+      return updateTaskStatusProgress(action.id, 'DOWNLOAD', status, progress);
+    }
     case bundleConstants.SAVETO_REQUEST: {
       return updateTaskStatusProgress(action.id, 'SAVETO', 'IN_PROGRESS', 0);
     }
@@ -71,7 +79,7 @@ export function bundles(state = {}, action) {
   function updateTaskStatusProgress(bundleId, task, status, progress) {
     const items = state.items.map(bundle => (bundle.id === bundleId
       ? updateDisplayAs({
-        ...bundle, task: (task || bundle.task), status: (status || bundle.status), progress: (progress || bundle.progress) 
+        ...bundle, task: (task || bundle.task), status: (status || bundle.status), progress: (Number.isInteger(progress) ? progress : bundle.progress)
       })
       : bundle));
     return {

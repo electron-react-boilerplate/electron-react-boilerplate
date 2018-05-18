@@ -161,6 +161,14 @@ function handleResponse(response) {
   return response.json();
 }
 
+function handleTextResponse(response) {
+  if (!response.ok) {
+    return Promise.reject(response.statusText);
+  }
+
+  return response.text();
+}
+
 function getManifestResourcePaths(bundleId) {
   const requestOptions = {
     method: 'GET',
@@ -183,7 +191,7 @@ function bundleAddTasks(bundleId, innerTasks) {
   };
   const url = `${dblDotLocalConfig.getHttpDblDotLocalBaseUrl()}/${BUNDLE_API}/${bundleId}/add-tasks`;
   return fetch(url, requestOptions)
-    .then(handleResponse);
+    .then(handleTextResponse);
 }
 
 
