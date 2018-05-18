@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { DebounceInput } from 'react-debounce-input';
 import LinearProgress from 'material-ui/LinearProgress';
+import CircularProgress from 'material-ui/CircularProgress';
 import Highlighter from 'react-highlight-words';
 import FlatButton from 'material-ui/FlatButton';
 import FileDownload from 'material-ui/svg-icons/file/file-download';
@@ -138,10 +139,10 @@ class Bundles extends Component<Props> {
             />
           </div>
         </div>
-        {bundles.loading &&
-        <svg className="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-          <circle className="path" fill="none" strokeWidth="6" strokeLinecap="round" cx="33" cy="33" r="30" />
-        </svg>
+        {true &&
+          <div className="row" style={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <CircularProgress size={80} thickness={5} />
+          </div>
         }
         {bundles.items && bundles.items.filter((b) => displayRow(bundlesFilter, b)).map((d) => (
           <div
