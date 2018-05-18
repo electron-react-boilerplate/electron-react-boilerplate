@@ -31,9 +31,6 @@ export function bundles(state = {}, action) {
       const status = progress === 100 ? 'COMPLETED' : 'IN_PROGRESS';
       return updateTaskStatusProgress(action.id, 'SAVETO', status, progress);
     }
-    case bundleConstants.UPDATE_PROGRESS: {
-      return updateTaskStatusProgress(action.id, null, null, action.progress);
-    }
     case bundleConstants.TOGGLE_MODE_PAUSE_RESUME: {
       const updatedItems = forkArray(
         state.items,

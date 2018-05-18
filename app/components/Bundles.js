@@ -14,7 +14,8 @@ import CallSplit from 'material-ui/svg-icons/communication/call-split';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 import ActionDelete from 'material-ui/svg-icons/action/delete';
 import { navigationConstants } from '../constants/navigation.constants';
-import { mockFetchAll, fetchAll, toggleSelectBundle, toggleModePauseResume, requestSaveBundleTo } from '../actions/bundle.actions';
+import { bundleService } from '../services/bundle.service';
+import { mockFetchAll, fetchAll, toggleSelectBundle, toggleModePauseResume, downloadResources, requestSaveBundleTo } from '../actions/bundle.actions';
 import { updateSearchInput, clearSearch } from '../actions/bundleFilter.actions';
 import styles from './Bundles.css';
 
@@ -24,6 +25,7 @@ const { shell } = require('electron');
 type Props = {
   fetchAll: () => {},
   mockFetchAll: () => {},
+  downloadResources: () => {},
   requestSaveBundleTo: () => {},
   toggleSelectBundle: () => {},
   toggleModePauseResume: () => {},
@@ -49,6 +51,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = {
   fetchAll,
   mockFetchAll,
+  downloadResources,
   requestSaveBundleTo,
   toggleSelectBundle,
   toggleModePauseResume,
@@ -72,24 +75,7 @@ class Bundles extends Component<Props> {
     console.log('Bundles Did mount');
     const { authentication } = this.props;
     if (authentication.user) {
-      console.log('SSE connect to Bundles');
-      const eventSource = new EventSource(`http://127.0.0.1:44151/events/${authentication.user.auth_token}`);
-      eventSource.onmessage = (event) => {
-        console.log(event);
-      };
-      ['storer/update_from_download', 'storer/execute_task'].forEach((evType) => {
-        eventSource.addEventListener(evType, (event) => {
-          console.log(event);
-        });
-      });
-
-      eventSource.onopen = () => {
-        console.log('Connection to server opened.');
-      };
-      eventSource.onerror = (error) => {
-        console.log('EventSource failed.');
-        console.log(error);
-      };
+      bundleService.setupBundlesEventSource(authentication);
     }
   }
 
@@ -118,6 +104,11 @@ class Bundles extends Component<Props> {
       console.log(folderName.toString());
       this.props.requestSaveBundleTo(bundle.id, folderName.toString());
     });
+  }
+
+  onClickDownloadResources(event, bundleId) {
+    this.props.downloadResources(bundleId);
+    event.stopPropagation();
   }
 
   onClickTogglePauseResume(event, bundleId) {
@@ -203,7 +194,7 @@ class Bundles extends Component<Props> {
                   labelPosition="before"
                   label={<Highlighter textToHighlight={d.displayAs.status} {...highlighterSharedProps(d)} />}
                   icon={<FileDownload />}
-                  onClick={(e) => this.onClickTogglePauseResume(e, d.id)}
+                  onClick={(e) => this.onClickDownloadResources(e, d.id)}
                 />
                 }
                 {d.mode === 'PAUSED' &&

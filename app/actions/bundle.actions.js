@@ -7,6 +7,7 @@ export const bundleActions = {
   mockFetchAll,
   fetchAll,
   delete: removeBundle,
+  downloadResources,
   requestSaveBundleTo,
   toggleModePauseResume,
   toggleSelectBundle
@@ -53,6 +54,26 @@ export function fetchAll() {
     return { type: bundleConstants.FETCH_FAILURE, error };
   }
 }
+
+export function downloadResources(id) {
+  return async dispatch => {
+    try {
+      const manifestResourcePaths = await bundleService.getManifestResourcePaths(id);
+      manifestResourcePaths.unshift('metadata.xml');
+      await bundleService.downloadResources(id);
+      dispatch(request(id, manifestResourcePaths));
+    } catch (error) {
+      dispatch(failure(id, error));
+    }
+  };
+  function request(_id, manifestResourcePaths) {
+    return { type: bundleConstants.DOWNLOAD_RESOURCES_REQUEST, id: _id, manifestResourcePaths };
+  }
+  function failure(_id, error) {
+    return { type: bundleConstants.DOWNLOAD_RESOURCES_FAILURE, id, error };
+  }
+}
+
 
 function removeBundle(id) {
   return dispatch => {

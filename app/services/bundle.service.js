@@ -3,13 +3,17 @@ import { authHeader } from '../helpers';
 import { dblDotLocalConfig } from '../constants/dblDotLocal.constants';
 import download from './download-with-fetch.flow';
 
+
 export const bundleService = {
   create,
   fetchAll,
   fetchById,
   update,
+  getManifestResourcePaths,
+  downloadResources,
   getResourcePaths,
   requestSaveResourceTo,
+  setupBundlesEventSource,
   delete: removeBundle
 };
 export default bundleService;
@@ -158,6 +162,32 @@ function handleResponse(response) {
   return response.json();
 }
 
+function getManifestResourcePaths(bundleId) {
+  const requestOptions = {
+    method: 'GET',
+    headers: authHeader()
+  };
+  const url = `${dblDotLocalConfig.getHttpDblDotLocalBaseUrl()}/${BUNDLE_API}/${bundleId}/manifest-resource`;
+  return fetch(url, requestOptions)
+    .then(handleResponse);
+}
+
+function downloadResources(bundleId) {
+  return bundleAddTasks(bundleId, '<downloadResources/>');
+}
+
+function bundleAddTasks(bundleId, innerTasks) {
+  const requestOptions = {
+    method: 'POST',
+    headers: { ...authHeader(), 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `xml=<tasks> ${innerTasks} </tasks>`
+  };
+  const url = `${dblDotLocalConfig.getHttpDblDotLocalBaseUrl()}/${BUNDLE_API}/${bundleId}/add-tasks`;
+  return fetch(url, requestOptions)
+    .then(handleResponse);
+}
+
+
 function getResourcePaths(bundleId) {
   const requestOptions = {
     method: 'GET',
@@ -176,4 +206,45 @@ function requestSaveResourceTo(selectedFolder, bundleId, resourcePath, progressC
   const url = `${dblDotLocalConfig.getHttpDblDotLocalBaseUrl()}/${BUNDLE_API}/${bundleId}/${RESOURCE_API}/${resourcePath}`;
   const targetPath = path.join(selectedFolder, resourcePath);
   return download(url, targetPath, progressCallback, authHeader());
+}
+
+function listenStorerExecuteTaskDownloadResources(e) {
+  console.log(e);
+}
+
+function listenDownloaderReceiver(e) {
+  console.log(e);
+}
+
+function listenDownloaderStatus(e) {
+  console.log(e);
+}
+
+function listenStorerUpdateFromDownload(e) {
+  console.log(e);
+}
+
+function setupBundlesEventSource(authentication) {
+  console.log('SSE connect to Bundles');
+  const eventSource = new EventSource(`${dblDotLocalConfig.getHttpDblDotLocalBaseUrl()}/events/${authentication.user.auth_token}`);
+  eventSource.onmessage = (event) => {
+    console.log(event);
+  };
+  eventSource.onopen = () => {
+    console.log('Connection to event source opened.');
+  };
+  eventSource.onerror = (error) => {
+    console.log('EventSource failed.');
+    console.log(error);
+  };
+  const listeners = {
+    'storer/execute_task': listenStorerExecuteTaskDownloadResources,
+    'downloader/receiver': listenDownloaderReceiver,
+    'downloader/status': listenDownloaderStatus,
+    'storer/update_from_download': listenStorerUpdateFromDownload,
+  };
+  Object.keys(listeners).forEach((evType) => {
+    const handler = listeners[evType];
+    eventSource.addEventListener(evType, handler);
+  });
 }
