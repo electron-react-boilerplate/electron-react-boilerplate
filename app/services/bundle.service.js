@@ -13,7 +13,6 @@ export const bundleService = {
   downloadResources,
   getResourcePaths,
   requestSaveResourceTo,
-  setupBundlesEventSource,
   delete: removeBundle
 };
 export default bundleService;
@@ -208,43 +207,3 @@ function requestSaveResourceTo(selectedFolder, bundleId, resourcePath, progressC
   return download(url, targetPath, progressCallback, authHeader());
 }
 
-function listenStorerExecuteTaskDownloadResources(e) {
-  console.log(e);
-}
-
-function listenDownloaderReceiver(e) {
-  console.log(e);
-}
-
-function listenDownloaderStatus(e) {
-  console.log(e);
-}
-
-function listenStorerUpdateFromDownload(e) {
-  console.log(e);
-}
-
-function setupBundlesEventSource(authentication) {
-  console.log('SSE connect to Bundles');
-  const eventSource = new EventSource(`${dblDotLocalConfig.getHttpDblDotLocalBaseUrl()}/events/${authentication.user.auth_token}`);
-  eventSource.onmessage = (event) => {
-    console.log(event);
-  };
-  eventSource.onopen = () => {
-    console.log('Connection to event source opened.');
-  };
-  eventSource.onerror = (error) => {
-    console.log('EventSource failed.');
-    console.log(error);
-  };
-  const listeners = {
-    'storer/execute_task': listenStorerExecuteTaskDownloadResources,
-    'downloader/receiver': listenDownloaderReceiver,
-    'downloader/status': listenDownloaderStatus,
-    'storer/update_from_download': listenStorerUpdateFromDownload,
-  };
-  Object.keys(listeners).forEach((evType) => {
-    const handler = listeners[evType];
-    eventSource.addEventListener(evType, handler);
-  });
-}

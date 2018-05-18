@@ -2,11 +2,13 @@ import sort from 'fast-sort';
 import traverse from 'traverse';
 import { bundleConstants } from '../constants/bundle.constants';
 import { bundleService } from '../services/bundle.service';
+import { dblDotLocalConfig } from '../constants/dblDotLocal.constants';
 
 export const bundleActions = {
   mockFetchAll,
   fetchAll,
   delete: removeBundle,
+  setupBundlesEventSource,
   downloadResources,
   requestSaveBundleTo,
   toggleModePauseResume,
@@ -55,6 +57,66 @@ export function fetchAll() {
   }
 }
 
+export function setupBundlesEventSource(authentication) {
+  return dispatch => {
+    console.log('SSE connect to Bundles');
+    const eventSource = new EventSource(`${dblDotLocalConfig.getHttpDblDotLocalBaseUrl()}/events/${authentication.user.auth_token}`);
+    eventSource.onmessage = (event) => {
+      console.log(event);
+    };
+    eventSource.onopen = () => {
+      console.log('Connection to event source opened.');
+    };
+    eventSource.onerror = (error) => {
+      console.log('EventSource failed.');
+      console.log(error);
+    };
+    const listeners = {
+      'storer/execute_task': listenStorerExecuteTaskDownloadResources,
+      'downloader/receiver': listenDownloaderReceiver,
+      'downloader/status': (e) => listenDownloaderStatus(e, dispatch),
+      'storer/update_from_download': listenStorerUpdateFromDownload,
+    };
+    Object.keys(listeners).forEach((evType) => {
+      const handler = listeners[evType];
+      eventSource.addEventListener(evType, handler);
+    });
+  };
+
+  function listenStorerExecuteTaskDownloadResources(e) {
+    console.log(e);
+  }
+
+  function listenDownloaderReceiver(e) {
+    console.log(e);
+  }
+
+  /* downloader/status
+   * {'event': 'downloader/status', 'data': {'args': ('48a8e8fe-76ac-45d6-9b3a-d7d99ead7224', 4, 8), 'component': 'downloader', 'type': 'status'}}
+   */
+  function listenDownloaderStatus(e, dispatch) {
+    console.log(e);
+    const data = JSON.parse(e.data);
+    const bundleId = data.args[0];
+    const resourcesDownloaded = data.args[1];
+    const resourcesToDownload = data.args[2];
+    dispatch(updateDownloadStatus(bundleId, resourcesDownloaded, resourcesToDownload));
+  }
+
+  function updateDownloadStatus(_id, resourcesDownloaded, resourcesToDownload) {
+    return {
+      type: bundleConstants.DOWNLOAD_RESOURCES_UPDATED,
+      id: _id,
+      resourcesDownloaded,
+      resourcesToDownload
+    };
+  }
+
+  function listenStorerUpdateFromDownload(e) {
+    console.log(e);
+  }
+}
+
 export function downloadResources(id) {
   return async dispatch => {
     try {
@@ -73,7 +135,6 @@ export function downloadResources(id) {
     return { type: bundleConstants.DOWNLOAD_RESOURCES_FAILURE, id, error };
   }
 }
-
 
 function removeBundle(id) {
   return dispatch => {

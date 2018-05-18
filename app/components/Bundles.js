@@ -14,8 +14,7 @@ import CallSplit from 'material-ui/svg-icons/communication/call-split';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 import ActionDelete from 'material-ui/svg-icons/action/delete';
 import { navigationConstants } from '../constants/navigation.constants';
-import { bundleService } from '../services/bundle.service';
-import { mockFetchAll, fetchAll, toggleSelectBundle, toggleModePauseResume, downloadResources, requestSaveBundleTo } from '../actions/bundle.actions';
+import { mockFetchAll, fetchAll, toggleSelectBundle, toggleModePauseResume, setupBundlesEventSource, downloadResources, requestSaveBundleTo } from '../actions/bundle.actions';
 import { updateSearchInput, clearSearch } from '../actions/bundleFilter.actions';
 import styles from './Bundles.css';
 
@@ -26,6 +25,7 @@ type Props = {
   fetchAll: () => {},
   mockFetchAll: () => {},
   downloadResources: () => {},
+  setupBundlesEventSource: () => {},
   requestSaveBundleTo: () => {},
   toggleSelectBundle: () => {},
   toggleModePauseResume: () => {},
@@ -51,6 +51,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = {
   fetchAll,
   mockFetchAll,
+  setupBundlesEventSource,
   downloadResources,
   requestSaveBundleTo,
   toggleSelectBundle,
@@ -75,7 +76,7 @@ class Bundles extends Component<Props> {
     console.log('Bundles Did mount');
     const { authentication } = this.props;
     if (authentication.user) {
-      bundleService.setupBundlesEventSource(authentication);
+      this.props.setupBundlesEventSource(authentication);
     }
   }
 
