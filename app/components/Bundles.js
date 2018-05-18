@@ -139,7 +139,7 @@ class Bundles extends Component<Props> {
             />
           </div>
         </div>
-        {true &&
+        {bundles.loading &&
           <div className="row" style={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <CircularProgress size={80} thickness={5} />
           </div>
