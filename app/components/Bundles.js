@@ -186,7 +186,7 @@ class Bundles extends Component<Props> {
                     onClick={(e) => openInFolder(e, d, savedToHistory)}
                   />)
                 }
-                {(d.task === 'UPLOAD' || d.task === 'DOWNLOAD') && (d.status === 'COMPLETED' || d.status === 'DRAFT') &&
+                {(d.task === 'UPLOAD' || d.task === 'DOWNLOAD') && (d.status === 'COMPLETED' || d.status === 'DRAFT' || d.status === 'IN_PROGRESS') &&
                   <div style={{ paddingRight: '20px', paddingTop: '6px' }}>
                     <Highlighter textToHighlight={d.displayAs.status} {...highlighterSharedProps(d)} />
                   </div>}
@@ -196,22 +196,6 @@ class Bundles extends Component<Props> {
                   label={<Highlighter textToHighlight={d.displayAs.status} {...highlighterSharedProps(d)} />}
                   icon={<FileDownload />}
                   onClick={(e) => this.onClickDownloadResources(e, d.id)}
-                />
-                }
-                {d.mode === 'PAUSED' &&
-                <FlatButton
-                  labelPosition="before"
-                  label={<Highlighter textToHighlight={d.displayAs.status} {...highlighterSharedProps(d)} />}
-                  icon={<PlayCircleFilled />}
-                  onClick={(e) => this.onClickTogglePauseResume(e, d.id)}
-                />
-                }
-                {d.mode === 'RUNNING' &&
-                <FlatButton
-                  labelPosition="before"
-                  label={<Highlighter textToHighlight={d.displayAs.status} {...highlighterSharedProps(d)} />}
-                  icon={<PauseCircleFilled />}
-                  onClick={(e) => this.onClickTogglePauseResume(e, d.id)}
                 />
                 }
               </div>
