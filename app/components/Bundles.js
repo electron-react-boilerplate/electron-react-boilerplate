@@ -200,8 +200,8 @@ class Bundles extends Component<Props> {
               </div>
             </div>
             {d.status === 'IN_PROGRESS' &&
-            <div className="row">
-              <LinearProgress mode="determinate" value={d.progress} style={{ height: '20px' }} />
+            <div className="row" style={{ marginLeft: '20px', marginRight: '20px', paddingBottom: '10px' }}>
+              <LinearProgress mode="determinate" value={d.progress} />
             </div>}
             {bundles.selectedBundle && bundles.selectedBundle.id === d.id &&
               <div className={`${styles.menuBar} + row`}>
