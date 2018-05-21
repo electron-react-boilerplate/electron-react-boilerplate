@@ -79,7 +79,7 @@ app.on('ready', async () => {
     const autoUpdater = autoUpdaterServices.setupAutoUpdater(mainWindow);
     const menuBuilder = new MenuBuilder(mainWindow, autoUpdater);
     menuBuilder.buildMenu();
-  
+
     autoUpdater.logger.info('Request checkForUpdatesAndNotify');
     autoUpdater.checkForUpdatesAndNotify();
   });

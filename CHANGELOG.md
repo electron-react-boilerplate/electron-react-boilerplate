@@ -1,3 +1,17 @@
+### Version 0.4.0
+
+#### Features
+- Download from DBL
+- Enable Click "Save To" folder
+- Show Download and "Save To" Progress
+- Parse history to determine if downloaded
+- Enable Click Info (to open DBL entry in browser)
+- Disable unused/invalid tray menu buttons
+
+#### Fixes
+- clear search on location change. feed searchInput from prop
+- fix circular progress to happen on loading
+
 ### Version 0.3.0
 
 #### Features

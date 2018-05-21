@@ -8,7 +8,7 @@ export function bundles(state = {}, action) {
       };
     case bundleConstants.FETCH_SUCCESS:
       return {
-        items: action.bundles.map(bundle => updateDisplayAs(bundle))
+        items: action.bundles.map(bundle => addBundleDecorators(bundle))
       };
     case bundleConstants.FETCH_FAILURE:
       return {
@@ -23,6 +23,22 @@ export function bundles(state = {}, action) {
             ? { ...bundle, deleting: true }
             : bundle))
       };
+    case bundleConstants.DOWNLOAD_RESOURCES_REQUEST: {
+      return updateTaskStatusProgress(action.id, 'DOWNLOAD', 'IN_PROGRESS', 0);
+    }
+    case bundleConstants.DOWNLOAD_RESOURCES_UPDATED: {
+      const progress = Math.floor((action.resourcesDownloaded / action.resourcesToDownload) * 100);
+      const status = progress === 100 ? 'COMPLETED' : 'IN_PROGRESS';
+      return updateTaskStatusProgress(action.id, 'DOWNLOAD', status, progress);
+    }
+    case bundleConstants.SAVETO_REQUEST: {
+      return updateTaskStatusProgress(action.id, 'SAVETO', 'IN_PROGRESS', 0);
+    }
+    case bundleConstants.SAVETO_UPDATED: {
+      const progress = Math.floor((action.bundleBytesSaved / action.bundleBytesToSave) * 100);
+      const status = progress === 100 ? 'COMPLETED' : 'IN_PROGRESS';
+      return updateTaskStatusProgress(action.id, 'SAVETO', status, progress);
+    }
     case bundleConstants.TOGGLE_MODE_PAUSE_RESUME: {
       const updatedItems = forkArray(
         state.items,
@@ -59,7 +75,23 @@ export function bundles(state = {}, action) {
     default:
       return state;
   }
+
+  function updateTaskStatusProgress(bundleId, task, status, progress) {
+    const items = state.items.map(bundle => (bundle.id === bundleId
+      ? addBundleDecorators({
+        ...bundle,
+        task: (task || bundle.task),
+        status: (status || bundle.status),
+        progress: (Number.isInteger(progress) ? progress : bundle.progress)
+      })
+      : bundle));
+    return {
+      ...state,
+      items
+    };
+  }
 }
+export default bundles;
 
 function forkArray(array, condition, createItem) {
   return array.map((item, index) => (condition(item, index) ? createItem(item) : item));
@@ -73,11 +105,11 @@ function buildToggledBundle(bundle) {
     status: newStatus,
     mode: newMode,
   };
-  return updateDisplayAs(updatedBundle);
+  return addBundleDecorators(updatedBundle);
 }
 
-function updateDisplayAs(bundle) {
-  return { ...bundle, ...formatDisplayAs(bundle) };
+function addBundleDecorators(bundle) {
+  return { ...bundle, ...formatDisplayAs(bundle), isDownloaded: (bundle.status) === 'COMPLETED' };
 }
 
 
@@ -98,12 +130,16 @@ function formatStatus(bundle) {
   let newStatusDisplayAs;
   if (bundle.status === 'NOT_STARTED') {
     newStatusDisplayAs = 'Download';
-  } else if (bundle.status === 'UPLOADING') {
+  } else if (bundle.task === 'UPLOAD' && bundle.status === 'IN_PROGRESS') {
     newStatusDisplayAs = (bundle.mode === 'PAUSED' ? `Resume Uploading ${formattedProgress}` : uploadingMsg);
-  } else if (bundle.status === 'DOWNLOADING') {
+  } else if (bundle.task === 'DOWNLOAD' && bundle.status === 'IN_PROGRESS') {
     newStatusDisplayAs = (bundle.mode === 'PAUSED' ? `Resume Downloading ${formattedProgress}` : downloadingMsg);
-  } else if (bundle.status === 'COMPLETED') {
+  } else if (bundle.task === 'SAVETO' && bundle.status === 'IN_PROGRESS') {
+    newStatusDisplayAs = `Saving to Folder ${formattedProgress}`;
+  } else if (['UPLOAD', 'DOWNLOAD'].includes(bundle.task) && bundle.status === 'COMPLETED') {
     newStatusDisplayAs = `${bundle.task}ED`;
+  } else if (['SAVETO'].includes(bundle.task) && bundle.status === 'COMPLETED') {
+    newStatusDisplayAs = 'Open in Folder';
   } else {
     newStatusDisplayAs = bundle.statusDisplayAs || bundle.status;
   }
@@ -114,5 +150,3 @@ function formatProgress(bundle) {
   const progress = bundle.progress ? bundle.progress : 0;
   return `(${progress}%)`;
 }
-
-export default bundles;

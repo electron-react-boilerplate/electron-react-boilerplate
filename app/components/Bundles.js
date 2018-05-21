@@ -1,51 +1,80 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { DebounceInput } from 'react-debounce-input';
+import LinearProgress from 'material-ui/LinearProgress';
+import CircularProgress from 'material-ui/CircularProgress';
 import Highlighter from 'react-highlight-words';
 import FlatButton from 'material-ui/FlatButton';
 import FileDownload from 'material-ui/svg-icons/file/file-download';
-import PlayCircleFilled from 'material-ui/svg-icons/av/play-circle-filled';
-import PauseCircleFilled from 'material-ui/svg-icons/av/pause-circle-filled';
+import FolderOpen from 'material-ui/svg-icons/file/folder-open';
+import SaveTo from 'material-ui/svg-icons/content/save';
 import CallSplit from 'material-ui/svg-icons/communication/call-split';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 import ActionDelete from 'material-ui/svg-icons/action/delete';
 import { navigationConstants } from '../constants/navigation.constants';
-import { mockFetchAll, fetchAll, toggleSelectBundle, toggleModePauseResume } from '../actions/bundle.actions';
-import { updateSearchInput } from '../actions/bundleFilter.actions';
+import { mockFetchAll, fetchAll, toggleSelectBundle, toggleModePauseResume, setupBundlesEventSource, downloadResources, requestSaveBundleTo } from '../actions/bundle.actions';
+import { updateSearchInput, clearSearch } from '../actions/bundleFilter.actions';
 import styles from './Bundles.css';
 
-function pickBackgroundColor(status) {
-  switch (status) {
-    case 'DRAFT': return '#F5D2D2';
-    case 'NOT_STARTED': return '#EDEDED';
-    case 'UPLOADING':
-    case 'DOWNLOADING':
-      return '#6DCBC4';
-    case 'COMPLETED': return '#A1CB6D';
-    default:
-      return 'white';
-  }
-}
+const { dialog, app } = require('electron').remote;
+const { shell } = require('electron');
 
 type Props = {
   fetchAll: () => {},
   mockFetchAll: () => {},
+  downloadResources: () => {},
+  setupBundlesEventSource: () => {},
+  requestSaveBundleTo: () => {},
   toggleSelectBundle: () => {},
   toggleModePauseResume: () => {},
   updateSearchInput: () => {},
+  clearSearch: () => {},
   history: {},
   bundles: {},
-  bundlesFilter: {}
+  bundlesFilter: {},
+  bundlesSaveTo: {},
+  authentication: {}
+};
+
+function mapStateToProps(state) {
+  const { bundles, bundlesFilter, bundlesSaveTo, authentication } = state;
+  return {
+    bundles,
+    bundlesFilter,
+    bundlesSaveTo,
+    authentication
+  };
+}
+
+const mapDispatchToProps = {
+  fetchAll,
+  mockFetchAll,
+  setupBundlesEventSource,
+  downloadResources,
+  requestSaveBundleTo,
+  toggleSelectBundle,
+  toggleModePauseResume,
+  updateSearchInput,
+  clearSearch
 };
 
 class Bundles extends Component<Props> {
   props: Props;
   componentDidMount() {
-    const { history } = this.props;
+    const { history, clearSearch: clearSearchResults } = this.props;
     if (history.location.pathname === navigationConstants.NAVIGATION_BUNDLES_DEMO) {
       this.props.mockFetchAll();
     } else {
       this.props.fetchAll();
+    }
+    history.listen(() => {
+      // clear search results on location change
+      clearSearchResults();
+    });
+    console.log('Bundles Did mount');
+    const { authentication } = this.props;
+    if (authentication.user) {
+      this.props.setupBundlesEventSource(authentication);
     }
   }
 
@@ -58,6 +87,27 @@ class Bundles extends Component<Props> {
 
   onClickBundleRow(event, bundleId) {
     this.props.toggleSelectBundle(bundleId);
+  }
+
+  startSaveBundleTo(event, bundle, savedToHistory) {
+    stopPropagation(event);
+    const bundleSavedToInfo = getBundleExportInfo(bundle, savedToHistory);
+    const defaultPath = bundleSavedToInfo ? bundleSavedToInfo.folderName : app.getPath('downloads');
+    dialog.showOpenDialog({
+      defaultPath,
+      properties: ['openDirectory']
+    }, (folderName) => {
+      if (!folderName) {
+        return; // canceled.
+      }
+      console.log(folderName.toString());
+      this.props.requestSaveBundleTo(bundle.id, folderName.toString());
+    });
+  }
+
+  onClickDownloadResources(event, bundleId) {
+    this.props.downloadResources(bundleId);
+    event.stopPropagation();
   }
 
   onClickTogglePauseResume(event, bundleId) {
@@ -84,11 +134,16 @@ class Bundles extends Component<Props> {
   }
 
   render() {
-    const { bundles, bundlesFilter } = this.props;
+    const { bundles, bundlesFilter, bundlesSaveTo } = this.props;
+    const { savedToHistory } = bundlesSaveTo;
     const highlighterSharedProps = (bundle) => ({
       searchWords: bundlesFilter.isSearchActive ? bundlesFilter.searchKeywords : [],
       highlightClassName: styles.Highlight,
       findChunks: (options) => this.updateMatches(bundle, options)
+    });
+    const onClickAndKeyPressProps = (handler) => ({
+      onKeyPress: handler,
+      onClick: handler,
     });
     return (
       <div className={styles.container} data-tid="container">
@@ -97,14 +152,15 @@ class Bundles extends Component<Props> {
           <div className={styles.searchBarSearch}>Search:
             <DebounceInput
               debounceTimeout={300}
+              value={bundlesFilter.isSearchActive ? bundlesFilter.searchInput : ''}
               onChange={(event) => this.onChangeSearchInput(event, event.target.value)}
             />
           </div>
         </div>
         {bundles.loading &&
-        <svg className="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-          <circle className="path" fill="none" strokeWidth="6" strokeLinecap="round" cx="33" cy="33" r="30" />
-        </svg>
+          <div className="row" style={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <CircularProgress size={80} thickness={5} />
+          </div>
         }
         {bundles.items && bundles.items.filter((b) => displayRow(bundlesFilter, b)).map((d) => (
           <div
@@ -114,7 +170,7 @@ class Bundles extends Component<Props> {
             onClick={(e) => this.onClickBundleRow(e, d.id)}
             tabIndex={0}
             role="button"
-            style={{ background: `linear-gradient(to right, ${pickBackgroundColor(d.status)} 0%, ${pickBackgroundColor(d.status)} ${d.progress || 100}%, transparent 0%), linear-gradient(to bottom, white 0%, white 100%)` }}
+            style={{ background: `${pickBackgroundColor(d.task, d.status)}` }}
           >
             <div className={styles.bundleRowTop}>
               <div className={styles.bundleRowTopLeftSide}>
@@ -124,7 +180,15 @@ class Bundles extends Component<Props> {
                 <Highlighter textToHighlight={d.displayAs.revision} {...highlighterSharedProps(d)} />
               </div>
               <div className={styles.bundleRowTopRightSide}>
-                {(d.status === 'COMPLETED' || d.status === 'DRAFT') &&
+                {d.task === 'SAVETO' &&
+                  (<FlatButton
+                    labelPosition="before"
+                    label={<Highlighter textToHighlight={d.displayAs.status} {...highlighterSharedProps(d)} />}
+                    icon={<FolderOpen />}
+                    onClick={(e) => openInFolder(e, d, savedToHistory)}
+                  />)
+                }
+                {(d.task === 'UPLOAD' || d.task === 'DOWNLOAD') && (d.status === 'COMPLETED' || d.status === 'DRAFT' || d.status === 'IN_PROGRESS') &&
                   <div style={{ paddingRight: '20px', paddingTop: '6px' }}>
                     <Highlighter textToHighlight={d.displayAs.status} {...highlighterSharedProps(d)} />
                   </div>}
@@ -133,49 +197,40 @@ class Bundles extends Component<Props> {
                   labelPosition="before"
                   label={<Highlighter textToHighlight={d.displayAs.status} {...highlighterSharedProps(d)} />}
                   icon={<FileDownload />}
-                  onClick={(e) => this.onClickTogglePauseResume(e, d.id)}
-                />
-                }
-                {d.mode === 'PAUSED' &&
-                <FlatButton
-                  labelPosition="before"
-                  label={<Highlighter textToHighlight={d.displayAs.status} {...highlighterSharedProps(d)} />}
-                  icon={<PlayCircleFilled />}
-                  onClick={(e) => this.onClickTogglePauseResume(e, d.id)}
-                />
-                }
-                {d.mode === 'RUNNING' &&
-                <FlatButton
-                  labelPosition="before"
-                  label={<Highlighter textToHighlight={d.displayAs.status} {...highlighterSharedProps(d)} />}
-                  icon={<PauseCircleFilled />}
-                  onClick={(e) => this.onClickTogglePauseResume(e, d.id)}
+                  onClick={(e) => this.onClickDownloadResources(e, d.id)}
                 />
                 }
               </div>
             </div>
+            {d.status === 'IN_PROGRESS' &&
+            <div className="row" style={{ marginLeft: '20px', marginRight: '20px', paddingBottom: '10px' }}>
+              <LinearProgress mode="determinate" value={d.progress} />
+            </div>}
             {bundles.selectedBundle && bundles.selectedBundle.id === d.id &&
               <div className={`${styles.menuBar} + row`}>
                 <FlatButton
                   label="Revise"
                   icon={<CallSplit />}
+                  disabled
                   onKeyPress={(e) => stopPropagation(e)}
                   onClick={(e) => stopPropagation(e)}
                 />
                 <FlatButton
-                  label="Download"
-                  icon={<FileDownload />}
-                  onKeyPress={(e) => stopPropagation(e)}
-                  onClick={(e) => stopPropagation(e)}
+                  label="Save To"
+                  disabled={((d.isDownloaded === undefined || !d.isDownloaded) || (d.progress && d.progress < 100)) === true}
+                  icon={<SaveTo />}
+                  onKeyPress={(e) => this.startSaveBundleTo(e, d, savedToHistory)}
+                  onClick={(e) => this.startSaveBundleTo(e, d, savedToHistory)}
                 />
                 <FlatButton
                   label="Info"
+                  disabled={(d.dblId === undefined)}
                   icon={<ActionInfo />}
-                  onKeyPress={(e) => stopPropagation(e)}
-                  onClick={(e) => stopPropagation(e)}
+                  {...onClickAndKeyPressProps((e) => onOpenLink(e, `https://thedigitalbiblelibrary.org/entry?id=${d.dblId}`))}
                 />
                 <FlatButton
                   label="Delete"
+                  disabled
                   icon={<ActionDelete />}
                   onKeyPress={(e) => stopPropagation(e)}
                   onClick={(e) => stopPropagation(e)}
@@ -188,29 +243,50 @@ class Bundles extends Component<Props> {
   }
 }
 
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Bundles);
+
 function displayRow(bundlesFilter, bundle) {
   return !(bundlesFilter.isSearchActive) ||
    bundle.id in bundlesFilter.searchResults.bundlesMatching;
+}
+
+function getBundleExportInfo(bundle, savedToHistory) {
+  return savedToHistory ? savedToHistory[bundle.id] : null;
+}
+
+function onOpenLink(event, url) {
+  event.preventDefault();
+  event.stopPropagation();
+  shell.openExternal(url);
+}
+
+function openInFolder(event, bundle, savedToHistory) {
+  stopPropagation(event);
+  const bundleSavedToInfo = getBundleExportInfo(bundle, savedToHistory);
+  if (bundleSavedToInfo) {
+    const { folderName } = bundleSavedToInfo;
+    shell.openItem(folderName);
+  }
 }
 
 function stopPropagation(event) {
   event.stopPropagation();
 }
 
-function mapStateToProps(state) {
-  const { bundles, bundlesFilter } = state;
-  return {
-    bundles,
-    bundlesFilter
-  };
-}
-export default connect(
-  mapStateToProps,
-  {
-    fetchAll,
-    mockFetchAll,
-    toggleSelectBundle,
-    toggleModePauseResume,
-    updateSearchInput
+function pickBackgroundColor(task, status) {
+  if (task === 'SAVETO') {
+    return '#FFE793';
   }
-)(Bundles);
+  switch (status) {
+    case 'DRAFT': return '#F5D2D2';
+    case 'NOT_STARTED': return '#EDEDED';
+    case 'IN_PROGRESS':
+      return '#6DCBC4';
+    case 'COMPLETED': return '#A1CB6D';
+    default:
+      return 'white';
+  }
+}
