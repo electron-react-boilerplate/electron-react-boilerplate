@@ -8,8 +8,6 @@ import FlatButton from 'material-ui/FlatButton';
 import FileDownload from 'material-ui/svg-icons/file/file-download';
 import FolderOpen from 'material-ui/svg-icons/file/folder-open';
 import SaveTo from 'material-ui/svg-icons/content/save';
-import PlayCircleFilled from 'material-ui/svg-icons/av/play-circle-filled';
-import PauseCircleFilled from 'material-ui/svg-icons/av/pause-circle-filled';
 import CallSplit from 'material-ui/svg-icons/communication/call-split';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 import ActionDelete from 'material-ui/svg-icons/action/delete';
@@ -143,6 +141,10 @@ class Bundles extends Component<Props> {
       highlightClassName: styles.Highlight,
       findChunks: (options) => this.updateMatches(bundle, options)
     });
+    const onClickAndKeyPressProps = (handler) => ({
+      onKeyPress: handler,
+      onClick: handler,
+    });
     return (
       <div className={styles.container} data-tid="container">
         <div className={styles.searchBar}>
@@ -222,10 +224,9 @@ class Bundles extends Component<Props> {
                 />
                 <FlatButton
                   label="Info"
-                  disabled
+                  disabled={(d.dblId === undefined)}
                   icon={<ActionInfo />}
-                  onKeyPress={(e) => stopPropagation(e)}
-                  onClick={(e) => stopPropagation(e)}
+                  {...onClickAndKeyPressProps((e) => onOpenLink(e, `https://thedigitalbiblelibrary.org/entry?id=${d.dblId}`))}
                 />
                 <FlatButton
                   label="Delete"
@@ -254,6 +255,12 @@ function displayRow(bundlesFilter, bundle) {
 
 function getBundleExportInfo(bundle, savedToHistory) {
   return savedToHistory ? savedToHistory[bundle.id] : null;
+}
+
+function onOpenLink(event, url) {
+  event.preventDefault();
+  event.stopPropagation();
+  shell.openExternal(url);
 }
 
 function openInFolder(event, bundle, savedToHistory) {

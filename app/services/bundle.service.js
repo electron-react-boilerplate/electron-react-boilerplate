@@ -105,6 +105,8 @@ function convertBundleApiListToBundles(apiBundles) {
       id: bundleId,
       name: metadata.name,
       revision: dbl.currentRevision,
+      dblId: dbl.id,
+      medium: dbl.medium,
       task,
       status,
     };
