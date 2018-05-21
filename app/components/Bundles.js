@@ -209,23 +209,27 @@ class Bundles extends Component<Props> {
                 <FlatButton
                   label="Revise"
                   icon={<CallSplit />}
+                  disabled
                   onKeyPress={(e) => stopPropagation(e)}
                   onClick={(e) => stopPropagation(e)}
                 />
                 <FlatButton
                   label="Save To"
+                  disabled={(d.progress && d.progress < 100) === true}
                   icon={<SaveTo />}
                   onKeyPress={(e) => this.startSaveBundleTo(e, d, savedToHistory)}
                   onClick={(e) => this.startSaveBundleTo(e, d, savedToHistory)}
                 />
                 <FlatButton
                   label="Info"
+                  disabled
                   icon={<ActionInfo />}
                   onKeyPress={(e) => stopPropagation(e)}
                   onClick={(e) => stopPropagation(e)}
                 />
                 <FlatButton
                   label="Delete"
+                  disabled
                   icon={<ActionDelete />}
                   onKeyPress={(e) => stopPropagation(e)}
                   onClick={(e) => stopPropagation(e)}
