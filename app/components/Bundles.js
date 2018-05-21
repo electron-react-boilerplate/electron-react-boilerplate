@@ -215,7 +215,7 @@ class Bundles extends Component<Props> {
                 />
                 <FlatButton
                   label="Save To"
-                  disabled={(d.progress && d.progress < 100) === true}
+                  disabled={((d.isDownloaded === undefined || !d.isDownloaded) || (d.progress && d.progress < 100)) === true}
                   icon={<SaveTo />}
                   onKeyPress={(e) => this.startSaveBundleTo(e, d, savedToHistory)}
                   onClick={(e) => this.startSaveBundleTo(e, d, savedToHistory)}

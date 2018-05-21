@@ -79,7 +79,11 @@ export function bundles(state = {}, action) {
   function updateTaskStatusProgress(bundleId, task, status, progress) {
     const items = state.items.map(bundle => (bundle.id === bundleId
       ? updateDisplayAs({
-        ...bundle, task: (task || bundle.task), status: (status || bundle.status), progress: (Number.isInteger(progress) ? progress : bundle.progress)
+        ...bundle,
+        task: (task || bundle.task),
+        status: (status || bundle.status),
+        progress: (Number.isInteger(progress) ? progress : bundle.progress),
+        isDownloaded: (status || bundle.status) === 'COMPLETED'
       })
       : bundle));
     return {
