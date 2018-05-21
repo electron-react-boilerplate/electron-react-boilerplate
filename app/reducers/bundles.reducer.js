@@ -8,7 +8,7 @@ export function bundles(state = {}, action) {
       };
     case bundleConstants.FETCH_SUCCESS:
       return {
-        items: action.bundles.map(bundle => updateDisplayAs(bundle))
+        items: action.bundles.map(bundle => addBundleDecorators(bundle))
       };
     case bundleConstants.FETCH_FAILURE:
       return {
@@ -78,12 +78,11 @@ export function bundles(state = {}, action) {
 
   function updateTaskStatusProgress(bundleId, task, status, progress) {
     const items = state.items.map(bundle => (bundle.id === bundleId
-      ? updateDisplayAs({
+      ? addBundleDecorators({
         ...bundle,
         task: (task || bundle.task),
         status: (status || bundle.status),
-        progress: (Number.isInteger(progress) ? progress : bundle.progress),
-        isDownloaded: (status || bundle.status) === 'COMPLETED'
+        progress: (Number.isInteger(progress) ? progress : bundle.progress)
       })
       : bundle));
     return {
@@ -106,11 +105,11 @@ function buildToggledBundle(bundle) {
     status: newStatus,
     mode: newMode,
   };
-  return updateDisplayAs(updatedBundle);
+  return addBundleDecorators(updatedBundle);
 }
 
-function updateDisplayAs(bundle) {
-  return { ...bundle, ...formatDisplayAs(bundle) };
+function addBundleDecorators(bundle) {
+  return { ...bundle, ...formatDisplayAs(bundle), isDownloaded: (bundle.status) === 'COMPLETED' };
 }
 
 
