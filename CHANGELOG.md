@@ -1,3 +1,9 @@
+### Version 0.4.1
+
+#### Fixes
+- Fix download and Save To progess in production builds
+- (for now) Sort bundles by name, so bundles don't unexpectedly change order when reopening Nathanael
+
 ### Version 0.4.0
 
 #### Features
