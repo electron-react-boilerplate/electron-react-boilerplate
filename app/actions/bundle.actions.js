@@ -335,11 +335,9 @@ function getMockBundles() {
       progress: 100,
     }
   ];
-  const taskOrder = ['UPLOAD', 'DOWNLOAD', 'SAVETO'];
-  const statusOrder = ['IN_PROGRESS', 'DRAFT', 'COMPLETED', 'NOT_STARTED'];
+  // const taskOrder = ['UPLOAD', 'DOWNLOAD', 'SAVETO'];
+  // const statusOrder = ['IN_PROGRESS', 'DRAFT', 'COMPLETED', 'NOT_STARTED'];
   const sortedBundles = sort(bundles).asc([
-    b => statusOrder.indexOf(b.status),
-    b => taskOrder.indexOf(b.task),
     b => b.name
   ]);
   return sortedBundles;
