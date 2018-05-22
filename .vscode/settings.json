@@ -15,5 +15,9 @@
     "npm-debug.log.*": true,
     "test/**/__snapshots__": true,
     "yarn.lock": true
+  },
+  "bump.files": {
+    "app/package.json": ["\"version\":\\s*\"([^\"]*)\"", "\"version\": \"[version]\""],
+    "app/package-lock.json": ["\"version\":\\s*\"([^\"]*)\"", "\"version\": \"[version]\""]
   }
 }

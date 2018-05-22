@@ -3,7 +3,13 @@
  *        See https://github.com/webpack-contrib/sass-loader#imports
  */
 @import "~font-awesome/css/font-awesome.css";
+@import "~bootstrap/dist/css/bootstrap.css";
 
+html, body {
+  height:100%;
+}
+
+/*
 body {
   position: relative;
   color: white;
@@ -41,3 +47,4 @@ a:hover {
   text-decoration: none;
   cursor: pointer;
 }
+*/

@@ -1,4 +1,76 @@
+# dbl.local.electron 
+
+### Electron Front End to DBL dot Local 
+
+## Install
+
+First install and run the flask DBL dot Local proxy server from https://github.com/ubsicap/dbl-uploader-clients
+
+* **Note: requires a node version >= 7 and an npm version >= 4.**
+* **If you have installation or compilation issues with this project, please see [the boilerplate's debugging guide]
+(https://github.com/chentsulin/electron-react-boilerplate/issues/400)**
+
+Next, clone this repo via git:
+
+```bash
+git clone --depth=1 https://github.com/ubsicap/dbl.local.electron.git your-project-name
+```
+
+And then install dependencies with yarn.
+
+```bash
+$ cd your-project-name
+$ yarn
+```
+**Note**: If you can't use [yarn](https://github.com/yarnpkg/yarn), run `npm install`.
+
+### on Linux
+
+I recommend using `nvm` to make sure you have the latest versions of `node` and `npm`
+
+To install nvm (see [nvm webpage](https://github.com/creationix/nvm#install-script)):
+
+```bash
+$ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+```
+
+Then close and reopen the terminal.
+
+```bash
+$ nvm install --lts
+```
+
+## Run
+
+Start the app in the `dev` environment. This starts the renderer process in [**hot-module-replacement**](https://webpack.js.org/guides/hmr-react/) mode and starts a webpack dev server that sends hot updates to the renderer process:
+
+```bash
+$ npm run dev
+```
+## Making Distribution Packages
+
+### on windows
+```bash
+$ npm run package
+$ cd release
+```
+### on linux
+```bash
+$ npm run package
+$ cd release
+```
+
+
+## Releases
+
+See latest releases here:
+
+https://github.com/ubsicap/dbl.local.electron/releases/
+
+
 # electron-react-boilerplate
+
+This repo was forked from the electron-react-boilerplate.
 
 ### A Boilerplate for Scalable Cross-Platform Desktop Apps
 

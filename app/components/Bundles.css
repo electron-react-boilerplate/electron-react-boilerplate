@@ -1,0 +1,99 @@
+.container h2 {
+  font-size: 5rem;
+}
+
+.container a {
+  font-size: 1.4rem;
+}
+
+.searchBar {
+  display: table;
+  vertical-align: middle;
+  height: 25px;
+  width: 100%;
+  background-color: rgb(240,240,240);
+  border-color: lightgray;
+  border-style: solid none none;
+  border-width: 1px;
+}
+
+.searchBarFilters {
+  padding-left: 20px;
+  display: cell;
+  vertical-align: middle;
+}
+
+.searchBarSearch {
+  display: table-cell;
+  text-align: right;
+  vertical-align: middle;
+}
+
+.bundleRow {
+  width: 100%;
+  margin-bottom: 2px;
+}
+
+/* override .mark in bootstrap.css */
+.Highlight {
+  background-color: inherit;
+  font-weight: bold;
+  padding: 0;
+}
+
+.bundleRowTop {
+  display: table;
+  width: 100%;
+  vertical-align: middle;
+  height: 50px;
+}
+
+.bundleRowTopLeftSide {
+  display: table-cell;
+  padding-left: 20px;
+  vertical-align: middle;
+  width: 33%;
+}
+
+.bundleRowTopMiddle {
+  display: table-cell;
+  padding-left: 20px;
+  vertical-align: middle;
+  width: 150px;
+}
+
+.bundleRowTopRightSide {
+  text-align: right;
+  padding-top: 6px;
+/*
+  padding-right: 20px;
+  vertical-align: middle;
+  display: inline-flex;
+  float: right;
+ */
+}
+
+.iconRightOfText {
+  padding-left: 5px;
+}
+
+.bundleRowBottom {
+  display: table;
+  width: 100%;
+  vertical-align: middle;
+  height: 30px;
+}
+
+.menuBar {
+  padding-left: 30px;
+}
+
+.bundleRowBottomMenuItem {
+  vertical-align: middle;
+  text-align: left;
+  font-size: small;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 10px;
+  display: inline-flex;
+}

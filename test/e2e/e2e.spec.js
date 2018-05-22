@@ -22,20 +22,13 @@ describe('main window', function spec() {
     }
   });
 
-  const findCounter = () => this.app.client.element('[data-tid="counter"]');
-
-  const findButtons = async () => {
-    const { value } = await this.app.client.elements('[data-tclass="btn"]');
-    return value.map(btn => btn.ELEMENT);
-  };
-
   it('should open window', async () => {
     const { client, browserWindow } = this.app;
 
     await client.waitUntilWindowLoaded();
     await delay(500);
     const title = await browserWindow.getTitle();
-    expect(title).toBe('Hello Electron React!');
+    expect(title).toBe('Nathanael (electron.DBL.local)');
   });
 
   it('should haven\'t any logs in console of main window', async () => {
@@ -49,6 +42,14 @@ describe('main window', function spec() {
     });
     expect(logs).toHaveLength(0);
   });
+
+  /*
+  const findCounter = () => this.app.client.element('[data-tid="counter"]');
+
+  const findButtons = async () => {
+    const { value } = await this.app.client.elements('[data-tclass="btn"]');
+    return value.map(btn => btn.ELEMENT);
+  };
 
   it('should to Counter with click "to Counter" link', async () => {
     const { client } = this.app;
@@ -106,4 +107,5 @@ describe('main window', function spec() {
 
     expect(await client.isExisting('[data-tid="container"]')).toBe(true);
   });
+  */
 });

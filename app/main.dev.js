@@ -12,6 +12,8 @@
  */
 import { app, BrowserWindow } from 'electron';
 import MenuBuilder from './menu';
+import { autoUpdaterServices } from './main-process/autoUpdater.services';
+import { navigationConstants } from './constants/navigation.constants';
 
 let mainWindow = null;
 
@@ -44,7 +46,6 @@ const installExtensions = async () => {
 /**
  * Add event listeners...
  */
-
 app.on('window-all-closed', () => {
   // Respect the OSX convention of having the application in memory even
   // after all windows have been closed
@@ -65,7 +66,7 @@ app.on('ready', async () => {
     height: 728
   });
 
-  mainWindow.loadURL(`file://${__dirname}/app.html`);
+  mainWindow.loadURL(`file://${__dirname}/app.html#${navigationConstants.NAVIGATION_BUNDLES}`);
 
   // @TODO: Use 'ready-to-show' event
   //        https://github.com/electron/electron/blob/master/docs/api/browser-window.md#using-ready-to-show-event
@@ -75,12 +76,15 @@ app.on('ready', async () => {
     }
     mainWindow.show();
     mainWindow.focus();
+    const autoUpdater = autoUpdaterServices.setupAutoUpdater(mainWindow);
+    const menuBuilder = new MenuBuilder(mainWindow, autoUpdater);
+    menuBuilder.buildMenu();
+
+    autoUpdater.logger.info('Request checkForUpdatesAndNotify');
+    autoUpdater.checkForUpdatesAndNotify();
   });
 
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
-
-  const menuBuilder = new MenuBuilder(mainWindow);
-  menuBuilder.buildMenu();
 });

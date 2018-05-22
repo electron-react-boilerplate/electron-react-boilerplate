@@ -1,29 +1,37 @@
 // @flow
-import { app, Menu, shell, BrowserWindow } from 'electron';
+import { app, Menu, shell, BrowserWindow, ipcMain } from 'electron';
+import { ipcRendererConstants } from './constants/ipcRenderer.constants';
+import { navigationConstants } from './constants/navigation.constants';
 
 export default class MenuBuilder {
   mainWindow: BrowserWindow;
-
-  constructor(mainWindow: BrowserWindow) {
+  autoUpdater;
+  initializedMenu = false;
+  constructor(mainWindow: BrowserWindow, autoUpdater) {
     this.mainWindow = mainWindow;
+    this.autoUpdater = autoUpdater;
+    ipcMain.on(ipcRendererConstants.KEY_IPC_USER_AUTHENTICATION, (event, authentication) => {
+      this.buildMenu(authentication);
+    });
   }
 
-  buildMenu() {
-    if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
+  buildMenu(authentication) {
+    if (!this.initializedMenu && (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true')) {
       this.setupDevelopmentEnvironment();
     }
 
     const template = process.platform === 'darwin'
       ? this.buildDarwinTemplate()
-      : this.buildDefaultTemplate();
+      : this.buildDefaultTemplate(authentication);
 
     const menu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(menu);
-
+    this.initializedMenu = true;
     return menu;
   }
 
   setupDevelopmentEnvironment() {
+    console.log('setupDevelopmentEnvironment');
     this.mainWindow.openDevTools();
     this.mainWindow.webContents.on('context-menu', (e, props) => {
       const { x, y } = props;
@@ -112,14 +120,40 @@ export default class MenuBuilder {
     ];
   }
 
-  buildDefaultTemplate() {
+  /* from https://github.com/SimulatedGREG/electron-vue/issues/394
+   */
+  navigate(routePath) {
+    if (this.mainWindow.webContents) {
+      this.mainWindow.webContents.send(ipcRendererConstants.KEY_IPC_NAVIGATE, routePath);
+    }
+  }
+
+  buildDefaultTemplate(authentication) {
+    let loginLabel = '&Login';
+    if (authentication && authentication.loggedIn) {
+      const username = (authentication.user ? authentication.user.username : null) || '';
+      loginLabel = `&Logout ${username}`;
+    }
+    const logFile = this.autoUpdater.logger.transports.file.file;
+    // console.log('menu/buildDefaultTemplate');
+    // console.log(loginLabel);
     const templateDefault = [{
       label: '&File',
       submenu: [{
-        label: '&Open',
-        accelerator: 'Ctrl+O'
+        label: loginLabel,
+        accelerator: 'Ctrl+L',
+        click: () => {
+          this.navigate(navigationConstants.NAVIGATION_LOGIN);
+        }
+      },
+      {
+        label: 'Bundles (Demo)',
+        accelerator: 'Ctrl+B',
+        click: () => {
+          this.navigate(navigationConstants.NAVIGATION_BUNDLES_DEMO);
+        }
       }, {
-        label: '&Close',
+        label: '&Exit',
         accelerator: 'Ctrl+W',
         click: () => {
           this.mainWindow.close();
@@ -157,22 +191,28 @@ export default class MenuBuilder {
       submenu: [{
         label: 'Learn More',
         click() {
-          shell.openExternal('http://electron.atom.io');
+          shell.openExternal('https://github.com/ubsicap/dbl.local.electron');
         }
       }, {
-        label: 'Documentation',
+        label: 'Documentation (dbl.local.electron)',
         click() {
-          shell.openExternal('https://github.com/atom/electron/tree/master/docs#readme');
+          shell.openExternal('https://github.com/ubsicap/dbl.local.electron/blob/master/README.md');
         }
       }, {
-        label: 'Community Discussions',
+        label: 'Documentation (DBL dot Local)',
         click() {
-          shell.openExternal('https://discuss.atom.io/c/electron');
+          shell.openExternal('https://github.com/ubsicap/dbl-uploader-clients');
         }
       }, {
         label: 'Search Issues',
         click() {
-          shell.openExternal('https://github.com/atom/electron/issues');
+          shell.openExternal('https://github.com/ubsicap/dbl.local.electron/issues');
+        }
+      },
+      {
+        label: `Open Log: ${logFile}`,
+        click() {
+          shell.openItem(logFile);
         }
       }]
     }];

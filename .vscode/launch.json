@@ -1,0 +1,128 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "program": "${workspaceRoot}/app/main.dev.js",
+            "cwd": "${workspaceRoot}",
+            "env": {
+                "HOT": "1",
+                "NODE_ENV": "development"
+            },
+            "runtimeArgs": [
+                "--max_old_space_size=2096",
+                "-r",
+                "babel-register"
+            ],
+            "sourceMaps": true
+        },
+        {
+            "name": "Launch2",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/app/main.dev.js",
+            "stopOnEntry": false,
+            "args": [],
+            "cwd": "${workspaceRoot}/app",
+            "preLaunchTask": null,
+            "runtimeExecutable": null,
+            "runtimeArgs": [
+                "--nolazy",
+                "--require",
+                "babel-register"
+            ],
+            "env": {
+                "NODE_ENV": "development"
+            },
+            "console": "internalConsole",
+            "sourceMaps": true,
+            "outFiles": []
+        },
+        {
+            "name": "Launch Main",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/app/main.dev.js",
+            "stopOnEntry": false,
+            "args": [],
+            "cwd": "${workspaceRoot}/app",
+            "preLaunchTask": null,
+            "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd",
+            "runtimeArgs": [
+                ".",
+                "-r", 
+                "babel-register"
+            ],
+            "env": {
+                "cross-env": "",
+                "HOT": "1",
+                "NODE_ENV": "development",
+            },
+            "console": "internalConsole",
+            "sourceMaps": true,
+            "outFiles": []
+        },
+        {
+            "name": "Attach",
+            "type": "node",
+            "request": "attach",
+            "port": 5858,
+            "address": "localhost",
+            "restart": false,
+            "sourceMaps": false,
+            "outFiles": [],
+            "localRoot": "${workspaceRoot}",
+            "remoteRoot": null
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch Chrome",
+            "windows": {
+                "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
+            },
+            "linux": {
+                "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron"
+            },
+            "osx": {
+                "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron"
+            },
+            "runtimeArgs": [
+                "${workspaceRoot}/app",
+                "--debug=9876"
+            ],
+            "webRoot": "${workspaceRoot}/app"
+        },
+        {
+            "type": "node",
+            "request": "attach",
+            "name": "Attach to Main",
+            "port": 9876,
+            "protocol": "legacy"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Jest Tests",
+            "program": "${workspaceRoot}\\node_modules\\jest\\bin\\jest.js",
+            "args": [
+                "-i"
+            ],
+            "internalConsoleOptions": "openOnSessionStart",
+            "outFiles": [
+                "${workspaceRoot}/dist/**/*"
+            ],
+        },
+    ],
+    "compounds": [
+        {
+            "name": "Electron",
+            "configurations": ["Launch Electron", "Attach to Main"]
+        }
+    ]
+}
