@@ -188,13 +188,14 @@ export function requestSaveBundleTo(id, selectedFolder) {
             const bytesDiff = resourceTotalBytesSaved - originalResourceBytesTransferred;
             bundleBytesSaved += bytesDiff;
             if (resourceProgress && resourceProgress % 100 === 0) {
-              dispatch(updated(
-                id,
+              const updatedArgs = {
+                _id: id,
                 resourcePath,
                 resourceTotalBytesSaved,
                 bundleBytesSaved,
                 bundleBytesToSave
-              ));
+              };
+              dispatch(updated(updatedArgs));
             }
           }
         );
@@ -222,16 +223,16 @@ export function requestSaveBundleTo(id, selectedFolder) {
     };
   }
 
-  function updated(
+  function updated({
     _id,
     resourcePath,
     resourceTotalBytesSaved,
     bundleBytesSaved,
     bundleBytesToSave
-  ) {
+  }) {
     return {
       type: bundleConstants.SAVETO_UPDATED,
-      id,
+      id: _id,
       resourcePath,
       resourceTotalBytesSaved,
       bundleBytesSaved,
