@@ -100,7 +100,7 @@ describe('main window', function spec() {
     const buttons = await findButtons();
     await client.elementIdClick(buttons[3]); // async
     expect(await findCounter().getText()).toBe('2');
-    await delay(1500);
+    await delay(3000);
     expect(await findCounter().getText()).toBe('3');
   });
 
