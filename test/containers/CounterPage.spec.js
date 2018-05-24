@@ -40,7 +40,7 @@ describe('containers', () => {
       expect(p.text()).toMatch(/^1$/);
     });
 
-    it('should display updated count after descrement button click', () => {
+    it('should display updated count after decrement button click', () => {
       const { buttons, p } = setup();
       buttons.at(1).simulate('click');
       expect(p.text()).toMatch(/^-1$/);

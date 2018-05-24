@@ -16,7 +16,11 @@ export default class Counter extends Component<Props> {
 
   render() {
     const {
-      increment, incrementIfOdd, incrementAsync, decrement, counter
+      increment,
+      incrementIfOdd,
+      incrementAsync,
+      decrement,
+      counter
     } = this.props;
     return (
       <div>
@@ -35,8 +39,20 @@ export default class Counter extends Component<Props> {
           <button className={styles.btn} onClick={decrement} data-tclass="btn">
             <i className="fa fa-minus" />
           </button>
-          <button className={styles.btn} onClick={incrementIfOdd} data-tclass="btn">odd</button>
-          <button className={styles.btn} onClick={() => incrementAsync()} data-tclass="btn">async</button>
+          <button
+            className={styles.btn}
+            onClick={incrementIfOdd}
+            data-tclass="btn"
+          >
+            odd
+          </button>
+          <button
+            className={styles.btn}
+            onClick={() => incrementAsync()}
+            data-tclass="btn"
+          >
+            async
+          </button>
         </div>
       </div>
     );
