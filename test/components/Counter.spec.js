@@ -45,9 +45,7 @@ describe('Counter component', () => {
         </Router>
       </div>
     );
-    const tree = renderer
-      .create(counter)
-      .toJSON();
+    const tree = renderer.create(counter).toJSON();
 
     expect(tree).toMatchSnapshot();
   });
