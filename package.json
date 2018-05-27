@@ -1,7 +1,7 @@
 {
   "name": "electron-react-boilerplate",
   "productName": "ElectronReact",
-  "version": "0.13.3",
+  "version": "0.14.0",
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
   "scripts": {
     "build": "concurrently \"npm run build-main\" \"npm run build-renderer\"",
@@ -213,7 +213,8 @@
     "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^4.0.0",
     "redux-thunk": "^2.2.0",
-    "source-map-support": "^0.5.6"
+    "source-map-support": "^0.5.6",
+    "update-electron-app": "^1.2.0"
   },
   "devEngines": {
     "node": ">=7.x",

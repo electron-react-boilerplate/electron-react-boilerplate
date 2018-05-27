@@ -1,3 +1,6 @@
+# 0.14.0 (2018.5.24)
+- Added initial auto updater functionality
+
 # 0.13.3 (2018.5.24)
 - Add git precommit hook, when git commit will use `prettier` to format git add code
 - Add format code function in `lint-fix` npm script which can use `prettier` to format project js code
