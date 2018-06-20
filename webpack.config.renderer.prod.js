@@ -156,7 +156,13 @@ export default merge.smart(baseConfig, {
   },
 
   optimization: {
-    minimizer: [new OptimizeCSSAssetsPlugin()]
+    minimizer: [
+      new UglifyJSPlugin({
+        parallel: true,
+        sourceMap: true
+      }),
+      new OptimizeCSSAssetsPlugin()
+    ]
   },
 
   plugins: [
@@ -171,11 +177,6 @@ export default merge.smart(baseConfig, {
      */
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'production'
-    }),
-
-    new UglifyJSPlugin({
-      parallel: true,
-      sourceMap: true
     }),
 
     new MiniCssExtractPlugin({
