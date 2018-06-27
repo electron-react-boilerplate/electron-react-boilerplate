@@ -7,6 +7,7 @@ type actionType = {
 
 export const INCREMENT_COUNTER = 'INCREMENT_COUNTER';
 export const DECREMENT_COUNTER = 'DECREMENT_COUNTER';
+export const INCREMENT_ASYNC = 'INCREMENT_ASYNC';
 
 export function increment() {
   return {
@@ -36,9 +37,8 @@ export function incrementIfOdd() {
 }
 
 export function incrementAsync(delay: number = 1000) {
-  return (dispatch: (action: actionType) => void) => {
-    setTimeout(() => {
-      dispatch(increment());
-    }, delay);
+  return {
+    type: INCREMENT_ASYNC,
+    delay
   };
 }
