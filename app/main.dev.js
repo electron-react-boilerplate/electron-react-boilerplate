@@ -12,6 +12,10 @@
  */
 import { app, BrowserWindow } from 'electron';
 import MenuBuilder from './menu';
+import { configureStore } from './store/configureStore';
+
+const store = configureStore(undefined, 'main');
+console.log(store);
 
 let mainWindow = null;
 

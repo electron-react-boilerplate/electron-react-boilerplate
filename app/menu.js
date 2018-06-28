@@ -16,9 +16,10 @@ export default class MenuBuilder {
       this.setupDevelopmentEnvironment();
     }
 
-    const template = process.platform === 'darwin'
-      ? this.buildDarwinTemplate()
-      : this.buildDefaultTemplate();
+    const template =
+      process.platform === 'darwin'
+        ? this.buildDarwinTemplate()
+        : this.buildDefaultTemplate();
 
     const menu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(menu);
@@ -141,6 +142,23 @@ export default class MenuBuilder {
         { label: 'Bring All to Front', selector: 'arrangeInFront:' }
       ]
     };
+    const subMenuCounter = {
+      label: 'Counter',
+      submenu: [
+        {
+          label: 'Increase'
+        },
+        {
+          label: 'Decrease'
+        },
+        {
+          label: 'Odd'
+        },
+        {
+          label: 'Async'
+        }
+      ]
+    };
     const subMenuHelp = {
       label: 'Help',
       submenu: [
@@ -176,7 +194,14 @@ export default class MenuBuilder {
     const subMenuView =
       process.env.NODE_ENV === 'development' ? subMenuViewDev : subMenuViewProd;
 
-    return [subMenuAbout, subMenuEdit, subMenuView, subMenuWindow, subMenuHelp];
+    return [
+      subMenuAbout,
+      subMenuEdit,
+      subMenuView,
+      subMenuWindow,
+      subMenuCounter,
+      subMenuHelp
+    ];
   }
 
   buildDefaultTemplate() {
