@@ -1,11 +1,18 @@
 // @flow
 import { app, Menu, shell, BrowserWindow } from 'electron';
+import {
+  increment,
+  decrement,
+  incrementIfOdd,
+  incrementAsync
+} from './actions/counter';
 
 export default class MenuBuilder {
   mainWindow: BrowserWindow;
 
-  constructor(mainWindow: BrowserWindow) {
+  constructor(mainWindow: BrowserWindow, store) {
     this.mainWindow = mainWindow;
+    this.store = store;
   }
 
   buildMenu() {
@@ -146,16 +153,28 @@ export default class MenuBuilder {
       label: 'Counter',
       submenu: [
         {
-          label: 'Increase'
+          label: 'Increment',
+          click: () => {
+            this.store.dispatch(increment());
+          }
         },
         {
-          label: 'Decrease'
+          label: 'Decrement',
+          click: () => {
+            this.store.dispatch(decrement());
+          }
         },
         {
-          label: 'Odd'
+          label: 'Odd',
+          click: () => {
+            this.store.dispatch(incrementIfOdd());
+          }
         },
         {
-          label: 'Async'
+          label: 'Async',
+          click: () => {
+            this.store.dispatch(incrementAsync());
+          }
         }
       ]
     };

@@ -15,7 +15,6 @@ import MenuBuilder from './menu';
 import { configureStore } from './store/configureStore';
 
 const store = configureStore(undefined, 'main');
-console.log(store);
 
 let mainWindow = null;
 
@@ -86,6 +85,6 @@ app.on('ready', async () => {
     mainWindow = null;
   });
 
-  const menuBuilder = new MenuBuilder(mainWindow);
+  const menuBuilder = new MenuBuilder(mainWindow, store);
   menuBuilder.buildMenu();
 });
