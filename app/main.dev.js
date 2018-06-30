@@ -11,6 +11,7 @@
  * @flow
  */
 import { app, BrowserWindow } from 'electron';
+import ErrorHandlerMainProcess from './errorHandling/MainProcessErrorHandler';
 import MenuBuilder from './menu';
 
 let mainWindow = null;
@@ -65,6 +66,10 @@ app.on('ready', async () => {
     width: 1024,
     height: 728
   });
+  const errorHandler = new ErrorHandlerMainProcess({
+    webContents: mainWindow.webContents
+  });
+  errorHandler.init();
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
 
