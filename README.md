@@ -112,7 +112,7 @@ This boilerplate uses a [two package.json structure](https://github.com/electron
 
 ### Which `package.json` file to use
 
-**Rule of thumb** is: all modules go into `./package.json` except native modules. Native modules go into `./app/package.json`.
+**Rule of thumb** is: all modules go into `./package.json` except native modules, or modules with native dependencies or peer dependencies. Native modules, or packages with native dependencies should go into `./app/package.json`.
 
 1. If the module is native to a platform (like node-postgres), it should be listed under `dependencies` in `./app/package.json`
 2. If a module is `import`ed by another module, include it in `dependencies` in `./package.json`.   See [this ESLint rule](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-extraneous-dependencies.md). Examples of such modules are `material-ui`, `redux-form`, and `moment`.
