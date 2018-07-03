@@ -163,7 +163,7 @@
     "eslint-plugin-flowtype": "^2.47.1",
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jest": "^21.15.2",
-    "eslint-plugin-jsx-a11y": "6.0.3",
+    "eslint-plugin-jsx-a11y": "6.1.0",
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-react": "^7.8.2",
     "express": "^4.16.3",
