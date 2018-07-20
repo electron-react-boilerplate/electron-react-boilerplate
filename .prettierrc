@@ -6,5 +6,6 @@
         "parser": "json"
       }
     }
-  ]
+  ],
+  "singleQuote": true
 }

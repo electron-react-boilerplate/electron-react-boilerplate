@@ -42,7 +42,6 @@
     "promise/always-return": "error",
     "promise/catch-or-return": "error",
     "promise/no-native": "off",
-    "quotes": ["error", "single"],
     "react/sort-comp": [
       "error",
       {
@@ -59,13 +58,6 @@
     "react/jsx-filename-extension": [
       "error",
       { "extensions": [".js", ".jsx"] }
-    ],
-    "react/jsx-curly-brace-presence": [
-      "warn",
-      {
-        "props": "always",
-        "children": "ignore"
-      }
     ],
     "react/prefer-stateless-function": "off"
   },
