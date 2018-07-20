@@ -4,7 +4,23 @@
     ".babelrc": "jsonc",
     ".prettierrc": "jsonc"
   },
+
+  "terminal.integrated.shellArgs.osx": ["-l"],
+  "terminal.integrated.env.osx": {
+    "PATH": "${workspaceFolder}/node_modules/.bin"
+  },
+  "terminal.integrated.env.windows": {
+    "PATH": "${workspaceFolder}/node_modules/.bin"
+  },
+  "terminal.integrated.env.linux": {
+    "PATH": "${workspaceFolder}/node_modules/.bin"
+  },
+
   "javascript.validate.enable": false,
+  "javascript.format.enable": false,
+  "typescript.validate.enable": false,
+  "typescript.format.enable": false,
+
   "flow.useNPMPackagedFlow": true,
   "search.exclude": {
     ".git": true,
