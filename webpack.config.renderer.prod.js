@@ -42,7 +42,10 @@ export default merge.smart(baseConfig, {
             }
           },
           {
-            loader: 'css-loader'
+            loader: 'css-loader',
+            options: {
+              sourceMap: true
+            }
           }
         ]
       },
@@ -57,8 +60,8 @@ export default merge.smart(baseConfig, {
             loader: 'css-loader',
             options: {
               modules: true,
-              importLoaders: 1,
-              localIdentName: '[name]__[local]__[hash:base64:5]'
+              localIdentName: '[name]__[local]__[hash:base64:5]',
+              sourceMap: true
             }
           }
         ]
@@ -71,10 +74,17 @@ export default merge.smart(baseConfig, {
             loader: MiniCssExtractPlugin.loader
           },
           {
-            loader: 'css-loader'
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              importLoaders: 1
+            }
           },
           {
-            loader: 'sass-loader'
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true
+            }
           }
         ]
       },
@@ -90,11 +100,15 @@ export default merge.smart(baseConfig, {
             options: {
               modules: true,
               importLoaders: 1,
-              localIdentName: '[name]__[local]__[hash:base64:5]'
+              localIdentName: '[name]__[local]__[hash:base64:5]',
+              sourceMap: true
             }
           },
           {
-            loader: 'sass-loader'
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true
+            }
           }
         ]
       },
@@ -161,7 +175,14 @@ export default merge.smart(baseConfig, {
         parallel: true,
         sourceMap: true
       }),
-      new OptimizeCSSAssetsPlugin()
+      new OptimizeCSSAssetsPlugin({
+        cssProcessorOptions: {
+          map: {
+            inline: false,
+            annotation: true
+          }
+        }
+      })
     ]
   },
 

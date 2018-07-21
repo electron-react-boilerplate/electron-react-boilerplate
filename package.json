@@ -184,7 +184,7 @@
     "minimist": "^1.2.0",
     "node-sass": "^4.9.0",
     "npm-logical-tree": "^1.2.1",
-    "optimize-css-assets-webpack-plugin": "^4.0.2",
+    "optimize-css-assets-webpack-plugin": "^5.0.0",
     "prettier": "^1.13.5",
     "react-test-renderer": "^16.4.1",
     "redux-logger": "^3.0.6",
