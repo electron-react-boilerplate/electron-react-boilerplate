@@ -1,9 +1,12 @@
 import { spy } from 'sinon';
 import React from 'react';
-import { shallow } from 'enzyme';
+import Enzyme, { shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import { BrowserRouter as Router } from 'react-router-dom';
 import renderer from 'react-test-renderer';
 import Counter from '../../app/components/Counter';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 function setup() {
   const actions = {
@@ -35,15 +38,14 @@ describe('Counter component', () => {
 
   it('should match exact snapshot', () => {
     const { actions } = setup();
-    const tree = renderer
-      .create(
-        <div>
-          <Router>
-            <Counter counter={1} {...actions} />
-          </Router>
-        </div>
-      )
-      .toJSON();
+    const counter = (
+      <div>
+        <Router>
+          <Counter counter={1} {...actions} />
+        </Router>
+      </div>
+    );
+    const tree = renderer.create(counter).toJSON();
 
     expect(tree).toMatchSnapshot();
   });

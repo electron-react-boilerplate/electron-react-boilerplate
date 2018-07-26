@@ -1,21 +1,25 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import { Provider } from 'react-redux';
 import { createBrowserHistory } from 'history';
 import { ConnectedRouter } from 'react-router-redux';
 import CounterPage from '../../app/containers/CounterPage';
 import { configureStore } from '../../app/store/configureStore';
 
+Enzyme.configure({ adapter: new Adapter() });
+
 function setup(initialState) {
   const store = configureStore(initialState);
   const history = createBrowserHistory();
-  const app = mount(
+  const provider = (
     <Provider store={store}>
       <ConnectedRouter history={history}>
         <CounterPage />
       </ConnectedRouter>
     </Provider>
   );
+  const app = mount(provider);
   return {
     app,
     buttons: app.find('button'),
@@ -36,7 +40,7 @@ describe('containers', () => {
       expect(p.text()).toMatch(/^1$/);
     });
 
-    it('should display updated count after descrement button click', () => {
+    it('should display updated count after decrement button click', () => {
       const { buttons, p } = setup();
       buttons.at(1).simulate('click');
       expect(p.text()).toMatch(/^-1$/);

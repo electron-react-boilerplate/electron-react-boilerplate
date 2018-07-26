@@ -1,3 +1,25 @@
+# 0.13.3 (2018.5.24)
+- Add git precommit hook, when git commit will use `prettier` to format git add code
+- Add format code function in `lint-fix` npm script which can use `prettier` to format project js code
+
+# 0.13.2 (2018.1.31)
+- Hot Module Reload (HMR) fixes
+- Bumped all dependencies to latest semver
+- Prevent error propagation of `CheckNativeDeps` script
+
+# 0.13.1 (2018.1.13)
+- Hot Module Reload (HMR) fixes
+- Bumped all dependencies to latest semver
+- Fixed electron-rebuild script
+- Fixed tests scripts to run on all platforms
+- Skip redux logs in console in test ENV
+
+# 0.13.0 (2018.1.6)
+
+#### Additions
+- Add native dependencies check on postinstall
+- Updated all dependencies to latest semver
+
 # 0.12.0 (2017.7.8)
 
 #### Misc
