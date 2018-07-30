@@ -9,6 +9,8 @@ cache:
   - "%LOCALAPPDATA%/Yarn"
   - node_modules -> package.json
   - app/node_modules -> app/package.json
+  - %LOCALAPPDATA%\electron\Cache
+  - %LOCALAPPDATA%\electron-builder\cache
 
 matrix:
   fast_finish: true
