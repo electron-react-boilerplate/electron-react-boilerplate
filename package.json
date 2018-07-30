@@ -34,12 +34,12 @@
   },
   "browserslist": "electron 1.6",
   "lint-staged": {
-    "*.js": [
+    "*.(js|jsx)": [
       "cross-env NODE_ENV=development eslint --cache --format=node_modules/eslint-formatter-pretty",
       "prettier --ignore-path .eslintignore --single-quote --write",
       "git add"
     ],
-    "*.json|.(babelrc|prettierrc|eslintrc)": [
+    "*.(json|css|scss|md|yml)|.(babelrc|prettierrc|eslintrc)": [
       "prettier --ignore-path .eslintignore --write",
       "git add"
     ]
