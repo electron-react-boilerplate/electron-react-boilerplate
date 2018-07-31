@@ -26,6 +26,7 @@ cache:
     - $HOME/.cache/electron-builder
 
 script:
+  - yarn package
   - |
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
       docker run --rm \
@@ -36,7 +37,6 @@ script:
         electronuserland/builder:wine \
         /bin/bash -c "yarn --link-duplicates --pure-lockfile && yarn package --linux --win"
     fi
-  - yarn package
   - yarn lint
   - yarn flow
   - yarn test
