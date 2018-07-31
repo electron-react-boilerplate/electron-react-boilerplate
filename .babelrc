@@ -3,7 +3,7 @@
     [
       "env",
       {
-        "targets": { "node": 7 },
+        "targets": { "node": 10 },
         "useBuiltIns": true
       }
     ],
