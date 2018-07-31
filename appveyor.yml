@@ -11,6 +11,7 @@ cache:
   - app/node_modules -> app/package.json
   - %LOCALAPPDATA%\electron\Cache
   - %LOCALAPPDATA%\electron-builder\cache
+  - flow-typed
 
 matrix:
   fast_finish: true

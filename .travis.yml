@@ -13,6 +13,7 @@ cache:
     - app/node_modules
     - $(npm config get prefix)/lib/node_modules
     - $HOME/.electron
+    - flow-typed
 
 addons:
   apt:
