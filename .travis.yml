@@ -37,7 +37,7 @@ script:
         /bin/bash -c \
         "yarn --link-duplicates --pure-lockfile && yarn package --linux --win && yarn lint && yarn flow && yarn test && yarn test-e2e"
     else
-      yarn lint && yarn flow && yarn test && yarn test-e2e
+      yarn package-all && yarn lint && yarn flow && yarn test && yarn test-e2e
 
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
