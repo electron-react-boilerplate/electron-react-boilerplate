@@ -35,9 +35,8 @@ script:
         -v ~/.cache/electron-builder:/root/.cache/electron-builder \
         electronuserland/builder:wine \
         /bin/bash -c "yarn --link-duplicates --pure-lockfile && yarn package --linux --win"
-    else
-      yarn package
     fi
+  - yarn package
   - yarn lint
   - yarn flow
   - yarn test
