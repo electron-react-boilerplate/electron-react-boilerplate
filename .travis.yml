@@ -34,10 +34,10 @@ script:
         -v ~/.cache/electron:/root/.cache/electron \
         -v ~/.cache/electron-builder:/root/.cache/electron-builder \
         electronuserland/builder:wine \
-        /bin/bash -c \
-        "yarn --link-duplicates --pure-lockfile && yarn package --linux --win && yarn lint && yarn flow && yarn test && yarn test-e2e"
+        /bin/bash -c "yarn --link-duplicates --pure-lockfile && yarn package --linux --win && yarn lint && yarn flow && yarn test && yarn test-e2e"
     else
       yarn package-all && yarn lint && yarn flow && yarn test && yarn test-e2e
+    fi
 
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
