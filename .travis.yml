@@ -38,6 +38,10 @@ script:
     else
       yarn package
     fi
+  - yarn lint
+  - yarn flow
+  - yarn test
+  - yarn test-e2e
 
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
