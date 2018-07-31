@@ -11,9 +11,10 @@ type Props = {
 
 export default class Root extends Component<Props> {
   render() {
+    const { store, history } = this.props;
     return (
-      <Provider store={this.props.store}>
-        <ConnectedRouter history={this.props.history}>
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
           <Routes />
         </ConnectedRouter>
       </Provider>
