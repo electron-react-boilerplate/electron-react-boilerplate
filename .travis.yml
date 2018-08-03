@@ -16,6 +16,9 @@ matrix:
       services: docker
       language: generic
 
+before_cache:
+  - rm -rf $HOME/.cache/electron-builder/wine
+
 cache:
   directories:
     - node_modules
@@ -24,8 +27,21 @@ cache:
     - flow-typed
     - $HOME/.cache/electron
     - $HOME/.cache/electron-builder
+    - $HOME/docker
+
+install:
+  - export CXX="g++-4.8"
+  - yarn
+  - cd app && yarn && cd ..
+  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
+
+before_script:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start &
+  - sleep 3
 
 script:
+  - yarn package-all && yarn lint && yarn flow && yarn test && yarn test-e2e
   - |
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
       docker run --rm \
@@ -34,10 +50,7 @@ script:
         -v ~/.cache/electron:/root/.cache/electron \
         -v ~/.cache/electron-builder:/root/.cache/electron-builder \
         electronuserland/builder:wine \
-        /bin/bash -c "yarn --link-duplicates --pure-lockfile && yarn package --linux --win && yarn lint && yarn flow && yarn test && yarn test-e2e"
+        /bin/bash -c "yarn --link-duplicates --pure-lockfile && yarn package --linux --win"
     else
-      yarn package-all && yarn lint && yarn flow && yarn test && yarn test-e2e
+     exit 0;
     fi
-
-before_cache:
-  - rm -rf $HOME/.cache/electron-builder/wine
