@@ -1,5 +1,7 @@
 # Config adapted from:
 # https://www.electron.build/multi-platform-build#sample-travisyml-to-build-electron-app-for-macos-linux-and-windows
+sudo: true
+
 matrix:
   include:
     - os: osx
@@ -15,6 +17,16 @@ matrix:
     - os: linux
       services: docker
       language: generic
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-4.8
+            - icnsutils
+            - graphicsmagick
+            - xz-utils
+            - xorriso
 
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
