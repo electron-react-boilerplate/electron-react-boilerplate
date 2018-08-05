@@ -187,6 +187,7 @@
     "npm-logical-tree": "^1.2.1",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
     "prettier": "^1.14.0",
+    "react-loadable": "^5.4.0",
     "react-test-renderer": "^16.4.1",
     "redux-logger": "^3.0.6",
     "rimraf": "^2.6.2",
