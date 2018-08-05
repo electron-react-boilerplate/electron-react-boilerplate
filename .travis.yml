@@ -1,42 +1,89 @@
+# Config adapted from:
+# https://www.electron.build/multi-platform-build#sample-travisyml-to-build-electron-app-for-macos-linux-and-windows
 sudo: true
 
-language: node_js
+matrix:
+  include:
+    - os: osx
+      osx_image: xcode9.4
+      language: node_js
+      node_js:
+        - node
+        - 9
+      env:
+        - ELECTRON_CACHE=$HOME/.cache/electron
+        - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
 
-node_js:
-  - node
-  - 9
+    - os: linux
+      services: docker
+      language: node_js
+      node_js:
+        - node
+        - 9
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-4.8
+            - icnsutils
+            - graphicsmagick
+            - xz-utils
+            - xorriso
+
+before_cache:
+  - rm -rf $HOME/.cache/electron-builder/wine
 
 cache:
-  yarn: true
   directories:
     - node_modules
     - app/node_modules
-
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - g++-4.8
-      - icnsutils
-      - graphicsmagick
-      - xz-utils
-      - xorriso
+    - $(npm config get prefix)/lib/node_modules
+    - flow-typed
+    - $HOME/.cache/electron
+    - $HOME/.cache/electron-builder
+    - $HOME/docker
 
 install:
   - export CXX="g++-4.8"
   - yarn
-  - cd app && yarn && cd ..
-  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
+  # On Linux, initialize "virtual display". See before_script
+  - |
+    if [ "$TRAVIS_OS_NAME" == "linux" ]; then
+      /sbin/start-stop-daemon \
+      --start \
+      --quiet \
+      --pidfile /tmp/custom_xvfb_99.pid \
+      --make-pidfile \
+      --background \
+      --exec /usr/bin/Xvfb \
+      -- :99 -ac -screen 0 1280x1024x16
+    else
+      :
+    fi
 
 before_script:
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start &
-  - sleep 3
+  # On Linux, create a "virtual display". This allows browsers to work properly
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export DISPLAY=:99.0; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sh -e /etc/init.d/xvfb start; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sleep 3; fi
 
 script:
-  - node --version
-  - yarn lint
   - yarn package
+  - yarn lint
+  - yarn flow
   - yarn test
   - yarn test-e2e
+  # On Linux, check if packaging to windows works
+  - |
+    if [ "$TRAVIS_OS_NAME" == "linux" ]; then
+      docker run --rm \
+        --env-file <(env | grep -iE 'DEBUG|NODE_|ELECTRON_|YARN_|NPM_|CI|CIRCLE|TRAVIS|APPVEYOR_|CSC_|_TOKEN|_KEY|AWS_|STRIP|BUILD_') \
+        -v ${PWD}:/project \
+        -v ~/.cache/electron:/root/.cache/electron \
+        -v ~/.cache/electron-builder:/root/.cache/electron-builder \
+        electronuserland/builder:wine \
+        /bin/bash -c "yarn --link-duplicates --pure-lockfile && yarn package --linux --win"
+    else
+      :
+    fi

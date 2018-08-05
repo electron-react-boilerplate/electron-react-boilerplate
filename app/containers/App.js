@@ -9,6 +9,7 @@ export default class App extends React.Component<Props> {
   props: Props;
 
   render() {
-    return <div>{this.props.children}</div>;
+    const { children } = this.props;
+    return <React.Fragment>{children}</React.Fragment>;
   }
 }

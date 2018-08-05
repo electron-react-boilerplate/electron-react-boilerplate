@@ -1,13 +1,27 @@
+# 0.14.0 (2018.5.24)
+
+- Improved CI timings
+- Migrated README commands to yarn from npm
+- Improved vscode config
+- Updated all dependencies to latest semver
+- Fix `electron-rebuild` script bug
+- Migrated to `mini-css-extract-plugin` from `extract-text-plugin`
+- Added `optimize-css-assets-webpack-plugin`
+- Run `prettier` on json, css, scss, and more filetypes
+
 # 0.13.3 (2018.5.24)
+
 - Add git precommit hook, when git commit will use `prettier` to format git add code
 - Add format code function in `lint-fix` npm script which can use `prettier` to format project js code
 
 # 0.13.2 (2018.1.31)
+
 - Hot Module Reload (HMR) fixes
 - Bumped all dependencies to latest semver
 - Prevent error propagation of `CheckNativeDeps` script
 
 # 0.13.1 (2018.1.13)
+
 - Hot Module Reload (HMR) fixes
 - Bumped all dependencies to latest semver
 - Fixed electron-rebuild script
@@ -17,21 +31,25 @@
 # 0.13.0 (2018.1.6)
 
 #### Additions
+
 - Add native dependencies check on postinstall
 - Updated all dependencies to latest semver
 
 # 0.12.0 (2017.7.8)
 
 #### Misc
+
 - Removed `babel-polyfill`
 - Renamed and alphabetized npm scripts
 
 #### Breaking
+
 - Changed node dev `__dirname` and `__filename` to node built in fn's (https://github.com/chentsulin/electron-react-boilerplate/pull/1035)
 - Renamed `app/bundle.js` to `app/renderer.prod.js` for consistency
 - Renamed `dll/vendor.js` to `dll/renderer.dev.dll.js` for consistency
 
 #### Additions
+
 - Enable node_modules cache on CI
 
 # 0.11.2 (2017.5.1)
@@ -41,17 +59,21 @@ Yay! Another patch release. This release mostly includes refactorings and router
 ⚠️ Windows electron builds are failing because of [this issue](https://github.com/electron/electron/issues/9321). This is not an issue with the boilerplate ⚠️
 
 #### Breaking
+
 - **Renamed `./app/main.development.js` => `./app/main.{dev,prod}.js`:** [#963](https://github.com/chentsulin/electron-react-boilerplate/pull/963)
 
 #### Fixes
+
 - **Fixed reloading when not on `/` path:** [#958](https://github.com/chentsulin/electron-react-boilerplate/pull/958) [#949](https://github.com/chentsulin/electron-react-boilerplate/pull/949)
 
 #### Additions
+
 - **Added support for stylefmt:** [#960](https://github.com/chentsulin/electron-react-boilerplate/pull/960)
 
 # 0.11.1 (2017.4.23)
 
 You can now debug the production build with devtools like so:
+
 ```
 DEBUG_PROD=true npm run package
 ```
@@ -59,12 +81,15 @@ DEBUG_PROD=true npm run package
 🎉🎉🎉
 
 #### Additions
+
 - **Added support for debugging production build:** [#fab245a](https://github.com/chentsulin/electron-react-boilerplate/pull/941/commits/fab245a077d02a09630f74270806c0c534a4ff95)
 
 #### Bug Fixes
+
 - **Fixed bug related to importing native dependencies:** [#933](https://github.com/chentsulin/electron-react-boilerplate/pull/933)
 
 #### Improvements
+
 - **Updated all deps to latest semver**
 
 # 0.11.0 (2017.4.19)
@@ -121,7 +146,6 @@ Here's the most notable changes since `v0.10.0`. Its been about a year since a r
 
 - **Fix `npm list electron-prebuilt` in package.js:** [#188](https://github.com/chentsulin/electron-react-boilerplate/pull/188)
 
-
 # 0.9.0 (2016.3.23)
 
 #### Improvements
@@ -136,7 +160,6 @@ Here's the most notable changes since `v0.10.0`. Its been about a year since a r
 
 - **css module as default:** [#154](https://github.com/chentsulin/electron-react-boilerplate/pull/154).
 - **set default NODE_ENV to production:** [#140](https://github.com/chentsulin/electron-react-boilerplate/issues/140)
-
 
 # 0.8.0 (2016.2.17)
 
@@ -154,7 +177,6 @@ Here's the most notable changes since `v0.10.0`. Its been about a year since a r
 - **Add json-loader**: [#128](https://github.com/chentsulin/electron-react-boilerplate/issues/128).
 - **react-router 2.0 and react-router-redux 3.0**
 
-
 # 0.7.1 (2015.12.27)
 
 #### Bug fixed
@@ -165,8 +187,6 @@ Here's the most notable changes since `v0.10.0`. Its been about a year since a r
 #### Improvements
 
 - **electron 0.36**
-
-
 
 # 0.7.0 (2015.12.16)
 
@@ -190,7 +210,6 @@ Here's the most notable changes since `v0.10.0`. Its been about a year since a r
 - **use es2015**
 - **check dev engine for node and npm**
 
-
 # 0.6.5 (2015.11.7)
 
 #### Improvements
@@ -198,13 +217,11 @@ Here's the most notable changes since `v0.10.0`. Its been about a year since a r
 - **Bump style-loader to 0.13**
 - **Bump css-loader to 0.22**
 
-
 # 0.6.4 (2015.10.27)
 
 #### Improvements
 
 - **Bump electron-debug to 0.3**
-
 
 # 0.6.3 (2015.10.26)
 
@@ -212,13 +229,11 @@ Here's the most notable changes since `v0.10.0`. Its been about a year since a r
 
 - **Initialize ExtractTextPlugin once:** [#64](https://github.com/chentsulin/electron-react-boilerplate/issues/64).
 
-
 # 0.6.2 (2015.10.18)
 
 #### Bug fixed
 
 - **Babel plugins production env not be set properly:** [#57](https://github.com/chentsulin/electron-react-boilerplate/issues/57).
-
 
 # 0.6.1 (2015.10.17)
 
@@ -226,13 +241,11 @@ Here's the most notable changes since `v0.10.0`. Its been about a year since a r
 
 - **Bump electron to v0.34.0**
 
-
 # 0.6.0 (2015.10.16)
 
 #### Breaking Changes
 
 - **From react-hot-loader to react-transform**
-
 
 # 0.5.2 (2015.10.15)
 
@@ -240,13 +253,11 @@ Here's the most notable changes since `v0.10.0`. Its been about a year since a r
 
 - **Run tests with babel-register:** [#29](https://github.com/chentsulin/electron-react-boilerplate/issues/29).
 
-
 # 0.5.1 (2015.10.12)
 
 #### Bug fixed
 
 - **Fix #51:** use `path.join(__dirname` instead of `./`.
-
 
 # 0.5.0 (2015.10.11)
 
@@ -260,13 +271,11 @@ Here's the most notable changes since `v0.10.0`. Its been about a year since a r
 - **port changed:** changed default port from 2992 to 3000.
 - **npm scripts:** remove `start-dev` and `dev-server`. rename `hot-dev-server` to `hot-server`.
 
-
 # 0.4.3 (2015.9.22)
 
 #### Bug fixed
 
 - **Fix #45 zeromq crash:** bump version of `electron-prebuilt`.
-
 
 # 0.4.2 (2015.9.15)
 
@@ -274,13 +283,11 @@ Here's the most notable changes since `v0.10.0`. Its been about a year since a r
 
 - **run start-hot breaks chrome refresh(CTRL+R) (#42)**: bump `electron-debug` to `0.2.1`
 
-
 # 0.4.1 (2015.9.11)
 
 #### Improvements
 
 - **use electron-prebuilt version for packaging (#33)**
-
 
 # 0.4.0 (2015.9.5)
 
@@ -288,13 +295,11 @@ Here's the most notable changes since `v0.10.0`. Its been about a year since a r
 
 - **update dependencies**
 
-
 # 0.3.0 (2015.8.31)
 
 #### Improvements
 
 - **eslint-config-airbnb**
-
 
 # 0.2.10 (2015.8.27)
 
@@ -306,13 +311,11 @@ Here's the most notable changes since `v0.10.0`. Its been about a year since a r
 
 - **electron-renderer as target:** via [webpack-target-electron-renderer](https://github.com/chentsulin/webpack-target-electron-renderer)
 
-
 # 0.2.9 (2015.8.18)
 
 #### Bug fixed
 
 - **Fix hot-reload**
-
 
 # 0.2.8 (2015.8.13)
 
@@ -322,13 +325,11 @@ Here's the most notable changes since `v0.10.0`. Its been about a year since a r
 - **babelrc**
 - **organize webpack scripts**
 
-
 # 0.2.7 (2015.7.9)
 
 #### Bug fixed
 
 - **defaultProps:** fix typos.
-
 
 # 0.2.6 (2015.7.3)
 
@@ -340,7 +341,6 @@ Here's the most notable changes since `v0.10.0`. Its been about a year since a r
 
 - **package.js:** include webpack build.
 
-
 # 0.2.5 (2015.7.1)
 
 #### Features
@@ -348,13 +348,11 @@ Here's the most notable changes since `v0.10.0`. Its been about a year since a r
 - **NPM Script:** support multi-platform
 - **package:** `--all` option
 
-
 # 0.2.4 (2015.6.9)
 
 #### Bug fixed
 
 - **Eslint:** typo, [#17](https://github.com/chentsulin/electron-react-boilerplate/issues/17) and improve `.eslintrc`
-
 
 # 0.2.3 (2015.6.3)
 
@@ -368,7 +366,6 @@ Here's the most notable changes since `v0.10.0`. Its been about a year since a r
 - **Npm Script:** typo, [#6](https://github.com/chentsulin/electron-react-boilerplate/pull/6)
 - **Missing css:** [#7](https://github.com/chentsulin/electron-react-boilerplate/pull/7)
 
-
 # 0.2.2 (2015.6.2)
 
 #### Features
@@ -380,13 +377,11 @@ Here's the most notable changes since `v0.10.0`. Its been about a year since a r
 - **Webpack:** add `.json` and `.node` to extensions for imitating node require.
 - **Webpack:** set `node_modules` to externals for native module support.
 
-
 # 0.2.1 (2015.5.30)
 
 #### Bug fixed
 
 - **Webpack:** #1, change build target to `atom`.
-
 
 # 0.2.0 (2015.5.30)
 
@@ -395,7 +390,6 @@ Here's the most notable changes since `v0.10.0`. Its been about a year since a r
 - **Ignore:** `test`, `tools`, `release` folder and devDependencies in `package.json`.
 - **Support asar**
 - **Support icon**
-
 
 # 0.1.0 (2015.5.27)
 
