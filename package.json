@@ -41,7 +41,7 @@
       "prettier --ignore-path .eslintignore --single-quote --write",
       "git add"
     ],
-    "*.json|.*(babelrc|prettierrc|eslintrc)": [
+    "*.json|.*(babelrc|eslintrc|prettierrc|stylelintrc)": [
       "prettier --ignore-path .eslintignore --parser json --write",
       "git add"
     ],
