@@ -183,6 +183,7 @@
     "lint-staged": "^7.2.0",
     "mini-css-extract-plugin": "^0.4.1",
     "minimist": "^1.2.0",
+    "node": "^10.8.0",
     "node-sass": "^4.9.2",
     "npm-logical-tree": "^1.2.1",
     "optimize-css-assets-webpack-plugin": "^5.0.0",

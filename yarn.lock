@@ -7070,6 +7070,10 @@ node-abi@^2.0.0:
   dependencies:
     semver "^5.4.1"
 
+node-bin-setup@^1.0.0:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/node-bin-setup/-/node-bin-setup-1.0.6.tgz#4b5c9bb937ece702d7069b36ca78af4684677528"
+
 node-fetch@^1.0.1:
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-1.7.3.tgz#980f6f72d85211a5347c6b2bc18c5b84c3eb47ef"
@@ -7187,6 +7191,12 @@ node-sass@^4.9.2:
     sass-graph "^2.2.4"
     stdout-stream "^1.4.0"
     "true-case-path" "^1.0.2"
+
+node@^10.8.0:
+  version "10.8.0"
+  resolved "https://registry.yarnpkg.com/node/-/node-10.8.0.tgz#493a6bba247bedbdd8143b988cb80044f94d1f79"
+  dependencies:
+    node-bin-setup "^1.0.0"
 
 nomnom@~1.6.2:
   version "1.6.2"
