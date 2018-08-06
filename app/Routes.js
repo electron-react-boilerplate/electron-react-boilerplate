@@ -25,16 +25,12 @@ export default () => (
       <Route
         key={Math.random()}
         path={routes.COUNTER}
-        component={LoadableHelper(
-          import(() => import('./containers//CounterPage'))
-        )}
+        component={LoadableHelper(() => import('./containers/CounterPage'))}
       />
       <Route
         key={Math.random()}
         path={routes.HOME}
-        component={LoadableHelper(
-          import(() => import('./containers//HomePage'))
-        )}
+        component={LoadableHelper(() => import('./containers/HomePage'))}
       />
     </Switch>
   </App>
