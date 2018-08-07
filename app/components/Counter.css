@@ -28,7 +28,7 @@
   height: 100px;
   opacity: 0.7;
   cursor: pointer;
-  font-family: Arial, Helvetica, Helvetica Neue;
+  font-family: Arial, Helvetica, Helvetica Neue, sans-serif;
 }
 
 .btn:hover {
