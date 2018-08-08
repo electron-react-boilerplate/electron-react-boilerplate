@@ -35,6 +35,7 @@ before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
 
 cache:
+  yarn: true
   directories:
     - node_modules
     - app/node_modules
