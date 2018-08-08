@@ -10,7 +10,7 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import merge from 'webpack-merge';
 import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
 import baseConfig from './webpack.config.base';
-import CheckNodeEnv from './internals/scripts/CheckNodeEnv';
+import CheckNodeEnv from '../internals/scripts/CheckNodeEnv';
 
 CheckNodeEnv('production');
 
@@ -21,10 +21,10 @@ export default merge.smart(baseConfig, {
 
   target: 'electron-renderer',
 
-  entry: './app/index',
+  entry: path.join(__dirname, '..', 'app/index'),
 
   output: {
-    path: path.join(__dirname, 'app/dist'),
+    path: path.join(__dirname, '..', 'app/dist'),
     publicPath: './dist/',
     filename: 'renderer.prod.js'
   },
