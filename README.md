@@ -117,6 +117,10 @@ To run End-to-End Test
 ```bash
 $ yarn build
 $ yarn test-e2e
+
+# Running e2e tests in a minimized window
+$ START_MINIMIZED=true yarn build
+$ yarn test-e2e
 ```
 
 :bulb: You can debug your production build with devtools by simply setting the `DEBUG_PROD` env variable:
