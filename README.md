@@ -55,8 +55,8 @@ $ yarn dev
 Alternatively, you can run the renderer and main processes separately. This way, you can restart one process without waiting for the other. Run these two commands **simultaneously** in different console tabs:
 
 ```bash
-$ yarn start-renderer-dev
-$ yarn start-main-dev
+$ yarn start renderer-dev
+$ yarn start main-dev
 ```
 
 If you don't need autofocus when your files was changed, then run `dev` with env `WITHOUT_FOCUS=true`:
