@@ -29,12 +29,7 @@ clone_depth: 1
 install:
   - ps: Install-Product node $env:nodejs_version x64
   - set CI=true
-  - set APPVEYOR=True
-  - yarn global add greenkeeper-lockfile@1
   - yarn
-
-before_test:
-  - greenkeeper-lockfile-update
 
 test_script:
   - node --version
@@ -42,6 +37,3 @@ test_script:
   - yarn package
   - yarn test
   - yarn test-e2e
-
-# NOTE: Remove this if your project is private and you dont have a paid greenkeeper account
-after_test: greenkeeper-lockfile-upload
