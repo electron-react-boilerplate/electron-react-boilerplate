@@ -1,0 +1,9 @@
+{
+  "rules": {
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      { "js": "never", "jsx": "never", "json": "never" }
+    ]
+  }
+}
