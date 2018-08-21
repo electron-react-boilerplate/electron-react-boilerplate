@@ -118,14 +118,16 @@
       "\\.(css|less|sass|scss)$": "identity-obj-proxy"
     },
     "moduleFileExtensions": [
-      "js"
+      "js",
+      "jsx",
+      "json"
     ],
     "moduleDirectories": [
       "node_modules",
       "app/node_modules"
     ],
     "transform": {
-      "^.+\\.js$": "babel-jest"
+      "^.+\\.jsx?$": "babel-jest"
     },
     "setupFiles": [
       "./internals/scripts/CheckBuiltsExist.js"
