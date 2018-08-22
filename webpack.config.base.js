@@ -5,8 +5,8 @@
 import path from 'path';
 import webpack from 'webpack';
 import fs from 'fs';
-import { dependencies as externals } from './app/package.json';
-import { dependencies as possibleExternals } from './package.json';
+import { dependencies as externals } from './app/package';
+import { dependencies as possibleExternals } from './package';
 
 // Find all the dependencies without a `main` property and add them as webpack externals
 function filterDepWithoutEntryPoints(dep: string): boolean {
