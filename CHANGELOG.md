@@ -1,3 +1,10 @@
+# 0.15.0 (2018.8.25)
+
+- Performance: cache webpack uglify results
+- Feature: add start minimized feature
+- Feature: lint and fix styles with prettier and stylelint
+- Feature: add greenkeeper support
+
 # 0.14.0 (2018.5.24)
 
 - Improved CI timings
