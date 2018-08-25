@@ -45,6 +45,9 @@ cache:
     - $HOME/.cache/electron-builder
     - $HOME/docker
 
+# NOTE: Remove this if your project is private and you don't have a paid greenkeeper account
+before_install: yarn global add greenkeeper-lockfile@1
+
 install:
   - export CXX="g++-4.8"
   - yarn
@@ -68,6 +71,8 @@ before_script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export DISPLAY=:99.0; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sh -e /etc/init.d/xvfb start; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sleep 3; fi
+  # NOTE: Remove this if your project is private and you don't have a paid greenkeeper account
+  - greenkeeper-lockfile-update
 
 script:
   - yarn package
@@ -76,6 +81,7 @@ script:
   - yarn test
   - yarn test-e2e
   # On Linux, check if packaging to windows works
+  # NOTE: Remove this if your project has native dependencies
   - |
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
       docker run --rm \
@@ -88,3 +94,6 @@ script:
     else
       :
     fi
+
+# NOTE: Remove this if your project is private and you don't have a paid greenkeeper account
+after_script: greenkeeper-lockfile-upload

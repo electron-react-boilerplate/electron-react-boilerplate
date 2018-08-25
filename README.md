@@ -82,10 +82,10 @@ $ yarn start-renderer-dev
 $ yarn start-main-dev
 ```
 
-If you don't need autofocus when your files was changed, then run `dev` with env `WITHOUT_FOCUS=true`:
+If you don't need autofocus when your files was changed, then run `dev` with env `START_MINIMIZED=true`:
 
 ```bash
-$ WITHOUT_FOCUS=true yarn dev
+$ START_MINIMIZED=true yarn dev
 ```
 
 ## Packaging
@@ -116,6 +116,10 @@ To run End-to-End Test
 
 ```bash
 $ yarn build
+$ yarn test-e2e
+
+# Running e2e tests in a minimized window
+$ START_MINIMIZED=true yarn build
 $ yarn test-e2e
 ```
 
