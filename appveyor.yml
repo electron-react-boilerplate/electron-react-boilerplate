@@ -40,10 +40,10 @@ before_test:
   - greenkeeper-lockfile-update
 
 test_script:
+  - yarn package-ci
   - yarn lint
   - yarn flow
   - yarn test
-  - yarn package-ci
   - yarn test-e2e
 
 # NOTE: Remove this if your project is private and you don't have a paid greenkeeper account

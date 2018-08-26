@@ -30,6 +30,9 @@ matrix:
             - graphicsmagick
             - xz-utils
             - xorriso
+            - gcc-multilib
+            - g++-multilib
+            - rpm
 
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
@@ -75,10 +78,10 @@ before_script:
   - greenkeeper-lockfile-update
 
 script:
+  - yarn package-ci
   - yarn lint
   - yarn flow
   - yarn test
-  - yarn package-ci
   - yarn test-e2e
   # On Linux, check if packaging to windows works
   # NOTE: Remove this if your project has native dependencies
