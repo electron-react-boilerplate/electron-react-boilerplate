@@ -101,17 +101,24 @@ app.on('ready', async () => {
   ElectronLog.info('App Started!');
 
   autoUpdater.logger = ElectronLog;
-  autoUpdater.on('error', (error) => {
-    dialog.showErrorBox('Error: ', error == null ? 'unknown' : (error.stack || error).toString());
+  autoUpdater.on('error', error => {
+    dialog.showErrorBox(
+      'Error: ',
+      error == null ? 'unknown' : (error.stack || error).toString()
+    );
   });
 
   autoUpdater.on('update-downloaded', () => {
-    dialog.showMessageBox({
-      title: 'Install Updates',
-      message: 'A newer version of UPR is available. UPR will restart and come back better than ever!'
-    }, () => {
-      setImmediate(() => autoUpdater.quitAndInstall());
-    });
+    dialog.showMessageBox(
+      {
+        title: 'Install Updates',
+        message:
+          'A newer version of UPR is available. UPR will restart and come back better than ever!'
+      },
+      () => {
+        setImmediate(() => autoUpdater.quitAndInstall());
+      }
+    );
   });
 
   if (!IsDev) {

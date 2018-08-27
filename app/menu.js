@@ -54,7 +54,11 @@ export default class MenuBuilder {
         { label: 'Services', submenu: [] },
         { type: 'separator' },
         { label: 'Hide UPR', accelerator: 'Command+H', selector: 'hide:' },
-        { label: 'Hide Others', accelerator: 'Command+Shift+H', selector: 'hideOtherApplications:' },
+        {
+          label: 'Hide Others',
+          accelerator: 'Command+Shift+H',
+          selector: 'hideOtherApplications:'
+        },
         { label: 'Show All', selector: 'unhideAllApplications:' },
         { type: 'separator' },
         {
@@ -136,9 +140,24 @@ export default class MenuBuilder {
     const subMenuHelp = {
       label: 'Help',
       submenu: [
-        { label: 'Learn More', click() { shell.openExternal('https://universalpresenterremote.com'); } },
-        { label: 'Support', click() { shell.openExternal('mailto:support@dbztech.com'); } },
-        { label: 'Check For Updates', click: () => { MenuBuilder.checkForUpdates(); } }
+        {
+          label: 'Learn More',
+          click() {
+            shell.openExternal('https://universalpresenterremote.com');
+          }
+        },
+        {
+          label: 'Support',
+          click() {
+            shell.openExternal('mailto:support@dbztech.com');
+          }
+        },
+        {
+          label: 'Check For Updates',
+          click: () => {
+            MenuBuilder.checkForUpdates();
+          }
+        }
       ]
     };
 
@@ -149,61 +168,84 @@ export default class MenuBuilder {
   }
 
   buildDefaultTemplate() {
-    const templateDefault = [{
-      label: '&File',
-      submenu: [{
-        label: '&Close',
-        accelerator: 'Ctrl+W',
-        click: () => {
-          this.mainWindow.close();
-        }
-      }]
-    }, {
-      label: '&View',
-      submenu: (process.env.NODE_ENV === 'development') ? [{
-        label: '&Reload',
-        accelerator: 'Ctrl+R',
-        click: () => {
-          this.mainWindow.webContents.reload();
-        }
-      }, {
-        label: 'Toggle &Full Screen',
-        accelerator: 'F11',
-        click: () => {
-          this.mainWindow.setFullScreen(!this.mainWindow.isFullScreen());
-        }
-      }, {
-        label: 'Toggle &Developer Tools',
-        accelerator: 'Alt+Ctrl+I',
-        click: () => {
-          this.mainWindow.toggleDevTools();
-        }
-      }] : [{
-        label: 'Toggle &Full Screen',
-        accelerator: 'F11',
-        click: () => {
-          this.mainWindow.setFullScreen(!this.mainWindow.isFullScreen());
-        }
-      }]
-    }, {
-      label: 'Help',
-      submenu: [{
-        label: 'Learn More',
-        click() {
-          shell.openExternal('https://universalpresenterremote.com');
-        }
-      }, {
-        label: 'Support',
-        click() {
-          shell.openExternal('mailto:support@dbztech.com');
-        }
-      }, {
-        label: 'Check For Updates',
-        click: () => {
-          MenuBuilder.checkForUpdates();
-        }
-      }]
-    }];
+    const templateDefault = [
+      {
+        label: '&File',
+        submenu: [
+          {
+            label: '&Close',
+            accelerator: 'Ctrl+W',
+            click: () => {
+              this.mainWindow.close();
+            }
+          }
+        ]
+      },
+      {
+        label: '&View',
+        submenu:
+          process.env.NODE_ENV === 'development'
+            ? [
+                {
+                  label: '&Reload',
+                  accelerator: 'Ctrl+R',
+                  click: () => {
+                    this.mainWindow.webContents.reload();
+                  }
+                },
+                {
+                  label: 'Toggle &Full Screen',
+                  accelerator: 'F11',
+                  click: () => {
+                    this.mainWindow.setFullScreen(
+                      !this.mainWindow.isFullScreen()
+                    );
+                  }
+                },
+                {
+                  label: 'Toggle &Developer Tools',
+                  accelerator: 'Alt+Ctrl+I',
+                  click: () => {
+                    this.mainWindow.toggleDevTools();
+                  }
+                }
+              ]
+            : [
+                {
+                  label: 'Toggle &Full Screen',
+                  accelerator: 'F11',
+                  click: () => {
+                    this.mainWindow.setFullScreen(
+                      !this.mainWindow.isFullScreen()
+                    );
+                  }
+                }
+              ]
+      },
+      {
+        label: 'Help',
+        submenu: [
+          {
+            label: 'Learn More',
+            click() {
+              shell.openExternal('https://universalpresenterremote.com');
+            }
+          },
+          {
+            label: 'Support',
+            click() {
+              shell.openExternal('mailto:support@dbztech.com');
+            }
+          },
+          {
+            label: 'Check For Updates',
+            click: () => {
+              MenuBuilder.checkForUpdates();
+            }
+          }
+        ]
+      }
+    ];
 
     return templateDefault;
   }

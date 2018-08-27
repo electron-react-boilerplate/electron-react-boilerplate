@@ -21,28 +21,35 @@ type Props = {
 export default class TokenForm extends Component<Props> {
   props: Props;
 
-  constructor(props) {
-    super(props);
-    this.goBack = this.goBack.bind(this);
-  }
-
   goBack() {
-    this.props.actions.holdForActions.clearHoldFor();
-    this.props.actions.tokenActions.resetToken();
+    const {
+      props: {
+        actions: { holdForActions, tokenActions },
+        history
+      }
+    } = this;
+    holdForActions.clearHoldFor();
+    tokenActions.resetToken();
     UPRKit.Utils.disconnect();
-    this.props.history.push('/');
+    history.push('/');
   }
 
   render() {
+    const { title } = this.props;
     return (
       <div className={styles.navBar}>
         <div className={styles.backButton} data-tid="backButton">
-          <a onClick={this.goBack}>
+          <button
+            type="button"
+            onClick={e => {
+              this.goBack(e);
+            }}
+          >
             <i className="fa fa-angle-left fa-3x" />
-            <b>Back</b>
-          </a>
+            <span>Back</span>
+          </button>
         </div>
-        <p>{ this.props.title }</p>
+        <p>{title}</p>
       </div>
     );
   }

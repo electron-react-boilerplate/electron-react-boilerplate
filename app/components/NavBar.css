@@ -15,13 +15,18 @@
   padding: 5px;
 }
 
-.backButton a {
+.backButton button {
   color: #340636;
+  background: none;
+  border: none;
+  height: 50px;
+  cursor: pointer;
 }
 
-.backButton b {
+.backButton span {
   padding: 8px;
   font-size: 18px;
+  vertical-align: super;
   position: relative;
-  bottom: 8px;
+  bottom: 2px;
 }

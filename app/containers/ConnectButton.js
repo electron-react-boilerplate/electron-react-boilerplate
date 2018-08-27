@@ -14,4 +14,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(null, mapDispatchToProps)(withRouter(ConnectButton));
+export default connect(
+  null,
+  mapDispatchToProps
+)(withRouter(ConnectButton));

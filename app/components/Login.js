@@ -13,13 +13,16 @@ export default class Home extends Component<Props> {
   props: Props;
 
   render() {
+    const {
+      props: { token }
+    } = this;
     return (
       <div>
         <div className={styles.container} data-tid="container">
           <img src={Logo} alt="Logo" />
           <h2>Universal Presenter Remote</h2>
           <TokenForm />
-          <ConnectButton token={this.props.token} />
+          <ConnectButton token={token} />
         </div>
       </div>
     );
