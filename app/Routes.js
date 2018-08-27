@@ -9,9 +9,8 @@ import PresentPage from './containers/Present';
 export default () => (
   <App>
     <Switch>
-      <Route path="/present" component={PresentPage} />
-      <Route path="/counter" component={CounterPage} />
-      <Route path="/" component={LoginPage} />
+      <Route path={routes.PRESENT} component={PresentPage} />
+      <Route path={routes.LOGIN} component={LoginPage} />
     </Switch>
   </App>
 );
