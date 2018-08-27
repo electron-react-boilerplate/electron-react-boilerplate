@@ -1,18 +1,21 @@
 {
-  "name": "electron-react-boilerplate",
-  "productName": "electron-react-boilerplate",
-  "version": "1.0.0",
-  "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
+  "name": "upr-desktop",
+  "productName": "Universal Presenter Remote",
+  "version": "1.0.5",
+  "description": "Control your presentations from any platform.",
   "main": "./main.prod.js",
   "author": {
-    "name": "C. T. Lin",
-    "email": "chentsulin@gmail.com",
-    "url": "https://github.com/chentsulin"
+    "name": "Brendan Boyle",
+    "email": "brendan@dbztech.com",
+    "url": "https://github.com/brendancboyle"
   },
   "scripts": {
     "electron-rebuild": "node -r babel-register ../internals/scripts/ElectronRebuild.js",
     "postinstall": "yarn electron-rebuild"
   },
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {
+    "socket.io-client": "^2.0.4",
+    "send-keys-native": "file:../../send-keys-native"
+  }
 }

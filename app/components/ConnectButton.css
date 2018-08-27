@@ -1,0 +1,12 @@
+.connectButton {
+  margin-top: 10px;
+  padding: 25px 0;
+}
+
+.connectButton a {
+  background: white;
+  color: #232c39;
+  font-size: 1.4rem;
+  padding: 10px 100px;
+  border-radius: 5px;
+}

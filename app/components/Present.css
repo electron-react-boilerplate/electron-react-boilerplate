@@ -1,0 +1,34 @@
+.container {
+  margin: 8px;
+  text-align: center;
+}
+
+.container h2 {
+  margin-top: 25px;
+}
+
+.statusContainer {
+  width: 200px;
+  margin: auto;
+}
+
+.statusContainer img {
+  width: 100%;
+}
+
+.slide {
+  width: 200px;
+  position: absolute;
+}
+
+.slide div {
+  width: 130px;
+  background: white;
+  border-radius: 5px;
+  height: 72px;
+  margin: 45px auto 0 auto;
+}
+
+.slide img {
+  width: 70px;
+}
