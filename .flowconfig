@@ -1,9 +1,9 @@
 [ignore]
-<PROJECT_ROOT>/node_modules/*
 <PROJECT_ROOT>/app/main.prod.js
 <PROJECT_ROOT>/app/main.prod.js.map
 <PROJECT_ROOT>/app/dist/.*
 <PROJECT_ROOT>/resources/.*
+<PROJECT_ROOT>/node_modules/webpack-cli
 <PROJECT_ROOT>/release/.*
 <PROJECT_ROOT>/dll/.*
 <PROJECT_ROOT>/release/.*

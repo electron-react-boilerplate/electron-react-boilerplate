@@ -1,14 +1,21 @@
-os: unstable
+image: Visual Studio 2017
+
+platform:
+  - x64
 
 environment:
   matrix:
-    - nodejs_version: 8
-    - nodejs_version: 7
+    - nodejs_version: 10
+    - nodejs_version: 9
+  GH_TOKEN:
+    secure: JQTogieeX60CDa5l+4NGvmE3do+t8iDPrrppjHYfGbx2vlGMvNUtPbJvnsqZ07tF
 
 cache:
-  - "%LOCALAPPDATA%/Yarn"
+  - '%LOCALAPPDATA%/Yarn'
   - node_modules -> package.json
   - app/node_modules -> app/package.json
+  - flow-typed
+  - '%USERPROFILE%\.electron'
 
 matrix:
   fast_finish: true
@@ -22,10 +29,15 @@ shallow_clone: true
 clone_depth: 1
 
 install:
-  - ps: Install-Product node $env:nodejs_version
+  - ps: Install-Product node $env:nodejs_version x64
   - set CI=true
+  # NOTE: Remove this if your project is private and you don't have a paid greenkeeper account
+  - yarn global add greenkeeper-lockfile@2
   - yarn
-  - cd app && yarn
+
+# NOTE: Remove this if your project is private and you don't have a paid greenkeeper account
+before_test:
+  - greenkeeper-lockfile-update
 
 test_script:
   - node --version
@@ -33,3 +45,6 @@ test_script:
   - yarn package
   - yarn test
   - yarn test-e2e
+
+# NOTE: Remove this if your project is private and you don't have a paid greenkeeper account
+after_test: greenkeeper-lockfile-upload
