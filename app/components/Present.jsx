@@ -15,7 +15,10 @@ export default class Home extends Component<Props> {
   props: Props;
 
   render() {
-    UPRKit.Utils.listenForEvents(this.props.token, this.props.holdFor);
+    const {
+      props: { token, holdFor }
+    } = this;
+    UPRKit.Utils.listenForEvents(token, holdFor);
     return (
       <div>
         <NavBar title="Present" />
