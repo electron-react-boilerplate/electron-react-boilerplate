@@ -15,7 +15,7 @@ type Props = {
       resetToken: () => void
     },
     holdForActions: {
-      setHoldFor: (string) => void
+      setHoldFor: string => void
     }
   }
 };
@@ -23,40 +23,55 @@ type Props = {
 export default class TokenForm extends Component<Props> {
   props: Props;
 
-  constructor(props) {
-    super(props);
-    this.joinSession = this.joinSession.bind(this);
-  }
-
   async joinSession(event) {
+    const {
+      props: {
+        token,
+        history,
+        actions: { holdForActions, tokenActions }
+      }
+    } = this;
     const button = event.target;
     const originalText = button.innerHTML;
     button.innerHTML = 'Joining...';
-    const status = await UPRKit.Session.joinSession(this.props.token);
+    const status = await UPRKit.Session.joinSession(token);
     if (status.data > 0) {
       button.innerHTML = originalText;
-      this.props.actions.holdForActions.setHoldFor(status.data.toString());
-      this.props.history.push('/present');
+      holdForActions.setHoldFor(status.data.toString());
+      history.push('/present');
     } else {
       console.error(status);
       button.innerHTML = originalText;
-      dialog.showErrorBox('Whoops!', 'The token you entered does not appear to be valid.');
-      this.props.actions.tokenActions.resetToken();
+      dialog.showErrorBox(
+        'Whoops!',
+        'The token you entered does not appear to be valid.'
+      );
+      tokenActions.resetToken();
     }
   }
 
   render() {
-    if (this.props.token.includes('_')) {
+    const {
+      props: { token }
+    } = this;
+    if (token.includes('_')) {
       return (
-        <div className={styles.connectButton}>
-          <a>Enter a token...</a>
+        <div className={[styles.connectButton].join(' ')}>
+          <button type="button">Enter a token...</button>
         </div>
       );
     }
 
     return (
-      <div className={styles.connectButton}>
-        <a onClick={this.joinSession}>Start Presenting</a>
+      <div className={[styles.connectButton, styles.active].join(' ')}>
+        <button
+          type="button"
+          onClick={e => {
+            this.joinSession(e);
+          }}
+        >
+          Start Presenting
+        </button>
       </div>
     );
   }

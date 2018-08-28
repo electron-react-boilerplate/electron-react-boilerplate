@@ -3,10 +3,17 @@
   padding: 25px 0;
 }
 
-.connectButton a {
-  background: white;
-  color: #232c39;
+.connectButton button {
+  width: 300px;
+  background: gray;
+  color: white;
   font-size: 1.4rem;
-  padding: 10px 100px;
+  padding: 10px 0;
   border-radius: 5px;
+  border: none;
+}
+
+.active button {
+  background: rgb(179, 2, 152);
+  color: white;
 }
