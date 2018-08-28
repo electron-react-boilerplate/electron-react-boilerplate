@@ -133,7 +133,7 @@
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
-    "babel-eslint": "^8.2.6",
+    "babel-eslint": "^9.0.0",
     "babel-jest": "^23.4.2",
     "babel-loader": "^7.1.5",
     "babel-plugin-add-module-exports": "^0.2.1",
