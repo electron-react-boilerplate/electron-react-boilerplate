@@ -1,7 +1,7 @@
 .container {
   text-align: center;
   position: absolute;
-  top: 10%;
+  top: 5%;
   width: 100%;
 }
 
@@ -10,6 +10,10 @@
   margin: 8px;
 }
 
-.container img {
+.logo {
   width: 250px;
+}
+
+.banner {
+  width: 500px;
 }

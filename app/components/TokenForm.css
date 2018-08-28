@@ -1,5 +1,5 @@
 .tokenForm {
-  margin: 10px 0;
+  margin: 20px 0;
 }
 
 .tokenForm input {
@@ -9,5 +9,6 @@
   text-align: center;
   font-size: 3rem;
   border-radius: 5px;
-  border: 2px solid black;
+  border: 1px solid rgb(179, 2, 152);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 }

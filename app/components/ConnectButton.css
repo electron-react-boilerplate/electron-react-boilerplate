@@ -1,6 +1,5 @@
 .connectButton {
-  margin-top: 10px;
-  padding: 25px 0;
+  padding: 15px 0;
 }
 
 .connectButton button {
@@ -11,6 +10,7 @@
   padding: 10px 0;
   border-radius: 5px;
   border: none;
+  font-family: SugarcubesBold, Arial, 'Helvetica Neue', Helvetica, sans-serif;
 }
 
 .active button {

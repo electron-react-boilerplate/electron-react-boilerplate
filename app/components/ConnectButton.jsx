@@ -40,7 +40,7 @@ export default class TokenForm extends Component<Props> {
       holdForActions.setHoldFor(status.data.toString());
       history.push('/present');
     } else {
-      console.error(status);
+      console.warn(status);
       button.innerHTML = originalText;
       dialog.showErrorBox(
         'Whoops!',
