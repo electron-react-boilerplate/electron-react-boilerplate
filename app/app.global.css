@@ -4,12 +4,27 @@
  */
 @import '~@fortawesome/fontawesome-free/css/all.css';
 
+@font-face {
+  font-family: 'SugarcubesRegular';
+  src: url('./fonts/SugarcubesRegular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'SugarcubesBold';
+  src: url('./fonts/SugarcubesBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'BatmanForeverAlternate';
+  src: url('./fonts/BatmanForeverAlternate.ttf') format('truetype');
+}
+
 body {
   position: relative;
   color: black;
   height: 100vh;
   background-color: white;
-  font-family: Arial, Helvetica, Helvetica Neue, serif;
+  font-family: SugarcubesRegular, Arial, Helvetica, Helvetica Neue, serif;
   overflow-y: hidden;
   margin: 0;
 }
