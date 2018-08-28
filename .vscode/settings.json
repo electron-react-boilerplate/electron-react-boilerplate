@@ -4,7 +4,6 @@
     ".eslintrc": "jsonc",
     ".prettierrc": "jsonc",
 
-    ".eslintcache": "json",
     ".stylelintrc": "json",
 
     ".dockerignore": "ignore",
