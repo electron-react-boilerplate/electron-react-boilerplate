@@ -4,5 +4,9 @@ import { connectRouter } from 'connected-react-router';
 import counter from './counter';
 
 export default function createRootReducer(history: {}) {
-  return connectRouter(history)(combineReducers({ counter }));
+  const routerReducer = connectRouter(history)(() => {});
+
+  return connectRouter(history)(
+    combineReducers({ router: routerReducer, counter })
+  );
 }
