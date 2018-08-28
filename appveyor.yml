@@ -40,9 +40,9 @@ before_test:
   - greenkeeper-lockfile-update
 
 test_script:
-  - node --version
+  - yarn package-ci
   - yarn lint
-  - yarn package
+  - yarn flow
   - yarn test
   - yarn test-e2e
 
