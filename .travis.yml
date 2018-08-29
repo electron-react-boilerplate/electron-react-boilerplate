@@ -82,6 +82,7 @@ script:
   - yarn lint
   - yarn flow
   - yarn test
+  - yarn build-e2e
   - yarn test-e2e
 
 # NOTE: Remove this if your project is private and you don't have a paid greenkeeper account

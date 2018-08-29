@@ -27,13 +27,15 @@ export default merge.smart(baseConfig, {
   },
 
   optimization: {
-    minimizer: [
-      new UglifyJSPlugin({
-        parallel: true,
-        sourceMap: true,
-        cache: true
-      })
-    ]
+    minimizer: process.env.E2E_BUILD
+      ? []
+      : [
+          new UglifyJSPlugin({
+            parallel: true,
+            sourceMap: true,
+            cache: true
+          })
+        ]
   },
 
   plugins: [
