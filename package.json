@@ -13,7 +13,7 @@
     "electron-rebuild": "electron-rebuild --parallel --force --types prod,dev,optional --module-dir app",
     "flow": "flow",
     "flow-typed": "rimraf flow-typed/npm && flow-typed install --overwrite || true",
-    "lint": "cross-env NODE_ENV=development eslint --cache --format=node_modules/eslint-formatter-pretty .",
+    "lint": "cross-env NODE_ENV=development eslint --cache --format=pretty .",
     "lint-fix": "yarn --silent lint --fix; exit 0",
     "lint-styles": "stylelint --ignore-path .eslintignore '**/*.*(css|scss)' --syntax scss",
     "lint-styles-fix": "yarn --silent lint-styles --fix; exit 0",
@@ -39,7 +39,7 @@
   "browserslist": "electron 1.6",
   "lint-staged": {
     "*.{js,jsx}": [
-      "cross-env NODE_ENV=development eslint --cache --format=node_modules/eslint-formatter-pretty",
+      "cross-env NODE_ENV=development eslint --cache --format=pretty",
       "prettier --ignore-path .eslintignore --single-quote --write",
       "git add"
     ],
