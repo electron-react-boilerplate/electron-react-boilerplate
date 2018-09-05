@@ -7,7 +7,6 @@ import { dependencies } from '../../package';
 (() => {
   if (!dependencies) return;
 
-  const dependenciesKeys = Object.keys(dependencies);
   const nativeDeps = fs
     .readdirSync('node_modules')
     .filter(folder => fs.existsSync(`node_modules/${folder}/binding.gyp`));
@@ -20,8 +19,8 @@ import { dependencies } from '../../package';
       execSync(`npm ls ${nativeDeps.join(' ')} --json`).toString()
     );
     const rootDependencies = Object.keys(dependenciesObject);
-    const filteredRootDependencies = rootDependencies.filter(rootDependency =>
-      dependenciesKeys.includes(rootDependency)
+    const filteredRootDependencies = rootDependencies.filter(
+      rootDependency => dependencies[rootDependency]
     );
 
     if (filteredRootDependencies.length > 0) {
