@@ -4,7 +4,7 @@
   "version": "0.17.0",
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
   "scripts": {
-    "build": "concurrently \"yarn build-main\" \"yarn build-renderer\"",
+    "build": "npm-run-all --parallel build-main build-renderer",
     "build-dll": "cross-env NODE_ENV=development webpack --config ./configs/webpack.config.renderer.dev.dll.babel.js --colors",
     "build-e2e": "cross-env E2E_BUILD=true yarn build",
     "build-main": "cross-env NODE_ENV=production webpack --config ./configs/webpack.config.main.prod.babel.js --colors",
@@ -192,7 +192,6 @@
     "babel-plugin-dev-expression": "^0.2.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.19",
     "chalk": "^2.4.1",
-    "concurrently": "^3.6.1",
     "connected-react-router": "^4.4.1",
     "cross-env": "^5.2.0",
     "cross-spawn": "^6.0.5",
