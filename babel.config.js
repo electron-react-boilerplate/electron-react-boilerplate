@@ -72,6 +72,7 @@ module.exports = {
     development: {
       presets: [['@babel/preset-react', { development: true }]],
       plugins: [
+        // Temporarily disable flow-runtime because of babel decorator issues
         // [
         //   'flow-runtime',
         //   {
@@ -82,7 +83,17 @@ module.exports = {
       ]
     },
     test: {
-      presets: [['@babel/preset-react', { development: true }]],
+      presets: [
+        // Temporarily disable flow-runtime because of babel decorator issues
+        // [
+        //   '@babel/preset-env',
+        //   {
+        //     targets: { node: 10 },
+        //     useBuiltIns: 'usage'
+        //   }
+        // ],
+        ['@babel/preset-react', { development: true }]
+      ],
       plugins: [
         // [
         //   'flow-runtime',

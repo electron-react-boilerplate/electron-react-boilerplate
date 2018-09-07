@@ -33,8 +33,8 @@
     "start-renderer-dev": "cross-env NODE_ENV=development node --trace-warnings -r esm -r @babel/register ./node_modules/webpack-dev-server/bin/webpack-dev-server --config configs/webpack.config.renderer.dev.js",
     "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node --trace-warnings -r esm -r @babel/register ./internals/scripts/RunTests.js",
     "test-all": "yarn lint && yarn flow && yarn build && yarn test && yarn build-e2e && yarn test-e2e",
-    "test-e2e": "node -r esm -r @babel/register ./internals/scripts/CheckBuiltsExist.js && cross-env NODE_ENV=test testcafe electron:./app ./test/e2e/HomePage.e2e.js",
-    "test-e2e-live": "node -r esm -r @babel/register ./internals/scripts/CheckBuiltsExist.js && cross-env NODE_ENV=test testcafe-live electron:./app ./test/e2e/HomePage.e2e.js",
+    "test-e2e": "node -r esm -r @babel/register ./internals/scripts/CheckBuildsExist.js && cross-env NODE_ENV=test testcafe electron:./app ./test/e2e/HomePage.e2e.js",
+    "test-e2e-live": "node -r esm -r @babel/register ./internals/scripts/CheckBuildsExist.js && cross-env NODE_ENV=test testcafe-live electron:./app ./test/e2e/HomePage.e2e.js",
     "test-watch": "yarn test --watch"
   },
   "browserslist": "electron 1.6",
@@ -146,7 +146,7 @@
       "^.+\\.jsx?$": "babel-jest"
     },
     "setupFiles": [
-      "./internals/scripts/CheckBuiltsExist.js"
+      "./internals/scripts/CheckBuildsExist.js"
     ]
   },
   "devDependencies": {
