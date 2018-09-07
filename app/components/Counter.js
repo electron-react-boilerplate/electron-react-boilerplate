@@ -27,7 +27,7 @@ export default class Counter extends Component<Props> {
       <div>
         <div className={styles.backButton} data-tid="backButton">
           <Link to={routes.HOME}>
-            <i className="fa fa-arrow-left fa-3x" />
+            <i className="fas fa-arrow-left fa-3x" />
           </Link>
         </div>
         <div className={`counter ${styles.counter}`} data-tid="counter">
@@ -40,7 +40,7 @@ export default class Counter extends Component<Props> {
             data-tclass="btn"
             type="button"
           >
-            <i className="fa fa-plus" />
+            <i className="fas fa-plus" />
           </button>
           <button
             className={styles.btn}
@@ -48,7 +48,7 @@ export default class Counter extends Component<Props> {
             data-tclass="btn"
             type="button"
           >
-            <i className="fa fa-minus" />
+            <i className="fas fa-minus" />
           </button>
           <button
             className={styles.btn}

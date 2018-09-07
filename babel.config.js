@@ -4,8 +4,7 @@ module.exports = {
       '@babel/preset-env',
       {
         targets: { node: 10 },
-        useBuiltIns: 'usage',
-        modules: 'commonjs'
+        useBuiltIns: 'usage'
       }
     ],
     '@babel/preset-flow'
@@ -32,7 +31,7 @@ module.exports = {
     // Stage 3
     '@babel/plugin-syntax-dynamic-import',
     '@babel/plugin-syntax-import-meta',
-    ['@babel/plugin-proposal-class-properties', { loose: false }],
+    ['@babel/plugin-proposal-class-properties', { loose: true }],
     '@babel/plugin-proposal-json-strings'
   ],
   env: {
@@ -51,15 +50,25 @@ module.exports = {
     development: {
       presets: [['@babel/preset-react', { development: true }]],
       plugins: [
-        '@babel/plugin-proposal-class-properties',
-        '@babel/plugin-transform-classes',
-        [
-          'flow-runtime',
-          {
-            assert: true,
-            annotate: true
-          }
-        ]
+        // [
+        //   'flow-runtime',
+        //   {
+        //     assert: true,
+        //     annotate: true
+        //   }
+        // ]
+      ]
+    },
+    test: {
+      presets: [['@babel/preset-react', { development: true }]],
+      plugins: [
+        // [
+        //   'flow-runtime',
+        //   {
+        //     assert: true,
+        //     annotate: true
+        //   }
+        // ]
       ]
     }
   }

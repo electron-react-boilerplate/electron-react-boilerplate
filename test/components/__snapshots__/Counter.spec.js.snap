@@ -12,7 +12,7 @@ exports[`Counter component should match exact snapshot 1`] = `
         onClick={[Function]}
       >
         <i
-          className="fa fa-arrow-left fa-3x"
+          className="fas fa-arrow-left fa-3x"
         />
       </a>
     </div>
@@ -32,7 +32,7 @@ exports[`Counter component should match exact snapshot 1`] = `
         type="button"
       >
         <i
-          className="fa fa-plus"
+          className="fas fa-plus"
         />
       </button>
       <button
@@ -42,7 +42,7 @@ exports[`Counter component should match exact snapshot 1`] = `
         type="button"
       >
         <i
-          className="fa fa-minus"
+          className="fas fa-minus"
         />
       </button>
       <button
