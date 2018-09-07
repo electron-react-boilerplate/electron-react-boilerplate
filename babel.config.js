@@ -4,7 +4,8 @@ module.exports = {
       '@babel/preset-env',
       {
         targets: { node: 10 },
-        useBuiltIns: 'usage'
+        useBuiltIns: 'usage',
+        modules: false
       }
     ],
     '@babel/preset-flow'
@@ -35,6 +36,27 @@ module.exports = {
     '@babel/plugin-proposal-json-strings'
   ],
   env: {
+    commonjs: {
+      presets: [
+        [
+          '@babel/preset-env',
+          {
+            targets: { node: 10 },
+            useBuiltIns: 'usage'
+          }
+        ],
+        ['@babel/preset-react', { development: true }]
+      ],
+      plugins: [
+        // [
+        //   'flow-runtime',
+        //   {
+        //     assert: true,
+        //     annotate: true
+        //   }
+        // ]
+      ]
+    },
     production: {
       presets: ['@babel/preset-react'],
       plugins: [
