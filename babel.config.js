@@ -37,7 +37,15 @@ module.exports = {
   env: {
     production: {
       presets: ['@babel/preset-react'],
-      plugins: ['dev-expression']
+      plugins: [
+        'dev-expression',
+
+        // Formerly babel-preset-react-optimize
+        '@babel/plugin-transform-react-constant-elements',
+        '@babel/plugin-transform-react-inline-elements'
+        // 'babel-plugin-transform-react-remove-prop-types', // POSSIBLY UNSTABLE
+        // 'babel-plugin-transform-react-pure-class-to-function' // POSSIBLY UNSTABLE
+      ]
     },
     development: {
       presets: [['@babel/preset-react', { development: true }]],
