@@ -1,13 +1,13 @@
 {
   "presets": [
     [
-      "env",
+      "@babel/preset-env",
       {
         "targets": { "node": 10 },
         "useBuiltIns": true
       }
     ],
-    "react"
+    "@babel/preset-react"
   ],
   "plugins": [
     // Stage 0
@@ -40,8 +40,8 @@
     },
     "development": {
       "plugins": [
-        "transform-class-properties",
-        "transform-es2015-classes",
+        "@babel/plugin-proposal-class-properties",
+        "@babel/plugin-transform-classes",
         [
           "flow-runtime",
           {
