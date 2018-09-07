@@ -212,6 +212,7 @@
     "spectron": "^3.8.0",
     "style-loader": "^0.21.0",
     "stylelint": "^9.4.0",
+    "stylelint-config-prettier": "^4.0.0",
     "stylelint-config-standard": "^18.2.0",
     "testcafe": "^0.21.1",
     "testcafe-browser-provider-electron": "^0.0.6",
