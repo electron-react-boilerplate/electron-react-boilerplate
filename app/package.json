@@ -10,8 +10,7 @@
     "url": "https://github.com/chentsulin"
   },
   "scripts": {
-    "electron-rebuild": "node -r @babel/register ../internals/scripts/ElectronRebuild.js",
-    "postinstall": "yarn electron-rebuild"
+    "postinstall": "cd .. && yarn electron-rebuild && cd -"
   },
   "license": "MIT",
   "dependencies": {}

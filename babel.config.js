@@ -4,7 +4,8 @@ module.exports = {
       '@babel/preset-env',
       {
         targets: { node: 10 },
-        useBuiltIns: 'usage'
+        useBuiltIns: 'usage',
+        modules: 'commonjs'
       }
     ],
     '@babel/preset-flow'
