@@ -85,13 +85,13 @@ module.exports = {
     test: {
       presets: [
         // Temporarily disable flow-runtime because of babel decorator issues
-        // [
-        //   '@babel/preset-env',
-        //   {
-        //     targets: { node: 10 },
-        //     useBuiltIns: 'usage'
-        //   }
-        // ],
+        [
+          '@babel/preset-env',
+          {
+            targets: { node: 10 },
+            useBuiltIns: 'usage'
+          }
+        ],
         ['@babel/preset-react', { development: true }]
       ],
       plugins: [
