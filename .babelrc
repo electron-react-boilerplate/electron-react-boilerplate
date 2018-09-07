@@ -7,7 +7,6 @@
         "useBuiltIns": true
       }
     ],
-    "@babel/preset-react",
     "@babel/preset-flow"
   ],
   "plugins": [
@@ -37,9 +36,11 @@
   ],
   "env": {
     "production": {
+      "presets": ["@babel/preset-react"],
       "plugins": ["dev-expression"]
     },
     "development": {
+      "presets": [["@babel/preset-react", { "development": true }]],
       "plugins": [
         "@babel/plugin-proposal-class-properties",
         "@babel/plugin-transform-classes",
