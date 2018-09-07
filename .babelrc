@@ -10,7 +10,6 @@
     "react"
   ],
   "plugins": [
-    "add-module-exports",
     // Stage 0
     "@babel/plugin-proposal-function-bind",
 
@@ -37,7 +36,6 @@
   ],
   "env": {
     "production": {
-      "presets": ["react-optimize"],
       "plugins": ["dev-expression"]
     },
     "development": {
