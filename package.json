@@ -136,7 +136,7 @@
     "babel-eslint": "^8.2.6",
     "babel-jest": "^23.4.2",
     "babel-loader": "^7.1.5",
-    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-add-module-exports": "^0.3.3",
     "babel-plugin-dev-expression": "^0.2.1",
     "babel-plugin-flow-runtime": "^0.17.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
