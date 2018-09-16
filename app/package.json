@@ -15,7 +15,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "socket.io-client": "^2.0.4",
-    "send-keys-native": "file:../../send-keys-native"
+    "send-keys-native": "file:../../send-keys-native",
+    "socket.io-client": "^2.0.4"
   }
 }
