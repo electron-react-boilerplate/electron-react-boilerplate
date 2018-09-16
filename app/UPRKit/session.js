@@ -1,8 +1,7 @@
-import Axios from 'axios';
-import { API_ADDRESS } from './index';
+import { AxiosInstance } from './index';
 
 export function joinSession(token: string) {
-  return Axios.get(`${API_ADDRESS}/JoinSession`, { params: { token } });
+  return AxiosInstance.get('/JoinSession', { params: { token } });
 }
 
 export default {
