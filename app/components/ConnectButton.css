@@ -11,6 +11,7 @@
   border-radius: 5px;
   border: none;
   font-family: SugarcubesBold, Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  outline-color: rgb(179, 2, 152);
 }
 
 .active button {
