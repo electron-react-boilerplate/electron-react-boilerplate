@@ -7294,6 +7294,10 @@ node-ipc@^9.1.0:
     util "^0.10.3"
     vm-browserify "0.0.4"
 
+node-modules-path@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/node-modules-path/-/node-modules-path-1.0.1.tgz#40096b08ce7ad0ea14680863af449c7c75a5d1c8"
+
 node-notifier@^5.2.1:
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/node-notifier/-/node-notifier-5.2.1.tgz#fa313dd08f5517db0e2502e5758d664ac69f9dea"

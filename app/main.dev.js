@@ -11,6 +11,7 @@
  * @flow
  */
 import { app, BrowserWindow } from 'electron';
+import getModulesPath from 'node-modules-path';
 import MenuBuilder from './menu';
 
 let mainWindow = null;
@@ -26,7 +27,7 @@ if (
 ) {
   require('electron-debug')();
   const path = require('path');
-  const p = path.join(__dirname, '..', 'app', 'node_modules');
+  const p = getModulesPath(path.join(__dirname, '..', 'app'));
   require('module').globalPaths.push(p);
 }
 

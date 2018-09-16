@@ -1,16 +1,22 @@
 // @flow
 import fs from 'fs';
 import chalk from 'chalk';
+import getModulesPath from 'node-modules-path';
+import path from 'path';
 import { execSync } from 'child_process';
 import { dependencies } from '../../package';
+
+const modulesPath = getModulesPath(__dirname);
 
 (() => {
   if (!dependencies) return;
 
   const dependenciesKeys = Object.keys(dependencies);
   const nativeDeps = fs
-    .readdirSync('node_modules')
-    .filter(folder => fs.existsSync(`node_modules/${folder}/binding.gyp`));
+    .readdirSync(modulesPath)
+    .filter(folder =>
+      fs.existsSync(path.join(modulesPath, `./${folder}/binding.gyp`))
+    );
 
   try {
     // Find the reason for why the dependency is installed. If it is installed
