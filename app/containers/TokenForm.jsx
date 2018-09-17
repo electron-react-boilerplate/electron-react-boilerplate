@@ -1,19 +1,19 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Counter from '../components/Counter';
-import * as CounterActions from '../actions/counter';
+import TokenForm from '../components/TokenForm';
+import * as TokenActions from '../actions/token';
 
 function mapStateToProps(state) {
   return {
-    counter: state.counter
+    token: state.token
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(CounterActions, dispatch);
+  return bindActionCreators(TokenActions, dispatch);
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Counter);
+)(TokenForm);

@@ -1,5 +1,7 @@
 // @flow
-import { app, Menu, shell, BrowserWindow } from 'electron';
+import { app, Menu, shell, BrowserWindow, dialog } from 'electron';
+import { autoUpdater } from 'electron-updater';
+import ElectronLog from 'electron-log';
 
 export default class MenuBuilder {
   mainWindow: BrowserWindow;
@@ -45,20 +47,13 @@ export default class MenuBuilder {
 
   buildDarwinTemplate() {
     const subMenuAbout = {
-      label: 'Electron',
+      label: 'Universal Presenter Remote',
       submenu: [
-        {
-          label: 'About ElectronReact',
-          selector: 'orderFrontStandardAboutPanel:'
-        },
+        { label: 'About UPR', selector: 'orderFrontStandardAboutPanel:' },
         { type: 'separator' },
         { label: 'Services', submenu: [] },
         { type: 'separator' },
-        {
-          label: 'Hide ElectronReact',
-          accelerator: 'Command+H',
-          selector: 'hide:'
-        },
+        { label: 'Hide UPR', accelerator: 'Command+H', selector: 'hide:' },
         {
           label: 'Hide Others',
           accelerator: 'Command+Shift+H',
@@ -148,27 +143,19 @@ export default class MenuBuilder {
         {
           label: 'Learn More',
           click() {
-            shell.openExternal('http://electron.atom.io');
+            shell.openExternal('https://universalpresenterremote.com');
           }
         },
         {
-          label: 'Documentation',
+          label: 'Support',
           click() {
-            shell.openExternal(
-              'https://github.com/atom/electron/tree/master/docs#readme'
-            );
+            shell.openExternal('mailto:support@dbztech.com');
           }
         },
         {
-          label: 'Community Discussions',
-          click() {
-            shell.openExternal('https://discuss.atom.io/c/electron');
-          }
-        },
-        {
-          label: 'Search Issues',
-          click() {
-            shell.openExternal('https://github.com/atom/electron/issues');
+          label: 'Check For Updates',
+          click: () => {
+            MenuBuilder.checkForUpdates();
           }
         }
       ]
@@ -185,10 +172,6 @@ export default class MenuBuilder {
       {
         label: '&File',
         submenu: [
-          {
-            label: '&Open',
-            accelerator: 'Ctrl+O'
-          },
           {
             label: '&Close',
             accelerator: 'Ctrl+W',
@@ -245,27 +228,19 @@ export default class MenuBuilder {
           {
             label: 'Learn More',
             click() {
-              shell.openExternal('http://electron.atom.io');
+              shell.openExternal('https://universalpresenterremote.com');
             }
           },
           {
-            label: 'Documentation',
+            label: 'Support',
             click() {
-              shell.openExternal(
-                'https://github.com/atom/electron/tree/master/docs#readme'
-              );
+              shell.openExternal('mailto:support@dbztech.com');
             }
           },
           {
-            label: 'Community Discussions',
-            click() {
-              shell.openExternal('https://discuss.atom.io/c/electron');
-            }
-          },
-          {
-            label: 'Search Issues',
-            click() {
-              shell.openExternal('https://github.com/atom/electron/issues');
+            label: 'Check For Updates',
+            click: () => {
+              MenuBuilder.checkForUpdates();
             }
           }
         ]
@@ -273,5 +248,16 @@ export default class MenuBuilder {
     ];
 
     return templateDefault;
+  }
+
+  static checkForUpdates() {
+    ElectronLog.info('Checking for updates...');
+    autoUpdater.on('update-not-available', () => {
+      dialog.showMessageBox({
+        title: 'No Updates',
+        message: 'Current version is up-to-date.'
+      });
+    });
+    autoUpdater.checkForUpdates();
   }
 }

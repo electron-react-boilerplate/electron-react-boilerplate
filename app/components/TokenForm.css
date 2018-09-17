@@ -1,0 +1,19 @@
+.tokenForm {
+  margin: 20px 0;
+}
+
+.tokenForm input {
+  width: 40px;
+  height: 50px;
+  margin: 0 10px;
+  text-align: center;
+  font-size: 3rem;
+  border-radius: 5px;
+  border: 1px solid black;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+  outline: none;
+}
+
+.tokenForm input:focus {
+  border: 1px solid rgb(179, 2, 152);
+}

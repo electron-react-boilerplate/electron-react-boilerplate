@@ -10,7 +10,10 @@
  *
  * @flow
  */
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, dialog } from 'electron';
+import IsDev from 'electron-is-dev';
+import { autoUpdater } from 'electron-updater';
+import ElectronLog from 'electron-log';
 import MenuBuilder from './menu';
 
 let mainWindow = null;
@@ -88,4 +91,38 @@ app.on('ready', async () => {
 
   const menuBuilder = new MenuBuilder(mainWindow);
   menuBuilder.buildMenu();
+
+  if (IsDev) {
+    ElectronLog.transports.file.level = 'debug';
+  } else {
+    ElectronLog.transports.file.level = 'error';
+  }
+
+  ElectronLog.info('App Started!');
+
+  autoUpdater.logger = ElectronLog;
+  autoUpdater.on('error', error => {
+    dialog.showErrorBox(
+      'Error: ',
+      error == null ? 'unknown' : (error.stack || error).toString()
+    );
+  });
+
+  autoUpdater.on('update-downloaded', () => {
+    dialog.showMessageBox(
+      {
+        title: 'Install Updates',
+        message:
+          'A newer version of UPR is available. UPR will restart and come back better than ever!'
+      },
+      () => {
+        setImmediate(() => autoUpdater.quitAndInstall());
+      }
+    );
+  });
+
+  if (!IsDev) {
+    autoUpdater.checkForUpdatesAndNotify();
+    ElectronLog.info('Checking for updates...');
+  }
 });

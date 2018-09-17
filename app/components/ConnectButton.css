@@ -1,0 +1,20 @@
+.connectButton {
+  padding: 15px 0;
+}
+
+.connectButton button {
+  width: 300px;
+  background: gray;
+  color: white;
+  font-size: 1.4rem;
+  padding: 10px 0;
+  border-radius: 5px;
+  border: none;
+  font-family: SugarcubesBold, Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  outline-color: rgb(179, 2, 152);
+}
+
+.active button {
+  background: rgb(179, 2, 152);
+  color: white;
+}
