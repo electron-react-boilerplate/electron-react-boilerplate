@@ -13,4 +13,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(TokenActions, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TokenForm);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TokenForm);

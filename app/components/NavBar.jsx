@@ -1,18 +1,9 @@
 // @flow
 import React, { Component } from 'react';
 import styles from './NavBar.css';
-import UPRKit from '../UPRKit';
 
 type Props = {
   title: string,
-  actions: {
-    tokenActions: {
-      resetToken: () => void
-    },
-    holdForActions: {
-      clearHoldFor: () => void
-    }
-  },
   history: {
     push: (a: *, b: *) => *
   }
@@ -23,14 +14,8 @@ export default class TokenForm extends Component<Props> {
 
   goBack() {
     const {
-      props: {
-        actions: { holdForActions, tokenActions },
-        history
-      }
+      props: { history }
     } = this;
-    holdForActions.clearHoldFor();
-    tokenActions.resetToken();
-    UPRKit.Utils.disconnect();
     history.push('/');
   }
 
