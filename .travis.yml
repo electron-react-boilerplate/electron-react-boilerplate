@@ -25,13 +25,13 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
+            - gcc-multilib
             - g++-4.8
+            - g++-multilib
             - icnsutils
             - graphicsmagick
             - xz-utils
             - xorriso
-            - gcc-multilib
-            - g++-multilib
             - rpm
 
 before_cache:
@@ -49,10 +49,11 @@ cache:
     - $HOME/docker
 
 # NOTE: Remove this if your project is private and you don't have a paid greenkeeper account
-before_install: yarn global add greenkeeper-lockfile@1
+before_install:
+  - yarn global add greenkeeper-lockfile@1
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CXX="g++-4.8"; fi
 
 install:
-  - export CXX="g++-4.8"
   - yarn
   # On Linux, initialize "virtual display". See before_script
   - |
