@@ -25,7 +25,6 @@
     "postinstall": "node -r babel-register internals/scripts/CheckNativeDep.js && yarn flow-typed && yarn build-dll && electron-builder install-app-deps package.json",
     "postlint-fix": "prettier --ignore-path .eslintignore --single-quote --write '**/*.{*{js,jsx,json},babelrc,eslintrc,prettierrc,stylelintrc}'",
     "postlint-styles-fix": "prettier --ignore-path .eslintignore --single-quote --write '**/*.{css,scss}'",
-    "precommit": "lint-staged",
     "prestart": "yarn build",
     "start": "cross-env NODE_ENV=production electron ./app/",
     "start-main-dev": "cross-env HOT=1 NODE_ENV=development electron -r babel-register ./app/main.dev.js",
@@ -196,7 +195,7 @@
     "flow-bin": "^0.77.0",
     "flow-runtime": "^0.17.0",
     "flow-typed": "^2.5.1",
-    "husky": "^0.14.3",
+    "husky": "^1.0.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^23.4.2",
     "lint-staged": "^7.2.0",
@@ -246,5 +245,10 @@
     "node": ">=7.x",
     "npm": ">=4.x",
     "yarn": ">=0.21.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }
