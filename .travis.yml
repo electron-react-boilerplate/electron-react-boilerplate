@@ -25,11 +25,14 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
+            - gcc-multilib
             - g++-4.8
+            - g++-multilib
             - icnsutils
             - graphicsmagick
             - xz-utils
             - xorriso
+            - rpm
 
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
@@ -46,10 +49,11 @@ cache:
     - $HOME/docker
 
 # NOTE: Remove this if your project is private and you don't have a paid greenkeeper account
-before_install: yarn global add greenkeeper-lockfile@1
+before_install:
+  - yarn global add greenkeeper-lockfile@1
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CXX="g++-4.8"; fi
 
 install:
-  - export CXX="g++-4.8"
   - yarn
   # On Linux, initialize "virtual display". See before_script
   - |
@@ -75,29 +79,17 @@ before_script:
   - greenkeeper-lockfile-update
 
 script:
-  - yarn package
+  - yarn package-ci
   - yarn lint
   - yarn flow
   - yarn test
+  - yarn build-e2e
   - yarn test-e2e
-  # On Linux, check if packaging to windows works
-  # NOTE: Remove this if your project has native dependencies
-  - |
-    if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-      docker run --rm \
-        --env-file <(env | grep -iE 'DEBUG|NODE_|ELECTRON_|YARN_|NPM_|CI|CIRCLE|TRAVIS|APPVEYOR_|CSC_|_TOKEN|_KEY|AWS_|STRIP|BUILD_') \
-        -v ${PWD}:/project \
-        -v ~/.cache/electron:/root/.cache/electron \
-        -v ~/.cache/electron-builder:/root/.cache/electron-builder \
-        electronuserland/builder:wine \
-        /bin/bash -c "yarn --link-duplicates --pure-lockfile && yarn package --linux --win"
-    else
-      :
-    fi
 
 # NOTE: Remove this if your project is private and you don't have a paid greenkeeper account
 after_script: greenkeeper-lockfile-upload
 
+# NOTE: Remove this for your project
 env:
   global:
     secure: GF4H+4injx3XVpqW0zvCUcdQSJFiUshvLIo6EDklXRBgeLOcd2nV+dTfckfy9X2sycZDGtBO56dUcbt/8wfr15b524puLVe73j8A2uamdfZicZOYqTACglbiElHi2ehoJLSbceIbEiNzf6wOvSqqwnhi6uR4kw9Fl1n85RDbqcn4fSjfebLydjBYMXRad9Qdm9sXP+u76whotJ8a2EifTaRe9Gwz4WFxDX3LknHkdBIQXPco1rAFdHFoFbeWuHS7lcmA6V+1wqhZGa8Vlo8KA/KnlrB7k91LdADqvKC/XPKaqkmNDXLP9Rn0aq0USirXCoLTJBNo3OTSsPuEbxhU+EqPQvAhBLhtgAzRYgJY+UZA6oczd8+TakfaUuk4vKN0GwEFsZPhO27DoA0DnYQNIkSLPdgm+xK+0V6Mkw9VTXsO25AhTNMEKNGNfTQb+zmc+CX5/WF3VVw/lU9078IYn47ILRCnNZsjxOds2icQi4UpWmzYiVIx1vtMK9nBwAZToV3g6lliFP8vBK/wPOEKl0etKORh+Sp4ghISHmLayyi3zMZhe4s11Ecas+59PkgzRRR61bvmvwymHXIRwAOimBJ8KZgr3x/Z76WRaDHadVwu0SLjbvsznz+TDf531pJ3N6FYd+JHvFfeu1zziJlzroqxJNn2pItXDWdTBM1ydIQ=
