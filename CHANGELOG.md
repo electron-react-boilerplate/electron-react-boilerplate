@@ -1,3 +1,14 @@
+# 0.16.0 (2018.10.3)
+- removed unused dependencies
+- migrate from `react-redux-router` to `connect-react-router`
+- move webpack configs to `./webpack` dir
+- use `g++` on travis when testing linux
+- migrate from `spectron` to `testcafe` for e2e tests
+- add linting support for config styles
+- changed stylelint config
+- temporarily disabled flow in appveyor to make ci pass
+- added necessary infra to publish releases from ci
+
 # 0.15.0 (2018.8.25)
 
 - Performance: cache webpack uglify results
