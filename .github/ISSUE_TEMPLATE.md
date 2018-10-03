@@ -1,5 +1,10 @@
 <!--- Provide a general summary of the issue in the Title above -->
 
+## Prerequisites
+- [] Using yarn
+- [] Using an up-to-date master branch
+- [] Link to stacktrace in a Gist (for bugs)
+
 ## Expected Behavior
 <!--- If you're describing a bug, tell us what should happen -->
 <!--- If you're suggesting a change/improvement, tell us how it should work -->
