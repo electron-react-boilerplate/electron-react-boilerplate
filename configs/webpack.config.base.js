@@ -19,7 +19,7 @@ function filterDepWithoutEntryPoints(dep: string): boolean {
       return false;
     }
     const pgkString = fs
-      .readFileSync(require.resolve(`${dep}/package`))
+      .readFileSync(require.resolve(`${dep}/package.json`))
       .toString();
     const pkg = JSON.parse(pgkString);
     const fields = ['main', 'module', 'jsnext:main', 'browser'];
