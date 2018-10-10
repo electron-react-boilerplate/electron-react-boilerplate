@@ -3,7 +3,9 @@
 ## Prerequisites
 - [] Using yarn
 - [] Using an up-to-date master branch
+- [] Using latest version of devtools. See [wiki for howto update](https://github.com/chentsulin/electron-react-boilerplate/wiki/DevTools)
 - [] Link to stacktrace in a Gist (for bugs)
+- [] For issue in production release, devtools output of `DEBUG_PROD=true yarn build && yarn start`
 
 ## Expected Behavior
 <!--- If you're describing a bug, tell us what should happen -->
