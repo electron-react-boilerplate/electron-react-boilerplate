@@ -50,7 +50,7 @@ ${chalk.whiteBright.bgGreen.bold('cd ./app && yarn add your-package')}
 
 Read more about native dependencies at:
 ${chalk.bold(
-        'https://github.com/chentsulin/electron-react-boilerplate/wiki/Module-Structure----Two-package.json-Structure'
+        'https://github.com/electron-react-boilerplate/electron-react-boilerplate/wiki/Module-Structure----Two-package.json-Structure'
       )}
 
 
