@@ -56,12 +56,12 @@ A boilerplate for Scalable Cross-Platform Desktop Apps based on  <a href="http:/
 
 ## Install
 
-- **If you have installation or compilation issues with this project, please see [our debugging guide](https://github.com/chentsulin/electron-react-boilerplate/issues/400)**
+- **If you have installation or compilation issues with this project, please see [our debugging guide](https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues/400)**
 
 First, clone the repo via git:
 
 ```bash
-git clone --depth=1 https://github.com/chentsulin/electron-react-boilerplate.git your-project-name
+git clone --depth=1 https://github.com/electron-react-boilerplate/electron-react-boilerplate.git your-project-name
 ```
 
 And then install dependencies with yarn.
@@ -157,7 +157,7 @@ This boilerplate uses a [two package.json structure](https://github.com/electron
 
 ### Further Readings
 
-See the wiki page, [Module Structure — Two package.json Structure](https://github.com/chentsulin/electron-react-boilerplate/wiki/Module-Structure----Two-package.json-Structure) to understand what is native module, the rationale behind two package.json structure and more.
+See the wiki page, [Module Structure — Two package.json Structure](https://github.com/electron-react-boilerplate/electron-react-boilerplate/wiki/Module-Structure----Two-package.json-Structure) to understand what is native module, the rationale behind two package.json structure and more.
 
 For an example app that uses this boilerplate and packages native dependencies, see [erb-sqlite-example](https://github.com/amilajack/erb-sqlite-example).
 
@@ -190,14 +190,14 @@ This project comes with Flow support out of the box! You can annotate your code 
 
 ## Dispatching redux actions from main process
 
-See [#118](https://github.com/chentsulin/electron-react-boilerplate/issues/118) and [#108](https://github.com/chentsulin/electron-react-boilerplate/issues/108)
+See [#118](https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues/118) and [#108](https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues/108)
 
 ## How to keep your project updated with the boilerplate
 
 If your application is a fork from this repo, you can add this repo to another git remote:
 
 ```sh
-git remote add upstream https://github.com/chentsulin/electron-react-boilerplate.git
+git remote add upstream https://github.com/electron-react-boilerplate/electron-react-boilerplate.git
 ```
 
 Then, use git to merge some latest commits:
@@ -288,7 +288,7 @@ MIT © [C. T. Lin](https://github.com/chentsulin)
 
 [npm-image]: https://img.shields.io/npm/v/electron-react-boilerplate.svg?style=flat-square
 [github-tag-image]: https://img.shields.io/github/tag/chentsulin/electron-react-boilerplate.svg
-[github-tag-url]: https://github.com/chentsulin/electron-react-boilerplate/releases/latest
+[github-tag-url]: https://github.com/electron-react-boilerplate/electron-react-boilerplate/releases/latest
 [travis-image]: https://travis-ci.org/chentsulin/electron-react-boilerplate.svg?branch=master
 [travis-url]: https://travis-ci.org/chentsulin/electron-react-boilerplate
 [appveyor-image]: https://ci.appveyor.com/api/projects/status/github/chentsulin/electron-react-boilerplate?svg=true
