@@ -48,9 +48,7 @@ cache:
     - $HOME/.cache/electron-builder
     - $HOME/docker
 
-# NOTE: Remove this if your project is private and you don't have a paid greenkeeper account
 before_install:
-  - yarn global add greenkeeper-lockfile@1
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CXX="g++-4.8"; fi
 
 install:
@@ -75,8 +73,6 @@ before_script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export DISPLAY=:99.0; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sh -e /etc/init.d/xvfb start; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sleep 3; fi
-  # NOTE: Remove this if your project is private and you don't have a paid greenkeeper account
-  - greenkeeper-lockfile-update
 
 script:
   - yarn package-ci
@@ -85,9 +81,6 @@ script:
   - yarn test
   - yarn build-e2e
   - yarn test-e2e
-
-# NOTE: Remove this if your project is private and you don't have a paid greenkeeper account
-after_script: greenkeeper-lockfile-upload
 
 # NOTE: Remove this for your project
 env:
