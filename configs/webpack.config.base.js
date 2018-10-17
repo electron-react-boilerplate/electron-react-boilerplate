@@ -5,8 +5,8 @@
 import path from 'path';
 import webpack from 'webpack';
 import fs from 'fs';
-import { dependencies as externals } from '../app/package';
-import { dependencies as possibleExternals } from '../package';
+import { dependencies as externals } from '../app/package.json';
+import { dependencies as possibleExternals } from '../package.json';
 
 // Find all the dependencies without a `main` property and add them as webpack externals
 function filterDepWithoutEntryPoints(dep: string): boolean {
@@ -19,7 +19,7 @@ function filterDepWithoutEntryPoints(dep: string): boolean {
       return false;
     }
     const pgkString = fs
-      .readFileSync(require.resolve(`${dep}/package`))
+      .readFileSync(require.resolve(`${dep}/package.json`))
       .toString();
     const pkg = JSON.parse(pgkString);
     const fields = ['main', 'module', 'jsnext:main', 'browser'];
