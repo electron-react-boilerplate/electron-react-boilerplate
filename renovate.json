@@ -1,1 +1,6 @@
-{}
+{
+  "extends": [
+    "config:base"
+  ],
+  "rangeStrategy": "bump"
+}
