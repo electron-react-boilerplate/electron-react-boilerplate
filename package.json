@@ -208,7 +208,7 @@
     "jest": "^23.4.2",
     "lint-staged": "^7.2.0",
     "mini-css-extract-plugin": "^0.4.1",
-    "node-sass": "^4.9.2",
+    "node-sass": "^4.9.4",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
     "prettier": "^1.14.3",
     "react-test-renderer": "^16.4.1",
