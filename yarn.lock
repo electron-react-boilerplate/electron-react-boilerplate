@@ -4462,11 +4462,12 @@ eslint-plugin-promise@^3.8.0:
   resolved "https://registry.yarnpkg.com/eslint-plugin-promise/-/eslint-plugin-promise-3.8.0.tgz#65ebf27a845e3c1e9d6f6a5622ddd3801694b621"
   integrity sha512-JiFL9UFR15NKpHyGii1ZcvmtIqa3UTwiDAGb8atSffe43qJ3+1czVGN6UtkklpcJ2DVnqvTMzEKRaJdBkAL2aQ==
 
-eslint-plugin-react@^7.10.0:
-  version "7.10.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.10.0.tgz#af5c1fef31c4704db02098f9be18202993828b50"
-  integrity sha512-18rzWn4AtbSUxFKKM7aCVcj5LXOhOKdwBino3KKWy4psxfPW0YtIbE8WNRDUdyHFL50BeLb6qFd4vpvNYyp7hw==
+eslint-plugin-react@^7.11.1:
+  version "7.11.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.11.1.tgz#c01a7af6f17519457d6116aa94fc6d2ccad5443c"
+  integrity sha512-cVVyMadRyW7qsIUh3FHp3u6QHNhOgVrLQYdQEB1bPWBsgbNCHdFAeNMquBMCcZJu59eNthX053L70l7gRt4SCw==
   dependencies:
+    array-includes "^3.0.3"
     doctrine "^2.1.0"
     has "^1.0.3"
     jsx-ast-utils "^2.0.1"
