@@ -192,7 +192,7 @@
     "eslint-import-resolver-webpack": "^0.10.1",
     "eslint-plugin-compat": "^2.5.1",
     "eslint-plugin-flowtype": "^2.50.0",
-    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jest": "^21.18.0",
     "eslint-plugin-jsx-a11y": "6.1.1",
     "eslint-plugin-promise": "^3.8.0",
