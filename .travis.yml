@@ -41,7 +41,6 @@ cache:
   yarn: true
   directories:
     - node_modules
-    - app/node_modules
     - $(npm config get prefix)/lib/node_modules
     - flow-typed
     - $HOME/.cache/electron
