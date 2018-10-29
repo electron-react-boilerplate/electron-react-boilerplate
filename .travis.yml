@@ -31,6 +31,12 @@ matrix:
             - xorriso
             - rpm
 
+    - os: windows
+      language: node_js
+      node_js:
+        - node
+        - 9
+
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
 
