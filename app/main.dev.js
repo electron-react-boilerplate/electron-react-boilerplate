@@ -1,4 +1,4 @@
-/* eslint global-require: 0, flowtype-errors/show-errors: 0 */
+/* eslint global-require: off */
 
 /**
  * This module executes inside of electron's main process. You can start
