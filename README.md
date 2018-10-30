@@ -126,12 +126,6 @@ $ yarn test-e2e
 DEBUG_PROD=true yarn package
 ```
 
-### Further Readings
-
-See the wiki page, [Module Structure — Two package.json Structure](https://github.com/electron-react-boilerplate/electron-react-boilerplate/wiki/Module-Structure----Two-package.json-Structure) to understand what is native module, the rationale behind two package.json structure and more.
-
-For an example app that uses this boilerplate and packages native dependencies, see [erb-sqlite-example](https://github.com/amilajack/erb-sqlite-example).
-
 ## CSS Modules
 
 This boilerplate is configured to use [css-modules](https://github.com/css-modules/css-modules) out of the box.
