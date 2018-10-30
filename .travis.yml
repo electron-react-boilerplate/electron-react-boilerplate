@@ -1,6 +1,10 @@
 # Config adapted from:
 # https://www.electron.build/multi-platform-build#sample-travisyml-to-build-electron-app-for-macos-linux-and-windows
+sudo: true
+
 matrix:
+  allow_failures:
+    - os: linux
   include:
     - os: osx
       osx_image: xcode9.4
@@ -13,8 +17,6 @@ matrix:
 
     - os: linux
       language: node_js
-      sudo: required
-      dist: trusty
       node_js:
         - node
       addons:
@@ -76,7 +78,3 @@ script:
   - yarn test
   - yarn build-e2e
   - yarn test-e2e
-
-matrix:
-  allow_failures:
-  - os: linux
