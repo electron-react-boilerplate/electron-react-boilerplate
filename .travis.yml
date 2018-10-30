@@ -76,3 +76,7 @@ script:
   - yarn test
   - yarn build-e2e
   - yarn test-e2e
+
+matrix:
+  allow_failures:
+  - os: linux
