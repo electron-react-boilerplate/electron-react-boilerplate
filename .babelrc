@@ -3,7 +3,7 @@
     [
       "env",
       {
-        "targets": { "node": 10 },
+        "targets": { "electron": "2.0.6" },
         "useBuiltIns": true
       }
     ],
