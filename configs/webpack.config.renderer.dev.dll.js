@@ -1,4 +1,4 @@
-/* eslint global-require: 0, import/no-dynamic-require: 0 */
+/* eslint global-require: off, import/no-dynamic-require: off */
 
 /**
  * Builds the DLL for development electron renderer process

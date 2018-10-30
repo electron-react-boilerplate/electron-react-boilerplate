@@ -1,4 +1,4 @@
-/* eslint global-require: 0 */
+/* eslint global-require: off */
 
 const developmentEnvironments = ['development', 'test'];
 
@@ -23,7 +23,7 @@ module.exports = api => {
       [
         require('@babel/preset-env'),
         {
-          targets: { electron: '2.0.6' },
+          targets: { electron: require('electron/package.json').version },
           useBuiltIns: 'usage'
         }
       ],
