@@ -34,8 +34,7 @@ export default {
    * Determine the array of extensions that should be used to resolve modules.
    */
   resolve: {
-    extensions: ['.js', '.jsx', '.json'],
-    modules: [path.join(__dirname, '..'), 'node_modules']
+    extensions: ['.js', '.jsx', '.json']
   },
 
   plugins: [
