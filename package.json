@@ -196,7 +196,7 @@
     "connected-react-router": "^4.4.1",
     "cross-env": "^5.2.0",
     "cross-spawn": "^6.0.5",
-    "css-loader": "^1.0.0",
+    "css-loader": "^1.0.1",
     "detect-port": "^1.2.3",
     "electron": "^2.0.6",
     "electron-builder": "^20.28.4",
