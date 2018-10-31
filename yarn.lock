@@ -297,7 +297,7 @@
 
 "@babel/plugin-proposal-class-properties@^7.1.0":
   version "7.1.0"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-class-properties/-/plugin-proposal-class-properties-7.1.0.tgz#9af01856b1241db60ec8838d84691aa0bd1e8df4"
+  resolved "https://registry.npmjs.org/@babel/plugin-proposal-class-properties/-/plugin-proposal-class-properties-7.1.0.tgz#9af01856b1241db60ec8838d84691aa0bd1e8df4"
   integrity sha512-/PCJWN+CKt5v1xcGn4vnuu13QDoV+P7NcICP44BoonAJoPSGwVkgrXihFIQGiEjjPlUDBIw1cM7wYFLARS2/hw==
   dependencies:
     "@babel/helper-function-name" "^7.1.0"
@@ -309,7 +309,7 @@
 
 "@babel/plugin-proposal-decorators@^7.1.2":
   version "7.1.2"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-decorators/-/plugin-proposal-decorators-7.1.2.tgz#79829bd75fced6581ec6c7ab1930e8d738e892e7"
+  resolved "https://registry.npmjs.org/@babel/plugin-proposal-decorators/-/plugin-proposal-decorators-7.1.2.tgz#79829bd75fced6581ec6c7ab1930e8d738e892e7"
   integrity sha512-YooynBO6PmBgHvAd0fl5e5Tq/a0pEC6RqF62ouafme8FzdIVH41Mz/u1dn8fFVm4jzEJ+g/MsOxouwybJPuP8Q==
   dependencies:
     "@babel/helper-plugin-utils" "^7.0.0"
@@ -351,7 +351,7 @@
 
 "@babel/plugin-proposal-function-sent@^7.1.0":
   version "7.1.0"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-function-sent/-/plugin-proposal-function-sent-7.1.0.tgz#1c4eb7748812c89b772a2d699cf6a9c074f3e166"
+  resolved "https://registry.npmjs.org/@babel/plugin-proposal-function-sent/-/plugin-proposal-function-sent-7.1.0.tgz#1c4eb7748812c89b772a2d699cf6a9c074f3e166"
   integrity sha512-yciM4dketj0pjd1enirzfVWclzSCzjOljHx8E4DJUBq/q65CuaKsX2zhpdImzcn6TtFupzdcuchbqN00IEKDAA==
   dependencies:
     "@babel/helper-plugin-utils" "^7.0.0"
@@ -859,7 +859,7 @@
 
 "@babel/preset-env@^7.1.0":
   version "7.1.0"
-  resolved "https://registry.yarnpkg.com/@babel/preset-env/-/preset-env-7.1.0.tgz#e67ea5b0441cfeab1d6f41e9b5c79798800e8d11"
+  resolved "https://registry.npmjs.org/@babel/preset-env/-/preset-env-7.1.0.tgz#e67ea5b0441cfeab1d6f41e9b5c79798800e8d11"
   integrity sha512-ZLVSynfAoDHB/34A17/JCZbyrzbQj59QC1Anyueb4Bwjh373nVPq5/HMph0z+tCmcDjXDe+DlKQq9ywQuvWrQg==
   dependencies:
     "@babel/helper-module-imports" "^7.0.0"
@@ -2045,7 +2045,7 @@ babel-jest@^23.6.0:
 
 babel-loader@^8.0.4:
   version "8.0.4"
-  resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-8.0.4.tgz#7bbf20cbe4560629e2e41534147692d3fecbdce6"
+  resolved "https://registry.npmjs.org/babel-loader/-/babel-loader-8.0.4.tgz#7bbf20cbe4560629e2e41534147692d3fecbdce6"
   integrity sha512-fhBhNkUToJcW9nV46v8w87AJOwAJDz84c1CL57n3Stj73FANM/b9TbCUK4YhdOwEyZ+OxhYpdeZDNzSI29Firw==
   dependencies:
     find-cache-dir "^1.0.0"
@@ -3029,7 +3029,7 @@ buffers@~0.1.1:
   resolved "https://registry.npmjs.org/buffers/-/buffers-0.1.1.tgz#b24579c3bed4d6d396aeee6d9a8ae7f5482ab7bb"
   integrity sha1-skV5w77U1tOWru5tmorn9Ugqt7s=
 
-builder-util-runtime@5.0.0, builder-util-runtime@^5.0.0:
+builder-util-runtime@5.0.0, builder-util-runtime@^5.0.0, builder-util-runtime@~5.0.0:
   version "5.0.0"
   resolved "https://registry.npmjs.org/builder-util-runtime/-/builder-util-runtime-5.0.0.tgz#1f35cc28c87ca7de336efa098c6d3fd550db15a5"
   integrity sha512-mTyLqmzdPzavKQNAfxcGu6kqaDiPCtFKJG+nNO9SYfL6lY7VgTUW+45iXhowc5ElmPj0eSTDaIGlScxVMwFUEA==
@@ -4742,6 +4742,11 @@ electron-localshortcut@^3.0.0:
     keyboardevent-from-electron-accelerator "^1.1.0"
     keyboardevents-areequal "^0.2.1"
 
+electron-log@^2.2.17:
+  version "2.2.17"
+  resolved "https://registry.npmjs.org/electron-log/-/electron-log-2.2.17.tgz#e71e2ebb949fc96ded7cdb99eeee7202e48981d2"
+  integrity sha512-v+Af5W5z99ehhaLOfE9eTSXUwjzh2wFlQjz51dvkZ6ZIrET6OB/zAZPvsuwT6tm3t5x+M1r+Ed3U3xtPZYAyuQ==
+
 electron-osx-sign@0.4.11:
   version "0.4.11"
   resolved "https://registry.npmjs.org/electron-osx-sign/-/electron-osx-sign-0.4.11.tgz#8377732fe7b207969f264b67582ee47029ce092f"
@@ -4771,6 +4776,21 @@ electron-to-chromium@^1.3.47, electron-to-chromium@^1.3.82:
   version "1.3.82"
   resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.82.tgz#7d13ae4437d2a783de3f4efba96b186c540b67b1"
   integrity sha512-NI4nB2IWGcU4JVT1AE8kBb/dFor4zjLHMLsOROPahppeHrR0FG5uslxMmkp/thO1MvPjM2xhlKoY29/I60s0ew==
+
+electron-updater@^3.1.6:
+  version "3.1.6"
+  resolved "https://registry.npmjs.org/electron-updater/-/electron-updater-3.1.6.tgz#142ab3341a0a483ed377005b8dce961999d2b4d5"
+  integrity sha512-ZzNrFqvJJmG2O0qEVhAhI25WqJx6Nq3lNlXvBvX3i0zqWtAuSmcAdCbq4VyDymun/glsZ4bD3ZzATcIk3sYygg==
+  dependencies:
+    bluebird-lst "^1.0.5"
+    builder-util-runtime "~5.0.0"
+    electron-is-dev "^0.3.0"
+    fs-extra-p "^4.6.1"
+    js-yaml "^3.12.0"
+    lazy-val "^1.0.3"
+    lodash.isequal "^4.5.0"
+    semver "^5.6.0"
+    source-map-support "^0.5.9"
 
 electron@^2.0.6:
   version "2.0.12"
