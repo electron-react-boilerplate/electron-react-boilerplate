@@ -101,7 +101,7 @@
     },
     "publish": {
       "provider": "github",
-      "url": "electron-react-boilerplate",
+      "owner": "electron-react-boilerplate",
       "repo": "electron-react-boilerplate",
       "private": false
     }
