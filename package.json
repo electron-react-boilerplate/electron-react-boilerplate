@@ -192,7 +192,7 @@
     "babel-plugin-dev-expression": "^0.2.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.19",
     "chalk": "^2.4.1",
-    "concurrently": "^3.6.1",
+    "concurrently": "^4.0.1",
     "connected-react-router": "^4.4.1",
     "cross-env": "^5.2.0",
     "cross-spawn": "^6.0.5",
