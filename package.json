@@ -246,7 +246,7 @@
     "testcafe-live": "^0.1.3",
     "testcafe-react-selectors": "^3.0.0",
     "uglifyjs-webpack-plugin": "1.2.7",
-    "url-loader": "^1.0.1",
+    "url-loader": "^1.1.2",
     "webpack": "^4.23.1",
     "webpack-bundle-analyzer": "^2.13.1",
     "webpack-cli": "^3.1.2",
