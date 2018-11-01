@@ -12065,10 +12065,10 @@ stylelint-config-standard@^18.2.0:
   dependencies:
     stylelint-config-recommended "^2.1.0"
 
-stylelint@^9.4.0:
-  version "9.7.0"
-  resolved "https://registry.npmjs.org/stylelint/-/stylelint-9.7.0.tgz#d43de95ff5f875facfa31f811ea7b749020f1620"
-  integrity sha512-3PxEZ/8HKpKvdWWIeFSZ0gdTz1eEHo2IgLcliN7RJtXxCIHdyI44ffaRgxCyQN3sAGWJO41UXOIFyJxfwznIBA==
+stylelint@^9.7.1:
+  version "9.7.1"
+  resolved "https://registry.yarnpkg.com/stylelint/-/stylelint-9.7.1.tgz#522f8795832a9f7e062e5e4105c0e05fb53f827f"
+  integrity sha512-w3Xxnm2YElBmNAhmTjkTEyklAU2P+R8QMqDVM3S98zRLNPNLcCRXWzqtYsItbZYHQzSNOa6K20KxPVPfD8SFAw==
   dependencies:
     autoprefixer "^9.0.0"
     balanced-match "^1.0.0"
