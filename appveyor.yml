@@ -6,14 +6,10 @@ platform:
 environment:
   matrix:
     - nodejs_version: 10
-    - nodejs_version: 9
-  GH_TOKEN:
-    secure: JQTogieeX60CDa5l+4NGvmE3do+t8iDPrrppjHYfGbx2vlGMvNUtPbJvnsqZ07tF
 
 cache:
   - '%LOCALAPPDATA%/Yarn'
   - node_modules -> package.json
-  - app/node_modules -> app/package.json
   - flow-typed
   - '%USERPROFILE%\.electron'
 
