@@ -32,9 +32,7 @@ export default merge.smart(baseConfig, {
   module: require('./webpack.config.renderer.dev.babel').default.module,
 
   entry: {
-    renderer: Object.keys(dependencies || {}).filter(
-      dependency => dependency !== '@fortawesome/fontawesome-free'
-    )
+    renderer: Object.keys(dependencies || {})
   },
 
   output: {
