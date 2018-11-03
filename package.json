@@ -212,7 +212,7 @@
     "eslint-plugin-compat": "^2.6.3",
     "eslint-plugin-flowtype": "^3.2.0",
     "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jest": "^21.26.2",
+    "eslint-plugin-jest": "^21.27.0",
     "eslint-plugin-jsx-a11y": "6.1.2",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-react": "^7.11.1",
