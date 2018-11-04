@@ -5,7 +5,9 @@ matrix:
     - os: osx
       language: node_js
       node_js:
-        - node
+        # Uncomment line below once node 11 is stable
+        # - node
+        - 10
       env:
         - ELECTRON_CACHE=$HOME/.cache/electron
         - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
@@ -13,7 +15,9 @@ matrix:
     - os: linux
       language: node_js
       node_js:
-        - node
+        # Uncomment line below once node 11 is stable
+        # - node
+        - 10
       addons:
         apt:
           sources:
