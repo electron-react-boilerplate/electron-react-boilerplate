@@ -273,7 +273,6 @@
   },
   "engines": {
     "node": ">=10.x <11",
-    "npm": ">=4.x",
     "yarn": ">=0.21.3"
   },
   "collective": {
