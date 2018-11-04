@@ -1,12 +1,12 @@
 matrix:
   allow_failures:
     - os: windows
+    - node_js: node
   include:
     - os: osx
       language: node_js
       node_js:
-        # Uncomment line below once node 11 is stable
-        # - node
+        - node
         - 10
       env:
         - ELECTRON_CACHE=$HOME/.cache/electron
@@ -15,8 +15,7 @@ matrix:
     - os: linux
       language: node_js
       node_js:
-        # Uncomment line below once node 11 is stable
-        # - node
+        - node
         - 10
       addons:
         apt:
@@ -56,7 +55,7 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CXX="g++-8"; fi
 
 install:
-  - yarn
+  - yarn --ignore-engines
   # On Linux, initialize "virtual display". See before_script
   - |
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
