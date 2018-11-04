@@ -271,8 +271,8 @@
     "redux-thunk": "^2.3.0",
     "source-map-support": "^0.5.6"
   },
-  "devEngines": {
-    "node": ">=7.x",
+  "engines": {
+    "node": ">=10.x <11",
     "npm": ">=4.x",
     "yarn": ">=0.21.3"
   },
