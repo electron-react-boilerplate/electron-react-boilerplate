@@ -5107,6 +5107,11 @@ eslint@^5.8.0:
     table "^5.0.2"
     text-table "^0.2.0"
 
+esm@^3.0.84:
+  version "3.0.84"
+  resolved "https://registry.npmjs.org/esm/-/esm-3.0.84.tgz#bb108989f4673b32d4f62406869c28eed3815a63"
+  integrity sha512-SzSGoZc17S7P+12R9cg21Bdb7eybX25RnIeRZ80xZs+VZ3kdQKzqTp2k4hZJjR7p9l0186TTXSgrxzlMDBktlw==
+
 espree@^4.0.0:
   version "4.1.0"
   resolved "https://registry.npmjs.org/espree/-/espree-4.1.0.tgz#728d5451e0fd156c04384a7ad89ed51ff54eb25f"
