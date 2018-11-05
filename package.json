@@ -271,10 +271,9 @@
     "redux-thunk": "^2.3.0",
     "source-map-support": "^0.5.6"
   },
-  "devEngines": {
-    "node": ">=7.x",
-    "npm": ">=4.x",
-    "yarn": ">=0.21.3"
+  "engines": {
+    "node": ">=10.x <11",
+    "yarn": ">=1.x"
   },
   "collective": {
     "url": "https://opencollective.com/electron-react-boilerplate-594"
