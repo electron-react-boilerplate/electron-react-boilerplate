@@ -190,7 +190,7 @@
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",
     "babel-plugin-dev-expression": "^0.2.1",
-    "babel-plugin-transform-react-remove-prop-types": "^0.4.19",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.20",
     "chalk": "^2.4.1",
     "concurrently": "^4.0.1",
     "connected-react-router": "^4.5.0",
