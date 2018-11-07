@@ -252,7 +252,7 @@
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10",
     "webpack-merge": "^4.1.4",
-    "yarn": "^1.12.1"
+    "yarn": "^1.12.3"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.5.0",
