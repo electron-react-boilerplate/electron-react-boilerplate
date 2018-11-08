@@ -4,7 +4,8 @@
   ],
   "rangeStrategy": "bump",
   "baseBranches": ["next"],
-  "patch": {
-    "automerge": true
+  "automerge": true,
+  "major": {
+    "automerge": false
   }
 }
