@@ -13811,10 +13811,10 @@ yargs@^7.0.0:
     y18n "^3.2.1"
     yargs-parser "^5.0.0"
 
-yarn@^1.12.1:
-  version "1.12.1"
-  resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.12.1.tgz#afa478c9234ee55e8f4cdcfb994acfa54b69c95b"
-  integrity sha512-vdVLrYWx73k4QR8ZpQQ3HJg/X8aAunjUHuPlADR/ogmZOhnqgAdETPz0e/Df+MW8Dno7F1dOxS5e3G6niobumw==
+yarn@^1.12.3:
+  version "1.12.3"
+  resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.12.3.tgz#fb4599bf1f8da01552bcc7e1571dfd4e53788203"
+  integrity sha512-8f5rWNDvkhAmCxmn8C0LsNWMxTYVk4VGKiq0sIB6HGZjaZTHsGIH87SUmVDUEd2Wk54bqKoUlbVWgQFCQhRkVw==
 
 yauzl@2.4.1:
   version "2.4.1"
