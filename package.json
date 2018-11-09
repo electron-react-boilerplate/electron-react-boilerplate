@@ -60,6 +60,7 @@
     "productName": "ElectronReact",
     "appId": "org.develar.ElectronReact",
     "files": [
+      "!node_modules",
       "app/dist/",
       "app/app.html",
       "app/main.prod.js",
