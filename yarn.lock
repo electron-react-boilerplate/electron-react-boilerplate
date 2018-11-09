@@ -12385,10 +12385,10 @@ testcafe-browser-tools@1.6.5, testcafe-browser-tools@^1.0.0:
     read-file-relative "^1.2.0"
     which-promise "^1.0.0"
 
-testcafe-hammerhead@14.3.1:
-  version "14.3.1"
-  resolved "https://registry.yarnpkg.com/testcafe-hammerhead/-/testcafe-hammerhead-14.3.1.tgz#1b66cd5b069a60d9294f34377bb7be7413bdb447"
-  integrity sha512-MFo4sd7BxqKMYo5eiUiYL6FcVRe01SR8BPTYEI1IYqaQuVJfpUMmeQie4/KOocaoRN+3MPnCkbWN5yfrASSOcQ==
+testcafe-hammerhead@14.4.1:
+  version "14.4.1"
+  resolved "https://registry.yarnpkg.com/testcafe-hammerhead/-/testcafe-hammerhead-14.4.1.tgz#93d5bd0108c15aaf31ebcf09d8e73fd98f9a82d2"
+  integrity sha512-Av2+sQ29Wr1euFY5RDLudnRrS9A9rj1LnWr6zvuqcWlXTiOTuQRp9hZNpC6RZxm7eEHHvr0MYSkV9E4Jzy5ccw==
   dependencies:
     bowser "1.6.0"
     brotli "^1.3.1"
@@ -12474,10 +12474,10 @@ testcafe-reporter-xunit@^2.1.0:
   resolved "http://registry.npmjs.org/testcafe-reporter-xunit/-/testcafe-reporter-xunit-2.1.0.tgz#e6d66c572ce15af266706af0fd610b2a841dd443"
   integrity sha1-5tZsVyzhWvJmcGrw/WELKoQd1EM=
 
-testcafe@^0.23.0:
-  version "0.23.0"
-  resolved "https://registry.yarnpkg.com/testcafe/-/testcafe-0.23.0.tgz#15c08fc094d597d254a381b9d0e8dfb3bea83d24"
-  integrity sha512-/i1EfmhLdKoivs1MuJqY0V0lS4GTYakwr++SoxOruja5RlvWaeNosB9/Tv9b9y9wDAqufAP+Fdx0RQpujl7fYA==
+testcafe@^0.23.1:
+  version "0.23.1"
+  resolved "https://registry.yarnpkg.com/testcafe/-/testcafe-0.23.1.tgz#d730f7e94fbd9db2bdad849cb43a5d8aa98921a3"
+  integrity sha512-6XeDFRC28CPgeZ0nmZpABWlXC9GnqddO1PZESYWJt/IYIWqYv5nsz6wId6ggWB0YHloRAXWI8yktPIRp6Kg4Bg==
   dependencies:
     async-exit-hook "^1.1.2"
     babel-core "^6.22.1"
@@ -12534,7 +12534,7 @@ testcafe@^0.23.0:
     source-map-support "^0.5.5"
     strip-bom "^2.0.0"
     testcafe-browser-tools "1.6.5"
-    testcafe-hammerhead "14.3.1"
+    testcafe-hammerhead "14.4.1"
     testcafe-legacy-api "3.1.8"
     testcafe-reporter-json "^2.1.0"
     testcafe-reporter-list "^2.1.0"
