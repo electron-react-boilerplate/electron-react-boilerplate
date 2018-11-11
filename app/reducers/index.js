@@ -1,16 +1,17 @@
-import { combineReducers } from 'redux';
-import { connectRouter } from 'connected-react-router';
-import counter from './counter';
-import language from './language';
+/**
+ * Combine all reducers in this file and export the combined reducers.
+ */
+import { combineReducers } from 'redux-immutable';
+import { connectRouter } from 'connected-react-router/immutable';
 
-export default function createRootReducer(history) {
-  const routerReducer = connectRouter(history)(() => {});
+import counterReducer from './counter';
+import languageProviderReducer from './language';
 
-  return connectRouter(history)(
-    combineReducers({
-      router: routerReducer,
-      counter,
-      language
-    })
-  );
-}
+const rootReducer = history =>
+  combineReducers({
+    counter: counterReducer,
+    language: languageProviderReducer,
+    router: connectRouter(history)
+  });
+
+export default rootReducer;

@@ -191,7 +191,7 @@
     "babel-plugin-transform-react-remove-prop-types": "^0.4.19",
     "chalk": "^2.4.1",
     "concurrently": "^3.6.1",
-    "connected-react-router": "^4.4.1",
+    "connected-react-router": "^5.0.1",
     "cross-env": "^5.2.0",
     "cross-spawn": "^6.0.5",
     "css-loader": "^1.0.1",
@@ -274,6 +274,7 @@
     "redux": "^4.0.0",
     "redux-immutable": "^4.0.0",
     "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0",
     "sanitize.css": "^8.0.0",
     "source-map-support": "^0.5.6"
   },

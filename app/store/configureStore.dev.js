@@ -1,16 +1,19 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+import Immutable from 'immutable';
 import { createHashHistory } from 'history';
-import { routerMiddleware, routerActions } from 'connected-react-router';
+import {
+  routerMiddleware,
+  routerActions
+} from 'connected-react-router/immutable';
 import { createLogger } from 'redux-logger';
-import createRootReducer from '../reducers';
+
+import rootReducer from '../reducers';
 import appActions from '../actions';
 
 const history = createHashHistory();
 
-const rootReducer = createRootReducer(history);
-
-const configureStore = initialState => {
+const configureStore = () => {
   // Redux Configuration
   const middleware = [];
   const enhancers = [];
@@ -52,14 +55,21 @@ const configureStore = initialState => {
   enhancers.push(applyMiddleware(...middleware));
   const enhancer = composeEnhancers(...enhancers);
 
+  // Initital state
+  const initialState = Immutable.Map();
+
   // Create Store
-  const store = createStore(rootReducer, initialState, enhancer);
+  const store = createStore(
+    rootReducer(history),
+    Immutable.fromJS(initialState),
+    enhancer
+  );
 
   if (module.hot) {
     module.hot.accept(
       '../reducers',
       // eslint-disable-next-line global-require
-      () => store.replaceReducer(require('../reducers').default)
+      () => store.replaceReducer(rootReducer(history))
     );
   }
 

@@ -1,16 +1,17 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+import { fromJS } from 'immutable';
 import { createHashHistory } from 'history';
 import { routerMiddleware } from 'connected-react-router';
-import createRootReducer from '../reducers';
+import createReducer from '../reducers';
 
 const history = createHashHistory();
-const rootReducer = createRootReducer(history);
+const rootReducer = createReducer(history);
 const router = routerMiddleware(history);
 const enhancer = applyMiddleware(thunk, router);
 
 function configureStore(initialState) {
-  return createStore(rootReducer, initialState, enhancer);
+  return createStore(rootReducer, fromJS(initialState), enhancer);
 }
 
 export default { configureStore, history };

@@ -1,13 +1,14 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
+
 import Counter from '../components/Counter';
 import * as CounterActions from '../actions/counter';
+import { makeSelectCounter } from '../selectors/counter';
 
-function mapStateToProps(state) {
-  return {
-    counter: state.counter
-  };
-}
+const mapStateToProps = createSelector(makeSelectCounter(), counter => ({
+  counter
+}));
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(CounterActions, dispatch);
