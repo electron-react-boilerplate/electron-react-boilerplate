@@ -1,4 +1,6 @@
 {
+  "app.containers.NotFound.header": "Page not found.",
+  "app.containers.NotFound.return": "Take me outta here",
   "app.containers.Home.header": "Home",
   "app.containers.Home.link": "to Counter"
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Hello Electron React!</title>
     <script>
       (function() {
@@ -12,11 +12,17 @@
           // HACK: Writing the script path should be done with webpack
           document.getElementsByTagName('head')[0].appendChild(link);
         }
-      }());
+      })();
     </script>
   </head>
   <body>
+    <!-- The app hooks into this div -->
     <div id="root"></div>
+    <!-- Font -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+      rel="stylesheet"
+    />
     <script>
       {
         const scripts = [];
@@ -30,7 +36,7 @@
         // Dynamically insert the bundled app script in the renderer process
         const port = process.env.PORT || 1212;
         scripts.push(
-          (process.env.HOT)
+          process.env.HOT
             ? 'http://localhost:' + port + '/dist/renderer.dev.js'
             : './dist/renderer.prod.js'
         );

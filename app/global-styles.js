@@ -1,41 +1,29 @@
 import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
+  html,
   body {
-    position: relative;
-    color: white;
-    height: 100vh;
-    background-color: #232c39;
-    background-image: linear-gradient(45deg, rgba(0, 216, 255, 0.5) 10%, rgba(0, 1, 127, 0.7));
-    font-family: Arial, Helvetica, Helvetica Neue, serif;
-    overflow-y: hidden;
+    height: 100%;
+    width: 100%;
   }
 
-  h2 {
-    margin: 0;
-    font-size: 2.25rem;
-    font-weight: bold;
-    letter-spacing: -0.025em;
-    color: #fff;
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
-  p {
-    font-size: 24px;
+  body.fontLoaded {
+    font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
-  li {
-    list-style: none;
+  #app {
+    min-height: 100%;
+    min-width: 100%;
+    display: flex;
   }
 
-  a {
-    color: white;
-    opacity: 0.75;
-    text-decoration: none;
-  }
-
-  a:hover {
-    opacity: 1;
-    text-decoration: none;
-    cursor: pointer;
+  p,
+  label {
+    font-family: Georgia, Times, 'Times New Roman', serif;
+    line-height: 1.5em;
   }
 `;

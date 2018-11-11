@@ -5,7 +5,6 @@ import LanguageProvider from '../components/LanguageProvider';
 import * as LanguageProviderActions from '../actions/counter';
 
 function mapStateToProps(state) {
-  console.log('FGDFGFDGDF', { ...state });
   return {
     locale: state.language.get('locale')
   };
