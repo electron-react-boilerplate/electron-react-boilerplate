@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { FormattedMessage } from 'react-intl';
 
 import routes from '../constants/routes';
+import messages from '../messages/Home';
 
 const Container = styled.div`
   position: absolute;
@@ -23,9 +25,14 @@ export default class Home extends Component {
   render() {
     return (
       <Container data-tid="container">
-        <H2>Home</H2>
+        <H2>
+          {' '}
+          <FormattedMessage {...messages.header} />
+        </H2>
         <LinkWrapper>
-          <Link to={routes.COUNTER}>to Counter</Link>
+          <Link to={routes.COUNTER}>
+            <FormattedMessage {...messages.link} />
+          </Link>
         </LinkWrapper>
       </Container>
     );
