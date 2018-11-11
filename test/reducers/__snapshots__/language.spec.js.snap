@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`reducers gallery should handle CHANGE_LOCALE 1`] = `
+Immutable.Map {
+  "locale": "en",
+}
+`;
+
+exports[`reducers gallery should handle initial state 1`] = `
+Immutable.Map {
+  "locale": "en",
+}
+`;
+
+exports[`reducers gallery should handle unknown action type 1`] = `Immutable.Map {}`;

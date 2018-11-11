@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`reducers gallery should handle SET_GALLERY 1`] = `
+Immutable.Map {
+  "/gallery/moduleId/galleryId": Immutable.Map {
+    "loading": false,
+    "error": false,
+    "hasNextPage": true,
+    "pageNumber": 0,
+    "items": Immutable.Map {},
+    "itemsList": Immutable.List [],
+    "scrollPosition": -1,
+    "oldWidth": 0,
+  },
+}
+`;
+
+exports[`reducers gallery should handle SWITCH_VIEW 1`] = `Immutable.Map {}`;
+
+exports[`reducers gallery should handle initial state 1`] = `
+Immutable.Map {
+  "lorumPicsumOne": Immutable.Map {
+    "loading": false,
+    "error": false,
+    "hasNextPage": true,
+    "pageNumber": 0,
+    "items": Immutable.Map {},
+    "itemsList": Immutable.List [],
+    "scrollPosition": -1,
+    "oldWidth": 0,
+  },
+  "lorumPicsumTwo": Immutable.Map {
+    "loading": false,
+    "error": false,
+    "hasNextPage": true,
+    "pageNumber": 0,
+    "items": Immutable.Map {},
+    "itemsList": Immutable.List [],
+    "scrollPosition": -1,
+    "oldWidth": 0,
+  },
+}
+`;
+
+exports[`reducers gallery should handle unknown action type 1`] = `Immutable.Map {}`;

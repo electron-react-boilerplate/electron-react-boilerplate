@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router/immutable';
 
@@ -25,5 +26,5 @@ export default class Root extends Component {
 Root.propTypes = {
   store: PropTypes.object.isRequired,
   messages: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired
+  history: ReactRouterPropTypes.history.isRequired,
 };

@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`actions gallery itemLoaded should create LOAD_ITEM_SUCCESS action 1`] = `
+Object {
+  "meta": Object {
+    "galleryId": 2,
+    "moduleId": 1,
+    "searchQuery": "search",
+  },
+  "payload": "item",
+  "type": "redux/Gallery/LOAD_ITEM_SUCCESS",
+}
+`;
+
+exports[`actions gallery itemLoadingError should create LOAD_ITEM_ERROR action 1`] = `
+Object {
+  "meta": Object {
+    "galleryId": 2,
+    "moduleId": 1,
+    "searchQuery": "search",
+  },
+  "payload": Object {
+    "error": "error",
+    "item": "item",
+  },
+  "type": "redux/Gallery/LOAD_ITEM_ERROR",
+}
+`;
+
+exports[`actions gallery itemsLoaded should create LOAD_ITEMS_SUCCESS action 1`] = `
+Object {
+  "meta": Object {
+    "galleryId": 2,
+    "moduleId": 1,
+    "searchQuery": "search",
+  },
+  "payload": Object {
+    "hasNextPage": true,
+  },
+  "type": "redux/Gallery/LOAD_ITEMS_SUCCESS",
+}
+`;
+
+exports[`actions gallery itemsLoadingError should create LOAD_ITEMS_ERROR action 1`] = `
+Object {
+  "meta": Object {
+    "galleryId": 2,
+    "moduleId": 1,
+    "searchQuery": "search",
+  },
+  "payload": "error",
+  "type": "redux/Gallery/LOAD_ITEMS_ERROR",
+}
+`;
+
+exports[`actions gallery loadItems should create LOAD_ITEMS action 1`] = `
+Object {
+  "meta": Object {
+    "galleryId": 2,
+    "moduleId": 1,
+    "searchQuery": "search",
+  },
+  "type": "redux/Gallery/LOAD_ITEMS",
+}
+`;
+
+exports[`actions gallery markItem should create MARK_ITEM action 1`] = `
+Object {
+  "meta": Object {
+    "galleryId": 2,
+    "moduleId": 1,
+    "searchQuery": "search",
+  },
+  "payload": Object {
+    "id": 3,
+    "marked": true,
+  },
+  "type": "redux/Gallery/MARK_ITEM",
+}
+`;
+
+exports[`actions gallery saveScrollPosition should create SAVE_SCROLL_POSITION action 1`] = `
+Object {
+  "meta": Object {
+    "galleryId": 2,
+    "moduleId": 1,
+    "searchQuery": "search",
+  },
+  "payload": Object {
+    "oldWidth": 4,
+    "scrollPosition": 3,
+  },
+  "type": "redux/Gallery/SAVE_SCROLL_POSITION",
+}
+`;

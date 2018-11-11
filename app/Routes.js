@@ -1,16 +1,16 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
-import routes from './constants/routes';
+
 import App from './containers/App';
 import HomePage from './containers/HomePage';
-import CounterPage from './containers/CounterPage';
+import Gallery from './containers/GalleryPage';
 import NotFound from './components/NotFound';
 
 export default () => (
   <App>
     <Switch>
-      <Route path={routes.COUNTER} component={CounterPage} />
-      <Route path={routes.HOME} component={HomePage} />
+      <Route exact path="/" component={HomePage} />
+      <Route path="/(gallery|search)/:moduleId/:galleryId?/:searchQuery?" component={Gallery} />
       <Route path="" component={NotFound} />
     </Switch>
   </App>

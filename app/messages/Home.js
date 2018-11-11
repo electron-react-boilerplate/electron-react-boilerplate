@@ -7,11 +7,11 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'app.containers.Home.header',
-    defaultMessage: 'ERROR'
+    id: 'app.containers.HomePage.header',
+    defaultMessage: 'Home Page',
   },
-  link: {
-    id: 'app.containers.Home.link',
-    defaultMessage: 'ERROR'
-  }
+  chooseModule: {
+    id: 'app.containers.HomePage.chooseModule',
+    defaultMessage: 'Choose a Gallery Module from the List',
+  },
 });

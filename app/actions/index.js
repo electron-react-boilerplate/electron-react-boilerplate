@@ -1,9 +1,11 @@
-import * as counterActions from './counter';
+import * as globalActions from './global';
+import * as galleryActions from './gallery';
 import * as languageActions from './language';
 
 const actions = {
-  ...counterActions,
-  ...languageActions
+  ...globalActions,
+  ...galleryActions,
+  ...languageActions,
 };
 
 export default actions;

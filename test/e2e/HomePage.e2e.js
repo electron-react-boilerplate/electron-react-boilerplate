@@ -1,17 +1,19 @@
 import { ClientFunction, Selector } from 'testcafe';
-import { ReactSelector, waitForReact } from 'testcafe-react-selectors';
-import { getPageUrl } from './helpers';
 
 const getPageTitle = ClientFunction(() => document.title);
-const counterSelector = Selector('[data-tid="counter"]');
-const buttonsSelector = Selector('[data-tclass="btn"]');
-const clickToCounterLink = t =>
-  t.click(Selector('a').withExactText('to Counter'));
-const incrementButton = buttonsSelector.nth(0);
-const decrementButton = buttonsSelector.nth(1);
-const oddButton = buttonsSelector.nth(2);
-const asyncButton = buttonsSelector.nth(3);
-const getCounterText = () => counterSelector().innerText;
+
+const headerSelector = Selector('[data-tid="header"]');
+const firstModuleSelector = Selector('[data-tid="module-0"]');
+const secondModuleSelector = Selector('[data-tid="module-1"]');
+const titleSelector = Selector('[data-tid="title"]');
+
+const getHeaderText = () => headerSelector().innerText;
+const getFirstModuleText = () => firstModuleSelector().innerText;
+const getSecondModuleText = () => secondModuleSelector().innerText;
+const getTitleText = () => titleSelector().innerText;
+
+const clickToGalleryLink = t => t.click(firstModuleSelector());
+
 const assertNoConsoleErrors = async t => {
   const { error } = await t.getBrowserConsoleMessages();
   await t.expect(error).eql([]);
@@ -20,83 +22,35 @@ const assertNoConsoleErrors = async t => {
 fixture`Home Page`.page('../../app/app.html').afterEach(assertNoConsoleErrors);
 
 test('e2e', async t => {
-  await t.expect(getPageTitle()).eql('React.js Test');
+  await t.expect(getPageTitle()).eql('Home - Electron');
 });
 
-test('should open window', async t => {
-  await t.expect(getPageTitle()).eql('React.js Test');
+test('should open window with title', async t => {
+  await t.expect(getHeaderText()).eql('Choose a Gallery Module from the List');
 });
 
-test(
-  "should haven't any logs in console of main window",
-  assertNoConsoleErrors
-);
+test('should have at least one module link', async t => {
+  await t.expect(getFirstModuleText()).eql('Test Module\n');
+});
 
-test('should to Counter with click "to Counter" link', async t => {
+test('should have two module links', async t => {
+  await t.expect(getSecondModuleText()).eql('Test Module Two\n');
+});
+
+test("should haven't any logs in console of main window", assertNoConsoleErrors);
+
+test('should navigate to Gallery when Module link clicked', async t => {
   await t
-    .click('[data-tid=container] a')
-    .expect(getCounterText())
-    .eql('0');
+    .click('[data-tid="module-0"]')
+    .expect(getPageTitle())
+    .eql('Gallery - Electron');
 });
 
-test('should navgiate to /counter', async t => {
-  await waitForReact();
-  await t
-    .click(
-      ReactSelector('Link').withProps({
-        to: '/counter'
-      })
-    )
-    .expect(getPageUrl())
-    .contains('/counter');
-});
-
-fixture`Counter Tests`
+fixture`Gallery Page`
   .page('../../app/app.html')
-  .beforeEach(clickToCounterLink)
+  .beforeEach(clickToGalleryLink)
   .afterEach(assertNoConsoleErrors);
 
-test('should display updated count after increment button click', async t => {
-  await t
-    .click(incrementButton)
-    .expect(getCounterText())
-    .eql('1');
-});
-
-test('should display updated count after descrement button click', async t => {
-  await t
-    .click(decrementButton)
-    .expect(getCounterText())
-    .eql('-1');
-});
-
-test('should not change if even and if odd button clicked', async t => {
-  await t
-    .click(oddButton)
-    .expect(getCounterText())
-    .eql('0');
-});
-
-test('should change if odd and if odd button clicked', async t => {
-  await t
-    .click(incrementButton)
-    .click(oddButton)
-    .expect(getCounterText())
-    .eql('2');
-});
-
-test('should change if async button clicked and a second later', async t => {
-  await t
-    .click(asyncButton)
-    .expect(getCounterText())
-    .eql('0')
-    .expect(getCounterText())
-    .eql('1');
-});
-
-test('should back to home if back button clicked', async t => {
-  await t
-    .click('[data-tid="backButton"] > a')
-    .expect(Selector('[data-tid="container"]').visible)
-    .ok();
+test('should display module name', async t => {
+  await t.expect(getTitleText()).eql('lorumPicsumOne');
 });

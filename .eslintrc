@@ -16,6 +16,7 @@
     "comma-dangle": "off",
     "generator-star-spacing": "off",
     "import/no-unresolved": "error",
+    "import/no-named-as-default": "off",
     "import/no-extraneous-dependencies": "off",
     "jsx-a11y/anchor-is-valid": "off",
     "max-len": 0,
@@ -29,21 +30,12 @@
     "react/sort-comp": [
       "error",
       {
-        "order": [
-          "type-annotations",
-          "static-methods",
-          "lifecycle",
-          "everything-else",
-          "render"
-        ]
+        "order": ["type-annotations", "static-methods", "lifecycle", "everything-else", "render"]
       }
     ],
     "react/jsx-no-bind": "off",
-    "react/forbid-prop-types": "off",
-    "react/jsx-filename-extension": [
-      "error",
-      { "extensions": [".js", ".jsx"] }
-    ],
+    "react/forbid-prop-types": ["error", { "forbid": ["any"] }],
+    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
     "react/prefer-stateless-function": "off",
     "redux-saga/no-yield-in-race": 2,
     "redux-saga/yield-effects": 2,

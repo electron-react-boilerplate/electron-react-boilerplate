@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`reducers gallery should handle LOAD_ITEM_ERROR 1`] = `Immutable.Map {}`;
+
+exports[`reducers gallery should handle LOAD_ITEM_SUCCESS 1`] = `
+Immutable.Map {
+  "/gallery/moduleId/galleryId": Immutable.Map {
+    "itemsList": Immutable.List [
+      "A",
+      "B",
+      "C",
+      "id",
+    ],
+    "items": Immutable.Map {
+      "id": Immutable.Map {
+        "id": "id",
+      },
+    },
+  },
+}
+`;
+
+exports[`reducers gallery should handle LOAD_ITEMS 1`] = `
+Immutable.Map {
+  "/gallery/moduleId/galleryId": Immutable.Map {
+    "loading": true,
+    "error": false,
+    "pageNumber": NaN,
+  },
+}
+`;
+
+exports[`reducers gallery should handle LOAD_ITEMS_ERROR 1`] = `
+Immutable.Map {
+  "/gallery/moduleId/galleryId": Immutable.Map {
+    "error": "error",
+    "loading": false,
+  },
+}
+`;
+
+exports[`reducers gallery should handle LOAD_ITEMS_SUCCESS 1`] = `
+Immutable.Map {
+  "/gallery/moduleId/galleryId": Immutable.Map {
+    "hasNextPage": true,
+    "loading": false,
+  },
+}
+`;
+
+exports[`reducers gallery should handle MARK_ITEM 1`] = `
+Immutable.Map {
+  "/gallery/moduleId/galleryId": Immutable.Map {
+    "items": Immutable.Map {
+      "id": Immutable.Map {
+        "marked": true,
+      },
+    },
+  },
+}
+`;
+
+exports[`reducers gallery should handle SAVE_SCROLL_POSITION 1`] = `
+Immutable.Map {
+  "/gallery/moduleId/galleryId": Immutable.Map {
+    "scrollPosition": 7,
+    "oldWidth": 11,
+  },
+}
+`;
+
+exports[`reducers gallery should handle SET_GALLERY 1`] = `
+Immutable.Map {
+  "/gallery/moduleId/galleryId": Immutable.Map {
+    "loading": false,
+    "error": false,
+    "hasNextPage": true,
+    "pageNumber": 0,
+    "items": Immutable.Map {},
+    "itemsList": Immutable.List [],
+    "scrollPosition": -1,
+    "oldWidth": 0,
+  },
+}
+`;
+
+exports[`reducers gallery should handle initial state 1`] = `
+Immutable.Map {
+  "lorumPicsumOne": Immutable.Map {
+    "loading": false,
+    "error": false,
+    "hasNextPage": true,
+    "pageNumber": 0,
+    "items": Immutable.Map {},
+    "itemsList": Immutable.List [],
+    "scrollPosition": -1,
+    "oldWidth": 0,
+  },
+  "lorumPicsumTwo": Immutable.Map {
+    "loading": false,
+    "error": false,
+    "hasNextPage": true,
+    "pageNumber": 0,
+    "items": Immutable.Map {},
+    "itemsList": Immutable.List [],
+    "scrollPosition": -1,
+    "oldWidth": 0,
+  },
+}
+`;
+
+exports[`reducers gallery should handle unknown action type 1`] = `Immutable.Map {}`;

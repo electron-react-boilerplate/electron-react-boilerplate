@@ -4,14 +4,16 @@
 import { combineReducers } from 'redux-immutable';
 import { connectRouter } from 'connected-react-router/immutable';
 
-import counterReducer from './counter';
+import galleryReducer from './gallery';
+import globalReducer from './global';
 import languageProviderReducer from './language';
 
 const rootReducer = history =>
   combineReducers({
-    counter: counterReducer,
+    gallery: galleryReducer,
+    global: globalReducer,
     language: languageProviderReducer,
-    router: connectRouter(history)
+    router: connectRouter(history),
   });
 
 export default rootReducer;

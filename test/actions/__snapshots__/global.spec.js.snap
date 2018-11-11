@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`actions global setGallery should create SET_GALLERY action 1`] = `
+Object {
+  "payload": Object {
+    "galleryId": undefined,
+    "moduleId": undefined,
+    "searchQuery": undefined,
+  },
+  "type": "redux/Global/SET_GALLERY",
+}
+`;
+
+exports[`actions global switchView should create SWITCH_VIEW action 1`] = `
+Object {
+  "type": "redux/Global/SWITCH_VIEW",
+}
+`;

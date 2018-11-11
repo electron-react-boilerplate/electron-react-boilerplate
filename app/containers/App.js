@@ -11,11 +11,11 @@ import GlobalStyle from '../global-styles';
 // It's optional.
 const theme = createMuiTheme({
   palette: {
-    type: 'dark'
+    type: 'dark',
   },
   typography: {
-    useNextVariants: true
-  }
+    useNextVariants: true,
+  },
 });
 
 const AppWrapper = styled.div`
@@ -30,8 +30,8 @@ export default class App extends React.Component {
       <MuiThemeProvider theme={theme}>
         <GlobalStyle />
         <CssBaseline />
-        <Helmet titleTemplate="%s - React.js Test" defaultTitle="React.js Test">
-          <meta name="description" content="A React.js Test application" />
+        <Helmet titleTemplate="%s - Electron" defaultTitle="Electron">
+          <meta name="description" content="An Electron application using React.js" />
         </Helmet>
         <AppWrapper>{children}</AppWrapper>
       </MuiThemeProvider>
@@ -40,5 +40,5 @@ export default class App extends React.Component {
 }
 
 App.propTypes = {
-  children: PropTypes.element.isRequired
+  children: PropTypes.element.isRequired,
 };

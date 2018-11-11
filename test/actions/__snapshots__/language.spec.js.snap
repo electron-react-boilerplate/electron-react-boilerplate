@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`actions language changeLocale should create CHANGE_LOCALE action 1`] = `
+Object {
+  "locale": "en",
+  "type": "CHANGE_LOCALE",
+}
+`;
