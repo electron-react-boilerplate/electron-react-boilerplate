@@ -26,7 +26,6 @@ export default class Home extends Component {
     return (
       <Container data-tid="container">
         <H2>
-          {' '}
           <FormattedMessage {...messages.header} />
         </H2>
         <LinkWrapper>

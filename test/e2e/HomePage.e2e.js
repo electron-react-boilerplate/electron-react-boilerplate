@@ -20,11 +20,11 @@ const assertNoConsoleErrors = async t => {
 fixture`Home Page`.page('../../app/app.html').afterEach(assertNoConsoleErrors);
 
 test('e2e', async t => {
-  await t.expect(getPageTitle()).eql('Hello Electron React!');
+  await t.expect(getPageTitle()).eql('React.js Test');
 });
 
 test('should open window', async t => {
-  await t.expect(getPageTitle()).eql('Hello Electron React!');
+  await t.expect(getPageTitle()).eql('React.js Test');
 });
 
 test(
@@ -34,7 +34,7 @@ test(
 
 test('should to Counter with click "to Counter" link', async t => {
   await t
-    .click('[data-tid=container] > a')
+    .click('[data-tid=container] a')
     .expect(getCounterText())
     .eql('0');
 });

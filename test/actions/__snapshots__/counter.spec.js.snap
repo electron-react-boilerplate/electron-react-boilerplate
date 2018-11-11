@@ -11,3 +11,15 @@ Object {
   "type": "INCREMENT_COUNTER",
 }
 `;
+
+exports[`actions should incrementAsync should create incrementAsync action 1`] = `
+Object {
+  "type": "INCREMENT_ASYNC",
+}
+`;
+
+exports[`actions should incrementIfOdd should create incrementIfOdd action 1`] = `
+Object {
+  "type": "INCREMENT_IF_ODD",
+}
+`;

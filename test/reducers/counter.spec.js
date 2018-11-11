@@ -1,3 +1,5 @@
+import { fromJS } from 'immutable';
+
 import counter from '../../app/reducers/counter';
 import {
   INCREMENT_COUNTER,
@@ -11,15 +13,31 @@ describe('reducers', () => {
     });
 
     it('should handle INCREMENT_COUNTER', () => {
-      expect(counter(1, { type: INCREMENT_COUNTER })).toMatchSnapshot();
+      const initialState = fromJS({
+        count: 1
+      });
+
+      expect(
+        counter(initialState, { type: INCREMENT_COUNTER })
+      ).toMatchSnapshot();
     });
 
     it('should handle DECREMENT_COUNTER', () => {
-      expect(counter(1, { type: DECREMENT_COUNTER })).toMatchSnapshot();
+      const initialState = fromJS({
+        count: 1
+      });
+
+      expect(
+        counter(initialState, { type: DECREMENT_COUNTER })
+      ).toMatchSnapshot();
     });
 
     it('should handle unknown action type', () => {
-      expect(counter(1, { type: 'unknown' })).toMatchSnapshot();
+      const initialState = fromJS({
+        count: 1
+      });
+
+      expect(counter(initialState, { type: 'unknown' })).toMatchSnapshot();
     });
   });
 });
