@@ -15,7 +15,7 @@ export default createGlobalStyle`
     font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
-  #app {
+  #root {
     min-height: 100%;
     min-width: 100%;
     display: flex;
