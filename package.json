@@ -213,6 +213,7 @@
     "eslint-plugin-jsx-a11y": "6.1.2",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-react": "^7.10.0",
+    "eslint-plugin-redux-saga": "^0.10.0",
     "eslint-plugin-testcafe": "^0.2.1",
     "fbjs-scripts": "^1.0.1",
     "file-loader": "^2.0.0",
@@ -273,7 +274,7 @@
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.0",
     "redux-immutable": "^4.0.0",
-    "redux-thunk": "^2.3.0",
+    "redux-saga": "^0.16.2",
     "reselect": "^4.0.0",
     "sanitize.css": "^8.0.0",
     "source-map-support": "^0.5.6"

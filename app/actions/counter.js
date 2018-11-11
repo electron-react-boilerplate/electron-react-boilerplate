@@ -1,3 +1,5 @@
+export const INCREMENT_ASYNC = 'INCREMENT_ASYNC';
+export const INCREMENT_IF_ODD = 'INCREMENT_IF_ODD';
 export const INCREMENT_COUNTER = 'INCREMENT_COUNTER';
 export const DECREMENT_COUNTER = 'DECREMENT_COUNTER';
 
@@ -14,21 +16,13 @@ export function decrement() {
 }
 
 export function incrementIfOdd() {
-  return (dispatch, getState) => {
-    const { counter } = getState();
-
-    if (counter % 2 === 0) {
-      return;
-    }
-
-    dispatch(increment());
+  return {
+    type: INCREMENT_IF_ODD
   };
 }
 
-export function incrementAsync(delay = 1000) {
-  return dispatch => {
-    setTimeout(() => {
-      dispatch(increment());
-    }, delay);
+export function incrementAsync() {
+  return {
+    type: INCREMENT_ASYNC
   };
 }

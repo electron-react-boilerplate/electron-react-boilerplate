@@ -1,5 +1,4 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
 import Immutable from 'immutable';
 import { createHashHistory } from 'history';
 import {
@@ -7,19 +6,22 @@ import {
   routerActions
 } from 'connected-react-router/immutable';
 import { createLogger } from 'redux-logger';
+import createSagaMiddleware from 'redux-saga';
 
 import rootReducer from '../reducers';
 import appActions from '../actions';
 
 const history = createHashHistory();
 
+const sagaMiddleware = createSagaMiddleware();
+
 const configureStore = () => {
   // Redux Configuration
   const middleware = [];
   const enhancers = [];
 
-  // Thunk Middleware
-  middleware.push(thunk);
+  // Saga Middleware
+  middleware.push(sagaMiddleware);
 
   // Logging Middleware
   const logger = createLogger({
@@ -64,6 +66,11 @@ const configureStore = () => {
     Immutable.fromJS(initialState),
     enhancer
   );
+
+  // Extensions
+  store.runSaga = sagaMiddleware.run;
+  store.injectedReducers = {}; // Reducer registry
+  store.injectedSagas = {}; // Saga registry
 
   if (module.hot) {
     module.hot.accept(

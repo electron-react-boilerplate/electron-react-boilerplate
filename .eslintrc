@@ -18,6 +18,7 @@
     "import/no-unresolved": "error",
     "import/no-extraneous-dependencies": "off",
     "jsx-a11y/anchor-is-valid": "off",
+    "max-len": 0,
     "no-console": "off",
     "no-use-before-define": "off",
     "no-multi-assign": "off",
@@ -43,9 +44,12 @@
       "error",
       { "extensions": [".js", ".jsx"] }
     ],
-    "react/prefer-stateless-function": "off"
+    "react/prefer-stateless-function": "off",
+    "redux-saga/no-yield-in-race": 2,
+    "redux-saga/yield-effects": 2,
+    "require-yield": 0
   },
-  "plugins": ["import", "promise", "compat", "react"],
+  "plugins": ["import", "promise", "compat", "redux-saga", "react"],
   "settings": {
     "import/resolver": {
       "webpack": {
