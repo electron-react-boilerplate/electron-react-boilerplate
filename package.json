@@ -242,7 +242,7 @@
     "stylelint-config-prettier": "^4.0.0",
     "stylelint-config-standard": "^18.2.0",
     "terser-webpack-plugin": "^1.1.0",
-    "testcafe": "^0.23.1",
+    "testcafe": "^0.23.2",
     "testcafe-browser-provider-electron": "^0.0.6",
     "testcafe-live": "^0.1.4",
     "testcafe-react-selectors": "^3.0.0",
