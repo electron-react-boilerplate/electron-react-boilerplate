@@ -61,7 +61,7 @@ A boilerplate for Scalable Cross-Platform Desktop Apps based on  <a href="http:/
 First, clone the repo via git:
 
 ```bash
-git clone --depth=1 https://github.com/electron-react-boilerplate/electron-react-boilerplate.git your-project-name
+git clone --depth=1 --single-branch -b master https://github.com/electron-react-boilerplate/electron-react-boilerplate.git your-project-name
 ```
 
 And then install the dependencies with yarn.
