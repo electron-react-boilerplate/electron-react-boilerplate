@@ -1,4 +1,9 @@
+# 0.17.1 (2018.11.20)
+
+- fixes incorrect path in `yarn start` script
+
 # 0.17.0 (2018.10.30)
+
 - upgraded to `babel@7` (thanks to @vikr01 🎉🎉🎉)
 - migrated from [two `package.json` structure](https://www.electron.build/tutorials/two-package-structure) (thanks to @HyperSprite!)
 - initial auto update support (experimental)
@@ -9,6 +14,7 @@
 - fix failing ci issues
 
 # 0.16.0 (2018.10.3)
+
 - removed unused dependencies
 - migrate from `react-redux-router` to `connect-react-router`
 - move webpack configs to `./webpack` dir
