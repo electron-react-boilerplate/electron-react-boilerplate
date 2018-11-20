@@ -1,6 +1,13 @@
 # 0.17.1 (2018.11.20)
 
-- fixes incorrect path in `yarn start` script
+- Fix `yarn test-e2e` and testcafe for single package.json structure
+- Fixes incorrect path in `yarn start` script
+- Bumped deps
+- Bump g++ in travis
+- Change clone arguments to clone only master
+- Change babel config to target current electron version
+
+For full change list, see https://github.com/electron-react-boilerplate/electron-react-boilerplate/pull/2021
 
 # 0.17.0 (2018.10.30)
 
