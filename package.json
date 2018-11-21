@@ -225,7 +225,7 @@
     "husky": "^1.1.4",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^23.6.0",
-    "lint-staged": "^8.0.4",
+    "lint-staged": "^8.0.5",
     "mini-css-extract-plugin": "^0.4.4",
     "node-sass": "^4.10.0",
     "opencollective-postinstall": "^2.0.1",
