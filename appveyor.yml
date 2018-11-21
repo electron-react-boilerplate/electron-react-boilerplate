@@ -9,7 +9,7 @@ environment:
 
 cache:
   - '%LOCALAPPDATA%/Yarn'
-  - node_modules -> yarn.lock
+  - node_modules
   - flow-typed
   - '%USERPROFILE%\.electron'
 
