@@ -193,7 +193,6 @@
     "babel-plugin-transform-react-remove-prop-types": "^0.4.20",
     "chalk": "^2.4.1",
     "concurrently": "^4.1.0",
-    "connected-react-router": "^5.0.1",
     "cross-env": "^5.2.0",
     "cross-spawn": "^6.0.5",
     "css-loader": "^1.0.1",
@@ -256,6 +255,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.5.0",
+    "connected-react-router": "^5.0.1",
     "devtron": "^1.4.0",
     "electron-debug": "^2.0.0",
     "electron-log": "^2.2.17",
