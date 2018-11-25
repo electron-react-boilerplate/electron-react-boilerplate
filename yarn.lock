@@ -10860,9 +10860,9 @@ testcafe-live@^0.1.4:
     log-update-async-hook "^2.0.2"
     wrap-ansi "^3.0.1"
 
-testcafe-react-selectors@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.npmjs.org/testcafe-react-selectors/-/testcafe-react-selectors-3.0.0.tgz#9543c642d3fa5669d573ca0e7287cc650ffe804f"
+testcafe-react-selectors@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/testcafe-react-selectors/-/testcafe-react-selectors-3.0.1.tgz#70fd99a854235e087cc027c377d8dedbaffa6dbf"
 
 testcafe-reporter-json@^2.1.0:
   version "2.1.0"
