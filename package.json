@@ -245,7 +245,7 @@
     "testcafe": "^0.23.2",
     "testcafe-browser-provider-electron": "^0.0.6",
     "testcafe-live": "^0.1.4",
-    "testcafe-react-selectors": "^3.0.1",
+    "testcafe-react-selectors": "^3.0.2",
     "url-loader": "^1.1.2",
     "webpack": "^4.26.1",
     "webpack-bundle-analyzer": "^3.0.3",
