@@ -1,3 +1,8 @@
+---
+name: Bug report
+about: You're having technical issues.
+---
+
 <!-- Please use the following issue template or your issue will be closed. -->
 
 <!--- Provide a general summary of the issue in the Title above -->
