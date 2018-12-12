@@ -255,7 +255,7 @@
     "yarn": "^1.12.3"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.6.0",
+    "@fortawesome/fontawesome-free": "^5.6.1",
     "connected-react-router": "^5.0.1",
     "devtron": "^1.4.0",
     "electron-debug": "^2.0.0",
