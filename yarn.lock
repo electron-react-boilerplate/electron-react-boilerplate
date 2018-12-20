@@ -3595,14 +3595,6 @@ chrome-emulated-devices-list@^0.1.0:
   resolved "https://registry.npmjs.org/chrome-emulated-devices-list/-/chrome-emulated-devices-list-0.1.1.tgz#9ee030c21aa6d065fbe562f3ce41ee257585fd60"
   integrity sha512-wQu6YKNTNGaUXovpkvXLnfeumVK47r2TKpOuCTwOKv/5SmRzfHual+E+oDIwS3KFWAcJPAhoNRAOLvXwzC6/pw==
 
-chrome-remote-interface@^0.23.3:
-  version "0.23.3"
-  resolved "https://registry.npmjs.org/chrome-remote-interface/-/chrome-remote-interface-0.23.3.tgz#686fcb3f9c1e1abd88ce69b6bb7bc9f6afd85562"
-  integrity sha512-Bj3zMOEqJNVOll/5LrtvSdpbXSsCiSdnSQPmKUQDmAofahHczR3Qp5VJaAKrhNC/nlv9jj74aYzxTUPKrez8rA==
-  dependencies:
-    commander "2.1.x"
-    ws "2.0.x"
-
 chrome-remote-interface@^0.25.3:
   version "0.25.7"
   resolved "https://registry.npmjs.org/chrome-remote-interface/-/chrome-remote-interface-0.25.7.tgz#827e85fbef3cc561a9ef2404eb7eee355968c5bc"
@@ -3610,6 +3602,14 @@ chrome-remote-interface@^0.25.3:
   dependencies:
     commander "2.11.x"
     ws "3.3.x"
+
+chrome-remote-interface@^0.27.0:
+  version "0.27.0"
+  resolved "https://registry.yarnpkg.com/chrome-remote-interface/-/chrome-remote-interface-0.27.0.tgz#83a3ecc1f9e4da395aec81fe33963104676726b4"
+  integrity sha512-K7x1L0Wlxor6uj6ejRbERbIxp5FCRtxZiFZGmOP6mcQm6C5e0AyPa2oayR82pQkfdKaxaoiu72AeuA89WYR3AA==
+  dependencies:
+    commander "2.11.x"
+    ws "^6.1.0"
 
 chrome-trace-event@^1.0.0:
   version "1.0.0"
@@ -3818,11 +3818,6 @@ combined-stream@^1.0.6, combined-stream@~1.0.6:
   integrity sha512-brWl9y6vOB1xYPZcpZde3N9zDByXTosAeMDo4p1wzo6UMOX4vumB+TP1RZ76sfE6Md68Q0NJSrE/gbezd4Ul+w==
   dependencies:
     delayed-stream "~1.0.0"
-
-commander@2.1.x:
-  version "2.1.0"
-  resolved "http://registry.npmjs.org/commander/-/commander-2.1.0.tgz#d121bbae860d9992a3d517ba96f56588e47c6781"
-  integrity sha1-0SG7roYNmZKj1Re6lvVliOR8Z4E=
 
 commander@2.11.x:
   version "2.11.0"
@@ -12729,13 +12724,13 @@ test-exclude@^4.2.1:
     read-pkg-up "^1.0.1"
     require-main-filename "^1.0.1"
 
-testcafe-browser-provider-electron@^0.0.6:
-  version "0.0.6"
-  resolved "https://registry.npmjs.org/testcafe-browser-provider-electron/-/testcafe-browser-provider-electron-0.0.6.tgz#2d3bc0c2b0ec781d6d073ca146bc8eb26412174d"
-  integrity sha512-wmeSi+cVzcjS71BtRczPt6AvVToz7MPoAY0gGaMtUPawYUZXEHEA5HkIGrvOuT/JBFS4Ag1xQ5ZKgXJOwsw5Ow==
+testcafe-browser-provider-electron@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/testcafe-browser-provider-electron/-/testcafe-browser-provider-electron-0.0.8.tgz#2805efe3514369375726309ce5f33a727e8a3551"
+  integrity sha512-19YQCGBz3eBkds0QUESgsB5oHYlktemfiVkLYlyT7IQdJzWgAp55Cf+5DguWgGzo3dOqdof69JBYmdF/hWtZ2Q==
   dependencies:
     babel-runtime "^6.25.0"
-    chrome-remote-interface "^0.23.3"
+    chrome-remote-interface "^0.27.0"
     dedent "^0.7.0"
     endpoint-utils "^1.0.2"
     lodash "^4.17.4"
@@ -12746,9 +12741,8 @@ testcafe-browser-provider-electron@^0.0.6:
     pinkie "^2.0.4"
     promisify-event "^1.0.0"
     proxyquire "^1.7.10"
-    testcafe-browser-tools "^1.0.0"
 
-testcafe-browser-tools@1.6.5, testcafe-browser-tools@^1.0.0:
+testcafe-browser-tools@1.6.5:
   version "1.6.5"
   resolved "https://registry.yarnpkg.com/testcafe-browser-tools/-/testcafe-browser-tools-1.6.5.tgz#8b41ebf844dccc810e82e7f19cc9d257f8c6ad86"
   integrity sha512-VsdAxRCRo7pSUYUNO0fw6uX8w84ooOhg8ZMAUBmMkTU9xOYBKpJF/Kvh40fBs2tOB4r/q8yPYnT/Y8z8HsekcA==
@@ -13976,13 +13970,6 @@ write@^0.2.1:
   dependencies:
     mkdirp "^0.5.1"
 
-ws@2.0.x:
-  version "2.0.3"
-  resolved "https://registry.npmjs.org/ws/-/ws-2.0.3.tgz#532fd499c3f7d7d720e543f1f807106cfc57d9cb"
-  integrity sha1-Uy/UmcP319cg5UPx+AcQbPxX2cs=
-  dependencies:
-    ultron "~1.1.0"
-
 ws@3.3.x:
   version "3.3.3"
   resolved "https://registry.npmjs.org/ws/-/ws-3.3.3.tgz#f1cf84fe2d5e901ebce94efaece785f187a228f2"
@@ -14003,6 +13990,13 @@ ws@^6.0.0:
   version "6.1.0"
   resolved "https://registry.npmjs.org/ws/-/ws-6.1.0.tgz#119a9dbf92c54e190ec18d10e871d55c95cf9373"
   integrity sha512-H3dGVdGvW2H8bnYpIDc3u3LH8Wue3Qh+Zto6aXXFzvESkTVT6rAfKR6tR/+coaUvxs8yHtmNV0uioBF62ZGSTg==
+  dependencies:
+    async-limiter "~1.0.0"
+
+ws@^6.1.0:
+  version "6.1.2"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-6.1.2.tgz#3cc7462e98792f0ac679424148903ded3b9c3ad8"
+  integrity sha512-rfUqzvz0WxmSXtJpPMX2EeASXabOrSMk1ruMOV3JBTBjo4ac2lDjGGsbQSyxj8Odhw5fBib8ZKEjDNvgouNKYw==
   dependencies:
     async-limiter "~1.0.0"
 
