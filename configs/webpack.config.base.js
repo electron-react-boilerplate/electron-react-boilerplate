@@ -1,13 +1,22 @@
 /**
  * Base webpack config used across other specific configs
  */
-
+import fs from 'fs';
 import path from 'path';
 import webpack from 'webpack';
-import { dependencies } from '../package.json';
+import nodeExternals from 'webpack-node-externals';
+import CheckForMonoRepoPackage from '../internals/scripts/CheckForMonoRepoPackage';
 
 export default {
-  externals: [...Object.keys(dependencies || {})],
+  externals: fs.readdirSync(path.join(__dirname, '../..')).map(directory =>
+    nodeExternals({
+      modulesFromFile: {
+        fileName: path.join('..', directory, 'package.json'),
+        include: ['dependencies']
+      },
+      whitelist: CheckForMonoRepoPackage
+    })
+  ),
 
   module: {
     rules: [
