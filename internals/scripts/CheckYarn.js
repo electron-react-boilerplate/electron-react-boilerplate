@@ -1,17 +1,7 @@
-/* eslint
-  global-require: 'off'
-*/
-let colorMessage;
-try {
-  colorMessage = require('chalk').yellow;
-} catch (err) {
-  colorMessage = str => str;
-}
+// @flow
 
-if (!/yarn\.js$/.test(process.env.npm_execpath)) {
+if (!/yarn\.js$/.test(process.env.npm_execpath || '')) {
   console.warn(
-    colorMessage(
-      "You don't seem to be using yarn. This could produce unexpected results."
-    )
+    "\u001b[33mYou don't seem to be using yarn. This could produce unexpected results.\u001b[39m"
   );
 }
