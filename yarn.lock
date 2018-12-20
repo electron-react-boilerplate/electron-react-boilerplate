@@ -5063,6 +5063,11 @@ elliptic@^6.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.0"
 
+emittery@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/emittery/-/emittery-0.4.1.tgz#abe9d3297389ba424ac87e53d1c701962ce7433d"
+  integrity sha512-r4eRSeStEGf6M5SKdrQhhLK5bOwOBxQhIE3YSTnZE3GpKiLfnnhE+tPtrJE79+eDJgm39BM6LSoI8SCx4HbwlQ==
+
 emoji-regex@^6.5.1:
   version "6.5.1"
   resolved "https://registry.npmjs.org/emoji-regex/-/emoji-regex-6.5.1.tgz#9baea929b155565c11ea41c6626eaa65cef992c2"
@@ -11393,10 +11398,10 @@ replace-ext@1.0.0:
   resolved "https://registry.npmjs.org/replace-ext/-/replace-ext-1.0.0.tgz#de63128373fcbf7c3ccfa4de5a480c45a67958eb"
   integrity sha1-3mMSg3P8v3w8z6TeWkgMRaZ5WOs=
 
-replicator@^1.0.0:
-  version "1.0.2"
-  resolved "https://registry.npmjs.org/replicator/-/replicator-1.0.2.tgz#f21812f28f3b853a34795a7d52814581df652fe1"
-  integrity sha512-y2yeUd+NDfSk6SHELNJfMwglmjDYxw65VKgDYMEYGLdJVnqz/sER0mFJbHrawqKfQoVRJ5vN3pSouL9ZLUVd8w==
+replicator@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/replicator/-/replicator-1.0.3.tgz#c0b3ea31e749015bae5d52273f2ae35d541b87ef"
+  integrity sha512-WsKsraaM0x0QHy5CtzdgFXUxyowoBhyNkmPqmZShW6h+rOWnyT6Od3zRdTX9r616rAA6kDC9MKQGnSM/CJKfVQ==
 
 request-promise-core@1.1.1:
   version "1.1.1"
@@ -12760,10 +12765,10 @@ testcafe-browser-tools@1.6.5, testcafe-browser-tools@^1.0.0:
     read-file-relative "^1.2.0"
     which-promise "^1.0.0"
 
-testcafe-hammerhead@14.4.1:
-  version "14.4.1"
-  resolved "https://registry.npmjs.org/testcafe-hammerhead/-/testcafe-hammerhead-14.4.1.tgz#93d5bd0108c15aaf31ebcf09d8e73fd98f9a82d2"
-  integrity sha512-Av2+sQ29Wr1euFY5RDLudnRrS9A9rj1LnWr6zvuqcWlXTiOTuQRp9hZNpC6RZxm7eEHHvr0MYSkV9E4Jzy5ccw==
+testcafe-hammerhead@14.4.7:
+  version "14.4.7"
+  resolved "https://registry.yarnpkg.com/testcafe-hammerhead/-/testcafe-hammerhead-14.4.7.tgz#9b2794864199b40a3445859c1f987191d3b9650f"
+  integrity sha512-9Su+yt0dSsc9y/LHZaRuZApN8yAc5zL6t5nx3CPXRhdgxi6OJ3hw+xAG32NRufaZrS8H/VXwknmfe+Pqw7d8KA==
   dependencies:
     bowser "1.6.0"
     brotli "^1.3.1"
@@ -12789,10 +12794,10 @@ testcafe-hammerhead@14.4.1:
     tunnel-agent "0.6.0"
     webauth "^1.1.0"
 
-testcafe-legacy-api@3.1.8:
-  version "3.1.8"
-  resolved "https://registry.yarnpkg.com/testcafe-legacy-api/-/testcafe-legacy-api-3.1.8.tgz#1ddf66ba1a4cf4cf36d2dd49b9c3af63bcda698f"
-  integrity sha512-Hv4jZwAE1s9oWvzhk8SMG3mBhTr77TsQJNfYxC5qZ3YpjqNmwJjaQKNxbGameef+27dWbTWkvGkE6cq284bowg==
+testcafe-legacy-api@3.1.9:
+  version "3.1.9"
+  resolved "https://registry.yarnpkg.com/testcafe-legacy-api/-/testcafe-legacy-api-3.1.9.tgz#9f1a730aeae56c72484f3b4e65cd58bdeac6bd0e"
+  integrity sha512-oV6Ej2+YWiirLjJEHs+GbgmPnwf2KuoegDoFg//0rZ6uIK0O3zPtTNTV+pZERwQReaNY7M3e9Jz8t0ZjDweZyA==
   dependencies:
     async "0.2.6"
     babel-runtime "^5.8.34"
@@ -12849,10 +12854,10 @@ testcafe-reporter-xunit@^2.1.0:
   resolved "http://registry.npmjs.org/testcafe-reporter-xunit/-/testcafe-reporter-xunit-2.1.0.tgz#e6d66c572ce15af266706af0fd610b2a841dd443"
   integrity sha1-5tZsVyzhWvJmcGrw/WELKoQd1EM=
 
-testcafe@^0.23.2:
-  version "0.23.2"
-  resolved "https://registry.npmjs.org/testcafe/-/testcafe-0.23.2.tgz#0d0ad449f9d2c2aae63dfaf3f2fe1dff25a2a16a"
-  integrity sha512-zviKTmRnC/RAuh3QpE4qlvIU2sLItg0opBCAllAX8lVFv9LwBU8vnoVCJ83yKCs8/j7KQn1VJyIa0m8JCJFr5A==
+testcafe@^0.23.3:
+  version "0.23.3"
+  resolved "https://registry.yarnpkg.com/testcafe/-/testcafe-0.23.3.tgz#8f9c6511b43ac99593d532bb08ae06c55ff72b5c"
+  integrity sha512-/ykDZ/Pvbb9oCK5kI/47DNm9nKYr8d7eY6U4nm7or5ETREkL9yEQwEzzyb2pC3Nt7iYzK+ZyPAcPWN4QFGiOXA==
   dependencies:
     async-exit-hook "^1.1.2"
     babel-core "^6.22.1"
@@ -12876,6 +12881,7 @@ testcafe@^0.23.2:
     dedent "^0.4.0"
     del "^3.0.0"
     elegant-spinner "^1.0.1"
+    emittery "^0.4.1"
     endpoint-utils "^1.0.2"
     error-stack-parser "^1.3.6"
     globby "^3.0.1"
@@ -12904,15 +12910,15 @@ testcafe@^0.23.2:
     ps-node "^0.1.6"
     qrcode-terminal "^0.10.0"
     read-file-relative "^1.2.0"
-    replicator "^1.0.0"
+    replicator "^1.0.3"
     resolve-cwd "^1.0.0"
     resolve-from "^4.0.0"
     sanitize-filename "^1.6.0"
     source-map-support "^0.5.5"
     strip-bom "^2.0.0"
     testcafe-browser-tools "1.6.5"
-    testcafe-hammerhead "14.4.1"
-    testcafe-legacy-api "3.1.8"
+    testcafe-hammerhead "14.4.7"
+    testcafe-legacy-api "3.1.9"
     testcafe-reporter-json "^2.1.0"
     testcafe-reporter-list "^2.1.0"
     testcafe-reporter-minimal "^2.1.0"
