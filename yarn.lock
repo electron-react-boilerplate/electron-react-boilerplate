@@ -13746,10 +13746,10 @@ webpack-dev-middleware@3.4.0:
     range-parser "^1.0.3"
     webpack-log "^2.0.0"
 
-webpack-dev-server@^3.1.13:
-  version "3.1.13"
-  resolved "https://registry.yarnpkg.com/webpack-dev-server/-/webpack-dev-server-3.1.13.tgz#72ebc8dab4551f8a8e1fdf6357da97571aee6a23"
-  integrity sha512-o+crjlyTDCAnkZe1CGlP2XLGCgnMN6oSotYdB+r5OGbnf52Dl9T/fCOdKObvanl1jEnMuLBVDnjTXEmCMMksww==
+webpack-dev-server@^3.1.14:
+  version "3.1.14"
+  resolved "https://registry.yarnpkg.com/webpack-dev-server/-/webpack-dev-server-3.1.14.tgz#60fb229b997fc5a0a1fc6237421030180959d469"
+  integrity sha512-mGXDgz5SlTxcF3hUpfC8hrQ11yhAttuUQWf1Wmb+6zo3x6rb7b9mIfuQvAPLdfDRCGRGvakBWHdHOa0I9p/EVQ==
   dependencies:
     ansi-html "0.0.7"
     bonjour "^3.5.0"
