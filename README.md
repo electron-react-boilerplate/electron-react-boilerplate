@@ -1,21 +1,14 @@
 <div align="center">
 <br>
-<img src="https://user-images.githubusercontent.com/12294525/44203609-77d50800-a147-11e8-98f0-f2403527abdc.png" width="600px" />
+<img src="internals/img/erb-banner.png" width="100%" />
 
 </div>
 
 <br>
 
 <p align="center">
-A boilerplate for Scalable Cross-Platform Desktop Apps based on  <a href="http://electron.atom.io/">Electron</a>, <a href="https://facebook.github.io/react/">React</a>, <a href="https://github.com/reactjs/redux">Redux</a>, <a href="https://github.com/reactjs/react-router">React Router</a>, <a href="http://webpack.github.io/docs/">Webpack</a> and <a href="https://github.com/gaearon/react-hot-loader">React Hot Loader</a> for rapid application development (HMR).
+Electron React Boilerplate is uses <a href="http://electron.atom.io/">Electron</a>, <a href="https://facebook.github.io/react/">React</a>, <a href="https://github.com/reactjs/redux">Redux</a>, <a href="https://github.com/reactjs/react-router">React Router</a>, <a href="http://webpack.github.io/docs/">Webpack</a> and <a href="https://github.com/gaearon/react-hot-loader">React Hot Loader</a> for rapid application development (HMR).
 </p>
-
-<div align="center">
-<br>
-<img src="https://forthebadge.com/images/badges/built-with-love.svg" />
-<img src="https://forthebadge.com/images/badges/made-with-javascript.svg" />
-<img src="https://forthebadge.com/images/badges/for-you.svg" />
-</div>
 
 <br>
 
@@ -81,12 +74,6 @@ Start the app in the `dev` environment. This starts the renderer process in [**h
 $ yarn dev
 ```
 
-If you don't need autofocus when your files was changed, then run `dev` with env `START_MINIMIZED=true`:
-
-```bash
-$ START_MINIMIZED=true yarn dev
-```
-
 ## Packaging for Production
 
 To package apps for the local platform:
@@ -97,7 +84,7 @@ $ yarn package
 
 ## Docs
 
-See our [complete docs here](https://electron-react-boilerplate.js.org/docs/en/installation)
+See our [docs and guides here](https://electron-react-boilerplate.js.org/docs/en/installation)
 
 ## Maintainers
 
