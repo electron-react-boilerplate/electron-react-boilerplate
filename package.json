@@ -214,7 +214,7 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jest": "^22.1.2",
     "eslint-plugin-jsx-a11y": "6.1.2",
-    "eslint-plugin-prettier": "^3.0.0",
+    "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-react": "^7.11.1",
     "eslint-plugin-testcafe": "^0.2.1",
