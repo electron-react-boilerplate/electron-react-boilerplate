@@ -22,7 +22,7 @@
     "package-linux": "yarn build && electron-builder build --linux",
     "package-win": "yarn build && electron-builder build --win --x64",
     "postinstall": "yarn flow-typed && electron-builder install-app-deps package.json && yarn build-dll && opencollective-postinstall",
-    "postlint-fix": "prettier --ignore-path .eslintignore --single-quote --write '**/*.{*{js,jsx,json},babelrc,eslintrc,prettierrc,stylelintrc}'",
+    "postlint-fix": "prettier --ignore-path .eslintignore --single-quote --write '**/*.{js,jsx,json,html,css,less,scss,yml}'",
     "postlint-styles-fix": "prettier --ignore-path .eslintignore --single-quote --write '**/*.{css,scss}'",
     "precommit": "lint-staged",
     "preinstall": "node ./internals/scripts/CheckYarn.js",
@@ -50,7 +50,7 @@
       "prettier --ignore-path .eslintignore --single-quote --write",
       "git add"
     ],
-    "*.{yml,md}": [
+    "*.{html,md,yml}": [
       "prettier --ignore-path .eslintignore --single-quote --write",
       "git add"
     ]
