@@ -59,6 +59,18 @@ app.on('window-all-closed', () => {
   }
 });
 
+app.on('activate', () => {
+  if (process.platform === 'darwin') {
+    mainWindow.show();
+  }
+});
+
+app.on('before-quit', () => {
+  if (process.platform === 'darwin') {
+    app.quitting = true;
+  }
+});
+
 app.on('ready', async () => {
   if (
     process.env.NODE_ENV === 'development' ||
@@ -86,6 +98,17 @@ app.on('ready', async () => {
     } else {
       mainWindow.show();
       mainWindow.focus();
+    }
+  });
+
+  mainWindow.on('close', event => {
+    if (process.platform === 'darwin') {
+      if (app.quitting) {
+        mainWindow = null;
+      } else {
+        event.preventDefault();
+        mainWindow.hide();
+      }
     }
   });
 
