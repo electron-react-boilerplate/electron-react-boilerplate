@@ -107,6 +107,7 @@ app.on('ready', async () => {
       if (app.quitting) {
         mainWindow = null;
       } else {
+        mainWindow = mainWindow === null ? newWindow() : mainWindow;
         event.preventDefault();
         mainWindow.hide();
       }
