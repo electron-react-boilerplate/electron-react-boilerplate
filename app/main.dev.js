@@ -24,8 +24,6 @@ export default class AppUpdater {
 }
 
 let mainWindow = null;
-const newWindow = () =>
-  new BrowserWindow({ show: false, width: 1024, height: 728 });
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -68,10 +66,7 @@ app.on('before-quit', () => {
 });
 
 app.on('activate', () => {
-  if (process.platform === 'darwin') {
-    if (mainWindow === null) {
-      mainWindow = newWindow();
-    }
+  if (process.platform === 'darwin' && mainWindow !== null) {
     mainWindow.show();
   }
 });
@@ -84,7 +79,7 @@ app.on('ready', async () => {
     await installExtensions();
   }
 
-  mainWindow = newWindow();
+  mainWindow = new BrowserWindow({ show: false, width: 1024, height: 728 });
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
 
@@ -106,8 +101,7 @@ app.on('ready', async () => {
     if (process.platform === 'darwin') {
       if (app.quitting) {
         mainWindow = null;
-      } else {
-        mainWindow = mainWindow === null ? newWindow() : mainWindow;
+      } else if (mainWindow !== null) {
         event.preventDefault();
         mainWindow.hide();
       }
