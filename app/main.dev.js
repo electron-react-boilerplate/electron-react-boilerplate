@@ -106,4 +106,4 @@ app.on('activate', () => {
   if (mainWindow === null && process.platform === 'darwin') {
     createWindow();
   }
-})
+});
