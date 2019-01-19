@@ -206,7 +206,7 @@
     "eslint": "^5.11.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-erb": "^0.0.2",
-    "eslint-config-prettier": "^3.3.0",
+    "eslint-config-prettier": "^3.6.0",
     "eslint-formatter-pretty": "^2.0.0",
     "eslint-import-resolver-webpack": "^0.10.1",
     "eslint-plugin-compat": "^2.6.3",
