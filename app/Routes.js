@@ -16,9 +16,8 @@ export default () => (
   // </App>
   <App>
     <Switch>
-      <Route path={routes.TABLES} component={TablesPage} />
-      <Route path={routes.COUNTER} component={CounterPage} />
-      <Route path={routes.HOME} component={HomePage} />
+      <Route exact path={routes.TABLES} component={TablesPage} />
+      <Route exact path={routes.HOME} component={ServerPage} />
     </Switch>
   </App>
 );

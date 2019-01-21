@@ -61,68 +61,68 @@ class ServerConfig extends Component<Props> {
     // console.log(this.state);
     // const { value } = this.state;
 
-    // return (
-    //   <Container>
-    //     <Container>
-    //       <Form onSubmit={this.handleSubmit}>
-    //         <Form.Group widths="equal">
-    //           <Form.Select
-    //             fluid
-    //             name="dialect"
-    //             label="Dialect: "
-    //             options={dialects}
-    //             placeholder="Server Type"
-    //             onChange={this.handleChange}
-    //             disabled={this.state.readOnly}
-    //             // width={2}
-    //           />
-    //           <Form.Input
-    //             fluid
-    //             name="hostname"
-    //             label="Hostname: "
-    //             placeholder="Hostname"
-    //             type="text"
-    //             onChange={this.handleChange}
-    //             disabled={this.state.readOnly}
-    //             // width={2}
-    //           />
-    //           <Form.Input
-    //             fluid
-    //             name="port"
-    //             label="Port: "
-    //             placeholder="Port#"
-    //             type="number"
-    //             onChange={this.handleChange}
-    //             disabled={this.state.readOnly}
-    //             // width={1}
-    //           />
-    //           <Form.Input
-    //             fluid
-    //             name="database"
-    //             label="Database: "
-    //             placeholder="Database Name"
-    //             type="text"
-    //             onChange={this.handleChange}
-    //             disabled={this.state.readOnly}
-    //             // width={2}
-    //           />
-    //           <Form.Button>Create</Form.Button>
-    //         </Form.Group>
-    //       </Form>
-    //     </Container>
-
-    //     <NavLink to={routes.TABLES} replace>
-    //       Configure tables
-    //     </NavLink>
-    //   </Container>
-    // );
     return (
-      <div data-tid="container">
-        <h2>Home</h2>
-        <Link to={routes.COUNTER}>to Counter</Link>
-        <Link to={routes.TABLES}> to Tables</Link>
-      </div>
+      <Container>
+        <Container>
+          <Form onSubmit={this.handleSubmit}>
+            <Form.Group widths="equal">
+              <Form.Select
+                fluid
+                name="dialect"
+                label="Dialect: "
+                options={dialects}
+                placeholder="Server Type"
+                onChange={this.handleChange}
+                disabled={this.state.readOnly}
+                // width={2}
+              />
+              <Form.Input
+                fluid
+                name="hostname"
+                label="Hostname: "
+                placeholder="Hostname"
+                type="text"
+                onChange={this.handleChange}
+                disabled={this.state.readOnly}
+                // width={2}
+              />
+              <Form.Input
+                fluid
+                name="port"
+                label="Port: "
+                placeholder="Port#"
+                type="number"
+                onChange={this.handleChange}
+                disabled={this.state.readOnly}
+                // width={1}
+              />
+              <Form.Input
+                fluid
+                name="database"
+                label="Database: "
+                placeholder="Database Name"
+                type="text"
+                onChange={this.handleChange}
+                disabled={this.state.readOnly}
+                // width={2}
+              />
+              <Form.Button>Create</Form.Button>
+            </Form.Group>
+          </Form>
+        </Container>
+
+        <NavLink to={routes.TABLES} replace>
+          Configure tables
+        </NavLink>
+      </Container>
     );
+    // return (
+    //   <div data-tid="container">
+    //     <h2>Home</h2>
+    //     {/* <Link to={routes.COUNTER}>to Counter</Link>
+    //         <Link to={routes.TABLES}> to Tables</Link> */}
+    //   </div>
+    // );
   }
 }
 

@@ -21,21 +21,24 @@
 //   mapDispatchToProps
 // )(TableCanvas);
 
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import TableCanvas from '../components/TableCanvas';
-import ServerConfig from '../components/ServerConfig';
-import routes from '../constants/routes';
+// import React, { Component } from 'react';
+// import { Link } from 'react-router-dom';
+// import TableCanvas from '../components/TableCanvas';
+// import ServerConfig from '../components/ServerConfig';
+// import routes from '../constants/routes';
 
-export default class TabPage extends Component {
-  render() {
-    // console.log(routes);
-    return (
-      <div>
-        <Link to="/">Server Config</Link>
-        <p>This is the tables Page</p>
-        <TableCanvas />
-      </div>
-    );
-  }
-}
+// export default class TabPage extends Component {
+//   render() {
+//     // console.log(routes);
+//     return (
+//       <div>
+//         <Link to="/">Server Config</Link>
+//         <p>This is the tables Page</p>
+//         <TableCanvas />
+//       </div>
+//     );
+//   }
+// }
+import TableCanvas from '../components/TableCanvas';
+
+export default TableCanvas;
