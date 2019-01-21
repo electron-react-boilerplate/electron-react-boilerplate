@@ -1,16 +1,6 @@
 import React, { Component } from 'react';
 
-import {
-  Container,
-  Button,
-  Table,
-  Menu,
-  Icon,
-  Label,
-  Form,
-  Modal,
-  Segment
-} from 'semantic-ui-react';
+import { Container, Button, Table, Label, Form } from 'semantic-ui-react';
 import ColumnOptionsModal from './ColumnOptionsModal';
 
 const colDataTypes = [
@@ -24,20 +14,9 @@ const colDataTypes = [
 class TableCanvas extends Component {
   state = { tables: [] };
 
-  addTable = () => {
-    this.setState(prevState => ({
-      tables: prevState.tables.concat([
-        {
-          columns: [
-            {
-              name: 'id',
-              type: 'primary key',
-              options: ''
-            }
-          ]
-        }
-      ])
-    }));
+  componentDidUpdate = () => {
+    // console.log('New state');
+    // console.log(this.state);
   };
 
   addColumn = (event, tableIndex) => {
@@ -62,46 +41,56 @@ class TableCanvas extends Component {
   };
 
   setDataType = event => {
-    // console.log(event);
-    // console.log(event.target);
+    console.log(event);
+    console.log(event.target);
   };
 
-  componentDidUpdate = () => {
-    // console.log('New state');
-    // console.log(this.state);
+  addTable = () => {
+    this.setState(prevState => ({
+      tables: prevState.tables.concat([
+        {
+          columns: [
+            {
+              name: 'id',
+              type: 'primary key',
+              options: ''
+            }
+          ]
+        }
+      ])
+    }));
   };
 
   render() {
     return (
-      <Segment>
+      <Container>
         <Container>
-          <Container>
-            <Button
-              content="Add Table"
-              icon="add square"
-              labelPosition="left"
-              onClick={this.addTable}
-            />
-          </Container>
-          <Container>
-            {this.state.tables.map((table, i) => (
-              <Table celled>
-                <Table.Header>
-                  <Table.Row>
-                    <Table.HeaderCell colSpan="3">
-                      <div contentEditable suppressContentEditableWarning>
-                        Enter table name
-                      </div>
-                    </Table.HeaderCell>
-                  </Table.Row>
-                  <Table.Row>
-                    <Table.HeaderCell>Column Name</Table.HeaderCell>
-                    <Table.HeaderCell>Column Type</Table.HeaderCell>
-                    <Table.HeaderCell>Column Option</Table.HeaderCell>
-                  </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                  {/* <Table.Row>
+          <Button
+            content="Add Table"
+            icon="add square"
+            labelPosition="left"
+            onClick={this.addTable}
+          />
+        </Container>
+        <Container>
+          {this.state.tables.map((table, i) => (
+            <Table celled>
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell colSpan="3">
+                    <div contentEditable suppressContentEditableWarning>
+                      Enter table name
+                    </div>
+                  </Table.HeaderCell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.HeaderCell>Column Name</Table.HeaderCell>
+                  <Table.HeaderCell>Column Type</Table.HeaderCell>
+                  <Table.HeaderCell>Column Option</Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
+              <Table.Body>
+                {/* <Table.Row>
                   <Table.Cell>
                     <Label ribbon>id</Label>
                   </Table.Cell>
@@ -113,62 +102,59 @@ class TableCanvas extends Component {
                   <Table.Cell>Column Type</Table.Cell>
                   <Table.Cell>Column Options</Table.Cell>
                 </Table.Row> */}
-                  {table.columns.map((cols, j) =>
-                    j === 0 ? (
-                      <Table.Row>
-                        <Table.Cell>
-                          <Label ribbon>{cols.name}</Label>
-                        </Table.Cell>
-                        <Table.Cell>{cols.type}</Table.Cell>
-                        <Table.Cell>{cols.options}</Table.Cell>
-                      </Table.Row>
-                    ) : (
-                      <Table.Row>
-                        <Table.Cell>
-                          <div contentEditable suppressContentEditableWarning />
-                        </Table.Cell>
-                        <Table.Cell>
-                          <Form>
-                            <Form.Select
-                              fluid
-                              name="datatype"
-                              // label="Dialect: "
-                              options={colDataTypes}
-                              placeholder="Select data type"
-                              onChange={this.setDataType}
-                            />
-                          </Form>
-                        </Table.Cell>
-                        <Table.Cell>
-                          <ColumnOptionsModal />
-                        </Table.Cell>
-                      </Table.Row>
-                    )
-                  )}
-                </Table.Body>
-                <Table.Footer>
-                  <Table.Row>
-                    <Table.HeaderCell colSpan="3">
-                      <Form
-                        onSubmit={(event, index) => this.addColumn(event, i)}
-                      >
-                        <Form.Button
-                          floated="right"
-                          content="Add Column"
-                          icon="add square"
-                          labelPosition="left"
-                          type="submit"
-                          // onClick={this.addColumn}
-                        />
-                      </Form>
-                    </Table.HeaderCell>
-                  </Table.Row>
-                </Table.Footer>
-              </Table>
-            ))}
-          </Container>
+                {table.columns.map((cols, j) =>
+                  j === 0 ? (
+                    <Table.Row>
+                      <Table.Cell>
+                        <Label ribbon>{cols.name}</Label>
+                      </Table.Cell>
+                      <Table.Cell>{cols.type}</Table.Cell>
+                      <Table.Cell>{cols.options}</Table.Cell>
+                    </Table.Row>
+                  ) : (
+                    <Table.Row>
+                      <Table.Cell>
+                        <div contentEditable suppressContentEditableWarning />
+                      </Table.Cell>
+                      <Table.Cell>
+                        <Form>
+                          <Form.Select
+                            fluid
+                            name="datatype"
+                            // label="Dialect: "
+                            options={colDataTypes}
+                            placeholder="Select data type"
+                            onChange={this.setDataType}
+                          />
+                        </Form>
+                      </Table.Cell>
+                      <Table.Cell>
+                        <ColumnOptionsModal />
+                      </Table.Cell>
+                    </Table.Row>
+                  )
+                )}
+              </Table.Body>
+              <Table.Footer>
+                <Table.Row>
+                  <Table.HeaderCell colSpan="3">
+                    <Form onSubmit={(event, index) => this.addColumn(event, i)}>
+                      <Form.Button
+                        floated="right"
+                        content="Add Column"
+                        icon="add square"
+                        labelPosition="left"
+                        type="submit"
+                        // onClick={this.addColumn}
+                      />
+                    </Form>
+                  </Table.HeaderCell>
+                </Table.Row>
+              </Table.Footer>
+            </Table>
+          ))}
         </Container>
-      </Segment>
+      </Container>
     );
   }
 }
