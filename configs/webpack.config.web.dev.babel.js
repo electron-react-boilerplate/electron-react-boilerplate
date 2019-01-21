@@ -10,7 +10,6 @@
 import path from 'path';
 import webpack from 'webpack';
 import merge from 'webpack-merge';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 import baseConfig from './webpack.config.base';
 import CheckNodeEnv from '../internals/scripts/CheckNodeEnv';
 
@@ -204,12 +203,6 @@ const devConfig = merge.smart(baseConfig, {
 
     new webpack.LoaderOptionsPlugin({
       debug: true
-    }),
-
-    new HtmlWebpackPlugin({
-      hash: true,
-      template: './web/index.template.html',
-      filename: 'index.html' // relative to root of the application
     })
   ],
 
