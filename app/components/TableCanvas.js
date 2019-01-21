@@ -62,6 +62,7 @@ class TableCanvas extends Component {
   };
 
   render() {
+    const { tables } = this.state;
     return (
       <Container>
         <Container>
@@ -73,7 +74,7 @@ class TableCanvas extends Component {
           />
         </Container>
         <Container>
-          {this.state.tables.map((table, i) => (
+          {tables.map((table, i) => (
             <Table celled>
               <Table.Header>
                 <Table.Row>
@@ -138,7 +139,7 @@ class TableCanvas extends Component {
               <Table.Footer>
                 <Table.Row>
                   <Table.HeaderCell colSpan="3">
-                    <Form onSubmit={(event, index) => this.addColumn(event, i)}>
+                    <Form onSubmit={event => this.addColumn(event, i)}>
                       <Form.Button
                         floated="right"
                         content="Add Column"
