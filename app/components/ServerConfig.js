@@ -24,10 +24,6 @@ class ServerConfig extends Component<Props> {
   props: Props;
 
   state = {
-    // dialect: '',
-    // hostname: '',
-    // port: -1,
-    // database: '',
     connectionURI: '',
     readOnly: false
   };
@@ -35,32 +31,31 @@ class ServerConfig extends Component<Props> {
   handleChange = (e, { name, value }) => {
     this.props.server[name] = value;
     this.setState({ [name]: value });
-    console.log(this.props);
+    // console.log(this.props);
   };
-  // {
-  // this.setState({ [name]: value });
-  //   this.setState(prevState => {
-  //     const connectionURI = `${prevState.dialect}://${prevState.hostname}:${
-  //       prevState.port
-  //     }/${prevState.database}`;
-
-  //     return { [name]: value, connectionURI };
-  //   });
-  // };
 
   handleSubmit = event => {
     event.preventDefault();
-    // this.setState({ readOnly: true });
-    // console.log(this.state);
-    this.props.createDatabase(this.state);
-    // this.props.history.push('/tables');
+    const connectionURI = `${this.props.server.dialect}://${
+      this.props.server.hostname
+    }:${this.props.server.port}/${this.props.server.database}`;
+    console.log('Connection String');
+    console.log(connectionURI);
+    this.setState({ readOnly: true, connectionURI, ...this.props.server });
+    this.props.createDatabase(this.props.server);
+    console.log('Props.server:');
+    console.log(this.props.server);
+    console.log('State');
+    console.log(this.state);
+    this.props.history.push('/tables');
   };
 
   render() {
     // console.log(this.props);
     // console.log(this.state);
     // const { value } = this.state;
-
+    const { dialect, hostname, port, database } = this.props.server;
+    console.log(dialect, hostname, port, database);
     return (
       <Container>
         <Container>
@@ -106,14 +101,12 @@ class ServerConfig extends Component<Props> {
                 disabled={this.state.readOnly}
                 // width={2}
               />
-              <Form.Button>Create</Form.Button>
+              <Container style={{ padding: '2em' }}>
+                <Form.Button>Create</Form.Button>
+              </Container>
             </Form.Group>
           </Form>
         </Container>
-
-        <NavLink to={routes.TABLES} replace>
-          Configure tables
-        </NavLink>
       </Container>
     );
     // return (

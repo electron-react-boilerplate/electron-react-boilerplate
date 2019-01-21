@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import { Container, Button, Table, Label, Form } from 'semantic-ui-react';
 import ColumnOptionsModal from './ColumnOptionsModal';
+import Footer from './Footer';
 
 const colDataTypes = [
   { key: 'string', text: 'String', value: 'Sequelize.STRING' },
@@ -65,6 +67,12 @@ class TableCanvas extends Component {
     const { tables } = this.state;
     return (
       <Container>
+        <Link to="/">
+          <span style={{ color: 'Dodgerblue' }}>
+            <i className="fa fa-arrow-left fa-3x" /> <br />
+            {this.state.connectionURI}
+          </span>
+        </Link>
         <Container>
           <Button
             content="Add Table"
@@ -155,6 +163,7 @@ class TableCanvas extends Component {
             </Table>
           ))}
         </Container>
+        <Footer />
       </Container>
     );
   }
