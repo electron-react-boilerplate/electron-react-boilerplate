@@ -1,6 +1,14 @@
-/* eslint-disable */
+// @flow
 import React, { Component } from 'react';
+// import {connect } from 'react-redux';
 import { Form } from 'semantic-ui-react';
+
+type Props = {
+  dialect: string,
+  hostname: string,
+  port: number,
+  database: string
+};
 
 const dialects = [
   { key: 'ms', text: 'MS SQL', value: 'mssql' },
@@ -9,17 +17,23 @@ const dialects = [
   { key: 'sl', text: 'SQLite', value: 'sqlite' }
 ];
 
-class ServerConfig extends Component {
+class ServerConfig extends Component<Props> {
+  props: Props;
+
   state = {
-    dialect: '',
-    hostname: '',
-    port: -1,
-    database: '',
+    // dialect: '',
+    // hostname: '',
+    // port: -1,
+    // database: '',
     connectionURI: '',
     readOnly: false
   };
 
-  handleChange = (e, { name, value }) => this.setState({ [name]: value });
+  handleChange = (e, { name, value }) => {
+    this.props.server[name] = value;
+    this.setState({ [name]: value });
+    console.log(this.props);
+  };
   // {
   // this.setState({ [name]: value });
   //   this.setState(prevState => {
@@ -33,12 +47,17 @@ class ServerConfig extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.setState({ readOnly: true });
-    console.log(this.state);
+    // this.setState({ readOnly: true });
+    // console.log(this.state);
+    this.props.createDatabase(this.state);
+    this.props.history.push('/tables');
   };
 
   render() {
-    const { value } = this.state;
+    // console.log(this.props);
+    // console.log(this.state);
+    // const { value } = this.state;
+
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Group widths="equal">

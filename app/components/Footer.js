@@ -46,7 +46,7 @@ export default class Footer extends Component {
               <Grid.Column width={4} />
               <Grid.Column width={4} />
               <Grid.Column width={3}>
-                <Button float="right" color="primary">
+                <Button float="right" color="blue">
                   Create Models
                 </Button>
               </Grid.Column>
