@@ -187,6 +187,42 @@ module.exports = db`;
       console.log('DB File saved successfully');
     });
 
+    for (let i = 0; i < this.state.tables.length; i++) {
+      const modelFile = path.join(
+        modelsDir,
+        `${this.state.tables[i].tableName.toLowerCase()}.js`
+      );
+      let modelFileContents = `const Sequelize = require('sequelize')
+const db = require('./db')
+
+const ${this.state.tables[i].tableName} = db.define('${this.state.tables[
+        i
+      ].tableName.toLowerCase()}', {`;
+      for (let j = 1; j < this.state.tables[i].columns.length; j++) {
+        //  ${columns}
+        console.log(this.state.tables[i].columns[j].options.allowNull);
+        console.log(this.state.tables[i].columns[j].options.unique);
+        console.log(this.state.tables[i].columns[j].options.defaultValue);
+        modelFileContents += `${this.state.tables[i].columns[j].columnName}: {
+          type: ${this.state.tables[i].columns[j].columnType},
+          allowNull: ${this.state.tables[i].columns[j].options.allowNull},
+          unique: ${this.state.tables[i].columns[j].options.unique},
+          defaultValue: ${
+            this.state.tables[i].columns[j].options.defaultValue
+              ? "'"+this.state.tables[i].columns[j].options.defaultValue + "'"
+              : 'null'
+          }
+        },`;
+      }
+      modelFileContents += `})
+
+module.exports = ${this.state.tables[i].tableName}`;
+      fs.appendFile(modelFile, modelFileContents, err => {
+        if (err) throw err;
+
+        console.log(`${modelFile} written successfully`);
+      });
+    }
     // console.log(dirPath);
     // console.log(this.state.tables);
   };
