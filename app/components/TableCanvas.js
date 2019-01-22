@@ -12,11 +12,22 @@ import {
   Checkbox,
   Input,
   Modal,
-  Header
+  Header,
+  Grid
 } from 'semantic-ui-react';
 import { t } from 'testcafe';
-import ColumnOptionsModal from './ColumnOptionsModal';
+
+import fs from 'fs';
+import path from 'path';
+import url from 'url';
 import Footer from './Footer';
+import ColumnOptionsModal from './ColumnOptionsModal';
+// import electron from 'electron'
+const { remote } = require('electron');
+// const {dialog} = require('electron').remote
+const { dialog } = remote;
+console.log('Dialog Object:');
+console.log(dialog);
 
 const colDataTypes = [
   { key: 'string', text: 'String', value: 'Sequelize.STRING' },
@@ -125,23 +136,59 @@ class TableCanvas extends Component {
     const { tables } = this.state;
     tables[i].columns[j].options.allowNull = !tables[i].columns[j].options
       .allowNull;
-    this.setState({ tables });
+    this.setState(prevState => ({ tables }));
   };
 
   toggleUnique = (e, t, i, j) => {
     const { tables } = this.state;
     tables[i].columns[j].options.unique = !tables[i].columns[j].options.unique;
-    this.setState({ tables });
+    this.setState(prevState => ({ tables }));
   };
 
   setDefaultValue = (e, t, i, j) => {
     // console.log(e);
     // console.log(t);
-    console.log(i);
-    console.log(j);
+    // console.log(i);
+    // console.log(j);
     const { tables } = this.state;
     tables[i].columns[j].options.defaultValue = t.value;
     this.setState({ tables });
+    console.log(tables[i].columns[j].options);
+  };
+
+  writeModels = () => {
+    const dialect = window.localStorage.getItem('dialect');
+    const hostname = window.localStorage.getItem('hostname');
+    const port = window.localStorage.getItem('port');
+    const database = window.localStorage.getItem('database');
+    console.log(dialect, hostname, port, database);
+    const [dirPath] = dialog.showOpenDialog(remote.getCurrentWindow(), {
+      properties: ['openDirectory']
+    });
+    const modelsDir = path.join(dirPath, 'models');
+    if (!fs.existsSync(modelsDir)) {
+      fs.mkdirSync(modelsDir);
+    }
+
+    const dbFile = path.join(modelsDir, 'db.js');
+    const dbFileContents = `const Sequelize = require('sequelize')
+const pkg = require('../../package.json')
+
+const db = new Sequelize('${dialect}://${hostname}:${port}/${database}',
+  {
+    logging: false,
+    operatorsAliases: false
+  }
+)
+module.exports = db`;
+    fs.appendFile(dbFile, dbFileContents, err => {
+      if (err) throw err;
+
+      console.log('DB File saved successfully');
+    });
+
+    // console.log(dirPath);
+    // console.log(this.state.tables);
   };
 
   render() {
@@ -159,6 +206,7 @@ class TableCanvas extends Component {
         </Link>
         <Container>
           <Button
+            color="blue"
             content="Add Table"
             icon="add square"
             labelPosition="left"
@@ -246,7 +294,7 @@ class TableCanvas extends Component {
                       </Table.Cell>
                       <Table.Cell>
                         {/* <ColumnOptionsModal /> */}
-                        <form>
+                        <Form>
                           <Modal
                             trigger={
                               <Button onClick={this.handleOpen}>
@@ -262,11 +310,9 @@ class TableCanvas extends Component {
                             <Modal.Content>
                               <Segment compact>
                                 <Label>Allow Null:&nbsp;</Label>
-                                <Checkbox
+                                <Form.Checkbox
                                   toggle
-                                  checked={
-                                    this.state.tables[i].columns[j].allowNull
-                                  }
+                                  checked={cols.options.allowNull}
                                   onChange={(e, t) =>
                                     this.toggleAllowNull(e, t, i, j)
                                   }
@@ -274,18 +320,19 @@ class TableCanvas extends Component {
                               </Segment>
                               <Segment compact>
                                 <Label>Unique:&nbsp;</Label>
-                                <Checkbox
+                                <Form.Checkbox
                                   toggle
-                                  checked={this.state.unique}
+                                  checked={cols.options.unique}
                                   onChange={(e, t) =>
                                     this.toggleUnique(e, t, i, j)
                                   }
                                 />
                               </Segment>
                               <Segment compact>
-                                <Input
+                                <Form.Input
                                   label="Default Value"
-                                  value={this.state.defaultValue}
+                                  labelPosition="left"
+                                  value={cols.options.defaultValue}
                                   onChange={(e, t) =>
                                     this.setDefaultValue(e, t, i, j)
                                   }
@@ -302,7 +349,7 @@ class TableCanvas extends Component {
                               </Button>
                             </Modal.Actions>
                           </Modal>
-                        </form>
+                        </Form>
                       </Table.Cell>
                     </Table.Row>
                   )
@@ -327,7 +374,24 @@ class TableCanvas extends Component {
             </Table>
           ))}
         </Container>
-        <Footer />
+        <Segment vertical style={{ padding: '0em 0em' }}>
+          <Container>
+            <Grid inverted stackable>
+              <Grid.Row>
+                <Grid.Column width={4} />
+                <Grid.Column width={4} />
+                <Grid.Column width={4} />
+                <Grid.Column width={3}>
+                  <Form onSubmit={this.writeModels}>
+                    <Button float="right" color="blue">
+                      Create Models
+                    </Button>
+                  </Form>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </Container>
+        </Segment>
       </Container>
     );
   }

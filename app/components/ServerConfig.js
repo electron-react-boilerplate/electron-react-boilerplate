@@ -47,6 +47,10 @@ class ServerConfig extends Component<Props> {
     console.log(this.props.server);
     console.log('State');
     console.log(this.state);
+    window.localStorage.setItem('dialect', this.props.server.dialect);
+    window.localStorage.setItem('hostname', this.props.server.hostname);
+    window.localStorage.setItem('port', this.props.server.port);
+    window.localStorage.setItem('database', this.props.server.database);
     this.props.history.push('/tables');
   };
 
