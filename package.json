@@ -262,6 +262,8 @@
     "electron-log": "^2.2.17",
     "electron-updater": "^4.0.6",
     "history": "^4.7.2",
+    "pg": "^7.8.0",
+    "pg-hstore": "^2.3.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-hot-loader": "^4.6.3",
@@ -271,6 +273,7 @@
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "semantic-ui-react": "^0.84.0",
+    "sequelize": "^4.42.0",
     "source-map-support": "^0.5.9"
   },
   "devEngines": {

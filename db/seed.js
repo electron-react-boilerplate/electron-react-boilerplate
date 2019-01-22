@@ -1,11 +1,21 @@
 const chalk = require('chalk');
 const db = require('./models/db');
-// const { db, Vegetable, Plot, Gardener } = require('./models');
+const Alpha = require('./models/alpha');
+const Delta = require('./models/delta');
 
 (async () => {
-  db.sync({ force: true });
+  await db.sync({ force: true });
   try {
-    console.log(
+    await Alpha.bulkCreate([
+      { bravo: 'foxtrot', charlee: 0 },
+      { bravo: 'golf', charlee: 1 }
+    ]);
+    await Delta.bulkCreate([
+      { echo: 'hotel' },
+      { echo: 'india' },
+      { echo: 'juliet' }
+    ]);
+    await console.log(
       chalk`{cyan db}{white.bold .}{yellow sync}{yellowBright ()}{greenBright.bold  Executed SUCCESSFULLY!!}`
     );
   } catch (error) {

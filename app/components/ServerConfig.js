@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 // import {connect } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom';
-import { Form, Container } from 'semantic-ui-react';
+import { Form, Container, Grid } from 'semantic-ui-react';
 import routes from '../constants/routes';
 import { default as CreateButton } from './CreateButton';
 
@@ -61,61 +61,73 @@ class ServerConfig extends Component<Props> {
     const { dialect, hostname, port, database } = this.props.server;
     console.log(dialect, hostname, port, database);
     return (
-      <Container>
-        <Container>
-          <Form onSubmit={this.handleSubmit}>
-            <Form.Group widths="equal">
-              <Form.Select
-                fluid
-                name="dialect"
-                label="Dialect: "
-                options={dialects}
-                placeholder="Server Type"
-                onChange={this.handleChange}
-                disabled={this.state.readOnly}
-                defaultValue={dialect}
-                // width={2}
-              />
-              <Form.Input
-                fluid
-                name="hostname"
-                label="Hostname: "
-                placeholder="Hostname"
-                type="text"
-                onChange={this.handleChange}
-                disabled={this.state.readOnly}
-                defaultValue={hostname}
-                // width={2}
-              />
-              <Form.Input
-                fluid
-                name="port"
-                label="Port: "
-                placeholder="Port#"
-                type="number"
-                onChange={this.handleChange}
-                disabled={this.state.readOnly}
-                defaultValue={port}
-                // width={1}
-              />
-              <Form.Input
-                fluid
-                name="database"
-                label="Database: "
-                placeholder="Database Name"
-                type="text"
-                onChange={this.handleChange}
-                disabled={this.state.readOnly}
-                defaultValue={database}
-                // width={2}
-              />
-              <Container style={{ padding: '2em' }}>
-                <Form.Button color="blue">Create</Form.Button>
-              </Container>
-            </Form.Group>
-          </Form>
-        </Container>
-      </Container>
+      <Grid verticalAlign="middle">
+        <Grid.Row />
+        <Grid.Row />
+        <Grid.Row>
+          <Container>
+            <Container>
+              <Form onSubmit={this.handleSubmit}>
+                <Form.Group widths="equal">
+                  Dialect:&nbsp;
+                  <Form.Select
+                    fluid
+                    name="dialect"
+                    // label="Dialect: "
+                    options={dialects}
+                    placeholder="Server Type"
+                    onChange={this.handleChange}
+                    disabled={this.state.readOnly}
+                    defaultValue={dialect}
+                    // width={2}
+                  />
+                  Hostname:&nbsp;
+                  <Form.Input
+                    fluid
+                    name="hostname"
+                    // label="Hostname: "
+                    placeholder="Hostname"
+                    type="text"
+                    onChange={this.handleChange}
+                    disabled={this.state.readOnly}
+                    defaultValue={hostname}
+                    // width={2}
+                  />
+                  Port:&nbsp;
+                  <Form.Input
+                    fluid
+                    name="port"
+                    // label="Port: "
+                    placeholder="Port#"
+                    type="number"
+                    onChange={this.handleChange}
+                    disabled={this.state.readOnly}
+                    defaultValue={port}
+                    // width={1}
+                  />
+                  Database:&nbsp;
+                  <Form.Input
+                    fluid
+                    name="database"
+                    // label="Database: "
+                    placeholder="Database Name"
+                    type="text"
+                    onChange={this.handleChange}
+                    disabled={this.state.readOnly}
+                    defaultValue={database}
+                    // width={2}
+                  />
+                  <Container style={{ padding: '0em' }}>
+                    <Form.Button color="blue">Create</Form.Button>
+                  </Container>
+                </Form.Group>
+              </Form>
+            </Container>
+          </Container>
+        </Grid.Row>
+        <Grid.Row />
+        <Grid.Row />
+      </Grid>
     );
     // return (
     //   <div data-tid="container">
