@@ -69,6 +69,7 @@ class ServerConfig extends Component<Props> {
                 placeholder="Server Type"
                 onChange={this.handleChange}
                 disabled={this.state.readOnly}
+                defaultValue={dialect}
                 // width={2}
               />
               <Form.Input
@@ -79,6 +80,7 @@ class ServerConfig extends Component<Props> {
                 type="text"
                 onChange={this.handleChange}
                 disabled={this.state.readOnly}
+                defaultValue={hostname}
                 // width={2}
               />
               <Form.Input
@@ -89,6 +91,7 @@ class ServerConfig extends Component<Props> {
                 type="number"
                 onChange={this.handleChange}
                 disabled={this.state.readOnly}
+                defaultValue={port}
                 // width={1}
               />
               <Form.Input
@@ -99,10 +102,11 @@ class ServerConfig extends Component<Props> {
                 type="text"
                 onChange={this.handleChange}
                 disabled={this.state.readOnly}
+                defaultValue={database}
                 // width={2}
               />
               <Container style={{ padding: '2em' }}>
-                <Form.Button>Create</Form.Button>
+                <Form.Button color="blue">Create</Form.Button>
               </Container>
             </Form.Group>
           </Form>

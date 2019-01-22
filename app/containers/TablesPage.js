@@ -1,9 +1,11 @@
 // import React, { Component } from 'react';
 // import {Link} from 'react-router-dom';
 // import
-// import { bindActionCreators } from 'redux';
-// import { connect } from 'react-redux';
-// import * as TableActions from '../actions/tables';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as TableActions from '../actions/tables';
+import TableCanvas from '../components/TableCanvas';
+
 // import { routerActions } from 'connected-react-router';
 
 // function mapStateToProps(state) {
@@ -39,6 +41,19 @@
 //     );
 //   }
 // }
-import TableCanvas from '../components/TableCanvas';
+function mapStateToProps(state) {
+  console.log('Map state to props');
+  console.log(state);
+  return {
+    tables: state.tablesReducer
+  };
+}
 
-export default TableCanvas;
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(TableActions, dispatch);
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TableCanvas);

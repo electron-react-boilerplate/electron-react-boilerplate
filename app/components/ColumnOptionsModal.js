@@ -15,8 +15,8 @@ export default class ColumnOptionsModal extends Component {
   state = {
     modalOpen: false,
     allowNull: true,
-    defaultValue: '',
-    unique: false
+    unique: false,
+    defaultValue: ''
   };
 
   handleOpen = () => this.setState({ modalOpen: true });

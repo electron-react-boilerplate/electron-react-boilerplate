@@ -4,10 +4,10 @@ import { CREATE_DATABASE } from '../actions/serverConfig';
 const { exec } = require('child_process');
 
 const initialState = {
-  dialect: '',
-  hostname: '',
-  port: '',
-  database: ''
+  dialect: 'postgres',
+  hostname: 'localhost',
+  port: 5432,
+  database: 'AAA_plantr'
 };
 
 export default function serverConfig(state = initialState, action) {
