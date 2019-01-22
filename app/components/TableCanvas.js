@@ -209,7 +209,7 @@ const ${this.state.tables[i].tableName} = db.define('${this.state.tables[
           unique: ${this.state.tables[i].columns[j].options.unique},
           defaultValue: ${
             this.state.tables[i].columns[j].options.defaultValue
-              ? "'"+this.state.tables[i].columns[j].options.defaultValue + "'"
+              ? `'${this.state.tables[i].columns[j].options.defaultValue}'`
               : 'null'
           }
         },`;
@@ -225,6 +225,9 @@ module.exports = ${this.state.tables[i].tableName}`;
     }
     // console.log(dirPath);
     // console.log(this.state.tables);
+
+    const seedFile = path.join(modelsDir, 'seed.js');
+    const seedFileContents = ``;
   };
 
   render() {
@@ -329,11 +332,10 @@ module.exports = ${this.state.tables[i].tableName}`;
                         </Form>
                       </Table.Cell>
                       <Table.Cell>
-                        {/* <ColumnOptionsModal /> */}
                         <Form>
                           <Modal
                             trigger={
-                              <Button onClick={this.handleOpen}>
+                              <Button color="yellow" onClick={this.handleOpen}>
                                 Column Options
                               </Button>
                             }
@@ -365,14 +367,16 @@ module.exports = ${this.state.tables[i].tableName}`;
                                 />
                               </Segment>
                               <Segment compact>
-                                <Form.Input
-                                  label="Default Value"
-                                  labelPosition="left"
-                                  value={cols.options.defaultValue}
-                                  onChange={(e, t) =>
-                                    this.setDefaultValue(e, t, i, j)
-                                  }
-                                />
+                                <span style={{ color: 'Dodgerblue' }}>
+                                  <Form.Input
+                                    inline
+                                    label="Default Value"
+                                    value={cols.options.defaultValue}
+                                    onChange={(e, t) =>
+                                      this.setDefaultValue(e, t, i, j)
+                                    }
+                                  />
+                                </span>
                               </Segment>
                             </Modal.Content>
                             <Modal.Actions>
@@ -401,6 +405,7 @@ module.exports = ${this.state.tables[i].tableName}`;
                         icon="add square"
                         labelPosition="left"
                         type="submit"
+                        color="teal"
                         // onClick={this.addColumn}
                       />
                     </Form>
