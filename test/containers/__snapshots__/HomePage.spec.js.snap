@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`containers Home should render home page 1`] = `
+<div>
+  <div>
+    Electron-Mobx-Boilerplate
+  </div>
+</div>
+`;
