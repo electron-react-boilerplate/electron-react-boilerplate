@@ -44,7 +44,6 @@ cache:
   directories:
     - node_modules
     - $(npm config get prefix)/lib/node_modules
-    - flow-typed
     - $HOME/.cache/electron
     - $HOME/.cache/electron-builder
 
@@ -77,7 +76,6 @@ before_script:
 script:
   - yarn package-ci
   - yarn lint
-  - yarn flow
   # HACK: Temporarily ignore `yarn test` on linux
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then yarn test; fi
   - yarn build-e2e
