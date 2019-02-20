@@ -46,7 +46,7 @@ export default merge.smart(baseConfig, {
   target: 'electron-renderer',
 
   entry: [
-    'react-hot-loader/patch',
+    ...(process.env.PLAIN_HMR ? [] : ['react-hot-loader/patch']),
     `webpack-dev-server/client?http://localhost:${port}/`,
     'webpack/hot/only-dev-server',
     require.resolve('../app/index')
