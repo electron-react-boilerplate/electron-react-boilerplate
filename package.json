@@ -256,7 +256,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.6.3",
-    "connected-react-router": "^5.0.1",
+    "connected-react-router": "^6.3.2",
     "devtron": "^1.4.0",
     "electron-debug": "^2.0.0",
     "electron-log": "^2.2.17",
