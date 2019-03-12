@@ -34,6 +34,8 @@
 [![OpenCollective](https://opencollective.com/electron-react-boilerplate/backers/badge.svg)](#backers)
 [![OpenCollective](https://opencollective.com/electron-react-boilerplate/sponsors/badge.svg)](#sponsors)
 [![Good first issues open][good-first-issue-image]][good-first-issue-url]
+[![StackOverflow](http://img.shields.io/badge/stackoverflow-electron_react_boilerplate-blue.svg)]( http://stackoverflow.com/questions/tagged/electron-react-boilerplate )
+
 
 </div>
 
