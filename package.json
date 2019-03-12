@@ -270,7 +270,7 @@
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
-    "source-map-support": "^0.5.9"
+    "source-map-support": "^0.5.11"
   },
   "devEngines": {
     "node": ">=7.x",
