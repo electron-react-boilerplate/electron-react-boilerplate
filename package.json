@@ -259,7 +259,7 @@
     "connected-react-router": "^6.3.2",
     "core-js": "2",
     "devtron": "^1.4.0",
-    "electron-debug": "^2.1.0",
+    "electron-debug": "^2.2.0",
     "electron-log": "^3.0.4",
     "electron-updater": "^4.0.6",
     "history": "^4.9.0",
