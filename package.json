@@ -207,7 +207,7 @@
     "eslint-config-erb": "^0.0.2",
     "eslint-config-prettier": "^4.1.0",
     "eslint-formatter-pretty": "^2.1.1",
-    "eslint-import-resolver-webpack": "^0.11.0",
+    "eslint-import-resolver-webpack": "^0.11.1",
     "eslint-plugin-compat": "^3.1.0",
     "eslint-plugin-flowtype": "^3.4.2",
     "eslint-plugin-import": "^2.16.0",
