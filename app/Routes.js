@@ -2,8 +2,8 @@ import React, { lazy, Suspense } from 'react';
 import { Switch, Route } from 'react-router';
 import routes from './constants/routes';
 import App from './containers/App';
+import HomePage from './containers/HomePage';
 
-const HomePage = lazy(() => import('./containers/HomePage'));
 const CounterPage = lazy(() => import('./containers/CounterPage'));
 
 const LoadingMessage = () => 'Loading...';
