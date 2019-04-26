@@ -10,6 +10,8 @@
  *
  * @flow
  */
+import fs from 'fs';
+import path from 'path';
 import { app, BrowserWindow } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
@@ -92,7 +94,9 @@ app.on('ready', async () => {
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
-
+  if (process.env.NODE_ENV === 'development') {
+    fs.unlinkSync(path.resolve(app.getAppPath(), 'package.json'));
+  }
   const menuBuilder = new MenuBuilder(mainWindow);
   menuBuilder.buildMenu();
 
