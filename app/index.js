@@ -1,9 +1,18 @@
 import React, { Fragment } from 'react';
 import { render } from 'react-dom';
 import { AppContainer as ReactHotAppContainer } from 'react-hot-loader';
+import log from 'electron-log';
 import Root from './containers/Root';
 import { configureStore, history } from './store/configureStore';
 import './app.global.css';
+
+
+const unhandled = require('electron-unhandled');
+
+unhandled({
+  logger: log.error,
+});
+
 
 const store = configureStore();
 
