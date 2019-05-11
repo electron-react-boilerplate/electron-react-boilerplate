@@ -1,18 +1,21 @@
-import React, { lazy, Suspense } from 'react';
+import React from 'react';
 import { Switch, Route } from 'react-router';
+import Loadable from 'react-loadable';
+
 import routes from './constants/routes';
 import App from './containers/App';
 import HomePage from './containers/HomePage';
 
-const CounterPageComponent = lazy(() => import('./containers/CounterPage'));
+const CounterPageComponent = Loadable({
+  loader: () => import('./containers/CounterPage'),
+  loading: () => <div>Loading...</div>
+});
 
 export default () => (
   <App>
-    <Suspense fallback={() => <div>Loading...</div>}>
-      <Switch>
-        <Route path={routes.COUNTER} component={CounterPageComponent} />
-        <Route path={routes.HOME} component={HomePage} />
-      </Switch>
-    </Suspense>
+    <Switch>
+      <Route path={routes.COUNTER} component={CounterPageComponent} />
+      <Route path={routes.HOME} component={HomePage} />
+    </Switch>
   </App>
 );
