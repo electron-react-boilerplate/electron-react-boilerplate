@@ -230,7 +230,7 @@
     "node-sass": "^4.11.0",
     "opencollective-postinstall": "^2.0.2",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
-    "prettier": "^1.16.4",
+    "prettier": "^1.18.2",
     "react-test-renderer": "^16.8.6",
     "redux-logger": "^3.0.6",
     "rimraf": "^2.6.3",
