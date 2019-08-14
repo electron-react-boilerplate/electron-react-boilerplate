@@ -10,10 +10,14 @@
  *
  * @flow
  */
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
+import { configureStore } from './store/configureStore';
+import { increment, decrement } from './actions/counter';
+
+const store = configureStore(undefined, 'main');
 
 export default class AppUpdater {
   constructor() {
@@ -99,4 +103,23 @@ app.on('ready', async () => {
   // Remove this if your app does not use auto updates
   // eslint-disable-next-line
   new AppUpdater();
+});
+
+// electron-redux demonstration, sending actions from the main process, updating the store
+// pretty useless example, as an IPC call from the renderer triggers this, but it should
+// serve as a demonstration that the functionality works.
+ipcMain.on('store', (event, message) => {
+  switch (message) {
+    case 'increment': {
+      store.dispatch(increment());
+      break;
+    }
+    case 'decrement': {
+      store.dispatch(decrement());
+      break;
+    }
+    default: {
+      break;
+    }
+  }
 });
