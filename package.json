@@ -191,7 +191,7 @@
     "babel-plugin-dev-expression": "^0.2.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "chalk": "^2.4.2",
-    "concurrently": "^4.1.0",
+    "concurrently": "^4.1.2",
     "cross-env": "^5.2.0",
     "cross-spawn": "^6.0.5",
     "css-loader": "^2.1.1",
