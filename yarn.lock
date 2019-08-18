@@ -2315,10 +2315,10 @@ babel-plugin-check-es2015-constants@^6.22.0:
   dependencies:
     babel-runtime "^6.22.0"
 
-babel-plugin-dev-expression@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/babel-plugin-dev-expression/-/babel-plugin-dev-expression-0.2.1.tgz#d4a7beefefbb50e3f2734990a82a2486cf9eb9ee"
-  integrity sha1-1Ke+7++7UOPyc0mQqCokhs+eue4=
+babel-plugin-dev-expression@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/babel-plugin-dev-expression/-/babel-plugin-dev-expression-0.2.2.tgz#c18de18a06150f9480edd151acbb01d2e65e999b"
+  integrity sha512-y32lfBif+c2FIh5dwGfcc/IfX5aw/Bru7Du7W2n17sJE/GJGAsmIk5DPW/8JOoeKpXW5evJfJOvRq5xkiS6vng==
 
 babel-plugin-istanbul@^5.1.0:
   version "5.1.4"
