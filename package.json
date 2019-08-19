@@ -229,7 +229,7 @@
     "mini-css-extract-plugin": "^0.5.0",
     "node-sass": "^4.11.0",
     "opencollective-postinstall": "^2.0.2",
-    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
     "prettier": "^1.16.4",
     "react-test-renderer": "^16.8.6",
     "redux-logger": "^3.0.6",
