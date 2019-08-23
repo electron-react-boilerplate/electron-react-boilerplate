@@ -197,7 +197,7 @@
     "css-loader": "^2.1.1",
     "detect-port": "^1.3.0",
     "electron": "^4.1.3",
-    "electron-builder": "^20.39.0",
+    "electron-builder": "^21.2.0",
     "electron-devtools-installer": "^2.2.4",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.11.2",
