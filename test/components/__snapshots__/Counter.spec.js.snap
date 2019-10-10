@@ -61,6 +61,22 @@ exports[`Counter component should match exact snapshot 1`] = `
       >
         async
       </button>
+      <button
+        className="btn"
+        data-tclass="btn"
+        onClick={[Function]}
+        type="button"
+      >
+        main +
+      </button>
+      <button
+        className="btn"
+        data-tclass="btn"
+        onClick={[Function]}
+        type="button"
+      >
+        main -
+      </button>
     </div>
   </div>
 </div>

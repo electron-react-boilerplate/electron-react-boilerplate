@@ -4972,6 +4972,15 @@ electron-publish@20.43.0:
     lazy-val "^1.0.4"
     mime "^2.4.3"
 
+electron-redux@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/electron-redux/-/electron-redux-1.4.0.tgz#f3c0b09150ddacc7771b6ef953cf23f47b900a83"
+  integrity sha512-spHEJLxpI2kBKhTKpxHNfchXIYD+W5HFstwqexkO6VY9GL3C/bOqf7HM0a598yD9rhFEKUdk5u4dD5jjo3Q/TQ==
+  dependencies:
+    debug "^3.0.0"
+    flux-standard-action "^2.0.0"
+    redux "^3.4.0"
+
 electron-to-chromium@^1.3.150, electron-to-chromium@^1.3.47:
   version "1.3.155"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.155.tgz#ebf0cc8eeaffd6151d1efad60fd9e021fb45fd3a"
@@ -5993,6 +6002,13 @@ flush-write-stream@^1.0.0:
   dependencies:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
+
+flux-standard-action@^2.0.0:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/flux-standard-action/-/flux-standard-action-2.1.1.tgz#b2e204145ea8e4294d6b0f178d8e8c416802948f"
+  integrity sha512-W86GzmXmIiTVq/dpYVd2HtTIUX9c35Iq3ao3xR6qcKtuXgbu+BDEj72op5VnEIe/kpuSbhl+I8kT1iS2hpcusw==
+  dependencies:
+    lodash "^4.17.15"
 
 fn-name@~2.0.1:
   version "2.0.1"
@@ -8449,6 +8465,11 @@ locate-path@^3.0.0:
     p-locate "^3.0.0"
     path-exists "^3.0.0"
 
+lodash-es@^4.2.1:
+  version "4.17.15"
+  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.15.tgz#21bd96839354412f23d7a10340e5eac6ee455d78"
+  integrity sha512-rlrc3yU3+JNOpZ9zj5pQtxnx2THmvRykwL4Xlxoa8I9lHBlVbbyPhgyPMioxVZ4NqyxaVVtaJnzsyOidQIhyyQ==
+
 lodash.escape@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/lodash.escape/-/lodash.escape-4.0.1.tgz#c9044690c21e04294beaa517712fded1fa88de98"
@@ -8488,6 +8509,11 @@ lodash@4.17.11, "lodash@4.6.1 || ^4.16.1", lodash@^4.0.0, lodash@^4.14.0, lodash
   version "4.17.11"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
   integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
+
+lodash@^4.17.15, lodash@^4.2.1:
+  version "4.17.15"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
+  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
 
 log-symbols@^1.0.2:
   version "1.0.2"
@@ -11078,6 +11104,16 @@ redux-thunk@^2.3.0:
   resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.3.0.tgz#51c2c19a185ed5187aaa9a2d08b666d0d6467622"
   integrity sha512-km6dclyFnmcvxhAcrQV2AkZmPQjzPDjgVlQtR0EQjxZPyJ0BnMf3in1ryuR8A2qU0HldVRfxYXbFSKlI3N7Slw==
 
+redux@^3.4.0:
+  version "3.7.2"
+  resolved "https://registry.yarnpkg.com/redux/-/redux-3.7.2.tgz#06b73123215901d25d065be342eb026bc1c8537b"
+  integrity sha512-pNqnf9q1hI5HHZRBkj3bAngGZW/JMCmexDlOxw4XagXY2o1327nHH54LoTjiPJ0gizoqPDRqWyX/00g0hD6w+A==
+  dependencies:
+    lodash "^4.2.1"
+    lodash-es "^4.2.1"
+    loose-envify "^1.1.0"
+    symbol-observable "^1.0.3"
+
 redux@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/redux/-/redux-4.0.1.tgz#436cae6cc40fbe4727689d7c8fae44808f1bfef5"
@@ -12500,7 +12536,7 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
-symbol-observable@^1.1.0, symbol-observable@^1.2.0:
+symbol-observable@^1.0.3, symbol-observable@^1.1.0, symbol-observable@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
   integrity sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==

@@ -1,19 +1,28 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import { createHashHistory } from 'history';
 import { routerMiddleware, routerActions } from 'connected-react-router';
 import { createLogger } from 'redux-logger';
+import {
+  forwardToMain,
+  forwardToRenderer,
+  triggerAlias,
+  replayActionMain,
+  replayActionRenderer
+} from 'electron-redux';
 import createRootReducer from '../reducers';
 import * as counterActions from '../actions/counter';
 import type { counterStateType } from '../reducers/types';
+import getHistory from './storeHistory';
 
-const history = createHashHistory();
+const configureStore = (
+  initialState?: counterStateType,
+  scope: string = 'main'
+) => {
+  const history = getHistory(scope);
+  const rootReducer = createRootReducer(history, scope);
 
-const rootReducer = createRootReducer(history);
-
-const configureStore = (initialState?: counterStateType) => {
   // Redux Configuration
-  const middleware = [];
+  let middleware = [];
   const enhancers = [];
 
   // Thunk Middleware
@@ -31,8 +40,14 @@ const configureStore = (initialState?: counterStateType) => {
   }
 
   // Router Middleware
-  const router = routerMiddleware(history);
-  middleware.push(router);
+  if (scope === 'renderer') {
+    const router = routerMiddleware();
+    middleware = [forwardToMain, router, ...middleware];
+  }
+
+  if (scope === 'main') {
+    middleware = [triggerAlias, ...middleware, forwardToRenderer];
+  }
 
   // Redux DevTools Configuration
   const actionCreators = {
@@ -41,12 +56,14 @@ const configureStore = (initialState?: counterStateType) => {
   };
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose
   /* eslint-disable no-underscore-dangle */
-  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-        // Options: http://extension.remotedev.io/docs/API/Arguments.html
-        actionCreators
-      })
-    : compose;
+  const composeEnhancers =
+    scope === 'renderer' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+      ? scope === 'renderer' &&
+        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+          // Options: http://extension.remotedev.io/docs/API/Arguments.html
+          actionCreators
+        })
+      : compose;
   /* eslint-enable no-underscore-dangle */
 
   // Apply Middleware & Compose Enhancers
@@ -64,7 +81,13 @@ const configureStore = (initialState?: counterStateType) => {
     );
   }
 
+  if (scope === 'main') {
+    replayActionMain(store);
+  } else {
+    replayActionRenderer(store);
+  }
+
   return store;
 };
 
-export default { configureStore, history };
+export default { configureStore };

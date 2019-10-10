@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { ipcRenderer } from 'electron';
 import styles from './Counter.css';
 import routes from '../constants/routes';
 
@@ -65,6 +66,22 @@ export default class Counter extends Component<Props> {
             type="button"
           >
             async
+          </button>
+          <button
+            className={styles.btn}
+            onClick={() => ipcRenderer.send('store', 'increment')}
+            data-tclass="btn"
+            type="button"
+          >
+            main +
+          </button>
+          <button
+            className={styles.btn}
+            onClick={() => ipcRenderer.send('store', 'decrement')}
+            data-tclass="btn"
+            type="button"
+          >
+            main -
           </button>
         </div>
       </div>

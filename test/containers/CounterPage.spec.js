@@ -2,16 +2,16 @@ import React from 'react';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { Provider } from 'react-redux';
-import { createBrowserHistory } from 'history';
 import { ConnectedRouter } from 'connected-react-router';
 import CounterPage from '../../app/containers/CounterPage';
 import { configureStore } from '../../app/store/configureStore';
+import getHistory from '../../app/store/storeHistory';
 
 Enzyme.configure({ adapter: new Adapter() });
 
 function setup(initialState) {
-  const store = configureStore(initialState);
-  const history = createBrowserHistory();
+  const history = getHistory('renderer');
+  const store = configureStore(initialState, 'renderer');
   const provider = (
     <Provider store={store}>
       <ConnectedRouter history={history}>
