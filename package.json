@@ -255,7 +255,7 @@
     "yarn": "^1.15.2"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.8.1",
+    "@fortawesome/fontawesome-free": "^5.11.2",
     "@hot-loader/react-dom": "^16.8.6",
     "connected-react-router": "^6.3.2",
     "core-js": "2",
