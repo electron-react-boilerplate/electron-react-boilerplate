@@ -9,6 +9,8 @@ export default () => (
   <App>
     <Switch>
       <Route path={routes.COUNTER} component={CounterPage} />
+  
+      /** Any other routes you want to use need to go above HOME **/
       <Route path={routes.HOME} component={HomePage} />
     </Switch>
   </App>
