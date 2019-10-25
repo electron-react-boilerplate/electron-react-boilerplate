@@ -263,7 +263,7 @@
     "electron-debug": "^2.1.0",
     "electron-log": "^3.0.4",
     "electron-updater": "^4.0.6",
-    "history": "^4.9.0",
+    "history": "^4.10.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-hot-loader": "^4.8.2",
