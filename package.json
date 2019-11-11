@@ -261,7 +261,7 @@
     "core-js": "2",
     "devtron": "^1.4.0",
     "electron-debug": "^2.1.0",
-    "electron-log": "^3.0.4",
+    "electron-log": "^3.0.9",
     "electron-updater": "^4.0.6",
     "history": "^4.9.0",
     "react": "^16.8.6",
