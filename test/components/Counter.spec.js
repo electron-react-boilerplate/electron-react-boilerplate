@@ -1,3 +1,4 @@
+/* eslint react/jsx-props-no-spreading: off */
 import { spy } from 'sinon';
 import React from 'react';
 import Enzyme, { shallow } from 'enzyme';

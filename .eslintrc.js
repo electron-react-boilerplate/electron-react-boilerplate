@@ -1,9 +1,9 @@
-{
+module.exports = {
   "extends": "erb",
   "settings": {
     "import/resolver": {
       "webpack": {
-        "config": "configs/webpack.config.eslint.js"
+        "config": require.resolve('./configs/webpack.config.eslint.js')
       }
     }
   }
