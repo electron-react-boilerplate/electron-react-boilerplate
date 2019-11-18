@@ -204,7 +204,7 @@
     "enzyme-to-json": "^3.4.3",
     "eslint": "^6.6.0",
     "eslint-config-airbnb": "^18.0.1",
-    "eslint-config-erb": "^0.0.2",
+    "eslint-config-erb": "^0.1.1",
     "eslint-config-prettier": "^6.5.0",
     "eslint-formatter-pretty": "^2.1.1",
     "eslint-import-resolver-webpack": "^0.11.0",
