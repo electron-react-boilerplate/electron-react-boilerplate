@@ -257,7 +257,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.11.2",
     "@hot-loader/react-dom": "^16.10.2",
-    "connected-react-router": "^6.5.2",
+    "connected-react-router": "^6.6.0",
     "core-js": "3.3.6",
     "devtron": "^1.4.0",
     "electron-debug": "^3.0.1",
