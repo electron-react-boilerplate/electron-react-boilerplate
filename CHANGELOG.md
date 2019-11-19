@@ -1,3 +1,8 @@
+# 0.18.0 (2019.11.19)
+
+- Bump all deps to latest semver
+- Revert back to [two `package.json` structure](https://www.electron.build/tutorials/two-package-structure)
+
 # 0.17.1 (2018.11.20)
 
 - Fix `yarn test-e2e` and testcafe for single package.json structure
