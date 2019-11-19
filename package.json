@@ -222,7 +222,7 @@
     "flow-bin": "^0.111.3",
     "flow-runtime": "^0.17.0",
     "flow-typed": "^2.6.2",
-    "husky": "^3.0.9",
+    "husky": "^3.1.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.9.0",
     "lint-staged": "^9.4.2",
