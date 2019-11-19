@@ -90,7 +90,6 @@
       "target": [
         "deb",
         "rpm",
-        "snap",
         "AppImage"
       ],
       "category": "Development"
