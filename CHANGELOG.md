@@ -1,7 +1,8 @@
 # 0.18.0 (2019.11.19)
 
-- Bump all deps to latest semver
+- Bump electron to `electron@6` (`electron@7` introduces breaking changes to testcafe end to end tests)
 - Revert back to [two `package.json` structure](https://www.electron.build/tutorials/two-package-structure)
+- Bump all deps to latest semver
 
 # 0.17.1 (2018.11.20)
 

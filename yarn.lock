@@ -4301,11 +4301,6 @@ core-js-compat@^3.1.1:
     browserslist "^4.7.3"
     semver "^6.3.0"
 
-core-js@3.4.1:
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.4.1.tgz#76dd6828412900ab27c8ce0b22e6114d7ce21b18"
-  integrity sha512-KX/dnuY/J8FtEwbnrzmAjUYgLqtk+cxM86hfG60LGiW3MmltIc2yAmDgBgEkfm0blZhUrdr1Zd84J2Y14mLxzg==
-
 core-js@^1.0.0:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-1.2.7.tgz#652294c14651db28fa93bd2d5ff2983a4f08c636"
@@ -4315,6 +4310,11 @@ core-js@^2.4.0, core-js@^2.4.1, core-js@^2.5.0, core-js@^2.6.5:
   version "2.6.10"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.10.tgz#8a5b8391f8cc7013da703411ce5b585706300d7f"
   integrity sha512-I39t74+4t+zau64EN1fE5v2W31Adtc/REhzWN+gWRRXg6WH5qAsZm62DHpQ1+Yhe4047T55jvzz7MUqF/dBBlA==
+
+core-js@^3.4.2:
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.4.2.tgz#ee2b1a60b50388d8ddcda8cdb44a92c7a9ea76df"
+  integrity sha512-bUTfqFWtNKWp73oNIfRkqwYZJeNT3lstzZcAkhhiuvDraRSgOH1/+F9ZklbpR4zpdKuo4cpXN8tKP7s61yjX+g==
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
@@ -5371,10 +5371,10 @@ electron-updater@^4.2.0:
     pako "^1.0.10"
     semver "^6.3.0"
 
-electron@4:
-  version "4.2.12"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-4.2.12.tgz#8e8926a6a6654cde5eb0612952fed98a56941875"
-  integrity sha512-EES8eMztoW8gEP5E4GQLP8slrfS2jqTYtHbu36mlu3k1xYAaNPyQQr6mCILkYxqj4l3la4CT2Vcs89CUG62vcQ==
+electron@6:
+  version "6.1.5"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-6.1.5.tgz#1f1bc54042587d8368edd43ffecb0ce7c84cab87"
+  integrity sha512-PrdJKkAS0IaSJwu4him03VYqvAKK1qyWTE/ieb4LgcbR4F4u90b91/7xna6P1GpD/FXiHqzZQcs0SvK/o08ckQ==
   dependencies:
     "@types/node" "^10.12.18"
     electron-download "^4.1.0"
