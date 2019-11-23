@@ -10,6 +10,7 @@ environment:
 cache:
   - '%LOCALAPPDATA%/Yarn'
   - node_modules
+  - app/node_modules
   - flow-typed
   - '%USERPROFILE%\.electron'
 

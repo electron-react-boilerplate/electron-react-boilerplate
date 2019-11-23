@@ -1,6 +1,4 @@
 matrix:
-  allow_failures:
-    - os: windows
   include:
     - os: osx
       language: node_js
@@ -9,15 +7,16 @@ matrix:
       env:
         - ELECTRON_CACHE=$HOME/.cache/electron
         - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
-
     - os: linux
       language: node_js
       node_js:
         - node
+      services:
+        - xvfb
       addons:
         apt:
           sources:
-            - ubuntu-toolchain-r-test
+            - sourceline: 'ppa:ubuntu-toolchain-r/test'
           packages:
             - gcc-multilib
             - g++-8
@@ -27,14 +26,6 @@ matrix:
             - xz-utils
             - xorriso
             - rpm
-
-    - os: windows
-      language: node_js
-      node_js:
-        - node
-      env:
-        - ELECTRON_CACHE=$HOME/.cache/electron
-        - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
 
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
@@ -71,7 +62,6 @@ install:
 before_script:
   # On Linux, create a "virtual display". This allows browsers to work properly
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export DISPLAY=:99.0; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sh -e /etc/init.d/xvfb start; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sleep 3; fi
 
 script:
