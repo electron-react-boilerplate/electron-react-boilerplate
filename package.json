@@ -203,7 +203,7 @@
     "electron": "6",
     "electron-builder": "^22.2.0",
     "electron-devtools-installer": "^2.2.4",
-    "electron-rebuild": "^1.8.2",
+    "electron-rebuild": "^1.8.8",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.7.0",
     "enzyme-to-json": "^3.3.4",
