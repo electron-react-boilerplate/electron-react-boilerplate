@@ -263,7 +263,7 @@
     "@fortawesome/fontawesome-free": "^5.11.2",
     "@hot-loader/react-dom": "^16.11.0",
     "connected-react-router": "^6.6.1",
-    "core-js": "^3.4.2",
+    "core-js": "^3.4.5",
     "devtron": "^1.4.0",
     "electron-debug": "^3.0.1",
     "electron-log": "^3.0.9",
