@@ -22,23 +22,23 @@ test('e2e', async t => {
   await t.expect(getPageTitle()).eql('Hello Electron React!');
 });
 
-test('should open window', async t => {
+test('should open window and contain expected page title', async t => {
   await t.expect(getPageTitle()).eql('Hello Electron React!');
 });
 
 test(
-  "should haven't any logs in console of main window",
+  'should not have any logs in console of main window',
   assertNoConsoleErrors
 );
 
-test('should to Counter with click "to Counter" link', async t => {
+test('should navigate to Counter with click on the "to Counter" link', async t => {
   await t
     .click('[data-tid=container] > a')
     .expect(getCounterText())
     .eql('0');
 });
 
-test('should navgiate to /counter', async t => {
+test('should navigate to /counter', async t => {
   await t
     .click('a')
     .expect(getPageUrl())
@@ -50,28 +50,28 @@ fixture`Counter Tests`
   .beforeEach(clickToCounterLink)
   .afterEach(assertNoConsoleErrors);
 
-test('should display updated count after increment button click', async t => {
+test('should display updated count after the increment button click', async t => {
   await t
     .click(incrementButton)
     .expect(getCounterText())
     .eql('1');
 });
 
-test('should display updated count after descrement button click', async t => {
+test('should display updated count after the descrement button click', async t => {
   await t
     .click(decrementButton)
     .expect(getCounterText())
     .eql('-1');
 });
 
-test('should not change if even and if odd button clicked', async t => {
+test('should not change even counter if odd button clicked', async t => {
   await t
     .click(oddButton)
     .expect(getCounterText())
     .eql('0');
 });
 
-test('should change if odd and if odd button clicked', async t => {
+test('should change odd counter if odd button clicked', async t => {
   await t
     .click(incrementButton)
     .click(oddButton)

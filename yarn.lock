@@ -8758,11 +8758,6 @@ keyboardevents-areequal@^0.2.1:
   resolved "https://registry.yarnpkg.com/keyboardevents-areequal/-/keyboardevents-areequal-0.2.2.tgz#88191ec738ce9f7591c25e9056de928b40277194"
   integrity sha512-Nv+Kr33T0mEjxR500q+I6IWisOQ0lK1GGOncV0kWE6n4KFmpcu7RUX5/2B0EUtX51Cb0HjZ9VJsSY3u4cBa0kw==
 
-keypress@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/keypress/-/keypress-0.2.1.tgz#1e80454250018dbad4c3fe94497d6e67b6269c77"
-  integrity sha1-HoBFQlABjbrUw/6USX1uZ7YmnHc=
-
 keyv@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/keyv/-/keyv-3.0.0.tgz#44923ba39e68b12a7cec7df6c3268c031f2ef373"
@@ -13660,18 +13655,6 @@ testcafe-legacy-api@3.1.11:
     pify "^2.3.0"
     pinkie "^2.0.1"
     strip-bom "^2.0.0"
-
-testcafe-live@^0.1.4:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/testcafe-live/-/testcafe-live-0.1.4.tgz#a5a24e0110267a5f3c99acefdbe593efaea510fc"
-  integrity sha512-ZDlj9GTkDU9XEEp7ds5nprzoBpVR2SQnz/u2PzZyyH7tOHLo5MRVC+wxSQBcgJzl2dBdiOaAsNsbPtyhOtrcRQ==
-  dependencies:
-    ansi-escapes "^3.0.0"
-    async-exit-hook "^2.0.1"
-    graphlib "^2.1.5"
-    keypress "^0.2.1"
-    log-update-async-hook "^2.0.2"
-    wrap-ansi "^3.0.1"
 
 testcafe-react-selectors@^3.3.0:
   version "3.3.0"

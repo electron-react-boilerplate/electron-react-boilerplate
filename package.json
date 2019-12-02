@@ -33,7 +33,7 @@
     "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 jest",
     "test-all": "yarn lint && yarn flow && yarn build && yarn test && yarn build-e2e && yarn test-e2e",
     "test-e2e": "node -r @babel/register ./internals/scripts/CheckBuildsExist.js && cross-env NODE_ENV=test testcafe electron:./app ./test/e2e/HomePage.e2e.js",
-    "test-e2e-live": "node -r @babel/register ./internals/scripts/CheckBuildsExist.js && cross-env NODE_ENV=test testcafe-live electron:./app ./test/e2e/HomePage.e2e.js",
+    "test-e2e-live": "node -r @babel/register ./internals/scripts/CheckBuildsExist.js && cross-env NODE_ENV=test testcafe --live electron:./app ./test/e2e/HomePage.e2e.js",
     "test-watch": "yarn test --watch"
   },
   "lint-staged": {
@@ -249,7 +249,6 @@
     "terser-webpack-plugin": "^2.2.1",
     "testcafe": "^1.6.1",
     "testcafe-browser-provider-electron": "^0.0.12",
-    "testcafe-live": "^0.1.4",
     "testcafe-react-selectors": "^3.3.0",
     "url-loader": "^2.2.0",
     "webpack": "^4.41.2",
