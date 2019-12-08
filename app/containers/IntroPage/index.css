@@ -1,0 +1,7 @@
+.video {
+  width: calc(100vw - 64px);
+  outline: none;
+  margin: 20px;
+  border: 6px solid white;
+  box-shadow: 1px 1px 5px #333;
+}

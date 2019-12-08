@@ -1,0 +1,22 @@
+@keyframes fontChange {
+  from {
+    font-size: 42px;
+  }
+  50% {
+    font-size: 48px;
+  }
+  to {
+    font-size: 42px;
+  }
+}
+
+.link {
+  display: block;
+  text-decoration: none;
+  color: black;
+  margin: 0;
+  cursor: pointer;
+  text-align: center;
+  font-size: 48px;
+  animation: fontChange 1s linear infinite;
+}
