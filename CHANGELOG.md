@@ -1,6 +1,8 @@
 # 0.18.1 (2019.12.12)
 
 - Fix HMR env bug ([#2343](https://github.com/electron-react-boilerplate/electron-react-boilerplate/pull/2343))
+- Bump all deps to latest semver
+- Bump to `electron@7`
 
 # 0.18.0 (2019.11.19)
 
