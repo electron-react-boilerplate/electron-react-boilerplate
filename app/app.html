@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <title>Hello Electron React!</title>
     <script>
-      (function() {
-        if (!process.env.HOT) {
+      (() => {
+        if (!process.env.START_HOT) {
           const link = document.createElement('link');
           link.rel = 'stylesheet';
           link.href = './dist/style.css';
@@ -30,8 +30,8 @@
         // Dynamically insert the bundled app script in the renderer process
         const port = process.env.PORT || 1212;
         scripts.push(
-          process.env.HOT
-            ? 'http://localhost:' + port + '/dist/renderer.dev.js'
+          process.env.START_HOT
+            ? `http://localhost:${port}/dist/renderer.dev.js`
             : './dist/renderer.prod.js'
         );
 
