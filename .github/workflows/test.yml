@@ -24,6 +24,8 @@ jobs:
           yarn install
 
       - name: yarn test
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
         run: |
           yarn package-ci
           yarn lint
