@@ -1,5 +1,4 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { createHashHistory } from 'history';
 import { routerMiddleware, routerActions } from 'connected-react-router';
 import { createLogger } from 'redux-logger';
@@ -11,13 +10,9 @@ const history = createHashHistory();
 
 const rootReducer = createRootReducer(history);
 
-const configureStore = (initialState?: counterStateType) => {
+const configuredStore = (initialState?: counterStateType) => {
   // Redux Configuration
-  const middleware = [];
-  const enhancers = [];
-
-  // Thunk Middleware
-  middleware.push(thunk);
+  const middleware = [...getDefaultMiddleware()];
 
   // Logging Middleware
   const logger = createLogger({
@@ -39,22 +34,19 @@ const configureStore = (initialState?: counterStateType) => {
     ...counterActions,
     ...routerActions
   };
-  // If Redux DevTools Extension is installed use it, otherwise use Redux compose
-  /* eslint-disable no-underscore-dangle */
-  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-        // Options: http://extension.remotedev.io/docs/API/Arguments.html
-        actionCreators
-      })
-    : compose;
-  /* eslint-enable no-underscore-dangle */
 
-  // Apply Middleware & Compose Enhancers
-  enhancers.push(applyMiddleware(...middleware));
-  const enhancer = composeEnhancers(...enhancers);
+  const devTools = {
+    // Options: http://extension.remotedev.io/docs/API/Arguments.html
+    actionCreators
+  };
 
   // Create Store
-  const store = createStore(rootReducer, initialState, enhancer);
+  const store = configureStore({
+    reducer: rootReducer,
+    preloadedState: initialState,
+    middleware,
+    devTools
+  });
 
   if (module.hot) {
     module.hot.accept(
@@ -67,4 +59,4 @@ const configureStore = (initialState?: counterStateType) => {
   return store;
 };
 
-export default { configureStore, history };
+export default { configuredStore, history };

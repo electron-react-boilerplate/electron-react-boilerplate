@@ -261,6 +261,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.12.0",
     "@hot-loader/react-dom": "^16.11.0",
+    "@reduxjs/toolkit": "^1.1.0",
     "connected-react-router": "^6.6.1",
     "core-js": "^3.5.0",
     "devtron": "^1.4.0",
@@ -274,8 +275,6 @@
     "react-redux": "^7.1.3",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
-    "redux": "^4.0.4",
-    "redux-thunk": "^2.3.0",
     "source-map-support": "^0.5.16"
   },
   "devEngines": {
