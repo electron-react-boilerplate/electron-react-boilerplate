@@ -2,7 +2,7 @@ import {
   counterReducer,
   increment,
   decrement
-} from '../../app/reducers/counter';
+} from '../../app/features/counter/counterSlice';
 
 describe('reducers', () => {
   describe('counter', () => {
