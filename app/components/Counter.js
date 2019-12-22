@@ -36,7 +36,7 @@ export default class Counter extends Component<Props> {
         <div className={styles.btnGroup}>
           <button
             className={styles.btn}
-            onClick={increment}
+            onClick={() => increment()}
             data-tclass="btn"
             type="button"
           >
@@ -44,7 +44,7 @@ export default class Counter extends Component<Props> {
           </button>
           <button
             className={styles.btn}
-            onClick={decrement}
+            onClick={() => decrement()}
             data-tclass="btn"
             type="button"
           >
@@ -52,7 +52,7 @@ export default class Counter extends Component<Props> {
           </button>
           <button
             className={styles.btn}
-            onClick={incrementIfOdd}
+            onClick={() => incrementIfOdd()}
             data-tclass="btn"
             type="button"
           >

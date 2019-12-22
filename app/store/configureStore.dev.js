@@ -3,7 +3,7 @@ import { createHashHistory } from 'history';
 import { routerMiddleware, routerActions } from 'connected-react-router';
 import { createLogger } from 'redux-logger';
 import createRootReducer from '../reducers';
-import * as counterActions from '../actions/counter';
+import { counterActions } from '../reducers/counter';
 import type { counterStateType } from '../reducers/types';
 
 const history = createHashHistory();
