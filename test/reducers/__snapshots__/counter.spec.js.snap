@@ -1,9 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`reducers counter should handle counter/decrement 1`] = `2`;
-
-exports[`reducers counter should handle counter/increment 1`] = `0`;
-
 exports[`reducers counter should handle decrement 1`] = `0`;
 
 exports[`reducers counter should handle increment 1`] = `2`;
