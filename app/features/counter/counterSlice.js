@@ -1,6 +1,6 @@
 // @flow
 import { createSlice } from '@reduxjs/toolkit';
-import type { GetState, Dispatch } from '../../reducers/types';
+import type { GetState, Dispatch } from '../../types';
 
 const counterSlice = createSlice({
   name: 'counter',
