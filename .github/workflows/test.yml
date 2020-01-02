@@ -29,6 +29,6 @@ jobs:
         run: |
           yarn package-ci
           yarn lint
-          yarn flow
+          yarn ts
           yarn build-e2e
           yarn test-e2e

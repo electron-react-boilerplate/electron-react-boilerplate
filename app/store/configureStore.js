@@ -1,12 +1,8 @@
-// @flow
 import configureStoreDev from './configureStore.dev';
 import configureStoreProd from './configureStore.prod';
-
-const selectedConfigureStore =
-  process.env.NODE_ENV === 'production'
+var selectedConfigureStore = process.env.NODE_ENV === 'production'
     ? configureStoreProd
     : configureStoreDev;
-
-export const { configureStore } = selectedConfigureStore;
-
-export const { history } = selectedConfigureStore;
+export var configureStore = selectedConfigureStore.configureStore;
+export var history = selectedConfigureStore.history;
+//# sourceMappingURL=configureStore.js.map

@@ -2,7 +2,6 @@
   "recommendations": [
     "dbaeumer.vscode-eslint",
     "dzannotti.vscode-babel-coloring",
-    "EditorConfig.EditorConfig",
-    "flowtype.flow-for-vscode"
+    "EditorConfig.EditorConfig"
   ]
 }
