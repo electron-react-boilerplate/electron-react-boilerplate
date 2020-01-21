@@ -12,8 +12,6 @@ type Props = {
 };
 
 export default class Counter extends Component<Props> {
-  props: Props;
-
   render() {
     const {
       increment,

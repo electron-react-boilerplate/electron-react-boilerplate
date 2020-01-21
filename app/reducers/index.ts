@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
-import { HashHistory } from 'history';
+import { History } from 'history';
 import counter from './counter';
 
-export default function createRootReducer(history: HashHistory) {
-  return combineReducers<{}, Record<string, any>>({
+export default function createRootReducer(history: History) {
+  return combineReducers({
     router: connectRouter(history),
     counter
   });

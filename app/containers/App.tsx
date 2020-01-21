@@ -1,12 +1,10 @@
-import * as React from 'react';
+import React, { ReactNode } from 'react';
 
 type Props = {
-  children: React.Node
+  children: ReactNode;
 };
 
 export default class App extends React.Component<Props> {
-  props: Props;
-
   render() {
     const { children } = this.props;
     return <>{children}</>;

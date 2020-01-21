@@ -7,6 +7,19 @@ import createRootReducer from '../reducers';
 import * as counterActions from '../actions/counter';
 import { counterStateType } from '../reducers/types';
 
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: (
+      obj: Record<string, any>
+    ) => Function;
+  }
+  interface NodeModule {
+    hot?: {
+      accept: (path: string, cb: () => void) => void;
+    };
+  }
+}
+
 const history = createHashHistory();
 
 const rootReducer = createRootReducer(history);

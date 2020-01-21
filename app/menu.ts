@@ -1,4 +1,11 @@
-import { app, Menu, shell, BrowserWindow } from 'electron';
+// @ts-nocheck
+import {
+  app,
+  Menu,
+  shell,
+  BrowserWindow,
+  MenuItemConstructorOptions
+} from 'electron';
 
 export default class MenuBuilder {
   mainWindow: BrowserWindow;
@@ -27,23 +34,25 @@ export default class MenuBuilder {
   }
 
   setupDevelopmentEnvironment() {
+    // @ts-ignore Blocked on https://github.com/electron/electron/issues/7832
     this.mainWindow.openDevTools();
-    this.mainWindow.webContents.on('context-menu', (e, props) => {
+    this.mainWindow.webContents.on('context-menu', (_, props) => {
       const { x, y } = props;
 
       Menu.buildFromTemplate([
         {
           label: 'Inspect element',
           click: () => {
+            // @ts-ignore Blocked on https://github.com/electron/electron/issues/7832
             this.mainWindow.inspectElement(x, y);
           }
         }
-      ]).popup(this.mainWindow);
+      ]).popup({ window: this.mainWindow });
     });
   }
 
   buildDarwinTemplate() {
-    const subMenuAbout = {
+    const subMenuAbout: MenuItemConstructorOptions = {
       label: 'Electron',
       submenu: [
         {
@@ -74,7 +83,7 @@ export default class MenuBuilder {
         }
       ]
     };
-    const subMenuEdit = {
+    const subMenuEdit: MenuItemConstructorOptions = {
       label: 'Edit',
       submenu: [
         { label: 'Undo', accelerator: 'Command+Z', selector: 'undo:' },
@@ -90,7 +99,7 @@ export default class MenuBuilder {
         }
       ]
     };
-    const subMenuViewDev = {
+    const subMenuViewDev: MenuItemConstructorOptions = {
       label: 'View',
       submenu: [
         {
@@ -111,12 +120,13 @@ export default class MenuBuilder {
           label: 'Toggle Developer Tools',
           accelerator: 'Alt+Command+I',
           click: () => {
+            // @ts-ignore Blocked on https://github.com/electron/electron/issues/7832
             this.mainWindow.toggleDevTools();
           }
         }
       ]
     };
-    const subMenuViewProd = {
+    const subMenuViewProd: MenuItemConstructorOptions = {
       label: 'View',
       submenu: [
         {
@@ -128,7 +138,7 @@ export default class MenuBuilder {
         }
       ]
     };
-    const subMenuWindow = {
+    const subMenuWindow: MenuItemConstructorOptions = {
       label: 'Window',
       submenu: [
         {
@@ -141,7 +151,7 @@ export default class MenuBuilder {
         { label: 'Bring All to Front', selector: 'arrangeInFront:' }
       ]
     };
-    const subMenuHelp = {
+    const subMenuHelp: MenuItemConstructorOptions = {
       label: 'Help',
       submenu: [
         {
@@ -222,6 +232,7 @@ export default class MenuBuilder {
                   label: 'Toggle &Developer Tools',
                   accelerator: 'Alt+Ctrl+I',
                   click: () => {
+                    // @ts-ignore Blocked on https://github.com/electron/electron/issues/7832
                     this.mainWindow.toggleDevTools();
                   }
                 }
