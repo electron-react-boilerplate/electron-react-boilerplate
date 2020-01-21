@@ -30,5 +30,6 @@ jobs:
           yarn package-ci
           yarn lint
           yarn ts
-          yarn build-e2e
-          yarn test-e2e
+
+#          yarn build-e2e
+#          yarn test-e2e
