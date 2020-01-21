@@ -8,7 +8,7 @@ var rootReducer = createRootReducer(history);
 var router = routerMiddleware(history);
 var enhancer = applyMiddleware(thunk, router);
 function configureStore(initialState) {
-    return createStore(rootReducer, initialState, enhancer);
+  return createStore(rootReducer, initialState, enhancer);
 }
 export default { configureStore: configureStore, history: history };
 //# sourceMappingURL=configureStore.prod.js.map

@@ -1,0 +1,49 @@
+{
+  "compilerOptions": {
+    "target": "ES2018",
+    "module": "CommonJS",
+    "lib": ["dom", "esnext"],
+    "declaration": true,
+    "declarationMap": true,
+    "composite": true,
+
+    // "emitDeclarationOnly": true,
+    // "isolatedModules": true,
+
+    "jsx": "react",
+
+    "strict": true,
+    "pretty": true,
+
+    "sourceMap": true,
+
+    "noEmit": true,
+
+    /* Additional Checks */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+
+    /* Module Resolution Options */
+    "moduleResolution": "node",
+    /* This needs to be false so our types are possible to consume without setting this */
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true
+  },
+  "exclude": [
+    "test",
+    "release",
+    "app/main.prod.js",
+    "app/main.prod.js.map",
+    "app/renderer.prod.js",
+    "app/renderer.prod.js.map",
+    "app/style.css",
+    "app/style.css.map",
+    "app/dist",
+    "dll",
+    "app/main.js",
+    "app/main.js.map"
+  ]
+}
