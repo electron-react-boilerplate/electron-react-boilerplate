@@ -14,7 +14,7 @@ const productionPlugins = [
 ];
 
 module.exports = api => {
-  // see docs about api at https://babeljs.io/docs/en/config-files#apicache
+  // See docs about api at https://babeljs.io/docs/en/config-files#apicache
 
   const development = api.env(developmentEnvironments);
 
