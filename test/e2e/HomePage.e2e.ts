@@ -1,3 +1,4 @@
+/* eslint jest/expect-expect: off, jest/no-test-callback: off */
 import { ClientFunction, Selector } from 'testcafe';
 import { getPageUrl } from './helpers';
 
