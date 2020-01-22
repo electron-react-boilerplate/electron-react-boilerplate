@@ -4,9 +4,7 @@ type Props = {
   children: ReactNode;
 };
 
-export default class App extends React.Component<Props> {
-  render() {
-    const { children } = this.props;
-    return <>{children}</>;
-  }
+export default function App(props: Props) {
+  const { children } = props;
+  return <>{children}</>;
 }
