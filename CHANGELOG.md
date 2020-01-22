@@ -1,3 +1,7 @@
+# 1.0.0
+
+- Migrate to TypeScript from Flow ([#2363](https://github.com/electron-react-boilerplate/electron-react-boilerplate/pull/2363))
+
 # 0.18.1 (2019.12.12)
 
 - Fix HMR env bug ([#2343](https://github.com/electron-react-boilerplate/electron-react-boilerplate/pull/2343))
