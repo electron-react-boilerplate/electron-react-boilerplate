@@ -1,7 +1,7 @@
 {
   "name": "electron-react-boilerplate",
   "productName": "ElectronReact",
-  "version": "0.18.1",
+  "version": "1.0.0",
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
   "scripts": {
     "build": "concurrently \"yarn build-main\" \"yarn build-renderer\"",
@@ -295,7 +295,7 @@
   "collective": {
     "url": "https://opencollective.com/electron-react-boilerplate-594"
   },
-  "browserslist": "electron 1.6",
+  "browserslist": "electron 7.1.7",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
