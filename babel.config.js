@@ -26,13 +26,7 @@ module.exports = api => {
           targets: { electron: require('electron/package.json').version }
         }
       ],
-      [
-        require('@babel/preset-typescript'),
-        {
-          isTSX: true,
-          allExtensions: true
-        }
-      ],
+      require('@babel/preset-typescript'),
       [require('@babel/preset-react'), { development }]
     ],
     plugins: [
