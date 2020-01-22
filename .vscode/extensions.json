@@ -1,7 +1,3 @@
 {
-  "recommendations": [
-    "dbaeumer.vscode-eslint",
-    "dzannotti.vscode-babel-coloring",
-    "EditorConfig.EditorConfig"
-  ]
+  "recommendations": ["dbaeumer.vscode-eslint", "EditorConfig.EditorConfig"]
 }
