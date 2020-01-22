@@ -67,7 +67,6 @@ script:
   - yarn package-ci
   - yarn lint
   - yarn ts
-  # HACK: Temporarily ignore `yarn test` on linux
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then yarn test; fi
+  - yarn test
   - yarn build-e2e
   - yarn test-e2e
