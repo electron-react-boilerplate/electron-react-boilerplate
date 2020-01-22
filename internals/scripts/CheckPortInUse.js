@@ -2,9 +2,9 @@ import chalk from 'chalk';
 import detectPort from 'detect-port';
 
 (() => {
-  const port: string = process.env.PORT || '1212';
+  const port = process.env.PORT || '1212';
 
-  detectPort(port, (err: Error | null, availablePort: number) => {
+  detectPort(port, (err, availablePort) => {
     if (port !== String(availablePort)) {
       throw new Error(
         chalk.whiteBright.bgRed.bold(

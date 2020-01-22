@@ -1,4 +1,4 @@
-// @ts-nocheck
+/* eslint @typescript-eslint/ban-ts-ignore: off */
 import {
   app,
   Menu,
@@ -34,8 +34,6 @@ export default class MenuBuilder {
   }
 
   setupDevelopmentEnvironment() {
-    // @ts-ignore Blocked on https://github.com/electron/electron/issues/7832
-    this.mainWindow.openDevTools();
     this.mainWindow.webContents.on('context-menu', (_, props) => {
       const { x, y } = props;
 
@@ -43,8 +41,7 @@ export default class MenuBuilder {
         {
           label: 'Inspect element',
           click: () => {
-            // @ts-ignore Blocked on https://github.com/electron/electron/issues/7832
-            this.mainWindow.inspectElement(x, y);
+            this.mainWindow.webContents.inspectElement(x, y);
           }
         }
       ]).popup({ window: this.mainWindow });
@@ -57,6 +54,7 @@ export default class MenuBuilder {
       submenu: [
         {
           label: 'About ElectronReact',
+          // @ts-ignore
           selector: 'orderFrontStandardAboutPanel:'
         },
         { type: 'separator' },
@@ -86,6 +84,7 @@ export default class MenuBuilder {
     const subMenuEdit: MenuItemConstructorOptions = {
       label: 'Edit',
       submenu: [
+        // @ts-ignore
         { label: 'Undo', accelerator: 'Command+Z', selector: 'undo:' },
         { label: 'Redo', accelerator: 'Shift+Command+Z', selector: 'redo:' },
         { type: 'separator' },
@@ -120,8 +119,7 @@ export default class MenuBuilder {
           label: 'Toggle Developer Tools',
           accelerator: 'Alt+Command+I',
           click: () => {
-            // @ts-ignore Blocked on https://github.com/electron/electron/issues/7832
-            this.mainWindow.toggleDevTools();
+            this.mainWindow.webContents.toggleDevTools();
           }
         }
       ]
@@ -144,6 +142,7 @@ export default class MenuBuilder {
         {
           label: 'Minimize',
           accelerator: 'Command+M',
+          // @ts-ignore
           selector: 'performMiniaturize:'
         },
         { label: 'Close', accelerator: 'Command+W', selector: 'performClose:' },
@@ -232,8 +231,7 @@ export default class MenuBuilder {
                   label: 'Toggle &Developer Tools',
                   accelerator: 'Alt+Ctrl+I',
                   click: () => {
-                    // @ts-ignore Blocked on https://github.com/electron/electron/issues/7832
-                    this.mainWindow.toggleDevTools();
+                    this.mainWindow.webContents.toggleDevTools();
                   }
                 }
               ]
