@@ -296,9 +296,6 @@
     "npm": ">=4.x",
     "yarn": ">=0.21.3"
   },
-  "resolutions": {
-    "@types/node": "12.12.6"
-  },
   "collective": {
     "url": "https://opencollective.com/electron-react-boilerplate-594"
   },
