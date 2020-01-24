@@ -4,36 +4,31 @@
     <meta charset="utf-8" />
     <title>Hello Electron React!</title>
     <script>
-      (() => {
-        if (!process.env.START_HOT) {
-          const link = document.createElement('link');
-          link.rel = 'stylesheet';
-          link.href = './dist/style.css';
-          // HACK: Writing the script path should be done with webpack
-          document.getElementsByTagName('head')[0].appendChild(link);
-        }
-      })();
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = './dist/style.css';
+      // HACK: Writing the script path should be done with webpack
+      document.getElementsByTagName('head')[0].appendChild(link);
     </script>
   </head>
   <body>
     <div id="root"></div>
     <script>
-      {
-        const scripts = [];
-
-        // Dynamically insert the DLL script in development env in the
-        // renderer process
-        if (process.env.NODE_ENV === 'development') {
-          scripts.push('../dll/renderer.dev.dll.js');
-        }
+      // Dynamically insert the DLL script in development env in the
+      // renderer process
+      if (
+        typeof process === 'object' &&
+        process.env.NODE_ENV === 'development'
+      ) {
+        const scripts = ['../dll/renderer.dev.dll.js'];
 
         // Dynamically insert the bundled app script in the renderer process
-        const port = process.env.PORT || 1212;
-        scripts.push(
-          process.env.START_HOT
-            ? `http://localhost:${port}/dist/renderer.dev.js`
-            : './dist/renderer.prod.js'
-        );
+        if (process.env.START_HOT) {
+          const port = process.env.PORT || 1212;
+          scripts.push(`http://localhost:${port}/dist/renderer.dev.js`);
+        } else {
+          scripts.push('./dist/renderer.prod.js');
+        }
 
         document.write(
           scripts
