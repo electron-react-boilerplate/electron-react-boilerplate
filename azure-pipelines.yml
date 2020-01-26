@@ -1,0 +1,45 @@
+variables:
+  YARN_CACHE_FOLDER: $(Pipeline.Workspace)/.yarn
+
+strategy:
+  matrix:
+    linux:
+      imageName: 'ubuntu-16.04'
+      nodeVersion: '13.x'
+    mac:
+      imageName: 'macos-10.14'
+      nodeVersion: '13.x'
+    windows:
+      imageName: 'windows-2019'
+      nodeVersion: '13.x'
+
+pool:
+  vmImage: $(imageName)
+
+steps:
+  # Set node version
+  - task: NodeTool@0
+    inputs:
+      versionSpec: $(nodeVersion)
+  # Cache yarn deps
+  - task: Cache@2
+    inputs:
+      key: 'yarn | "$(Agent.OS)" | yarn.lock'
+      restoreKeys: |
+        yarn | "$(Agent.OS)"
+        yarn
+      path: $(YARN_CACHE_FOLDER)
+    displayName: Cache Yarn packages
+  # Install deps with yarn
+  - script: yarn --frozen-lockfile && yarn test-all
+  # Start virtual framebuffer server
+  - script: xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x8' yarn test --coverage
+    displayName: Run tests
+    condition: eq(['Agent.OS'], 'Linux')
+  # Generate coverage report
+  - script: yarn test --coverage --coverageReporters=cobertura
+  # Publish coverage report
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      codeCoverageTool: Cobertura
+      summaryFileLocation: $(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml
