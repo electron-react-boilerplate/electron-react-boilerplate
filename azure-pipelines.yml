@@ -1,21 +1,49 @@
-# Node.js
-# Build a general Node.js project with npm.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+variables:
+  YARN_CACHE_FOLDER: $(Pipeline.Workspace)/.yarn
 
-trigger:
-- master
+strategy:
+  matrix:
+    linux:
+      imageName: 'ubuntu-16.04'
+      nodeVersion: '13.x'
+    mac:
+      imageName: 'macos-10.14'
+      nodeVersion: '13.x'
+    windows:
+      imageName: 'windows-2019'
+      nodeVersion: '13.x'
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: $(imageName)
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
-
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
+  # Set node version
+  - task: NodeTool@0
+    inputs:
+      versionSpec: $(nodeVersion)
+  # Cache yarn deps
+  - task: Cache@2
+    inputs:
+      key: 'yarn | "$(Agent.OS)" | yarn.lock'
+      restoreKeys: |
+        yarn | "$(Agent.OS)"
+        yarn
+      path: $(YARN_CACHE_FOLDER)
+    displayName: Cache Yarn packages
+  # Start virtual framebuffer server
+  - bash: |
+      /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+      echo ">>> Started xvfb"
+    displayName: Start xvfb
+    condition: and(succeeded(), eq(variables['Agent.OS'], 'Linux'))
+  # Install deps with yarn and run tests
+  - script: yarn --frozen-lockfile && yarn test-all
+    env:
+      DISPLAY: ':99.0'
+  # Generate coverage report
+  - script: yarn test --coverage --coverageReporters=cobertura
+  # Publish coverage report
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      codeCoverageTool: Cobertura
+      summaryFileLocation: $(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml
