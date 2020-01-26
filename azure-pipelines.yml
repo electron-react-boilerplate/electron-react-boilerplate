@@ -35,7 +35,7 @@ steps:
   # Start virtual framebuffer server
   - script: xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x8' yarn test --coverage
     displayName: Run tests
-    condition: eq(['Agent.OS'], 'Linux')
+    condition: eq(variables['agent.os'], 'Linux')
   # Generate coverage report
   - script: yarn test --coverage --coverageReporters=cobertura
   # Publish coverage report
