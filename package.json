@@ -37,21 +37,17 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "cross-env NODE_ENV=development eslint --cache",
-      "git add"
+      "cross-env NODE_ENV=development eslint --cache"
     ],
     "{*.json,.{babelrc,eslintrc,prettierrc,stylelintrc}}": [
-      "prettier --ignore-path .eslintignore --parser json --write",
-      "git add"
+      "prettier --ignore-path .eslintignore --parser json --write"
     ],
     "*.{css,scss}": [
       "stylelint --ignore-path .eslintignore --syntax scss --fix",
-      "prettier --ignore-path .eslintignore --single-quote --write",
-      "git add"
+      "prettier --ignore-path .eslintignore --single-quote --write"
     ],
     "*.{html,md,yml}": [
-      "prettier --ignore-path .eslintignore --single-quote --write",
-      "git add"
+      "prettier --ignore-path .eslintignore --single-quote --write"
     ]
   },
   "build": {
@@ -211,13 +207,14 @@
     "babel-loader": "^8.0.6",
     "babel-plugin-dev-expression": "^0.2.2",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "browserslist-config-erb": "^0.0.1",
     "chalk": "^3.0.0",
     "concurrently": "^5.0.2",
-    "cross-env": "^6.0.3",
+    "cross-env": "^7.0.0",
     "cross-spawn": "^7.0.1",
     "css-loader": "^3.4.2",
     "detect-port": "^1.3.0",
-    "electron": "7.1.9",
+    "electron": "7.1.10",
     "electron-builder": "^22.2.0",
     "electron-devtools-installer": "^2.2.4",
     "electron-rebuild": "^1.8.8",
@@ -225,7 +222,8 @@
     "enzyme-adapter-react-16": "^1.15.2",
     "enzyme-to-json": "^3.3.4",
     "eslint": "^6.8.0",
-    "eslint-config-erb": "^0.2.0",
+    "eslint-config-airbnb-typescript": "^6.3.1",
+    "eslint-config-erb": "^0.3.0",
     "eslint-config-prettier": "^6.9.0",
     "eslint-import-resolver-webpack": "^0.12.1",
     "eslint-plugin-compat": "^3.5.1",
@@ -235,6 +233,7 @@
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.18.0",
+    "eslint-plugin-react-hooks": "^2.3.0",
     "eslint-plugin-testcafe": "^0.2.1",
     "fbjs-scripts": "^1.2.0",
     "file-loader": "^5.0.2",
@@ -252,7 +251,7 @@
     "rimraf": "^3.0.0",
     "sass-loader": "^8.0.2",
     "sinon": "^8.1.1",
-    "spectron": "^9.0.0",
+    "spectron": "^10.0.0",
     "style-loader": "^1.1.3",
     "stylelint": "^13.0.0",
     "stylelint-config-prettier": "^8.0.1",
@@ -299,7 +298,9 @@
   "collective": {
     "url": "https://opencollective.com/electron-react-boilerplate-594"
   },
-  "browserslist": "electron 7.1.7",
+  "browserslist": [
+    "extends browserslist-config-erb"
+  ],
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
