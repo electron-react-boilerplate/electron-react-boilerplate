@@ -4,37 +4,46 @@
     <meta charset="utf-8" />
     <title>Hello Electron React!</title>
     <script>
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = './dist/style.css';
-      // HACK: Writing the script path should be done with webpack
-      document.getElementsByTagName('head')[0].appendChild(link);
+      (() => {
+        if (
+          typeof process !== 'object' ||
+          (typeof process === 'object' && !process.env.START_HOT)
+        ) {
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = './dist/style.css';
+          // HACK: Writing the script path should be done with webpack
+          document.getElementsByTagName('head')[0].appendChild(link);
+        }
+      })();
     </script>
   </head>
   <body>
     <div id="root"></div>
     <script>
-      // Dynamically insert the DLL script in development env in the
-      // renderer process
-      if (
-        typeof process === 'object' &&
-        process.env.NODE_ENV === 'development'
-      ) {
-        const scripts = ['../dll/renderer.dev.dll.js'];
+      if (typeof process === 'object') {
+        const scripts = [];
 
-        // Dynamically insert the bundled app script in the renderer process
+        if (process.env.NODE_ENV === 'development') {
+          // Dynamically insert the DLL script in development env in the
+          // renderer process
+          scripts.push('../dll/renderer.dev.dll.js');
+        }
         if (process.env.START_HOT) {
+          // Dynamically insert the bundled app script in the renderer process
           const port = process.env.PORT || 1212;
           scripts.push(`http://localhost:${port}/dist/renderer.dev.js`);
         } else {
           scripts.push('./dist/renderer.prod.js');
         }
 
-        document.write(
-          scripts
-            .map(script => `<script defer src="${script}"><\/script>`)
-            .join('')
-        );
+        if (scripts.length) {
+          document.write(
+            scripts
+              .map(script => `<script defer src="${script}"><\/script>`)
+              .join('')
+          );
+        }
       }
     </script>
   </body>
