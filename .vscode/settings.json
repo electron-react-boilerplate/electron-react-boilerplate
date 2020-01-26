@@ -28,6 +28,6 @@
     "npm-debug.log.*": true,
     "test/**/__snapshots__": true,
     "yarn.lock": true,
-    "app/components/*.{css,sass,scss}.d.ts": true
+    "*.{css,sass,scss}.d.ts": true
   }
 }
