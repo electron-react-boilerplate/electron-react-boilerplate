@@ -30,12 +30,16 @@ steps:
         yarn
       path: $(YARN_CACHE_FOLDER)
     displayName: Cache Yarn packages
-  # Install deps with yarn
-  - script: yarn --frozen-lockfile && yarn test-all
   # Start virtual framebuffer server
-  - script: xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x8' yarn test --coverage
-    displayName: Run tests
-    condition: eq(variables['agent.os'], 'Linux')
+  - bash: |
+      /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+      echo ">>> Started xvfb"
+    displayName: Start xvfb
+    condition: and(succeeded(), eq(variables['Agent.OS'], 'Linux'))
+  # Install deps with yarn and run tests
+  - script: yarn --frozen-lockfile && yarn test-all
+    env:
+      DISPLAY: ':99.0'
   # Generate coverage report
   - script: yarn test --coverage --coverageReporters=cobertura
   # Publish coverage report
