@@ -19,7 +19,7 @@ export default merge.smart(baseConfig, {
 
   mode: 'production',
 
-  target: 'electron-renderer',
+  target: 'electron-preload',
 
   entry: path.join(__dirname, '..', 'app/index.tsx'),
 
@@ -202,7 +202,9 @@ export default merge.smart(baseConfig, {
      * development checks
      */
     new webpack.EnvironmentPlugin({
-      NODE_ENV: 'production'
+      NODE_ENV: 'production',
+      DEBUG_PROD: false,
+      E2E_BUILD: false
     }),
 
     new MiniCssExtractPlugin({
