@@ -1,6 +1,7 @@
 # 1.0.0
 
 - Migrate to TypeScript from Flow ([#2363](https://github.com/electron-react-boilerplate/electron-react-boilerplate/pull/2363))
+- Use browserslist for @babel/preset-env targets ([#2368](https://github.com/electron-react-boilerplate/electron-react-boilerplate/pull/2368))
 
 # 0.18.1 (2019.12.12)
 
