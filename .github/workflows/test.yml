@@ -20,8 +20,17 @@ jobs:
           node-version: 13
 
       - name: yarn install
+        run: yarn --frozen-lockfile
+
+      - name: Install xvfb
+        if: startsWith(matrix.os, 'ubuntu')
+        run: sudo apt-get install xvfb
+
+      - name: Start xvfb
+        if: startsWith(matrix.os, 'ubuntu')
         run: |
-          yarn install
+          /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+          echo ">>> Started xvfb"
 
       - name: yarn test
         env:
@@ -30,7 +39,5 @@ jobs:
           yarn package-ci
           yarn lint
           yarn ts
-
-# Failing beacuse virtual framebuffer not installed
-#          yarn build-e2e
-#          yarn test-e2e
+          yarn build-e2e
+          yarn test-e2e

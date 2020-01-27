@@ -26,8 +26,8 @@ if (dependencies) {
    'Webpack does not work with native dependencies.'
  )}
 ${chalk.bold(filteredRootDependencies.join(', '))} ${
-      plural ? 'are native dependencies' : 'is a native dependency'
-    } and should be installed inside of the "./app" folder.
+        plural ? 'are native dependencies' : 'is a native dependency'
+      } and should be installed inside of the "./app" folder.
  First uninstall the packages from "./package.json":
 ${chalk.whiteBright.bgGreen.bold('yarn remove your-package')}
  ${chalk.bold(
@@ -41,6 +41,9 @@ ${chalk.bold(
   'https://github.com/electron-react-boilerplate/electron-react-boilerplate/wiki/Module-Structure----Two-package.json-Structure'
 )}
  `);
-    process.exit(1);
+      process.exit(1);
+    }
+  } catch (e) {
+    console.log('Native dependencies could not be checked');
   }
 }
