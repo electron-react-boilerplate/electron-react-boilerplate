@@ -25,7 +25,7 @@ export default class Home extends Component<Props, State> {
   }
 
   componentDidMount() {
-    Database.open('memory')
+    Database.open(':memory:')
       .then((db: Database) => {
         this.db = db;
         return db.exec('CREATE TABLE IF NOT EXISTS lorem (info TEXT)');
@@ -37,14 +37,6 @@ export default class Home extends Component<Props, State> {
         }
         const value = stmt.finalize();
         console.log(value);
-        const results = [];
-        this.db.each('SELECT rowid AS id, info FROM lorem', (err, row) => {
-          console.log(`${row.id}: ${row.info}`);
-          results.push(`${row.id}: ${row.info}`);
-          this.setState({
-            results
-          });
-        });
         return value;
       })
       .catch((err: any) => console.log(err));
@@ -54,10 +46,22 @@ export default class Home extends Component<Props, State> {
     this.db.close();
   }
 
+  onClick = () => {
+    const results = [];
+    this.db.each('SELECT rowid AS id, info FROM lorem', (err, row) => {
+      console.log(`${row.id}: ${row.info}`);
+      results.push(`${row.id}: ${row.info}`);
+      this.setState({
+        results
+      });
+    });
+  };
+
   render() {
     const { results } = this.state;
     return (
       <div className={styles.container} data-tid="container">
+        <input type="button" onClick={this.onClick} value="Load" />
         <h2>Home</h2>
         <Link to={routes.COUNTER}>to Counter</Link>
         {results.map(result => (
