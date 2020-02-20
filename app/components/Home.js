@@ -1,7 +1,8 @@
 // @flow
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import sqlite from 'sqlite3';
+import Database from 'sqlite-async';
+import type { Statement } from 'sqlite-async';
 import routes from '../constants/routes.json';
 import styles from './Home.css';
 
@@ -13,41 +14,40 @@ type State = {
 export default class Home extends Component<Props, State> {
   props: Props;
 
-  sqlite: sqlite;
-
-  // eslint-disable-next-line flowtype/no-weak-types
-  db: any;
+  db: Database;
 
   constructor(props: Props) {
     super(props);
+
     this.state = {
       results: []
     };
   }
 
   componentDidMount() {
-    const sqlite3 = sqlite.verbose();
-    this.db = new sqlite3.Database(':memory:');
-
-    this.db.serialize(() => {
-      this.db.run('CREATE TABLE lorem (info TEXT)');
-
-      const stmt = this.db.prepare('INSERT INTO lorem VALUES (?)');
-      for (let i = 0; i < 10; i += 1) {
-        stmt.run(`Ipsum ${i}`);
-      }
-      stmt.finalize();
-
-      const results = [];
-
-      this.db.each('SELECT rowid AS id, info FROM lorem', (err, row) => {
-        console.log(`${row.id}: ${row.info}`);
-        results.push(`${row.id}: ${row.info}`);
-        this.setState({
-          results
+    Database.open('memory')
+      .then((db: Database) => {
+        this.db = db;
+        return db.exec('CREATE TABLE IF NOT EXISTS lorem (info TEXT)');
+      })
+      .then((db: Database) => db.prepare('INSERT INTO lorem VALUES (?)'))
+      .then((stmt: Statement) => {
+        for (let i = 0; i < 10; i += 1) {
+          stmt.run(`Ipsum ${i}`);
+        }
+        const value = stmt.finalize();
+        console.log(value);
+        const results = [];
+        this.db.each('SELECT rowid AS id, info FROM lorem', (err, row) => {
+          console.log(`${row.id}: ${row.info}`);
+          results.push(`${row.id}: ${row.info}`);
+          this.setState({
+            results
+          });
         });
-      });
-    });
+        return value;
+      })
+      .catch((err: any) => console.log(err));
   }
 
   componentWillUnmount() {
