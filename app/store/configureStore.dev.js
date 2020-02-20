@@ -1,8 +1,10 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+// eslint-disable-next-line import/no-unresolved
 import { createHashHistory } from 'history';
 import { routerMiddleware, routerActions } from 'connected-react-router';
 import { createLogger } from 'redux-logger';
+import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
 import createRootReducer from '../reducers';
 import * as counterActions from '../actions/counter';
 import type { counterStateType } from '../reducers/types';
@@ -15,6 +17,9 @@ const configureStore = (initialState?: counterStateType) => {
   // Redux Configuration
   const middleware = [];
   const enhancers = [];
+
+  // redux-immutable-state-invariant Middleware
+  middleware.push(reduxImmutableStateInvariant());
 
   // Thunk Middleware
   middleware.push(thunk);
