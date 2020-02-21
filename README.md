@@ -23,7 +23,7 @@
 
 <div align="center">
 
-[![Build Status](azure-pipelines-image)](azure-pipelines-url)
+[![Build Status](azure-pipelines-image)][azure-pipelines-url]
 [![Build Status][travis-image]][travis-url]
 [![Appveyor Build Status][appveyor-image]][appveyor-url]
 [![Dependency Status][david-image]][david-url]
