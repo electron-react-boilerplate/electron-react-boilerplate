@@ -28,12 +28,31 @@ export default class Home extends Component<Props, State> {
     Database.open(':memory:')
       .then((db: Database) => {
         this.db = db;
-        return db.exec('CREATE TABLE IF NOT EXISTS lorem (info TEXT)');
+        return db.exec(
+          [
+            'CREATE TABLE IF NOT EXISTS workspace (',
+            'name TEXT NOT NULL UNIQUE,',
+            'url TEXT NOT NULL,',
+            'username TEXT NOT NULL,',
+            'password TEXT NOT NULL,',
+            'mfa INTEGER NOT NULL DEFAULT 0',
+            ')'
+          ].join(' ')
+        );
       })
-      .then((db: Database) => db.prepare('INSERT INTO lorem VALUES (?)'))
+      .then((db: Database) =>
+        db.prepare('INSERT INTO workspace VALUES (?, ?, ?, ?, ?)')
+      )
       .then((stmt: Statement) => {
         for (let i = 0; i < 10; i += 1) {
-          stmt.run(`Ipsum ${i}`);
+          stmt.run(
+            `name ${i}`,
+            'https://datacenter.service-now.com',
+            `user ${i}`,
+            'password',
+            1
+          );
+          // stmt.run(`Ipsum ${i}`);
         }
         const value = stmt.finalize();
         console.log(value);
@@ -48,9 +67,9 @@ export default class Home extends Component<Props, State> {
 
   onClick = () => {
     const results = [];
-    this.db.each('SELECT rowid AS id, info FROM lorem', (err, row) => {
-      console.log(`${row.id}: ${row.info}`);
-      results.push(`${row.id}: ${row.info}`);
+    this.db.each('SELECT rowid AS id, * FROM workspace', (err, row) => {
+      console.log(`${row.id}: ${row.name} ${row.username} ${row.url}`);
+      results.push(`${row.id}: ${row.name} ${row.username} ${row.url}`);
       this.setState({
         results
       });

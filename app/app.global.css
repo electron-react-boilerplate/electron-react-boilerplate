@@ -4,44 +4,16 @@
  */
 @import '~@fortawesome/fontawesome-free/css/all.css';
 
+/* @import '~bootstrap/dist/css/bootstrap.css'; */
+
+html,
 body {
-  position: relative;
-  color: white;
-  height: 100vh;
-  background-color: #232c39;
-  background-image: linear-gradient(
-    45deg,
-    rgba(0, 216, 255, 0.5) 10%,
-    rgba(0, 1, 127, 0.7)
+  /* height: 100vh; */
+  background: rgb(252, 253, 253);
+  background: radial-gradient(
+    circle,
+    rgba(252, 253, 253, 1) 0%,
+    rgba(255, 255, 255, 1) 28%,
+    rgba(204, 214, 221, 1) 100%
   );
-  font-family: Arial, Helvetica, Helvetica Neue, serif;
-  overflow-y: hidden;
-}
-
-h2 {
-  margin: 0;
-  font-size: 2.25rem;
-  font-weight: bold;
-  letter-spacing: -0.025em;
-  color: #fff;
-}
-
-p {
-  font-size: 24px;
-}
-
-li {
-  list-style: none;
-}
-
-a {
-  color: white;
-  opacity: 0.75;
-  text-decoration: none;
-}
-
-a:hover {
-  opacity: 1;
-  text-decoration: none;
-  cursor: pointer;
 }
