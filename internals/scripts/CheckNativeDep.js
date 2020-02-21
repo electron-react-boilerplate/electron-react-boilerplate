@@ -1,11 +1,9 @@
-// @flow
 import fs from 'fs';
 import chalk from 'chalk';
 import { execSync } from 'child_process';
 import { dependencies } from '../../package.json';
 
-(() => {
-  if (!dependencies) return;
+if (dependencies) {
   const dependenciesKeys = Object.keys(dependencies);
   const nativeDeps = fs
     .readdirSync('node_modules')
@@ -48,4 +46,4 @@ ${chalk.bold(
   } catch (e) {
     console.log('Native dependencies could not be checked');
   }
-})();
+}

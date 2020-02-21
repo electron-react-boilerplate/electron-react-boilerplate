@@ -5,7 +5,21 @@ import { routerMiddleware, routerActions } from 'connected-react-router';
 import { createLogger } from 'redux-logger';
 import createRootReducer from '../reducers';
 import * as counterActions from '../actions/counter';
-import type { counterStateType } from '../reducers/types';
+import { counterStateType } from '../reducers/types';
+
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: (
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      obj: Record<string, any>
+    ) => Function;
+  }
+  interface NodeModule {
+    hot?: {
+      accept: (path: string, cb: () => void) => void;
+    };
+  }
+}
 
 const history = createHashHistory();
 

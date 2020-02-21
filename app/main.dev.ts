@@ -1,4 +1,4 @@
-/* eslint global-require: off */
+/* eslint global-require: off, no-console: off */
 
 /**
  * This module executes inside of electron's main process. You can start
@@ -7,9 +7,8 @@
  *
  * When running `yarn build` or `yarn build-main`, this file is compiled to
  * `./app/main.prod.js` using webpack. This gives us some performance wins.
- *
- * @flow
  */
+import path from 'path';
 import { app, BrowserWindow } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
@@ -23,7 +22,7 @@ export default class AppUpdater {
   }
 }
 
-let mainWindow = null;
+let mainWindow: BrowserWindow | null = null;
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -59,9 +58,14 @@ const createWindow = async () => {
     show: false,
     width: 1024,
     height: 728,
-    webPreferences: {
-      nodeIntegration: true
-    }
+    webPreferences:
+      process.env.NODE_ENV === 'development' || process.env.E2E_BUILD === 'true'
+        ? {
+            nodeIntegration: true
+          }
+        : {
+            preload: path.join(__dirname, 'dist/renderer.prod.js')
+          }
   });
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);

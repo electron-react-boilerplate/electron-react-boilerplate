@@ -1,5 +1,4 @@
-// @flow
-import type { GetState, Dispatch } from '../reducers/types';
+import { GetState, Dispatch } from '../reducers/types';
 
 export const INCREMENT_COUNTER = 'INCREMENT_COUNTER';
 export const DECREMENT_COUNTER = 'DECREMENT_COUNTER';
@@ -28,7 +27,7 @@ export function incrementIfOdd() {
   };
 }
 
-export function incrementAsync(delay: number = 1000) {
+export function incrementAsync(delay = 1000) {
   return (dispatch: Dispatch) => {
     setTimeout(() => {
       dispatch(increment());
