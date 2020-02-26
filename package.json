@@ -160,7 +160,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.8.3",
+    "@babel/core": "^7.8.4",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/plugin-proposal-decorators": "^7.8.3",
     "@babel/plugin-proposal-do-expressions": "^7.8.3",
@@ -179,7 +179,7 @@
     "@babel/plugin-syntax-import-meta": "^7.8.3",
     "@babel/plugin-transform-react-constant-elements": "^7.8.3",
     "@babel/plugin-transform-react-inline-elements": "^7.8.3",
-    "@babel/preset-env": "^7.8.3",
+    "@babel/preset-env": "^7.8.4",
     "@babel/preset-react": "^7.8.3",
     "@babel/preset-typescript": "^7.8.3",
     "@babel/register": "^7.8.3",
@@ -202,7 +202,7 @@
     "@typescript-eslint/eslint-plugin": "^2.17.0",
     "@typescript-eslint/parser": "^2.17.0",
     "babel-core": "7.0.0-bridge.0",
-    "babel-eslint": "^10.0.3",
+    "babel-eslint": "^10.1.0",
     "babel-jest": "^25.1.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-dev-expression": "^0.2.2",
