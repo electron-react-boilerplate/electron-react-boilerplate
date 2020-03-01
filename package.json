@@ -160,7 +160,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.8.4",
+    "@babel/core": "^7.8.6",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/plugin-proposal-decorators": "^7.8.3",
     "@babel/plugin-proposal-do-expressions": "^7.8.3",
@@ -179,10 +179,10 @@
     "@babel/plugin-syntax-import-meta": "^7.8.3",
     "@babel/plugin-transform-react-constant-elements": "^7.8.3",
     "@babel/plugin-transform-react-inline-elements": "^7.8.3",
-    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-env": "^7.8.6",
     "@babel/preset-react": "^7.8.3",
     "@babel/preset-typescript": "^7.8.3",
-    "@babel/register": "^7.8.3",
+    "@babel/register": "^7.8.6",
     "@types/enzyme": "^3.10.4",
     "@types/enzyme-adapter-react-16": "^1.0.5",
     "@types/history": "^4.7.4",
