@@ -1,3 +1,7 @@
+# 1.0.1
+
+- Fix #2402
+
 # 1.0.0
 
 - Migrate to TypeScript from Flow ([#2363](https://github.com/electron-react-boilerplate/electron-react-boilerplate/pull/2363))
