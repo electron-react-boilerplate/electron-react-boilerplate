@@ -32,7 +32,7 @@
 [![OpenCollective](https://opencollective.com/electron-react-boilerplate/backers/badge.svg)](#backers)
 [![OpenCollective](https://opencollective.com/electron-react-boilerplate/sponsors/badge.svg)](#sponsors)
 [![Good first issues open][good-first-issue-image]][good-first-issue-url]
-[![StackOverflow](https://img.shields.io/badge/stackoverflow-electron_react_boilerplate-blue.svg)](https://stackoverflow.com/questions/tagged/electron-react-boilerplate)
+[![StackOverflow][stackoverflow-img]][stackoverflow-url]
 
 </div>
 
@@ -46,17 +46,12 @@
 
 - **If you have installation or compilation issues with this project, please see [our debugging guide](https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues/400)**
 
-First, clone the repo via git:
+First, clone the repo via git and install dependencies:
 
 ```bash
 git clone --depth 1 --single-branch --branch master https://github.com/electron-react-boilerplate/electron-react-boilerplate.git your-project-name
-```
-
-And then install the dependencies with yarn.
-
-```bash
-$ cd your-project-name
-$ yarn
+cd your-project-name
+yarn
 ```
 
 ## Starting Development
@@ -64,7 +59,7 @@ $ yarn
 Start the app in the `dev` environment. This starts the renderer process in [**hot-module-replacement**](https://webpack.js.org/guides/hmr-react/) mode and starts a webpack dev server that sends hot updates to the renderer process:
 
 ```bash
-$ yarn dev
+yarn dev
 ```
 
 ## Packaging for Production
@@ -72,7 +67,7 @@ $ yarn dev
 To package apps for the local platform:
 
 ```bash
-$ yarn package
+yarn package
 ```
 
 ## Docs
@@ -159,7 +154,6 @@ Become a sponsor and get your logo on our README on Github with a link to your s
 
 ## Maintainers
 
-- [Vikram Rangaraj](https://github.com/vikr01)
 - [Amila Welihinda](https://github.com/amilajack)
 - [C. T. Lin](https://github.com/chentsulin)
 - [Jhen-Jie Hong](https://github.com/jhen0409)
@@ -171,6 +165,8 @@ MIT © [Electron React Boilerplate](https://github.com/electron-react-boilerplat
 [github-actions-status]: https://github.com/electron-react-boilerplate/electron-react-boilerplate/workflows/Test/badge.svg
 [github-tag-image]: https://img.shields.io/github/tag/electron-react-boilerplate/electron-react-boilerplate.svg?label=version
 [github-tag-url]: https://github.com/electron-react-boilerplate/electron-react-boilerplate/releases/latest
+[stackoverflow-img]: https://img.shields.io/badge/stackoverflow-electron_react_boilerplate-blue.svg
+[stackoverflow-url]: https://stackoverflow.com/questions/tagged/electron-react-boilerplate
 [david-image]: https://img.shields.io/david/electron-react-boilerplate/electron-react-boilerplate.svg
 [david-url]: https://david-dm.org/electron-react-boilerplate/electron-react-boilerplate
 [david-dev-image]: https://img.shields.io/david/dev/electron-react-boilerplate/electron-react-boilerplate.svg?label=devDependencies
