@@ -302,6 +302,23 @@
   "browserslist": [
     "extends browserslist-config-erb"
   ],
+  "prettier": {
+    "overrides": [
+      {
+        "files": [".prettierrc", ".babelrc", ".eslintrc", ".stylelintrc"],
+        "options": {
+          "parser": "json"
+        }
+      }
+    ],
+    "singleQuote": true
+  },
+  "stylelint": {
+    "extends": ["stylelint-config-standard", "stylelint-config-prettier"]
+  },
+  "renovate": {
+    "extends": ["bliss"]
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
