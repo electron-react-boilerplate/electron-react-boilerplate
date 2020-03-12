@@ -191,12 +191,12 @@
     "@types/node": "^12",
     "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.5",
-    "@types/react-redux": "^7.1.6",
+    "@types/react-redux": "^7.1.7",
     "@types/react-router": "^5.1.4",
     "@types/react-router-dom": "^5.1.3",
     "@types/react-test-renderer": "^16.9.2",
     "@types/redux-logger": "^3.0.7",
-    "@types/sinon": "^7.5.1",
+    "@types/sinon": "^7.5.2",
     "@types/tapable": "^1.0.5",
     "@types/vfile-message": "^2.0.0",
     "@types/webpack": "^4.41.3",
@@ -274,6 +274,8 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.12.1",
     "@hot-loader/react-dom": "^16.12.0",
+    "@reduxjs/toolkit": "^1.2.5",
+    "@types/webpack-env": "^1.15.1",
     "connected-react-router": "^6.6.1",
     "core-js": "^3.6.4",
     "devtron": "^1.4.0",
@@ -284,7 +286,7 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-hot-loader": "^4.12.19",
-    "react-redux": "^7.1.3",
+    "react-redux": "^7.2.0",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.5",
@@ -305,7 +307,12 @@
   "prettier": {
     "overrides": [
       {
-        "files": [".prettierrc", ".babelrc", ".eslintrc", ".stylelintrc"],
+        "files": [
+          ".prettierrc",
+          ".babelrc",
+          ".eslintrc",
+          ".stylelintrc"
+        ],
         "options": {
           "parser": "json"
         }
@@ -314,10 +321,15 @@
     "singleQuote": true
   },
   "stylelint": {
-    "extends": ["stylelint-config-standard", "stylelint-config-prettier"]
+    "extends": [
+      "stylelint-config-standard",
+      "stylelint-config-prettier"
+    ]
   },
   "renovate": {
-    "extends": ["bliss"]
+    "extends": [
+      "bliss"
+    ]
   },
   "husky": {
     "hooks": {

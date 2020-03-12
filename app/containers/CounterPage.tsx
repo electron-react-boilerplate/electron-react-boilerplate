@@ -1,30 +1,6 @@
-import { bindActionCreators, Dispatch } from 'redux';
-import { connect } from 'react-redux';
-import Counter from '../components/Counter';
-import {
-  increment,
-  decrement,
-  incrementIfOdd,
-  incrementAsync
-} from '../actions/counter';
-import { counterStateType } from '../reducers/types';
+import React from 'react';
+import Counter from '../features/counter/Counter';
 
-function mapStateToProps(state: counterStateType) {
-  return {
-    counter: state.counter
-  };
+export default function CounterPage() {
+  return <Counter />;
 }
-
-function mapDispatchToProps(dispatch: Dispatch) {
-  return bindActionCreators(
-    {
-      increment,
-      decrement,
-      incrementIfOdd,
-      incrementAsync
-    },
-    dispatch
-  );
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Counter);
