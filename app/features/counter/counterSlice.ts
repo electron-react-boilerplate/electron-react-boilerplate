@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Dispatch as ReduxDispatch, Action } from 'redux';
-
-export type Dispatch = ReduxDispatch<Action<string>>;
+// eslint-disable-next-line import/no-cycle
+import { AppThunk, RootState } from '../../store';
 
 const counterSlice = createSlice({
   name: 'counter',
@@ -12,28 +11,34 @@ const counterSlice = createSlice({
     },
     decrement: state => {
       state.value -= 1;
-    },
-    incrementIfOdd: state => {
-      state.value += state.value % 2;
     }
   }
 });
 
-export const { increment, decrement } = counterSlice.actions;
+const { increment } = counterSlice.actions;
 
-export function incrementAsync(delay = 1000) {
-  return (dispatch: Dispatch) => {
-    setTimeout(() => {
-      dispatch(increment());
-    }, delay);
+export const incrementIfOdd = (): AppThunk => {
+  return (dispatch, getState) => {
+    const state = getState();
+    if (state.counter.value % 2 === 0) {
+      return;
+    }
+    dispatch(increment());
   };
-}
+};
+
+export const incrementAsync = (delay = 1000): AppThunk => dispatch => {
+  setTimeout(() => {
+    dispatch(increment());
+  }, delay);
+};
 
 export const counterReducer = counterSlice.reducer;
 
-export type CounterState = ReturnType<typeof counterSlice.reducer>;
-
 export const counterActions = {
   ...counterSlice.actions,
-  incrementAsync
+  incrementAsync,
+  incrementIfOdd
 };
+
+export const selectCount = (state: RootState) => state.counter.value;

@@ -6,11 +6,7 @@ import Adapter from 'enzyme-adapter-react-16';
 import { BrowserRouter as Router } from 'react-router-dom';
 import renderer from 'react-test-renderer';
 import { Provider } from 'react-redux';
-import {
-  combineReducers,
-  configureStore,
-  getDefaultMiddleware
-} from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import Counter from '../../../app/features/counter/Counter';
 import {
   counterReducer,
@@ -25,7 +21,6 @@ function setup(
 ) {
   const store = configureStore({
     reducer: combineReducers({ counter: counterReducer }),
-    middleware: getDefaultMiddleware(),
     preloadedState
   });
 
@@ -140,9 +135,8 @@ describe('Test counter actions', () => {
     expect(actions.decrement()).toMatchSnapshot();
   });
 
-  // There's no nice way to test this at the moment...
   it('should not call incrementAsync before timer', () => {
-    const fn = actions.incrementAsync(1000);
+    const fn = actions.incrementAsync(1000) as Function;
     expect(fn).toBeInstanceOf(Function);
     const dispatch = spy();
     fn(dispatch);
@@ -151,7 +145,7 @@ describe('Test counter actions', () => {
   });
 
   it('should call incrementAsync after timer', () => {
-    const fn = actions.incrementAsync(1000);
+    const fn = actions.incrementAsync(1000) as Function;
     expect(fn).toBeInstanceOf(Function);
     const dispatch = spy();
     fn(dispatch);

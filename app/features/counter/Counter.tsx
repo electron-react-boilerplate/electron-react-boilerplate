@@ -3,12 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styles from './Counter.css';
 import routes from '../../constants/routes.json';
-import { RootState } from '../../store';
-import { counterActions } from './counterSlice';
+import { counterActions, selectCount } from './counterSlice';
 
 export default function Counter() {
   const dispatch = useDispatch();
-  const { value } = useSelector((state: RootState) => state.counter);
+  const value = useSelector(selectCount);
   return (
     <div>
       <div className={styles.backButton} data-tid="backButton">
