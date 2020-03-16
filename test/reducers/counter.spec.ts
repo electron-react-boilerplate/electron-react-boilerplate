@@ -1,7 +1,7 @@
 import { AnyAction } from 'redux';
-import {
-  counterReducer,
-  counterActions
+import counterReducer, {
+  increment,
+  decrement
 } from '../../app/features/counter/counterSlice';
 
 describe('reducers', () => {
@@ -12,13 +12,13 @@ describe('reducers', () => {
 
     it('should handle INCREMENT_COUNTER', () => {
       expect(
-        counterReducer({ value: 1 }, { type: counterActions.increment })
+        counterReducer({ value: 1 }, { type: increment })
       ).toMatchSnapshot();
     });
 
     it('should handle DECREMENT_COUNTER', () => {
       expect(
-        counterReducer({ value: 1 }, { type: counterActions.decrement })
+        counterReducer({ value: 1 }, { type: decrement })
       ).toMatchSnapshot();
     });
 

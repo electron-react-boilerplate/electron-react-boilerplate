@@ -3,7 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styles from './Counter.css';
 import routes from '../../constants/routes.json';
-import { counterActions, selectCount } from './counterSlice';
+import {
+  increment,
+  decrement,
+  incrementIfOdd,
+  incrementAsync,
+  selectCount
+} from './counterSlice';
 
 export default function Counter() {
   const dispatch = useDispatch();
@@ -22,7 +28,7 @@ export default function Counter() {
         <button
           className={styles.btn}
           onClick={() => {
-            dispatch(counterActions.increment());
+            dispatch(increment());
           }}
           data-tclass="btn"
           type="button"
@@ -32,7 +38,7 @@ export default function Counter() {
         <button
           className={styles.btn}
           onClick={() => {
-            dispatch(counterActions.decrement());
+            dispatch(decrement());
           }}
           data-tclass="btn"
           type="button"
@@ -42,7 +48,7 @@ export default function Counter() {
         <button
           className={styles.btn}
           onClick={() => {
-            dispatch(counterActions.incrementIfOdd());
+            dispatch(incrementIfOdd());
           }}
           data-tclass="btn"
           type="button"
@@ -52,7 +58,7 @@ export default function Counter() {
         <button
           className={styles.btn}
           onClick={() => {
-            dispatch(counterActions.incrementAsync());
+            dispatch(incrementAsync());
           }}
           data-tclass="btn"
           type="button"

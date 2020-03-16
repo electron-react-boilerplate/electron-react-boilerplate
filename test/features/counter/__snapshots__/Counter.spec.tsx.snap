@@ -63,24 +63,3 @@ exports[`Counter component should match exact snapshot 1`] = `
   </div>
 </div>
 `;
-
-exports[`Test counter actions should decrement should create decrement action 1`] = `
-Object {
-  "payload": undefined,
-  "type": "counter/decrement",
-}
-`;
-
-exports[`Test counter actions should increment should create increment action 1`] = `
-Object {
-  "payload": undefined,
-  "type": "counter/increment",
-}
-`;
-
-exports[`Test counter actions should incrementIfOdd should create incrementIfOdd action 1`] = `
-Object {
-  "payload": undefined,
-  "type": "counter/decrement",
-}
-`;

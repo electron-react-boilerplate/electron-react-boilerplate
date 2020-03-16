@@ -15,7 +15,7 @@ const counterSlice = createSlice({
   }
 });
 
-const { increment } = counterSlice.actions;
+export const { increment, decrement } = counterSlice.actions;
 
 export const incrementIfOdd = (): AppThunk => {
   return (dispatch, getState) => {
@@ -33,12 +33,6 @@ export const incrementAsync = (delay = 1000): AppThunk => dispatch => {
   }, delay);
 };
 
-export const counterReducer = counterSlice.reducer;
-
-export const counterActions = {
-  ...counterSlice.actions,
-  incrementAsync,
-  incrementIfOdd
-};
+export default counterSlice.reducer;
 
 export const selectCount = (state: RootState) => state.counter.value;

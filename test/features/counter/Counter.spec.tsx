@@ -6,12 +6,9 @@ import Adapter from 'enzyme-adapter-react-16';
 import { BrowserRouter as Router } from 'react-router-dom';
 import renderer from 'react-test-renderer';
 import { Provider } from 'react-redux';
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import Counter from '../../../app/features/counter/Counter';
-import {
-  counterReducer,
-  counterActions
-} from '../../../app/features/counter/counterSlice';
+import * as counterSlice from '../../../app/features/counter/counterSlice';
 
 Enzyme.configure({ adapter: new Adapter() });
 jest.useFakeTimers();
@@ -20,7 +17,7 @@ function setup(
   preloadedState: { counter: { value: number } } = { counter: { value: 1 } }
 ) {
   const store = configureStore({
-    reducer: combineReducers({ counter: counterReducer }),
+    reducer: { counter: counterSlice.default },
     preloadedState
   });
 
@@ -36,7 +33,6 @@ function setup(
   return {
     store,
     component,
-    actions: counterActions,
     buttons: component.find('button'),
     p: component.find('.counter')
   };
@@ -49,8 +45,8 @@ describe('Counter component', () => {
   });
 
   it('should first button should call increment', () => {
-    const { buttons, actions } = setup();
-    const incrementSpy = spy(actions, 'increment');
+    const { buttons } = setup();
+    const incrementSpy = spy(counterSlice, 'increment');
 
     buttons.at(0).simulate('click');
     expect(incrementSpy.called).toBe(true);
@@ -73,24 +69,24 @@ describe('Counter component', () => {
   });
 
   it('should second button should call decrement', () => {
-    const { buttons, actions } = setup();
-    const decrementSyp = spy(actions, 'decrement');
+    const { buttons } = setup();
+    const decrementSyp = spy(counterSlice, 'decrement');
     buttons.at(1).simulate('click');
     expect(decrementSyp.called).toBe(true);
     decrementSyp.restore();
   });
 
   it('should third button should call incrementIfOdd', () => {
-    const { buttons, actions } = setup();
-    const incrementIfOdd = spy(actions, 'incrementIfOdd');
+    const { buttons } = setup();
+    const incrementIfOdd = spy(counterSlice, 'incrementIfOdd');
     buttons.at(2).simulate('click');
     expect(incrementIfOdd.called).toBe(true);
     incrementIfOdd.restore();
   });
 
   it('should fourth button should call incrementAsync', () => {
-    const { buttons, actions } = setup();
-    const incrementAsync = spy(actions, 'incrementAsync');
+    const { buttons } = setup();
+    const incrementAsync = spy(counterSlice, 'incrementAsync');
     buttons.at(3).simulate('click');
     expect(incrementAsync.called).toBe(true);
     incrementAsync.restore();
@@ -122,21 +118,8 @@ describe('Counter component', () => {
 });
 
 describe('Test counter actions', () => {
-  const actions = counterActions;
-  it('should increment should create increment action', () => {
-    expect(actions.increment()).toMatchSnapshot();
-  });
-
-  it('should decrement should create decrement action', () => {
-    expect(actions.decrement()).toMatchSnapshot();
-  });
-
-  it('should incrementIfOdd should create incrementIfOdd action', () => {
-    expect(actions.decrement()).toMatchSnapshot();
-  });
-
   it('should not call incrementAsync before timer', () => {
-    const fn = actions.incrementAsync(1000) as Function;
+    const fn = counterSlice.incrementAsync(1000) as Function;
     expect(fn).toBeInstanceOf(Function);
     const dispatch = spy();
     fn(dispatch);
@@ -145,7 +128,7 @@ describe('Test counter actions', () => {
   });
 
   it('should call incrementAsync after timer', () => {
-    const fn = actions.incrementAsync(1000) as Function;
+    const fn = counterSlice.incrementAsync(1000) as Function;
     expect(fn).toBeInstanceOf(Function);
     const dispatch = spy();
     fn(dispatch);
