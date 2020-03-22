@@ -7,6 +7,11 @@ import {
   MenuItemConstructorOptions
 } from 'electron';
 
+interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
+  selector?: string;
+  submenu?: DarwinMenuItemConstructorOptions[] | Menu;
+}
+
 export default class MenuBuilder {
   mainWindow: BrowserWindow;
 
@@ -49,12 +54,11 @@ export default class MenuBuilder {
   }
 
   buildDarwinTemplate() {
-    const subMenuAbout: MenuItemConstructorOptions = {
+    const subMenuAbout: DarwinMenuItemConstructorOptions = {
       label: 'Electron',
       submenu: [
         {
           label: 'About ElectronReact',
-          // @ts-ignore
           selector: 'orderFrontStandardAboutPanel:'
         },
         { type: 'separator' },
@@ -81,10 +85,9 @@ export default class MenuBuilder {
         }
       ]
     };
-    const subMenuEdit: MenuItemConstructorOptions = {
+    const subMenuEdit: DarwinMenuItemConstructorOptions = {
       label: 'Edit',
       submenu: [
-        // @ts-ignore
         { label: 'Undo', accelerator: 'Command+Z', selector: 'undo:' },
         { label: 'Redo', accelerator: 'Shift+Command+Z', selector: 'redo:' },
         { type: 'separator' },
@@ -136,13 +139,12 @@ export default class MenuBuilder {
         }
       ]
     };
-    const subMenuWindow: MenuItemConstructorOptions = {
+    const subMenuWindow: DarwinMenuItemConstructorOptions = {
       label: 'Window',
       submenu: [
         {
           label: 'Minimize',
           accelerator: 'Command+M',
-          // @ts-ignore
           selector: 'performMiniaturize:'
         },
         { label: 'Close', accelerator: 'Command+W', selector: 'performClose:' },
