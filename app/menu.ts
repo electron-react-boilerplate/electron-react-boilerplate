@@ -7,6 +7,11 @@ import {
   MenuItemConstructorOptions
 } from 'electron';
 
+interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions{
+  selector?: string;
+  submenu?: DarwinMenuItemConstructorOptions[] | Menu;
+}
+
 export default class MenuBuilder {
   mainWindow: BrowserWindow;
 
@@ -49,7 +54,7 @@ export default class MenuBuilder {
   }
 
   buildDarwinTemplate() {
-    const subMenuAbout = {
+    const subMenuAbout: DarwinMenuItemConstructorOptions = {
       label: 'Electron',
       submenu: [
         {
@@ -79,8 +84,8 @@ export default class MenuBuilder {
           }
         }
       ]
-    } as MenuItemConstructorOptions;
-    const subMenuEdit = {
+    };
+    const subMenuEdit: DarwinMenuItemConstructorOptions = {
       label: 'Edit',
       submenu: [
         { label: 'Undo', accelerator: 'Command+Z', selector: 'undo:' },
@@ -95,7 +100,7 @@ export default class MenuBuilder {
           selector: 'selectAll:'
         }
       ]
-    } as MenuItemConstructorOptions;
+    };
     const subMenuViewDev: MenuItemConstructorOptions = {
       label: 'View',
       submenu: [
@@ -134,7 +139,7 @@ export default class MenuBuilder {
         }
       ]
     };
-    const subMenuWindow = {
+    const subMenuWindow: DarwinMenuItemConstructorOptions = {
       label: 'Window',
       submenu: [
         {
@@ -146,7 +151,7 @@ export default class MenuBuilder {
         { type: 'separator' },
         { label: 'Bring All to Front', selector: 'arrangeInFront:' }
       ]
-    } as MenuItemConstructorOptions;
+    };
     const subMenuHelp: MenuItemConstructorOptions = {
       label: 'Help',
       submenu: [
