@@ -49,12 +49,11 @@ export default class MenuBuilder {
   }
 
   buildDarwinTemplate() {
-    const subMenuAbout: MenuItemConstructorOptions = {
+    const subMenuAbout = {
       label: 'Electron',
       submenu: [
         {
           label: 'About ElectronReact',
-          // @ts-ignore
           selector: 'orderFrontStandardAboutPanel:'
         },
         { type: 'separator' },
@@ -80,11 +79,10 @@ export default class MenuBuilder {
           }
         }
       ]
-    };
-    const subMenuEdit: MenuItemConstructorOptions = {
+    } as MenuItemConstructorOptions;
+    const subMenuEdit = {
       label: 'Edit',
       submenu: [
-        // @ts-ignore
         { label: 'Undo', accelerator: 'Command+Z', selector: 'undo:' },
         { label: 'Redo', accelerator: 'Shift+Command+Z', selector: 'redo:' },
         { type: 'separator' },
@@ -97,7 +95,7 @@ export default class MenuBuilder {
           selector: 'selectAll:'
         }
       ]
-    };
+    } as MenuItemConstructorOptions;
     const subMenuViewDev: MenuItemConstructorOptions = {
       label: 'View',
       submenu: [
@@ -124,7 +122,7 @@ export default class MenuBuilder {
         }
       ]
     };
-    const subMenuViewProd: MenuItemConstructorOptions = {
+    const subMenuViewProd = {
       label: 'View',
       submenu: [
         {
@@ -136,21 +134,20 @@ export default class MenuBuilder {
         }
       ]
     };
-    const subMenuWindow: MenuItemConstructorOptions = {
+    const subMenuWindow = {
       label: 'Window',
       submenu: [
         {
           label: 'Minimize',
           accelerator: 'Command+M',
-          // @ts-ignore
           selector: 'performMiniaturize:'
         },
         { label: 'Close', accelerator: 'Command+W', selector: 'performClose:' },
         { type: 'separator' },
         { label: 'Bring All to Front', selector: 'arrangeInFront:' }
       ]
-    };
-    const subMenuHelp: MenuItemConstructorOptions = {
+    } as MenuItemConstructorOptions;
+    const subMenuHelp = {
       label: 'Help',
       submenu: [
         {
