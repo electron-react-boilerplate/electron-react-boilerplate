@@ -122,7 +122,7 @@ export default class MenuBuilder {
         }
       ]
     };
-    const subMenuViewProd = {
+    const subMenuViewProd: MenuItemConstructorOptions = {
       label: 'View',
       submenu: [
         {
