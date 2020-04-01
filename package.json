@@ -190,7 +190,7 @@
     "@types/jest": "^24.9.1",
     "@types/node": "^12",
     "@types/react": "^16.9.17",
-    "@types/react-dom": "^16.9.5",
+    "@types/react-dom": "^16.9.6",
     "@types/react-redux": "^7.1.6",
     "@types/react-router": "^5.1.4",
     "@types/react-router-dom": "^5.1.3",
