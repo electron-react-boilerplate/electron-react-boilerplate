@@ -192,7 +192,7 @@
     "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.6",
     "@types/react-redux": "^7.1.6",
-    "@types/react-router": "^5.1.4",
+    "@types/react-router": "^5.1.5",
     "@types/react-router-dom": "^5.1.3",
     "@types/react-test-renderer": "^16.9.2",
     "@types/redux-logger": "^3.0.7",
