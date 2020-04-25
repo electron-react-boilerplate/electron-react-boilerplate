@@ -7,20 +7,21 @@
     "declarationMap": true,
     "noEmit": true,
     "jsx": "react",
-    "strict": true,
+    "strict": false,
     "pretty": true,
     "sourceMap": true,
     /* Additional Checks */
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noImplicitReturns": false,
+    "noFallthroughCasesInSwitch": false,
     /* Module Resolution Options */
     "moduleResolution": "node",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
-    "allowJs": true
+    "allowJs": true,
+    "types": []
   },
   "exclude": [
     "test",
@@ -34,6 +35,7 @@
     "app/dist",
     "dll",
     "app/main.js",
-    "app/main.js.map"
+    "app/main.js.map",
+    "libtdjson.so"
   ]
 }

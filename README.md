@@ -42,6 +42,11 @@
 
 </div>
 
+## Prerequsists
+1. yarn - Package manager (instead of npm) to execute commands, Please refer [documentation](https://classic.yarnpkg.com/en/docs/install/#debian-stable) for installation
+1. npm - Version 6.14.4 (tested) or above to maintain node, which is node version v12.16.2
+1. tsc - Version 3.8.3 (tested) or above to compile typescript.
+
 ## Install
 
 - **If you have installation or compilation issues with this project, please see [our debugging guide](https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues/400)**

@@ -1,0 +1,176 @@
+{
+    "log4js": {
+        "appenders": {
+            "stdout": {
+                "type": "stdout"
+            },
+            "logfile": {
+                "type": "multiFile",
+                "base": "logs/",
+                "property": "instanceId",
+                "extension": ".log",
+                "maxLogSize": 10485760,
+                "backups": 3
+            },
+            "alert-errors": {
+                "type": "logLevelFilter",
+                "appender": "stdout",
+                "level": "ERROR"
+            },
+            "info": {
+                "type": "logLevelFilter",
+                "appender": "stdout",
+                "level": "INFO"
+            }
+        },
+        "categories": {
+            "default": {
+                "appenders": [
+                    "stdout"
+                ],
+                "level": "ALL"
+            },
+            "app": {
+                "appenders_old": [
+                    "logfile"
+                ],
+                "appenders": [
+                    "alert-errors",
+                    "info",
+                    "logfile"
+                ],
+                "level": "ALL"
+            }
+        },
+        "log_level": 1
+    },
+    "mongodb": {
+        "hosts": "localhost:27017",
+        "auth_mode": "None",
+        "user_name": "config/mongodb_username",
+        "password": "config/mongodb_pwd",
+        "login_db": "lime",
+        "authentication_db": "lime",
+        "replica_set": ""
+    },
+    "statsd": {
+        "hostname": "localhost",
+        "port": 9125
+    },
+    "refdata": {
+        "symbols": [
+            "GBPUSD",
+            "GBPEUR",
+            "LKRUSD",
+            "USDCAD",
+            "EURUSD",
+            "USDJPY",
+            "USDCHF",
+            "AUDUSD",
+            "NZDUSD",
+            "EURJPY",
+            "EURCHF",
+            "EURGBP",
+            "AUDCAD",
+            "AUDCHF",
+            "AUDJPY",
+            "CADCHF",
+            "CADJPY",
+            "CHFJPY",
+            "NZDCAD",
+            "NZDCHF",
+            "NZDJPY",
+            "EURAUD",
+            "GBPJPY",
+            "AUDNZD",
+            "EURCAD",
+            "EURNZD",
+            "GBPAUD",
+            "GBPCAD",
+            "XAUUSD",
+            "GBPCHF"
+        ],
+        "buy": [
+            "BUY"
+        ],
+        "sell": [
+            "SELL"
+        ],
+        "buyLimit": [
+            "BUY",
+            "LIMIT"
+        ],
+        "sellLimit": [
+            "SELL",
+            "LIMIT"
+        ],
+        "buyStop": [
+            "BUY",
+            "STOP"
+        ],
+        "sellStop": [
+            "SELL",
+            "STOP"
+        ],
+        "close": [
+            "CLOSE"
+        ],
+        "closeHalf": [
+            "CLOSE",
+            "HALF"
+        ],
+        "delete": [
+            "DELETE"
+        ],
+        "priceToken": "@",
+        "sl": [
+            "SL"
+        ],
+        "to": [
+            "to"
+        ],
+        "takeProfitToken": "TP",
+        "takeProfitOneToken": "TP1",
+        "takeProfitTwoToken": "TP2"
+    },
+    "telegram_client":{
+        "apiId": "1130112",
+        "apiHash": "f3e1f5e0249f8fafc94e35e42c3c107d",
+        "userName": "tharusha091",
+        "tgNo": "94710841084"    
+    },
+    "signal_server": {
+        "subscribed_channels": [
+                {
+                    "channel_name": "PRICE_ACTION" ,
+                    "user_parser": true 
+                },
+                {
+                    "channel_name": "DAY_FINANCE" ,
+                    "user_parser": true 
+                },
+                {
+                    "channel_name": "FOREX_SIGNAL" ,
+                    "user_parser": true 
+                },
+                {
+                    "channel_name": "SIGNAL_EXPERT" ,
+                    "user_parser": true 
+                },
+                {
+                    "channel_name": "TEST_CHANNEL" ,
+                    "user_parser": true 
+                },
+                {
+                    "channel_name": "SALVAGE_CHANNEL" ,
+                    "user_parser": false 
+                } 
+
+            ],
+        "public_channel": "forextraderbotnotification",
+        "userRegisterChannel": "registrationchannel",
+        "multicastChannel": "robinhood9", 
+        "multicastSupportChannels": ["DAY_FINANCE", "PRICE_ACTION", "POSITIVE_MIND"],
+        "content" : "message.content.text.text"
+    }
+}

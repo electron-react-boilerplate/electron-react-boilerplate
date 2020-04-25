@@ -9,6 +9,20 @@
   font-size: 5rem;
 }
 
-.container a {
-  font-size: 1.4rem;
+.username {
+  text-align: left;
+  left: 10px;
+
+
+}
+
+.phoneNumber {
+  text-align: left;
+  left: 10px;
+}
+
+.next {
+  text-align: left;
+  padding-top: 20px;
+  left: 10px;
 }

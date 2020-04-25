@@ -14,6 +14,8 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 
+import {TgMessageRouter} from '../app/actions/telegram_message_router/tg_mp_router';
+
 export default class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
@@ -94,6 +96,10 @@ const createWindow = async () => {
   // Remove this if your app does not use auto updates
   // eslint-disable-next-line
   new AppUpdater();
+
+  // const tgClient = new TgMessageRouter(1004064, 'fcfc1e4ff68c2d0d2f95c2cada29730a', 'tharusha091', '+94710841084');
+  const tgClient = new TgMessageRouter(1004064, 'fcfc1e4ff68c2d0d2f95c2cada29730a', 'rimashm', '+94763576648');
+  console.log('tgClient created channel', tgClient.channelId)
 };
 
 /**
