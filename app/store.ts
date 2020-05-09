@@ -14,15 +14,15 @@ const router = routerMiddleware(history);
 const middleware = [...getDefaultMiddleware(), router];
 
 const excludeLoggerEnvs = ['test', 'production'];
-const shouldIncludeLogger =
-  excludeLoggerEnvs.indexOf(process.env.NODE_ENV || '') === -1;
+const shouldIncludeLogger = !excludeLoggerEnvs.includes(
+  process.env.NODE_ENV || ''
+);
 
 if (shouldIncludeLogger) {
   const logger = createLogger({
     level: 'info',
-    collapsed: true
+    collapsed: true,
   });
-
   middleware.push(logger);
 }
 
@@ -31,7 +31,7 @@ export const configuredStore = (initialState?: RootState) => {
   const store = configureStore({
     reducer: rootReducer,
     middleware,
-    preloadedState: initialState
+    preloadedState: initialState,
   });
 
   if (process.env.NODE_ENV === 'development' && module.hot) {

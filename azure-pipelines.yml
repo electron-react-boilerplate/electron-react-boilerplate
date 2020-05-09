@@ -5,13 +5,13 @@ strategy:
   matrix:
     linux:
       imageName: 'ubuntu-16.04'
-      nodeVersion: '13.x'
+      nodeVersion: '14.x'
     mac:
       imageName: 'macos-10.14'
-      nodeVersion: '13.x'
+      nodeVersion: '14.x'
     windows:
       imageName: 'windows-2019'
-      nodeVersion: '13.x'
+      nodeVersion: '14.x'
 
 pool:
   vmImage: $(imageName)

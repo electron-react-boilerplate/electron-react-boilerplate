@@ -1,7 +1,7 @@
 import { AnyAction } from 'redux';
 import counterReducer, {
   increment,
-  decrement
+  decrement,
 } from '../../app/features/counter/counterSlice';
 
 describe('reducers', () => {

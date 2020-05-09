@@ -18,7 +18,7 @@ function setup(
 ) {
   const store = configureStore({
     reducer: { counter: counterSlice.default },
-    preloadedState
+    preloadedState,
   });
 
   const getWrapper = () =>
@@ -34,7 +34,7 @@ function setup(
     store,
     component,
     buttons: component.find('button'),
-    p: component.find('.counter')
+    p: component.find('.counter'),
   };
 }
 

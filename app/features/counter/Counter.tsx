@@ -8,7 +8,7 @@ import {
   decrement,
   incrementIfOdd,
   incrementAsync,
-  selectCount
+  selectCount,
 } from './counterSlice';
 
 export default function Counter() {

@@ -17,6 +17,6 @@ if (
       : electronRebuildCmd;
   execSync(cmd, {
     cwd: path.join(__dirname, '..', '..', 'app'),
-    stdio: 'inherit'
+    stdio: 'inherit',
   });
 }
