@@ -49,3 +49,6 @@ npm-debug.log.*
 *.css.d.ts
 *.sass.d.ts
 *.scss.d.ts
+
+app/main.prod.js.LICENSE.txt
+yarn.lock
