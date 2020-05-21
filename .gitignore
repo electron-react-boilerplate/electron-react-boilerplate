@@ -42,6 +42,8 @@ dist
 dll
 main.js
 main.js.map
+yarn.lock
+package-lock.json
 
 .idea
 npm-debug.log.*
