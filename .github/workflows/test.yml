@@ -29,7 +29,7 @@ jobs:
         run: |
           yarn package-ci
           yarn lint
-          yarn ts
+          yarn tsc
 
 # Failing because virtual framebuffer not installed
 #          yarn build-e2e
