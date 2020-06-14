@@ -227,7 +227,7 @@
     "eslint-config-prettier": "^6.11.0",
     "eslint-import-resolver-webpack": "^0.12.1",
     "eslint-plugin-compat": "^3.7.0",
-    "eslint-plugin-import": "^2.21.1",
+    "eslint-plugin-import": "^2.21.2",
     "eslint-plugin-jest": "^23.13.2",
     "eslint-plugin-jsx-a11y": "6.2.3",
     "eslint-plugin-prettier": "^3.1.3",
