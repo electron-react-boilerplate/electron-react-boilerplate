@@ -1,4 +1,3 @@
-/* eslint @typescript-eslint/ban-ts-ignore: off */
 import {
   app,
   Menu,
@@ -19,7 +18,7 @@ export default class MenuBuilder {
     this.mainWindow = mainWindow;
   }
 
-  buildMenu() {
+  buildMenu(): Menu {
     if (
       process.env.NODE_ENV === 'development' ||
       process.env.DEBUG_PROD === 'true'
@@ -38,7 +37,7 @@ export default class MenuBuilder {
     return menu;
   }
 
-  setupDevelopmentEnvironment() {
+  setupDevelopmentEnvironment(): void {
     this.mainWindow.webContents.on('context-menu', (_, props) => {
       const { x, y } = props;
 
@@ -53,7 +52,7 @@ export default class MenuBuilder {
     });
   }
 
-  buildDarwinTemplate() {
+  buildDarwinTemplate(): MenuItemConstructorOptions[] {
     const subMenuAbout: DarwinMenuItemConstructorOptions = {
       label: 'Electron',
       submenu: [

@@ -1,5 +1,4 @@
-/* eslint react/jsx-props-no-spreading: off */
-import { spy } from 'sinon';
+/* eslint react/jsx-props-no-spreading: off, @typescript-eslint/ban-ts-comment: off */
 import React from 'react';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -46,11 +45,11 @@ describe('Counter component', () => {
 
   it('should first button should call increment', () => {
     const { buttons } = setup();
-    const incrementSpy = spy(counterSlice, 'increment');
+    const incrementSpy = jest.spyOn(counterSlice, 'increment');
 
     buttons.at(0).simulate('click');
-    expect(incrementSpy.called).toBe(true);
-    incrementSpy.restore();
+    expect(incrementSpy).toBeCalled();
+    incrementSpy.mockRestore();
   });
 
   it('should match exact snapshot', () => {
@@ -70,26 +69,26 @@ describe('Counter component', () => {
 
   it('should second button should call decrement', () => {
     const { buttons } = setup();
-    const decrementSyp = spy(counterSlice, 'decrement');
+    const decrementSyp = jest.spyOn(counterSlice, 'decrement');
     buttons.at(1).simulate('click');
-    expect(decrementSyp.called).toBe(true);
-    decrementSyp.restore();
+    expect(decrementSyp).toBeCalled();
+    decrementSyp.mockRestore();
   });
 
   it('should third button should call incrementIfOdd', () => {
     const { buttons } = setup();
-    const incrementIfOdd = spy(counterSlice, 'incrementIfOdd');
+    const incrementIfOdd = jest.spyOn(counterSlice, 'incrementIfOdd');
     buttons.at(2).simulate('click');
-    expect(incrementIfOdd.called).toBe(true);
-    incrementIfOdd.restore();
+    expect(incrementIfOdd).toBeCalled();
+    incrementIfOdd.mockRestore();
   });
 
   it('should fourth button should call incrementAsync', () => {
     const { buttons } = setup();
-    const incrementAsync = spy(counterSlice, 'incrementAsync');
+    const incrementAsync = jest.spyOn(counterSlice, 'incrementAsync');
     buttons.at(3).simulate('click');
-    expect(incrementAsync.called).toBe(true);
-    incrementAsync.restore();
+    expect(incrementAsync).toBeCalled();
+    incrementAsync.mockRestore();
   });
 
   it('should display updated count after increment button click', () => {
@@ -119,20 +118,22 @@ describe('Counter component', () => {
 
 describe('Test counter actions', () => {
   it('should not call incrementAsync before timer', () => {
-    const fn = counterSlice.incrementAsync(1000) as Function;
+    const fn = counterSlice.incrementAsync(1000);
     expect(fn).toBeInstanceOf(Function);
-    const dispatch = spy();
+    const dispatch = jest.fn();
+    // @ts-ignore
     fn(dispatch);
     jest.advanceTimersByTime(500);
-    expect(dispatch.called).toBe(false);
+    expect(dispatch).not.toBeCalled();
   });
 
   it('should call incrementAsync after timer', () => {
-    const fn = counterSlice.incrementAsync(1000) as Function;
+    const fn = counterSlice.incrementAsync(1000);
     expect(fn).toBeInstanceOf(Function);
-    const dispatch = spy();
+    const dispatch = jest.fn();
+    // @ts-ignore
     fn(dispatch);
     jest.advanceTimersByTime(1001);
-    expect(dispatch.called).toBe(true);
+    expect(dispatch).toBeCalled();
   });
 });
