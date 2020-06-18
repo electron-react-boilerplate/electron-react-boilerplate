@@ -6076,10 +6076,10 @@ eslint-config-airbnb@^18.1.0:
     object.assign "^4.1.0"
     object.entries "^1.1.1"
 
-eslint-config-erb@1.0.0-2:
-  version "1.0.0-2"
-  resolved "https://registry.yarnpkg.com/eslint-config-erb/-/eslint-config-erb-1.0.0-2.tgz#9500c1c3dbf051eed98c239819fbe32b0f0d7570"
-  integrity sha512-9LQyf3n/OhP7tQNc/VhJdiTCYVFwwKhNwW2Bxe4JuBDYChxdulB8Qmj7jW4qAsermFUXoCS4rtHVUuCXBqAMMA==
+eslint-config-erb@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-erb/-/eslint-config-erb-1.0.0.tgz#f6dd13de09e3ed805b30576a6f20532e0753bf72"
+  integrity sha512-UvmtvjCxaPkYzmpDLYDjmvAxoTggpW+NWYT/Dq4QkfMPqx1nAooU+YU3QsTFrme3x3xp8fj1n3cvimO1kwxb1g==
   dependencies:
     babel-eslint "^10.1.0"
 
