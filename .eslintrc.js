@@ -3,8 +3,8 @@ module.exports = {
   rules: {
     // A temporary hack related to IDE not resolving correct package.json
     'import/no-extraneous-dependencies': 'off',
-    'no-param-reassign': ['error', { props: false }],
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+    'no-param-reassign': ['error', { props: false }],
   },
   parserOptions: {
     ecmaVersion: 2020,

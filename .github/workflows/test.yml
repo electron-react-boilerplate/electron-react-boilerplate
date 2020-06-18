@@ -21,7 +21,7 @@ jobs:
 
       - name: yarn install
         run: |
-          yarn install
+          yarn install --frozen-lockfile
 
       - name: yarn test
         env:
