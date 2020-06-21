@@ -1,25 +1,19 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styles from './Counter.css';
-import routes from '../constants/routes.json';
+import routes from '../../constants/routes.json';
+import {
+  increment,
+  decrement,
+  incrementIfOdd,
+  incrementAsync,
+  selectCount,
+} from './counterSlice';
 
-type Props = {
-  increment: () => void;
-  incrementIfOdd: () => void;
-  incrementAsync: () => void;
-  decrement: () => void;
-  counter: number;
-};
-
-export default function Counter(props: Props) {
-  const {
-    increment,
-    incrementIfOdd,
-    incrementAsync,
-    decrement,
-    counter
-  } = props;
-
+export default function Counter() {
+  const dispatch = useDispatch();
+  const value = useSelector(selectCount);
   return (
     <div>
       <div className={styles.backButton} data-tid="backButton">
@@ -28,12 +22,14 @@ export default function Counter(props: Props) {
         </Link>
       </div>
       <div className={`counter ${styles.counter}`} data-tid="counter">
-        {counter}
+        {value}
       </div>
       <div className={styles.btnGroup}>
         <button
           className={styles.btn}
-          onClick={increment}
+          onClick={() => {
+            dispatch(increment());
+          }}
           data-tclass="btn"
           type="button"
         >
@@ -41,7 +37,9 @@ export default function Counter(props: Props) {
         </button>
         <button
           className={styles.btn}
-          onClick={decrement}
+          onClick={() => {
+            dispatch(decrement());
+          }}
           data-tclass="btn"
           type="button"
         >
@@ -49,7 +47,9 @@ export default function Counter(props: Props) {
         </button>
         <button
           className={styles.btn}
-          onClick={incrementIfOdd}
+          onClick={() => {
+            dispatch(incrementIfOdd());
+          }}
           data-tclass="btn"
           type="button"
         >
@@ -57,7 +57,9 @@ export default function Counter(props: Props) {
         </button>
         <button
           className={styles.btn}
-          onClick={() => incrementAsync()}
+          onClick={() => {
+            dispatch(incrementAsync());
+          }}
           data-tclass="btn"
           type="button"
         >

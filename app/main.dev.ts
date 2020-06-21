@@ -42,7 +42,7 @@ const installExtensions = async () => {
   const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS'];
 
   return Promise.all(
-    extensions.map(name => installer.default(installer[name], forceDownload))
+    extensions.map((name) => installer.default(installer[name], forceDownload))
   ).catch(console.log);
 };
 
@@ -59,13 +59,15 @@ const createWindow = async () => {
     width: 1024,
     height: 728,
     webPreferences:
-      process.env.NODE_ENV === 'development' || process.env.E2E_BUILD === 'true'
+      (process.env.NODE_ENV === 'development' ||
+        process.env.E2E_BUILD === 'true') &&
+      process.env.ERB_SECURE !== 'true'
         ? {
-            nodeIntegration: true
+            nodeIntegration: true,
           }
         : {
-            preload: path.join(__dirname, 'dist/renderer.prod.js')
-          }
+            preload: path.join(__dirname, 'dist/renderer.prod.js'),
+          },
   });
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
