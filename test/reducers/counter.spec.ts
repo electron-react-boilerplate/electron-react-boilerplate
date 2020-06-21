@@ -1,25 +1,31 @@
-import counter from '../../app/reducers/counter';
-import {
-  INCREMENT_COUNTER,
-  DECREMENT_COUNTER
-} from '../../app/actions/counter';
+import { AnyAction } from 'redux';
+import counterReducer, {
+  increment,
+  decrement,
+} from '../../app/features/counter/counterSlice';
 
 describe('reducers', () => {
   describe('counter', () => {
     it('should handle initial state', () => {
-      expect(counter(undefined, {})).toMatchSnapshot();
+      expect(counterReducer(undefined, {} as AnyAction)).toMatchSnapshot();
     });
 
     it('should handle INCREMENT_COUNTER', () => {
-      expect(counter(1, { type: INCREMENT_COUNTER })).toMatchSnapshot();
+      expect(
+        counterReducer({ value: 1 }, { type: increment })
+      ).toMatchSnapshot();
     });
 
     it('should handle DECREMENT_COUNTER', () => {
-      expect(counter(1, { type: DECREMENT_COUNTER })).toMatchSnapshot();
+      expect(
+        counterReducer({ value: 1 }, { type: decrement })
+      ).toMatchSnapshot();
     });
 
     it('should handle unknown action type', () => {
-      expect(counter(1, { type: 'unknown' })).toMatchSnapshot();
+      expect(
+        counterReducer({ value: 1 }, { type: 'unknown' })
+      ).toMatchSnapshot();
     });
   });
 });

@@ -1,3 +1,16 @@
+# 1.2.0
+
+- Migrate to redux toolkit
+- Lazy load routes with react suspense
+- Drop support for azure-pipelines and use only github actions
+- Bump all deps to latest semver
+- Remove `test-e2e` script from tests (blocked on release of https://github.com/DevExpress/testcafe-browser-provider-electron/pull/65)
+- Swap `typed-css-modules-webpack-plugin` for `typings-for-css-modules-loader`
+- Use latest version of `eslint-config-erb`
+- Remove unnecessary file extensions from ts exclude
+- Add experimental support for vscode debugging
+- Revert https://github.com/electron-react-boilerplate/electron-react-boilerplate/pull/2365 as default for users, provide as opt in option
+
 # 1.1.0
 
 - Fix #2402
