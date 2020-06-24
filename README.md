@@ -23,7 +23,7 @@
 
 <div align="center">
 
-[![Build Status][github-actions-status]](github-actions-status)
+[![Build Status][github-actions-status]][github-actions-url]
 [![Dependency Status][david-image]][david-url]
 [![DevDependency Status][david-dev-image]][david-dev-url]
 [![Github Tag][github-tag-image]][github-tag-url]
@@ -157,6 +157,7 @@ Become a sponsor and get your logo on our README on Github with a link to your s
 MIT © [Electron React Boilerplate](https://github.com/electron-react-boilerplate)
 
 [github-actions-status]: https://github.com/electron-react-boilerplate/electron-react-boilerplate/workflows/Test/badge.svg
+[github-actions-url]: https://github.com/electron-react-boilerplate/electron-react-boilerplate/actions
 [github-tag-image]: https://img.shields.io/github/tag/electron-react-boilerplate/electron-react-boilerplate.svg?label=version
 [github-tag-url]: https://github.com/electron-react-boilerplate/electron-react-boilerplate/releases/latest
 [stackoverflow-img]: https://img.shields.io/badge/stackoverflow-electron_react_boilerplate-blue.svg
