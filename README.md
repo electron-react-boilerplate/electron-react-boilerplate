@@ -149,6 +149,7 @@ Become a sponsor and get your logo on our README on Github with a link to your s
 ## Maintainers
 
 - [Amila Welihinda](https://github.com/amilajack)
+- [John Tran](https://github.com/jooohhn)
 - [C. T. Lin](https://github.com/chentsulin)
 - [Jhen-Jie Hong](https://github.com/jhen0409)
 
