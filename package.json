@@ -254,7 +254,7 @@
     "stylelint": "^13.6.1",
     "stylelint-config-prettier": "^8.0.1",
     "stylelint-config-standard": "^20.0.0",
-    "terser-webpack-plugin": "^3.0.5",
+    "terser-webpack-plugin": "^3.0.6",
     "testcafe": "^1.8.6",
     "testcafe-browser-provider-electron": "^0.0.15-alpha.1",
     "testcafe-react-selectors": "^4.0.0",
@@ -263,7 +263,7 @@
     "url-loader": "^4.1.0",
     "webpack": "^4.43.0",
     "webpack-bundle-analyzer": "^3.8.0",
-    "webpack-cli": "^3.3.10",
+    "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0",
     "webpack-merge": "^4.2.2"
   },
