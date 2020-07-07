@@ -110,7 +110,12 @@ app.on('window-all-closed', () => {
   }
 });
 
-app.on('ready', createWindow);
+if (process.env.E2E_BUILD === 'true') {
+  // eslint-disable-next-line promise/catch-or-return
+  app.whenReady().then(createWindow);
+} else {
+  app.on('ready', createWindow);
+}
 
 app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
