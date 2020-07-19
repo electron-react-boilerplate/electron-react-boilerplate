@@ -21,7 +21,7 @@ export default merge.smart(baseConfig, {
 
   mode: 'production',
 
-  target: 'electron-preload',
+  target: process.env.E2E_BUILD ? 'electron-renderer' : 'electron-preload',
 
   entry: path.join(__dirname, '..', 'app/index.tsx'),
 
