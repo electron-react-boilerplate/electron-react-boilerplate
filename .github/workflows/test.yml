@@ -31,7 +31,5 @@ jobs:
           yarn lint
           yarn tsc
           yarn test
-
-# Failing because virtual framebuffer not installed
-#          yarn build-e2e
-#          yarn test-e2e
+          yarn build-e2e
+          yarn test-e2e
