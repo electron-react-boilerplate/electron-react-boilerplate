@@ -20,7 +20,7 @@ labels: 'question'
 <!--- Fill these out, along with any other relevant info -->
 
 - Node version :
-- Electron-react-boilerplate release version or branch :
+- electron-react-boilerplate release version or branch :
 - Operating System and version :
 - Link to your project :
 

@@ -52,7 +52,7 @@ labels: 'bug'
 <!--- Include as many relevant details about the environment you experienced the bug in -->
 
 - Node version :
-- Electron-react-boilerplate version or branch :
+- electron-react-boilerplate version or branch :
 - Operating System and version :
 - Link to your project :
 
