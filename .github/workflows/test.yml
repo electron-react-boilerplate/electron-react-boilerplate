@@ -24,14 +24,14 @@ jobs:
           yarn install --frozen-lockfile
 
       - name: yarn test
+        uses: GabrielBB/xvfb-action@v1.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          yarn package-ci
-          yarn lint
-          yarn tsc
-          yarn test
-
-# Failing because virtual framebuffer not installed
-#          yarn build-e2e
-#          yarn test-e2e
+        with:
+          run: |
+            yarn package-ci
+            yarn lint
+            yarn tsc
+            yarn test
+            yarn build-e2e
+            yarn test-e2e
