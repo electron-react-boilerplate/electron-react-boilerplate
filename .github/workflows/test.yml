@@ -29,9 +29,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           run: |
-            yarn package-ci
-            yarn lint
-            yarn tsc
-            yarn test
-            yarn build-e2e
+            yarn package-ci && \
+            yarn lint && \
+            yarn tsc && \
+            yarn test && \
+            yarn build-e2e && \
             yarn test-e2e
