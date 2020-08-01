@@ -1,3 +1,7 @@
+# 1.3.0
+
+- Fix sass building bug
+
 # 1.2.0
 
 - Migrate to redux toolkit
