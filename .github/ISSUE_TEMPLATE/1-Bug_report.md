@@ -1,44 +1,33 @@
 ---
 name: Bug report
-about: You're having technical issues.
+about: You're having technical issues. 🐞
 labels: 'bug'
 ---
 
-<!-- Please use the following issue template or your issue will be closed. -->
-
-<!--- Provide a general summary of the issue in the Title above -->
+<!-- Please use the following issue template or your issue will be closed -->
 
 ## Prerequisites
 
-<!-- If the following boxes are not ALL checked, your issue is likely to be closed. -->
+<!-- If the following boxes are not ALL checked, your issue is likely to be closed -->
 
 - [ ] Using yarn
-- [ ] Using node 10.x
 - [ ] Using an up-to-date [`master` branch](https://github.com/electron-react-boilerplate/electron-react-boilerplate/tree/master)
-- [ ] Using latest version of devtools. See [wiki for howto update](https://electron-react-boilerplate.js.org/docs/dev-tools/)
-- [ ] Link to stacktrace in a Gist (for bugs)
-- [ ] For issue in production release, devtools output of `DEBUG_PROD=true yarn build && yarn start`
+- [ ] Using latest version of devtools. [Check the docs for how to update](https://electron-react-boilerplate.js.org/docs/dev-tools/)
 - [ ] Tried solutions mentioned in [#400](https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues/400)
+- [ ] For issue in production release, add devtools output of `DEBUG_PROD=true yarn build && yarn start`
 
 ## Expected Behavior
 
-<!--- If you're describing a bug, tell us what should happen -->
-<!--- If you're suggesting a change/improvement, tell us how it should work -->
+<!--- What should have happened? -->
 
 ## Current Behavior
 
-<!--- If describing a bug, tell us what happens instead of the expected behavior -->
-<!--- If suggesting a change/improvement, explain the difference from current behavior -->
+<!--- What went wrong? -->
 
-## Possible Solution
+## Steps to Reproduce
 
-<!--- Not obligatory, but suggest a fix/reason for the bug, -->
-<!--- or ideas how to implement the addition or change -->
-
-## Steps to Reproduce (for bugs)
-
-<!--- Provide a link to a live example, or an unambiguous set of steps to -->
-<!--- reproduce this bug. Include code to reproduce, if relevant -->
+<!-- Add relevant code and/or a live example -->
+<!-- Add stack traces -->
 
 1.
 
@@ -47,6 +36,10 @@ labels: 'bug'
 3.
 
 4.
+
+## Possible Solution (Not obligatory)
+
+<!--- Suggest a reason for the bug or how to fix it. -->
 
 ## Context
 
@@ -59,7 +52,7 @@ labels: 'bug'
 <!--- Include as many relevant details about the environment you experienced the bug in -->
 
 - Node version :
-- Version or Branch used :
+- electron-react-boilerplate version or branch :
 - Operating System and version :
 - Link to your project :
 

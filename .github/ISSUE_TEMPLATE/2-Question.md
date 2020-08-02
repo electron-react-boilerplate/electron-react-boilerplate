@@ -1,8 +1,12 @@
 ---
-name: Feature request
-about: You want something added to the boilerplate.
-labels: 'enhancement'
+name: Question
+about: Ask a question.❓
+labels: 'question'
 ---
+
+## Summary
+
+<!-- What do you need help with? -->
 
 <!---
 ❗️❗️ Also, please consider donating (https://opencollective.com/electron-react-boilerplate-594) ❗️❗️
