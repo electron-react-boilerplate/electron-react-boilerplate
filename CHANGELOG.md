@@ -4,6 +4,7 @@
 - Fixes preload entrypoint ([#2503](https://github.com/electron-react-boilerplate/electron-react-boilerplate/pull/2503))
 - Downgrade to `electron@8`
 - Bump dependencies to latest semver
+- Fix sass building bug
 
 # 1.2.0
 
