@@ -245,6 +245,7 @@
     "eslint-plugin-react-hooks": "^4.0.8",
     "eslint-plugin-testcafe": "^0.2.1",
     "file-loader": "^6.0.0",
+    "html-webpack-plugin": "^4.3.0",
     "husky": "^4.2.5",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^26.1.0",
