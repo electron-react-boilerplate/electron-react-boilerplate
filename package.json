@@ -193,7 +193,7 @@
     "@types/enzyme": "^3.10.5",
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/history": "^4.7.6",
-    "@types/jest": "^26.0.5",
+    "@types/jest": "^26.0.10",
     "@types/node": "12",
     "@types/react": "^16.9.44",
     "@types/react-dom": "^16.9.8",
