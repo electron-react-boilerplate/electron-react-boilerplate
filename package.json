@@ -325,7 +325,8 @@
   "renovate": {
     "extends": [
       "bliss"
-    ]
+    ],
+    "baseBranches": ["next"]
   },
   "husky": {
     "hooks": {
