@@ -33,9 +33,12 @@ jobs:
           yarn test
           yarn build-e2e
 
-      - name: yarn test-e2e
-        uses: GabrielBB/xvfb-action@v1.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          run: yarn test-e2e
+      - if: matrix.os == 'ubuntu-18.04'
+        run: |
+          Xvfb :99 &
+          disown -ar
+          echo "::set-env name=DISPLAY:::99"
+
+      - name: run e2e tests
+        run: |
+          yarn test-e2e
