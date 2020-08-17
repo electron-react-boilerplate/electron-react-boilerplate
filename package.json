@@ -264,7 +264,6 @@
     "testcafe-browser-provider-electron": "^0.0.15",
     "testcafe-react-selectors": "^4.0.0",
     "typescript": "^3.9.7",
-    "typings-for-css-modules-loader": "^1.7.0",
     "url-loader": "^4.1.0",
     "webpack": "^4.43.0",
     "webpack-bundle-analyzer": "^3.8.0",
