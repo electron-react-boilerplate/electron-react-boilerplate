@@ -1,6 +1,7 @@
 # 1.3.1
 
 - Fix sass building bug
+- Move automated dependency PRs to `next`
 
 # 1.3.0
 
