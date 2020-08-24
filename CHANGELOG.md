@@ -1,10 +1,16 @@
+# 1.3.1
+
+- Fix sass building bug ([#2540](https://github.com/electron-react-boilerplate/electron-react-boilerplate/pull/2540))
+- Fix CI bug related to E2E tests and network timeouts
+- Move automated dependency PRs to `next` ([#2554](https://github.com/electron-react-boilerplate/electron-react-boilerplate/pull/2554))
+- Bump dependencies to patch semver
+
 # 1.3.0
 
 - Fixes E2E tests ([#2516](https://github.com/electron-react-boilerplate/electron-react-boilerplate/pull/2516))
 - Fixes preload entrypoint ([#2503](https://github.com/electron-react-boilerplate/electron-react-boilerplate/pull/2503))
 - Downgrade to `electron@8`
 - Bump dependencies to latest semver
-- Fix sass building bug
 
 # 1.2.0
 
