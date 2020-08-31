@@ -94,6 +94,9 @@
       "buildResources": "resources",
       "output": "release"
     },
+    "extraResources": [
+      "./resources/**"
+    ],
     "publish": {
       "provider": "github",
       "owner": "electron-react-boilerplate",
