@@ -200,7 +200,7 @@
     "@types/react-redux": "^7.1.9",
     "@types/react-router": "^5.1.8",
     "@types/react-router-dom": "^5.1.5",
-    "@types/react-test-renderer": "^16.9.2",
+    "@types/react-test-renderer": "^16.9.3",
     "@types/redux-logger": "^3.0.8",
     "@types/webpack": "^4.41.21",
     "@types/webpack-env": "^1.15.2",
