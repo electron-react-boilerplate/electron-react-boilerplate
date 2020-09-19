@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [macos-10.14, windows-2019, ubuntu-18.04]
+        os: [macos-latest, windows-latest, ubuntu-latest]
 
     steps:
       - name: Check out Git repository
@@ -39,6 +39,8 @@ jobs:
           disown -ar
           echo "::set-env name=DISPLAY:::99"
 
-      - name: run e2e tests
+      # TODO: Testcafe e2e are broken because of:
+      # https://github.com/DevExpress/testcafe/issues/4512
+      - if: matrix.os != 'macos-latest'
         run: |
           yarn test-e2e
