@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [macos-10.14, windows-2019, ubuntu-18.04]
+        os: [macos-latest, windows-latest, ubuntu-latest]
 
     steps:
       - name: Check out Git repository
@@ -24,14 +24,24 @@ jobs:
           yarn install --frozen-lockfile
 
       - name: yarn test
-        uses: GabrielBB/xvfb-action@v1.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          run: |
-            yarn package-ci
-            yarn lint
-            yarn tsc
-            yarn test
-            yarn build-e2e
-            yarn test-e2e
+        run: |
+          yarn package-ci
+          yarn lint
+          yarn tsc
+          yarn test
+          yarn build-e2e
+
+      - if: matrix.os == 'ubuntu-latest'
+        run: |
+          Xvfb :99 &
+          disown -ar
+          echo "::set-env name=DISPLAY:::99"
+
+      # TODO: Testcafe e2e are broken because of:
+      # https://github.com/DevExpress/testcafe/issues/4512
+      # Tests are currently broken on linux and macos
+      - if: matrix.os == 'windows-latest'
+        run: |
+          yarn test-e2e
