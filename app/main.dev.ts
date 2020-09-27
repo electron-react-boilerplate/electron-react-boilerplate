@@ -11,10 +11,14 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import path from 'path';
+import fs from 'fs';
 import { app, BrowserWindow } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
+
+// Load .env configurations settings to the process.env
+require('dotenv').config();
 
 export default class AppUpdater {
   constructor() {
@@ -31,9 +35,15 @@ if (process.env.NODE_ENV === 'production') {
   sourceMapSupport.install();
 }
 
+/**
+ * Since electron-debug will only load on development
+ * no need to check if you are production mode or development
+ * we only check from settings in .env, this gives us the
+ * option to turn if off or on during development
+ */
 if (
-  process.env.NODE_ENV === 'development' ||
-  process.env.DEBUG_PROD === 'true'
+  process.env.APP_DEBUG?.trim() === 'TRUE' ||
+  process.env.APP_DEBUG?.trim() === 'true'
 ) {
   require('electron-debug')();
 }
@@ -64,11 +74,16 @@ const createWindow = async () => {
     return path.join(RESOURCES_PATH, ...paths);
   };
 
+  let iconPath = getAssetPath('icon.png');
+  iconPath = process.env.APP_ICON
+    ? getAssetPath(<string>process.env.APP_ICON?.trim())
+    : getAssetPath('icon.png');
+
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
     height: 728,
-    icon: getAssetPath('icon.png'),
+    icon: iconPath,
     webPreferences:
       (process.env.NODE_ENV === 'development' ||
         process.env.E2E_BUILD === 'true') &&

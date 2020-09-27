@@ -2,7 +2,20 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Hello Electron React!</title>
+
+    <script>
+      const title = process.env.APP_TITLE;
+      document.write(
+        title
+          ? `
+      <title>
+        ${title}
+        </title>`
+          : `
+        <title>Hello Electron React!</title>
+        `
+      );
+    </script>
     <script>
       (() => {
         if (
@@ -40,7 +53,7 @@
         if (scripts.length) {
           document.write(
             scripts
-              .map(script => `<script defer src="${script}"><\/script>`)
+              .map((script) => `<script defer src="${script}"><\/script>`)
               .join('')
           );
         }
