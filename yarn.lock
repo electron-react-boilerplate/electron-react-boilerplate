@@ -1550,7 +1550,7 @@
   dependencies:
     defer-to-connect "^1.0.1"
 
-"@teamsupercell/typings-for-css-modules-loader@^2.2.1":
+"@teamsupercell/typings-for-css-modules-loader@^2.3.0":
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/@teamsupercell/typings-for-css-modules-loader/-/typings-for-css-modules-loader-2.3.0.tgz#7233d8440c798924e94d787d1d31118f77a1c0cf"
   integrity sha512-K45LrX/QXd3npYy4cLuVbhYFEit3BrQjfJ66HybOAucolm1qdKimKz7vl2syj2x9saEoaywS24Qx38viZZoF0w==
