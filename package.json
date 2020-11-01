@@ -194,7 +194,7 @@
     "@babel/preset-typescript": "^7.12.1",
     "@babel/register": "^7.12.1",
     "@teamsupercell/typings-for-css-modules-loader": "^2.4.0",
-    "@types/enzyme": "^3.10.5",
+    "@types/enzyme": "^3.10.8",
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/history": "^4.7.7",
     "@types/jest": "^26.0.15",
