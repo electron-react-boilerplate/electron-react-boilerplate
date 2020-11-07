@@ -1,6 +1,5 @@
 name: Publish
 
-# Only run on master on a 'push' event
 on:
   push:
     branches:
