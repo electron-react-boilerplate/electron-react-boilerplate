@@ -232,7 +232,7 @@
     "eslint": "^7.5.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-airbnb-typescript": "^9.0.0",
-    "eslint-config-erb": "^1.0.0",
+    "eslint-config-erb": "^2.0.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-import-resolver-webpack": "^0.12.2",
     "eslint-plugin-compat": "^3.8.0",
