@@ -12,7 +12,7 @@ import chalk from 'chalk';
 import { merge } from 'webpack-merge';
 import { spawn, execSync } from 'child_process';
 import baseConfig from './webpack.config.base';
-import CheckNodeEnv from '../internals/scripts/CheckNodeEnv';
+import CheckNodeEnv from '../.erb/scripts/CheckNodeEnv';
 
 // When an ESLint server is running, we can't set the NODE_ENV so we'll check if it's
 // at the dev webpack config is not accidentally run in a production environment
@@ -53,7 +53,7 @@ export default merge(baseConfig, {
     ...(process.env.PLAIN_HMR ? [] : ['react-hot-loader/patch']),
     `webpack-dev-server/client?http://localhost:${port}/`,
     'webpack/hot/only-dev-server',
-    require.resolve('../app/index.tsx'),
+    require.resolve('../src/index.tsx'),
   ],
 
   output: {

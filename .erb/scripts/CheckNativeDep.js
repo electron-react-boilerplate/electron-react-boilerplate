@@ -34,7 +34,7 @@ ${chalk.whiteBright.bgGreen.bold('yarn remove your-package')}
    'Then, instead of installing the package to the root "./package.json":'
  )}
 ${chalk.whiteBright.bgRed.bold('yarn add your-package')}
- ${chalk.bold('Install the package to "./app/package.json"')}
+ ${chalk.bold('Install the package to "./src/package.json"')}
 ${chalk.whiteBright.bgGreen.bold('cd ./app && yarn add your-package')}
  Read more about native dependencies at:
 ${chalk.bold(

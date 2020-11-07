@@ -6,7 +6,7 @@
  * through IPC.
  *
  * When running `yarn build` or `yarn build-main`, this file is compiled to
- * `./app/main.prod.js` using webpack. This gives us some performance wins.
+ * `./src/main.prod.js` using webpack. This gives us some performance wins.
  */
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
@@ -41,7 +41,7 @@ if (
 const installExtensions = async () => {
   const installer = require('electron-devtools-installer');
   const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
-  const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS'];
+  const extensions = ['REACT_DEVELOPER_TOOLS'];
 
   return installer
     .default(

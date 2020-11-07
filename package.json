@@ -19,20 +19,20 @@
     "package-mac": "yarn build && electron-builder build --mac",
     "package-linux": "yarn build && electron-builder build --linux",
     "package-win": "yarn build && electron-builder build --win --x64",
-    "postinstall": "node -r @babel/register internals/scripts/CheckNativeDep.js && electron-builder install-app-deps && yarn build-dll && opencollective-postinstall",
+    "postinstall": "node -r @babel/register .erb/scripts/CheckNativeDep.js && electron-builder install-app-deps && yarn build-dll && opencollective-postinstall",
     "postlint-fix": "prettier --ignore-path .eslintignore --single-quote --write '**/*.{js,jsx,json,html,css,less,scss,yml}'",
     "postlint-styles-fix": "prettier --ignore-path .eslintignore --single-quote --write '**/*.{css,scss}'",
-    "preinstall": "node ./internals/scripts/CheckYarn.js",
+    "preinstall": "node ./.erb/scripts/CheckYarn.js",
     "prestart": "yarn build",
-    "start": "cross-env START_HOT=1 node -r @babel/register ./internals/scripts/CheckPortInUse.js && cross-env START_HOT=1 yarn start-renderer-dev",
-    "start:prod": "cross-env NODE_ENV=production electron ./app/main.prod.js",
+    "start": "cross-env START_HOT=1 node -r @babel/register ./.erb/scripts/CheckPortInUse.js && cross-env START_HOT=1 yarn start-renderer-dev",
+    "start:prod": "cross-env NODE_ENV=production electron ./src/main.prod.js",
     "start-main-debug": "yarn start-main-dev --inspect=5858 --remote-debugging-port=9223",
-    "start-main-dev": "cross-env START_HOT=1 NODE_ENV=development electron -r ./internals/scripts/BabelRegister ./app/main.dev.ts",
+    "start-main-dev": "cross-env START_HOT=1 NODE_ENV=development electron -r ./.erb/scripts/BabelRegister ./src/main.dev.ts",
     "start-renderer-dev": "cross-env NODE_ENV=development webpack-dev-server --config configs/webpack.config.renderer.dev.babel.js",
     "test": "cross-env BABEL_DISABLE_CACHE=1 jest",
     "test-all": "yarn lint && yarn tsc && yarn build && yarn test",
-    "test-e2e": "node -r @babel/register ./internals/scripts/CheckBuildsExist.js && cross-env NODE_ENV=test testcafe electron:./app ./test/e2e/HomePage.e2e.ts",
-    "test-e2e-live": "node -r @babel/register ./internals/scripts/CheckBuildsExist.js && cross-env NODE_ENV=test testcafe --live electron:./app ./test/e2e/HomePage.e2e.ts",
+    "test-e2e": "node -r @babel/register ./.erb/scripts/CheckBuildsExist.js && cross-env NODE_ENV=test testcafe electron:./app ./test/e2e/HomePage.e2e.ts",
+    "test-e2e-live": "node -r @babel/register ./.erb/scripts/CheckBuildsExist.js && cross-env NODE_ENV=test testcafe --live electron:./app ./test/e2e/HomePage.e2e.ts",
     "test-watch": "yarn test --watch"
   },
   "lint-staged": {
@@ -83,13 +83,12 @@
     },
     "linux": {
       "target": [
-        "deb",
-        "rpm",
         "AppImage"
       ],
       "category": "Development"
     },
     "directories": {
+      "app": "src",
       "buildResources": "resources",
       "output": "release"
     },
@@ -137,7 +136,6 @@
     "electron",
     "boilerplate",
     "react",
-    "redux",
     "typescript",
     "ts",
     "sass",
@@ -149,7 +147,7 @@
   "jest": {
     "testURL": "http://localhost/",
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/internals/mocks/fileMock.js",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/.erb/mocks/fileMock.js",
       "\\.(css|less|sass|scss)$": "identity-obj-proxy"
     },
     "moduleFileExtensions": [
@@ -161,10 +159,10 @@
     ],
     "moduleDirectories": [
       "node_modules",
-      "app/node_modules"
+      "src/node_modules"
     ],
     "setupFiles": [
-      "./internals/scripts/CheckBuildsExist.js"
+      "./.erb/scripts/CheckBuildsExist.js"
     ]
   },
   "devDependencies": {
@@ -201,11 +199,9 @@
     "@types/node": "12",
     "@types/react": "^16.9.44",
     "@types/react-dom": "^16.9.9",
-    "@types/react-redux": "^7.1.9",
     "@types/react-router": "^5.1.8",
     "@types/react-router-dom": "^5.1.5",
     "@types/react-test-renderer": "^16.9.3",
-    "@types/redux-logger": "^3.0.8",
     "@types/webpack": "^4.41.21",
     "@types/webpack-env": "^1.15.2",
     "@typescript-eslint/eslint-plugin": "^3.6.1",
@@ -255,7 +251,6 @@
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "prettier": "^2.0.5",
     "react-test-renderer": "^16.12.0",
-    "redux-logger": "^3.0.6",
     "rimraf": "^3.0.0",
     "sass-loader": "^9.0.3",
     "style-loader": "^1.2.1",
@@ -277,7 +272,6 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.0",
     "@hot-loader/react-dom": "^16.13.0",
-    "@reduxjs/toolkit": "^1.4.0",
     "connected-react-router": "^6.6.1",
     "electron-debug": "^3.1.0",
     "electron-log": "^4.2.4",
@@ -286,10 +280,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.12.0",
     "react-hot-loader": "^4.12.21",
-    "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
-    "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0",
     "regenerator-runtime": "^0.13.5",
     "source-map-support": "^0.5.19"
   },

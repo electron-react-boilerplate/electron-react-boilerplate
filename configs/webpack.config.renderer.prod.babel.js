@@ -10,8 +10,8 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import { merge } from 'webpack-merge';
 import TerserPlugin from 'terser-webpack-plugin';
 import baseConfig from './webpack.config.base';
-import CheckNodeEnv from '../internals/scripts/CheckNodeEnv';
-import DeleteSourceMaps from '../internals/scripts/DeleteSourceMaps';
+import CheckNodeEnv from '../.erb/scripts/CheckNodeEnv';
+import DeleteSourceMaps from '../.erb/scripts/DeleteSourceMaps';
 
 CheckNodeEnv('production');
 DeleteSourceMaps();
@@ -29,11 +29,11 @@ export default merge(baseConfig, {
   entry: [
     'core-js',
     'regenerator-runtime/runtime',
-    path.join(__dirname, '..', 'app/index.tsx'),
+    path.join(__dirname, '..', 'src/index.tsx'),
   ],
 
   output: {
-    path: path.join(__dirname, '..', 'app/dist'),
+    path: path.join(__dirname, '..', 'src/dist'),
     publicPath: './dist/',
     filename: 'renderer.prod.js',
   },
