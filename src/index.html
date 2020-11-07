@@ -40,7 +40,7 @@
         if (scripts.length) {
           document.write(
             scripts
-              .map(script => `<script defer src="${script}"><\/script>`)
+              .map((script) => `<script defer src="${script}"><\/script>`)
               .join('')
           );
         }
