@@ -10,14 +10,18 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import { merge } from 'webpack-merge';
 import TerserPlugin from 'terser-webpack-plugin';
 import baseConfig from './webpack.config.base';
-import CheckNodeEnv from '../.erb/scripts/CheckNodeEnv';
-import DeleteSourceMaps from '../.erb/scripts/DeleteSourceMaps';
+import CheckNodeEnv from '../scripts/CheckNodeEnv';
+import DeleteSourceMaps from '../scripts/DeleteSourceMaps';
 
 CheckNodeEnv('production');
 DeleteSourceMaps();
 
+const devtoolsConfig = process.env.DEBUG_PROD === 'true' ? {
+  devtool: 'source-map'
+} : {};
+
 export default merge(baseConfig, {
-  devtool: process.env.DEBUG_PROD === 'true' ? 'source-map' : 'none',
+  ...devtoolsConfig,
 
   mode: 'production',
 
@@ -29,11 +33,11 @@ export default merge(baseConfig, {
   entry: [
     'core-js',
     'regenerator-runtime/runtime',
-    path.join(__dirname, '..', 'src/index.tsx'),
+    path.join(__dirname, '../../src/index.tsx'),
   ],
 
   output: {
-    path: path.join(__dirname, '..', 'src/dist'),
+    path: path.join(__dirname, '../../src/dist'),
     publicPath: './dist/',
     filename: 'renderer.prod.js',
   },
@@ -186,8 +190,6 @@ export default merge(baseConfig, {
       : [
           new TerserPlugin({
             parallel: true,
-            sourceMap: true,
-            cache: true,
           }),
           new OptimizeCSSAssetsPlugin({
             cssProcessorOptions: {

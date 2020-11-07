@@ -12,7 +12,8 @@ import chalk from 'chalk';
 import { merge } from 'webpack-merge';
 import { spawn, execSync } from 'child_process';
 import baseConfig from './webpack.config.base';
-import CheckNodeEnv from '../.erb/scripts/CheckNodeEnv';
+import CheckNodeEnv from '../scripts/CheckNodeEnv';
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 
 // When an ESLint server is running, we can't set the NODE_ENV so we'll check if it's
 // at the dev webpack config is not accidentally run in a production environment
@@ -22,7 +23,7 @@ if (process.env.NODE_ENV === 'production') {
 
 const port = process.env.PORT || 1212;
 const publicPath = `http://localhost:${port}/dist`;
-const dll = path.join(__dirname, '..', 'dll');
+const dll = path.join(__dirname, '../../dll');
 const manifest = path.resolve(dll, 'renderer.json');
 const requiredByDLLConfig = module.parent.filename.includes(
   'webpack.config.renderer.dev.dll'
@@ -50,10 +51,7 @@ export default merge(baseConfig, {
   entry: [
     'core-js',
     'regenerator-runtime/runtime',
-    ...(process.env.PLAIN_HMR ? [] : ['react-hot-loader/patch']),
-    `webpack-dev-server/client?http://localhost:${port}/`,
-    'webpack/hot/only-dev-server',
-    require.resolve('../src/index.tsx'),
+    require.resolve('../../src/index.tsx'),
   ],
 
   output: {
@@ -63,6 +61,20 @@ export default merge(baseConfig, {
 
   module: {
     rules: [
+      {
+        test: /\.[jt]sx?$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: require.resolve('babel-loader'),
+            options: {
+              plugins: [
+                require.resolve('react-refresh/babel'),
+              ].filter(Boolean),
+            },
+          },
+        ],
+      },
       {
         test: /\.global\.css$/,
         use: [
@@ -194,23 +206,15 @@ export default merge(baseConfig, {
       },
     ],
   },
-  resolve: {
-    alias: {
-      'react-dom': '@hot-loader/react-dom',
-    },
-  },
   plugins: [
+
     requiredByDLLConfig
       ? null
       : new webpack.DllReferencePlugin({
-          context: path.join(__dirname, '..', 'dll'),
+          context: path.join(__dirname, '../dll'),
           manifest: require(manifest),
           sourceType: 'var',
         }),
-
-    new webpack.HotModuleReplacementPlugin({
-      multiStep: true,
-    }),
 
     new webpack.NoEmitOnErrorsPlugin(),
 
@@ -233,6 +237,8 @@ export default merge(baseConfig, {
     new webpack.LoaderOptionsPlugin({
       debug: true,
     }),
+
+    new ReactRefreshWebpackPlugin(),
   ],
 
   node: {

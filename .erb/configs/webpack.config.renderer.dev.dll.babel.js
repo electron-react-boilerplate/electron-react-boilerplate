@@ -6,15 +6,15 @@ import webpack from 'webpack';
 import path from 'path';
 import { merge } from 'webpack-merge';
 import baseConfig from './webpack.config.base';
-import { dependencies } from '../package.json';
-import CheckNodeEnv from '../.erb/scripts/CheckNodeEnv';
+import { dependencies } from '../../package.json';
+import CheckNodeEnv from '../scripts/CheckNodeEnv';
 
 CheckNodeEnv('development');
 
-const dist = path.join(__dirname, '..', 'dll');
+const dist = path.join(__dirname, '../../dll');
 
 export default merge(baseConfig, {
-  context: path.join(__dirname, '..'),
+  context: path.join(__dirname, '../..'),
 
   devtool: 'eval',
 
@@ -62,9 +62,9 @@ export default merge(baseConfig, {
     new webpack.LoaderOptionsPlugin({
       debug: true,
       options: {
-        context: path.join(__dirname, '..', 'app'),
+        context: path.join(__dirname, '../../src'),
         output: {
-          path: path.join(__dirname, '..', 'dll'),
+          path: path.join(__dirname, '../../dll'),
         },
       },
     }),
