@@ -23,9 +23,8 @@
     "postlint-fix": "prettier --ignore-path .eslintignore --single-quote --write '**/*.{js,jsx,json,html,css,less,scss,yml}'",
     "postlint-styles-fix": "prettier --ignore-path .eslintignore --single-quote --write '**/*.{css,scss}'",
     "preinstall": "node ./.erb/scripts/CheckYarn.js",
-    "prestart": "yarn build",
     "start": "cross-env START_HOT=1 node -r @babel/register ./.erb/scripts/CheckPortInUse.js && cross-env START_HOT=1 yarn start-renderer-dev",
-    "start:prod": "cross-env NODE_ENV=production electron ./src/main.prod.js",
+    "start-prod": "cross-env NODE_ENV=production electron ./src/main.prod.js",
     "start-main-debug": "yarn start-main-dev --inspect=5858 --remote-debugging-port=9223",
     "start-main-dev": "cross-env START_HOT=1 NODE_ENV=development electron -r ./.erb/scripts/BabelRegister ./src/main.dev.ts",
     "start-renderer-dev": "cross-env NODE_ENV=development webpack serve --config ./.erb/configs/webpack.config.renderer.dev.babel.js",
@@ -112,11 +111,6 @@
     "url": "https://electron-react-boilerplate.js.org"
   },
   "contributors": [
-    {
-      "name": "Vikram Rangaraj",
-      "email": "vikr01@icloud.com",
-      "url": "https://github.com/vikr01"
-    },
     {
       "name": "Amila Welihinda",
       "email": "amilajack@gmail.com",
@@ -272,7 +266,6 @@
     "yarn-deduplicate": "^3.1.0"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.0",
     "electron-debug": "^3.1.0",
     "electron-log": "^4.2.4",
     "electron-updater": "^4.3.4",
@@ -284,9 +277,9 @@
     "source-map-support": "^0.5.19"
   },
   "devEngines": {
-    "node": ">=7.x",
-    "npm": ">=4.x",
-    "yarn": ">=0.21.3"
+    "node": ">=10.x",
+    "npm": ">=6.x",
+    "yarn": ">=1.21.3"
   },
   "collective": {
     "url": "https://opencollective.com/electron-react-boilerplate-594"
