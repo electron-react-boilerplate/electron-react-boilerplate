@@ -7,7 +7,6 @@ on:
 
 jobs:
   publish:
-    if: ${{ startsWith(github.event.head_commit.message, 'release-v') }}
     runs-on: ${{ matrix.os }}
 
     strategy:
