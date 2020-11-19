@@ -33,11 +33,13 @@ jobs:
           yarn test
           yarn build-e2e
 
-      - if: matrix.os == 'ubuntu-latest'
-        run: |
-          Xvfb :99 &
-          disown -ar
-          echo "::set-env name=DISPLAY:::99"
+      # - if: matrix.os == 'ubuntu-latest'
+      #   run: |
+      #   sudo apt-get install libwoff1 libopus0 libwebp6 libwebpdemux2 libenchant1c2a libgudev-1.0-0 libsecret-1-0 libhyphen0 libgdk-pixbuf2.0-0
+      #   sudo apt-get install xvfb
+      #   export DISPLAY=:99.0
+      #   Xvfb -ac :99 -screen 0 1280x1024x16 > /dev/null 2>&1 &
+
       # TODO: Testcafe e2e are broken because of:
       # https://github.com/DevExpress/testcafe/issues/4512
       # Tests are currently broken on linux and macos
