@@ -179,9 +179,8 @@ export default merge(baseConfig, {
   },
 
   optimization: {
-    minimizer: process.env.E2E_BUILD
-      ? []
-      : [
+    minimizer:
+      [
           new TerserPlugin({
             parallel: true,
           }),
@@ -209,7 +208,6 @@ export default merge(baseConfig, {
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'production',
       DEBUG_PROD: false,
-      E2E_BUILD: false,
     }),
 
     new MiniCssExtractPlugin({

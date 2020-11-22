@@ -75,15 +75,6 @@ const createWindow = async () => {
     webPreferences: {
       nodeIntegration: true,
     },
-    // (process.env.NODE_ENV === 'development' ||
-    //   process.env.E2E_BUILD === 'true') &&
-    // process.env.ERB_SECURE !== 'true'
-    //   ? {
-    //       nodeIntegration: true,
-    //     }
-    //   : {
-    //       preload: path.join(__dirname, 'dist/renderer.prod.js'),
-    //     },
   });
 
   mainWindow.loadURL(`file://${__dirname}/index.html`);
@@ -126,12 +117,7 @@ app.on('window-all-closed', () => {
   }
 });
 
-if (process.env.E2E_BUILD === 'true') {
-  // eslint-disable-next-line promise/catch-or-return
-  app.whenReady().then(createWindow);
-} else {
-  app.on('ready', createWindow);
-}
+app.whenReady().then(createWindow).catch(console.log);
 
 app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
