@@ -11,7 +11,7 @@ import CheckNodeEnv from '../scripts/CheckNodeEnv';
 
 CheckNodeEnv('development');
 
-const dist = path.join(__dirname, '../../dll');
+const dist = path.join(__dirname, '../dll');
 
 export default merge(baseConfig, {
   context: path.join(__dirname, '../..'),
@@ -64,7 +64,7 @@ export default merge(baseConfig, {
       options: {
         context: path.join(__dirname, '../../src'),
         output: {
-          path: path.join(__dirname, '../../dll'),
+          path: path.join(__dirname, '../dll'),
         },
       },
     }),
