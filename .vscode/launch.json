@@ -7,7 +7,7 @@
       "name": "Electron: Main",
       "protocol": "inspector",
       "runtimeExecutable": "yarn",
-      "runtimeArgs": ["start-main-debug"],
+      "runtimeArgs": ["start:main"],
       "preLaunchTask": "Start Webpack Dev"
     },
     {
