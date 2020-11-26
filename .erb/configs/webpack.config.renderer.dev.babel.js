@@ -267,8 +267,7 @@ export default merge(baseConfig, {
       disableDotRule: false,
     },
     before() {
-      if (process.env.START_HOT) {
-        console.log('Starting Main Process...');
+      console.log('Starting Main Process...');
         spawn('npm', ['run', 'start:main'], {
           shell: true,
           env: process.env,
@@ -276,7 +275,6 @@ export default merge(baseConfig, {
         })
           .on('close', (code) => process.exit(code))
           .on('error', (spawnError) => console.error(spawnError));
-      }
     },
   },
 });
