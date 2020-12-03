@@ -1,10 +1,3 @@
-/**
- * Build config for development electron renderer process that uses
- * Hot-Module-Replacement
- *
- * https://webpack.js.org/concepts/hot-module-replacement/
- */
-
 import path from 'path';
 import fs from 'fs';
 import webpack from 'webpack';
