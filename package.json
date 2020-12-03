@@ -40,6 +40,17 @@
       "main.prod.js.map",
       "package.json"
     ],
+    "afterSign": ".erb/scripts/Notarize.js",
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "type": "distribution",
+      "hardenedRuntime": true,
+      "entitlements": "assets/entitlements.mac.plist",
+      "entitlementsInherit": "assets/entitlements.mac.plist",
+      "gatekeeperAssess": false
+    },
     "dmg": {
       "contents": [
         {
@@ -194,6 +205,7 @@
     "electron": "^11.0.1",
     "electron-builder": "^22.3.6",
     "electron-devtools-installer": "^3.1.1",
+    "electron-notarize": "^1.0.0",
     "electron-rebuild": "^2.3.2",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.3",
