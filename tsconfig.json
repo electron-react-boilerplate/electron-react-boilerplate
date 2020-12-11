@@ -25,9 +25,9 @@
   "exclude": [
     "test",
     "release",
-    "app/main.prod.js",
-    "app/renderer.prod.js",
-    "app/dist",
-    "dll"
+    "src/main.prod.js",
+    "src/renderer.prod.js",
+    "src/dist",
+    ".erb/dll"
   ]
 }

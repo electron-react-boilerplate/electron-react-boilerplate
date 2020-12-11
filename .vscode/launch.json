@@ -2,12 +2,12 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Electron: Main",
       "type": "node",
       "request": "launch",
-      "name": "Electron: Main",
       "protocol": "inspector",
       "runtimeExecutable": "yarn",
-      "runtimeArgs": ["start-main-debug"],
+      "runtimeArgs": ["start:main --inspect=5858 --remote-debugging-port=9223"],
       "preLaunchTask": "Start Webpack Dev"
     },
     {

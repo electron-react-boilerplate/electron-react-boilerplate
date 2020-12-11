@@ -144,7 +144,7 @@ For full change list, see https://github.com/electron-react-boilerplate/electron
 #### Breaking
 
 - Changed node dev `__dirname` and `__filename` to node built in fn's (https://github.com/electron-react-boilerplate/electron-react-boilerplate/pull/1035)
-- Renamed `app/bundle.js` to `app/renderer.prod.js` for consistency
+- Renamed `src/bundle.js` to `src/renderer.prod.js` for consistency
 - Renamed `dll/vendor.js` to `dll/renderer.dev.dll.js` for consistency
 
 #### Additions
@@ -159,7 +159,7 @@ Yay! Another patch release. This release mostly includes refactorings and router
 
 #### Breaking
 
-- **Renamed `./app/main.development.js` => `./app/main.{dev,prod}.js`:** [#963](https://github.com/electron-react-boilerplate/electron-react-boilerplate/pull/963)
+- **Renamed `./src/main.development.js` => `./src/main.{dev,prod}.js`:** [#963](https://github.com/electron-react-boilerplate/electron-react-boilerplate/pull/963)
 
 #### Fixes
 

@@ -14,20 +14,20 @@ jobs:
         os: [macos-latest]
 
     steps:
-      - name: Check out Git repository
+      - name: Checkout git repo
         uses: actions/checkout@v1
 
-      - name: Install Node.js, NPM and Yarn
+      - name: Install Node, NPM and Yarn
         uses: actions/setup-node@v1
         with:
           node-version: 14
 
-      - name: yarn install
+      - name: Install dependencies
         run: |
           yarn install
 
-      - name: Publish Releases
+      - name: Publish releases
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          yarn package-ci
+          yarn postinstall && yarn build && yarn electron-builder
