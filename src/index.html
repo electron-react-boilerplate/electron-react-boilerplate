@@ -5,13 +5,11 @@
     <title>Hello Electron React!</title>
     <script>
       (() => {
-        if (typeof process !== 'object') {
-          const link = document.createElement('link');
-          link.rel = 'stylesheet';
-          link.href = './dist/style.css';
-          // HACK: Writing the script path should be done with webpack
-          document.getElementsByTagName('head')[0].appendChild(link);
-        }
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = './dist/style.css';
+        // HACK: Writing the script path should be done with webpack
+        document.getElementsByTagName('head')[0].appendChild(link);
       })();
     </script>
   </head>
