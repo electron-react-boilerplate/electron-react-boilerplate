@@ -67,8 +67,7 @@
     },
     "win": {
       "target": [
-        "nsis",
-        "msi"
+        "nsis"
       ]
     },
     "linux": {
@@ -88,8 +87,7 @@
     "publish": {
       "provider": "github",
       "owner": "electron-react-boilerplate",
-      "repo": "electron-react-boilerplate",
-      "private": false
+      "repo": "electron-react-boilerplate"
     }
   },
   "repository": {
