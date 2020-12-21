@@ -13,6 +13,8 @@
     "start": "node -r @babel/register ./.erb/scripts/CheckPortInUse.js && cross-env yarn start:renderer",
     "start:main": "cross-env NODE_ENV=development electron -r ./.erb/scripts/BabelRegister ./src/main.dev.ts",
     "start:renderer": "cross-env NODE_ENV=development webpack serve --config ./.erb/configs/webpack.config.renderer.dev.babel.js",
+    "test:e2e:dev": "yarn build:main && cross-env NODE_ENV=development node run-e2e-tests.js",
+    "test:e2e:prod": "cross-env NODE_ENV=production node run-e2e-tests.js",
     "test": "jest"
   },
   "lint-staged": {
@@ -238,6 +240,8 @@
     "sass-loader": "^10.1.0",
     "style-loader": "^2.0.0",
     "terser-webpack-plugin": "^5.0.3",
+    "testcafe": "1.9.4",
+    "testcafe-browser-provider-electron": "^0.0.16",
     "typescript": "^4.0.5",
     "url-loader": "^4.1.0",
     "webpack": "^5.5.1",

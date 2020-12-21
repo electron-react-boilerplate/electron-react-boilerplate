@@ -259,15 +259,5 @@ export default merge(baseConfig, {
       verbose: true,
       disableDotRule: false,
     },
-    before() {
-      console.log('Starting Main Process...');
-        spawn('npm', ['run', 'start:main'], {
-          shell: true,
-          env: process.env,
-          stdio: 'inherit',
-        })
-          .on('close', (code) => process.exit(code))
-          .on('error', (spawnError) => console.error(spawnError));
-    },
   },
 });
