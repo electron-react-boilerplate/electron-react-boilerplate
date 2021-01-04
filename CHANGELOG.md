@@ -1,3 +1,37 @@
+# 2.1.0
+
+- Migrate to `css-minifier-webpack-plugin`
+
+# 2.0.1
+
+## Fixes
+
+- Fix broken css linking in production build
+
+# 2.0.0
+
+## Breaking Changes
+
+- drop redux
+- remove counter example app
+- simplify directory structure
+- move `dll` dir to `.erb` dir
+- fix icon/font import paths
+- migrate to `react-refresh` from `react-hot-loader`
+- migrate to webpack@5
+- migrate to electron@11
+- remove e2e tests and testcafe integration
+- rename `app` dir to more conventional `src` dir
+- rename `resources` dir to `assets`
+- simplify npm scripts
+- drop stylelint
+- simplify styling of boilerplate app
+- remove `START_HOT` env variable
+- notarize support
+- landing page boilerplate
+- docs updates
+- restore removed debugging support
+
 # 1.4.0
 
 - Migrate to `eslint-config-erb@2`
