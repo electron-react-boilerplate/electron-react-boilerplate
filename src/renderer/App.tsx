@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { MemoryRouter, Switch, Route } from 'react-router-dom';
 import icon from '../../assets/icon.svg';
 import './App.global.css';
 
@@ -42,10 +42,10 @@ const Hello = () => {
 
 export default function App() {
   return (
-    <Router>
+    <MemoryRouter>
       <Switch>
         <Route path="/" component={Hello} />
       </Switch>
-    </Router>
+    </MemoryRouter>
   );
 }
