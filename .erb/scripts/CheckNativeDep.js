@@ -8,6 +8,9 @@ if (dependencies) {
   const nativeDeps = fs
     .readdirSync('node_modules')
     .filter((folder) => fs.existsSync(`node_modules/${folder}/binding.gyp`));
+  if (nativeDeps.length === 0) {
+    process.exit(0);
+  }
   try {
     // Find the reason for why the dependency is installed. If it is installed
     // because of a devDependency then that is okay. Warn when it is installed
