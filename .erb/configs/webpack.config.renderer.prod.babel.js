@@ -51,15 +51,15 @@ export default merge(baseConfig, {
               publicPath: './',
             },
           },
-          'css-loader',
-          'sass-loader'
+          require.resolve('css-loader'),
+          require.resolve('sass-loader')
         ],
       },
       // WOFF Font
       {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
         use: {
-          loader: 'url-loader',
+          loader: require.resolve('url-loader'),
           options: {
             limit: 10000,
             mimetype: 'application/font-woff',
@@ -70,7 +70,7 @@ export default merge(baseConfig, {
       {
         test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
         use: {
-          loader: 'url-loader',
+          loader: require.resolve('url-loader'),
           options: {
             limit: 10000,
             mimetype: 'application/font-woff',
@@ -81,7 +81,7 @@ export default merge(baseConfig, {
       {
         test: /\.otf(\?v=\d+\.\d+\.\d+)?$/,
         use: {
-          loader: 'url-loader',
+          loader: require.resolve('url-loader'),
           options: {
             limit: 10000,
             mimetype: 'font/otf',
@@ -92,7 +92,7 @@ export default merge(baseConfig, {
       {
         test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
         use: {
-          loader: 'url-loader',
+          loader: require.resolve('url-loader'),
           options: {
             limit: 10000,
             mimetype: 'application/octet-stream',
@@ -102,13 +102,13 @@ export default merge(baseConfig, {
       // EOT Font
       {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-        use: 'file-loader',
+        use: require.resolve('file-loader'),
       },
       // SVG Font
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
         use: {
-          loader: 'url-loader',
+          loader: require.resolve('url-loader'),
           options: {
             limit: 10000,
             mimetype: 'image/svg+xml',
@@ -118,7 +118,7 @@ export default merge(baseConfig, {
       // Common Image Formats
       {
         test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
-        use: 'url-loader',
+        use: require.resolve('url-loader'),
       },
     ],
   },
