@@ -33,11 +33,13 @@
       }
 
       if (scripts.length) {
-        document.write(
-          scripts
-            .map((script) => `<script defer src="${script}"><\/script>`)
-            .join('')
-        );
+        const body = document.querySelector('body');
+        scripts.forEach((script) => {
+          const newScript = document.createElement('script');
+          newScript.setAttribute('defer', true);
+          newScript.setAttribute('src', script);
+          body.appendChild(newScript);
+        });
       }
     </script>
   </body>
