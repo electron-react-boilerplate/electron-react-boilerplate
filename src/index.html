@@ -36,7 +36,7 @@
         const body = document.querySelector('body');
         scripts.forEach((script) => {
           const newScript = document.createElement('script');
-          newScript.setAttribute('defer', true);
+          newScript.setAttribute('defer', '');
           newScript.setAttribute('src', script);
           body.appendChild(newScript);
         });
