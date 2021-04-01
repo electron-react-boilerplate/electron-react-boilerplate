@@ -221,7 +221,7 @@
     "eslint-plugin-jsx-a11y": "6.4.1",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-react": "^7.20.6",
+    "eslint-plugin-react": "^7.23.1",
     "eslint-plugin-react-hooks": "^4.0.8",
     "file-loader": "^6.0.0",
     "husky": "^4.2.5",
