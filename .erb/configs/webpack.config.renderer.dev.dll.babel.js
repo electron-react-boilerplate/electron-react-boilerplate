@@ -20,7 +20,7 @@ export default merge(baseConfig, {
 
   mode: 'development',
 
-  target: 'electron-renderer',
+  target: 'web',
 
   externals: ['fsevents', 'crypto-browserify'],
 
