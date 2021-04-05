@@ -8,11 +8,10 @@ import { merge } from 'webpack-merge';
 import TerserPlugin from 'terser-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import baseConfig from './webpack.config.base';
+import WebpackPaths from './webpack.paths.js';
 import CheckNodeEnv from '../scripts/CheckNodeEnv';
-import DeleteSourceMaps from '../scripts/DeleteSourceMaps';
 
 CheckNodeEnv('production');
-DeleteSourceMaps();
 
 const devtoolsConfig = process.env.DEBUG_PROD === 'true' ? {
   devtool: 'source-map'
@@ -25,11 +24,11 @@ export default merge(baseConfig, {
 
   target: 'electron-main',
 
-  entry: './src/main.dev.ts',
+  entry: path.join(WebpackPaths.srcMainPath, 'main.dev.ts'),
 
   output: {
-    path: path.join(__dirname, '../../'),
-    filename: './src/main.prod.js',
+    path: WebpackPaths.distMainPath,
+    filename: 'main.prod.js',
   },
 
   optimization: {

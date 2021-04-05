@@ -24,10 +24,8 @@
   },
   "exclude": [
     "test",
-    "release",
-    "src/main.prod.js",
-    "src/renderer.prod.js",
-    "src/dist",
+    "build/release",
+    "build/app/dist",
     ".erb/dll"
   ]
 }

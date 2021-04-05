@@ -1,10 +1,12 @@
 import path from 'path';
 import fs from 'fs';
 import webpack from 'webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 import chalk from 'chalk';
 import { merge } from 'webpack-merge';
 import { spawn, execSync } from 'child_process';
 import baseConfig from './webpack.config.base';
+import WebpackPaths from './webpack.paths.js';
 import CheckNodeEnv from '../scripts/CheckNodeEnv';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 
@@ -15,9 +17,8 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const port = process.env.PORT || 1212;
-const publicPath = `http://localhost:${port}/dist`;
-const dllDir = path.join(__dirname, '../dll');
-const manifest = path.resolve(dllDir, 'renderer.json');
+const publicPath = WebpackPaths.distRendererPath;
+const manifest = path.resolve(WebpackPaths.dllPath, 'renderer.json');
 const requiredByDLLConfig = module.parent.filename.includes(
   'webpack.config.renderer.dev.dll'
 );
@@ -25,7 +26,7 @@ const requiredByDLLConfig = module.parent.filename.includes(
 /**
  * Warn if the DLL is not built
  */
-if (!requiredByDLLConfig && !(fs.existsSync(dllDir) && fs.existsSync(manifest))) {
+if (!requiredByDLLConfig && !(fs.existsSync(WebpackPaths.dllPath) && fs.existsSync(manifest))) {
   console.log(
     chalk.black.bgYellow.bold(
       'The DLL files are missing. Sit back while we build them for you with "yarn build-dll"'
@@ -44,11 +45,12 @@ export default merge(baseConfig, {
   entry: [
     'core-js',
     'regenerator-runtime/runtime',
-    require.resolve('../../src/index.tsx'),
+    path.join(WebpackPaths.srcRendererPath, 'index.tsx'),
   ],
 
   output: {
-    publicPath: `http://localhost:${port}/dist/`,
+    path: WebpackPaths.distRendererPath,
+    publicPath: '/',
     filename: 'renderer.dev.js',
   },
 
@@ -215,7 +217,7 @@ export default merge(baseConfig, {
     requiredByDLLConfig
       ? null
       : new webpack.DllReferencePlugin({
-          context: path.join(__dirname, '../dll'),
+          context: WebpackPaths.dllPath,
           manifest: require(manifest),
           sourceType: 'var',
         }),
@@ -243,6 +245,20 @@ export default merge(baseConfig, {
     }),
 
     new ReactRefreshWebpackPlugin(),
+
+    new HtmlWebpackPlugin({
+      filename: path.join('index.html'),
+      template: path.join(WebpackPaths.srcRendererPath, 'index.ejs'),
+      minify: {
+        collapseWhitespace: true,
+        removeAttributeQuotes: true,
+        removeComments: true
+      },
+      isBrowser: false,
+      env: process.env.NODE_ENV,
+      isDevelopment: process.env.NODE_ENV !== 'production',
+      nodeModules: WebpackPaths.appNodeModulesPath
+    }),
   ],
 
   node: {
@@ -252,7 +268,7 @@ export default merge(baseConfig, {
 
   devServer: {
     port,
-    publicPath,
+    publicPath: '/',
     compress: true,
     noInfo: false,
     stats: 'errors-only',
@@ -260,7 +276,6 @@ export default merge(baseConfig, {
     lazy: false,
     hot: true,
     headers: { 'Access-Control-Allow-Origin': '*' },
-    contentBase: path.join(__dirname, 'dist'),
     watchOptions: {
       aggregateTimeout: 300,
       ignored: /node_modules/,

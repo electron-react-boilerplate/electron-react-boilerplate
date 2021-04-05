@@ -6,15 +6,16 @@ import webpack from 'webpack';
 import path from 'path';
 import { merge } from 'webpack-merge';
 import baseConfig from './webpack.config.base';
+import WebpackPaths from './webpack.paths.js';
 import { dependencies } from '../../package.json';
 import CheckNodeEnv from '../scripts/CheckNodeEnv';
 
 CheckNodeEnv('development');
 
-const dist = path.join(__dirname, '../dll');
+const dist = WebpackPaths.dllPath;
 
 export default merge(baseConfig, {
-  context: path.join(__dirname, '../..'),
+  context: WebpackPaths.rootPath,
 
   devtool: 'eval',
 
@@ -62,9 +63,9 @@ export default merge(baseConfig, {
     new webpack.LoaderOptionsPlugin({
       debug: true,
       options: {
-        context: path.join(__dirname, '../../src'),
+        context: WebpackPaths.srcPath,
         output: {
-          path: path.join(__dirname, '../dll'),
+          path: WebpackPaths.dllPath,
         },
       },
     }),
