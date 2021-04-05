@@ -28,7 +28,9 @@ export default {
   output: {
     path: WebpackPaths.srcPath,
     // https://github.com/webpack/webpack/issues/1114
-    libraryTarget: 'commonjs2',
+    library: {
+      type: 'commonjs2',
+    },
   },
 
   /**

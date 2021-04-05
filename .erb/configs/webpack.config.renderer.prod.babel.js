@@ -27,7 +27,7 @@ export default merge(baseConfig, {
 
   mode: 'production',
 
-  target: 'electron-renderer',
+  target: ['web', 'electron-renderer'],
 
   entry: [
     'core-js',
@@ -39,6 +39,9 @@ export default merge(baseConfig, {
     path: WebpackPaths.distRendererPath,
     publicPath: './',
     filename: 'renderer.prod.js',
+    library: {
+      type: 'umd',
+    },
   },
 
   module: {
@@ -168,7 +171,7 @@ export default merge(baseConfig, {
       minify: {
         collapseWhitespace: true,
         removeAttributeQuotes: true,
-        removeComments: true
+        removeComments: true,
       },
       isBrowser: false,
       isDevelopment: process.env.NODE_ENV !== 'production',
