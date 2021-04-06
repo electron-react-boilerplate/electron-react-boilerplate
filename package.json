@@ -8,9 +8,9 @@
     "build:renderer": "cross-env NODE_ENV=production webpack --config ./.erb/configs/webpack.config.renderer.prod.babel.js",
     "rebuild": "electron-rebuild --parallel --types prod,dev,optional --module-dir src",
     "lint": "cross-env NODE_ENV=development eslint . --cache --ext .js,.jsx,.ts,.tsx",
-    "clean": "node ./.erb/Scripts/Clean.js dist release",
-    "clean:dist": "node ./.erb/Scripts/Clean.js dist",
-    "clean:release": "node ./.erb/Scripts/Clean.js release",
+    "clean": "node ./.erb/scripts/Clean.js dist release",
+    "clean:dist": "node ./.erb/scripts/Clean.js dist",
+    "clean:release": "node ./.erb/scripts/Clean.js release",
     "package": "cross-env yarn clean:dist && yarn build && electron-builder build --publish never",
     "postinstall": "node -r @babel/register .erb/scripts/CheckNativeDep.js && electron-builder install-app-deps && yarn cross-env NODE_ENV=development webpack --config ./.erb/configs/webpack.config.renderer.dev.dll.babel.js && opencollective-postinstall && yarn-deduplicate yarn.lock",
     "start": "node -r @babel/register ./.erb/scripts/CheckPortInUse.js && yarn start:renderer",
@@ -143,7 +143,7 @@
     ],
     "moduleDirectories": [
       "node_modules",
-      "src/node_modules"
+      "build/app/node_modules"
     ],
     "setupFiles": [
       "./.erb/scripts/CheckBuildsExist.js"
@@ -179,12 +179,13 @@
     "@testing-library/react": "^11.2.6",
     "@types/enzyme": "^3.10.5",
     "@types/enzyme-adapter-react-16": "^1.0.6",
-    "@types/history": "4.7.8",
+    "@types/history": "4.7.6",
     "@types/jest": "^26.0.22",
     "@types/node": "14.14.37",
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",
-    "@types/react-router-dom": "^5.1.7",
+    "@types/react-router": "^5.1.13",
+    "@types/react-router-dom": "^5.1.6",
     "@types/react-test-renderer": "^17.0.1",
     "@types/webpack-env": "^1.16.0",
     "@typescript-eslint/eslint-plugin": "^4.20.0",
@@ -226,7 +227,7 @@
     "eslint-plugin-react-hooks": "^4.0.8",
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^5.3.1",
-    "husky": "^6.0.0",
+    "husky": "^4.2.5",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^26.1.0",
     "lint-staged": "^10.5.4",

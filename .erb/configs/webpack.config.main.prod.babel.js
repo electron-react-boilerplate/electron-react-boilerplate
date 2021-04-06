@@ -26,11 +26,14 @@ export default merge(baseConfig, {
 
   target: 'electron-main',
 
-  entry: path.join(WebpackPaths.srcMainPath, 'main.dev.ts'),
+  entry: {
+    'main.prod': path.join(WebpackPaths.srcMainPath, 'main.dev.ts'),
+    preload: path.join(WebpackPaths.srcMainPath, 'preload.js'),
+  },
 
   output: {
     path: WebpackPaths.distMainPath,
-    filename: 'main.prod.js',
+    filename: '[name].js',
   },
 
   optimization: {
