@@ -51,3 +51,4 @@ npm-debug.log.*
 
 # Yarn
 **.yarn
+!.yarn/releases
