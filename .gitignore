@@ -51,4 +51,4 @@ npm-debug.log.*
 
 # Yarn
 **.yarn
-!.yarn/releases
+!.yarn/releases/yarn-berry.cjs
