@@ -24,7 +24,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       }
     ],
     "enableTopLevelFallback": true,
-    "ignorePatternData": "(^(?:\\.yarn\\/sdks(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)|$))$)",
+    "ignorePatternData": "(^(?:\\.yarn\\/sdks(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)|$))$)|(^(?:src\\/\\.(?!\\.{0,1}(?:\\/|$))(?=.)[^/]*?\\/?)$)|(^(?:src(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)|$))$)",
     "fallbackExclusionList": [
       ["electron-react-boilerplate", ["workspace:."]]
     ],
