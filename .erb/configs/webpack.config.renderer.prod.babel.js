@@ -134,6 +134,11 @@ export default merge(baseConfig, {
       ],
   },
 
+  performance: {
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000
+  },
+
   plugins: [
     /**
      * Create global constants which can be configured at compile time.
