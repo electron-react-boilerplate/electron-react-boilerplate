@@ -3,9 +3,10 @@
   "productName": "ElectronReact",
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Fast Refresh for rapid application development",
   "scripts": {
-    "build": "concurrently \"yarn build:main\" \"yarn build:renderer\"",
+    "build": "concurrently \"yarn build:main\" \"yarn build:renderer\" \"yarn build:preload\"",
     "build:main": "cross-env NODE_ENV=production webpack --config ./.erb/configs/webpack.config.main.prod.babel.js",
     "build:renderer": "cross-env NODE_ENV=production webpack --config ./.erb/configs/webpack.config.renderer.prod.babel.js",
+    "build:preload": "cross-env NODE_ENV=production webpack --config ./.erb/configs/webpack.config.preload.prod.babel.js",
     "rebuild": "electron-rebuild --parallel --types prod,dev,optional --module-dir src",
     "lint": "cross-env NODE_ENV=development eslint . --cache --ext .js,.jsx,.ts,.tsx",
     "package": "rm -rf src/dist && yarn build && electron-builder build --publish never",
@@ -38,7 +39,7 @@
       "index.html",
       "main.prod.js",
       "main.prod.js.map",
-      "preload.js",
+      "preload.prod.js",
       "package.json"
     ],
     "afterSign": ".erb/scripts/Notarize.js",

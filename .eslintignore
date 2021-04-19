@@ -35,6 +35,7 @@ release
 src/*.main.prod.js
 src/main.prod.js
 src/main.prod.js.map
+src/preload.prod.js
 src/renderer.prod.js
 src/renderer.prod.js.map
 src/style.css
