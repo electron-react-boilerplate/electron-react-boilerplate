@@ -58,3 +58,8 @@ a:hover {
   align-items: center;
   margin: 20px 0;
 }
+
+.Hello .Count {
+  font-size: 20px;
+  margin: 15px;
+}

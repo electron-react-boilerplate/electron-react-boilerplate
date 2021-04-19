@@ -11,7 +11,7 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import path from 'path';
-import { app, BrowserWindow, shell } from 'electron';
+import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
@@ -67,6 +67,8 @@ const createWindow = async () => {
     return path.join(RESOURCES_PATH, ...paths);
   };
 
+  const PRELOAD_FILE = app.isPackaged ? 'preload.prod.js' : 'preload.js';
+
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
@@ -75,7 +77,7 @@ const createWindow = async () => {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      preload: path.join(__dirname, 'preload.js'),
+      preload: path.join(__dirname, PRELOAD_FILE),
     },
   });
 
@@ -131,4 +133,16 @@ app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) createWindow();
+});
+
+/**
+ * Add IPC Main listeners...
+ */
+
+ipcMain.on('do-increment', (event, val: number) => {
+  event.reply('update-counter', val + 1);
+});
+
+ipcMain.on('do-decrement', (event, val: number) => {
+  event.reply('update-counter', val - 1);
 });
