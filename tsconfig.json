@@ -22,10 +22,5 @@
     "resolveJsonModule": true,
     "allowJs": true
   },
-  "exclude": [
-    "test",
-    "build/release",
-    "build/app/dist",
-    ".erb/dll"
-  ]
+  "exclude": ["test", "build/release", "build/app/dist", ".erb/dll"]
 }
