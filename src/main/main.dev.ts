@@ -15,7 +15,7 @@ import { app, BrowserWindow, shell, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
-import util from './util';
+import { resolveHtmlPath } from './util';
 
 export default class AppUpdater {
   constructor() {
@@ -86,7 +86,7 @@ const createWindow = async () => {
     },
   });
 
-  mainWindow.loadURL(util.resolveHtmlPath('index.html'));
+  mainWindow.loadURL(resolveHtmlPath('index.html'));
 
   // @TODO: Use 'ready-to-show' event
   //        https://github.com/electron/electron/blob/master/docs/api/browser-window.md#using-ready-to-show-event

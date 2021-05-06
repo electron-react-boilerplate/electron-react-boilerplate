@@ -11,12 +11,12 @@ import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import { merge } from 'webpack-merge';
 import TerserPlugin from 'terser-webpack-plugin';
 import baseConfig from './webpack.config.base';
-import WebpackPaths from './webpack.paths.js';
-import CheckNodeEnv from '../scripts/CheckNodeEnv';
-import DeleteSourceMaps from '../scripts/DeleteSourceMaps';
+import webpackPaths from './webpack.paths.js';
+import checkNodeEnv from '../scripts/check-node-env';
+import deleteSourceMaps from '../scripts/delete-source-maps';
 
-CheckNodeEnv('production');
-DeleteSourceMaps();
+checkNodeEnv('production');
+deleteSourceMaps();
 
 const devtoolsConfig = process.env.DEBUG_PROD === 'true' ? {
   devtool: 'source-map'
@@ -32,11 +32,11 @@ export default merge(baseConfig, {
   entry: [
     'core-js',
     'regenerator-runtime/runtime',
-    path.join(WebpackPaths.srcRendererPath, 'index.tsx'),
+    path.join(webpackPaths.srcRendererPath, 'index.tsx'),
   ],
 
   output: {
-    path: WebpackPaths.distRendererPath,
+    path: webpackPaths.distRendererPath,
     publicPath: './',
     filename: 'renderer.prod.js',
     library: {
@@ -164,10 +164,10 @@ export default merge(baseConfig, {
         process.env.OPEN_ANALYZER === 'true' ? 'server' : 'disabled',
       openAnalyzer: process.env.OPEN_ANALYZER === 'true',
     }),
-    
+
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: path.join(WebpackPaths.srcRendererPath, 'index.ejs'),
+      template: path.join(webpackPaths.srcRendererPath, 'index.ejs'),
       minify: {
         collapseWhitespace: true,
         removeAttributeQuotes: true,

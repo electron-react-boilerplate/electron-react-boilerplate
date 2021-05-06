@@ -37,5 +37,5 @@ module.exports = {
   distMainPath,
   distRendererPath,
 
-  releasePath
+  releasePath,
 };

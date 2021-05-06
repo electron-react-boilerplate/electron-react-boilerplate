@@ -6,19 +6,19 @@ import chalk from 'chalk';
 import { merge } from 'webpack-merge';
 import { spawn, execSync } from 'child_process';
 import baseConfig from './webpack.config.base';
-import WebpackPaths from './webpack.paths.js';
-import CheckNodeEnv from '../scripts/CheckNodeEnv';
+import webpackPaths from './webpack.paths.js';
+import checkNodeEnv from '../scripts/check-node-env';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 
 // When an ESLint server is running, we can't set the NODE_ENV so we'll check if it's
 // at the dev webpack config is not accidentally run in a production environment
 if (process.env.NODE_ENV === 'production') {
-  CheckNodeEnv('development');
+  checkNodeEnv('development');
 }
 
 const port = process.env.PORT || 1212;
-const publicPath = WebpackPaths.distRendererPath;
-const manifest = path.resolve(WebpackPaths.dllPath, 'renderer.json');
+const publicPath = webpackPaths.distRendererPath;
+const manifest = path.resolve(webpackPaths.dllPath, 'renderer.json');
 const requiredByDLLConfig = module.parent.filename.includes(
   'webpack.config.renderer.dev.dll'
 );
@@ -26,7 +26,7 @@ const requiredByDLLConfig = module.parent.filename.includes(
 /**
  * Warn if the DLL is not built
  */
-if (!requiredByDLLConfig && !(fs.existsSync(WebpackPaths.dllPath) && fs.existsSync(manifest))) {
+if (!requiredByDLLConfig && !(fs.existsSync(webpackPaths.dllPath) && fs.existsSync(manifest))) {
   console.log(
     chalk.black.bgYellow.bold(
       'The DLL files are missing. Sit back while we build them for you with "yarn build-dll"'
@@ -45,11 +45,11 @@ export default merge(baseConfig, {
   entry: [
     'core-js',
     'regenerator-runtime/runtime',
-    path.join(WebpackPaths.srcRendererPath, 'index.tsx'),
+    path.join(webpackPaths.srcRendererPath, 'index.tsx'),
   ],
 
   output: {
-    path: WebpackPaths.distRendererPath,
+    path: webpackPaths.distRendererPath,
     publicPath: '/',
     filename: 'renderer.dev.js',
     library: {
@@ -220,7 +220,7 @@ export default merge(baseConfig, {
     requiredByDLLConfig
       ? null
       : new webpack.DllReferencePlugin({
-          context: WebpackPaths.dllPath,
+          context: webpackPaths.dllPath,
           manifest: require(manifest),
           sourceType: 'var',
         }),
@@ -251,7 +251,7 @@ export default merge(baseConfig, {
 
     new HtmlWebpackPlugin({
       filename: path.join('index.html'),
-      template: path.join(WebpackPaths.srcRendererPath, 'index.ejs'),
+      template: path.join(webpackPaths.srcRendererPath, 'index.ejs'),
       minify: {
         collapseWhitespace: true,
         removeAttributeQuotes: true,
@@ -260,7 +260,7 @@ export default merge(baseConfig, {
       isBrowser: false,
       env: process.env.NODE_ENV,
       isDevelopment: process.env.NODE_ENV !== 'production',
-      nodeModules: WebpackPaths.appNodeModulesPath,
+      nodeModules: webpackPaths.appNodeModulesPath,
     }),
   ],
 

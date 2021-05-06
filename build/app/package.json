@@ -10,7 +10,7 @@
     "url": "https://github.com/electron-react-boilerplate"
   },
   "scripts": {
-    "electron-rebuild": "node -r ../../.erb/scripts/BabelRegister.js ../../.erb/scripts/ElectronRebuild.js",
+    "electron-rebuild": "node -r ../../.erb/scripts/babel-register.js ../../.erb/scripts/electron-rebuild.js",
     "postinstall": "yarn electron-rebuild"
   },
   "license": "MIT",

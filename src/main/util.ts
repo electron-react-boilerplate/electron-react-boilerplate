@@ -1,7 +1,7 @@
 import { URL } from 'url';
 import path from 'path';
 
-let resolveHtmlPath = null;
+export let resolveHtmlPath: (htmlFileName: string) => string;
 
 if (process.env.NODE_ENV === 'development') {
   const port = process.env.PORT || 1212;
@@ -15,7 +15,3 @@ if (process.env.NODE_ENV === 'development') {
     return `file://${path.resolve(__dirname, '../renderer/', htmlFileName)}`;
   };
 }
-
-export default {
-  resolveHtmlPath,
-};
