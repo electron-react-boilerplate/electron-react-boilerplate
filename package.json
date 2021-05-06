@@ -210,7 +210,7 @@
     "eslint": "^7.25.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-airbnb-typescript": "^12.3.1",
-    "eslint-config-erb": "^2.0.0",
+    "eslint-config-erb": "^3.0.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-import-resolver-webpack": "^0.13.0",
     "eslint-plugin-compat": "^3.9.0",

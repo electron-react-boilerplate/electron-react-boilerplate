@@ -37,9 +37,7 @@ module.exports = (api) => {
         require('@babel/plugin-proposal-pipeline-operator'),
         { proposal: 'minimal' },
       ],
-      [
-        require('@babel/plugin-proposal-nullish-coalescing-operator'),
-      ],
+      [require('@babel/plugin-proposal-nullish-coalescing-operator')],
       require('@babel/plugin-proposal-do-expressions'),
 
       // Stage 2
