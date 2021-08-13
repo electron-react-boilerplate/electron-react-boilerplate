@@ -3,15 +3,19 @@ name: Publish
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   publish:
+    # To enable auto publishing to github, update your electron publisher
+    # config in package.json > "build" and remove the conditional below
+    if: ${{ github.repository_owner == 'electron-react-boilerplate' }}
+
     runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
-        os: [ macos-latest ]
+        os: [macos-latest]
 
     steps:
       - name: Checkout git repo

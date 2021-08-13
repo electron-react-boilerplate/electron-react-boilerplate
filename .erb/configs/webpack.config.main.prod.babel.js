@@ -8,15 +8,19 @@ import { merge } from 'webpack-merge';
 import TerserPlugin from 'terser-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import baseConfig from './webpack.config.base';
-import CheckNodeEnv from '../scripts/CheckNodeEnv';
-import DeleteSourceMaps from '../scripts/DeleteSourceMaps';
+import webpackPaths from './webpack.paths.js';
+import checkNodeEnv from '../scripts/check-node-env';
+import deleteSourceMaps from '../scripts/delete-source-maps';
 
-CheckNodeEnv('production');
-DeleteSourceMaps();
+checkNodeEnv('production');
+deleteSourceMaps();
 
-const devtoolsConfig = process.env.DEBUG_PROD === 'true' ? {
-  devtool: 'source-map'
-} : {};
+const devtoolsConfig =
+  process.env.DEBUG_PROD === 'true'
+    ? {
+        devtool: 'source-map',
+      }
+    : {};
 
 export default merge(baseConfig, {
   ...devtoolsConfig,
@@ -25,11 +29,14 @@ export default merge(baseConfig, {
 
   target: 'electron-main',
 
-  entry: './src/main.dev.ts',
+  entry: {
+    main: path.join(webpackPaths.srcMainPath, 'main.ts'),
+    preload: path.join(webpackPaths.srcMainPath, 'preload.js'),
+  },
 
   output: {
-    path: path.join(__dirname, '../../'),
-    filename: './src/main.prod.js',
+    path: webpackPaths.distMainPath,
+    filename: '[name].js',
   },
 
   optimization: {
@@ -37,7 +44,7 @@ export default merge(baseConfig, {
       new TerserPlugin({
         parallel: true,
       }),
-    ]
+    ],
   },
 
   plugins: [

@@ -2,11 +2,10 @@
 import path from 'path';
 import chalk from 'chalk';
 import fs from 'fs';
+import webpackPaths from '../configs/webpack.paths.js';
 
-const mainPath = path.join(__dirname, '../../src/main.prod.js');
-const rendererPath = path.join(
-  __dirname, '../../src/dist/renderer.prod.js'
-);
+const mainPath = path.join(webpackPaths.distMainPath, 'main.js');
+const rendererPath = path.join(webpackPaths.distRendererPath, 'renderer.js');
 
 if (!fs.existsSync(mainPath)) {
   throw new Error(

@@ -10,6 +10,7 @@
     "strict": true,
     "pretty": true,
     "sourceMap": true,
+    "baseUrl": "./src",
     /* Additional Checks */
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -22,12 +23,5 @@
     "resolveJsonModule": true,
     "allowJs": true
   },
-  "exclude": [
-    "test",
-    "release",
-    "src/main.prod.js",
-    "src/renderer.prod.js",
-    "src/dist",
-    ".erb/dll"
-  ]
+  "exclude": ["test", "build/release", "build/app/dist", ".erb/dll"]
 }
