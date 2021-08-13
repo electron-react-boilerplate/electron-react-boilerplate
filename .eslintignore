@@ -34,10 +34,8 @@ node_modules
 release
 dist
 dll
-main.js
-main.js.map
-
 .idea
+
 npm-debug.log.*
 __snapshots__
 

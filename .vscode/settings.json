@@ -14,8 +14,6 @@
     ".git": true,
     ".eslintcache": true,
     "src/dist": true,
-    "src/main.prod.js": true,
-    "src/main.prod.js.map": true,
     "bower_components": true,
     "dll": true,
     "release": true,

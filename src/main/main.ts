@@ -6,7 +6,7 @@
  * through IPC.
  *
  * When running `yarn build` or `yarn build:main`, this file is compiled to
- * `./src/main.prod.js` using webpack. This gives us some performance wins.
+ * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
@@ -16,6 +16,12 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+
+if (process.env.NODE_ENV !== 'production') {
+  module.paths.push(
+    require('../../.erb/configs/webpack.paths').appNodeModulesPath
+  );
+}
 
 export default class AppUpdater {
   constructor() {
