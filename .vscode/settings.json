@@ -13,10 +13,8 @@
   "search.exclude": {
     ".git": true,
     ".eslintcache": true,
-    "src/dist": true,
-    "bower_components": true,
-    "dll": true,
-    "release": true,
+    ".erb/dll": true,
+    "build/{release,app/dist}": true,
     "node_modules": true,
     "npm-debug.log.*": true,
     "test/**/__snapshots__": true,
