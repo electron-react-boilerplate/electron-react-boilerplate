@@ -6,7 +6,7 @@ import chalk from 'chalk';
 import { merge } from 'webpack-merge';
 import { spawn, execSync } from 'child_process';
 import baseConfig from './webpack.config.base';
-import webpackPaths from './webpack.paths.js';
+import webpackPaths from './webpack.paths';
 import checkNodeEnv from '../scripts/check-node-env';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 
@@ -69,10 +69,7 @@ export default merge(baseConfig, {
         exclude: /node_modules/,
         use: [
           {
-            loader: require.resolve('babel-loader'),
-            options: {
-              plugins: [require.resolve('react-refresh/babel')].filter(Boolean),
-            },
+            loader: require.resolve('ts-loader'),
           },
         ],
       },

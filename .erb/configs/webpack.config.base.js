@@ -4,7 +4,7 @@
 
 import path from 'path';
 import webpack from 'webpack';
-import webpackPaths from './webpack.paths.js';
+import webpackPaths from './webpack.paths';
 import { dependencies as externals } from '../../build/app/package.json';
 
 export default {
@@ -16,7 +16,7 @@ export default {
         test: /\.[jt]sx?$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
+          loader: 'ts-loader',
           options: {
             cacheDirectory: true,
           },
