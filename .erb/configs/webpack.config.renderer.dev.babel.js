@@ -273,24 +273,20 @@ export default merge(baseConfig, {
 
   devServer: {
     port,
-    publicPath: '/',
     compress: true,
-    noInfo: false,
-    stats: 'errors-only',
-    inline: true,
-    lazy: false,
     hot: true,
+    // hotOnly: true,
+    // hmr: true,
     headers: { 'Access-Control-Allow-Origin': '*' },
-    watchOptions: {
-      aggregateTimeout: 300,
-      ignored: /node_modules/,
-      poll: 100,
+    static: {
+      // directory: path.join(__dirname),
+      publicPath: '/',
     },
     historyApiFallback: {
       verbose: true,
       disableDotRule: false,
     },
-    before() {
+    onBeforeSetupMiddleware() {
       console.log('Starting Main Process...');
       spawn('npm', ['run', 'start:main'], {
         shell: true,
