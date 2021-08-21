@@ -275,11 +275,8 @@ export default merge(baseConfig, {
     port,
     compress: true,
     hot: true,
-    // hotOnly: true,
-    // hmr: true,
     headers: { 'Access-Control-Allow-Origin': '*' },
     static: {
-      // directory: path.join(__dirname),
       publicPath: '/',
     },
     historyApiFallback: {

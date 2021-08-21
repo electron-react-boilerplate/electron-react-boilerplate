@@ -142,6 +142,8 @@ export default merge(baseConfig, {
     ],
   },
 
+  stats: 'errors-only',
+
   plugins: [
     /**
      * Create global constants which can be configured at compile time.
