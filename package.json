@@ -144,6 +144,9 @@
       "node_modules",
       "build/app/node_modules"
     ],
+    "testPathIgnorePatterns": [
+      "build/app/dist"
+    ],
     "setupFiles": [
       "./.erb/scripts/check-build-exists.ts"
     ]
