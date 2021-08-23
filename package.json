@@ -9,7 +9,7 @@
     "rebuild": "electron-rebuild --parallel --types prod,dev,optional --module-dir src",
     "lint": "cross-env NODE_ENV=development eslint . --cache --ext .js,.jsx,.ts,.tsx",
     "package": "node -r @babel/register ./.erb/scripts/clean.js dist release && yarn build && electron-builder build --publish never",
-    "postinstall": "node -r @babel/register .erb/scripts/check-native-dep.js && electron-builder install-app-deps && yarn cross-env NODE_ENV=development webpack --config ./.erb/configs/webpack.config.renderer.dev.dll.babel.js && opencollective-postinstall && yarn-deduplicate yarn.lock",
+    "postinstall": "node -r @babel/register .erb/scripts/check-native-dep.js && electron-builder install-app-deps && yarn cross-env NODE_ENV=development webpack --config ./.erb/configs/webpack.config.renderer.dev.dll.babel.js && opencollective-postinstall",
     "start": "node -r @babel/register ./.erb/scripts/check-port-in-use.js && yarn start:renderer",
     "start:main": "cross-env NODE_ENV=development electron -r ./.erb/scripts/babel-register ./src/main/main.ts",
     "start:renderer": "cross-env NODE_ENV=development webpack serve --config ./.erb/configs/webpack.config.renderer.dev.babel.js",
@@ -183,8 +183,6 @@
     "@types/react-router-dom": "^5.1.8",
     "@types/react-test-renderer": "^17.0.1",
     "@types/webpack-env": "^1.16.2",
-    "@typescript-eslint/eslint-plugin": "^4.29.2",
-    "@typescript-eslint/parser": "^4.29.2",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^27.0.6",
     "babel-loader": "^8.2.2",
@@ -207,7 +205,7 @@
     "enzyme-adapter-react-16": "^1.15.6",
     "enzyme-to-json": "^3.6.2",
     "eslint": "^7.32.0",
-    "eslint-config-erb": "^4.0.1",
+    "eslint-config-erb": "^4.0.3",
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^5.3.2",
     "husky": "7.0.1",
@@ -230,8 +228,7 @@
     "webpack-bundle-analyzer": "^4.4.1",
     "webpack-cli": "^4.8.0",
     "webpack-dev-server": "^4.0.0",
-    "webpack-merge": "^5.8.0",
-    "yarn-deduplicate": "^3.1.0"
+    "webpack-merge": "^5.8.0"
   },
   "dependencies": {
     "electron-debug": "^3.2.0",
@@ -244,9 +241,8 @@
     "regenerator-runtime": "^0.13.9"
   },
   "devEngines": {
-    "node": ">=10.x",
-    "npm": ">=6.x",
-    "yarn": ">=1.21.3"
+    "node": ">=14.x",
+    "npm": ">=7.x"
   },
   "collective": {
     "url": "https://opencollective.com/electron-react-boilerplate-594"

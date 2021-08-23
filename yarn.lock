@@ -1913,7 +1913,7 @@
     eslint-scope "^5.1.1"
     eslint-utils "^3.0.0"
 
-"@typescript-eslint/parser@^4.29.2":
+"@typescript-eslint/parser@^4.29.3":
   version "4.29.3"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-4.29.3.tgz#2ac25535f34c0e98f50c0e6b28c679c2357d45f2"
   integrity sha512-jrHOV5g2u8ROghmspKoW7pN8T/qUzk0+DITun0MELptvngtMrwUJ1tv5zMI04CYVEUsSrN4jV7AKSv+I0y0EfQ==
@@ -2104,11 +2104,6 @@
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
-
-"@yarnpkg/lockfile@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@yarnpkg/lockfile/-/lockfile-1.1.0.tgz#e77a97fbd345b76d83245edcd17d393b1b41fb31"
-  integrity sha512-GpSwvyXOcOOlV70vbnzjj4fW5xW/FdUF6nQEt1ENy7m4ZCczi1+/buVUPAqmGfqznsORNFzUMjctTIp8a9tuCQ==
 
 abab@^2.0.3, abab@^2.0.5:
   version "2.0.5"
@@ -3237,7 +3232,7 @@ commander@^5.0.0:
   resolved "https://registry.yarnpkg.com/commander/-/commander-5.1.0.tgz#46abbd1652f8e059bddaef99bbdcb2ad9cf179ae"
   integrity sha512-P0CysNDQ7rtVw4QIQtm+MRxV66vKFSvlsQvGYXZWR3qFU0jlMKHZZZgw8e+8DSah4UDKMqnknRDQz+xuQXQ/Zg==
 
-commander@^6.1.0, commander@^6.2.0:
+commander@^6.2.0:
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/commander/-/commander-6.2.1.tgz#0792eb682dfbc325999bb2b84fddddba110ac73c"
   integrity sha512-U7VdrJFnJgo4xjrHpTzu0yrHPGImdsmD95ZlgYSEajAn2JKzDhDTPG9kBTefmObL2w/ngeZnilk+OV9CG3d7UA==
@@ -4385,12 +4380,13 @@ eslint-config-airbnb@^18.2.1:
     object.assign "^4.1.2"
     object.entries "^1.1.2"
 
-eslint-config-erb@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/eslint-config-erb/-/eslint-config-erb-4.0.1.tgz#d6aed2a2100e72c0a9b7fc84d54e72fd5bc0823c"
-  integrity sha512-m3+vXknXXZGFUP5xrFU7tccTy4iB4s8w1S5RPQWNM9/HNOHn+3T6v38a35nAxULSXtRN42ACjYPFnCw4Emc6OA==
+eslint-config-erb@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/eslint-config-erb/-/eslint-config-erb-4.0.3.tgz#0125f417934e86589dc76b3b238b4767f95e2d50"
+  integrity sha512-qZeiUSQanpCKKazkLzIvVaoM9NZcNvqhO7gYZ2jaEpBmadCu1aOzzvMMtjsoxaDytRQt6mt+uXjWGyJNqUYusw==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^4.29.2"
+    "@typescript-eslint/parser" "^4.29.3"
     eslint-config-airbnb "^18.2.1"
     eslint-config-airbnb-typescript "^13.0.0"
     eslint-config-prettier "^8.3.0"
@@ -10268,15 +10264,6 @@ yargs@^17.0.1:
     string-width "^4.2.0"
     y18n "^5.0.5"
     yargs-parser "^20.2.2"
-
-yarn-deduplicate@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/yarn-deduplicate/-/yarn-deduplicate-3.1.0.tgz#3018d93e95f855f236a215b591fe8bc4bcabba3e"
-  integrity sha512-q2VZ6ThNzQpGfNpkPrkmV7x5HT9MOhCUsTxVTzyyZB0eSXz1NTodHn+r29DlLb+peKk8iXxzdUVhQG9pI7moFw==
-  dependencies:
-    "@yarnpkg/lockfile" "^1.1.0"
-    commander "^6.1.0"
-    semver "^7.3.2"
 
 yauzl@^2.10.0:
   version "2.10.0"
