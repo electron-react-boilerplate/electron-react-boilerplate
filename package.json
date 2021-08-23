@@ -73,9 +73,9 @@
       "category": "Development"
     },
     "directories": {
-      "app": "build/app",
+      "app": "release/app",
       "buildResources": "assets",
-      "output": "build/release"
+      "output": "release/dist"
     },
     "extraResources": [
       "./assets/**"
@@ -142,10 +142,10 @@
     ],
     "moduleDirectories": [
       "node_modules",
-      "build/app/node_modules"
+      "release/app/node_modules"
     ],
     "testPathIgnorePatterns": [
-      "build/app/dist"
+      "release/app/dist"
     ],
     "setupFiles": [
       "./.erb/scripts/check-build-exists.ts"

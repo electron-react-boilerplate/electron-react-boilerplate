@@ -5,7 +5,7 @@
 import path from 'path';
 import webpack from 'webpack';
 import webpackPaths from './webpack.paths';
-import { dependencies as externals } from '../../build/app/package.json';
+import { dependencies as externals } from '../../release/app/package.json';
 
 export default {
   externals: [...Object.keys(externals || {})],

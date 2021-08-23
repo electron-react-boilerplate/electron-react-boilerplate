@@ -1,7 +1,7 @@
 import path from 'path';
 import { execSync } from 'child_process';
 import fs from 'fs';
-import { dependencies } from '../../build/app/package.json';
+import { dependencies } from '../../release/app/package.json';
 import webpackPaths from '../configs/webpack.paths';
 
 if (
