@@ -12,8 +12,7 @@
   "scripts": {
     "electron-rebuild": "node -r ../../.erb/scripts/babel-register.js ../../.erb/scripts/electron-rebuild.js",
     "link-modules": "node -r ../../.erb/scripts/babel-register.js ../../.erb/scripts/link-modules.js",
-    "postinstall": "yarn electron-rebuild && yarn link-modules"
+    "postinstall": "npm run electron-rebuild && npm run link-modules"
   },
-  "license": "MIT",
-  "dependencies": {}
+  "license": "MIT"
 }
