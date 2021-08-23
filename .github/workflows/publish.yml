@@ -28,10 +28,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm install --prefer-offline
-
-      - name: Install dependencies
-        run: |
           npm install
 
       - name: Publish releases

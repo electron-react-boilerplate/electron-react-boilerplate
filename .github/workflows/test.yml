@@ -21,7 +21,7 @@ jobs:
 
       - name: npm install
         run: |
-          npm install --frozen-lockfile --network-timeout 300000
+          npm install
 
       - name: npm test
         env:
