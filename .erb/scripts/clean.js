@@ -4,8 +4,8 @@ import process from 'process';
 
 const args = process.argv.slice(2);
 const commandMap = {
-  dist: webpackPaths.releasePath,
-  release: webpackPaths.distPath,
+  dist: webpackPaths.distPath,
+  release: webpackPaths.releasePath,
   dll: webpackPaths.dllPath,
 };
 
