@@ -29,5 +29,5 @@ jobs:
         run: |
           npm run package
           npm run lint
-          npm run tsc
-          npm run test
+          npm exec tsc
+          npm test

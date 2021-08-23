@@ -40,4 +40,6 @@ jobs:
           # This is used for uploading release assets to github
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          npm run postinstall && npm run build && npm run electron-builder --publish always --win --mac --linux
+          npm run postinstall
+          npm run build
+          npm exec electron-builder --publish always --win --mac --linux
