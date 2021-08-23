@@ -17,7 +17,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const port = process.env.PORT || 1212;
-const publicPath = webpackPaths.distRendererPath;
 const manifest = path.resolve(webpackPaths.dllPath, 'renderer.json');
 const requiredByDLLConfig = module.parent.filename.includes(
   'webpack.config.renderer.dev.dll'
@@ -64,15 +63,6 @@ export default merge(baseConfig, {
 
   module: {
     rules: [
-      {
-        test: /\.[jt]sx?$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: require.resolve('ts-loader'),
-          },
-        ],
-      },
       {
         test: /\.global\.css$/,
         use: [

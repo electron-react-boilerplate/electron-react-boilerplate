@@ -10,6 +10,8 @@ import { dependencies as externals } from '../../release/app/package.json';
 export default {
   externals: [...Object.keys(externals || {})],
 
+  stats: 'errors-only',
+
   module: {
     rules: [
       {

@@ -43,8 +43,6 @@ export default merge(baseConfig, {
     },
   },
 
-  stats: 'errors-only',
-
   plugins: [
     new webpack.DllPlugin({
       path: path.join(dist, '[name].json'),
