@@ -42,6 +42,9 @@ Start the app in the `dev` environment:
 yarn start
 ```
 
+Electron React Boilerplate supports [Generate React CLI
+](https://www.npmjs.com/package/generate-react-cli), please use it for component creation
+
 ## Packaging for Production
 
 To package apps for the local platform:

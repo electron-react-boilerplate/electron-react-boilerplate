@@ -221,6 +221,7 @@
     "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.0.8",
     "file-loader": "^6.0.0",
+    "generate-react-cli": "^7.0.4",
     "html-webpack-plugin": "^5.3.1",
     "husky": "4.x.x",
     "identity-obj-proxy": "^3.0.0",
