@@ -84,7 +84,7 @@ const createWindow = async () => {
     },
   });
 
-  mainWindow.loadURL(resolveHtmlPath('index.html'));
+  mainWindow.loadURL(resolveHtmlPath(''));
 
   // @TODO: Use 'ready-to-show' event
   //        https://github.com/electron/electron/blob/main/docs/api/browser-window.md#using-ready-to-show-event
