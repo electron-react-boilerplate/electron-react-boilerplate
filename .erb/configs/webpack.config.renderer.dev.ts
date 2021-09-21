@@ -45,7 +45,7 @@ export default merge(baseConfig, {
   target: ['web', 'electron-renderer'],
 
   entry: [
-    'webpack-dev-server/client?http://localhost:1212/dist',
+    `webpack-dev-server/client?http://localhost:${port}/dist`,
     'webpack/hot/only-dev-server',
     'core-js',
     'regenerator-runtime/runtime',
