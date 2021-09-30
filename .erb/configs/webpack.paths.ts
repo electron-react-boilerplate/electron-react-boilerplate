@@ -8,8 +8,8 @@ const srcPath = path.join(rootPath, 'src');
 const srcMainPath = path.join(srcPath, 'main');
 const srcRendererPath = path.join(srcPath, 'renderer');
 
-const buildPath = path.join(rootPath, 'build');
-const appPath = path.join(buildPath, 'app');
+const releasePath = path.join(rootPath, 'release');
+const appPath = path.join(releasePath, 'app');
 const appPackagePath = path.join(appPath, 'package.json');
 const appNodeModulesPath = path.join(appPath, 'node_modules');
 const srcNodeModulesPath = path.join(srcPath, 'node_modules');
@@ -18,7 +18,7 @@ const distPath = path.join(appPath, 'dist');
 const distMainPath = path.join(distPath, 'main');
 const distRendererPath = path.join(distPath, 'renderer');
 
-const releasePath = path.join(buildPath, 'release');
+const buildPath = path.join(releasePath, 'build');
 
 module.exports = {
   rootPath,
@@ -26,7 +26,7 @@ module.exports = {
   srcPath,
   srcMainPath,
   srcRendererPath,
-  buildPath,
+  releasePath,
   appPath,
   appPackagePath,
   appNodeModulesPath,
@@ -34,5 +34,5 @@ module.exports = {
   distPath,
   distMainPath,
   distRendererPath,
-  releasePath,
+  buildPath,
 };

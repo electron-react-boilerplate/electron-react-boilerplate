@@ -31,7 +31,7 @@ First, clone the repo via git and install dependencies:
 ```bash
 git clone --depth 1 --branch main https://github.com/electron-react-boilerplate/electron-react-boilerplate.git your-project-name
 cd your-project-name
-yarn
+npm install
 ```
 
 ## Starting Development
@@ -39,7 +39,7 @@ yarn
 Start the app in the `dev` environment:
 
 ```bash
-yarn start
+npm start
 ```
 
 ## Packaging for Production
@@ -47,7 +47,7 @@ yarn start
 To package apps for the local platform:
 
 ```bash
-yarn package
+npm run package
 ```
 
 ## Docs

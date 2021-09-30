@@ -1,7 +1,7 @@
 {
   "name": "electron-react-boilerplate",
   "productName": "electron-react-boilerplate",
-  "version": "3.0.2",
+  "version": "4.0.0",
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
   "main": "./dist/main/main.js",
   "author": {
@@ -10,10 +10,9 @@
     "url": "https://github.com/electron-react-boilerplate"
   },
   "scripts": {
-    "electron-rebuild": "node -r ../../.erb/scripts/babel-register.js ../../.erb/scripts/electron-rebuild.js",
-    "link-modules": "node -r ../../.erb/scripts/babel-register.js ../../.erb/scripts/link-modules.js",
-    "postinstall": "yarn electron-rebuild && yarn link-modules"
+    "electron-rebuild": "node -r ts-node/register ../../.erb/scripts/electron-rebuild.js",
+    "link-modules": "node -r ts-node/register ../../.erb/scripts/link-modules.js",
+    "postinstall": "npm run electron-rebuild && npm run link-modules"
   },
-  "license": "MIT",
-  "dependencies": {}
+  "license": "MIT"
 }

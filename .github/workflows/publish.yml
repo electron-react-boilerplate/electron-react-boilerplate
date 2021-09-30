@@ -26,25 +26,9 @@ jobs:
         with:
           node-version: 15
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - uses: actions/cache@v1
-        id: yarn-cache
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-
       - name: Install dependencies
         run: |
-          yarn install --prefer-offline
-
-      - name: Install dependencies
-        run: |
-          yarn install
+          npm install
 
       - name: Publish releases
         env:
@@ -56,4 +40,6 @@ jobs:
           # This is used for uploading release assets to github
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          yarn postinstall && yarn build && yarn electron-builder --publish always --win --mac --linux
+          npm run postinstall
+          npm run build
+          npm exec electron-builder --publish always --win --mac --linux

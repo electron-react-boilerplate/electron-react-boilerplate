@@ -30,15 +30,15 @@ if (dependencies) {
  )}
 ${chalk.bold(filteredRootDependencies.join(', '))} ${
         plural ? 'are native dependencies' : 'is a native dependency'
-      } and should be installed inside of the "./build/app" folder.
+      } and should be installed inside of the "./release/app" folder.
  First, uninstall the packages from "./package.json":
-${chalk.whiteBright.bgGreen.bold('yarn remove your-package')}
+${chalk.whiteBright.bgGreen.bold('npm uninstall your-package')}
  ${chalk.bold(
    'Then, instead of installing the package to the root "./package.json":'
  )}
-${chalk.whiteBright.bgRed.bold('yarn add your-package')}
- ${chalk.bold('Install the package to "./build/app/package.json"')}
-${chalk.whiteBright.bgGreen.bold('cd ./src && yarn add your-package')}
+${chalk.whiteBright.bgRed.bold('npm install your-package')}
+ ${chalk.bold('Install the package to "./release/app/package.json"')}
+${chalk.whiteBright.bgGreen.bold('cd ./release/app && npm install your-package')}
  Read more about native dependencies at:
 ${chalk.bold(
   'https://electron-react-boilerplate.js.org/docs/adding-dependencies/#module-structure'

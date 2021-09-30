@@ -6,7 +6,7 @@ import chalk from 'chalk';
 import { merge } from 'webpack-merge';
 import { spawn, execSync } from 'child_process';
 import baseConfig from './webpack.config.base';
-import webpackPaths from './webpack.paths.js';
+import webpackPaths from './webpack.paths';
 import checkNodeEnv from '../scripts/check-node-env';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 
@@ -17,7 +17,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const port = process.env.PORT || 1212;
-const publicPath = webpackPaths.distRendererPath;
 const manifest = path.resolve(webpackPaths.dllPath, 'renderer.json');
 const requiredByDLLConfig = module.parent.filename.includes(
   'webpack.config.renderer.dev.dll'
@@ -32,10 +31,10 @@ if (
 ) {
   console.log(
     chalk.black.bgYellow.bold(
-      'The DLL files are missing. Sit back while we build them for you with "yarn build-dll"'
+      'The DLL files are missing. Sit back while we build them for you with "npm run build-dll"'
     )
   );
-  execSync('yarn postinstall');
+  execSync('npm run postinstall');
 }
 
 export default merge(baseConfig, {
@@ -46,7 +45,7 @@ export default merge(baseConfig, {
   target: ['web', 'electron-renderer'],
 
   entry: [
-    'webpack-dev-server/client?http://localhost:1212/dist',
+    `webpack-dev-server/client?http://localhost:${port}/dist`,
     'webpack/hot/only-dev-server',
     'core-js',
     'regenerator-runtime/runtime',
@@ -64,18 +63,6 @@ export default merge(baseConfig, {
 
   module: {
     rules: [
-      {
-        test: /\.[jt]sx?$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: require.resolve('babel-loader'),
-            options: {
-              plugins: [require.resolve('react-refresh/babel')].filter(Boolean),
-            },
-          },
-        ],
-      },
       {
         test: /\.global\.css$/,
         use: [
@@ -273,24 +260,17 @@ export default merge(baseConfig, {
 
   devServer: {
     port,
-    publicPath: '/',
     compress: true,
-    noInfo: false,
-    stats: 'errors-only',
-    inline: true,
-    lazy: false,
     hot: true,
     headers: { 'Access-Control-Allow-Origin': '*' },
-    watchOptions: {
-      aggregateTimeout: 300,
-      ignored: /node_modules/,
-      poll: 100,
+    static: {
+      publicPath: '/',
     },
     historyApiFallback: {
       verbose: true,
       disableDotRule: false,
     },
-    before() {
+    onBeforeSetupMiddleware() {
       console.log('Starting Main Process...');
       spawn('npm', ['run', 'start:main'], {
         shell: true,
