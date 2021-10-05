@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2019",
-    "module": "CommonJS",
+    "module": "esnext",
     "lib": ["dom", "esnext"],
     "declaration": true,
     "declarationMap": true,
@@ -23,5 +23,10 @@
     "allowJs": true,
     "outDir": "release/app/dist"
   },
-  "exclude": ["test", "release/build", "release/app/dist", ".erb/dll"]
+  "exclude": ["test", "release/build", "release/app/dist", ".erb/dll"],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  }
 }
