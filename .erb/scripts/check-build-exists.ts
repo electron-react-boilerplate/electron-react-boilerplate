@@ -2,8 +2,7 @@
 import path from 'path';
 import chalk from 'chalk';
 import fs from 'fs';
-
-const webpackPaths = require('../configs/webpack.paths');
+import webpackPaths from '../configs/webpack.paths';
 
 const mainPath = path.join(webpackPaths.distMainPath, 'main.js');
 const rendererPath = path.join(webpackPaths.distRendererPath, 'renderer.js');
