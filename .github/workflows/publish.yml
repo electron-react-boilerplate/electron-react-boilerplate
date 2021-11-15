@@ -21,7 +21,7 @@ jobs:
       - name: Checkout git repo
         uses: actions/checkout@v1
 
-      - name: Install Node, NPM and Yarn
+      - name: Install Node and NPM
         uses: actions/setup-node@v1
         with:
           node-version: 15
