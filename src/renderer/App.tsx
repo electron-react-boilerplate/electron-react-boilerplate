@@ -1,8 +1,7 @@
-import { MemoryRouter as Router, Switch, Route } from 'react-router-dom';
 import icon from '../../assets/icon.svg';
 import './App.css';
 
-const Hello = () => {
+const App = () => {
   return (
     <div>
       <div className="Hello">
@@ -39,12 +38,4 @@ const Hello = () => {
   );
 };
 
-export default function App() {
-  return (
-    <Router>
-      <Switch>
-        <Route path="/" component={Hello} />
-      </Switch>
-    </Router>
-  );
-}
+export default App;
