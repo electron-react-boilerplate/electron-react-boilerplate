@@ -1,4 +1,4 @@
-<img src=".erb/img/erb-banner.png" width="100%" />
+<img src=".erb/img/erb-banner.svg" width="100%" />
 
 <br>
 
