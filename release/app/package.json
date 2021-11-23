@@ -1,6 +1,5 @@
 {
   "name": "electron-react-boilerplate",
-  "productName": "electron-react-boilerplate",
   "version": "4.4.0",
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
   "main": "./dist/main/main.js",
