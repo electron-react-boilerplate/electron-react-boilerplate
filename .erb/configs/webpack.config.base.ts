@@ -5,8 +5,9 @@
 import webpack from 'webpack';
 import webpackPaths from './webpack.paths';
 import { dependencies as externals } from '../../release/app/package.json';
+import WebpackConfig from './webpack.config';
 
-export default {
+export default <WebpackConfig>{
   externals: [...Object.keys(externals || {})],
 
   stats: 'errors-only',
