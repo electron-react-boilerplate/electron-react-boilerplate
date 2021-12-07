@@ -233,7 +233,7 @@
   "dependencies": {
     "electron-debug": "^3.2.0",
     "electron-log": "^4.4.1",
-    "electron-updater": "^4.3.9",
+    "electron-updater": "^4.6.1",
     "history": "4.x.x",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
