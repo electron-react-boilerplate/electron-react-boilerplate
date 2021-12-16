@@ -2,7 +2,7 @@
  * Base webpack config used across other specific configs
  */
 
-import webpack from 'webpack';
+import webpack, { Configuration } from 'webpack';
 import webpackPaths from './webpack.paths';
 import { dependencies as externals } from '../../release/app/package.json';
 
@@ -48,4 +48,4 @@ export default {
       NODE_ENV: 'production',
     }),
   ],
-};
+} as Configuration;

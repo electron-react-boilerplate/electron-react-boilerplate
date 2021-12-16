@@ -159,7 +159,6 @@ export default merge(baseConfig, {
     },
     historyApiFallback: {
       verbose: true,
-      disableDotRule: false,
     },
     onBeforeSetupMiddleware() {
       console.log('Starting Main Process...');
