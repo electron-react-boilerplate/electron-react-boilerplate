@@ -1,6 +1,5 @@
 {
   "name": "electron-react-boilerplate",
-  "productName": "ElectronReact",
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Fast Refresh for rapid application development",
   "scripts": {
     "build": "concurrently \"npm run build:main\" \"npm run build:renderer\"",
@@ -234,7 +233,7 @@
   "dependencies": {
     "electron-debug": "^3.2.0",
     "electron-log": "^4.4.1",
-    "electron-updater": "^4.3.9",
+    "electron-updater": "^4.6.1",
     "history": "4.x.x",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
