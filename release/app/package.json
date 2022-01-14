@@ -1,7 +1,7 @@
 {
   "name": "electron-react-boilerplate",
   "version": "4.5.0",
-  "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
+  "description": "A foundation for scalable desktop apps",
   "main": "./dist/main/main.js",
   "author": {
     "name": "Electron React Boilerplate Maintainers",
