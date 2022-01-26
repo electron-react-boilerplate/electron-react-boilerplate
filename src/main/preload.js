@@ -6,7 +6,7 @@ contextBridge.exposeInMainWorld('electron', {
       ipcRenderer.send('ipc-example', 'ping');
     },
     mainToRendererExample(message) {
-      ipcRenderer.send('main-to-renderer-example', 'table tennis');
+      ipcRenderer.send('main-to-renderer-example', message);
     },
     on(channel, func) {
       const validChannels = ['ipc-example','main-to-renderer-example'];
