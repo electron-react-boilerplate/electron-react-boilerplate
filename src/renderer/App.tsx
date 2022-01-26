@@ -1,17 +1,17 @@
-import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
-import icon from '../../assets/icon.svg';
 import './App.css';
 
+import { useEffect } from 'react';
+import { MemoryRouter as Router, Route, Routes } from 'react-router-dom';
+
+import icon from '../../assets/icon.svg';
+
 const Hello = () => {
-  
   useEffect(() => {
     window.electron.ipcRenderer.on('main-to-renderer-example', (args: any) => {
-      console.log(
-        `Received ${args} from main thread`
-      );
+      console.log(`Received ${args} from main thread`);
     });
-  });
-  
+  }, []);
+
   return (
     <div>
       <div className="Hello">
