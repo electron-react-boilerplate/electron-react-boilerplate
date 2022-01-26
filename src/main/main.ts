@@ -10,10 +10,12 @@
  */
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-import path from 'path';
-import { app, BrowserWindow, shell, ipcMain } from 'electron';
-import { autoUpdater } from 'electron-updater';
+
+import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import log from 'electron-log';
+import { autoUpdater } from 'electron-updater';
+import path from 'path';
+
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
@@ -92,6 +94,12 @@ const createWindow = async () => {
     } else {
       mainWindow.show();
     }
+    // Example of IPC from main to renderer
+    const messageFromMainToRenderer = 'table tennis';
+    mainWindow.webContents.send(
+      'main-to-renderer-example',
+      messageFromMainToRenderer
+    );
   });
 
   mainWindow.on('closed', () => {
