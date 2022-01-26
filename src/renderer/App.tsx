@@ -3,6 +3,15 @@ import icon from '../../assets/icon.svg';
 import './App.css';
 
 const Hello = () => {
+  
+  useEffect(() => {
+    window.electron.ipcRenderer.on('main-to-renderer-example', (args: any) => {
+      console.log(
+        `Received ${args} from main thread`
+      );
+    });
+  });
+  
   return (
     <div>
       <div className="Hello">
