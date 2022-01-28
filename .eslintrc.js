@@ -6,6 +6,28 @@ module.exports = {
     'import/no-unresolved': 'error',
     // Since React 17 and typescript 4.1 you can safely disable the rule
     'react/react-in-jsx-scope': 'off',
+    'react/jsx-curly-brace-presence': [
+      'error',
+      {
+        props: 'ignore',
+        children: 'ignore',
+      },
+    ],
+    'react/destructuring-assignment': ['off'],
+    'react/no-unused-prop-types': ['off'],
+    'react/jsx-no-bind': [
+      'error',
+      {
+        allowArrowFunctions: true,
+        allowFunctions: true,
+        allowBind: true,
+      },
+    ],
+    'promise/catch-or-return': ['off'],
+    'jsx-a11y/no-static-element-interactions': ['off'],
+    radix: ['off'],
+    'import/prefer-default-export': ['off'],
+    'class-methods-use-this': ['off'],
   },
   parserOptions: {
     ecmaVersion: 2020,

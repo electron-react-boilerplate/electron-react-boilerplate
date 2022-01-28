@@ -1,0 +1,42 @@
+.CalcularHoraContainer {
+  --font-size-component: 1rem;
+  font-size: var(--font-size-component);
+  padding: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  padding: 16.5px 14px;
+}
+.CalcularHoraContainer:hover {
+  --font-size-component: 1rem;
+  border: 1px solid rgba(0, 0, 0, 1);
+}
+.CalcularHoraContainer:hover {
+  border: '1px solid #1976d2';
+  outline: '1px solid #1976d2';
+}
+
+/* Chrome, Safari, Edge, Opera */
+.CalcularHoraContainer input::-webkit-outer-spin-button,
+.CalcularHoraContainer input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.CalcularHoraContainer input[type='number'] {
+  -moz-appearance: textfield;
+}
+.CalcularHoraContainer input:nth-child(1) {
+  text-align: right;
+}
+.CalcularHoraContainer input {
+  width: 1.5em;
+  font-size: inherit;
+  text-align: left;
+  border: none;
+  background-color: inherit;
+}
+.CalcularHoraContainer input:focus-visible {
+  border: none;
+  outline: none;
+}

@@ -9,6 +9,8 @@
   "javascript.format.enable": false,
   "typescript.format.enable": false,
 
+  "editor.formatOnSave": true,
+
   "search.exclude": {
     ".git": true,
     ".eslintcache": true,

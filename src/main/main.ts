@@ -70,7 +70,7 @@ const createWindow = async () => {
   const getAssetPath = (...paths: string[]): string => {
     return path.join(RESOURCES_PATH, ...paths);
   };
-
+  console.log(__dirname);
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
