@@ -37,7 +37,11 @@
     "files": [
       "dist",
       "node_modules",
-      "package.json"
+      "package.json",
+      {
+        "from": "public",
+        "to": "dist/renderer/public"
+      }
     ],
     "afterSign": ".erb/scripts/notarize.js",
     "mac": {
