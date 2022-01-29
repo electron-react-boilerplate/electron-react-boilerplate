@@ -18,4 +18,5 @@ export type RowHistoricoTempoHora = {
   total: string;
   fJira: string;
   fDecimal: string;
+  id: number;
 };

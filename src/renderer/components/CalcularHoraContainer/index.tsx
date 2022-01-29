@@ -1,23 +1,18 @@
-import ptBRLocale from 'date-fns/locale/pt-BR';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import { useContext, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import SeletorTempoHora from '@App/components/SeletorTempoHora';
 import { SeletorTempoHoraHelper } from '@App/components/SeletorTempoHora/helper';
+import { AppContext } from '@App/reducer/context';
 import {
   EventSeletorTempoHora,
   ValueSeletorTempoHora,
 } from '@App/components/SeletorTempoHora/type';
-import { useState } from 'react';
+
 import SaveIcon from '@mui/icons-material/Save';
 import { IconButton } from '@mui/material';
 import HistoricoTempoHora from '../HistoricoTempoHora';
-import {
-  EventHistoricoTempoHora,
-  ItemHistoricoTempoHora,
-} from '../HistoricoTempoHora/type';
 import { AcoesCalculoData } from './types';
 
 const DescricaoAcoesCalculoData = [
@@ -25,10 +20,8 @@ const DescricaoAcoesCalculoData = [
   { value: AcoesCalculoData.subtracao, text: 'Subtração' },
 ];
 export default function CalcularHoraContainer() {
+  const { state, dispatch } = useContext(AppContext);
   const [acaoCalculo, setAcaoCalculo] = useState(AcoesCalculoData.subtracao);
-  const [histiricoCalculo, setHistiricoCalculo] = useState<
-    ItemHistoricoTempoHora[]
-  >([]);
   const [valorHoraInicial, setValorHoraInicial] =
     useState<ValueSeletorTempoHora>({ hora: 10, minuto: 20 });
   const [valorHoraFinal, setValorHoraFinal] = useState<ValueSeletorTempoHora>({
@@ -48,19 +41,15 @@ export default function CalcularHoraContainer() {
     setAcaoCalculo(event.target.value as AcoesCalculoData);
   }
 
-  function onRemoveHistiricoCalculo(event: EventHistoricoTempoHora) {
-    const index = histiricoCalculo.indexOf(event.itemExcluido);
-    setHistiricoCalculo(histiricoCalculo.splice(index, 1));
-  }
   function onAddHistiricoCalculo() {
-    setHistiricoCalculo([
-      ...histiricoCalculo,
-      {
+    dispatch({
+      type: 'Add',
+      item: {
         final: valorHoraFinal,
         inicio: valorHoraInicial,
         tipoAcao: acaoCalculo,
       },
-    ]);
+    });
   }
 
   function calcularData(): string {
@@ -72,7 +61,7 @@ export default function CalcularHoraContainer() {
   }
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns} locale={ptBRLocale}>
+    <div>
       <Grid container spacing={2}>
         <Grid item>
           <SeletorTempoHora
@@ -118,12 +107,9 @@ export default function CalcularHoraContainer() {
         }}
       >
         <Grid item>
-          <HistoricoTempoHora
-            valor={histiricoCalculo}
-            onRemove={onRemoveHistiricoCalculo}
-          />
+          <HistoricoTempoHora valor={state.calcularHora.valores} />
         </Grid>
       </Grid>
-    </LocalizationProvider>
+    </div>
   );
 }

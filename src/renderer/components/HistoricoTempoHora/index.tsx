@@ -10,7 +10,6 @@ import { SeletorTempoHoraHelper } from '@App/components/SeletorTempoHora/helper'
 import { AcoesCalculoData } from '@App/components/CalcularHoraContainer/types';
 import { DateHelper } from '@App/helper/DateHelper';
 import {
-  EventHistoricoTempoHora,
   ItemHistoricoTempoHora,
   RowHistoricoTempoHora,
 } from '@App/components/HistoricoTempoHora/type';
@@ -19,7 +18,6 @@ import Zoom from '@mui/material/Zoom';
 
 interface HistoricoTempoHoraProps {
   valor: ItemHistoricoTempoHora[];
-  onRemove: (event: EventHistoricoTempoHora) => void;
 }
 
 function craeteRow(item: ItemHistoricoTempoHora): RowHistoricoTempoHora {
@@ -54,6 +52,7 @@ function craeteRow(item: ItemHistoricoTempoHora): RowHistoricoTempoHora {
     total,
     fJira,
     fDecimal,
+    id: Math.random(),
   };
 }
 
@@ -98,6 +97,7 @@ export default function HistoricoTempoHora(props: HistoricoTempoHoraProps) {
           <TableBody>
             {getRows().map((row) => (
               <TableRow
+                key={row.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
