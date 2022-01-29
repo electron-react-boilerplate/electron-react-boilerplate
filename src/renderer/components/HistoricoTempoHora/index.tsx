@@ -13,7 +13,9 @@ import {
   EventHistoricoTempoHora,
   ItemHistoricoTempoHora,
   RowHistoricoTempoHora,
-} from './type';
+} from '@App/components/HistoricoTempoHora/type';
+import Tooltip from '@mui/material/Tooltip';
+import Zoom from '@mui/material/Zoom';
 
 interface HistoricoTempoHoraProps {
   valor: ItemHistoricoTempoHora[];
@@ -60,8 +62,16 @@ function TableCellCopy(props: { texto: string }) {
     navigator.clipboard.writeText(props.texto);
   };
   return (
-    <TableCell onDoubleClick={onDoubleClick} align="right">
-      {props.texto}
+    <TableCell
+      style={{
+        userSelect: 'none',
+      }}
+      onDoubleClick={onDoubleClick}
+      align="right"
+    >
+      <Tooltip TransitionComponent={Zoom} title="click duas vezes para copiar">
+        <span>{props.texto}</span>
+      </Tooltip>
     </TableCell>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { EventSeletorTempoHora, ValueSeletorTempoHora } from './type';
 import '@App/components/SeletorTempoHora/estilo.css';
 
@@ -9,6 +9,7 @@ interface SeletorTempoHoraProps {
 
 export default function SeletorTempoHora(props: SeletorTempoHoraProps) {
   const [focusStyle, setFocusStyle] = useState<Record<string, string>>({});
+  const inputMinuts = useRef<HTMLInputElement>(null);
   const { onChange, valor } = props;
 
   const obterValorEvento = (
@@ -70,6 +71,10 @@ export default function SeletorTempoHora(props: SeletorTempoHoraProps) {
       });
     }
   };
+  function onClickSpan(event: React.MouseEvent<HTMLSpanElement>): void {
+    console.log(event);
+    inputMinuts.current?.focus();
+  }
   const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
     const elementTarget = event.target as HTMLElement;
     if (elementTarget.tagName.toLocaleLowerCase() === 'input') return;
@@ -95,8 +100,11 @@ export default function SeletorTempoHora(props: SeletorTempoHoraProps) {
         onBlur={onBlur}
         type="number"
       />
-      <span>:</span>
+      <span onClick={onClickSpan} aria-hidden="true">
+        :
+      </span>
       <input
+        ref={inputMinuts}
         maxLength={2}
         minLength={1}
         value={valor.minuto}
