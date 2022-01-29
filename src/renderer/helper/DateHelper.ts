@@ -22,6 +22,10 @@ class DateHelperInstance {
     };
   }
 
+  getMillisecondToDecimalHours(duration: number) {
+    return (duration / (1000 * 60 * 60)).toFixed(2);
+  }
+
   msToTime(duration: number, heNegativo = false) {
     const { minutes, hours } = this.getTimeValueByMillisecond(duration);
     const strHours = this.formatNumberHours(hours);

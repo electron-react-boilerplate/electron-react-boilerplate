@@ -69,7 +69,7 @@ class SeletorTempoHora {
     const retorno: string[] = [];
     if (timeValue.hours > 0) retorno.push(`${timeValue.hours}h`);
 
-    if (timeValue.minutes > 0) retorno.push(`${timeValue.minutes}h`);
+    if (timeValue.minutes > 0) retorno.push(`${timeValue.minutes}m`);
 
     return retorno.join(' ');
   }
@@ -84,7 +84,12 @@ class SeletorTempoHora {
       valorHoraFinal,
       valorHoraInicial
     );
-    return (numero / (1000 * 60 * 60)).toFixed(2);
+    return DateHelper.getMillisecondToDecimalHours(numero);
+  }
+
+  formatarUnicaDecimal(valorHora: ValueSeletorTempoHora): string {
+    const numero = this.toMilliseconds(valorHora);
+    return DateHelper.getMillisecondToDecimalHours(numero);
   }
 }
 

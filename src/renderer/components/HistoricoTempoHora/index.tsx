@@ -27,7 +27,8 @@ function craeteRow(item: ItemHistoricoTempoHora): RowHistoricoTempoHora {
   const final = DateHelper.msToTime(
     SeletorTempoHoraHelper.toMilliseconds(item.final)
   );
-  const acao = item.tipoAcao === AcoesCalculoData.adicao ? '+' : '-';
+  const acao =
+    item.tipoAcao === AcoesCalculoData.adicao ? 'Adição' : 'Subtração';
   const total = SeletorTempoHoraHelper.calcularData(
     item.tipoAcao,
     item.final,
