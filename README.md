@@ -51,6 +51,10 @@ npm run package
 
 See our [docs and guides here](https://electron-react-boilerplate.js.org/docs/installation)
 
+## Community
+
+Join our Discord: https://discord.gg/Fjy3vfgy5q
+
 ## Donations
 
 **Donations will ensure the following:**
