@@ -1,11 +1,5 @@
 import '@App/components/SeletorTempoHora/estilo.css';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import { SeletorTempoHoraHelper } from '@App/components/SeletorTempoHora/helper';
 import { AcoesCalculoData } from '@App/components/CalcularHoraContainer/types';
 import { DateHelper } from '@App/helper/DateHelper';
@@ -15,6 +9,14 @@ import {
 } from '@App/components/HistoricoTempoHora/type';
 import Tooltip from '@mui/material/Tooltip';
 import Zoom from '@mui/material/Zoom';
+import {
+  DataGrid,
+  GridColDef,
+  GridRenderCellParams,
+  GridToolbarColumnsButton,
+  GridToolbarContainer,
+  GridToolbarExport,
+} from '@mui/x-data-grid';
 
 interface HistoricoTempoHoraProps {
   valor: ItemHistoricoTempoHora[];
@@ -52,7 +54,9 @@ function craeteRow(item: ItemHistoricoTempoHora): RowHistoricoTempoHora {
     total,
     fJira,
     fDecimal,
-    id: Math.random(),
+    dataInclusao: item.dataInclusao,
+    id: item.dataInclusao.getTime(),
+    tag: item.tag,
   };
 }
 
@@ -74,46 +78,85 @@ function TableCellCopy(props: { texto: string }) {
     </TableCell>
   );
 }
+function renderCellTableCellCopy(params: GridRenderCellParams<string>) {
+  return <TableCellCopy texto={params.value} />;
+}
+
+function CustomToolbar() {
+  return (
+    <GridToolbarContainer>
+      <GridToolbarColumnsButton />
+      <GridToolbarExport
+        csvOptions={{
+          fileName: 'data',
+          utf8WithBom: true,
+        }}
+      />
+    </GridToolbarContainer>
+  );
+}
 
 export default function HistoricoTempoHora(props: HistoricoTempoHoraProps) {
   function getRows(): RowHistoricoTempoHora[] {
     return props.valor.map(craeteRow);
   }
 
-  function CustomizedTables() {
+  function CreateDataTables() {
+    const rows = getRows();
+    const columns: GridColDef[] = [
+      {
+        field: 'inicio',
+        headerName: 'Inicio',
+      },
+      {
+        field: 'tipoAcao',
+        headerName: 'Ação',
+      },
+      {
+        field: 'final',
+        headerName: 'Final',
+      },
+      {
+        field: 'total',
+        headerName: 'Total',
+      },
+      {
+        field: 'fJira',
+        headerName: 'f. jira',
+        renderCell: renderCellTableCellCopy,
+      },
+      {
+        field: 'fDecimal',
+        headerName: 'f. decimal',
+        renderCell: renderCellTableCellCopy,
+      },
+      {
+        field: 'dataInclusao',
+        headerName: 'Inclusão',
+        type: 'dateTime',
+        minWidth: 150,
+      },
+      {
+        field: 'tag',
+        headerName: 'Tag',
+      },
+    ];
+
     return (
-      <TableContainer component={Paper}>
-        <Table size="small" aria-label="a dense table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Inicio</TableCell>
-              <TableCell align="center">Ação</TableCell>
-              <TableCell align="right">Final</TableCell>
-              <TableCell align="right">Total</TableCell>
-              <TableCell align="right">f. jira</TableCell>
-              <TableCell align="right">f. decimal</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {getRows().map((row) => (
-              <TableRow
-                key={row.id}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.inicio}
-                </TableCell>
-                <TableCell align="center">{row.tipoAcao}</TableCell>
-                <TableCell align="right">{row.final}</TableCell>
-                <TableCell align="right">{row.total}</TableCell>
-                <TableCellCopy texto={row.fJira} />
-                <TableCellCopy texto={row.fDecimal} />
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <div style={{ height: 400, width: 800 }}>
+        <DataGrid
+          columnVisibilityModel={{
+            dataInclusao: false,
+            tipoAcao: false,
+          }}
+          rows={rows}
+          columns={columns}
+          components={{
+            Toolbar: CustomToolbar,
+          }}
+        />
+      </div>
     );
   }
-  return <div className="HistoricoTempoHora">{CustomizedTables()}</div>;
+  return <div className="HistoricoTempoHora">{CreateDataTables()}</div>;
 }

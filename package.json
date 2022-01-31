@@ -232,6 +232,7 @@
     "@mui/icons-material": "^5.3.1",
     "@mui/lab": "^5.0.0-alpha.66",
     "@mui/material": "^5.3.1",
+    "@mui/x-data-grid": "^5.4.0",
     "electron-debug": "^3.2.0",
     "electron-log": "^4.4.4",
     "electron-updater": "^4.6.5",

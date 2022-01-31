@@ -11,7 +11,7 @@ import {
 } from '@App/components/SeletorTempoHora/type';
 
 import SaveIcon from '@mui/icons-material/Save';
-import { IconButton } from '@mui/material';
+import { IconButton, TextField } from '@mui/material';
 import HistoricoTempoHora from '../HistoricoTempoHora';
 import { AcoesCalculoData } from './types';
 
@@ -22,6 +22,7 @@ const DescricaoAcoesCalculoData = [
 export default function CalcularHoraContainer() {
   const { state, dispatch } = useContext(AppContext);
   const [acaoCalculo, setAcaoCalculo] = useState(AcoesCalculoData.subtracao);
+  const [tag, setTag] = useState('');
   const [valorHoraInicial, setValorHoraInicial] =
     useState<ValueSeletorTempoHora>({ hora: 10, minuto: 20 });
   const [valorHoraFinal, setValorHoraFinal] = useState<ValueSeletorTempoHora>({
@@ -42,12 +43,15 @@ export default function CalcularHoraContainer() {
   }
 
   function onAddHistiricoCalculo() {
+    setTag('');
     dispatch({
       type: 'Add',
       item: {
         final: valorHoraFinal,
         inicio: valorHoraInicial,
         tipoAcao: acaoCalculo,
+        dataInclusao: new Date(),
+        tag,
       },
     });
   }
@@ -82,6 +86,15 @@ export default function CalcularHoraContainer() {
           <SeletorTempoHora
             valor={valorHoraFinal}
             onChange={onChangeValorFinal}
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            label="tag"
+            variant="outlined"
+            style={{ width: '100px' }}
+            value={tag}
+            onChange={(value) => setTag(value.target.value)}
           />
         </Grid>
         <Grid item alignItems={'center'} display={'flex'}>

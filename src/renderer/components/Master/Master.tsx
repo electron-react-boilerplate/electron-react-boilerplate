@@ -22,8 +22,7 @@ export default function Master() {
         <Box
           sx={{
             bgcolor: 'background.paper',
-            pt: 5,
-            pb: 6,
+            pt: 3,
           }}
         >
           <Container maxWidth="xl" fixed disableGutters>

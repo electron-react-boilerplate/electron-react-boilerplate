@@ -5,6 +5,8 @@ export type ItemHistoricoTempoHora = {
   inicio: ValueSeletorTempoHora;
   final: ValueSeletorTempoHora;
   tipoAcao: AcoesCalculoData;
+  dataInclusao: Date;
+  tag: string;
 };
 
 export type EventHistoricoTempoHora = {
@@ -18,5 +20,7 @@ export type RowHistoricoTempoHora = {
   total: string;
   fJira: string;
   fDecimal: string;
+  dataInclusao: Date;
   id: number;
+  tag: string;
 };
