@@ -1,8 +1,4 @@
 import '@App/components/SeletorTempoHora/estilo.css';
-import TableCell from '@mui/material/TableCell';
-import { SeletorTempoHoraHelper } from '@App/components/SeletorTempoHora/helper';
-import { AcoesCalculoData } from '@App/components/CalcularHoraContainer/types';
-import { DateHelper } from '@App/helper/DateHelper';
 import {
   ItemHistoricoTempoHora,
   RowHistoricoTempoHora,
@@ -17,69 +13,35 @@ import {
   GridToolbarContainer,
   GridToolbarExport,
 } from '@mui/x-data-grid';
+import { HistoricoTempoHoraHelper } from './helper';
 
 interface HistoricoTempoHoraProps {
   valor: ItemHistoricoTempoHora[];
 }
 
 function craeteRow(item: ItemHistoricoTempoHora): RowHistoricoTempoHora {
-  const inicio = DateHelper.msToTime(
-    SeletorTempoHoraHelper.toMilliseconds(item.inicio)
-  );
-  const final = DateHelper.msToTime(
-    SeletorTempoHoraHelper.toMilliseconds(item.final)
-  );
-  const acao =
-    item.tipoAcao === AcoesCalculoData.adicao ? 'Adição' : 'Subtração';
-  const total = SeletorTempoHoraHelper.calcularData(
-    item.tipoAcao,
-    item.final,
-    item.inicio
-  );
-  const fJira = SeletorTempoHoraHelper.formatarJira(
-    item.tipoAcao,
-    item.final,
-    item.inicio
-  );
-
-  const fDecimal = SeletorTempoHoraHelper.formatarDecimal(
-    item.tipoAcao,
-    item.final,
-    item.inicio
-  );
-  return {
-    inicio,
-    final,
-    tipoAcao: acao,
-    total,
-    fJira,
-    fDecimal,
-    dataInclusao: item.dataInclusao,
-    id: item.dataInclusao.getTime(),
-    tag: item.tag,
-  };
+  return HistoricoTempoHoraHelper.craeteRow(item);
 }
 
-function TableCellCopy(props: { texto: string }) {
+function TableSpanCopy(props: { texto: string }) {
   const onDoubleClick = () => {
     navigator.clipboard.writeText(props.texto);
   };
   return (
-    <TableCell
+    <span
       style={{
         userSelect: 'none',
       }}
       onDoubleClick={onDoubleClick}
-      align="right"
     >
       <Tooltip TransitionComponent={Zoom} title="click duas vezes para copiar">
         <span>{props.texto}</span>
       </Tooltip>
-    </TableCell>
+    </span>
   );
 }
-function renderCellTableCellCopy(params: GridRenderCellParams<string>) {
-  return <TableCellCopy texto={params.value} />;
+function renderSpanTableCellCopy(params: GridRenderCellParams<string>) {
+  return <TableSpanCopy texto={params.value} />;
 }
 
 function CustomToolbar() {
@@ -123,12 +85,12 @@ export default function HistoricoTempoHora(props: HistoricoTempoHoraProps) {
       {
         field: 'fJira',
         headerName: 'f. jira',
-        renderCell: renderCellTableCellCopy,
+        renderCell: renderSpanTableCellCopy,
       },
       {
         field: 'fDecimal',
         headerName: 'f. decimal',
-        renderCell: renderCellTableCellCopy,
+        renderCell: renderSpanTableCellCopy,
       },
       {
         field: 'dataInclusao',
@@ -139,6 +101,7 @@ export default function HistoricoTempoHora(props: HistoricoTempoHoraProps) {
       {
         field: 'tag',
         headerName: 'Tag',
+        renderCell: renderSpanTableCellCopy,
       },
     ];
 

@@ -1,4 +1,5 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { DateHelper } from '@App/helper/DateHelper';
 import { EventSeletorTempoHora, ValueSeletorTempoHora } from './type';
 import '@App/components/SeletorTempoHora/estilo.css';
 
@@ -9,8 +10,17 @@ interface SeletorTempoHoraProps {
 
 export default function SeletorTempoHora(props: SeletorTempoHoraProps) {
   const [focusStyle, setFocusStyle] = useState<Record<string, string>>({});
+  const [minutos, setMinutos] = useState<string>('');
+  const [horas, setHoras] = useState<string>('');
   const inputMinuts = useRef<HTMLInputElement>(null);
   const { onChange, valor } = props;
+
+  useEffect(() => {
+    setMinutos(DateHelper.formatNumberMinuts(valor.minuto));
+  }, [valor.minuto]);
+  useEffect(() => {
+    setHoras(DateHelper.formatNumberHours(valor.hora));
+  }, [valor.hora]);
 
   const obterValorEvento = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -22,11 +32,11 @@ export default function SeletorTempoHora(props: SeletorTempoHoraProps) {
   };
   const onChangeInputMinuto = useCallback(
     (event) => {
-      const minutos = obterValorEvento(event);
+      const minutosInput = obterValorEvento(event);
       onChange({
         valor: {
           hora: valor.hora,
-          minuto: minutos > 59 ? 59 : minutos,
+          minuto: minutosInput > 59 ? 59 : minutosInput,
         },
       });
     },
@@ -71,8 +81,7 @@ export default function SeletorTempoHora(props: SeletorTempoHoraProps) {
       });
     }
   };
-  function onClickSpan(event: React.MouseEvent<HTMLSpanElement>): void {
-    console.log(event);
+  function onClickSpan(): void {
     inputMinuts.current?.focus();
   }
   const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
@@ -94,7 +103,7 @@ export default function SeletorTempoHora(props: SeletorTempoHoraProps) {
       <input
         maxLength={2}
         minLength={1}
-        value={valor.hora}
+        value={horas}
         onChange={onChangeInputHora}
         onFocus={onFocus}
         onBlur={onBlur}
@@ -107,7 +116,7 @@ export default function SeletorTempoHora(props: SeletorTempoHoraProps) {
         ref={inputMinuts}
         maxLength={2}
         minLength={1}
-        value={valor.minuto}
+        value={minutos}
         onChange={onChangeInputMinuto}
         onFocus={onFocus}
         onBlur={onBlur}
