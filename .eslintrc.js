@@ -28,6 +28,7 @@ module.exports = {
     radix: ['off'],
     'import/prefer-default-export': ['off'],
     'class-methods-use-this': ['off'],
+    'no-continue': ['off'],
   },
   parserOptions: {
     ecmaVersion: 2020,

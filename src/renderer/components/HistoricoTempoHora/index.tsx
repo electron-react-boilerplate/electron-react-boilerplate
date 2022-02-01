@@ -1,3 +1,4 @@
+import React from 'react';
 import '@App/components/SeletorTempoHora/estilo.css';
 import {
   ItemHistoricoTempoHora,
@@ -5,10 +6,14 @@ import {
 } from '@App/components/HistoricoTempoHora/type';
 import Tooltip from '@mui/material/Tooltip';
 import Zoom from '@mui/material/Zoom';
+import DeleteIcon from '@mui/icons-material/Delete';
 import {
   DataGrid,
+  GridActionsCellItem,
   GridColDef,
+  GridColumns,
   GridRenderCellParams,
+  GridRowModel,
   GridToolbarColumnsButton,
   GridToolbarContainer,
   GridToolbarExport,
@@ -17,6 +22,7 @@ import { HistoricoTempoHoraHelper } from './helper';
 
 interface HistoricoTempoHoraProps {
   valor: ItemHistoricoTempoHora[];
+  onRemove: (row: RowHistoricoTempoHora) => void;
 }
 
 function craeteRow(item: ItemHistoricoTempoHora): RowHistoricoTempoHora {
@@ -62,10 +68,29 @@ export default function HistoricoTempoHora(props: HistoricoTempoHoraProps) {
   function getRows(): RowHistoricoTempoHora[] {
     return props.valor.map(craeteRow);
   }
+  const handleDeleteClick =
+    (row: GridRowModel) => (event: React.MouseEvent<HTMLButtonElement>) => {
+      // event.stopPropagation();
+      const item = row as RowHistoricoTempoHora;
+      props.onRemove(item);
+    };
 
   function CreateDataTables() {
     const rows = getRows();
-    const columns: GridColDef[] = [
+    const columns: GridColumns = [
+      {
+        field: 'actions',
+        type: 'actions',
+        width: 100,
+        getActions: (p) => [
+          <GridActionsCellItem
+            icon={<DeleteIcon />}
+            label="Delete"
+            onClick={handleDeleteClick(p.row)}
+            color="inherit"
+          />,
+        ],
+      },
       {
         field: 'inicio',
         headerName: 'Inicio',
@@ -105,12 +130,26 @@ export default function HistoricoTempoHora(props: HistoricoTempoHoraProps) {
       },
     ];
 
+    function calcularHorasTotais() {
+      return rows
+        .reduce((partialSum, a) => partialSum + parseInt(a.fDecimal), 0)
+        ?.toFixed(2);
+    }
+
     return (
       <div style={{ height: 400, width: 800 }}>
+        <div>
+          <span>Horas Totais: </span>
+          <b>{calcularHorasTotais()}</b>
+        </div>
         <DataGrid
-          columnVisibilityModel={{
-            dataInclusao: false,
-            tipoAcao: false,
+          initialState={{
+            columns: {
+              columnVisibilityModel: {
+                dataInclusao: false,
+                tipoAcao: false,
+              },
+            },
           }}
           rows={rows}
           columns={columns}

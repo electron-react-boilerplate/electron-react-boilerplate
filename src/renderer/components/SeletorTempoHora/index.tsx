@@ -1,3 +1,4 @@
+import { debounce } from 'lodash';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { DateHelper } from '@App/helper/DateHelper';
 import { EventSeletorTempoHora, ValueSeletorTempoHora } from './type';
@@ -14,13 +15,29 @@ export default function SeletorTempoHora(props: SeletorTempoHoraProps) {
   const [horas, setHoras] = useState<string>('');
   const inputMinuts = useRef<HTMLInputElement>(null);
   const { onChange, valor } = props;
+  const calledOnce = React.useRef(false);
+
+  function foramatarNumero() {
+    setTimeout(() => {
+      setHoras(DateHelper.formatNumberHours(parseInt(horas)));
+      setMinutos(DateHelper.formatNumberMinuts(parseInt(minutos)));
+    }, 200);
+  }
 
   useEffect(() => {
-    setMinutos(DateHelper.formatNumberMinuts(valor.minuto));
+    setMinutos(valor.minuto.toString());
   }, [valor.minuto]);
+
   useEffect(() => {
-    setHoras(DateHelper.formatNumberHours(valor.hora));
+    setHoras(valor.hora.toString());
   }, [valor.hora]);
+
+  useEffect(() => {
+    if (calledOnce.current) return;
+    calledOnce.current = true;
+    setHoras(DateHelper.formatNumberHours(valor.hora));
+    setMinutos(DateHelper.formatNumberMinuts(valor.minuto));
+  }, [valor]);
 
   const obterValorEvento = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -61,7 +78,9 @@ export default function SeletorTempoHora(props: SeletorTempoHoraProps) {
   }
   function onBlur(): void {
     setFocusStyle({});
+    foramatarNumero();
   }
+
   const colarHorarioInput = (texto: string) => {
     if (/^(2[0-3]|[0-1]?[\d]):[0-5][\d]$/.test(texto)) {
       const [hora, minuto] = texto.split(':');

@@ -5,15 +5,13 @@ import MenuItem from '@mui/material/MenuItem';
 import SeletorTempoHora from '@App/components/SeletorTempoHora';
 import { SeletorTempoHoraHelper } from '@App/components/SeletorTempoHora/helper';
 import { AppContext } from '@App/reducer/context';
-import {
-  EventSeletorTempoHora,
-  ValueSeletorTempoHora,
-} from '@App/components/SeletorTempoHora/type';
+import { EventSeletorTempoHora } from '@App/components/SeletorTempoHora/type';
 
 import SaveIcon from '@mui/icons-material/Save';
 import { IconButton, TextField } from '@mui/material';
-import HistoricoTempoHora from '../HistoricoTempoHora';
 import { AcoesCalculoData } from './types';
+import { HistoricoCalcularHoraContainer } from './HistoricoCalcularHoraContainer';
+import { ToolbarCalcularHoraContainer } from './ToolbarCalcularHoraContainer';
 
 const DescricaoAcoesCalculoData = [
   { value: AcoesCalculoData.adicao, text: 'Adição' },
@@ -23,19 +21,26 @@ export default function CalcularHoraContainer() {
   const { state, dispatch } = useContext(AppContext);
   const [acaoCalculo, setAcaoCalculo] = useState(AcoesCalculoData.subtracao);
   const [tag, setTag] = useState('');
-  const [valorHoraInicial, setValorHoraInicial] =
-    useState<ValueSeletorTempoHora>({ hora: 10, minuto: 20 });
-  const [valorHoraFinal, setValorHoraFinal] = useState<ValueSeletorTempoHora>({
-    hora: 10,
-    minuto: 20,
-  });
+
+  const { horaInicial: valorHoraInicial, horaFinal: valorHoraFinal } =
+    state.calcularHora;
 
   function onChangeValorInicial(event: EventSeletorTempoHora) {
-    setValorHoraInicial(event.valor);
+    dispatch({
+      type: 'alterarHoraInicial',
+      payload: {
+        horaInicial: event.valor,
+      },
+    });
   }
 
   function onChangeValorFinal(event: EventSeletorTempoHora) {
-    setValorHoraFinal(event.valor);
+    dispatch({
+      type: 'alterarHoraFinal',
+      payload: {
+        horaFinal: event.valor,
+      },
+    });
   }
 
   function onChangeAcaoCalulo(event: SelectChangeEvent<AcoesCalculoData>) {
@@ -45,13 +50,15 @@ export default function CalcularHoraContainer() {
   function onAddHistiricoCalculo() {
     setTag('');
     dispatch({
-      type: 'Add',
-      item: {
-        final: valorHoraFinal,
-        inicio: valorHoraInicial,
-        tipoAcao: acaoCalculo,
-        dataInclusao: new Date(),
-        tag,
+      type: 'AdicionarItemHistorico',
+      payload: {
+        item: {
+          final: valorHoraFinal,
+          inicio: valorHoraInicial,
+          tipoAcao: acaoCalculo,
+          dataInclusao: new Date(),
+          tag,
+        },
       },
     });
   }
@@ -65,7 +72,8 @@ export default function CalcularHoraContainer() {
   }
 
   return (
-    <div>
+    <div style={{ marginTop: '-18px' }}>
+      <ToolbarCalcularHoraContainer />
       <Grid container spacing={2}>
         <Grid item>
           <SeletorTempoHora
@@ -112,17 +120,7 @@ export default function CalcularHoraContainer() {
           </IconButton>
         </Grid>
       </Grid>
-      <Grid
-        container
-        spacing={2}
-        sx={{
-          mt: 1,
-        }}
-      >
-        <Grid item>
-          <HistoricoTempoHora valor={state.calcularHora.valores} />
-        </Grid>
-      </Grid>
+      <HistoricoCalcularHoraContainer />
     </div>
   );
 }

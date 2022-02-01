@@ -35,7 +35,7 @@ export default function AbaConteudo() {
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <TabList onChange={handleChange} aria-label="lab API tabs example">
             <Tab label="Registrar Horas" value="1" />
-            <Tab label="Hora para decimal" value="2" />
+            <Tab label="Utilitarios" value="2" />
           </TabList>
         </Box>
         <TabPanel value="1">
