@@ -1,10 +1,26 @@
 import { ItemHistoricoTempoHora } from '@App/components/HistoricoTempoHora/type';
-import { ValueSeletorTempoHora } from '@App/components/SeletorTempoHora/type';
+import { CalcularHoraRepository } from '@App/service/calcularHora/calcularHoraRepository';
+import {
+  CalcularHoraReducerAction,
+  CalcularHoraReducerStateType,
+} from './types';
 
-export interface CalcularHoraReducerStateType {
-  valores: ItemHistoricoTempoHora[];
-  horaInicial: ValueSeletorTempoHora;
-  horaFinal: ValueSeletorTempoHora;
+const calcularHoraRepository = new CalcularHoraRepository();
+
+const subescreverHistoricoStorage = (valores: ItemHistoricoTempoHora[]) => {
+  return calcularHoraRepository.AddAllHistorico(valores);
+};
+
+const historicoStorage = (): ItemHistoricoTempoHora[] => {
+  return calcularHoraRepository.getAllHistorico();
+};
+
+function obterCalcularHoraReducerStateStorage(): CalcularHoraReducerStateType {
+  return {
+    valores: historicoStorage(),
+    horaInicial: { hora: 9, minuto: 0 },
+    horaFinal: { hora: 10, minuto: 0 },
+  };
 }
 
 export const initialState: CalcularHoraReducerStateType = {
@@ -13,35 +29,6 @@ export const initialState: CalcularHoraReducerStateType = {
   horaFinal: { hora: 10, minuto: 0 },
 };
 
-export type CalcularHoraReducerAction =
-  | {
-      type: 'AdicionarItemHistorico';
-      payload: {
-        item: ItemHistoricoTempoHora;
-      };
-    }
-  | {
-      type: 'removerItemHistorico';
-      payload: {
-        item: ItemHistoricoTempoHora;
-      };
-    }
-  | {
-      type: 'alterarHoraInicial';
-      payload: {
-        horaInicial: ValueSeletorTempoHora;
-      };
-    }
-  | {
-      type: 'alterarHoraFinal';
-      payload: {
-        horaFinal: ValueSeletorTempoHora;
-      };
-    }
-  | {
-      type: 'inverterValoresHoras';
-    };
-
 export function calcularHoraReducer(
   state: CalcularHoraReducerStateType,
   action: CalcularHoraReducerAction
@@ -49,7 +36,10 @@ export function calcularHoraReducer(
   switch (action.type) {
     case 'AdicionarItemHistorico':
       return {
-        valores: [...state.valores, action.payload.item],
+        valores: subescreverHistoricoStorage([
+          ...state.valores,
+          action.payload.item,
+        ]),
         horaFinal: state.horaFinal,
         horaInicial: state.horaInicial,
       };
@@ -58,9 +48,14 @@ export function calcularHoraReducer(
       const a = [...state.valores];
       a.splice(state.valores.indexOf(action.payload.item), 1);
       return {
-        valores: a,
+        valores: subescreverHistoricoStorage(a),
         horaFinal: state.horaFinal,
         horaInicial: state.horaInicial,
+      };
+    case 'resetListaHistorico':
+      return {
+        ...state,
+        valores: subescreverHistoricoStorage([]),
       };
     case 'alterarHoraInicial':
       return {
@@ -78,7 +73,42 @@ export function calcularHoraReducer(
         horaFinal: state.horaInicial,
         horaInicial: state.horaFinal,
       };
+    case 'carregarValoresStorage':
+      return obterCalcularHoraReducerStateStorage();
     default:
       throw Error('error');
   }
 }
+// ************************************************
+// ************************************************
+// ************************************************
+// ************************************************
+// da para melhor isso com objeto com enun exemplo:
+// ************************************************
+// ************************************************
+// ************************************************
+// ************************************************
+// ************************************************
+//
+//
+// enum TypeCalcularHoraReducerAction {
+//   AdicionarItemHistorico = 'AdicionarItemHistorico',
+// }
+// export type CalcularHoraReducerAction = {
+//   type: TypeCalcularHoraReducerAction.AdicionarItemHistorico;
+//   payload: {
+//     item: ItemHistoricoTempoHora;
+//   };
+// };
+// const reducerAction = {
+//   [TypeCalcularHoraReducerAction.AdicionarItemHistorico]: (
+//     state: CalcularHoraReducerStateType,
+//     action: CalcularHoraReducerAction
+//   ): CalcularHoraReducerStateType => state,
+// };
+// export function calcularHoraReducer(
+//   state: CalcularHoraReducerStateType,
+//   action: CalcularHoraReducerAction
+// ): CalcularHoraReducerStateType {
+//   return reducerAction[action.type](sateta, action);
+// }

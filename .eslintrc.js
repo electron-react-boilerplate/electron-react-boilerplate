@@ -29,6 +29,7 @@ module.exports = {
     'import/prefer-default-export': ['off'],
     'class-methods-use-this': ['off'],
     'no-continue': ['off'],
+    'no-plusplus': ['off'],
   },
   parserOptions: {
     ecmaVersion: 2020,

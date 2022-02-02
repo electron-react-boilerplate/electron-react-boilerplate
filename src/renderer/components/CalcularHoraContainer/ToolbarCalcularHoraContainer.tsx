@@ -7,6 +7,7 @@ import Zoom from '@mui/material/Zoom';
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import FastRewindIcon from '@mui/icons-material/FastRewind';
 import FastForwardIcon from '@mui/icons-material/FastForward';
+import CachedIcon from '@mui/icons-material/Cached';
 
 export function ToolbarCalcularHoraContainer() {
   const { state, dispatch } = useContext(AppContext);
@@ -31,6 +32,11 @@ export function ToolbarCalcularHoraContainer() {
       },
     });
   }
+  function resetarLista() {
+    dispatch({
+      type: 'resetListaHistorico',
+    });
+  }
   return (
     <Grid container>
       <Grid sx={{ py: 1 }} item>
@@ -47,6 +53,11 @@ export function ToolbarCalcularHoraContainer() {
         <Tooltip TransitionComponent={Zoom} title="subtituir valor para final">
           <IconButton onClick={subtituirValorHoraFinal}>
             <FastForwardIcon fontSize="small" color="primary" />
+          </IconButton>
+        </Tooltip>
+        <Tooltip TransitionComponent={Zoom} title="subtituir valor para final">
+          <IconButton onClick={resetarLista}>
+            <CachedIcon fontSize="small" color="primary" />
           </IconButton>
         </Tooltip>
       </Grid>

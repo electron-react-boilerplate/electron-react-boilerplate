@@ -1,4 +1,3 @@
-import React from 'react';
 import '@App/components/SeletorTempoHora/estilo.css';
 import {
   ItemHistoricoTempoHora,
@@ -10,7 +9,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import {
   DataGrid,
   GridActionsCellItem,
-  GridColDef,
   GridColumns,
   GridRenderCellParams,
   GridRowModel,
@@ -68,12 +66,11 @@ export default function HistoricoTempoHora(props: HistoricoTempoHoraProps) {
   function getRows(): RowHistoricoTempoHora[] {
     return props.valor.map(craeteRow);
   }
-  const handleDeleteClick =
-    (row: GridRowModel) => (event: React.MouseEvent<HTMLButtonElement>) => {
-      // event.stopPropagation();
-      const item = row as RowHistoricoTempoHora;
-      props.onRemove(item);
-    };
+  const handleDeleteClick = (row: GridRowModel) => () => {
+    // event.stopPropagation();
+    const item = row as RowHistoricoTempoHora;
+    props.onRemove(item);
+  };
 
   function CreateDataTables() {
     const rows = getRows();
@@ -94,6 +91,7 @@ export default function HistoricoTempoHora(props: HistoricoTempoHoraProps) {
       {
         field: 'inicio',
         headerName: 'Inicio',
+        renderCell: renderSpanTableCellCopy,
       },
       {
         field: 'tipoAcao',
@@ -102,6 +100,7 @@ export default function HistoricoTempoHora(props: HistoricoTempoHoraProps) {
       {
         field: 'final',
         headerName: 'Final',
+        renderCell: renderSpanTableCellCopy,
       },
       {
         field: 'total',
@@ -132,7 +131,7 @@ export default function HistoricoTempoHora(props: HistoricoTempoHoraProps) {
 
     function calcularHorasTotais() {
       return rows
-        .reduce((partialSum, a) => partialSum + parseInt(a.fDecimal), 0)
+        .reduce((partialSum, a) => partialSum + parseFloat(a.fDecimal), 0)
         ?.toFixed(2);
     }
 

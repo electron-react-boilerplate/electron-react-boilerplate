@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
@@ -21,6 +21,12 @@ export default function CalcularHoraContainer() {
   const { state, dispatch } = useContext(AppContext);
   const [acaoCalculo, setAcaoCalculo] = useState(AcoesCalculoData.subtracao);
   const [tag, setTag] = useState('');
+
+  useEffect(() => {
+    dispatch({ type: 'carregarValoresStorage' });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const { horaInicial: valorHoraInicial, horaFinal: valorHoraFinal } =
     state.calcularHora;
