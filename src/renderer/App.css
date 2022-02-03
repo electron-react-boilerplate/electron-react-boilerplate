@@ -1,3 +1,9 @@
 div[tabindex='-1']:focus-visible {
   outline: none;
 }
+.drag-app-region {
+  -webkit-app-region: drag;
+}
+button {
+  -webkit-app-region: no-drag;
+}

@@ -5,10 +5,12 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import AbaConteudo from '@App/components/AbaConteudo/AbaConteudo';
+import { MenuWindowns } from './MenuWindowns';
 
 export default function Master() {
   return (
     <div>
+      <MenuWindowns />
       <AppBar position="relative">
         <Toolbar>
           <AccessTimeIcon sx={{ mr: 2 }} />

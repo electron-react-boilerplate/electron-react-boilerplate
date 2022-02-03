@@ -14,7 +14,6 @@ import path from 'path';
 import { app, BrowserWindow, shell, ipcMain, Tray, Menu } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
-import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
 const RESOURCES_PATH = app.isPackaged
@@ -36,12 +35,19 @@ const widthMainWindow = 1024;
 const heightMainWindow = 800;
 let mainWindow: BrowserWindow | null = null;
 let appIcon: Tray | null = null;
-let isQuiting = false;
 
 ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
   console.log(msgTemplate(arg));
   event.reply('ipc-example', msgTemplate('pong'));
+});
+
+ipcMain.on('minimizeApp', async () => {
+  mainWindow?.minimize();
+});
+
+ipcMain.on('closedApp', async () => {
+  mainWindow?.hide();
 });
 
 if (process.env.NODE_ENV === 'production') {
@@ -82,6 +88,8 @@ const createWindow = async () => {
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
+    autoHideMenuBar: true,
+    frame: false,
   });
 
   mainWindow.loadURL(resolveHtmlPath('index.html'));
@@ -99,17 +107,12 @@ const createWindow = async () => {
 
   mainWindow.on('minimize', (event: any) => {
     event.preventDefault();
-    mainWindow?.hide();
+    mainWindow?.minimize();
   });
 
   mainWindow.on('closed', () => {
-    if (isQuiting) {
-      mainWindow = null;
-    }
+    mainWindow?.close();
   });
-
-  const menuBuilder = new MenuBuilder(mainWindow);
-  menuBuilder.buildMenu();
 
   // Open urls in the user's browser
   mainWindow.webContents.on('new-window', (event, url) => {
@@ -133,12 +136,17 @@ const createTray = () => {
       },
     },
     {
+      label: 'Minimizar',
+      click: () => {
+        mainWindow?.minimize();
+      },
+    },
+    {
       type: 'separator',
     },
     {
       label: 'Sair',
       click: () => {
-        isQuiting = true;
         app.quit();
       },
     },
