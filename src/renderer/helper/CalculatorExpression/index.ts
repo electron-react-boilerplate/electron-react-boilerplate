@@ -4,6 +4,7 @@
 
 export const calculatorExpressionEval = (s: string): number => {
   let expression = s;
+  if (!new RegExp(`^[\\d\\+\\/\\*\\.\\- \\(\\)]*$`).test(expression)) return 0;
   if (s.length) {
     const ultimaCaractere = s[s.length - 1];
     if (!/\d/.test(ultimaCaractere)) expression = s.slice(0, -1);
