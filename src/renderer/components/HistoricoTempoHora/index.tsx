@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useCallback } from 'react';
 import '@App/components/SeletorTempoHora/estilo.css';
 import {
   ItemHistoricoTempoHora,
@@ -9,6 +11,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import {
   DataGrid,
   GridActionsCellItem,
+  GridCellEditCommitParams,
   GridColumns,
   GridRenderCellParams,
   GridRowModel,
@@ -21,6 +24,7 @@ import { HistoricoTempoHoraHelper } from './helper';
 interface HistoricoTempoHoraProps {
   valor: ItemHistoricoTempoHora[];
   onRemove: (row: RowHistoricoTempoHora) => void;
+  onEdit: (row: ItemHistoricoTempoHora) => void;
 }
 
 function craeteRow(item: ItemHistoricoTempoHora): RowHistoricoTempoHora {
@@ -63,6 +67,7 @@ function CustomToolbar() {
 }
 
 export default function HistoricoTempoHora(props: HistoricoTempoHoraProps) {
+  const { onEdit } = props;
   function getRows(): RowHistoricoTempoHora[] {
     return props.valor.map(craeteRow);
   }
@@ -125,9 +130,28 @@ export default function HistoricoTempoHora(props: HistoricoTempoHoraProps) {
       {
         field: 'tag',
         headerName: 'Tag',
+        editable: true,
         renderCell: renderSpanTableCellCopy,
       },
     ];
+
+    const handleCellEditCommit = useCallback(
+      (params: GridCellEditCommitParams) => {
+        const item = props.valor.find(
+          (x) => x.dataInclusao.getTime() === params.id
+        );
+        if (!item) return;
+        switch (params.field) {
+          case 'tag':
+            item.tag = params.value as string;
+            break;
+          default:
+            break;
+        }
+        onEdit(item);
+      },
+      [onEdit]
+    );
 
     function calcularHorasTotais() {
       return rows
@@ -150,6 +174,7 @@ export default function HistoricoTempoHora(props: HistoricoTempoHoraProps) {
               },
             },
           }}
+          onCellEditCommit={handleCellEditCommit}
           rows={rows}
           columns={columns}
           components={{

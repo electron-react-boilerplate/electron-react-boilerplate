@@ -1,8 +1,11 @@
 import { AppContext } from '@App/reducer/context';
 import Grid from '@mui/material/Grid';
-import { useContext } from 'react';
+import { useCallback, useContext } from 'react';
 import HistoricoTempoHora from '@App/components/HistoricoTempoHora';
-import { RowHistoricoTempoHora } from '../HistoricoTempoHora/type';
+import {
+  ItemHistoricoTempoHora,
+  RowHistoricoTempoHora,
+} from '../HistoricoTempoHora/type';
 
 export function HistoricoCalcularHoraContainer() {
   const { state, dispatch } = useContext(AppContext);
@@ -13,6 +16,17 @@ export function HistoricoCalcularHoraContainer() {
     if (valorState)
       dispatch({ type: 'removerItemHistorico', payload: { item: valorState } });
   }
+  const onEdit = useCallback(
+    (item: ItemHistoricoTempoHora) => {
+      dispatch({
+        type: 'atualizarItemHistorico',
+        payload: {
+          item,
+        },
+      });
+    },
+    [dispatch]
+  );
   return (
     <Grid
       container
@@ -24,6 +38,7 @@ export function HistoricoCalcularHoraContainer() {
       <Grid item>
         <HistoricoTempoHora
           onRemove={onRemove}
+          onEdit={onEdit}
           valor={state.calcularHora.valores}
         />
       </Grid>

@@ -57,6 +57,19 @@ export function calcularHoraReducer(
         ...state,
         valores: subescreverHistoricoStorage([]),
       };
+    case 'atualizarItemHistorico':
+      // eslint-disable-next-line no-case-declarations
+      const lista = state.valores.map((x) =>
+        x.dataInclusao.getTime() === action.payload.item.dataInclusao.getTime()
+          ? action.payload.item
+          : x
+      );
+      console.log(lista);
+      return {
+        valores: subescreverHistoricoStorage(lista),
+        horaFinal: state.horaFinal,
+        horaInicial: state.horaInicial,
+      };
     case 'alterarHoraInicial':
       return {
         ...state,

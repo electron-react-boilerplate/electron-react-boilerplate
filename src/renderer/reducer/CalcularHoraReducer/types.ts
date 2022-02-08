@@ -21,6 +21,12 @@ export type CalcularHoraReducerAction =
       };
     }
   | {
+      type: 'atualizarItemHistorico';
+      payload: {
+        item: ItemHistoricoTempoHora;
+      };
+    }
+  | {
       type: 'alterarHoraInicial';
       payload: {
         horaInicial: ValueSeletorTempoHora;
