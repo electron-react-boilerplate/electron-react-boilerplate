@@ -1,13 +1,15 @@
 import { AcoesCalculoData } from '@App/components/CalcularHoraContainer/types';
 import { ValueSeletorTempoHora } from '../SeletorTempoHora/type';
 
-export type ItemHistoricoTempoHora = {
+export interface ItemHistoricoTempoHora {
+  id: string;
   inicio: ValueSeletorTempoHora;
   final: ValueSeletorTempoHora;
   tipoAcao: AcoesCalculoData;
   dataInclusao: Date;
   tag: string;
-};
+  subtrair?: number;
+}
 
 export type EventHistoricoTempoHora = {
   itemExcluido: ItemHistoricoTempoHora;
@@ -21,6 +23,7 @@ export type RowHistoricoTempoHora = {
   fJira: string;
   fDecimal: string;
   dataInclusao: Date;
-  id: number;
+  id: string;
   tag: string;
+  subtrair?: number;
 };

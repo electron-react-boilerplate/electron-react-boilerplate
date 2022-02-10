@@ -18,11 +18,13 @@ class CalcularHoraRepository {
       const element = lista[index];
       element.dataInclusao = new Date(element.dataInclusao as string);
       novaLista.push({
+        id: element.id,
         dataInclusao: new Date(element.dataInclusao as string),
         final: element.final,
         inicio: element.inicio,
         tag: element.tag,
         tipoAcao: element.tipoAcao,
+        subtrair: element.subtrair,
       });
     }
     return novaLista;

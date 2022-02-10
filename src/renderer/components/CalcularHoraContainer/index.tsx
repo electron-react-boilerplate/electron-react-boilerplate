@@ -6,6 +6,7 @@ import SeletorTempoHora from '@App/components/SeletorTempoHora';
 import { SeletorTempoHoraHelper } from '@App/components/SeletorTempoHora/helper';
 import { AppContext } from '@App/reducer/context';
 import { EventSeletorTempoHora } from '@App/components/SeletorTempoHora/type';
+import { Guid } from 'guid-typescript';
 
 import SaveIcon from '@mui/icons-material/Save';
 import { IconButton, TextField } from '@mui/material';
@@ -59,6 +60,7 @@ export default function CalcularHoraContainer() {
       type: 'AdicionarItemHistorico',
       payload: {
         item: {
+          id: Guid.create().toString(),
           final: valorHoraFinal,
           inicio: valorHoraInicial,
           tipoAcao: acaoCalculo,

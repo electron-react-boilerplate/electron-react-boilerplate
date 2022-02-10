@@ -64,7 +64,6 @@ export function calcularHoraReducer(
           ? action.payload.item
           : x
       );
-      console.log(lista);
       return {
         valores: subescreverHistoricoStorage(lista),
         horaFinal: state.horaFinal,

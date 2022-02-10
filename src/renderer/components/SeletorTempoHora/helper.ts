@@ -7,11 +7,12 @@ class SeletorTempoHora {
 
   readonly minutoEmMilissegundos = 60000;
 
+  subtrairDecimalEmMilliseconds(subtarir: number, milliseconds: number) {
+    return DateHelper.subtrairDecimalEmMilliseconds(subtarir, milliseconds);
+  }
+
   toMilliseconds(valor: ValueSeletorTempoHora): number {
-    let milise = 0;
-    milise = this.horaEmMilissegundos * valor.hora;
-    milise += this.minutoEmMilissegundos * valor.minuto;
-    return milise;
+    return DateHelper.hourstoMinutesToMilliseconds(valor.hora, valor.minuto);
   }
 
   obterValorData(
@@ -38,13 +39,16 @@ class SeletorTempoHora {
   calcularData(
     tipoAcaoCalculo: AcoesCalculoData,
     valorHoraFinal: ValueSeletorTempoHora,
-    valorHoraInicial: ValueSeletorTempoHora
+    valorHoraInicial: ValueSeletorTempoHora,
+    subtarir?: number
   ): string {
     let numero = this.obterValorData(
       tipoAcaoCalculo,
       valorHoraFinal,
       valorHoraInicial
     );
+    console.log(subtarir, numero);
+    if (subtarir) numero = this.subtrairDecimalEmMilliseconds(subtarir, numero);
     const heNegativo = numero < 0;
     numero = numero < 0 ? -1 * numero : numero;
     if (!numero) return '00:00';
@@ -55,13 +59,16 @@ class SeletorTempoHora {
   formatarJira(
     tipoAcaoCalculo: AcoesCalculoData,
     valorHoraFinal: ValueSeletorTempoHora,
-    valorHoraInicial: ValueSeletorTempoHora
+    valorHoraInicial: ValueSeletorTempoHora,
+    subtarir?: number
   ): string {
     let numero = this.obterValorData(
       tipoAcaoCalculo,
       valorHoraFinal,
       valorHoraInicial
     );
+
+    if (subtarir) numero = this.subtrairDecimalEmMilliseconds(subtarir, numero);
     numero = numero < 0 ? -1 * numero : numero;
     if (!numero) return '0h 0m';
 
@@ -77,13 +84,15 @@ class SeletorTempoHora {
   formatarDecimal(
     tipoAcaoCalculo: AcoesCalculoData,
     valorHoraFinal: ValueSeletorTempoHora,
-    valorHoraInicial: ValueSeletorTempoHora
+    valorHoraInicial: ValueSeletorTempoHora,
+    subtarir?: number
   ): string {
-    const numero = this.obterValorData(
+    let numero = this.obterValorData(
       tipoAcaoCalculo,
       valorHoraFinal,
       valorHoraInicial
     );
+    if (subtarir) numero = this.subtrairDecimalEmMilliseconds(subtarir, numero);
     return DateHelper.getMillisecondToDecimalHours(numero);
   }
 

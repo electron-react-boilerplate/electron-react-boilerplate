@@ -67,9 +67,9 @@ function CustomToolbar() {
 }
 
 export default function HistoricoTempoHora(props: HistoricoTempoHoraProps) {
-  const { onEdit } = props;
+  const { onEdit, valor: listaHitorico } = props;
   function getRows(): RowHistoricoTempoHora[] {
-    return props.valor.map(craeteRow);
+    return listaHitorico.map(craeteRow);
   }
   const handleDeleteClick = (row: GridRowModel) => () => {
     // event.stopPropagation();
@@ -83,7 +83,7 @@ export default function HistoricoTempoHora(props: HistoricoTempoHoraProps) {
       {
         field: 'actions',
         type: 'actions',
-        width: 100,
+        width: 50,
         getActions: (p) => [
           <GridActionsCellItem
             icon={<DeleteIcon />}
@@ -128,6 +128,12 @@ export default function HistoricoTempoHora(props: HistoricoTempoHoraProps) {
         minWidth: 150,
       },
       {
+        field: 'subtrair',
+        headerName: 'subtrair',
+        editable: true,
+        type: 'number',
+      },
+      {
         field: 'tag',
         headerName: 'Tag',
         editable: true,
@@ -137,20 +143,21 @@ export default function HistoricoTempoHora(props: HistoricoTempoHoraProps) {
 
     const handleCellEditCommit = useCallback(
       (params: GridCellEditCommitParams) => {
-        const item = props.valor.find(
-          (x) => x.dataInclusao.getTime() === params.id
-        );
+        const item = listaHitorico.find((x) => x.id === params.id);
         if (!item) return;
         switch (params.field) {
           case 'tag':
             item.tag = params.value as string;
+            break;
+          case 'subtrair':
+            item.subtrair = params.value as number;
             break;
           default:
             break;
         }
         onEdit(item);
       },
-      [onEdit]
+      [listaHitorico]
     );
 
     function calcularHorasTotais() {
@@ -171,6 +178,7 @@ export default function HistoricoTempoHora(props: HistoricoTempoHoraProps) {
               columnVisibilityModel: {
                 dataInclusao: false,
                 tipoAcao: false,
+                subtrair: false,
               },
             },
           }}
