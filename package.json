@@ -227,7 +227,7 @@
   },
   "dependencies": {
     "electron-debug": "^3.2.0",
-    "electron-log": "^4.4.4",
+    "electron-log": "^4.4.6",
     "electron-updater": "^4.6.5",
     "history": "^5.2.0",
     "react": "^17.0.2",
