@@ -7,9 +7,7 @@
       "request": "launch",
       "protocol": "inspector",
       "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "run start:main --inspect=5858 --remote-debugging-port=9223"
-      ],
+      "runtimeArgs": ["run", "start:main:debug"],
       "preLaunchTask": "Start Webpack Dev"
     },
     {
