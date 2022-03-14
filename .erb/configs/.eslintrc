@@ -2,6 +2,8 @@
   "rules": {
     "no-console": "off",
     "global-require": "off",
-    "import/no-dynamic-require": "off"
+    "import/no-dynamic-require": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/ban-ts-comment": "off"
   }
 }
