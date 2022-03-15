@@ -18,6 +18,7 @@ if (process.env.NODE_ENV === 'production') {
 
 const port = process.env.PORT || 1212;
 const manifest = path.resolve(webpackPaths.dllPath, 'renderer.json');
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const requiredByDLLConfig = module.parent!.filename.includes(
   'webpack.config.renderer.dev.dll'
 );
@@ -149,6 +150,7 @@ const configuration: webpack.Configuration = {
     __filename: false,
   },
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   devServer: {
     port,
@@ -168,6 +170,7 @@ const configuration: webpack.Configuration = {
         env: process.env,
         stdio: 'inherit',
       })
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         .on('close', (code: number) => process.exit(code!))
         .on('error', (spawnError) => console.error(spawnError));
     },
