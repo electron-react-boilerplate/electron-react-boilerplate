@@ -1,4 +1,3 @@
-import path from 'path';
 import { execSync } from 'child_process';
 import fs from 'fs';
 import { dependencies } from '../../release/app/package.json';
