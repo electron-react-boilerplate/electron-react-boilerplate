@@ -102,6 +102,10 @@ const configuration: webpack.Configuration = {
       DEBUG_PROD: false,
     }),
 
+    new webpack.ProvidePlugin({
+      React: 'react',
+    }),
+
     new MiniCssExtractPlugin({
       filename: 'style.css',
     }),
