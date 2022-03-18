@@ -124,6 +124,10 @@ const configuration: webpack.Configuration = {
       NODE_ENV: 'development',
     }),
 
+    new webpack.ProvidePlugin({
+      React: 'react',
+    }),
+
     new webpack.LoaderOptionsPlugin({
       debug: true,
     }),
