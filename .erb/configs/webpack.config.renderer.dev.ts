@@ -165,7 +165,13 @@ const configuration: webpack.Configuration = {
     },
     onBeforeSetupMiddleware() {
       console.log('Starting Main Process...');
-      spawn('npm', ['run', 'start:main'], {
+      let args = ['run', 'start:main'];
+      if (process.env.MAIN_ARGS) {
+        args = args.concat(
+          ['--', ...process.env.MAIN_ARGS.matchAll(/"[^"]+"|[^\s"]+/g)].flat()
+        );
+      }
+      spawn('npm', args, {
         shell: true,
         env: process.env,
         stdio: 'inherit',
