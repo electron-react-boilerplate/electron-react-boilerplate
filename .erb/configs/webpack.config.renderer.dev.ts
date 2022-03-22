@@ -1,10 +1,11 @@
+import 'webpack-dev-server';
 import path from 'path';
 import fs from 'fs';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import chalk from 'chalk';
 import { merge } from 'webpack-merge';
-import { spawn, execSync } from 'child_process';
+import { execSync, spawn } from 'child_process';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import baseConfig from './webpack.config.base';
 import webpackPaths from './webpack.paths';
@@ -150,8 +151,6 @@ const configuration: webpack.Configuration = {
     __filename: false,
   },
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   devServer: {
     port,
     compress: true,
@@ -163,16 +162,26 @@ const configuration: webpack.Configuration = {
     historyApiFallback: {
       verbose: true,
     },
-    onBeforeSetupMiddleware() {
+    setupMiddlewares(middlewares) {
+      console.log('Starting preload.js builder...');
+      const preloadProcess = spawn('npm', ['run', 'start:preload'], {
+        shell: true,
+        stdio: 'inherit',
+      })
+        .on('close', (code: number) => process.exit(code!))
+        .on('error', (spawnError) => console.error(spawnError));
+
       console.log('Starting Main Process...');
       spawn('npm', ['run', 'start:main'], {
         shell: true,
-        env: process.env,
         stdio: 'inherit',
       })
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        .on('close', (code: number) => process.exit(code!))
+        .on('close', (code: number) => {
+          preloadProcess.kill();
+          process.exit(code!);
+        })
         .on('error', (spawnError) => console.error(spawnError));
+      return middlewares;
     },
   },
 };
