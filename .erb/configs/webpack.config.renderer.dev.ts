@@ -172,7 +172,10 @@ const configuration: webpack.Configuration = {
         .on('error', (spawnError) => console.error(spawnError));
 
       console.log('Starting Main Process...');
-      spawn('npm', ['run', 'start:main'], {
+      const startScript = process.env.HOT_RELOAD
+        ? 'start:main-hot-reload'
+        : 'start:main';
+      spawn('npm', ['run', startScript], {
         shell: true,
         stdio: 'inherit',
       })
