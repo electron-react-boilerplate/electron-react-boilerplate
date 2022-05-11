@@ -258,5 +258,12 @@
       }
     ],
     "singleQuote": true
+  },
+  "electronmon": {
+    "patterns": [
+      "!src/__tests__/**",
+      "!release/**"
+    ],
+    "logLevel": "quiet"
   }
 }
