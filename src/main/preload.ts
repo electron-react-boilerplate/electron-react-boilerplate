@@ -18,4 +18,13 @@ contextBridge.exposeInMainWorld('electron', {
       ipcRenderer.once(channel, (_event, ...args) => func(...args));
     },
   },
+
+  App: {
+    fullScreenApp: () => ipcRenderer.send('fullScreen'),
+    fullScreenExitApp: () => ipcRenderer.send('fullScreenExit'),
+    CloseApp: () => ipcRenderer.send('onClose'),
+    minimizeApp: () => ipcRenderer.send('onMinimize'),
+    maximizeApp: () => ipcRenderer.send('onMaximize'),
+    restoreApp: () => ipcRenderer.send('onRestore'),
+  }
 });

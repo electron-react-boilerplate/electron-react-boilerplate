@@ -10,8 +10,6 @@ function AppRouter({ routers }: { routers: RouterItem[] }) {
           return <Route path={options.path} element={<options.component />} key={indx} />;
         })}
       </Routes>
-      <Link to="/" >Home</Link>
-      <Link to="/home" >Home2</Link>
     </BrowserRouter>
   );
 }

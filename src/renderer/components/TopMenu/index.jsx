@@ -15,7 +15,7 @@ function TopMenu(props) {
   const [theme, setTheme] = useState('light');
   const [isMaximize, setIsMaximize] = useState(false);
   const iconSize = 'large';
-  const { APP: App } = window.electron;
+  const { App } = window.electron;
 
   const switchMode = () => {
     const { body } = document;
@@ -30,9 +30,9 @@ function TopMenu(props) {
 
   useEffect(() => {
     if (isMaximize) {
-      // App.fullScreenApp();
+      App.fullScreenApp();
     } else {
-      // App.fullScreenExitApp();
+      App.fullScreenExitApp();
     }
   });
 
@@ -46,9 +46,6 @@ function TopMenu(props) {
 
   return (
     <div className="topmenu Drag">
-      <div className="header-left">
-        <IconCalendar size="extra-large" />
-      </div>
       <div className="header-right">
         <div onClick={switchMode} className="menuBtn">
           {theme === 'dark' ? (
