@@ -1,50 +1,25 @@
-import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
-import icon from '../../assets/icon.svg';
+// import { useState } from 'react';
 import './App.css';
+import { Layout, Divider } from '@douyinfe/semi-ui';
+import TopMenu from './components/TopMenu/index.jsx';
+import AppRouter from './router/index.jsx';
+import routers from './router/router';
 
-const Hello = () => {
+function App() {
+  const { Header, Content } = Layout;
   return (
-    <div>
-      <div className="Hello">
-        <img width="200px" alt="icon" src={icon} />
-      </div>
-      <h1>electron-react-boilerplate</h1>
-      <div className="Hello">
-        <a
-          href="https://electron-react-boilerplate.js.org/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="books">
-              📚
-            </span>
-            Read our docs
-          </button>
-        </a>
-        <a
-          href="https://github.com/sponsors/electron-react-boilerplate"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="books">
-              🙏
-            </span>
-            Donate
-          </button>
-        </a>
-      </div>
-    </div>
-  );
-};
-
-export default function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Hello />} />
-      </Routes>
-    </Router>
+    <Layout className="z-db-layou">
+      <Header>
+        <TopMenu />
+      </Header>
+      <Divider />
+      <Layout>
+        <Content>
+          <AppRouter routers={routers} />
+        </Content>
+      </Layout>
+    </Layout>
   );
 }
+
+export default App;

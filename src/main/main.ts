@@ -16,7 +16,7 @@ export default class AppUpdater {
 }
 
 let mainWindow: BrowserWindow | null = null;
-let tray :Tray = null;
+let tray: Tray = null;
 
 ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
@@ -94,7 +94,7 @@ const createWindow = async () => {
   menuBuilder.buildMenu();
 
   // Open urls in the user's browser
-  mainWindow.webContents.setWindowOpenHandler((edata: { url: any; }) => {
+  mainWindow.webContents.setWindowOpenHandler((edata: { url: any }) => {
     shell.openExternal(edata.url);
     return { action: 'deny' };
   });
@@ -130,15 +130,14 @@ app
   })
   .catch(console.log);
 
+function setTrayIcon() {
+  const iconWinPath = path.join(getAssetPath('icon.png'));
 
-  function setTrayIcon() {
-    const iconWinPath = path.join(getAssetPath('icon.png'));
-
-    if (process.platform === 'darwin') {
-      const iconMacPath = path.join(getAssetPath('icon.png'));
-      app.dock.setIcon(iconMacPath);
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    tray = new Tray(iconWinPath);
+  if (process.platform === 'darwin') {
+    const iconMacPath = path.join(getAssetPath('icon.png'));
+    app.dock.setIcon(iconMacPath);
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  tray = new Tray(iconWinPath);
+}
