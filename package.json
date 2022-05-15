@@ -1,5 +1,4 @@
 {
-  "name": "electron-react-boilerplate",
   "description": "A foundation for scalable desktop apps",
   "main": "./src/main/main.ts",
   "scripts": {
@@ -133,7 +132,9 @@
   ],
   "homepage": "https://github.com/electron-react-boilerplate/electron-react-boilerplate#readme",
   "jest": {
-    "testURL": "http://localhost/",
+    "testEnvironmentOptions": {
+      "url": "http://localhost/"
+    },
     "testEnvironment": "jsdom",
     "transform": {
       "\\.(ts|tsx|js|jsx)$": "ts-jest"
@@ -205,6 +206,7 @@
     "husky": "^8.0.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^28.1.0",
+    "jest-environment-jsdom": "^28.1.0",
     "lint-staged": "^12.4.1",
     "mini-css-extract-plugin": "^2.6.0",
     "prettier": "^2.6.2",
