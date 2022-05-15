@@ -201,6 +201,7 @@
           "x64"
         ]
       },
+      "icon": "./assets/mac/icon_512x512.png",
       "type": "distribution",
       "hardenedRuntime": true,
       "entitlements": "assets/entitlements.mac.plist",

@@ -1,15 +1,7 @@
 /* eslint global-require: off, no-console: off, promise/always-return: off */
 
-/**
- * This module executes inside of electron's main process. You can start
- * electron renderer process from here and communicate with the other processes
- * through IPC.
- *
- * When running `npm run build` or `npm run build:main`, this file is compiled to
- * `./src/main.js` using webpack. This gives us some performance wins.
- */
 import path from 'path';
-import { app, BrowserWindow, shell, ipcMain } from 'electron';
+import { app, BrowserWindow, shell, ipcMain, Tray } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
@@ -24,6 +16,7 @@ export default class AppUpdater {
 }
 
 let mainWindow: BrowserWindow | null = null;
+let tray :Tray = null;
 
 ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
@@ -56,18 +49,17 @@ const installExtensions = async () => {
     .catch(console.log);
 };
 
+const getAssetPath = (...paths: string[]): string => {
+  const RESOURCES_PATH = app.isPackaged
+    ? path.join(process.resourcesPath, 'assets')
+    : path.join(__dirname, '../../assets');
+  return path.join(RESOURCES_PATH, ...paths);
+};
+
 const createWindow = async () => {
   if (isDebug) {
     await installExtensions();
   }
-
-  const RESOURCES_PATH = app.isPackaged
-    ? path.join(process.resourcesPath, 'assets')
-    : path.join(__dirname, '../../assets');
-
-  const getAssetPath = (...paths: string[]): string => {
-    return path.join(RESOURCES_PATH, ...paths);
-  };
 
   mainWindow = new BrowserWindow({
     show: false,
@@ -102,7 +94,7 @@ const createWindow = async () => {
   menuBuilder.buildMenu();
 
   // Open urls in the user's browser
-  mainWindow.webContents.setWindowOpenHandler((edata) => {
+  mainWindow.webContents.setWindowOpenHandler((edata: { url: any; }) => {
     shell.openExternal(edata.url);
     return { action: 'deny' };
   });
@@ -127,6 +119,8 @@ app.on('window-all-closed', () => {
 app
   .whenReady()
   .then(() => {
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    setTrayIcon();
     createWindow();
     app.on('activate', () => {
       // On macOS it's common to re-create a window in the app when the
@@ -135,3 +129,16 @@ app
     });
   })
   .catch(console.log);
+
+
+  function setTrayIcon() {
+    const iconWinPath = path.join(getAssetPath('icon.png'));
+
+    if (process.platform === 'darwin') {
+      const iconMacPath = path.join(getAssetPath('icon.png'));
+      app.dock.setIcon(iconMacPath);
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    tray = new Tray(iconWinPath);
+  }
