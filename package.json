@@ -255,8 +255,8 @@
   },
   "electronmon": {
     "patterns": [
-      "!src/__tests__/**",
-      "!release/**"
+      "!**/**",
+      "src/main/*"
     ],
     "logLevel": "quiet"
   }
