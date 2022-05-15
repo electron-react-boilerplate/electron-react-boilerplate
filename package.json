@@ -30,11 +30,6 @@
       "name": "Amila Welihinda",
       "email": "amilajack@gmail.com",
       "url": "https://github.com/amilajack"
-    },
-    {
-      "name": "John Tran",
-      "email": "jptran318@gmail.com",
-      "url": "https://github.com/jooohhn"
     }
   ],
   "main": "./src/main/main.ts",
