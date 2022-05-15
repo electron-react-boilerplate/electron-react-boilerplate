@@ -19,11 +19,9 @@
     "type": "git",
     "url": "git+https://github.com/electron-react-boilerplate/electron-react-boilerplate.git"
   },
-  "license": "MIT",
   "author": {
-    "name": "Electron React Boilerplate Maintainers",
-    "email": "electronreactboilerplate@gmail.com",
-    "url": "https://electron-react-boilerplate.js.org"
+    "name": "zzh",
+    "email": "zzh1586169624@163.com"
   },
   "contributors": [
     {
@@ -172,8 +170,8 @@
     "webpack-merge": "^5.8.0"
   },
   "build": {
-    "productName": "ElectronReact",
-    "appId": "org.erb.ElectronReact",
+    "productName": "z-app",
+    "appId": "org.erb.z-app",
     "asar": true,
     "asarUnpack": "**\\*.{node,dll}",
     "files": [

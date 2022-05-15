@@ -2,13 +2,13 @@ import Home from '../views/Home/index.jsx';
 import DbList from '../views/DBList/index.jsx';
 
 
-export interface Router {
+export interface RouterItem {
   path: string;
   component: any;
 }
 
 
-const routers : Router[] = [
+const routers : RouterItem[] = [
   {
     path: '/home',
     component: Home,

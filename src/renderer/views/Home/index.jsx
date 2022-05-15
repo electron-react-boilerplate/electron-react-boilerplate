@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Layout } from '@douyinfe/semi-ui';
+import { Link } from "react-router-dom";
 
 function Home() {
   const { Header, Sider, Content } = Layout;
@@ -8,7 +9,9 @@ function Home() {
       <Sider className="z-db-sider">Sider</Sider>
       <Layout>
         <Header>123213</Header>
-        <Content>123123</Content>
+        <Content>
+        <Link to="/" >Home2</Link>
+        </Content>
       </Layout>
     </Layout>
   );

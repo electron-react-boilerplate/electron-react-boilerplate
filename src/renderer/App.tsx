@@ -2,7 +2,7 @@
 import './App.css';
 import { Layout, Divider } from '@douyinfe/semi-ui';
 import TopMenu from './components/TopMenu/index.jsx';
-import AppRouter from './router/index.jsx';
+import AppRouter from './router/index';
 import routers from './router/router';
 
 function App() {
