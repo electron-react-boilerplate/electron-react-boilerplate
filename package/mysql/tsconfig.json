@@ -9,7 +9,7 @@
     "strict": true,
     "pretty": true,
     "sourceMap": true,
-    "baseUrl": "./src/",
+    "baseUrl": "./src",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
@@ -19,7 +19,11 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "allowJs": true,
-    "outDir": "release/app/dist"
+    "outDir": "../../.drives/mysql"
   },
-  "exclude": ["test", "release/build", "release/app/dist", ".erb/dll"]
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.tsx"
+  ],
+  "exclude": ["test"]
 }

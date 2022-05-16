@@ -1,0 +1,13 @@
+{
+  "name": "package",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "webpack --config webpack.config.ts",
+    "tsc": "tsc",
+    "dev": "tsc -watch -p tsconfig.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

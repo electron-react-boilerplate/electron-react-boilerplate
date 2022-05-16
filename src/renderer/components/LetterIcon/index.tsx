@@ -12,7 +12,7 @@ function LetterIcon ({letter}: LetterIconProps) {
   const LetterSvg = () => {
     return (<svg width="24" height="24" className="letter-svg">
       <text x="6" y="18" className="text" >
-        <tspan font-weight="bold" >{letter}</tspan>
+        <tspan>{letter}</tspan>
       </text>
     </svg>)
   }

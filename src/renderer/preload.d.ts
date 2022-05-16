@@ -12,6 +12,14 @@ declare global {
         once(channel: string, func: (...args: unknown[]) => void): void;
       };
     };
+    App: {
+      fullScreenApp(): void;
+      fullScreenExitApp(): void;
+      CloseApp(): void;
+      minimizeApp(): void;
+      maximizeApp(): void;
+      restoreApp(): void;
+    }
   }
 }
 

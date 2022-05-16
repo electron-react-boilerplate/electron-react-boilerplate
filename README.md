@@ -4,8 +4,6 @@
 
 ### 用到的技术
 
-[Vite](https://vitejs.dev/)
-
 
 [React](https://zh-hans.reactjs.org/)
 

@@ -8,6 +8,8 @@ import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 import { InitAppEvents } from './appEvent';
 
+import Drive from './drive';
+
 export default class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
@@ -17,7 +19,7 @@ export default class AppUpdater {
 }
 
 let mainWindow: BrowserWindow | null = null;
-let tray: Tray = null;
+let tray: Tray | null = null;
 
 ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
@@ -125,7 +127,11 @@ app
   .then(() => {
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     setTrayIcon();
+    const dr = new Drive(app.getAppPath())
+
     createWindow();
+
+    dr.init();
     app.on('activate', () => {
       // On macOS it's common to re-create a window in the app when the
       // dock icon is clicked and there are no other windows open.
