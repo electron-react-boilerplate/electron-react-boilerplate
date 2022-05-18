@@ -1,4 +1,4 @@
 
-export { HomeReducer } from './reducer';
+export { HomeReducer, HomeStore } from './reducer';
 
 export { HomeState } from './type';

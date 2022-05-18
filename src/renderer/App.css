@@ -8,6 +8,22 @@ body[theme-mode="dark"] {
   width: 100%;
   height: 100vh;
   background-color: #fff;
+  --header-height: 40px;
+  /* padding-top: var(--header-height); */
+}
+
+.z-db-header {
+  position:fixed;
+  top:0;
+  left: 0;
+  width: 100%;
+  z-index: 99;
+}
+
+.z-db-content {
+  height: calc(100vh - var(--header-height));
+  overflow: auto ;
+  border-top: 1px solid var(--semi-color-border);
 }
 
 [theme-mode=dark] .z-db-layou {

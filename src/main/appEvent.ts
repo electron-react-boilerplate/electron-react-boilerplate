@@ -1,4 +1,4 @@
-import { app, BrowserWindow, shell, ipcMain, Tray } from 'electron';
+import { BrowserWindow, ipcMain } from 'electron';
 
 import Mysql from './drive/index';
 

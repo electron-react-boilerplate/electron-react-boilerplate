@@ -22,8 +22,8 @@ function Home() {
   };
 
   return (
-    <div>
-      <Button onClick={addCreateConn}>新建连接</Button>
+    <div style={{height: '100vh'}}>
+      1312312
     </div>
   );
 }

@@ -1,4 +1,10 @@
 
 .sider-container {
-  height: 100%;
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+.app-header {
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
 }

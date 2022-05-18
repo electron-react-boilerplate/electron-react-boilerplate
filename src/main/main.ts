@@ -6,10 +6,9 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
-import { InitAppEvents } from './appEvent';
+// import { InitAppEvents } from './appEvent';
 
-import Drive from './drive';
-
+import { AppEvent, SiderEvent } from './events';
 export default class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
@@ -103,7 +102,13 @@ const createWindow = async () => {
   });
 
 
-  InitAppEvents(mainWindow);
+  // 监听 app 相关事件
+  const appEvent = new AppEvent (mainWindow);
+  // 监听 侧边栏事件
+  const siderEvent = new SiderEvent(mainWindow);
+
+  appEvent.run();
+  siderEvent.run();
 
   // Remove this if your app does not use auto updates
   // eslint-disable-next-line
@@ -127,11 +132,9 @@ app
   .then(() => {
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     setTrayIcon();
-    const dr = new Drive(app.getAppPath())
 
     createWindow();
 
-    dr.init();
     app.on('activate', () => {
       // On macOS it's common to re-create a window in the app when the
       // dock icon is clicked and there are no other windows open.
