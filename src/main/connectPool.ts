@@ -30,6 +30,9 @@ export interface Pool {
   // 测试连接
   testConnection(connectionName: string): Promise<boolean>;
 
+
+  getConnectionData(): Array<ConnectionConfig>
+
   json : () => string;
 
   parseJSON : (json: string) => Array<ConnectionConfig>;
@@ -89,12 +92,16 @@ class ConnectionPoll implements Pool {
     })
   }
 
-  json () :string {
+  getConnectionData () :Array<ConnectionConfig> {
     const json: ConnectionConfig[] = []
     this.pool.forEach((connection) => {
       json.push(connection[0])
     })
-    return JSON.stringify(json)
+    return json
+  }
+
+  json () :string {
+    return JSON.stringify(this.getConnectionData())
   }
 
   parseJSON (json: string) :Array<ConnectionConfig> {

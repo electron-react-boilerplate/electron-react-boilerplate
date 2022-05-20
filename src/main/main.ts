@@ -6,7 +6,7 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
-import ConnectionPoll from './connectPool';
+import ConnectionPoll, { Pool } from './connectPool';
 
 import { AppEvent, SiderEvent } from './events';
 export default class AppUpdater {
@@ -19,7 +19,20 @@ export default class AppUpdater {
 
 let mainWindow: BrowserWindow | null = null;
 let tray: Tray | null = null;
-const connectionPoll = new ConnectionPoll();
+let connectionPoll : Pool | null = new ConnectionPoll();
+let appEvent: AppEvent | null = null;
+let siderEvent: SiderEvent | null = null;
+
+const collection = () => {
+  connectionPoll?.closeAllConnection();
+  connectionPoll = null;
+  mainWindow = null;
+  tray = null;
+  appEvent = null;
+  siderEvent = null;
+}
+
+
 
 ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
@@ -104,9 +117,9 @@ const createWindow = async () => {
 
 
   // 监听 app 相关事件
-  const appEvent = new AppEvent (mainWindow);
+  appEvent = new AppEvent (mainWindow);
   // 监听 侧边栏事件
-  const siderEvent = new SiderEvent(mainWindow, connectionPoll);
+  siderEvent = new SiderEvent(mainWindow, connectionPoll!);
 
   appEvent.run();
   siderEvent.run();
@@ -125,6 +138,9 @@ app.on('window-all-closed', () => {
   // after all windows have been closed
   if (process.platform !== 'darwin') {
     app.quit();
+
+    collection()
+
   }
 });
 
