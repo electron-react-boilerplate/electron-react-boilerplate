@@ -10,6 +10,7 @@ import {
 } from "@douyinfe/semi-ui";
 import { IconFile, IconGlobe } from "@douyinfe/semi-icons";
 import { FormApi } from "@douyinfe/semi-ui/lib/es/form";
+import "./index.scss"
 
 // 普通连接的默认值
 const initNormalValues = {
@@ -82,6 +83,7 @@ function FromModal({
       afterClose={onafterClose}
       onCancel={onCancel}
       footer={footer}
+      className="z-db-modal-from"
     >
       <Spin spinning={isSpiking} tip={tip}>
       <Tabs>
