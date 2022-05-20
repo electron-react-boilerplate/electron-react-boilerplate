@@ -4,6 +4,7 @@ import { Layout, SideSheet, Modal } from '@douyinfe/semi-ui';
 import TopMenu from './components/TopMenu/index.jsx';
 import AppHome from './views/Home';
 import AppSider from './views/Sider';
+import ConnectFrom from './components/ConnectForm/index';
 import { useState } from 'react';
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
 
   const [modalvis, setModalvis] = useState(false);
   const [modalTitle, setModaltitle] = useState('新增连接');
+  const [isLoading, setIsLoading] = useState(false);
 
   const change = () => {
     setVisible(!visible);
@@ -38,6 +40,14 @@ function App() {
     setVisible(false);
   };
 
+  const connectHandler = (values: any) => {
+    console.log(values);
+  }
+
+  const testConnectHandler = (values: any) => {
+    console.log(values);
+  }
+
   return (
     <>
       <Layout className="z-db-layou">
@@ -60,17 +70,17 @@ function App() {
         <p>Here is more content...</p>
       </SideSheet>
 
-      <Modal
+      <ConnectFrom
+        isSpiking={isLoading}
         title={modalTitle}
         visible={modalvis}
         onOk={handleOk}
-        afterClose={handleAfterClose} //>=1.16.0
+        onafterClose={handleAfterClose}
         onCancel={handleCancel}
-      >
-        This is the content of a basic modal.
-        <br />
-        More content...
-      </Modal>
+        onConnect={connectHandler}
+        onTestConnect={testConnectHandler}
+        tip="连接成功"
+      ></ConnectFrom>
     </>
   );
 }

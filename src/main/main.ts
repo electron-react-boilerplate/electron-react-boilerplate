@@ -6,7 +6,7 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
-// import { InitAppEvents } from './appEvent';
+import ConnectionPoll from './connectPool';
 
 import { AppEvent, SiderEvent } from './events';
 export default class AppUpdater {
@@ -19,6 +19,7 @@ export default class AppUpdater {
 
 let mainWindow: BrowserWindow | null = null;
 let tray: Tray | null = null;
+const connectionPoll = new ConnectionPoll();
 
 ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
@@ -105,7 +106,7 @@ const createWindow = async () => {
   // 监听 app 相关事件
   const appEvent = new AppEvent (mainWindow);
   // 监听 侧边栏事件
-  const siderEvent = new SiderEvent(mainWindow);
+  const siderEvent = new SiderEvent(mainWindow, connectionPoll);
 
   appEvent.run();
   siderEvent.run();
@@ -151,6 +152,7 @@ function setTrayIcon() {
     app.dock.setIcon(iconMacPath);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   tray = new Tray(iconWinPath);
+
+  return tray
 }
