@@ -1,5 +1,6 @@
 import mysql from 'mysql'
 import { join } from 'path'
+import Store from "electron-store"
 export interface ConnectionConfig {
   connectionName: string;
   port: number;
@@ -9,6 +10,10 @@ export interface ConnectionConfig {
   connectType : "mysql" | "postgres"
 }
 
+type Dataschema = {
+  [connectionName: string]: ConnectionConfig
+}
+
 
 type Connect = [ConnectionConfig, mysql.Connection]
 
@@ -16,7 +21,7 @@ export interface Pool {
   pool: Map<string, Connect>;
 
   // 添加连接
-  addConnection(config: ConnectionConfig): void;
+  addConnection(config: ConnectionConfig): Promise<boolean>;
 
   // 获取连接
   getConnection(connectionName: string): mysql.Connection | undefined;
@@ -32,12 +37,15 @@ export interface Pool {
   // 测试临时连接
   testTempConnection : (conf: ConnectionConfig) => Promise<boolean>;
 
-  getConnectionData(): Array<ConnectionConfig>
+  getConnectionData(): Dataschema
 
   json : () => string;
 
   parseJSON : (json: string) => Array<ConnectionConfig>;
 
+  save : () => void;
+
+  getLocalData : () => Dataschema
 
 }
 
@@ -45,23 +53,42 @@ class ConnectionPoll implements Pool {
   pool: Map<string, Connect>
   appData: string
   appname: string
+  store: Store
+
   readonly dataPath: string
-  static dataFileName: string = 'connections.json'
+  // 存储的文件名称
+  static dataFileName: string = 'connections'
+  // 加密密钥
+  static readonly encryptionKey :string = '1234567890abcdefghijklmnopqrstuvwxyz'
+  // 存储的kye
+  static readonly storeKey: string = 'connections'
+
   constructor(appData: string, appname: string) {
     this.pool = new Map()
     this.appData = appData
     this.appname = appname
     this.dataPath = join(appData, appname ,ConnectionPoll.dataFileName)
+    this.store = new Store({
+      encryptionKey: ConnectionPoll.encryptionKey,
+      cwd: ConnectionPoll.dataFileName,
+    })
   }
 
-  addConnection (config: ConnectionConfig) {
-    const connection = mysql.createConnection({
-      host: config.host,
-      port: config.port,
-      user: config.user,
-      password: config.password
+  addConnection (config: ConnectionConfig) :Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      const connection = mysql.createConnection(config)
+      connection.connect((err) => {
+        if (err) {
+          reject(err)
+        } else {
+          this.pool.set(config.connectionName, [config, connection])
+          this.setLocalData({
+            [config.connectionName]: config
+          })
+          resolve(true)
+        }
+      })
     })
-    this.pool.set(config.connectionName, [config, connection])
   }
 
   getConnection (connectionName: string) :mysql.Connection | undefined{
@@ -120,10 +147,10 @@ class ConnectionPoll implements Pool {
     })
   }
 
-  getConnectionData () :Array<ConnectionConfig> {
-    const json: ConnectionConfig[] = []
-    this.pool.forEach((connection) => {
-      json.push(connection[0])
+  getConnectionData () :Dataschema {
+    const json: Dataschema = {}
+    this.pool.forEach((connection, key) => {
+      json[key] = connection[0]
     })
     return json
   }
@@ -134,6 +161,18 @@ class ConnectionPoll implements Pool {
 
   parseJSON (json: string) :Array<ConnectionConfig> {
     return JSON.parse(json)
+  }
+
+  save () {
+    this.store.set(ConnectionPoll.storeKey ,this.json())
+  }
+
+  getLocalData () :Dataschema {
+    return this.store.get(ConnectionPoll.storeKey) as Dataschema
+  }
+
+  setLocalData (data: Dataschema) {
+    this.store.set(ConnectionPoll.storeKey, data)
   }
 }
 

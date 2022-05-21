@@ -68,6 +68,13 @@ function App() {
         })
       }
     })
+
+    sendMessage('getConnectData');
+
+    on('getConnectData', (data) => {
+      console.log(data);
+    })
+
   }, [])
 
   return (

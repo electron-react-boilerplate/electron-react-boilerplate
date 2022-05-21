@@ -28,8 +28,13 @@ export default class SiderEvent {
 
   run () {
 
-    ipcMain.on(siderEvents.addConnection, (_, config:ConnectionConfig) => {
-      this.connectPool.addConnection(config);
+    ipcMain.on(siderEvents.addConnection, async (event, config:ConnectionConfig) => {
+      try {
+        const isok = await this.connectPool.addConnection(config);
+        event.reply('testConnection', isok);
+      } catch (error) {
+        event.reply('testConnection', error);
+      }
     })
 
     ipcMain.on(siderEvents.closeConnection, (_, connectionName) => {
@@ -50,7 +55,7 @@ export default class SiderEvent {
     })
 
     ipcMain.on(siderEvents.getConnectData, (event) => {
-      event.reply('getConnectData', this.connectPool.getConnectionData());
+      event.reply('getConnectData', this.connectPool.getLocalData());
     })
 
   }

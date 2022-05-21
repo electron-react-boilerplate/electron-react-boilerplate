@@ -105,6 +105,7 @@
   "dependencies": {
     "electron-debug": "^3.2.0",
     "electron-log": "^4.4.7",
+    "electron-store": "^8.0.1",
     "electron-updater": "^5.0.1",
     "mysql": "^2.18.1",
     "react": "^18.1.0",
