@@ -1,0 +1,12 @@
+.dblist-container {
+    box-sizing: border-box;
+}
+
+.db-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.add-btn {
+    margin-left: 10px;
+}

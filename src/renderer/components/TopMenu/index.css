@@ -1,0 +1,50 @@
+
+.topmenu {
+    width: 100%;
+    height: var(--header-height);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+/* 标记可拖动 */
+.Drag {
+    -webkit-app-region: drag;
+}
+
+.noDrag {
+    -webkit-app-region: nodrag;
+}
+
+.header-right {
+    display: flex;
+}
+
+.menuBtn {
+    margin: 0 10px;
+
+}
+
+@media (prefers-color-scheme: dark) {
+    [theme-mode=dark] .menuBtn {
+        color: #fff;
+    }
+    [theme-mode=dark] .header-left {
+        color: #fff;
+    }
+}
+
+[theme-mode=dark] .menuBtn {
+    color: #fff;
+}
+[theme-mode=dark] .header-left {
+    color: #fff;
+}
+.topmenu {
+    background-color: #fff;
+}
+[theme-mode=dark] .topmenu {
+    background-color: transparent !important;
+}

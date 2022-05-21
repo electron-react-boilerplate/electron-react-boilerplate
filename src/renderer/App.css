@@ -1,62 +1,36 @@
-/*
- * @NOTE: Prepend a `~` to css file paths that are in your node_modules
- *        See https://github.com/webpack-contrib/sass-loader#imports
- */
-body {
-  position: relative;
-  color: white;
+
+body[theme-mode="dark"] {
+  background-color: var(--semi-color-nav-bg);
+  color: #f5f5f5;
+}
+
+.z-db-layou {
+  width: 100%;
   height: 100vh;
-  background: linear-gradient(
-    200.96deg,
-    #fedc2a -29.09%,
-    #dd5789 51.77%,
-    #7a2c9e 129.35%
-  );
-  font-family: sans-serif;
-  overflow-y: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: #fff;
+  --header-height: 40px;
+  /* padding-top: var(--header-height); */
 }
 
-button {
-  background-color: white;
-  padding: 10px 20px;
-  border-radius: 10px;
-  border: none;
-  appearance: none;
-  font-size: 1.3rem;
-  box-shadow: 0px 8px 28px -6px rgba(24, 39, 75, 0.12),
-    0px 18px 88px -4px rgba(24, 39, 75, 0.14);
-  transition: all ease-in 0.1s;
-  cursor: pointer;
-  opacity: 0.9;
+.z-db-header {
+  position:fixed;
+  top:0;
+  left: 0;
+  width: 100%;
+  z-index: 99;
 }
 
-button:hover {
-  transform: scale(1.05);
-  opacity: 1;
+.z-db-content {
+  height: calc(100vh - var(--header-height));
+  overflow: auto ;
+  border-top: 1px solid var(--semi-color-border);
 }
 
-li {
-  list-style: none;
+[theme-mode=dark] .z-db-layou {
+  background-color: transparent !important;
 }
 
-a {
-  text-decoration: none;
-  height: fit-content;
-  width: fit-content;
-  margin: 10px;
-}
-
-a:hover {
-  opacity: 1;
-  text-decoration: none;
-}
-
-.Hello {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px 0;
+.z-db-sider {
+  width: 200px;
+  height: 100vh;
 }

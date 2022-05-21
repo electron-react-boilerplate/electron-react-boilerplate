@@ -9,7 +9,7 @@
     "strict": true,
     "pretty": true,
     "sourceMap": true,
-    "baseUrl": "./src",
+    "baseUrl": "./src/",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
