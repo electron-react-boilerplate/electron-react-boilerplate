@@ -1,7 +1,5 @@
 import { BrowserWindow, ipcMain } from 'electron';
-import { Pool, ConnectionConfig } from '../connectPool';
-
-
+import { Pool, ConnectionConfig } from '../connect/index';
 
 enum siderEvents {
   // 新增连接
