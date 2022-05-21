@@ -6,7 +6,8 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
-import ConnectionPoll, { Pool } from './connect/index';
+import ConnectionPoll from './connect/index';
+import type { Pool } from './connect/type';
 
 import { AppEvent, SiderEvent } from './events';
 export default class AppUpdater {
