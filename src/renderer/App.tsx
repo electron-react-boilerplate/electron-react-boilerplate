@@ -1,14 +1,16 @@
-// import { useState } from 'react';
 import './App.css';
-import { Layout, SideSheet, Modal } from '@douyinfe/semi-ui';
+import { Layout, SideSheet } from '@douyinfe/semi-ui';
 import TopMenu from './components/TopMenu/index.jsx';
 import AppHome from './views/Home';
 import AppSider from './views/Sider';
 import ConnectFrom from './components/ConnectForm/index';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function App() {
   const { Header, Content } = Layout;
+
+  const { sendMessage, on } = window.electron.ipcRenderer;
+
   const [visible, setVisible] = useState(false);
 
   const [modalvis, setModalvis] = useState(false);
@@ -41,12 +43,22 @@ function App() {
   };
 
   const connectHandler = (values: any) => {
-    console.log(values);
+    sendMessage('addConnection', {
+      connectType: "mysql",
+      ...values,
+    });
   }
 
   const testConnectHandler = (values: any) => {
-    console.log(values);
+    sendMessage('testConnection', values)
   }
+
+  useEffect(() => {
+    on('testConnection', (data) => {
+      // setIsLoading(false);
+      console.log(data)
+    })
+  }, [])
 
   return (
     <>

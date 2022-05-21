@@ -27,15 +27,18 @@ export interface Pool {
   // 关闭所有连接
   closeAllConnection(): void;
 
-  // 测试连接
+  // 测试连接 已有连接
   testConnection(connectionName: string): Promise<boolean>;
-
+  // 测试临时连接
+  testTempConnection : (conf: ConnectionConfig) => Promise<boolean>;
 
   getConnectionData(): Array<ConnectionConfig>
 
   json : () => string;
 
   parseJSON : (json: string) => Array<ConnectionConfig>;
+
+
 }
 
 class ConnectionPoll implements Pool {
@@ -73,6 +76,24 @@ class ConnectionPoll implements Pool {
       connection[1].end()
     })
     this.pool.clear()
+  }
+
+  testTempConnection (conf: ConnectionConfig) :Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const connection = mysql.createConnection({
+        host: conf.host,
+        port: conf.port,
+        user: conf.user,
+        password: conf.password
+      })
+      connection.connect((err) => {
+        if (err) {
+          reject(err)
+        } else {
+          resolve(true)
+        }
+      })
+    })
   }
 
   testConnection (connectionName: string) :Promise<boolean> {

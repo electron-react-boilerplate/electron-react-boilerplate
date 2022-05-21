@@ -17,9 +17,8 @@ const initNormalValues = {
   connectionName: "z-admin",
   host: "gz-cynosdbmysql-grp-lhkcx3ln.sql.tencentcdb.com",
   port: "26832",
-  username: "root",
+  user: "root",
   password: "Zzh@12345",
-  rememberPassword: false,
 };
 
 export interface Config {
@@ -111,8 +110,8 @@ function FromModal({
             />
             <Form.Input field="port" label="端口" placeholder="请输入端口号" />
             <Form.Input
-              field="username"
-              label="用户名"
+              field="user"
+              label="账号"
               placeholder="请请输入用户名"
               rules={rule}
             />

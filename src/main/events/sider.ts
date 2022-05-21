@@ -1,5 +1,5 @@
 import { BrowserWindow, ipcMain } from 'electron';
-import { Pool } from '../connectPool';
+import { Pool, ConnectionConfig } from '../connectPool';
 
 
 
@@ -28,7 +28,7 @@ export default class SiderEvent {
 
   run () {
 
-    ipcMain.on(siderEvents.addConnection, (_, config) => {
+    ipcMain.on(siderEvents.addConnection, (_, config:ConnectionConfig) => {
       this.connectPool.addConnection(config);
     })
 
@@ -40,9 +40,10 @@ export default class SiderEvent {
       this.connectPool.closeAllConnection();
     })
 
-    ipcMain.on(siderEvents.testConnection, async (event, connectionName) => {
+    ipcMain.on(siderEvents.testConnection, async (event, conf:ConnectionConfig) => {
       try {
-        const is = await this.connectPool.testConnection(connectionName);
+        const is = await this.connectPool.testTempConnection(conf);
+        console.log(is);
         event.reply('testConnection', is);
       } catch (err) {
         event.reply('testConnection', err);
