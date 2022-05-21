@@ -1,5 +1,5 @@
 import mysql from 'mysql'
-
+import { join } from 'path'
 export interface ConnectionConfig {
   connectionName: string;
   port: number;
@@ -42,9 +42,16 @@ export interface Pool {
 }
 
 class ConnectionPoll implements Pool {
-  pool: Map<string, Connect> = new Map()
-  constructor() {
+  pool: Map<string, Connect>
+  appData: string
+  appname: string
+  readonly dataPath: string
+  static dataFileName: string = 'connections.json'
+  constructor(appData: string, appname: string) {
     this.pool = new Map()
+    this.appData = appData
+    this.appname = appname
+    this.dataPath = join(appData, appname ,ConnectionPoll.dataFileName)
   }
 
   addConnection (config: ConnectionConfig) {

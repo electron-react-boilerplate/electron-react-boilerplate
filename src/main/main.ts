@@ -1,7 +1,7 @@
 /* eslint global-require: off, no-console: off, promise/always-return: off */
 
 import path from 'path';
-import { app, BrowserWindow, shell, ipcMain, Tray } from 'electron';
+import { app, BrowserWindow, shell, Tray } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
@@ -19,7 +19,7 @@ export default class AppUpdater {
 
 let mainWindow: BrowserWindow | null = null;
 let tray: Tray | null = null;
-let connectionPoll : Pool | null = new ConnectionPoll();
+let connectionPoll : Pool | null = new ConnectionPoll(app.getPath('appData'), app.getName());
 let appEvent: AppEvent | null = null;
 let siderEvent: SiderEvent | null = null;
 

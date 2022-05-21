@@ -1,5 +1,5 @@
 import './App.css';
-import { Layout, SideSheet } from '@douyinfe/semi-ui';
+import { Layout, SideSheet, Toast, Typography } from '@douyinfe/semi-ui';
 import TopMenu from './components/TopMenu/index.jsx';
 import AppHome from './views/Home';
 import AppSider from './views/Sider';
@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 
 function App() {
   const { Header, Content } = Layout;
+  const { Text } = Typography
 
   const { sendMessage, on } = window.electron.ipcRenderer;
 
@@ -50,13 +51,22 @@ function App() {
   }
 
   const testConnectHandler = (values: any) => {
+    setIsLoading(true);
     sendMessage('testConnection', values)
   }
 
   useEffect(() => {
     on('testConnection', (data) => {
-      // setIsLoading(false);
-      console.log(data)
+      setIsLoading(false);
+      if (data === true) {
+        Toast.success({
+          content: (<Text type="success"> 连接成功 </Text>)
+        });
+      } else {
+        Toast.error({
+          content: (<Text type="danger"> {`连接失败: ${data}`} </Text>)
+        })
+      }
     })
   }, [])
 

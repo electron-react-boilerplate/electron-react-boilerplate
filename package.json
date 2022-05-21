@@ -1,4 +1,6 @@
 {
+  "name": "z-app",
+  "version": "0.0.1",
   "description": "A foundation for scalable desktop apps",
   "keywords": [
     "electron",

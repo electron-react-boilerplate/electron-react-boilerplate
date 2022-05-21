@@ -43,7 +43,6 @@ export default class SiderEvent {
     ipcMain.on(siderEvents.testConnection, async (event, conf:ConnectionConfig) => {
       try {
         const is = await this.connectPool.testTempConnection(conf);
-        console.log(is);
         event.reply('testConnection', is);
       } catch (err) {
         event.reply('testConnection', err);
