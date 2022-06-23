@@ -7,10 +7,10 @@
       "request": "launch",
       "protocol": "inspector",
       "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "run start:main --inspect=5858 --remote-debugging-port=9223"
-      ],
-      "preLaunchTask": "Start Webpack Dev"
+      "runtimeArgs": ["run", "start"],
+      "env": {
+        "MAIN_ARGS": "--inspect=5858 --remote-debugging-port=9223"
+      }
     },
     {
       "name": "Electron: Renderer",
