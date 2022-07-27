@@ -9,7 +9,5 @@ const foldersToRemove = [
 ];
 
 foldersToRemove.forEach((folder) => {
-  if (folder !== undefined) {
-    rimraf.sync(folder);
-  }
+  rimraf.sync(folder);
 });
