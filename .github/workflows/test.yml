@@ -23,6 +23,7 @@ jobs:
       - name: npm install
         run: |
           npm install
+          npm audit signatures
 
       - name: npm test
         env:
