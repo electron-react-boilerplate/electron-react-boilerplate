@@ -27,3 +27,6 @@ npm-debug.log.*
 *.css.d.ts
 *.sass.d.ts
 *.scss.d.ts
+/test-results/
+/playwright-report/
+/playwright/.cache/

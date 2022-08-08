@@ -1,3 +1,4 @@
+/** @type {import('eslint').Linter.Config} */
 module.exports = {
   extends: 'erb',
   rules: {
@@ -27,4 +28,13 @@ module.exports = {
       '@typescript-eslint/parser': ['.ts', '.tsx'],
     },
   },
+  overrides: [
+    {
+      files: ['**/e2e/**/*'],
+      rules: {
+        'jest/no-standalone-expect': 'off',
+      },
+      plugins: ['playwright'],
+    },
+  ],
 };
