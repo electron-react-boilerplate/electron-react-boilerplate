@@ -19,16 +19,15 @@ if (process.env.NODE_ENV === 'production') {
 
 const port = process.env.PORT || 1212;
 const manifest = path.resolve(webpackPaths.dllPath, 'renderer.json');
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-const requiredByDLLConfig = module.parent!.filename.includes(
-  'webpack.config.renderer.dev.dll'
-);
+const skipDLLs =
+  module.parent?.filename.includes('webpack.config.renderer.dev.dll') ||
+  module.parent?.filename.includes('webpack.config.eslint');
 
 /**
  * Warn if the DLL is not built
  */
 if (
-  !requiredByDLLConfig &&
+  !skipDLLs &&
   !(fs.existsSync(webpackPaths.dllPath) && fs.existsSync(manifest))
 ) {
   console.log(
@@ -97,7 +96,7 @@ const configuration: webpack.Configuration = {
     ],
   },
   plugins: [
-    ...(requiredByDLLConfig
+    ...(skipDLLs
       ? []
       : [
           new webpack.DllReferencePlugin({
