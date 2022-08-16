@@ -116,6 +116,10 @@ const configuration: webpack.Configuration = {
       isBrowser: false,
       isDevelopment: process.env.NODE_ENV !== 'production',
     }),
+
+    new webpack.DefinePlugin({
+      'process.type': '"renderer"',
+    }),
   ],
 };
 
