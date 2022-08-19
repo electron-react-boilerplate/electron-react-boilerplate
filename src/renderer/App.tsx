@@ -4,10 +4,6 @@ import './App.css';
 
 import SerialDisplay from './SerialPort';
 
-const Hello = () => {
-  return <div />;
-};
-
 export default function App() {
   return (
     <Router>

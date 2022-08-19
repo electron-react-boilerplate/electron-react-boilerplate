@@ -1,4 +1,3 @@
-import React from 'react';
 import { SerialPort } from 'serialport';
 
 // Create a port
