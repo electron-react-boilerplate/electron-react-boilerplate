@@ -4,8 +4,9 @@ import { SerialPort } from 'serialport';
 const port = new SerialPort({
   path: '/dev/tty-usbserial1',
   baudRate: 57600,
+  autoOpen: false,
 });
 
 export default function SerialDisplay() {
-  return <div />;
+  return <div>{port.baudRate} </div>;
 }
