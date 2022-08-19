@@ -151,3 +151,11 @@ MIT © [Electron React Boilerplate](https://github.com/electron-react-boilerplat
 [github-tag-url]: https://github.com/electron-react-boilerplate/electron-react-boilerplate/releases/latest
 [stackoverflow-img]: https://img.shields.io/badge/stackoverflow-electron_react_boilerplate-blue.svg
 [stackoverflow-url]: https://stackoverflow.com/questions/tagged/electron-react-boilerplate
+
+# Every time you run "npm install", run this
+
+./node_modules/.bin/electron-rebuild
+
+# On Windows if you have trouble, try:
+
+.\node_modules\.bin\electron-rebuild.cmd
