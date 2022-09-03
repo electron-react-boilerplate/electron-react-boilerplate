@@ -28,7 +28,7 @@ const Hello = () => {
           rel="noreferrer"
         >
           <button type="button">
-            <span role="img" aria-label="books">
+            <span role="img" aria-label="folded hands">
               🙏
             </span>
             Donate
