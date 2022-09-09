@@ -46,5 +46,15 @@ jobs:
 
           # This is used for uploading release assets to github - GH provides it by default
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
         run: |
-          npm exec electron-builder -- --publish always --win --mac --linux
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            npm exec electron-builder -- --publish always --linux
+          elif [ "$RUNNER_OS" == "Windows" ]; then
+            npm exec electron-builder -- --publish always --win
+          elif [ "$RUNNER_OS" == "macOS" ]; then
+            npm exec electron-builder -- --publish always --mac
+          else
+            echo "$RUNNER_OS not supported"
+            exit 1
+          fi
