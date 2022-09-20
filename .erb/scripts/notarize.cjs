@@ -1,7 +1,7 @@
 const { notarize } = require('electron-notarize');
 const { build } = require('../../package.json');
 
-exports.default = async function notarizeMacos(context) {
+const notarizeMacos = async (context) => {
   const { electronPlatformName, appOutDir } = context;
   if (electronPlatformName !== 'darwin') {
     return;
@@ -28,3 +28,5 @@ exports.default = async function notarizeMacos(context) {
     appleIdPassword: process.env.APPLE_ID_PASS,
   });
 };
+
+module.exports = notarizeMacos;

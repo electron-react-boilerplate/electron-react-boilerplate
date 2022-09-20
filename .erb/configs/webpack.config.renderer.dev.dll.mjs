@@ -5,16 +5,24 @@
 import webpack from 'webpack';
 import path from 'path';
 import { merge } from 'webpack-merge';
-import baseConfig from './webpack.config.base';
-import webpackPaths from './webpack.paths';
-import { dependencies } from '../../package.json';
-import checkNodeEnv from '../scripts/check-node-env';
+import baseConfig from './webpack.config.base.mjs';
+import webpackPaths from './webpack.paths.mjs';
+import pkg from '../../package.json' assert { type: 'json' };
+import checkNodeEnv from '../scripts/check-node-env.js';
+import dll from './webpack.config.renderer.dev.mjs';
+
+const { module: mod } = dll;
+
+const { dependencies } = pkg;
 
 checkNodeEnv('development');
 
 const dist = webpackPaths.dllPath;
 
-const configuration: webpack.Configuration = {
+/**
+ * @type {typeof import("webpack").Configuration }
+ */
+const configuration = {
   context: webpackPaths.rootPath,
 
   devtool: 'eval',
@@ -28,7 +36,7 @@ const configuration: webpack.Configuration = {
   /**
    * Use `module` from `webpack.config.renderer.dev.js`
    */
-  module: require('./webpack.config.renderer.dev').default.module,
+  module: mod.module,
 
   entry: {
     renderer: Object.keys(dependencies || {}),

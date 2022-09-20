@@ -10,15 +10,18 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import { merge } from 'webpack-merge';
 import TerserPlugin from 'terser-webpack-plugin';
-import baseConfig from './webpack.config.base';
-import webpackPaths from './webpack.paths';
-import checkNodeEnv from '../scripts/check-node-env';
-import deleteSourceMaps from '../scripts/delete-source-maps';
+import baseConfig from './webpack.config.base.mjs';
+import webpackPaths from './webpack.paths.mjs';
+import checkNodeEnv from '../scripts/check-node-env.js';
+import deleteSourceMaps from '../scripts/delete-source-maps.js';
 
 checkNodeEnv('production');
 deleteSourceMaps();
 
-const configuration: webpack.Configuration = {
+/**
+ * @type {typeof import("webpack").Configuration }
+ */
+const configuration = {
   devtool: 'source-map',
 
   mode: 'production',

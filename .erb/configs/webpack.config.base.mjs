@@ -3,11 +3,14 @@
  */
 
 import webpack from 'webpack';
-import webpackPaths from './webpack.paths';
-import { dependencies as externals } from '../../release/app/package.json';
+import webpackPaths from './webpack.paths.mjs';
+import pkg from '../../release/app/package.json' assert { type: 'json' };
 
-const configuration: webpack.Configuration = {
-  externals: [...Object.keys(externals || {})],
+/**
+ * @type {typeof import("webpack").Configuration }
+ */
+const configuration = {
+  externals: [...Object.keys(pkg.externals || {})],
 
   stats: 'errors-only',
 

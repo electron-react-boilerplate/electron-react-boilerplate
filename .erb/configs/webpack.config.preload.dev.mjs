@@ -1,43 +1,32 @@
-/**
- * Webpack config for production electron main process
- */
-
 import path from 'path';
 import webpack from 'webpack';
 import { merge } from 'webpack-merge';
-import TerserPlugin from 'terser-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-import baseConfig from './webpack.config.base';
-import webpackPaths from './webpack.paths';
-import checkNodeEnv from '../scripts/check-node-env';
-import deleteSourceMaps from '../scripts/delete-source-maps';
+import baseConfig from './webpack.config.base.mjs';
+import webpackPaths from './webpack.paths.mjs';
+import checkNodeEnv from '../scripts/check-node-env.js';
 
-checkNodeEnv('production');
-deleteSourceMaps();
+// When an ESLint server is running, we can't set the NODE_ENV so we'll check if it's
+// at the dev webpack config is not accidentally run in a production environment
+if (process.env.NODE_ENV === 'production') {
+  checkNodeEnv('development');
+}
 
-const configuration: webpack.Configuration = {
-  devtool: 'source-map',
+/**
+ * @type {typeof import("webpack").Configuration }
+ */
+const configuration = {
+  devtool: 'inline-source-map',
 
-  mode: 'production',
+  mode: 'development',
 
-  target: 'electron-main',
+  target: 'electron-preload',
 
-  entry: {
-    main: path.join(webpackPaths.srcMainPath, 'main.ts'),
-    preload: path.join(webpackPaths.srcMainPath, 'preload.ts'),
-  },
+  entry: path.join(webpackPaths.srcMainPath, 'preload.ts'),
 
   output: {
-    path: webpackPaths.distMainPath,
-    filename: '[name].js',
-  },
-
-  optimization: {
-    minimizer: [
-      new TerserPlugin({
-        parallel: true,
-      }),
-    ],
+    path: webpackPaths.dllPath,
+    filename: 'preload.js',
   },
 
   plugins: [
@@ -53,15 +42,16 @@ const configuration: webpack.Configuration = {
      *
      * NODE_ENV should be production so that modules do not perform certain
      * development checks
+     *
+     * By default, use 'development' as NODE_ENV. This can be overriden with
+     * 'staging', for example, by changing the ENV variables in the npm scripts
      */
     new webpack.EnvironmentPlugin({
-      NODE_ENV: 'production',
-      DEBUG_PROD: false,
-      START_MINIMIZED: false,
+      NODE_ENV: 'development',
     }),
 
-    new webpack.DefinePlugin({
-      'process.type': '"main"',
+    new webpack.LoaderOptionsPlugin({
+      debug: true,
     }),
   ],
 
@@ -74,6 +64,8 @@ const configuration: webpack.Configuration = {
     __dirname: false,
     __filename: false,
   },
+
+  watch: true,
 };
 
 export default merge(baseConfig, configuration);
