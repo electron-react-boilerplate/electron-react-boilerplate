@@ -15,24 +15,20 @@ const Hello = () => {
           target="_blank"
           rel="noreferrer"
         >
-          <button type="button">
-            <span role="img" aria-label="books">
-              📚
-            </span>
-            Read our docs
-          </button>
+          <span role="img" aria-label="books">
+            📚
+          </span>
+          Read our docs
         </a>
         <a
           href="https://github.com/sponsors/electron-react-boilerplate"
           target="_blank"
           rel="noreferrer"
         >
-          <button type="button">
-            <span role="img" aria-label="folded hands">
-              🙏
-            </span>
-            Donate
-          </button>
+          <span role="img" aria-label="folded hands">
+            🙏
+          </span>
+          Donate
         </a>
       </div>
     </div>
