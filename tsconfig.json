@@ -5,7 +5,7 @@
     "module": "commonjs",
     "lib": ["dom", "es2021"],
     "jsx": "react-jsx",
-    "strict": true,
+    "strict": false,
     "sourceMap": true,
     "baseUrl": "./src",
     "moduleResolution": "node",
