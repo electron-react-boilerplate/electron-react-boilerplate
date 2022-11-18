@@ -29,6 +29,11 @@ export interface ITcpScan {
       }[];
       ports: {
         port: {
+          state: {
+            $: {
+              state: string;
+            };
+          }[];
           $: {
             protocol: string;
             portid: string;
