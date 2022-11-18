@@ -1,8 +1,8 @@
 import { Button, Col, Form, Input, Row } from 'antd';
 import { createUseStyles } from 'react-jss';
 import { AiOutlineMenu } from 'react-icons/ai';
-import { useState } from 'react';
-import { ITcpScan } from '../../../tools/network-scan/types/scan-network.types';
+import { ipcMain } from 'electron';
+import { graphqlMutation } from '../../../api/test';
 
 const useStyle = createUseStyles({
   buttonHome: {
@@ -25,9 +25,17 @@ const useStyle = createUseStyles({
   },
 });
 export const Home = () => {
-  const [target, setTarget] = useState<string>();
-  const forms: ITcpScan['nmaprun']['host'][0]['address'] = 'address';
+  const [form] = Form.useForm();
   const { buttonHome } = useStyle();
+
+  async function onFinish() {
+    const { address } = form.getFieldsValue();
+  }
+
+  async function nextStep() {
+    await onFinish();
+  }
+
   return (
     <Row gutter={[15, 15]}>
       <Row>
@@ -38,7 +46,6 @@ export const Home = () => {
           />
         </Col>
       </Row>
-
       <Row
         style={{
           height: '100%',
@@ -46,20 +53,16 @@ export const Home = () => {
         }}
       >
         <Col>
-          <Form.Item name="address">
-            <Input
-              placeholder="1.1.1.1"
-              maxLength={10}
-              // onChange={(input: React.ChangeEvent<HTMLInputElement>) => {
-              //   const { value } = input.target;
-              //   setTarget(value);
-              // }}
-              // value={target}
-            />
-          </Form.Item>
+          <Form form={form}>
+            <Form.Item name="address">
+              <Input placeholder="1.1.1.1" maxLength={15} />
+            </Form.Item>
+          </Form>
         </Col>
         <Col>alo</Col>
-        <Col>alo</Col>
+        <Col>
+          <Button onClick={() => nextStep()}>Send</Button>
+        </Col>
       </Row>
     </Row>
   );
