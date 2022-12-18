@@ -2,7 +2,7 @@ import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 
 export type Channels = 'ipc-example';
 
-contextBridge.exposeInMainWorld('electron', {
+const electronHandler = {
   ipcRenderer: {
     sendMessage(channel: Channels, args: unknown[]) {
       ipcRenderer.send(channel, args);
@@ -20,4 +20,8 @@ contextBridge.exposeInMainWorld('electron', {
       ipcRenderer.once(channel, (_event, ...args) => func(...args));
     },
   },
-});
+};
+
+contextBridge.exposeInMainWorld('electron', electronHandler);
+
+export type ElectronHandler = typeof electronHandler;
