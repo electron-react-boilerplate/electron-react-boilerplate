@@ -3,6 +3,7 @@
  */
 
 import webpack from 'webpack';
+import { resolve } from 'path';
 import webpackPaths from './webpack.paths';
 import { dependencies as externals } from '../../release/app/package.json';
 
@@ -42,6 +43,10 @@ const configuration: webpack.Configuration = {
    * Determine the array of extensions that should be used to resolve modules.
    */
   resolve: {
+    fallback: {
+      path: false, // require.resolve('path-browserify'),
+      child_process: false, // resolve('child_process'),
+    },
     extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
     modules: [webpackPaths.srcPath, 'node_modules'],
   },

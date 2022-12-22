@@ -1,8 +1,9 @@
 import { Button, Col, Form, Input, Row } from 'antd';
 import { createUseStyles } from 'react-jss';
 import { AiOutlineMenu } from 'react-icons/ai';
-import { ipcMain } from 'electron';
-import { graphqlMutation } from '../../../api/test';
+import { ipcMain, ipcRenderer } from 'electron';
+import { send } from 'process';
+import hookSend from '../../../tools/network-scan/app';
 
 const useStyle = createUseStyles({
   buttonHome: {
@@ -44,6 +45,7 @@ export const Home = () => {
             className={buttonHome}
             icon={<AiOutlineMenu className="anticon" />}
           />
+          .
         </Col>
       </Row>
       <Row
@@ -61,7 +63,17 @@ export const Home = () => {
         </Col>
         <Col>alo</Col>
         <Col>
-          <Button onClick={() => nextStep()}>Send</Button>
+          <Button
+            onClick={() =>
+              console.log(
+                window.electron.ipcRenderer.sendMessage('scaner', [
+                  '192.168.0.0-255',
+                ])
+              )
+            }
+          >
+            Send
+          </Button>
         </Col>
       </Row>
     </Row>

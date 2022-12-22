@@ -63,9 +63,6 @@
       "prettier --ignore-path .eslintignore --single-quote --write"
     ]
   },
-  "browser": {
-    "child_process": false
-  },
   "browserslist": [],
   "prettier": {
     "singleQuote": true,
@@ -113,14 +110,16 @@
     }
   },
   "dependencies": {
-    "@types/graphql": "^14.5.0",
     "antd": "^4.23.6",
+    "browserify": "^17.0.0",
     "child_process": "^1.0.2",
     "electron-debug": "^3.2.0",
     "electron-log": "^4.4.8",
     "electron-updater": "^5.2.3",
     "express": "^4.18.2",
-    "graphql": "^16.6.0",
+    "fs": "0.0.1-security",
+    "jss": "^10.9.2",
+    "path-browserify": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.6.0",

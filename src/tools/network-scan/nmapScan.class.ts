@@ -1,6 +1,7 @@
 import xml2js from 'xml2js';
 import { EventEmitter } from 'events';
-import child_process, { spawn, spawnSync } from 'child_process';
+import { spawn } from 'child_process';
+import { ipcMain, IpcMainEvent, Event } from 'electron';
 import { ITcpScan } from './types/scan-network.types';
 import convertRawJsonToScanResults from './scan-network';
 
