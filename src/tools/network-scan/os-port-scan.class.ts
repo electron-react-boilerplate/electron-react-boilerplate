@@ -1,8 +1,8 @@
-// import nmap from './nmapScan.class';
+import nmap from './nmapScan.class';
 
-// const { NmapScan } = nmap;
-// export default class OsAndPortScan extends NmapScan {
-//   constructor(range: string) {
-//     super(range, '-O');
-//   }
-// }
+const { NmapScan } = nmap;
+export default class OsAndPortScan extends NmapScan {
+  constructor(range: string) {
+    super(range, '-O');
+  }
+}

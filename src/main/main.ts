@@ -14,7 +14,8 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
-import hookSend from '../tools/network-scan/app';
+import nmap from '../tools/network-scan/nmapScan.class';
+import { ITcpScan } from '../tools/network-scan/types/scan-network.types';
 
 class AppUpdater {
   constructor() {
@@ -25,14 +26,23 @@ class AppUpdater {
 }
 
 let mainWindow: BrowserWindow | null = null;
-// ipcMain.on('ipc-example', async (event, arg) => {
-//   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
-//   console.log(msgTemplate(arg));
-//   event.reply('ipc-example', msgTemplate('pong'));
-// });
 
 ipcMain.on('scaner', async (event, arg) => {
-  hookSend(arg, '-sV');
+  const nmapResponde = new Map<string, ITcpScan>();
+  const range = arg[0];
+  const scanType = arg[1];
+  const scan = new nmap.NmapScan(range, scanType);
+  scan.on('complete', (data: ITcpScan) => {
+    nmapResponde.set(range, data);
+    const a = nmapResponde.get(range);
+    return event.sender.send('scaner', a);
+  });
+
+  scan.on('error', (data) => {
+    console.log(JSON.stringify(data, null, 2));
+    console.log(`total scan time ${scan.scanTime}`);
+  });
+  scan.startScan();
 });
 
 if (process.env.NODE_ENV === 'production') {
@@ -121,7 +131,6 @@ const createWindow = async () => {
 /**
  * Add event listeners...
  */
-
 app.on('window-all-closed', () => {
   // Respect the OSX convention of having the application in memory even
   // after all windows have been closed

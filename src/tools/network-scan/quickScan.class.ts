@@ -1,8 +1,8 @@
-// import nmap from './nmapScan.class';
+import nmap from './nmapScan.class';
 
-// const { NmapScan } = nmap;
-// export default class QuickScan extends NmapScan {
-//   constructor(range: string) {
-//     super(range, '-sP');
-//   }
-// }
+const { NmapScan } = nmap;
+export default class QuickScan extends NmapScan {
+  constructor(range: string) {
+    super(range, '-sP');
+  }
+}
