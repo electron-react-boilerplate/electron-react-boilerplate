@@ -1,6 +1,13 @@
 export interface ITcpScanResponse {
-  address: string;
-  hostName: string;
+  address: {
+    addr: string;
+    addrType: string;
+  }[];
+  hostName: {
+    names: {
+      name: string;
+    }[];
+  }[];
   ports: {
     number: string;
     protocol: string;
@@ -11,4 +18,9 @@ export interface ITcpScanResponse {
     osType: string;
     extraInfo: string;
   }[][];
+}
+
+enum ITcpScanSelect {
+  services = '-sV',
+  operationalSystem = '-O',
 }

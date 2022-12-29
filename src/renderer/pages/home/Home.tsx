@@ -1,12 +1,11 @@
 import { Button, Col, Form, Input, List, Row } from 'antd';
 import { createUseStyles } from 'react-jss';
-import { AiOutlineMenu } from 'react-icons/ai';
+import { AiOutlineMenu, AiOutlineSend } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 import { ITcpScanResponse } from '../../../tools/network-scan/types/scan-network-response.types';
-import validateIPaddress from '../../../common/validate-ip';
 
 const useStyle = createUseStyles({
-  buttonMenu: {
+  buttonStyle: {
     margin: 4,
     backgroundColor: 'white',
     padding: '10px 20px',
@@ -38,7 +37,7 @@ export const Home = () => {
   });
   useEffect(() => {}, [resp]);
   const [form] = Form.useForm();
-  const { buttonMenu } = useStyle();
+  const { buttonStyle } = useStyle();
   const formFormat: FormParam = {
     address: 'address',
     scanType: 'scanType',
@@ -46,35 +45,48 @@ export const Home = () => {
 
   async function onFinish() {
     const { address, scanType }: FormParam = form.getFieldsValue();
-    const validate = validateIPaddress(address);
-    if (!validate) return;
     window.electron.ipcRenderer.sendMessage('scaner', [address, scanType]);
     setLoading(true);
   }
-  const dataSource = target?.map((host) => {
-    return {
-      hostName: host.hostName,
-      address: host.address,
-      ports: host.ports[0].map((port) => {
-        return {
-          service: port.service,
-          state: port.state,
-          number: port.number,
-          osType: port.osType,
-          product: port.product,
-          deviceType: port.deviceType,
-          extraInfo: port.extraInfo,
-        };
-      }),
-    };
-  });
-  console.log('TARGET', target);
+  const dataSource =
+    target instanceof Array
+      ? target?.map((hosts) => {
+          return {
+            hostName: hosts?.hostName?.map((host) => {
+              return {
+                names: host?.names?.map((name) => {
+                  return {
+                    name,
+                  };
+                }),
+              };
+            }),
+            address: hosts?.address?.map((addr) => {
+              return {
+                addr: addr?.addr,
+                addrType: addr?.addrType,
+              };
+            }),
+            ports: hosts?.ports?.[0]?.map((port) => {
+              return {
+                service: port?.service,
+                state: port?.state,
+                number: port?.number,
+                osType: port?.osType,
+                product: port?.product,
+                deviceType: port?.deviceType,
+                extraInfo: port?.extraInfo,
+              };
+            }),
+          };
+        })
+      : undefined;
   return (
     <Row gutter={[15, 15]}>
       <Row>
         <Col style={{ display: 'inline-flex' }}>
           <Button
-            className={buttonMenu}
+            className={buttonStyle}
             icon={<AiOutlineMenu className="anticon" />}
           />
           .
@@ -84,48 +96,79 @@ export const Home = () => {
         style={{
           height: '100%',
           display: 'inline-flex',
+          width: '100%',
+          float: 'left',
+          textAlign: 'justify',
+          marginBottom: '15px',
         }}
       >
         <Col>
           <Form form={form}>
-            <Form.Item name={formFormat.address}>
-              <Input placeholder="1.1.1.1" maxLength={15} />
-            </Form.Item>
-            <Form.Item name={formFormat.scanType}>
-              <Input placeholder="scan type" maxLength={15} />
-            </Form.Item>
+            <Col
+              style={{ width: '49%', float: 'left', border: '1px solid #000' }}
+            >
+              <Form.Item name={formFormat.address}>
+                <Input
+                  placeholder="1.1.1.1"
+                  maxLength={19}
+                  disabled={loading}
+                />
+              </Form.Item>
+            </Col>
+            <Col
+              style={{
+                border: '1px solid #000',
+                float: 'left',
+                width: '49%',
+                display: 'inline-block',
+              }}
+            >
+              <Form.Item name={formFormat.scanType}>
+                <Input
+                  placeholder="scan type"
+                  maxLength={15}
+                  disabled={loading}
+                />
+              </Form.Item>
+            </Col>
           </Form>
         </Col>
         <Col>
           <Button
+            icon={<AiOutlineSend className="anticon" />}
             loading={loading}
             disabled={loading}
             onClick={() => {
               onFinish();
             }}
-          >
-            Send
-          </Button>
+          />
         </Col>
       </Row>
-      <Row>
-        <List
-          loading={loading}
-          header={target?.[0].address || ''}
-          dataSource={dataSource}
-          renderItem={(item) => {
-            return (
-              <Row>
-                <List.Item>{item.hostName}</List.Item>
+      <Row style={{ marginTop: 55 }}>
+        <Col>
+          <List
+            size="small"
+            bordered
+            style={{
+              backgroundColor: '#D9D9D9',
+            }}
+            loading={loading}
+            dataSource={dataSource}
+            renderItem={(item) => {
+              return [
                 <List.Item>
-                  {item.ports.map((e, i) => {
-                    return <List.Item key={i}>{e.number}</List.Item>;
-                  })}
-                </List.Item>
-              </Row>
-            );
-          }}
-        />
+                  {item?.address?.find((addr) => addr?.addr)?.addr}
+                </List.Item>,
+                <List.Item>
+                  {
+                    item.hostName?.[0]?.names?.find((names) => names?.name)
+                      ?.name?.name
+                  }
+                </List.Item>,
+              ]; // item.address.map((addr) => addr.addr);
+            }}
+          />
+        </Col>
       </Row>
     </Row>
   );
