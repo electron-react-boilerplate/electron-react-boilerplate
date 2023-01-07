@@ -1,7 +1,6 @@
 import xml2js from 'xml2js';
 import { EventEmitter } from 'events';
 import { spawn } from 'child_process';
-import { ipcMain, IpcMainEvent, Event } from 'electron';
 import { ITcpScan } from './types/scan-network.types';
 import convertRawJsonToScanResults from './scan-network';
 
@@ -91,13 +90,15 @@ class NmapScan extends EventEmitter {
   async initializeChildProcess() {
     this.startTimer();
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    console.log(nmap.nmapLocation, this.command, 'CHAMADO COMANDO');
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     this.child = spawn(nmap.nmapLocation, this.command);
     process.on('SIGINT', this.killChild);
     process.on('uncaughtException', this.killChild);
     process.on('exit', this.killChild);
     this.child.stdout.on('data', (data: string) => {
       if (data.indexOf('percent') > -1) {
-        // console.log(data.toString());
+        console.log(data.toString());
       } else {
         this.rawData += data;
       }
