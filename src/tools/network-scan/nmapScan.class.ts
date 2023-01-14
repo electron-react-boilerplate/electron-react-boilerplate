@@ -1,6 +1,7 @@
 import xml2js from 'xml2js';
 import { EventEmitter } from 'events';
 import { spawn } from 'child_process';
+import { platform } from 'os';
 import { ITcpScan } from './types/scan-network.types';
 import convertRawJsonToScanResults from './scan-network';
 
@@ -170,8 +171,9 @@ class NmapScan extends EventEmitter {
 }
 
 // export default NmapScan;
+const operationalSystem = platform();
 const nmap = {
-  nmapLocation: 'nmap',
+  nmapLocation: operationalSystem === 'linux' ? 'nmap' : 'nmap.exe',
   NmapScan,
 };
 
