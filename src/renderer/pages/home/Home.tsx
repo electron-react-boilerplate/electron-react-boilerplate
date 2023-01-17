@@ -23,6 +23,29 @@ const useStyle = createUseStyles({
       background: '#40a9ff',
     },
   },
+  buttonSend: {
+    marginTop: '-5px',
+    backgroundColor: 'white',
+    padding: '1px 10px',
+    borderRadius: '10px',
+    border: 'none',
+    appearance: 'none',
+    fontSize: '1.3rem',
+    cursor: 'pointer',
+    opacity: 0.9,
+    boxShadow:
+      '0px 8px 28px -6px rgba(24, 39, 75, 0.12), 0px 18px 88px -4px rgba(24, 39, 75, 0.14)',
+    transition: 'all ease-in 0.1s',
+    '&:hover': {
+      color: '#fff',
+      background: '#40a9ff',
+    },
+  },
+  filtersInput: {
+    width: '49%',
+    // border: '1px solid #000',
+    marginRight: '10px',
+  },
 });
 type FormParam = {
   address: string;
@@ -37,7 +60,7 @@ export const Home = () => {
   });
   useEffect(() => {}, [resp]);
   const [form] = Form.useForm();
-  const { buttonStyle } = useStyle();
+  const { buttonStyle, buttonSend, filtersInput } = useStyle();
   const formFormat: FormParam = {
     address: 'address',
     scanType: 'scanType',
@@ -102,39 +125,25 @@ export const Home = () => {
           marginBottom: '15px',
         }}
       >
-        <Col>
-          <Form form={form}>
-            <Col
-              style={{ width: '49%', float: 'left', border: '1px solid #000' }}
-            >
-              <Form.Item name={formFormat.address}>
-                <Input
-                  placeholder="1.1.1.1"
-                  maxLength={19}
-                  disabled={loading}
-                />
-              </Form.Item>
-            </Col>
-            <Col
-              style={{
-                border: '1px solid #000',
-                float: 'left',
-                width: '49%',
-                display: 'inline-block',
-              }}
-            >
-              <Form.Item name={formFormat.scanType}>
-                <Input
-                  placeholder="scan type"
-                  maxLength={15}
-                  disabled={loading}
-                />
-              </Form.Item>
-            </Col>
-          </Form>
-        </Col>
+        <Form form={form} style={{ display: 'flex' }}>
+          <Col>
+            <Form.Item className={filtersInput} name={formFormat.address}>
+              <Input placeholder="1.1.1.1" maxLength={19} disabled={loading} />
+            </Form.Item>
+          </Col>
+          <Col>
+            <Form.Item className={filtersInput} name={formFormat.scanType}>
+              <Input
+                placeholder="scan type"
+                maxLength={15}
+                disabled={loading}
+              />
+            </Form.Item>
+          </Col>
+        </Form>
         <Col>
           <Button
+            className={buttonSend}
             icon={<AiOutlineSend className="anticon" />}
             loading={loading}
             disabled={loading}
