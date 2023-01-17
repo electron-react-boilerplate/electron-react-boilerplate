@@ -1,0 +1,29 @@
+linux-installer-metasploit
+
+curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && \
+  chmod 755 msfinstall && \
+  ./msfinstall
+
+windows-installer-metasploit
+
+[CmdletBinding()]
+Param(
+    $DownloadURL = "https://windows.metasploit.com/metasploitframework-latest.msi",
+    $DownloadLocation = "$env:APPDATA/Metasploit",
+    $InstallLocation = "C:\Tools",
+    $LogLocation = "$DownloadLocation/install.log"
+)
+
+If(! (Test-Path $DownloadLocation) ){
+    New-Item -Path $DownloadLocation -ItemType Directory
+}
+
+If(! (Test-Path $InstallLocation) ){
+    New-Item -Path $InstallLocation -ItemType Directory
+}
+
+$Installer = "$DownloadLocation/metasploit.msi"
+
+Invoke-WebRequest -UseBasicParsing -Uri $DownloadURL -OutFile $Installer
+
+& $Installer /q /log $LogLocation INSTALLLOCATION="$InstallLocation"
