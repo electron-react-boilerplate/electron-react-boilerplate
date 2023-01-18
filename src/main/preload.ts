@@ -6,7 +6,7 @@ export type Channels =
   | 'scanerRoot'
   | 'cancelScan';
 
-contextBridge.exposeInMainWorld('electron', {
+const electronHandler = {
   ipcRenderer: {
     sendMessage(channel: Channels, args: unknown[]) {
       ipcRenderer.send(channel, args);
@@ -27,4 +27,8 @@ contextBridge.exposeInMainWorld('electron', {
     //   ipcRenderer.sendSync(channel, args);
     // },
   },
-});
+};
+
+contextBridge.exposeInMainWorld('electron', electronHandler);
+
+export type ElectronHandler = typeof electronHandler;
