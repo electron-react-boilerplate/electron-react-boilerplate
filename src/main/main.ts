@@ -51,6 +51,12 @@ ipcMain.on('startScan', async (event, arg: string[]) => {
   scan.startScan();
 });
 
+// cancel nmap scan
+ipcMain.on('cancelScan', async (event, arg: string[]) => {
+  const cancel = new nmap.NmapScan(arg[0], arg[1]).cancelScan();
+  return cancel;
+});
+
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
   sourceMapSupport.install();

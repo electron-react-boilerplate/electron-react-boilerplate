@@ -1,6 +1,7 @@
 import { Button, Col, Form, Input, List, Row, Typography } from 'antd';
 import { createUseStyles } from 'react-jss';
 import { AiOutlineMenu, AiOutlineSend } from 'react-icons/ai';
+import { MdOutlineCancelScheduleSend } from 'react-icons/md';
 import { useEffect, useState } from 'react';
 import { ITcpScanResponse } from '../../../tools/network-scan/types/scan-network-response.types';
 
@@ -76,6 +77,7 @@ export const Home = () => {
 
   async function cancelScan() {
     window.electron.ipcRenderer.sendMessage('cancelScan', []);
+    setLoading(false);
   }
 
   // eslint-disable-next-line consistent-return
@@ -161,19 +163,30 @@ export const Home = () => {
           </Col>
         </Form>
         <Col>
-          <Button
-            className={buttonSend}
-            icon={<AiOutlineSend className="anticon" />}
-            loading={loading}
-            disabled={
-              loading ||
-              (formValues?.address?.length as any) <= 7 ||
-              !formValues
-            }
-            onClick={() => {
-              startScan();
-            }}
-          />
+          {!loading ? (
+            <Button
+              className={buttonSend}
+              icon={<AiOutlineSend className="anticon" />}
+              loading={loading}
+              disabled={
+                loading ||
+                (formValues?.address?.length as any) <= 7 ||
+                !formValues
+              }
+              onClick={() => {
+                startScan();
+              }}
+            />
+          ) : (
+            <Button
+              style={{ backgroundColor: 'red' }}
+              className={buttonSend}
+              icon={<MdOutlineCancelScheduleSend className="anticon" />}
+              onClick={() => {
+                cancelScan();
+              }}
+            />
+          )}
         </Col>
       </Row>
       <Row style={{ marginTop: 55 }}>
