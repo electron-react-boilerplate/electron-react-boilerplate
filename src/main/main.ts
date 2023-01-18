@@ -28,7 +28,7 @@ class AppUpdater {
 let mainWindow: BrowserWindow | null = null;
 
 // initialize nmap scan
-ipcMain.on('scaner', async (event, arg: string[]) => {
+ipcMain.on('startScan', async (event, arg: string[]) => {
   const nmapResponde = new Map<string, ITcpScan>();
   const range = arg[0];
   const scanType = arg[1];
@@ -37,13 +37,13 @@ ipcMain.on('scaner', async (event, arg: string[]) => {
     console.log('target', JSON.stringify(data, null, 4));
     nmapResponde.set(range, data);
     const target = nmapResponde.get(range);
-    return event.sender.send('scaner', target);
+    return event.sender.send('startScan', target);
   });
 
   scan.on('error', (data: string) => {
     if (data.includes('root')) {
       console.log('chegou no if');
-      event.sender.send('scaner', 'scanerRoot');
+      event.sender.send('startScan', 'scanerRoot');
     }
     console.log('ERROR', JSON.stringify(data, null, 2));
     console.log(`total scan time ${scan.scanTime}`);

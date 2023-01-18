@@ -1,4 +1,4 @@
-import { Button, Col, Form, Input, List, Row } from 'antd';
+import { Button, Col, Form, Input, List, Row, Typography } from 'antd';
 import { createUseStyles } from 'react-jss';
 import { AiOutlineMenu, AiOutlineSend } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
@@ -54,7 +54,7 @@ type FormParam = {
 export const Home = () => {
   const [target, setTarget] = useState<ITcpScanResponse[]>();
   const [loading, setLoading] = useState<boolean>(false);
-  const resp = window.electron.ipcRenderer.on('scaner', (response: any) => {
+  const resp = window.electron.ipcRenderer.on('startScan', (response: any) => {
     setTarget(response);
     setLoading(false);
   });
@@ -68,16 +68,16 @@ export const Home = () => {
 
   const [formValues, setFormValues] = useState<FormParam>();
   console.log(formValues);
-  async function onFinish() {
-    const { address, scanType }: FormParam = form.getFieldsValue();
-    window.electron.ipcRenderer.sendMessage('scaner', [address, scanType]);
+  async function startScan() {
+    const { address, scanType } = formValues as FormParam;
+    window.electron.ipcRenderer.sendMessage('startScan', [address, scanType]);
     setLoading(true);
   }
-  // eslint-disable-next-line consistent-return
-  window.document.addEventListener('keypress', (event) => {
-    if (event.key === 'Enter' && formValues?.address?.length >= 7)
-      return onFinish();
-  });
+
+  async function cancelScan() {
+    window.electron.ipcRenderer.sendMessage('cancelScan');
+  }
+
   const dataSource =
     target instanceof Array
       ? target?.map((hosts) => {
@@ -141,7 +141,7 @@ export const Home = () => {
         >
           <Col>
             <Form.Item className={filtersInput} name={formFormat.address}>
-              <Input placeholder="1.1.1.1" maxLength={19} disabled={loading} />
+              <Input placeholder="1.1.1.1" disabled={loading} />
             </Form.Item>
           </Col>
           <Col>
@@ -160,10 +160,12 @@ export const Home = () => {
             icon={<AiOutlineSend className="anticon" />}
             loading={loading}
             disabled={
-              loading || formValues?.address?.length <= 7 || !formValues
+              loading ||
+              (formValues?.address?.length as any) <= 7 ||
+              !formValues
             }
             onClick={() => {
-              onFinish();
+              startScan();
             }}
           />
         </Col>
@@ -171,6 +173,7 @@ export const Home = () => {
       <Row style={{ marginTop: 55 }}>
         <Col>
           <List
+            itemLayout="horizontal"
             size="small"
             bordered
             style={{
@@ -180,10 +183,37 @@ export const Home = () => {
             dataSource={dataSource}
             renderItem={(item, index) => {
               return (
-                <Row>
-                  <List.Item>{item?.hostName[0].names[0].name.name}</List.Item>
+                <Row key={index}>
+                  {item?.hostName?.[index]?.names?.length > 0 && (
+                    <List.Item>
+                      {item?.hostName?.[index]?.names?.[index]?.name?.name}
+                    </List.Item>
+                  )}
                   <List.Item>
                     {item?.address?.find((addr) => addr?.addr)?.addr}
+                  </List.Item>
+                  <List.Item>
+                    {item?.ports?.map((serv) => {
+                      return (
+                        <>
+                          <List.Item>
+                            <Typography.Text>
+                              port: {serv.number}
+                            </Typography.Text>
+                          </List.Item>
+                          <Row>
+                            <Typography.Text>
+                              service: {serv.service}
+                            </Typography.Text>
+                          </Row>
+                          <Row>
+                            <Typography.Text>
+                              state: {serv.state}
+                            </Typography.Text>
+                          </Row>
+                        </>
+                      );
+                    })}
                   </List.Item>
                 </Row>
               );

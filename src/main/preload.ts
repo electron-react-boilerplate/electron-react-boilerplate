@@ -1,6 +1,10 @@
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 
-export type Channels = 'scaner' | 'did-finish-scan' | 'scanerRoot';
+export type Channels =
+  | 'startScan'
+  | 'did-finish-scan'
+  | 'scanerRoot'
+  | 'cancelScan';
 
 contextBridge.exposeInMainWorld('electron', {
   ipcRenderer: {

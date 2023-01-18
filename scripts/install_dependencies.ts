@@ -20,7 +20,7 @@ if (operationalSystem === 'win32') {
     }
   });
 } else {
-  exec('bash install_dependencies.sh', (err, stdout, stderr) => {
+  exec('bash scripts/install_dependencies.sh', (err, stdout, stderr) => {
     if (err) {
       console.error(`bash exec error: ${err}`);
       return;
