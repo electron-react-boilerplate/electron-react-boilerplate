@@ -75,8 +75,14 @@ export const Home = () => {
   }
 
   async function cancelScan() {
-    window.electron.ipcRenderer.sendMessage('cancelScan');
+    window.electron.ipcRenderer.sendMessage('cancelScan', []);
   }
+
+  // eslint-disable-next-line consistent-return
+  // window.document.addEventListener('keypress', (event) => {
+  //   if (event.key === 'Enter' && (formValues?.address?.length as any) >= 7)
+  //     return onFinish();
+  // });
 
   const dataSource =
     target instanceof Array
