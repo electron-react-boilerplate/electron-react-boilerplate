@@ -66,11 +66,18 @@ export const Home = () => {
     scanType: 'scanType',
   };
 
+  const [formValues, setFormValues] = useState<FormParam>();
+  console.log(formValues);
   async function onFinish() {
     const { address, scanType }: FormParam = form.getFieldsValue();
     window.electron.ipcRenderer.sendMessage('scaner', [address, scanType]);
     setLoading(true);
   }
+  // eslint-disable-next-line consistent-return
+  window.document.addEventListener('keypress', (event) => {
+    if (event.key === 'Enter' && formValues?.address?.length >= 7)
+      return onFinish();
+  });
   const dataSource =
     target instanceof Array
       ? target?.map((hosts) => {
@@ -125,7 +132,13 @@ export const Home = () => {
           marginBottom: '15px',
         }}
       >
-        <Form form={form} style={{ display: 'flex' }}>
+        <Form
+          form={form}
+          style={{ display: 'flex' }}
+          onValuesChange={(changedValues, allValues) => {
+            setFormValues((oldValues) => ({ ...oldValues, ...allValues }));
+          }}
+        >
           <Col>
             <Form.Item className={filtersInput} name={formFormat.address}>
               <Input placeholder="1.1.1.1" maxLength={19} disabled={loading} />
@@ -146,7 +159,9 @@ export const Home = () => {
             className={buttonSend}
             icon={<AiOutlineSend className="anticon" />}
             loading={loading}
-            disabled={loading}
+            disabled={
+              loading || formValues?.address?.length <= 7 || !formValues
+            }
             onClick={() => {
               onFinish();
             }}
@@ -163,18 +178,15 @@ export const Home = () => {
             }}
             loading={loading}
             dataSource={dataSource}
-            renderItem={(item) => {
-              return [
-                <List.Item>
-                  {item?.address?.find((addr) => addr?.addr)?.addr}
-                </List.Item>,
-                <List.Item>
-                  {
-                    item.hostName?.[0]?.names?.find((names) => names?.name)
-                      ?.name?.name
-                  }
-                </List.Item>,
-              ]; // item.address.map((addr) => addr.addr);
+            renderItem={(item, index) => {
+              return (
+                <Row>
+                  <List.Item>{item?.hostName[0].names[0].name.name}</List.Item>
+                  <List.Item>
+                    {item?.address?.find((addr) => addr?.addr)?.addr}
+                  </List.Item>
+                </Row>
+              );
             }}
           />
         </Col>
