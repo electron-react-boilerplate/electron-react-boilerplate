@@ -35,7 +35,7 @@
   "main": "./src/main/main.ts",
   "scripts": {
     "dependencies:update:linux": "sudo apt install nmap",
-    "dependencies:update:windows":"winget install -e --id Insecure.Nmap",
+    "dependencies:update:windows": "winget install -e --id Insecure.Nmap",
     "build": "concurrently \"npm run build:main\" \"npm run build:renderer\"",
     "build:main": "cross-env NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.main.prod.ts",
     "build:renderer": "cross-env NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.renderer.prod.ts",
@@ -112,6 +112,7 @@
   },
   "dependencies": {
     "antd": "^4.23.6",
+    "axios": "^1.2.3",
     "browserify": "^17.0.0",
     "child_process": "^1.0.2",
     "electron-debug": "^3.2.0",
