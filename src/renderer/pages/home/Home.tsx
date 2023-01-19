@@ -192,7 +192,7 @@ export const Home = () => {
       <Row style={{ marginTop: 55 }}>
         <Col>
           <List
-            itemLayout="horizontal"
+            itemLayout="vertical"
             size="small"
             bordered
             style={{
@@ -202,39 +202,25 @@ export const Home = () => {
             dataSource={dataSource}
             renderItem={(item, index) => {
               return (
-                <Row key={index}>
-                  {item?.hostName?.[index]?.names?.length > 0 && (
+                <>
+                  {item?.address?.length > 0 && (
                     <List.Item>
-                      {item?.hostName?.[index]?.names?.[index]?.name?.name}
+                      <p>
+                        {item?.hostName?.[index]?.names?.[index]?.name?.name}
+                      </p>
+                      <p>{item?.address?.find((addr) => addr?.addr)?.addr}</p>
+                      {item?.ports?.map((serv) => {
+                        return (
+                          <>
+                            <p>{serv.number}</p>
+
+                            <p>{serv.service}</p>
+                          </>
+                        );
+                      })}
                     </List.Item>
                   )}
-                  <List.Item>
-                    {item?.address?.find((addr) => addr?.addr)?.addr}
-                  </List.Item>
-                  <List.Item>
-                    {item?.ports?.map((serv) => {
-                      return (
-                        <>
-                          <List.Item>
-                            <Typography.Text>
-                              port: {serv.number}
-                            </Typography.Text>
-                          </List.Item>
-                          <Row>
-                            <Typography.Text>
-                              service: {serv.service}
-                            </Typography.Text>
-                          </Row>
-                          <Row>
-                            <Typography.Text>
-                              state: {serv.state}
-                            </Typography.Text>
-                          </Row>
-                        </>
-                      );
-                    })}
-                  </List.Item>
-                </Row>
+                </>
               );
             }}
           />
