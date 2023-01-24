@@ -11,11 +11,11 @@ if (operationalSystem === 'win32') {
     if (stdout.includes('Nmap')) {
       console.log(`Already has all required dependecies.`);
     } else {
-      exec('winget install -e --id Insecure.Nmap', (error, std, ste) => {
+      exec('winget install -e --id Insecure.Nmap', (error, stdo, ste) => {
         if (error) {
           console.error(`exec install error ${error}`);
         }
-        console.log('INSTALLING', std);
+        console.log('INSTALLING', stdo);
       });
     }
   });

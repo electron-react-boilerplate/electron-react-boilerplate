@@ -20,7 +20,7 @@ export interface ITcpScanResponse {
   }[][];
 }
 
-enum ITcpScanSelect {
+export enum ITcpScanSelect {
   services = '-sV',
   operationalSystem = '-O',
 }

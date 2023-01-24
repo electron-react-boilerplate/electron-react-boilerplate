@@ -1,9 +1,12 @@
-import { Button, Col, Form, Input, List, Row, Typography } from 'antd';
+import { Button, Col, Form, Input, List, Row, Select, Space } from 'antd';
 import { createUseStyles } from 'react-jss';
 import { AiOutlineMenu, AiOutlineSend } from 'react-icons/ai';
 import { MdOutlineCancelScheduleSend } from 'react-icons/md';
 import { useEffect, useState } from 'react';
-import { ITcpScanResponse } from '../../../tools/network-scan/types/scan-network-response.types';
+import {
+  ITcpScanResponse,
+  ITcpScanSelect,
+} from '../../../tools/network-scan/types/scan-network-response.types';
 
 const useStyle = createUseStyles({
   buttonStyle: {
@@ -68,7 +71,7 @@ export const Home = () => {
   };
 
   const [formValues, setFormValues] = useState<FormParam>();
-  console.log(formValues);
+  const { Option } = Select;
   async function startScan() {
     const { address, scanType } = formValues as FormParam;
     window.electron.ipcRenderer.sendMessage('startScan', [address, scanType]);
@@ -83,7 +86,8 @@ export const Home = () => {
   // eslint-disable-next-line consistent-return
   // window.document.addEventListener('keypress', (event) => {
   //   if (event.key === 'Enter' && (formValues?.address?.length as any) >= 7)
-  //     return onFinish();
+  //     return startScan();
+  //   return cancelScan();
   // });
 
   const dataSource =
@@ -120,7 +124,7 @@ export const Home = () => {
         })
       : undefined;
   return (
-    <Row gutter={[15, 15]}>
+    <Row align="top" gutter={[16, 16]}>
       <Row>
         <Col style={{ display: 'inline-flex' }}>
           <Button
@@ -130,16 +134,7 @@ export const Home = () => {
           .
         </Col>
       </Row>
-      <Row
-        style={{
-          height: '100%',
-          display: 'inline-flex',
-          width: '100%',
-          float: 'left',
-          textAlign: 'justify',
-          marginBottom: '15px',
-        }}
-      >
+      <Row>
         <Form
           form={form}
           style={{ display: 'flex' }}
@@ -148,17 +143,30 @@ export const Home = () => {
           }}
         >
           <Col>
-            <Form.Item className={filtersInput} name={formFormat.address}>
-              <Input placeholder="1.1.1.1" disabled={loading} />
+            <Form.Item
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+              name={formFormat.address}
+            >
+              <Input
+                style={{ width: '100%' }}
+                placeholder="1.1.1.1"
+                disabled={loading}
+              />
             </Form.Item>
           </Col>
           <Col>
-            <Form.Item className={filtersInput} name={formFormat.scanType}>
-              <Input
-                placeholder="scan type"
-                maxLength={15}
-                disabled={loading}
-              />
+            <Form.Item name={formFormat.scanType}>
+              <Select allowClear mode="multiple" style={{ width: '200px' }}>
+                {Object.values(ITcpScanSelect).map((type) => (
+                  <Option key={type} label={type} value={type}>
+                    <Space>{type}</Space>
+                  </Option>
+                ))}
+              </Select>
             </Form.Item>
           </Col>
         </Form>
