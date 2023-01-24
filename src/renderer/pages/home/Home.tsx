@@ -1,4 +1,16 @@
-import { Button, Col, Form, Input, List, Row, Select, Space } from 'antd';
+import {
+  Button,
+  Col,
+  Divider,
+  Dropdown,
+  Form,
+  Input,
+  List,
+  MenuProps,
+  Row,
+  Select,
+  Space,
+} from 'antd';
 import { createUseStyles } from 'react-jss';
 import { AiOutlineMenu, AiOutlineSend } from 'react-icons/ai';
 import { MdOutlineCancelScheduleSend } from 'react-icons/md';
@@ -123,21 +135,34 @@ export const Home = () => {
           };
         })
       : undefined;
+
+  const menu: MenuProps['items'] = [
+    {
+      key: '1',
+      type: 'group',
+      label: 'Comming soon',
+      // children: [
+      //   {
+      //     key: '1-1',
+      //     label: '1st menu item',
+      //   },
+      //   {
+      //     key: '1-2',
+      //     label: '2nd menu item',
+      //   },
+      // ],
+    },
+  ];
   return (
-    <Row align="top" gutter={[16, 16]}>
-      <Row>
-        <Col style={{ display: 'inline-flex' }}>
-          <Button
-            className={buttonStyle}
-            icon={<AiOutlineMenu className="anticon" />}
-          />
-          .
-        </Col>
-      </Row>
+    <div>
       <Row>
         <Form
           form={form}
-          style={{ display: 'flex' }}
+          style={{
+            display: 'flex',
+            marginLeft: '30px',
+            marginTop: '16px',
+          }}
           onValuesChange={(changedValues, allValues) => {
             setFormValues((oldValues) => ({ ...oldValues, ...allValues }));
           }}
@@ -161,18 +186,29 @@ export const Home = () => {
           <Col>
             <Form.Item name={formFormat.scanType}>
               <Select allowClear mode="multiple" style={{ width: '200px' }}>
-                {Object.values(ITcpScanSelect).map((type) => (
-                  <Option key={type} label={type} value={type}>
-                    <Space>{type}</Space>
+                {Object.keys(ITcpScanSelect).map((type) => (
+                  <Option
+                    key={type}
+                    label={type}
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-ignore
+                    value={ITcpScanSelect[type]}
+                  >
+                    {type}
                   </Option>
                 ))}
               </Select>
             </Form.Item>
           </Col>
         </Form>
+
         <Col>
           {!loading ? (
             <Button
+              style={{
+                marginLeft: '16px',
+                marginTop: '15px',
+              }}
               className={buttonSend}
               icon={<AiOutlineSend className="anticon" />}
               loading={loading}
@@ -196,8 +232,21 @@ export const Home = () => {
             />
           )}
         </Col>
+        <Col>
+          {/* <Button
+            className={buttonStyle}
+            icon={<AiOutlineMenu className="anticon" />}
+          /> */}
+          <Dropdown menu={{ items: menu }}>
+            <Button
+              className={buttonStyle}
+              icon={<AiOutlineMenu className="anticon" />}
+            />
+          </Dropdown>
+        </Col>
       </Row>
-      <Row style={{ marginTop: 55 }}>
+      <hr />
+      <Row>
         <Col>
           <List
             itemLayout="vertical"
@@ -234,7 +283,7 @@ export const Home = () => {
           />
         </Col>
       </Row>
-    </Row>
+    </div>
   );
 };
 export default Home;
