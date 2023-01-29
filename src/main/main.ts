@@ -30,13 +30,13 @@ let mainWindow: BrowserWindow | null = null;
 // initialize nmap scan
 ipcMain.on('startScan', async (event, arg: string[]) => {
   const nmapResponde = new Map<string, ITcpScan>();
-  const range = arg[0];
-  const scanType = arg[1];
-  const scan = new nmap.NmapScan(range, scanType);
+  const addresses = arg[0];
+  const args = arg[1].concat(arg[2]);
+  const scan = new nmap.NmapScan(addresses, args);
   scan.on('complete', (data: ITcpScan) => {
     console.log('target', JSON.stringify(data, null, 4));
-    nmapResponde.set(range, data);
-    const target = nmapResponde.get(range);
+    nmapResponde.set(addresses, data);
+    const target = nmapResponde.get(addresses);
     return event.sender.send('startScan', target);
   });
 

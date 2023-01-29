@@ -9,7 +9,6 @@ import {
   MenuProps,
   Row,
   Select,
-  Space,
 } from 'antd';
 import { createUseStyles } from 'react-jss';
 import { AiOutlineMenu, AiOutlineSend } from 'react-icons/ai';
@@ -66,6 +65,7 @@ const useStyle = createUseStyles({
 type FormParam = {
   address: string;
   scanType: string;
+  port: string;
 };
 export const Home = () => {
   const [target, setTarget] = useState<ITcpScanResponse[]>();
@@ -76,17 +76,22 @@ export const Home = () => {
   });
   useEffect(() => {}, [resp]);
   const [form] = Form.useForm();
-  const { buttonStyle, buttonSend, filtersInput } = useStyle();
+  const { buttonStyle, buttonSend } = useStyle();
   const formFormat: FormParam = {
     address: 'address',
     scanType: 'scanType',
+    port: 'port',
   };
 
   const [formValues, setFormValues] = useState<FormParam>();
   const { Option } = Select;
   async function startScan() {
-    const { address, scanType } = formValues as FormParam;
-    window.electron.ipcRenderer.sendMessage('startScan', [address, scanType]);
+    const { address, scanType, port } = formValues as FormParam;
+    window.electron.ipcRenderer.sendMessage('startScan', [
+      address,
+      scanType,
+      `-p${port}`,
+    ]);
     setLoading(true);
   }
 
@@ -123,6 +128,7 @@ export const Home = () => {
             }),
             ports: hosts?.ports?.[0]?.map((port) => {
               return {
+                protocol: port?.protocol,
                 service: port?.service,
                 state: port?.state,
                 number: port?.number,
@@ -185,7 +191,12 @@ export const Home = () => {
           </Col>
           <Col>
             <Form.Item name={formFormat.scanType}>
-              <Select allowClear mode="multiple" style={{ width: '200px' }}>
+              <Select
+                placeholder="Scan type"
+                allowClear
+                mode="multiple"
+                style={{ width: '200px' }}
+              >
                 {Object.keys(ITcpScanSelect).map((type) => (
                   <Option
                     key={type}
@@ -198,6 +209,11 @@ export const Home = () => {
                   </Option>
                 ))}
               </Select>
+            </Form.Item>
+          </Col>
+          <Col>
+            <Form.Item name={formFormat.port}>
+              <Input placeholder="Port" />
             </Form.Item>
           </Col>
         </Form>
@@ -223,7 +239,11 @@ export const Home = () => {
             />
           ) : (
             <Button
-              style={{ backgroundColor: 'red' }}
+              style={{
+                backgroundColor: 'red',
+                marginLeft: '16px',
+                marginTop: '15px',
+              }}
               className={buttonSend}
               icon={<MdOutlineCancelScheduleSend className="anticon" />}
               onClick={() => {
@@ -254,6 +274,8 @@ export const Home = () => {
             bordered
             style={{
               backgroundColor: '#D9D9D9',
+              width: '100%',
+              fontFamily: 'monospace',
             }}
             loading={loading}
             dataSource={dataSource}
@@ -263,20 +285,31 @@ export const Home = () => {
                   {item?.address?.length > 0 && (
                     <List.Item>
                       <p>
+                        Name:{' '}
                         {item?.hostName?.[index]?.names?.[index]?.name?.name}
                       </p>
-                      <p>{item?.address?.find((addr) => addr?.addr)?.addr}</p>
+                      <p>
+                        Address:{' '}
+                        {item?.address?.find((addr) => addr?.addr)?.addr}
+                      </p>
                       {item?.ports?.map((serv) => {
                         return (
                           <>
-                            <p>{serv.number}</p>
-
-                            <p>{serv.service}</p>
+                            <Divider />
+                            <p>Protocol: {serv.protocol}</p>
+                            <p>Port: {serv.number}</p>
+                            <p>Service: {serv.service}</p>
+                            {serv.osType && <p>OS Type: {serv.osType}</p>}
+                            <p>State: {serv.state}</p>
+                            <p>Product: {serv.product}</p>
+                            <p>Device Type: {serv.deviceType}</p>
+                            <p>Extra Info: {serv.extraInfo}</p>
                           </>
                         );
                       })}
                     </List.Item>
                   )}
+                  <Divider />
                 </>
               );
             }}

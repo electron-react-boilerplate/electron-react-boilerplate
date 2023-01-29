@@ -27,5 +27,5 @@
     "package-lock.json": true,
     "*.{css,sass,scss}.d.ts": true
   },
-  "typescript.tsdk": "node_modules\\typescript\\lib"
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
