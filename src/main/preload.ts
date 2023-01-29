@@ -1,8 +1,12 @@
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 
-export type Channels = 'scaner' | 'did-finish-scan' | 'scanerRoot';
+export type Channels =
+  | 'startScan'
+  | 'did-finish-scan'
+  | 'scanerRoot'
+  | 'cancelScan';
 
-contextBridge.exposeInMainWorld('electron', {
+const electronHandler = {
   ipcRenderer: {
     sendMessage(channel: Channels, args: unknown[]) {
       ipcRenderer.send(channel, args);
@@ -23,4 +27,8 @@ contextBridge.exposeInMainWorld('electron', {
     //   ipcRenderer.sendSync(channel, args);
     // },
   },
-});
+};
+
+contextBridge.exposeInMainWorld('electron', electronHandler);
+
+export type ElectronHandler = typeof electronHandler;

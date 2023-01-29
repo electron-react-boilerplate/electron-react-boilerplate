@@ -46,6 +46,7 @@ const configuration: webpack.Configuration = {
   plugins: [
     new BundleAnalyzerPlugin({
       analyzerMode: process.env.ANALYZE === 'true' ? 'server' : 'disabled',
+      analyzerPort: 8888,
     }),
 
     /**
@@ -64,7 +65,7 @@ const configuration: webpack.Configuration = {
     }),
 
     new webpack.DefinePlugin({
-      'process.type': '"main"',
+      'process.type': '"browser"',
     }),
   ],
 

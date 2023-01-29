@@ -28,27 +28,33 @@ class AppUpdater {
 let mainWindow: BrowserWindow | null = null;
 
 // initialize nmap scan
-ipcMain.on('scaner', async (event, arg: string[]) => {
+ipcMain.on('startScan', async (event, arg: string[]) => {
   const nmapResponde = new Map<string, ITcpScan>();
-  const range = arg[0];
-  const scanType = arg[1];
-  const scan = new nmap.NmapScan(range, scanType);
+  const addresses = arg[0];
+  const args = arg[1].concat(arg[2]);
+  const scan = new nmap.NmapScan(addresses, args);
   scan.on('complete', (data: ITcpScan) => {
     console.log('target', JSON.stringify(data, null, 4));
-    nmapResponde.set(range, data);
-    const target = nmapResponde.get(range);
-    return event.sender.send('scaner', target);
+    nmapResponde.set(addresses, data);
+    const target = nmapResponde.get(addresses);
+    return event.sender.send('startScan', target);
   });
 
   scan.on('error', (data: string) => {
     if (data.includes('root')) {
       console.log('chegou no if');
-      event.sender.send('scaner', 'scanerRoot');
+      event.sender.send('startScan', 'scanerRoot');
     }
     console.log('ERROR', JSON.stringify(data, null, 2));
     console.log(`total scan time ${scan.scanTime}`);
   });
   scan.startScan();
+});
+
+// cancel nmap scan
+ipcMain.on('cancelScan', async (event, arg: string[]) => {
+  const cancel = new nmap.NmapScan(arg[0], arg[1]).cancelScan();
+  return cancel;
 });
 
 if (process.env.NODE_ENV === 'production') {

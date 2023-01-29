@@ -1,8 +1,23 @@
-import { Button, Col, Form, Input, List, Row } from 'antd';
+import {
+  Button,
+  Col,
+  Divider,
+  Dropdown,
+  Form,
+  Input,
+  List,
+  MenuProps,
+  Row,
+  Select,
+} from 'antd';
 import { createUseStyles } from 'react-jss';
 import { AiOutlineMenu, AiOutlineSend } from 'react-icons/ai';
+import { MdOutlineCancelScheduleSend } from 'react-icons/md';
 import { useEffect, useState } from 'react';
-import { ITcpScanResponse } from '../../../tools/network-scan/types/scan-network-response.types';
+import {
+  ITcpScanResponse,
+  ITcpScanSelect,
+} from '../../../tools/network-scan/types/scan-network-response.types';
 
 const useStyle = createUseStyles({
   buttonStyle: {
@@ -50,27 +65,48 @@ const useStyle = createUseStyles({
 type FormParam = {
   address: string;
   scanType: string;
+  port: string;
 };
 export const Home = () => {
   const [target, setTarget] = useState<ITcpScanResponse[]>();
   const [loading, setLoading] = useState<boolean>(false);
-  const resp = window.electron.ipcRenderer.on('scaner', (response: any) => {
+  const resp = window.electron.ipcRenderer.on('startScan', (response: any) => {
     setTarget(response);
     setLoading(false);
   });
   useEffect(() => {}, [resp]);
   const [form] = Form.useForm();
-  const { buttonStyle, buttonSend, filtersInput } = useStyle();
+  const { buttonStyle, buttonSend } = useStyle();
   const formFormat: FormParam = {
     address: 'address',
     scanType: 'scanType',
+    port: 'port',
   };
 
-  async function onFinish() {
-    const { address, scanType }: FormParam = form.getFieldsValue();
-    window.electron.ipcRenderer.sendMessage('scaner', [address, scanType]);
+  const [formValues, setFormValues] = useState<FormParam>();
+  const { Option } = Select;
+  async function startScan() {
+    const { address, scanType, port } = formValues as FormParam;
+    window.electron.ipcRenderer.sendMessage('startScan', [
+      address,
+      scanType,
+      `-p${port}`,
+    ]);
     setLoading(true);
   }
+
+  async function cancelScan() {
+    window.electron.ipcRenderer.sendMessage('cancelScan', []);
+    setLoading(false);
+  }
+
+  // eslint-disable-next-line consistent-return
+  // window.document.addEventListener('keypress', (event) => {
+  //   if (event.key === 'Enter' && (formValues?.address?.length as any) >= 7)
+  //     return startScan();
+  //   return cancelScan();
+  // });
+
   const dataSource =
     target instanceof Array
       ? target?.map((hosts) => {
@@ -92,6 +128,7 @@ export const Home = () => {
             }),
             ports: hosts?.ports?.[0]?.map((port) => {
               return {
+                protocol: port?.protocol,
                 service: port?.service,
                 state: port?.state,
                 number: port?.number,
@@ -104,82 +141,182 @@ export const Home = () => {
           };
         })
       : undefined;
+
+  const menu: MenuProps['items'] = [
+    {
+      key: '1',
+      type: 'group',
+      label: 'Comming soon',
+      // children: [
+      //   {
+      //     key: '1-1',
+      //     label: '1st menu item',
+      //   },
+      //   {
+      //     key: '1-2',
+      //     label: '2nd menu item',
+      //   },
+      // ],
+    },
+  ];
   return (
-    <Row gutter={[15, 15]}>
+    <div>
       <Row>
-        <Col style={{ display: 'inline-flex' }}>
-          <Button
-            className={buttonStyle}
-            icon={<AiOutlineMenu className="anticon" />}
-          />
-          .
-        </Col>
-      </Row>
-      <Row
-        style={{
-          height: '100%',
-          display: 'inline-flex',
-          width: '100%',
-          float: 'left',
-          textAlign: 'justify',
-          marginBottom: '15px',
-        }}
-      >
-        <Form form={form} style={{ display: 'flex' }}>
+        <Form
+          form={form}
+          style={{
+            display: 'flex',
+            marginLeft: '30px',
+            marginTop: '16px',
+          }}
+          onValuesChange={(changedValues, allValues) => {
+            setFormValues((oldValues) => ({ ...oldValues, ...allValues }));
+          }}
+        >
           <Col>
-            <Form.Item className={filtersInput} name={formFormat.address}>
-              <Input placeholder="1.1.1.1" maxLength={19} disabled={loading} />
-            </Form.Item>
-          </Col>
-          <Col>
-            <Form.Item className={filtersInput} name={formFormat.scanType}>
+            <Form.Item
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+              name={formFormat.address}
+            >
               <Input
-                placeholder="scan type"
-                maxLength={15}
+                style={{ width: '100%' }}
+                placeholder="1.1.1.1"
                 disabled={loading}
               />
             </Form.Item>
           </Col>
+          <Col>
+            <Form.Item name={formFormat.scanType}>
+              <Select
+                placeholder="Scan type"
+                allowClear
+                mode="multiple"
+                style={{ width: '200px' }}
+              >
+                {Object.keys(ITcpScanSelect).map((type) => (
+                  <Option
+                    key={type}
+                    label={type}
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-ignore
+                    value={ITcpScanSelect[type]}
+                  >
+                    {type}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+          </Col>
+          <Col>
+            <Form.Item name={formFormat.port}>
+              <Input placeholder="Port" />
+            </Form.Item>
+          </Col>
         </Form>
+
         <Col>
-          <Button
-            className={buttonSend}
-            icon={<AiOutlineSend className="anticon" />}
-            loading={loading}
-            disabled={loading}
-            onClick={() => {
-              onFinish();
-            }}
-          />
+          {!loading ? (
+            <Button
+              style={{
+                marginLeft: '16px',
+                marginTop: '15px',
+              }}
+              className={buttonSend}
+              icon={<AiOutlineSend className="anticon" />}
+              loading={loading}
+              disabled={
+                loading ||
+                (formValues?.address?.length as any) <= 7 ||
+                !formValues
+              }
+              onClick={() => {
+                startScan();
+              }}
+            />
+          ) : (
+            <Button
+              style={{
+                backgroundColor: 'red',
+                marginLeft: '16px',
+                marginTop: '15px',
+              }}
+              className={buttonSend}
+              icon={<MdOutlineCancelScheduleSend className="anticon" />}
+              onClick={() => {
+                cancelScan();
+              }}
+            />
+          )}
+        </Col>
+        <Col>
+          {/* <Button
+            className={buttonStyle}
+            icon={<AiOutlineMenu className="anticon" />}
+          /> */}
+          <Dropdown menu={{ items: menu }}>
+            <Button
+              className={buttonStyle}
+              icon={<AiOutlineMenu className="anticon" />}
+            />
+          </Dropdown>
         </Col>
       </Row>
-      <Row style={{ marginTop: 55 }}>
+      <hr />
+      <Row>
         <Col>
           <List
+            itemLayout="vertical"
             size="small"
             bordered
             style={{
               backgroundColor: '#D9D9D9',
+              width: '100%',
+              fontFamily: 'monospace',
             }}
             loading={loading}
             dataSource={dataSource}
-            renderItem={(item) => {
-              return [
-                <List.Item>
-                  {item?.address?.find((addr) => addr?.addr)?.addr}
-                </List.Item>,
-                <List.Item>
-                  {
-                    item.hostName?.[0]?.names?.find((names) => names?.name)
-                      ?.name?.name
-                  }
-                </List.Item>,
-              ]; // item.address.map((addr) => addr.addr);
+            renderItem={(item, index) => {
+              return (
+                <>
+                  {item?.address?.length > 0 && (
+                    <List.Item>
+                      <p>
+                        Name:{' '}
+                        {item?.hostName?.[index]?.names?.[index]?.name?.name}
+                      </p>
+                      <p>
+                        Address:{' '}
+                        {item?.address?.find((addr) => addr?.addr)?.addr}
+                      </p>
+                      {item?.ports?.map((serv) => {
+                        return (
+                          <>
+                            <Divider />
+                            <p>Protocol: {serv.protocol}</p>
+                            <p>Port: {serv.number}</p>
+                            <p>Service: {serv.service}</p>
+                            {serv.osType && <p>OS Type: {serv.osType}</p>}
+                            <p>State: {serv.state}</p>
+                            <p>Product: {serv.product}</p>
+                            <p>Device Type: {serv.deviceType}</p>
+                            <p>Extra Info: {serv.extraInfo}</p>
+                          </>
+                        );
+                      })}
+                    </List.Item>
+                  )}
+                  <Divider />
+                </>
+              );
             }}
           />
         </Col>
       </Row>
-    </Row>
+    </div>
   );
 };
 export default Home;

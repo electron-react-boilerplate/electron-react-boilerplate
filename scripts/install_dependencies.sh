@@ -17,11 +17,11 @@ if [[ $OPERATIONAL_SYSTEM == *"Darwin"* ]]; then
 fi
 
 if [[ $OPERATIONAL_SYSTEM == *"Linux"* ]]; then
-    APT_DEPENDECIES=$(apt search nmap | grep 'nmap');
+    APT_DEPENDECIES=$(apt list --installed nmap | grep nmap);
     if [ -n "$APT_DEPENDECIES" ]; then
         echo "Already has all required dependecies.";
     else
-        sudo apt install nmap
+        apt install nmap
     fi
 fi
 
