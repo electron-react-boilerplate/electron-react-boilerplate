@@ -2,7 +2,7 @@ import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import icon from '../../assets/icon.svg';
 import './App.css';
 
-const Hello = () => {
+function Hello() {
   return (
     <div>
       <div className="Hello">
@@ -37,7 +37,7 @@ const Hello = () => {
       </div>
     </div>
   );
-};
+}
 
 export default function App() {
   return (
