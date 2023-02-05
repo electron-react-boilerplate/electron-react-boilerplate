@@ -40,27 +40,12 @@
     "postinstall": "ts-node .erb/scripts/check-native-dep.js && electron-builder install-app-deps && cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.renderer.dev.dll.ts",
     "lint": "cross-env NODE_ENV=development eslint . --ext .js,.jsx,.ts,.tsx",
     "package": "ts-node ./.erb/scripts/clean.js dist && npm run build && electron-builder build --publish never",
-    "prepare": "husky install",
     "rebuild": "electron-rebuild --parallel --types prod,dev,optional --module-dir release/app",
     "start": "ts-node ./.erb/scripts/check-port-in-use.js && npm run start:renderer",
     "start:main": "cross-env NODE_ENV=development electronmon -r ts-node/register/transpile-only .",
     "start:preload": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.preload.dev.ts",
     "start:renderer": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack serve --config ./.erb/configs/webpack.config.renderer.dev.ts",
     "test": "jest"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "cross-env NODE_ENV=development eslint --cache"
-    ],
-    "*.json,.{eslintrc,prettierrc}": [
-      "prettier --ignore-path .eslintignore --parser json --write"
-    ],
-    "*.{css,scss}": [
-      "prettier --ignore-path .eslintignore --single-quote --write"
-    ],
-    "*.{html,md,yml}": [
-      "prettier --ignore-path .eslintignore --single-quote --write"
-    ]
   },
   "browserslist": [],
   "prettier": {
@@ -160,11 +145,9 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
-    "husky": "^8.0.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^28.1.3",
     "jest-environment-jsdom": "^28.1.3",
-    "lint-staged": "^13.0.3",
     "mini-css-extract-plugin": "^2.6.1",
     "prettier": "^2.7.1",
     "react-refresh": "^0.14.0",
