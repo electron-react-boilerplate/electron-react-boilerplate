@@ -1,0 +1,11 @@
+{
+  "auth": {
+    "indigodesktopv29d5e2d10": {
+      "service": "Cognito",
+      "serviceType": "imported",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}

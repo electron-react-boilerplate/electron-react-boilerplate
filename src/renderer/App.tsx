@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-
 import CircularProgress from '@mui/material/CircularProgress';
+import { Auth } from '@aws-amplify/auth';
+import Amplify from '@aws-amplify/core';
 
 import './App.css';
 import GlobalTheme from '../global/GlobalTheme';
@@ -13,6 +14,9 @@ import SearchScreen from '../screens/Search';
 import CommandScreen from '../screens/Command';
 import ClipboardCopyScreen from '../screens/ClipboardCopy';
 import NewUserScreen from '../screens/NewUser';
+import awsmobilewithauth from './aws-exports-with-auth';
+
+Amplify.configure(awsmobilewithauth);
 
 // TODO: COMMENTED OUT FOR DEVELOPMENT IN BROWSER
 // TODO: FIND WAY TO DETECT IF IN BROWSER OR IN ELECTRON
@@ -37,33 +41,32 @@ function App() {
 
   // AUTO NAVIGATE USER BASED ON AUTH
   useEffect(() => {
-    setCurrentScreen('SEARCH_SCREEN');
-    // setGlobalLoading(true);
-    // const autoNavigateUserBasedOnAuth = async () => {
-    //   try {
-    //     await Auth.currentAuthenticatedUser();
-    //     if (currentScreen === "AUTH_SCREEN") {
-    //       setCurrentScreen("SEARCH_SCREEN");
-    //     }
-    //     setTimeout(() => {
-    //       setGlobalLoading(false);
-    //     }, 1500);
-    //   } catch (err) {
-    //     if (
-    //       currentScreen !== "AUTH_SCREEN" &&
-    //       currentScreen !== "NEW_USER_SCREEN"
-    //     ) {
-    //       setCurrentScreen("AUTH_SCREEN");
-    //     }
-    //     setTimeout(() => {
-    //       setGlobalLoading(false);
-    //     }, 1500);
-    //   }
-    // };
+    setGlobalLoading(true);
+    const autoNavigateUserBasedOnAuth = async () => {
+      try {
+        await Auth.currentAuthenticatedUser();
+        if (currentScreen === 'AUTH_SCREEN') {
+          setCurrentScreen('SEARCH_SCREEN');
+        }
+        setTimeout(() => {
+          setGlobalLoading(false);
+        }, 1500);
+      } catch (err) {
+        if (
+          currentScreen !== 'AUTH_SCREEN' &&
+          currentScreen !== 'NEW_USER_SCREEN'
+        ) {
+          setCurrentScreen('AUTH_SCREEN');
+        }
+        setTimeout(() => {
+          setGlobalLoading(false);
+        }, 1500);
+      }
+    };
 
-    // autoNavigateUserBasedOnAuth().finally(() => {
-    //   console.log("autoNavigateUserBasedOnAuth finished");
-    // });
+    autoNavigateUserBasedOnAuth().finally(() => {
+      console.log('autoNavigateUserBasedOnAuth finished');
+    });
   }, []);
 
   return (
