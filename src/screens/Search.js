@@ -103,13 +103,32 @@ const Search = ({ setCurrentScreen }) => {
 
   // TODO: WORK WITH STEFAN TO USE AUTH SECURELY
   useEffect(() => {
-    API.get('main', '/commands')
-      .then((response) => {
+    async function postData() {
+      const apiName = 'main';
+      const path = '/commands';
+      const myInit = {
+        headers: {
+          Authorization: `Bearer ${(await Auth.currentSession())
+            .getIdToken()
+            .getJwtToken()}`,
+        },
+      };
+
+      return await API.get(apiName, path, myInit).then((response) => {
+        console.log(response);
         setAvailableCommands(response);
-      })
-      .catch((error) => {
-        console.log(error.response);
       });
+    }
+
+    postData();
+
+    // API.get('main', '/commands')
+    //   .then((response) => {
+    //     setAvailableCommands(response);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error.response);
+    //   });
   }, [setAvailableCommands]);
 
   const handKeyNav = (key) => {
