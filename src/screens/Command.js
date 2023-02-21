@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import TextField from "@mui/material/TextField";
-import MaterialUIButton from "@mui/material/Button";
-// import { API } from "@aws-amplify/api";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import TextField from '@mui/material/TextField';
+import MaterialUIButton from '@mui/material/Button';
+import { API } from '@aws-amplify/api';
 
-import useGlobalState from "../global/GlobalSate";
+import useGlobalState from '../global/GlobalSate';
 
 const StyledCommand = styled.div`
   display: flex;
@@ -46,8 +46,8 @@ const StyledCommand = styled.div`
 `;
 
 const Command = ({ setCurrentScreen }) => {
-  const [userCopyInput, setUserCopyInput] = useState("");
-  const [userTypeInput, setUserTypeInput] = useState("");
+  const [userCopyInput, setUserCopyInput] = useState('');
+  const [userTypeInput, setUserTypeInput] = useState('');
 
   const { availableCommands, selectedCommandIndex, setGlobalLoading } =
     useGlobalState();
@@ -58,27 +58,27 @@ const Command = ({ setCurrentScreen }) => {
   const handleSubmitJob = () => {
     setGlobalLoading(true);
 
-    // API.post("main", "/jobs", {
-    //   body: {
-    //     free: selectedCommand.free,
-    //     inputs: selectedCommand.inputs ? [{ specify_type: userTypeInput }] : [],
-    //     prompt_frame: selectedCommand.prompt_frame,
-    //     copied: userCopyInput,
-    //   },
-    // })
-    //   .then((response) => {
-    //     setCurrentScreen("CLIPBOARD_COPY_SCREEN");
-    //     navigator.clipboard.writeText(response.result);
-    //     setTimeout(() => {
-    //       setGlobalLoading(false);
-    //     }, 1000);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //     setTimeout(() => {
-    //       setGlobalLoading(false);
-    //     }, 1000);
-    //   });
+    API.post('main', '/jobs', {
+      body: {
+        free: selectedCommand.free,
+        inputs: selectedCommand.inputs ? [{ specify_type: userTypeInput }] : [],
+        prompt_frame: selectedCommand.prompt_frame,
+        copied: userCopyInput,
+      },
+    })
+      .then((response) => {
+        setCurrentScreen('CLIPBOARD_COPY_SCREEN');
+        navigator.clipboard.writeText(response.result);
+        setTimeout(() => {
+          setGlobalLoading(false);
+        }, 1000);
+      })
+      .catch((error) => {
+        console.log(error);
+        setTimeout(() => {
+          setGlobalLoading(false);
+        }, 1000);
+      });
   };
 
   return (
@@ -108,7 +108,7 @@ const Command = ({ setCurrentScreen }) => {
           variant="outlined"
           color="secondary"
           onClick={() => {
-            setCurrentScreen("SEARCH_SCREEN");
+            setCurrentScreen('SEARCH_SCREEN');
           }}
         >
           Go Back

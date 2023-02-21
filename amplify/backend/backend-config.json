@@ -1,6 +1,6 @@
 {
   "auth": {
-    "indigodesktopv29d5e2d10": {
+    "indigodesktopv243ddfdc3": {
       "service": "Cognito",
       "serviceType": "imported",
       "providerPlugin": "awscloudformation",

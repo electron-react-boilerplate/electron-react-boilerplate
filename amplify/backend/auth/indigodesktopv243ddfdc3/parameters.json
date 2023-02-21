@@ -1,11 +1,8 @@
 {
   "authSelections": "userPoolOnly",
-  "resourceName": "indigodesktopv29d5e2d10",
+  "resourceName": "indigodesktopv243ddfdc3",
   "serviceType": "imported",
   "region": "us-east-1",
-  "usernameAttributes": [
-    "phone_number"
-  ],
   "authProvidersUserPool": [
     "Facebook",
     "Google"
@@ -15,11 +12,9 @@
   ],
   "passwordPolicyMinLength": 8,
   "passwordPolicyCharacters": [],
-  "mfaConfiguration": "ON",
+  "mfaConfiguration": "OFF",
   "autoVerifiedAttributes": [
-    "phone_number"
+    "email"
   ],
-  "mfaTypes": [
-    "SMS Text Message"
-  ]
+  "mfaTypes": []
 }

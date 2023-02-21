@@ -6,7 +6,7 @@ const awsmobilewithauth = {
     endpoints: [
       {
         name: 'main',
-        endpoint: 'https://indigo-api-dev.diffuze.ai',
+        endpoint: 'https://indigo-api.diffuze.ai',
       },
     ],
   },

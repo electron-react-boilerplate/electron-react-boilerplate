@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import TextField from "@mui/material/TextField";
-import cx from "classnames";
-// import { Auth } from "@aws-amplify/auth";
-// import { API } from "@aws-amplify/api";
-import CircularProgress from "@mui/material/CircularProgress";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import TextField from '@mui/material/TextField';
+import cx from 'classnames';
+import { Auth } from '@aws-amplify/auth';
+import { API } from '@aws-amplify/api';
+import CircularProgress from '@mui/material/CircularProgress';
 
-import useGlobalState from "../global/GlobalSate";
+import useGlobalState from '../global/GlobalSate';
 
 const StyledSearch = styled.div`
   display: flex;
@@ -86,7 +86,7 @@ const StyledSearch = styled.div`
 `;
 
 const Search = ({ setCurrentScreen }) => {
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState('');
 
   const {
     availableCommands,
@@ -103,34 +103,34 @@ const Search = ({ setCurrentScreen }) => {
 
   // TODO: WORK WITH STEFAN TO USE AUTH SECURELY
   useEffect(() => {
-    // API.get("main", "/commands")
-    //   .then((response) => {
-    //     setAvailableCommands(response);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error.response);
-    //   });
+    API.get('main', '/commands')
+      .then((response) => {
+        setAvailableCommands(response);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
   }, [setAvailableCommands]);
 
   const handKeyNav = (key) => {
-    if (key === "ArrowDown") {
+    if (key === 'ArrowDown') {
       if (selectedCommandIndex < availableCommands.length - 1) {
         setSelectedCommandIndex(selectedCommandIndex + 1);
       } else {
         setSelectedCommandIndex(0);
       }
-    } else if (key === "ArrowUp") {
+    } else if (key === 'ArrowUp') {
       if (selectedCommandIndex > 0) {
         setSelectedCommandIndex(selectedCommandIndex - 1);
       } else {
         setSelectedCommandIndex(availableCommands.length - 1);
       }
-    } else if (key === "Enter") {
-      setCurrentScreen("COMMAND_SCREEN");
-    } else if (key === "=") {
-      // void Auth.signOut().then(() => {
-      //   setCurrentScreen("AUTH_SCREEN");
-      // });
+    } else if (key === 'Enter') {
+      setCurrentScreen('COMMAND_SCREEN');
+    } else if (key === '=') {
+      void Auth.signOut().then(() => {
+        setCurrentScreen('AUTH_SCREEN');
+      });
     }
   };
 
@@ -156,7 +156,7 @@ const Search = ({ setCurrentScreen }) => {
               (name.toUpperCase().includes(searchText.toUpperCase()) ||
                 searchText.length === 0) && (
                 <div
-                  className={cx("command", {
+                  className={cx('command', {
                     selected: selectedCommandIndex === i,
                   })}
                   onClick={() => {

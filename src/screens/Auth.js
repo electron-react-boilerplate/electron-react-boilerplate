@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import TextField from "@mui/material/TextField";
-import MaterialUIButton from "@mui/material/Button";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import TextField from '@mui/material/TextField';
+import MaterialUIButton from '@mui/material/Button';
+import { Auth } from '@aws-amplify/auth';
 // import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth'
 // import GoogleIcon from "@mui/icons-material/Google";
 // import FacebookIcon from "@mui/icons-material/Facebook";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import InputAdornment from "@mui/material/InputAdornment";
-import LogoIcon from "../icons/Logo_Icon";
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import InputAdornment from '@mui/material/InputAdornment';
+import LogoIcon from '../icons/Logo_Icon';
 
-import useGlobalState from "../global/GlobalSate";
+import useGlobalState from '../global/GlobalSate';
 
 const StyledAuthentication = styled.div`
   display: flex;
@@ -99,65 +100,65 @@ const StyledAuthentication = styled.div`
 `;
 
 const Authentication = ({ setCurrentScreen }) => {
-  const [authFormInView, setAuthFormInView] = useState("SIGN_UP");
+  const [authFormInView, setAuthFormInView] = useState('SIGN_UP');
 
-  const [userEmail, setUserEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [code, setCode] = useState("");
+  const [userEmail, setUserEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [code, setCode] = useState('');
 
-  const [errorText, setErrorText] = useState("");
+  const [errorText, setErrorText] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   const { setGlobalLoading } = useGlobalState();
 
   useEffect(() => {
-    setErrorText("");
+    setErrorText('');
   }, [userEmail, password, code, setErrorText, authFormInView]);
 
   const handleSignUpUser = async () => {
-    // try {
-    //   await Auth.signUp({
-    //     username: userEmail,
-    //     password,
-    //     attributes: { email: userEmail },
-    //     autoSignIn: { enabled: true },
-    //   });
-    //   setAuthFormInView("CONFIRM_EMAIL");
-    // } catch (error) {
-    //   console.log("error signing up:", error);
-    //   setErrorText(error?.message);
-    // }
+    try {
+      await Auth.signUp({
+        username: userEmail,
+        password,
+        attributes: { email: userEmail },
+        autoSignIn: { enabled: true },
+      });
+      setAuthFormInView('CONFIRM_EMAIL');
+    } catch (error) {
+      console.log('error signing up:', error);
+      setErrorText(error?.message);
+    }
   };
 
   const handleConfirmSignUpUser = async () => {
-    // try {
-    //   const response = await Auth.confirmSignUp(userEmail, code);
-    //   setCurrentScreen("NEW_USER_SCREEN");
-    //   console.log("NEW USER RES", response);
-    // } catch (error) {
-    //   console.log("error confirming sign up", error);
-    //   setErrorText(error?.message);
-    // }
+    try {
+      const response = await Auth.confirmSignUp(userEmail, code);
+      setCurrentScreen('NEW_USER_SCREEN');
+      console.log('NEW USER RES', response);
+    } catch (error) {
+      console.log('error confirming sign up', error);
+      setErrorText(error?.message);
+    }
   };
 
   const handleSignInUser = async () => {
-    // setGlobalLoading(true);
-    // try {
-    //   let userData = await Auth.signIn(userEmail, password);
-    //   setCurrentScreen("SEARCH_SCREEN");
-    //   console.log("USER DATA", userData);
-    //   setGlobalLoading(false);
-    // } catch (error) {
-    //   console.log("error signing in", error);
-    //   setGlobalLoading(false);
-    //   setErrorText(error?.message);
-    // }
+    setGlobalLoading(true);
+    try {
+      let userData = await Auth.signIn(userEmail, password);
+      setCurrentScreen('SEARCH_SCREEN');
+      console.log('USER DATA', userData);
+      setGlobalLoading(false);
+    } catch (error) {
+      console.log('error signing in', error);
+      setGlobalLoading(false);
+      setErrorText(error?.message);
+    }
   };
 
   return (
     <StyledAuthentication>
       <LogoIcon className="logo_icon" />
-      {authFormInView === "SIGN_UP" && (
+      {authFormInView === 'SIGN_UP' && (
         <>
           <TextField
             className="text_field"
@@ -169,7 +170,7 @@ const Authentication = ({ setCurrentScreen }) => {
             }}
           />
           <TextField
-            type={showPassword ? "text" : "password"}
+            type={showPassword ? 'text' : 'password'}
             className="text_field"
             variant="outlined"
             label="Password"
@@ -238,14 +239,14 @@ const Authentication = ({ setCurrentScreen }) => {
           <MaterialUIButton
             variant="text"
             onClick={() => {
-              setAuthFormInView("SIGN_IN");
+              setAuthFormInView('SIGN_IN');
             }}
           >
             I have an account
           </MaterialUIButton>
         </>
       )}
-      {authFormInView === "CONFIRM_EMAIL" && (
+      {authFormInView === 'CONFIRM_EMAIL' && (
         <>
           <h3 className="heading-1">Confirm Sign Up</h3>
           <h4 className="caption subheading_text">
@@ -265,7 +266,7 @@ const Authentication = ({ setCurrentScreen }) => {
             <MaterialUIButton
               variant="outlined"
               onClick={() => {
-                setAuthFormInView("SIGN_UP");
+                setAuthFormInView('SIGN_UP');
               }}
             >
               Back
@@ -281,7 +282,7 @@ const Authentication = ({ setCurrentScreen }) => {
           </div>
         </>
       )}
-      {authFormInView === "SIGN_IN" && (
+      {authFormInView === 'SIGN_IN' && (
         <>
           <TextField
             className="text_field"
@@ -293,7 +294,7 @@ const Authentication = ({ setCurrentScreen }) => {
             }}
           />
           <TextField
-            type={showPassword ? "text" : "password"}
+            type={showPassword ? 'text' : 'password'}
             className="text_field"
             variant="outlined"
             label="Password"
@@ -326,7 +327,7 @@ const Authentication = ({ setCurrentScreen }) => {
           <MaterialUIButton
             variant="text"
             onClick={() => {
-              setAuthFormInView("SIGN_UP");
+              setAuthFormInView('SIGN_UP');
             }}
           >
             I don't have an account
