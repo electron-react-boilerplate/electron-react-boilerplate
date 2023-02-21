@@ -9,7 +9,7 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow, shell, ipcMain } from 'electron';
+import { app, BrowserWindow, shell, ipcMain, globalShortcut } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
@@ -112,17 +112,21 @@ const createWindow = async () => {
   new AppUpdater();
 };
 
-/**
- * Add event listeners...
- */
-
-app.on('window-all-closed', () => {
-  // Respect the OSX convention of having the application in memory even
-  // after all windows have been closed
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
+// TODO: NICK's CODE
+// do not quit when all windows are closed
+// and continue running on background to listen
+// for shortcuts
+app.on('window-all-closed', (e) => {
+  e.preventDefault();
+  e.returnValue = false;
 });
+
+// open app with Alt+I
+app.on('ready', () => {
+  createWindow();
+  globalShortcut.register('Alt+I', createWindow);
+});
+// TODO: END NICK's CODE
 
 app
   .whenReady()
