@@ -2,7 +2,7 @@ import xml2js from 'xml2js';
 import { EventEmitter } from 'events';
 import { spawn } from 'child_process';
 import { platform } from 'os';
-import { exec } from 'sudo-prompt';
+// import { exec } from 'sudo-prompt';
 import { ITcpScan } from './types/scan-network.types';
 import convertRawJsonToScanResults from './scan-network';
 
@@ -171,19 +171,19 @@ class NmapScan extends EventEmitter {
   }
 }
 
+// function runAsRoot(firstArg: string) {
+//   const options = {
+//     name: 'Electron',
+//     icns: '/Applications/Electron.app/Contents/Resources/Electron.icns', // (optional)
+//   };
+
+//   exec(firstArg, options, (error, stdout, stderr) => {
+//     if (error) throw error;
+//     console.log(`stdout: ${stdout}`);
+//   });
+// }
+
 // export default NmapScan;
-function runAsRoot(firstArg: string) {
-  const options = {
-    name: 'Electron',
-    icns: '/Applications/Electron.app/Contents/Resources/Electron.icns', // (optional)
-  };
-
-  exec(firstArg, options, (error, stdout, stderr) => {
-    if (error) throw error;
-    console.log(`stdout: ${stdout}`);
-  });
-}
-
 const operationalSystem = platform();
 const nmap = {
   nmapLocation: operationalSystem === 'linux' ? 'nmap' : 'nmap.exe',

@@ -31,7 +31,7 @@ let mainWindow: BrowserWindow | null = null;
 ipcMain.on('startScan', async (event, arg: string[]) => {
   const nmapResponde = new Map<string, ITcpScan>();
   const addresses = arg[0];
-  const args = arg[1].concat(arg[2]);
+  const args = arg[1]?.concat(arg?.[2]);
   const scan = new nmap.NmapScan(addresses, args);
   scan.on('complete', (data: ITcpScan) => {
     console.log('target', JSON.stringify(data, null, 4));

@@ -56,11 +56,6 @@ const useStyle = createUseStyles({
       background: '#40a9ff',
     },
   },
-  filtersInput: {
-    width: '49%',
-    // border: '1px solid #000',
-    marginRight: '10px',
-  },
 });
 type FormParam = {
   address: string;
@@ -77,7 +72,7 @@ export const Home = () => {
   useEffect(() => {}, [resp]);
   const [form] = Form.useForm();
   const { buttonStyle, buttonSend } = useStyle();
-  const formFormat: FormParam = {
+  const formName: FormParam = {
     address: 'address',
     scanType: 'scanType',
     port: 'port',
@@ -90,7 +85,7 @@ export const Home = () => {
     window.electron.ipcRenderer.sendMessage('startScan', [
       address,
       scanType,
-      `-p${port}`,
+      port ? `-p${port}` : port,
     ]);
     setLoading(true);
   }
@@ -180,7 +175,7 @@ export const Home = () => {
                   required: true,
                 },
               ]}
-              name={formFormat.address}
+              name={formName.address}
             >
               <Input
                 style={{ width: '100%' }}
@@ -190,7 +185,7 @@ export const Home = () => {
             </Form.Item>
           </Col>
           <Col>
-            <Form.Item name={formFormat.scanType}>
+            <Form.Item name={formName.scanType}>
               <Select
                 placeholder="Scan type"
                 allowClear
@@ -212,7 +207,7 @@ export const Home = () => {
             </Form.Item>
           </Col>
           <Col>
-            <Form.Item name={formFormat.port}>
+            <Form.Item name={formName.port}>
               <Input placeholder="Port" />
             </Form.Item>
           </Col>
@@ -276,18 +271,22 @@ export const Home = () => {
               backgroundColor: '#D9D9D9',
               width: '100%',
               fontFamily: 'monospace',
+              maxHeight: 612,
+              overflow: 'auto',
             }}
             loading={loading}
             dataSource={dataSource}
             renderItem={(item, index) => {
               return (
                 <>
+                  <Divider dashed />
                   {item?.address?.length > 0 && (
                     <List.Item>
                       <p>
                         Name:{' '}
                         {item?.hostName?.[index]?.names?.[index]?.name?.name}
                       </p>
+                      <Divider dashed />
                       <p>
                         Address:{' '}
                         {item?.address?.find((addr) => addr?.addr)?.addr}
@@ -296,8 +295,8 @@ export const Home = () => {
                         return (
                           <>
                             <Divider />
-                            <p>Protocol: {serv.protocol}</p>
                             <p>Port: {serv.number}</p>
+                            <p>Protocol: {serv.protocol}</p>
                             <p>Service: {serv.service}</p>
                             {serv.osType && <p>OS Type: {serv.osType}</p>}
                             <p>State: {serv.state}</p>
@@ -307,9 +306,9 @@ export const Home = () => {
                           </>
                         );
                       })}
+                      <Divider />
                     </List.Item>
                   )}
-                  <Divider />
                 </>
               );
             }}
