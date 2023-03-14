@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import xml2js from 'xml2js';
 import { EventEmitter } from 'events';
-import { spawn } from 'child_process';
+import { exec, spawn } from 'child_process';
 import { platform } from 'os';
 // import { exec } from 'sudo-prompt';
 import { ITcpScan } from './types/scan-network.types';
@@ -91,10 +92,9 @@ class NmapScan extends EventEmitter {
 
   async initializeChildProcess() {
     this.startTimer();
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    console.log(nmap.nmapLocation, this.command, 'CHAMADO COMANDO');
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    this.child = spawn(nmap.nmapLocation, this.command);
+    this.child = this.command.includes('-O' || '-sO' || '-sS' || '-sU')
+      ? exec(`pkexec ${nmap.nmapLocation} ${this.command.join(' ')}`)
+      : spawn(nmap.nmapLocation, this.command);
     process.on('SIGINT', this.killChild);
     process.on('uncaughtException', this.killChild);
     process.on('exit', this.killChild);
