@@ -40,14 +40,14 @@ ipcMain.on('startScan', async (event, arg: string[]) => {
     return event.sender.send('startScan', target);
   });
 
-  scan.on('error', (data: string) => {
-    if (data.includes('root')) {
-      console.log('chegou no if');
-      event.sender.send('startScan', 'scanerRoot');
-    }
-    console.log('ERROR', JSON.stringify(data, null, 2));
-    console.log(`total scan time ${scan.scanTime}`);
-  });
+  // scan.on('error', (data: string) => {
+  //   if (data.includes('root')) {
+  //     console.log('chegou no if');
+  //     event.sender.send('startScan', 'scanerRoot');
+  //   }
+  //   console.log('ERROR', JSON.stringify(data, null, 2));
+  //   console.log(`total scan time ${scan.scanTime}`);
+  // });
   scan.startScan();
 });
 

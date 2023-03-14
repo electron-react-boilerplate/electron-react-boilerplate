@@ -22,5 +22,8 @@ export interface ITcpScanResponse {
 
 export enum ITcpScanSelect {
   services = '-sV',
-  operationalSystem = '-O',
+  operationalSystem = '-sO',
+  UDP = '-sU',
+  stealthScan = '-sS',
+  ipProtocol = '-O',
 }
