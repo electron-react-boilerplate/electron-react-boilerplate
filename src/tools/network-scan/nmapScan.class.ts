@@ -92,7 +92,10 @@ class NmapScan extends EventEmitter {
 
   async initializeChildProcess() {
     this.startTimer();
-    this.child = this.command.includes('-O' || '-sO' || '-sS' || '-sU')
+
+    this.child = this.command.find(
+      (e) => e === '-O' || e === '-sO' || e === '-sS' || e === '-sU'
+    )
       ? exec(`pkexec ${nmap.nmapLocation} ${this.command.join(' ')}`)
       : spawn(nmap.nmapLocation, this.command);
     process.on('SIGINT', this.killChild);

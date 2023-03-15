@@ -59,8 +59,8 @@ const useStyle = createUseStyles({
 });
 type FormParam = {
   address: string;
-  scanType: string;
-  port: string;
+  scanType?: string[];
+  port?: string;
 };
 export const Home = () => {
   const [target, setTarget] = useState<ITcpScanResponse[]>();
@@ -72,7 +72,7 @@ export const Home = () => {
   useEffect(() => {}, [resp]);
   const [form] = Form.useForm();
   const { buttonStyle, buttonSend } = useStyle();
-  const formName: FormParam = {
+  const formName = {
     address: 'address',
     scanType: 'scanType',
     port: 'port',
@@ -185,15 +185,22 @@ export const Home = () => {
             </Form.Item>
           </Col>
           <Col>
-            <Form.Item name={formName.scanType}>
+            <Form.Item label="Scan Type" name={formName.scanType}>
               <Select
-                placeholder="Scan type"
+                placeholder="Select"
                 allowClear
                 mode="multiple"
                 style={{ width: '200px' }}
               >
                 {Object.keys(ITcpScanSelect).map((type) => (
                   <Option
+                    disabled={
+                      formValues?.scanType?.find((e) => e === '-sS')
+                        ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                          // @ts-ignore
+                          ITcpScanSelect[type] === '-sO'
+                        : undefined
+                    }
                     key={type}
                     label={type}
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -207,8 +214,8 @@ export const Home = () => {
             </Form.Item>
           </Col>
           <Col>
-            <Form.Item name={formName.port}>
-              <Input placeholder="Port" />
+            <Form.Item label="Port" name={formName.port}>
+              <Input placeholder="1-80" />
             </Form.Item>
           </Col>
         </Form>
