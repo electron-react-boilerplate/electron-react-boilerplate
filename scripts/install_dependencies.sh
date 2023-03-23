@@ -21,7 +21,7 @@ if [[ $OPERATIONAL_SYSTEM == *"Linux"* ]]; then
     if [ -n "$APT_DEPENDECIES" ]; then
         echo "Already has all required dependecies.";
     else
-        apt install nmap
+        apt install -y nmap
     fi
 fi
 

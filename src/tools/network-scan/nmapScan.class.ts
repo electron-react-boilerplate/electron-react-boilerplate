@@ -10,7 +10,7 @@ import convertRawJsonToScanResults from './scan-network';
 class NmapScan extends EventEmitter {
   command: string[];
 
-  nmapOutputXML: string;
+  // nmapOutputXML: string;
 
   range: string;
 
@@ -37,7 +37,7 @@ class NmapScan extends EventEmitter {
   constructor(range: string, args: string) {
     super();
     this.command = [];
-    this.nmapOutputXML = '';
+    //    this.nmapOutputXML = '';
     this.timer = undefined as any;
     this.range = '';
     this.arguments = ['-oX', '-'];

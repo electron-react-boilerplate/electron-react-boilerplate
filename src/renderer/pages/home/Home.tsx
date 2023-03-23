@@ -9,6 +9,7 @@ import {
   MenuProps,
   Row,
   Select,
+  Spin,
 } from 'antd';
 import { createUseStyles } from 'react-jss';
 import { AiOutlineMenu, AiOutlineSend } from 'react-icons/ai';
@@ -154,6 +155,7 @@ export const Home = () => {
       // ],
     },
   ];
+  console.log('loading', loading, 'datasource', dataSource);
   return (
     <div>
       <Row>
@@ -270,56 +272,60 @@ export const Home = () => {
       <hr />
       <Row>
         <Col>
-          <List
-            itemLayout="vertical"
-            size="small"
-            bordered
-            style={{
-              backgroundColor: '#D9D9D9',
-              width: '100%',
-              fontFamily: 'monospace',
-              maxHeight: 612,
-              overflow: 'auto',
-            }}
-            loading={loading}
-            dataSource={dataSource}
-            renderItem={(item, index) => {
-              return (
-                <>
-                  <Divider dashed />
-                  {item?.address?.length > 0 && (
-                    <List.Item>
-                      <p>
-                        Name:{' '}
-                        {item?.hostName?.[index]?.names?.[index]?.name?.name}
-                      </p>
-                      <Divider dashed />
-                      <p>
-                        Address:{' '}
-                        {item?.address?.find((addr) => addr?.addr)?.addr}
-                      </p>
-                      {item?.ports?.map((serv) => {
-                        return (
-                          <>
-                            <Divider />
-                            <p>Port: {serv.number}</p>
-                            <p>Protocol: {serv.protocol}</p>
-                            <p>Service: {serv.service}</p>
-                            {serv.osType && <p>OS Type: {serv.osType}</p>}
-                            <p>State: {serv.state}</p>
-                            <p>Product: {serv.product}</p>
-                            <p>Device Type: {serv.deviceType}</p>
-                            <p>Extra Info: {serv.extraInfo}</p>
-                          </>
-                        );
-                      })}
-                      <Divider />
-                    </List.Item>
-                  )}
-                </>
-              );
-            }}
-          />
+          {loading && dataSource === undefined ? (
+            <Spin />
+          ) : (
+            <List
+              itemLayout="vertical"
+              size="small"
+              bordered
+              style={{
+                backgroundColor: '#D9D9D9',
+                width: '100%',
+                fontFamily: 'monospace',
+                maxHeight: 612,
+                overflow: 'auto',
+              }}
+              loading={loading}
+              dataSource={dataSource}
+              renderItem={(item, index) => {
+                return (
+                  <>
+                    <Divider dashed />
+                    {item?.address?.length > 0 && (
+                      <List.Item key={index}>
+                        <p>
+                          Name:{' '}
+                          {item?.hostName?.[index]?.names?.[index]?.name?.name}
+                        </p>
+                        <Divider dashed />
+                        <p>
+                          Address:{' '}
+                          {item?.address?.find((addr) => addr?.addr)?.addr}
+                        </p>
+                        {item?.ports?.map((serv) => {
+                          return (
+                            <>
+                              <Divider />
+                              <p>Port: {serv.number}</p>
+                              <p>Protocol: {serv.protocol}</p>
+                              <p>Service: {serv.service}</p>
+                              {serv.osType && <p>OS Type: {serv.osType}</p>}
+                              <p>State: {serv.state}</p>
+                              <p>Product: {serv.product}</p>
+                              <p>Device Type: {serv.deviceType}</p>
+                              <p>Extra Info: {serv.extraInfo}</p>
+                            </>
+                          );
+                        })}
+                        <Divider />
+                      </List.Item>
+                    )}
+                  </>
+                );
+              }}
+            />
+          )}
         </Col>
       </Row>
     </div>
