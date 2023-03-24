@@ -4,13 +4,13 @@ import { EventEmitter } from 'events';
 import { exec, spawn } from 'child_process';
 import { platform } from 'os';
 // import { exec } from 'sudo-prompt';
-import { ITcpScan } from './types/scan-network.types';
 import convertRawJsonToScanResults from './scan-network';
+import { ITcpScan } from './types';
 
 class NmapScan extends EventEmitter {
   command: string[];
 
-  nmapOutputXML: string;
+  // nmapOutputXML: string;
 
   range: string;
 
@@ -37,7 +37,7 @@ class NmapScan extends EventEmitter {
   constructor(range: string, args: string) {
     super();
     this.command = [];
-    this.nmapOutputXML = '';
+    //    this.nmapOutputXML = '';
     this.timer = undefined as any;
     this.range = '';
     this.arguments = ['-oX', '-'];
@@ -92,7 +92,10 @@ class NmapScan extends EventEmitter {
 
   async initializeChildProcess() {
     this.startTimer();
-    this.child = this.command.includes('-O' || '-sO' || '-sS' || '-sU')
+
+    this.child = this.command.find(
+      (e) => e === '-O' || e === '-sO' || e === '-sS' || e === '-sU'
+    )
       ? exec(`pkexec ${nmap.nmapLocation} ${this.command.join(' ')}`)
       : spawn(nmap.nmapLocation, this.command);
     process.on('SIGINT', this.killChild);

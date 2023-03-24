@@ -19,11 +19,3 @@ export interface ITcpScanResponse {
     extraInfo: string;
   }[][];
 }
-
-export enum ITcpScanSelect {
-  services = '-sV',
-  operationalSystem = '-sO',
-  UDP = '-sU',
-  stealthScan = '-sS',
-  ipProtocol = '-O',
-}

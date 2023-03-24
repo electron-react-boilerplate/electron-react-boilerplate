@@ -12,10 +12,10 @@ import path from 'path';
 import { app, BrowserWindow, shell, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
+import { ITcpScan } from 'tools/network-scan/types';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 import nmap from '../tools/network-scan/nmapScan.class';
-import { ITcpScan } from '../tools/network-scan/types/scan-network.types';
 
 class AppUpdater {
   constructor() {
@@ -28,11 +28,15 @@ class AppUpdater {
 let mainWindow: BrowserWindow | null = null;
 
 // initialize nmap scan
-ipcMain.on('startScan', async (event, arg: string[]) => {
+ipcMain.on('startScan', async (event, args: string[]) => {
+  console.log('ARGS', args);
   const nmapResponde = new Map<string, ITcpScan>();
-  const addresses = arg[0];
-  const args = arg[1]?.concat(arg?.[2]);
-  const scan = new nmap.NmapScan(addresses, args);
+  const addresses = args[0]
+    .replace('https://', '')
+    .replace('http://', '')
+    .replace('/', '');
+  const parsedArgs = args[1]?.concat(args?.[2]);
+  const scan = new nmap.NmapScan(addresses, parsedArgs);
   scan.on('complete', (data: ITcpScan) => {
     console.log('target', JSON.stringify(data, null, 4));
     nmapResponde.set(addresses, data);
@@ -40,14 +44,14 @@ ipcMain.on('startScan', async (event, arg: string[]) => {
     return event.sender.send('startScan', target);
   });
 
-  // scan.on('error', (data: string) => {
-  //   if (data.includes('root')) {
-  //     console.log('chegou no if');
-  //     event.sender.send('startScan', 'scanerRoot');
-  //   }
-  //   console.log('ERROR', JSON.stringify(data, null, 2));
-  //   console.log(`total scan time ${scan.scanTime}`);
-  // });
+  scan.on('error', (data: string) => {
+    if (data.includes('root')) {
+      console.log('chegou no if');
+      event.sender.send('startScan', 'scanerRoot');
+    }
+    console.log('ERROR', JSON.stringify(data, null, 2));
+    console.log(`total scan time ${scan.scanTime}`);
+  });
   scan.startScan();
 });
 

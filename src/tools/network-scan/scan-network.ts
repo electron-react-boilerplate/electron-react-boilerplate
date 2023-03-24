@@ -1,9 +1,9 @@
-import { ITcpScan } from './types/scan-network.types';
+import { ITcpScan } from './types';
 
 function convertRawJsonToScanResults(xmlInput: ITcpScan) {
   const hostT = xmlInput?.nmaprun?.host?.map((hosts) => {
     try {
-      console.log('hosts', { hosts });
+      console.error('HOSTS ==>', { hosts });
       const target = {
         address: hosts?.address?.map((addr) => {
           return {
@@ -35,7 +35,7 @@ function convertRawJsonToScanResults(xmlInput: ITcpScan) {
           });
         }),
       };
-      console.log(target, 'COVERSION');
+      console.log('TARGET', target);
       return target;
     } catch (err) {
       return console.log(err);

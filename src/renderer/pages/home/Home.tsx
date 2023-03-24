@@ -9,15 +9,13 @@ import {
   MenuProps,
   Row,
   Select,
+  Spin,
 } from 'antd';
 import { createUseStyles } from 'react-jss';
 import { AiOutlineMenu, AiOutlineSend } from 'react-icons/ai';
 import { MdOutlineCancelScheduleSend } from 'react-icons/md';
 import { useEffect, useState } from 'react';
-import {
-  ITcpScanResponse,
-  ITcpScanSelect,
-} from '../../../tools/network-scan/types/scan-network-response.types';
+import { ITcpScanResponse, ITcpScanSelect } from 'tools/network-scan/types';
 
 const useStyle = createUseStyles({
   buttonStyle: {
@@ -59,8 +57,8 @@ const useStyle = createUseStyles({
 });
 type FormParam = {
   address: string;
-  scanType: string;
-  port: string;
+  scanType?: string[];
+  port?: string;
 };
 export const Home = () => {
   const [target, setTarget] = useState<ITcpScanResponse[]>();
@@ -72,7 +70,7 @@ export const Home = () => {
   useEffect(() => {}, [resp]);
   const [form] = Form.useForm();
   const { buttonStyle, buttonSend } = useStyle();
-  const formName: FormParam = {
+  const formName = {
     address: 'address',
     scanType: 'scanType',
     port: 'port',
@@ -154,6 +152,7 @@ export const Home = () => {
       // ],
     },
   ];
+  console.log('loading', loading, 'datasource', dataSource);
   return (
     <div>
       <Row>
@@ -179,21 +178,29 @@ export const Home = () => {
             >
               <Input
                 style={{ width: '100%' }}
-                placeholder="1.1.1.1"
+                placeholder="1.1.1.1 or url"
                 disabled={loading}
               />
             </Form.Item>
           </Col>
           <Col>
-            <Form.Item name={formName.scanType}>
+            <Form.Item label="Scan Type" name={formName.scanType}>
               <Select
-                placeholder="Scan type"
+                placeholder="Select"
                 allowClear
                 mode="multiple"
                 style={{ width: '200px' }}
               >
                 {Object.keys(ITcpScanSelect).map((type) => (
                   <Option
+                    disabled={
+                      // eslint-disable-next-line no-nested-ternary
+                      formValues?.scanType?.find((e) => e === '-sO')
+                        ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                          // @ts-ignore
+                          ITcpScanSelect[type] !== '-sO'
+                        : undefined
+                    }
                     key={type}
                     label={type}
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -207,8 +214,8 @@ export const Home = () => {
             </Form.Item>
           </Col>
           <Col>
-            <Form.Item name={formName.port}>
-              <Input placeholder="Port" />
+            <Form.Item label="Port" name={formName.port}>
+              <Input placeholder="1-80" />
             </Form.Item>
           </Col>
         </Form>
@@ -263,56 +270,60 @@ export const Home = () => {
       <hr />
       <Row>
         <Col>
-          <List
-            itemLayout="vertical"
-            size="small"
-            bordered
-            style={{
-              backgroundColor: '#D9D9D9',
-              width: '100%',
-              fontFamily: 'monospace',
-              maxHeight: 612,
-              overflow: 'auto',
-            }}
-            loading={loading}
-            dataSource={dataSource}
-            renderItem={(item, index) => {
-              return (
-                <>
-                  <Divider dashed />
-                  {item?.address?.length > 0 && (
-                    <List.Item>
-                      <p>
-                        Name:{' '}
-                        {item?.hostName?.[index]?.names?.[index]?.name?.name}
-                      </p>
-                      <Divider dashed />
-                      <p>
-                        Address:{' '}
-                        {item?.address?.find((addr) => addr?.addr)?.addr}
-                      </p>
-                      {item?.ports?.map((serv) => {
-                        return (
-                          <>
-                            <Divider />
-                            <p>Port: {serv.number}</p>
-                            <p>Protocol: {serv.protocol}</p>
-                            <p>Service: {serv.service}</p>
-                            {serv.osType && <p>OS Type: {serv.osType}</p>}
-                            <p>State: {serv.state}</p>
-                            <p>Product: {serv.product}</p>
-                            <p>Device Type: {serv.deviceType}</p>
-                            <p>Extra Info: {serv.extraInfo}</p>
-                          </>
-                        );
-                      })}
-                      <Divider />
-                    </List.Item>
-                  )}
-                </>
-              );
-            }}
-          />
+          {loading && dataSource === undefined ? (
+            <Spin />
+          ) : (
+            <List
+              itemLayout="vertical"
+              size="small"
+              bordered
+              style={{
+                backgroundColor: '#D9D9D9',
+                width: '100%',
+                fontFamily: 'monospace',
+                maxHeight: 612,
+                overflow: 'auto',
+              }}
+              loading={loading}
+              dataSource={dataSource}
+              renderItem={(item, index) => {
+                return (
+                  <>
+                    <Divider dashed />
+                    {item?.address?.length > 0 && (
+                      <List.Item key={index}>
+                        <p>
+                          Name:{' '}
+                          {item?.hostName?.[index]?.names?.[index]?.name?.name}
+                        </p>
+                        <Divider dashed />
+                        <p>
+                          Address:{' '}
+                          {item?.address?.find((addr) => addr?.addr)?.addr}
+                        </p>
+                        {item?.ports?.map((serv) => {
+                          return (
+                            <>
+                              <Divider />
+                              <p>Port: {serv.number}</p>
+                              <p>Protocol: {serv.protocol}</p>
+                              <p>Service: {serv.service}</p>
+                              {serv.osType && <p>OS Type: {serv.osType}</p>}
+                              <p>State: {serv.state}</p>
+                              <p>Product: {serv.product}</p>
+                              <p>Device Type: {serv.deviceType}</p>
+                              <p>Extra Info: {serv.extraInfo}</p>
+                            </>
+                          );
+                        })}
+                        <Divider />
+                      </List.Item>
+                    )}
+                  </>
+                );
+              }}
+            />
+          )}
         </Col>
       </Row>
     </div>

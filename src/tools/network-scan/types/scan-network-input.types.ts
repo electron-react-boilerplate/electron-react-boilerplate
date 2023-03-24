@@ -52,3 +52,10 @@ export interface ITcpScan {
     }[];
   };
 }
+export enum ITcpScanSelect {
+  services = '-sV',
+  ipProtocol = '-sO',
+  UDP = '-sU',
+  stealthScan = '-sS',
+  operationalSystem = '-O',
+}
