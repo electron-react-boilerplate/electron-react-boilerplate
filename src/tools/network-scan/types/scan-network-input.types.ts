@@ -58,4 +58,5 @@ export enum ITcpScanSelect {
   UDP = '-sU',
   stealthScan = '-sS',
   operationalSystem = '-O',
+  OSVersionTraceroute = '-A',
 }
