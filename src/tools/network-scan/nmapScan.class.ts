@@ -4,8 +4,8 @@ import { EventEmitter } from 'events';
 import { exec, spawn } from 'child_process';
 import { platform } from 'os';
 // import { exec } from 'sudo-prompt';
-import { ITcpScan } from './types/scan-network.types';
 import convertRawJsonToScanResults from './scan-network';
+import { ITcpScan } from './types';
 
 class NmapScan extends EventEmitter {
   command: string[];

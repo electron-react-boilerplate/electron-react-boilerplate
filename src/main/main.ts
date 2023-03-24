@@ -12,10 +12,10 @@ import path from 'path';
 import { app, BrowserWindow, shell, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
+import { ITcpScan } from 'tools/network-scan/types';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 import nmap from '../tools/network-scan/nmapScan.class';
-import { ITcpScan } from '../tools/network-scan/types/scan-network.types';
 
 class AppUpdater {
   constructor() {
@@ -28,14 +28,15 @@ class AppUpdater {
 let mainWindow: BrowserWindow | null = null;
 
 // initialize nmap scan
-ipcMain.on('startScan', async (event, arg: string[]) => {
+ipcMain.on('startScan', async (event, args: string[]) => {
+  console.log('ARGS', args);
   const nmapResponde = new Map<string, ITcpScan>();
-  const addresses = arg[0]
+  const addresses = args[0]
     .replace('https://', '')
     .replace('http://', '')
     .replace('/', '');
-  const args = arg[1]?.concat(arg?.[2]);
-  const scan = new nmap.NmapScan(addresses, args);
+  const parsedArgs = args[1]?.concat(args?.[2]);
+  const scan = new nmap.NmapScan(addresses, parsedArgs);
   scan.on('complete', (data: ITcpScan) => {
     console.log('target', JSON.stringify(data, null, 4));
     nmapResponde.set(addresses, data);

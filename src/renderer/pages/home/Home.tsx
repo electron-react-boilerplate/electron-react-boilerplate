@@ -15,10 +15,7 @@ import { createUseStyles } from 'react-jss';
 import { AiOutlineMenu, AiOutlineSend } from 'react-icons/ai';
 import { MdOutlineCancelScheduleSend } from 'react-icons/md';
 import { useEffect, useState } from 'react';
-import {
-  ITcpScanResponse,
-  ITcpScanSelect,
-} from '../../../tools/network-scan/types/scan-network-response.types';
+import { ITcpScanResponse, ITcpScanSelect } from 'tools/network-scan/types';
 
 const useStyle = createUseStyles({
   buttonStyle: {
@@ -181,7 +178,7 @@ export const Home = () => {
             >
               <Input
                 style={{ width: '100%' }}
-                placeholder="1.1.1.1"
+                placeholder="1.1.1.1 or url"
                 disabled={loading}
               />
             </Form.Item>
@@ -197,10 +194,11 @@ export const Home = () => {
                 {Object.keys(ITcpScanSelect).map((type) => (
                   <Option
                     disabled={
-                      formValues?.scanType?.find((e) => e === '-sS')
+                      // eslint-disable-next-line no-nested-ternary
+                      formValues?.scanType?.find((e) => e === '-sO')
                         ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                           // @ts-ignore
-                          ITcpScanSelect[type] === '-sO'
+                          ITcpScanSelect[type] !== '-sO'
                         : undefined
                     }
                     key={type}
