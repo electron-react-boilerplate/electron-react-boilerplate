@@ -167,7 +167,7 @@ export const Home = () => {
   console.log('loading', loading, 'datasource', dataSource);
   return (
     <div>
-      <Row>
+      <Row align="top">
         <Dropdown menu={{ items: menu }}>
           <Button
             className={buttonStyle}
@@ -175,13 +175,13 @@ export const Home = () => {
           />
         </Dropdown>
       </Row>
-      <Row justify="space-between">
+      <Row align="top" gutter={[16, 16]}>
         <Form
           form={form}
           style={{
             display: 'flex',
-            marginLeft: '30px',
-            marginTop: '16px',
+            // marginLeft: '30px',
+            // marginTop: '16px',
           }}
           onValuesChange={(changedValues, allValues) => {
             setFormValues((oldValues) => ({ ...oldValues, ...allValues }));
@@ -206,7 +206,7 @@ export const Home = () => {
           <Col>
             <Form.Item name={formName.scanType}>
               <Select
-                placeholder="Select"
+                placeholder="Scan Type"
                 allowClear
                 mode="multiple"
                 style={{ width: '200px' }}
@@ -234,9 +234,9 @@ export const Home = () => {
             </Form.Item>
           </Col>
           <Col>
-            <Form.Item label="Script" name="script">
+            <Form.Item name="script">
               <Select
-                placeholder="Select"
+                placeholder="Script"
                 allowClear
                 mode="multiple"
                 style={{ width: '200px' }}
@@ -256,7 +256,7 @@ export const Home = () => {
             </Form.Item>
           </Col>
           <Col>
-            <Form.Item label="Port" name={formName.port}>
+            <Form.Item name={formName.port}>
               <Input placeholder="1-80" />
             </Form.Item>
           </Col>
