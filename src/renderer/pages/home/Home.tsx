@@ -15,9 +15,18 @@ import { createUseStyles } from 'react-jss';
 import { AiOutlineMenu, AiOutlineSend } from 'react-icons/ai';
 import { MdOutlineCancelScheduleSend } from 'react-icons/md';
 import { useEffect, useState } from 'react';
-import { ITcpScanResponse, ITcpScanSelect } from 'tools/network-scan/types';
+import {
+  ITcpScanResponse,
+  ScanTypeSelect,
+  ScriptSelect,
+} from 'tools/network-scan/types';
 
 const useStyle = createUseStyles({
+  label: {
+    display: 'block',
+    marginBottom: 10,
+    fontWeight: 'bold',
+  },
   buttonStyle: {
     margin: 4,
     backgroundColor: 'white',
@@ -59,6 +68,7 @@ type FormParam = {
   address: string;
   scanType?: string[];
   port?: string;
+  script?: string;
 };
 export const Home = () => {
   const [target, setTarget] = useState<ITcpScanResponse[]>();
@@ -69,21 +79,23 @@ export const Home = () => {
   });
   useEffect(() => {}, [resp]);
   const [form] = Form.useForm();
-  const { buttonStyle, buttonSend } = useStyle();
+  const { buttonStyle, buttonSend, label } = useStyle();
   const formName = {
     address: 'address',
     scanType: 'scanType',
     port: 'port',
+    script: 'script',
   };
 
   const [formValues, setFormValues] = useState<FormParam>();
   const { Option } = Select;
   async function startScan() {
-    const { address, scanType, port } = formValues as FormParam;
+    const { address, scanType, port, script } = formValues as FormParam;
     window.electron.ipcRenderer.sendMessage('startScan', [
       address,
       scanType,
       port ? `-p${port}` : port,
+      // script ? `--script ${script}` : script,
     ]);
     setLoading(true);
   }
@@ -156,6 +168,14 @@ export const Home = () => {
   return (
     <div>
       <Row>
+        <Dropdown menu={{ items: menu }}>
+          <Button
+            className={buttonStyle}
+            icon={<AiOutlineMenu className="anticon" />}
+          />
+        </Dropdown>
+      </Row>
+      <Row justify="space-between">
         <Form
           form={form}
           style={{
@@ -184,28 +204,50 @@ export const Home = () => {
             </Form.Item>
           </Col>
           <Col>
-            <Form.Item label="Scan Type" name={formName.scanType}>
+            <Form.Item name={formName.scanType}>
               <Select
                 placeholder="Select"
                 allowClear
                 mode="multiple"
                 style={{ width: '200px' }}
               >
-                {Object.keys(ITcpScanSelect).map((type) => (
+                {Object.keys(ScanTypeSelect).map((type) => (
                   <Option
                     disabled={
                       // eslint-disable-next-line no-nested-ternary
                       formValues?.scanType?.find((e) => e === '-sO')
                         ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                           // @ts-ignore
-                          ITcpScanSelect[type] !== '-sO'
+                          ScanTypeSelect[type] !== '-sO'
                         : undefined
                     }
                     key={type}
                     label={type}
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                     // @ts-ignore
-                    value={ITcpScanSelect[type]}
+                    value={ScanTypeSelect[type]}
+                  >
+                    {type}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+          </Col>
+          <Col>
+            <Form.Item label="Script" name="script">
+              <Select
+                placeholder="Select"
+                allowClear
+                mode="multiple"
+                style={{ width: '200px' }}
+              >
+                {Object.keys(ScriptSelect).map((type) => (
+                  <Option
+                    key={type}
+                    label={type}
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-ignore
+                    value={ScriptSelect[type]}
                   >
                     {type}
                   </Option>
@@ -253,18 +295,6 @@ export const Home = () => {
               }}
             />
           )}
-        </Col>
-        <Col>
-          {/* <Button
-            className={buttonStyle}
-            icon={<AiOutlineMenu className="anticon" />}
-          /> */}
-          <Dropdown menu={{ items: menu }}>
-            <Button
-              className={buttonStyle}
-              icon={<AiOutlineMenu className="anticon" />}
-            />
-          </Dropdown>
         </Col>
       </Row>
       <hr />

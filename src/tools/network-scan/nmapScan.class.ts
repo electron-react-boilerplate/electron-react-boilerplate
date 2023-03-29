@@ -98,6 +98,7 @@ class NmapScan extends EventEmitter {
     )
       ? exec(`pkexec ${nmap.nmapLocation} ${this.command.join(' ')}`)
       : spawn(nmap.nmapLocation, this.command);
+    console.log('ALOPAE', this.command);
     process.on('SIGINT', this.killChild);
     process.on('uncaughtException', this.killChild);
     process.on('exit', this.killChild);
