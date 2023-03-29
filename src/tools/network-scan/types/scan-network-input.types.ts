@@ -52,11 +52,26 @@ export interface ITcpScan {
     }[];
   };
 }
-export enum ITcpScanSelect {
+export enum ScanTypeSelect {
   services = '-sV',
   ipProtocol = '-sO',
   UDP = '-sU',
   stealthScan = '-sS',
   operationalSystem = '-O',
   OSVersionTraceroute = '-A',
+}
+
+export enum ScriptSelect {
+  default = '-sC',
+  auth = 'auth',
+  broadcast = 'broadcast',
+  privacy = 'privacy',
+  discovery = 'discovery',
+  dos = 'dos',
+  exploit = 'exploit',
+  brute = 'brute',
+  fuzzer = 'fuzzer',
+  malware = 'malware',
+  vuln = 'vuln',
+  version = 'version', // just run with -sV
 }
