@@ -192,6 +192,7 @@ export const Home = () => {
           }}
         >
           <Col>
+            <Typography.Text>Address</Typography.Text>
             <Form.Item
               rules={[
                 {
@@ -239,6 +240,7 @@ export const Home = () => {
             </Form.Item>
           </Col>
           <Col>
+            <Typography.Text>Scripts</Typography.Text>
             <Form.Item name="script">
               <Select
                 placeholder="Script"
@@ -261,6 +263,7 @@ export const Home = () => {
             </Form.Item>
           </Col>
           <Col>
+            <Typography.Text>Port</Typography.Text>
             <Form.Item name={formName.port}>
               <Input placeholder="1-80" />
             </Form.Item>
