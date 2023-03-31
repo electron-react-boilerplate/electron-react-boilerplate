@@ -307,7 +307,7 @@ export const Home = () => {
       </Row>
       <hr />
       <Row>
-        <Col>
+        <Col style={{ width: '100%', height: '100%' }}>
           {loading && dataSource === undefined ? (
             <Spin />
           ) : (
