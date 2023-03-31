@@ -10,6 +10,7 @@ import {
   Row,
   Select,
   Spin,
+  Typography,
 } from 'antd';
 import { createUseStyles } from 'react-jss';
 import { AiOutlineMenu, AiOutlineSend } from 'react-icons/ai';
@@ -20,6 +21,7 @@ import {
   ScanTypeSelect,
   ScriptSelect,
 } from 'tools/network-scan/types';
+import TooltipQuestion from './components/tooltop-question';
 
 const useStyle = createUseStyles({
   label: {
@@ -70,6 +72,7 @@ type FormParam = {
   port?: string;
   script?: string;
 };
+
 export const Home = () => {
   const [target, setTarget] = useState<ITcpScanResponse[]>();
   const [loading, setLoading] = useState<boolean>(false);
@@ -165,6 +168,7 @@ export const Home = () => {
     },
   ];
   console.log('loading', loading, 'datasource', dataSource);
+
   return (
     <div>
       <Row align="top">
@@ -204,6 +208,7 @@ export const Home = () => {
             </Form.Item>
           </Col>
           <Col>
+            <Typography.Text>Scan Type</Typography.Text>
             <Form.Item name={formName.scanType}>
               <Select
                 placeholder="Scan Type"
@@ -227,7 +232,7 @@ export const Home = () => {
                     // @ts-ignore
                     value={ScanTypeSelect[type]}
                   >
-                    {type}
+                    <TooltipQuestion title={type} text={type} />
                   </Option>
                 ))}
               </Select>
