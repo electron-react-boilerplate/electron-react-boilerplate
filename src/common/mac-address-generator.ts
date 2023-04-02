@@ -13,4 +13,3 @@ function generateMACAddress() {
 }
 
 const randomMACAddress = generateMACAddress();
-console.log(randomMACAddress);
