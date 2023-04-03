@@ -309,58 +309,63 @@ export const Home = () => {
       <Row>
         <Col style={{ width: '100%', height: '100%' }}>
           {loading && dataSource === undefined ? (
-            <Spin />
+            <Spin style={{ alignContent: 'center' }} />
           ) : (
-            <List
-              itemLayout="vertical"
-              size="small"
-              bordered
-              style={{
-                backgroundColor: '#D9D9D9',
-                width: '100%',
-                fontFamily: 'monospace',
-                maxHeight: 612,
-                overflow: 'auto',
-              }}
-              loading={loading}
-              dataSource={dataSource}
-              renderItem={(item, index) => {
-                return (
-                  <>
-                    <Divider dashed />
-                    {item?.address?.length > 0 && (
-                      <List.Item key={index}>
-                        <p>
-                          Name:{' '}
-                          {item?.hostName?.[index]?.names?.[index]?.name?.name}
-                        </p>
-                        <Divider dashed />
-                        <p>
-                          Address:{' '}
-                          {item?.address?.find((addr) => addr?.addr)?.addr}
-                        </p>
-                        {item?.ports?.map((serv) => {
-                          return (
-                            <>
-                              <Divider />
-                              <p>Port: {serv.number}</p>
-                              <p>Protocol: {serv.protocol}</p>
-                              <p>Service: {serv.service}</p>
-                              {serv.osType && <p>OS Type: {serv.osType}</p>}
-                              <p>State: {serv.state}</p>
-                              <p>Product: {serv.product}</p>
-                              <p>Device Type: {serv.deviceType}</p>
-                              <p>Extra Info: {serv.extraInfo}</p>
-                            </>
-                          );
-                        })}
-                        <Divider />
-                      </List.Item>
-                    )}
-                  </>
-                );
-              }}
-            />
+            <div>
+              <List
+                itemLayout="vertical"
+                size="small"
+                bordered
+                style={{
+                  backgroundColor: '#D9D9D9',
+                  width: '100%',
+                  fontFamily: 'monospace',
+                  maxHeight: 612,
+                  overflow: 'auto',
+                }}
+                loading={loading}
+                dataSource={dataSource}
+                renderItem={(item, index) => {
+                  return (
+                    <>
+                      <Divider dashed />
+                      {item?.address?.length > 0 && (
+                        <List.Item key={index}>
+                          <p>
+                            Name:{' '}
+                            {
+                              item?.hostName?.[index]?.names?.[index]?.name
+                                ?.name
+                            }
+                          </p>
+                          <Divider dashed />
+                          <p>
+                            Address:{' '}
+                            {item?.address?.find((addr) => addr?.addr)?.addr}
+                          </p>
+                          {item?.ports?.map((serv) => {
+                            return (
+                              <>
+                                <Divider />
+                                <p>Port: {serv.number}</p>
+                                <p>Protocol: {serv.protocol}</p>
+                                <p>Service: {serv.service}</p>
+                                {serv.osType && <p>OS Type: {serv.osType}</p>}
+                                <p>State: {serv.state}</p>
+                                <p>Product: {serv.product}</p>
+                                <p>Device Type: {serv.deviceType}</p>
+                                <p>Extra Info: {serv.extraInfo}</p>
+                              </>
+                            );
+                          })}
+                          <Divider />
+                        </List.Item>
+                      )}
+                    </>
+                  );
+                }}
+              />
+            </div>
           )}
         </Col>
       </Row>
