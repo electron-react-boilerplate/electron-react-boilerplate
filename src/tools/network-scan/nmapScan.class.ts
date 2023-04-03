@@ -92,12 +92,16 @@ class NmapScan extends EventEmitter {
 
   async initializeChildProcess() {
     this.startTimer();
+if(platform()==='linux'){
 
-    this.child = this.command.find(
-      (e) => e === '-O' || e === '-sO' || e === '-sS' || e === '-sU'
+  this.child = this.command.find(
+    (e) => e === '-O' || e === '-sO' || e === '-sS' || e === '-sU'
     )
-      ? exec(`pkexec ${nmap.nmapLocation} ${this.command.join(' ')}`)
-      : spawn(nmap.nmapLocation, this.command);
+    ? exec(`pkexec ${nmap.nmapLocation} ${this.command.join(' ')}`)
+    : spawn(nmap.nmapLocation, this.command);
+  }else{
+   this.child = spawn(nmap.nmapLocation, this.command);
+  }
     console.log('ALOPAE', this.command);
     process.on('SIGINT', this.killChild);
     process.on('uncaughtException', this.killChild);
