@@ -15,6 +15,8 @@ export interface ITcpScanResponse {
     deviceType: string;
     service: string;
     product: string;
+    version: string;
+    cpe: string[];
     osType: string;
     extraInfo: string;
   }[][];

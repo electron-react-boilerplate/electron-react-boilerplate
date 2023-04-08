@@ -39,7 +39,9 @@ export interface ITcpScan {
             portid: string;
           };
           service: {
+            cpe: string[];
             $: {
+              version: string;
               name: string;
               product: string;
               devicetype: string;
