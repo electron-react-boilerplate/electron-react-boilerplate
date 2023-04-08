@@ -134,18 +134,22 @@ export const Home = () => {
                 addrType: addr?.addrType,
               };
             }),
-            ports: hosts?.ports?.[0]?.map((port) => {
-              return {
-                protocol: port?.protocol,
-                service: port?.service,
-                state: port?.state,
-                number: port?.number,
-                osType: port?.osType,
-                product: port?.product,
-                deviceType: port?.deviceType,
-                extraInfo: port?.extraInfo,
-              };
-            }),
+            ports: hosts?.ports?.[0]?.map<ITcpScanResponse['ports'][0][0]>(
+              (port) => {
+                return {
+                  version: port?.version,
+                  cpe: port?.cpe,
+                  protocol: port?.protocol,
+                  service: port?.service,
+                  state: port?.state,
+                  number: port?.number,
+                  osType: port?.osType,
+                  product: port?.product,
+                  deviceType: port?.deviceType,
+                  extraInfo: port?.extraInfo,
+                };
+              }
+            ),
           };
         })
       : undefined;
@@ -350,9 +354,10 @@ export const Home = () => {
                                 <p>Port: {serv.number}</p>
                                 <p>Protocol: {serv.protocol}</p>
                                 <p>Service: {serv.service}</p>
+                                <p>Product: {serv.product}</p>
+                                <p>Version: {serv.version}</p>
                                 {serv.osType && <p>OS Type: {serv.osType}</p>}
                                 <p>State: {serv.state}</p>
-                                <p>Product: {serv.product}</p>
                                 <p>Device Type: {serv.deviceType}</p>
                                 <p>Extra Info: {serv.extraInfo}</p>
                               </>

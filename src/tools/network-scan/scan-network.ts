@@ -3,7 +3,7 @@ import { ITcpScan } from './types';
 function convertRawJsonToScanResults(xmlInput: ITcpScan) {
   const hostT = xmlInput?.nmaprun?.host?.map((hosts) => {
     try {
-      console.error('HOSTS ==>', { hosts });
+      console.log('POSTS ==>', hosts.ports[0].port[0].service);
       const target = {
         address: hosts?.address?.map((addr) => {
           return {
@@ -26,6 +26,8 @@ function convertRawJsonToScanResults(xmlInput: ITcpScan) {
               number: port?.port?.[idxServ]?.$?.portid,
               protocol: port?.port?.[idxServ]?.$?.protocol,
               state: serv?.state?.[idxPort]?.$?.state,
+              cpe: serv?.service?.[idxPort]?.cpe,
+              version: serv?.service?.[idxPort]?.$.version,
               service: serv?.service?.[idxPort]?.$?.name,
               product: serv?.service?.[idxPort]?.$?.product,
               deviceType: serv?.service?.[idxPort]?.$?.devicetype,
@@ -35,7 +37,6 @@ function convertRawJsonToScanResults(xmlInput: ITcpScan) {
           });
         }),
       };
-      console.log('TARGET', target);
       return target;
     } catch (err) {
       return console.log(err);
