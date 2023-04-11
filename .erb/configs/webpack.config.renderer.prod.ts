@@ -94,9 +94,7 @@ const configuration: webpack.Configuration = {
   optimization: {
     minimize: true,
     minimizer: [
-      new TerserPlugin({
-        parallel: true,
-      }),
+      new TerserPlugin(),
       new CssMinimizerPlugin(),
     ],
   },
@@ -134,7 +132,7 @@ const configuration: webpack.Configuration = {
         removeComments: true,
       },
       isBrowser: false,
-      isDevelopment: process.env.NODE_ENV !== 'production',
+      isDevelopment: false,
     }),
 
     new webpack.DefinePlugin({
