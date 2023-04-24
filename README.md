@@ -30,6 +30,8 @@ cd your-project-name
 npm install
 ```
 
+If your package tools can not access the source of electron packages normally, you can refer to the [Advanced Installation Instructions](https://www.electronjs.org/docs/latest/tutorial/installation).
+
 **Having issues installing? See our [debugging guide](https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues/400)**
 
 ## Starting Development
