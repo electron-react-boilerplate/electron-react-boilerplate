@@ -30,6 +30,14 @@ cd your-project-name
 npm install
 ```
 
+or if you preffer ssh:
+
+```bash
+git clone --depth 1 --branch main git@github.com:electron-react-boilerplate/electron-react-boilerplate.git your-project-name
+cd your-project-name
+npm install
+```
+
 **Having issues installing? See our [debugging guide](https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues/400)**
 
 ## Starting Development
