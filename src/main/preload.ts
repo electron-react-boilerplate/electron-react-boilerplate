@@ -6,8 +6,8 @@ export type Channels = 'ipc-example';
 
 const electronHandler = {
   ipcRenderer: {
-    sendMessage(channel: Channels, args: unknown[]) {
-      ipcRenderer.send(channel, args);
+    sendMessage(channel: Channels, ...args: unknown[]) {
+      ipcRenderer.send(channel, ...args);
     },
     on(channel: Channels, func: (...args: unknown[]) => void) {
       const subscription = (_event: IpcRendererEvent, ...args: unknown[]) =>
