@@ -1,0 +1,190 @@
+.flexHeaderChart {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: #a8a9ac;
+  padding: 6px 59px;
+}
+.textStat {
+  font-size: 30px;
+  color: #f5f7f6;
+}
+.greenDot {
+  color: #1c412f;
+}
+
+.redDot {
+  color: #3d2024;
+}
+.space {
+  display: flex;
+  column-gap: 10px;
+  align-items: center;
+}
+.chartWrap {
+  background-color: #15161b;
+  border-radius: 7px;
+}
+.CardsContainer {
+  max-height: 261px;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  padding: 11px 22px;
+}
+.CardsWrap {
+  background-color: #15161b;
+  border-radius: 7px;
+}
+.styleNotf {
+  color: #e4e5e7;
+  padding: 8px 23px;
+  font-weight: 600;
+  font-size: 25px;
+}
+.ShoeCard {
+  width: max-content;
+  flex-direction: row;
+  border-radius: 7px;
+  display: flex;
+  width: -webkit-fill-available;
+  background-color: #1d1d25;
+  padding: 10px 10px;
+  column-gap: 13px;
+  cursor: pointer;
+}
+.ShoeCard:hover {
+  background-color: #26263b;
+  transition: all 0.2s ease;
+  -webkit-transition: all 0.2s ease;
+}
+.imgCard {
+  width: 22%;
+  border-radius: 7px;
+}
+.descriptionFlex {
+  display: flex;
+  flex-direction: column;
+}
+.colorDes1 {
+  color: #9fa0a5;
+}
+.colorDes2 {
+  color: #4f5052;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #4f5052;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #4f5052;
+}
+.buttonsContainerRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 10px;
+  column-gap: 10px;
+}
+.contactbtn {
+  background-color: #1f222b;
+  color: #cfd0d5;
+  border-radius: 7px;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+.contactbtn:hover {
+  background-color: #26263b;
+  transition: all 0.2s ease;
+  -webkit-transition: all 0.2s ease;
+}
+.logbtn {
+  background-color: #1f222b;
+  color: #cfd0d5;
+  border-radius: 7px;
+  cursor: pointer;
+  border: none;
+  padding: 10px;
+}
+.logbtn:hover {
+  background-color: #26263b;
+  transition: all 0.2s ease;
+  -webkit-transition: all 0.2s ease;
+}
+
+@media (max-width: 900px) {
+  .buttonsContainerRow {
+    padding-bottom: 30px;
+  }
+}
+@media (max-width: 1256px) {
+  .descriptionFlex {
+    display: flex;
+    flex-direction: column;
+    line-height: 16px;
+  }
+}
+@media (max-width: 1150px) {
+  .Container {
+    display: flex;
+    flex-direction: column !important;
+  }
+  .firstContainerColumn {
+    width: 100% !important;
+  }
+  .SecondContainerColumn {
+    width: 100% !important;
+  }
+  .sidebar {
+    height: 173vh;
+  }
+  .buttonsContainerRow {
+    margin-top: 24px;
+  }
+  .cookieBtn {
+    width: 40% !important;
+  }
+  .columnSelect {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .arrow-boxesOne {
+    width: 211px;
+  }
+  .descriptionFlex {
+    display: flex;
+    flex-direction: column;
+    line-height: 62px;
+  }
+  .switchWrap {
+    display: flex;
+    flex-direction: column;
+    width: 40% !important;
+  }
+  .columnTwoBars {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+  }
+}
+@media (max-width: 894px) {
+  .sidebar {
+    height: 177vh;
+  }
+}

@@ -23,7 +23,7 @@ class AppUpdater {
   }
 }
 
-let mainWindow: BrowserWindow | null = null;
+let mainWindow: BrowserWindow | any = null;
 
 ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
@@ -35,7 +35,13 @@ if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
   sourceMapSupport.install();
 }
+ipcMain.on('minimize', () => {
+  mainWindow.minimize();
+});
 
+ipcMain.on('close', () => {
+  mainWindow.close();
+});
 const isDebug =
   process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true';
 
@@ -73,12 +79,14 @@ const createWindow = async () => {
     show: false,
     width: 1024,
     height: 728,
+    // frame: false,
     icon: getAssetPath('icon.png'),
     webPreferences: {
       preload: app.isPackaged
         ? path.join(__dirname, 'preload.js')
         : path.join(__dirname, '../../.erb/dll/preload.js'),
     },
+    minWidth: 900,
   });
 
   mainWindow.loadURL(resolveHtmlPath('index.html'));
@@ -102,7 +110,7 @@ const createWindow = async () => {
   menuBuilder.buildMenu();
 
   // Open urls in the user's browser
-  mainWindow.webContents.setWindowOpenHandler((edata) => {
+  mainWindow.webContents.setWindowOpenHandler((edata: { url: string }) => {
     shell.openExternal(edata.url);
     return { action: 'deny' };
   });

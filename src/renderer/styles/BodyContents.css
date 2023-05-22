@@ -1,0 +1,208 @@
+.columnTwoBars {
+  display: flex;
+  flex-direction: column;
+}
+
+.First-RowBar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.inputBarfirst {
+  border: none;
+  width: 70%;
+  background-color: #15161b;
+  border-radius: 7px;
+  color: #68696d;
+  padding-left: 10px;
+  outline: none;
+  cursor: not-allowed;
+}
+.textFirstBar {
+  color: #a9aaae;
+  padding-bottom: 5px;
+}
+.eyeButton {
+  border: none;
+  background-color: #15161b;
+  border-radius: 7px;
+  color: #f7f8fa;
+  width: 7%;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+.inputBarfirst:hover {
+  background-color: #26263b;
+  transition: all 0.2s ease;
+  -webkit-transition: all 0.2s ease;
+}
+.eyeButton:hover {
+  background-color: #26263b;
+  transition: all 0.2s ease;
+  -webkit-transition: all 0.2s ease;
+}
+.BackBtnDeactivate:hover {
+  background-color: #26263b;
+  transition: all 0.2s ease;
+  -webkit-transition: all 0.2s ease;
+}
+
+.BackBtnDeactivate {
+  background-color: #15161b;
+  border: none;
+  border-radius: 7px;
+  color: #838488;
+  width: 20%;
+  cursor: pointer;
+}
+.Container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  column-gap: 12px;
+  align-items: center;
+}
+.firstContainerColumn {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+}
+
+.rowBars {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-bottom: 12px;
+  margin-top: 9px;
+  justify-content: space-between;
+}
+.columnSelect {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+}
+.select-optionDrop {
+  background-color: #15161b;
+  border: none;
+  border-radius: 7px;
+  outline: none;
+  padding: 10px;
+  color: #4e4f54;
+  cursor: pointer;
+}
+.select-optionDrop:hover {
+  background-color: #26263b;
+  transition: all 0.2s ease;
+  -webkit-transition: all 0.2s ease;
+}
+.select-optionDrop-item {
+  cursor: pointer;
+}
+.select-optionDrop-item:hover {
+  background-color: #26263b;
+  transition: all 0.2s ease;
+  -webkit-transition: all 0.2s ease;
+}
+.columnArrowBox {
+  display: flex;
+  flex-direction: column;
+}
+.columnArrowBox :hover {
+  background-color: #26263b;
+  transition: all 0.2s ease;
+  -webkit-transition: all 0.2s ease;
+}
+.arrow-boxesOne {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #15161b;
+  color: #4f5054;
+  align-items: center;
+  width: 83%;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 7px;
+  border: none;
+}
+
+.ResetButton {
+  background-color: #15161b;
+  color: #b8b9be;
+  border-radius: 7px;
+  position: relative;
+  cursor: pointer;
+  padding: 8px;
+  border: none;
+  bottom: top;
+  top: 13px;
+}
+.ResetButton:hover {
+  background-color: #26263b;
+
+  transition: all 0.2s ease;
+  -webkit-transition: all 0.2s ease;
+}
+.titlesBar {
+  color: #b8b9be;
+  padding-bottom: 6px;
+}
+.SecondContainerColumn {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+.switchWrap {
+  display: flex;
+  flex-direction: column;
+  width: 64%;
+}
+.rowTwoButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 13px;
+}
+.textDrkLight {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.cookieBtn {
+  border: none;
+  background-color: #15161b;
+  color: #727378;
+  cursor: pointer;
+  border-radius: 7px;
+  position: relative;
+  position: relative;
+  top: 11px;
+  width: 25%;
+  padding: 8px;
+  text-align: -webkit-center;
+}
+.cookieBtn:hover {
+  background-color: #26263b;
+  transition: all 0.2s ease;
+  -webkit-transition: all 0.2s ease;
+}
+.SwitchBtn {
+  border: none;
+  background-color: #15161b;
+  cursor: pointer;
+  color: #727378;
+  border-radius: 7px;
+  text-align: -webkit-center;
+  padding: 8px;
+  position: relative;
+  top: -3px;
+}
+.hoverArrows:hover {
+  color: rgb(49, 202, 100);
+}
