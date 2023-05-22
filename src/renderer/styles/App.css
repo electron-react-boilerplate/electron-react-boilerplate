@@ -1,0 +1,178 @@
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #0f1015;
+  font-family: 'FontName', system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+    sans-serif;
+  user-select: none;
+}
+.app {
+  display: flex;
+  height: 100vh;
+  width: 100% !important;
+}
+.greenBackground {
+  background-color: rgb(49, 202, 100) !important;
+  color: white !important;
+}
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  /* width: 200px; */
+  background-color: #15161b;
+  padding: 23px 15px;
+  color: #5b5c61;
+  border-right: 1px solid rgb(194, 192, 192);
+  /* min-width: 15% !important; */
+  width: 11%;
+  min-width: 160px;
+}
+.sidebarWrap {
+  padding: 31px 24px;
+}
+.sidebar-content {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.sidebar-name {
+  padding: 10px;
+}
+.tab {
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  column-gap: 13px;
+}
+
+.tab.active {
+  font-weight: bold;
+  color: #dddee0;
+}
+.content {
+  flex-grow: 1;
+  padding: 15px 25px;
+  width: 80%;
+}
+.ProfileSidebar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-bottom: 29px;
+  column-gap: 14px;
+}
+.ProfileSidebarColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.imgSize {
+  width: 26%;
+  border-radius: 50%;
+}
+
+.welcomeText {
+  width: max-content;
+  color: #aeafb1;
+  font-size: 16px;
+}
+.profileCodeText {
+  color: #424348;
+  font-size: 13px;
+}
+.Refresh-Arrow-style {
+  background-color: #262631;
+  padding: 10px 10px;
+  border-radius: 5px;
+  color: #5e5e68;
+}
+.custom-modal .ant-modal-content {
+  background-color: #0f1015;
+}
+
+.custom-modal p {
+  /* Customize the text styles */
+  color: #a2a2b1;
+}
+.btnCancel {
+  background-color: rgb(196, 60, 37);
+  border: none;
+  color: #dddee0;
+}
+.btnCancel:hover {
+  background-color: rgb(150, 40, 21) !important;
+  border: none;
+  color: #dddee0 !important;
+}
+.btnContinue {
+  color: #dddee0;
+  border: none;
+  background-color: rgb(49, 202, 100);
+}
+.btnContinue:hover {
+  background-color: rgb(68, 146, 94) !important;
+}
+.white-switch {
+  background-color: #15161b !important;
+  color: rgb(145, 32, 32);
+}
+
+.blue-switch {
+  background-color: #15161b !important;
+  color: rgb(145, 32, 32);
+}
+.white-switch .ant-switch-handle::before {
+  width: 60px;
+  position: absolute;
+  left: -46px;
+}
+
+.blue-switch .ant-switch-handle::before {
+  width: 60px;
+  background-color: #0f1015;
+}
+:where(.css-dev-only-do-not-override-15rg2km).ant-switch {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.88);
+  font-size: 14px;
+  line-height: 26px;
+  list-style: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  position: relative;
+  display: inline-block;
+  min-width: 44px;
+  height: 35px;
+  vertical-align: middle;
+  background: rgba(0, 0, 0, 0.25);
+  border: 0;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+:where(.css-dev-only-do-not-override-15rg2km).ant-switch .ant-switch-handle {
+  position: absolute;
+  top: 5px;
+  inset-inline-start: 2px;
+  width: 29px;
+  height: 24px;
+  transition: all 0.2s ease-in-out;
+}
+:where(.css-dev-only-do-not-override-15rg2km).ant-switch.ant-switch-checked
+  .ant-switch-inner
+  .ant-switch-inner-checked {
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  margin-top: 4px;
+}
+.OtherPages {
+  font-size: 30px;
+  text-align: center;
+  margin-top: 20px;
+  color: #343a58;
+}
