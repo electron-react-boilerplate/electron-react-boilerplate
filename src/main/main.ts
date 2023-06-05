@@ -1,6 +1,6 @@
 /* eslint global-require: off, no-console: off, promise/always-return: off */
-
 /**
+ * terves
  * This module executes inside of electron's main process. You can start
  * electron renderer process from here and communicate with the other processes
  * through IPC.
