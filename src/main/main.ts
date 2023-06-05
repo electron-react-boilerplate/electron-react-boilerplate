@@ -1,6 +1,5 @@
 /* eslint global-require: off, no-console: off, promise/always-return: off */
 /**
- * terves
  * This module executes inside of electron's main process. You can start
  * electron renderer process from here and communicate with the other processes
  * through IPC.
@@ -8,6 +7,7 @@
  * When running `npm run build` or `npm run build:main`, this file is compiled to
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
+import electron from 'electron';
 import path from 'path';
 import { app, BrowserWindow, shell, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
@@ -71,16 +71,22 @@ const createWindow = async () => {
     return path.join(RESOURCES_PATH, ...paths);
   };
 
+  const { width, height } = electron.screen.getPrimaryDisplay().workAreaSize;
+
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1024,
-    height: 728,
+    width: Math.floor(width / 4),
+    height: height,
+    x: 0, // Set the x position to 0 to align it to the left of the screen
+    y: 0, // Set the y position to 0 to align it to the top of the screen
     icon: getAssetPath('icon.png'),
     webPreferences: {
+      devTools: false,
       preload: app.isPackaged
         ? path.join(__dirname, 'preload.js')
         : path.join(__dirname, '../../.erb/dll/preload.js'),
     },
+    frame: false,
   });
 
   mainWindow.loadURL(resolveHtmlPath('index.html'));
