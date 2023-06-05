@@ -1,0 +1,1 @@
+export { Prices } from './template';

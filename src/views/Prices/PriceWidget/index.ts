@@ -1,0 +1,1 @@
+export { PriceWidget } from './template';

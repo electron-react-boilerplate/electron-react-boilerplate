@@ -1,0 +1,1 @@
+export { History } from './template';
