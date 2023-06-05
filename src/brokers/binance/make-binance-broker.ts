@@ -7,7 +7,6 @@ export function makeBinanceBroker(): BrokerAPI {
   }
 
   async function getPrice({ ticker }: { ticker: string }): Promise<Output> {
-    console.log({ ticker });
     return send({ path: 'ticker/price' });
   }
 
