@@ -101,7 +101,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.11.2",
-    "styled-components": "^5.3.10"
+    "styled-components": "^5.3.11"
   },
   "devDependencies": {
     "@electron/notarize": "^1.2.3",
@@ -116,6 +116,7 @@
     "@types/react": "^18.2.8",
     "@types/react-dom": "^18.2.4",
     "@types/react-test-renderer": "^18.0.0",
+    "@types/styled-components": "^5.1.26",
     "@types/terser-webpack-plugin": "^5.0.4",
     "@types/webpack-bundle-analyzer": "^4.6.0",
     "@typescript-eslint/eslint-plugin": "^5.59.8",
@@ -135,6 +136,7 @@
     "eslint": "^8.42.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-erb": "^4.0.6",
+    "eslint-config-prettier": "^8.8.0",
     "eslint-import-resolver-typescript": "^3.5.5",
     "eslint-import-resolver-webpack": "^0.13.2",
     "eslint-plugin-compat": "^4.1.4",
