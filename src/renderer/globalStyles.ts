@@ -18,15 +18,16 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    margin: 0;
-    color: ${({ theme }) => theme.white};
-    font-family: 'Lato', 'Ubuntu', 'Open Sans', sans-serif;
-    font-size: inherit;
-    line-height: inherit;
-    font-size: 1.6rem;
-    -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    width: 100%;
+    -webkit-font-smoothing: antialiased;
+    color: ${({ theme }) => theme.white};
+    margin: 0;
+    background: linear-gradient(
+      200.96deg,
+      #1a1a1a -29.09%,
+      #181818 51.77%,
+      #000000 129.35%
+    );
   }
 
   code {
@@ -57,17 +58,11 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
-  .text-overflow-ellipsis {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
   svg {
     height: auto;
     fill: currentColor;
   }
-
+  
   ${CustomScroll}
 `;
 

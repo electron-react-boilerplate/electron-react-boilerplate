@@ -11,9 +11,9 @@ module.exports = {
     'import/no-import-module-exports': 'off',
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': 'error',
-    'no-unused-vars': 'off',
+    'no-unused-vars': 'error',
     '@typescript-eslint/no-unused-vars': 'error',
-    'prettier/prettier': ['error', { 'endOfLine': auto }]
+    'prettier/prettier': ['error', { endOfLine: auto }],
   },
   parserOptions: {
     ecmaVersion: 2020,
