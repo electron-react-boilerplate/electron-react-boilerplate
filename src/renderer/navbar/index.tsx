@@ -32,7 +32,9 @@ const NavBar: React.FC = () => {
           <S.Tab
             selected={selectedTab === tab.id}
             key={tab.id}
-            onClick={() => setSelectedTab(tab.id)}
+            onClick={() => {
+              setSelectedTab(tab.id);
+            }}
           >
             {tab.value}
           </S.Tab>
