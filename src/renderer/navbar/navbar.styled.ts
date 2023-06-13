@@ -1,17 +1,22 @@
 import styled from 'styled-components';
 
-export const MainLogo = styled.img`
-  width: 150px;
-  height: auto;
+export const MainLogo = styled.div`
+  min-width: 35%;
+
+  img {
+    width: 160px;
+    height: auto;
+    min-width: auto;
+  }
 `;
 
 export const NavBarWrapper = styled.div`
   display: flex;
-  height: 80px;
+  height: 50px;
   width: 100%;
   column-gap: 2rem;
   align-items: center;
-  padding: 20px;
+  padding: 10px 20px;
 `;
 
 export const Tabs = styled.nav`

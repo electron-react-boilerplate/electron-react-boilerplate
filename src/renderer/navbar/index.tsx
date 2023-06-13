@@ -1,13 +1,13 @@
 import React from 'react';
 import * as S from './navbar.styled';
+import logo from '/assets/icons/CustomSnippetTrans.png';
 
 const NavBar: React.FC = () => {
   return (
     <S.NavBarWrapper>
-      <S.MainLogo
-        alt="CustomSnippet logo"
-        src="./../../assets/icons/128x128.png"
-      />
+      <S.MainLogo>
+        <img alt="CustomSnippet logo" src={logo} />
+      </S.MainLogo>
       <S.Tabs>
         <div>Snippets</div>
         <div>AutoCompletes</div>

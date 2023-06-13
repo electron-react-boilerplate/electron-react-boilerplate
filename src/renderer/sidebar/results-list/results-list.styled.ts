@@ -1,14 +1,40 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { List } from 'rsuite';
 
-export const ResultsList = styled.ul`
-  height: 100%;
-  padding: 0;
+const ListElement = css`
+  display: flex;
+  padding: 8px 10px;
+  width: 100%;
+`;
+
+export const ResultsList = styled(List)`
+  color: ${({ theme }) => theme.gray_darker};
   display: flex;
   flex-direction: column;
-  row-gap: 1rem;
   margin-top: 0;
+  padding: 0;
 `;
-export const ResultElement = styled.li`
-  display: flex;
-  width: 100%;
+
+export const ResultElement = styled(List.Item)<{ selected: boolean }>`
+  ${ListElement}
+  cursor: pointer;
+  transition: background-color ${({ theme }) => theme.animation_time} ease;
+
+  ${({ theme, selected }) =>
+    selected
+      ? css`
+          background-color: ${theme.secondary};
+          color: ${({ theme }) => theme.white};
+        `
+      : css`
+          &:hover {
+            color: ${({ theme }) => theme.black};
+            background-color: ${({ theme }) => theme.secondary_5};
+          }
+        `}
+`;
+
+export const NoMatches = styled.span`
+  ${ListElement}
+  color: ${({ theme }) => theme.white};
 `;

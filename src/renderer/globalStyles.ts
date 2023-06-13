@@ -21,12 +21,11 @@ const GlobalStyle = createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     color: ${({ theme }) => theme.white};
-    margin: 0;
     background: linear-gradient(
       200.96deg,
-      #1a1a1a -29.09%,
-      #181818 51.77%,
-      #000000 129.35%
+      ${({ theme }) => theme.gray_darker} -29.09%,
+      ${({ theme }) => theme.gray_darker} 51.77%,
+      ${({ theme }) => theme.black} 129.35%
     );
   }
 

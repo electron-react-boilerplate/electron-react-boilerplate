@@ -14,5 +14,6 @@ export const Content = styled.div`
   display: flex;
   flex-grow: 1;
   width: 100%;
-  column-gap: 2rem;
+  column-gap: 1rem;
+  padding: 0 10px;
 `;

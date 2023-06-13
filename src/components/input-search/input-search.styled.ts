@@ -1,13 +1,14 @@
-import { Input } from 'rsuite';
+import { InputGroup } from 'rsuite';
 import styled from 'styled-components';
 
-export const InputSearch = styled(Input)`
-  outline: none;
-  border: 1px solid ${({ theme }) => theme.red};
-
-  &:hover,
-  &:focus {
-    border-color: ${({ theme }) => theme.secondary};
+export const InputSearch = styled(InputGroup)`
+  &,
+  input {
     outline: none;
+
+    &:focus,
+    &:hover {
+      outline: none;
+    }
   }
 `;

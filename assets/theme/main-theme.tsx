@@ -4,7 +4,7 @@ import { ThemeProvider, DefaultTheme } from 'styled-components';
 // Colors (Validated in pvDesign)
 const primaryColors = {
   primary: '#1C5686',
-  primary_5: '#F4F7F9',
+  primary_5: '#c0d5e2',
   primary_30: '#BBCCDB',
   primary_60: '#779ab6',
   primary_dark: '#154064',
@@ -13,7 +13,7 @@ const primaryColors = {
 };
 const secondaryColors = {
   secondary: '#1AA5BD',
-  secondary_5: '#F4FBFC',
+  secondary_5: '#d7eff3',
   secondary_30: '#BAE4EB',
   secondary_60: '#76C9D7',
   secondary_dark: '#1896AC',
@@ -41,7 +41,7 @@ const paletteColors = {
 
 const light: DefaultTheme = {
   animation_time: '250ms',
-  
+
   box_shadow_x_small: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
   box_shadow_small: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
   box_shadow_big: '0 4px 8px rgba(38, 38, 38, 0.2)',
