@@ -1,19 +1,31 @@
 import React, { lazy } from 'react';
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import SnippetsPage from '../pages/snippets/snippets';
-import Contact from 'renderer/pages/contact/contact';
+import { useAtom } from 'jotai';
+import { tabSelected } from 'atoms/atoms';
 
 const AutoCompletes = lazy(
   () => import('../pages/autocompletes/autocompletes')
 );
+const Contact = lazy(() => import('../pages/contact/contact'));
 
 const MainContent: React.FC = () => {
+  const [tab] = useAtom(tabSelected);
+  let Content = <></>;
+  switch (tab) {
+    case 'autocompletes':
+      Content = <AutoCompletes />;
+      break;
+    case 'contact':
+      Content = <Contact />;
+      break;
+    default:
+      Content = <SnippetsPage />;
+  }
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<SnippetsPage />} />
-        <Route path="/autocompletes" element={<AutoCompletes />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/" element={Content} />
       </Routes>
     </Router>
   );

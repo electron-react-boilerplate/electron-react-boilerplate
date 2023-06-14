@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { startTransition } from 'react';
 import * as S from './navbar.styled';
 import logo from '/assets/icons/CustomSnippetTrans.png';
 import { useAtom } from 'jotai';
@@ -33,7 +33,9 @@ const NavBar: React.FC = () => {
             selected={selectedTab === tab.id}
             key={tab.id}
             onClick={() => {
-              setSelectedTab(tab.id);
+              startTransition(() => {
+                setSelectedTab(tab.id);
+              });
             }}
           >
             {tab.value}
