@@ -61,6 +61,15 @@ const GlobalStyle = createGlobalStyle`
     height: auto;
     fill: currentColor;
   }
+
+  .rs-btn.rs-btn-ghost {
+    border-color: ${({ theme }) => theme.primary};
+    color: ${({ theme }) => theme.primary}
+  }
+
+  .rs-notification-content {
+    padding: 10px 15px;
+  }
   
   ${CustomScroll}
 `;

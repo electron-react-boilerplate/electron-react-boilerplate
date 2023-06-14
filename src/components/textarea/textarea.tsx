@@ -7,6 +7,7 @@ const InputTextArea: React.FC<{
 }> = ({ value, onChange }) => {
   return (
     <S.InputTextArea
+      id="textarea-id"
       as="textarea"
       value={value}
       onChange={(e) => onChange(e.target.value)}
