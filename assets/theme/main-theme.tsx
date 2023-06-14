@@ -3,22 +3,15 @@ import { ThemeProvider, DefaultTheme } from 'styled-components';
 
 // Colors (Validated in pvDesign)
 const primaryColors = {
-  primary: '#1C5686',
-  primary_5: '#c0d5e2',
-  primary_30: '#BBCCDB',
-  primary_60: '#779ab6',
-  primary_dark: '#154064',
+  primary: '#3498ff',
+  primary_5: '#bfdfff',
+  primary_30: '#75b6f7',
+  primary_60: '#64aef8',
+  primary_dark: '#1f7af1',
   white: '#FFFFFF',
   black: '#000000',
 };
-const secondaryColors = {
-  secondary: '#1AA5BD',
-  secondary_5: '#d7eff3',
-  secondary_30: '#BAE4EB',
-  secondary_60: '#76C9D7',
-  secondary_dark: '#1896AC',
-  secondary_light: '#28C1D7',
-};
+
 const grayColors = {
   gray_darker: '#333333',
   gray_dark: '#828282',
@@ -47,7 +40,6 @@ const light: DefaultTheme = {
   box_shadow_big: '0 4px 8px rgba(38, 38, 38, 0.2)',
 
   ...primaryColors,
-  ...secondaryColors,
   ...grayColors,
   ...paletteColors,
 };

@@ -23,13 +23,13 @@ export const ResultElement = styled(List.Item)<{ selected: boolean }>`
   ${({ theme, selected }) =>
     selected
       ? css`
-          background-color: ${theme.secondary};
+          background-color: ${theme.primary};
           color: ${({ theme }) => theme.white};
         `
       : css`
           &:hover {
             color: ${({ theme }) => theme.black};
-            background-color: ${({ theme }) => theme.secondary_5};
+            background-color: ${({ theme }) => theme.primary_5};
           }
         `}
 `;

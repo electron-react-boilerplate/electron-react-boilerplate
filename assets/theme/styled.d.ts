@@ -11,13 +11,6 @@ declare module 'styled-components' {
     white: string;
     black: string;
 
-    secondary: string;
-    secondary_5: string;
-    secondary_30: string;
-    secondary_60: string;
-    secondary_dark: string;
-    secondary_light: string;
-
     gray_darker: string;
     gray_dark: string;
     gray: string;
@@ -37,7 +30,7 @@ declare module 'styled-components' {
 
     // Others
     animation_time: string;
-    
+
     box_shadow_x_small: string;
     box_shadow_small: string;
     box_shadow_big: string;

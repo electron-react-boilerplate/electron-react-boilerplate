@@ -13,4 +13,4 @@ export const activeElement = atom<{ keyword: string; text: string }>({
 });
 
 //NavBar
-export const tabSelected = atom('');
+export const tabSelected = atom('snippets');
