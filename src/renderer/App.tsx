@@ -2,7 +2,7 @@ import GlobalStyle from './globalStyles';
 import React from 'react';
 import Theme from '../../assets/theme/main-theme';
 import MainContent from './main-content';
-import Sidebar from './sidebar';
+import Sidebar from './sidebar/sidebar';
 import NavBar from './navbar';
 import * as S from './App.styled';
 

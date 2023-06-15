@@ -2,7 +2,7 @@ import React, { startTransition } from 'react';
 import * as S from './navbar.styled';
 import logo from '/assets/icons/CustomSnippetTrans.png';
 import { useAtom } from 'jotai';
-import { tabSelected } from 'atoms/atoms';
+import { tabSelectedAtom } from 'atoms/atoms';
 
 const tabs = [
   {
@@ -20,7 +20,7 @@ const tabs = [
 ];
 
 const NavBar: React.FC = () => {
-  const [selectedTab, setSelectedTab] = useAtom(tabSelected);
+  const [selectedTab, setSelectedTab] = useAtom(tabSelectedAtom);
 
   return (
     <S.NavBarWrapper>

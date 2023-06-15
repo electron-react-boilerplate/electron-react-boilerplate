@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import * as S from './input-search.styled';
-import ResultsList from 'renderer/sidebar/results-list';
+import ResultsList from 'renderer/sidebar/results-list/results-list';
 import SearchIcon from '@rsuite/icons/Search';
 import Clear from '@rsuite/icons/CloseOutline';
 import { Input, InputGroup } from 'rsuite';
 
 const InputSearch: React.FC = () => {
-  const [search, setSearch] = useState<string>();
+  const [search, setSearch] = useState<string>('');
 
   return (
     <>

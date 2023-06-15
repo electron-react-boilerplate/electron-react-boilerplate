@@ -1,5 +1,5 @@
 import { Input, Modal, TagInput } from 'rsuite';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const SnippetTextInput = styled(Input)`
   color: ${({ theme }) => theme.gray_darker};
@@ -15,6 +15,11 @@ export const SnippetTextInput = styled(Input)`
 `;
 export const SnippetKeywordInput = styled(TagInput)`
   color: ${({ theme }) => theme.gray_darker};
+
+  .rs-picker-tag {
+    outline: none;
+  }
+
   .rs-picker-search-input {
     input {
       width: 100% !important;
@@ -22,25 +27,31 @@ export const SnippetKeywordInput = styled(TagInput)`
     }
   }
 `;
-export const SnippetModal = styled(Modal)`
-  .rs-modal-content {
-    background: linear-gradient(
-      200.96deg,
-      ${({ theme }) => theme.gray_darker} -29.09%,
-      ${({ theme }) => theme.gray_darker} 51.77%,
-      ${({ theme }) => theme.black} 129.35%
-    );
-    display: flex;
-    flex-direction: column;
-  }
+export const SnippetModal = styled(Modal)<{ error: boolean }>`
+  ${({ theme, error }) =>
+    error
+      ? css`
+          ${SnippetKeywordInput}, ${SnippetTextInput} {
+            outline: ${theme.red};
+            border-color: ${theme.red};
 
-  .rs-modal-title {
-    color: ${({ theme }) => theme.white};
-  }
+            &::placeholder {
+              color: ${theme.red};
+            }
+          }
+          .rs-picker-toggle-placeholder {
+            color: ${theme.red};
+          }
+        `
+      : ''}
 `;
 
 export const SnippetModalForm = styled.form`
   display: flex;
   flex-direction: column;
   row-gap: 1rem;
+`;
+
+export const FormErrorText = styled.p`
+  color: ${({ theme }) => theme.red};
 `;

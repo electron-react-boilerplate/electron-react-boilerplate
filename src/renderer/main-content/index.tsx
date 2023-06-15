@@ -2,7 +2,7 @@ import React, { lazy } from 'react';
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import SnippetsPage from '../pages/snippets/snippets';
 import { useAtom } from 'jotai';
-import { tabSelected } from 'atoms/atoms';
+import { tabSelectedAtom } from 'atoms/atoms';
 
 const AutoCompletes = lazy(
   () => import('../pages/autocompletes/autocompletes')
@@ -10,7 +10,7 @@ const AutoCompletes = lazy(
 const Contact = lazy(() => import('../pages/contact/contact'));
 
 const MainContent: React.FC = () => {
-  const [tab] = useAtom(tabSelected);
+  const [tab] = useAtom(tabSelectedAtom);
   let Content = <></>;
   switch (tab) {
     case 'autocompletes':

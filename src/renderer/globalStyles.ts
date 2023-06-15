@@ -70,6 +70,21 @@ const GlobalStyle = createGlobalStyle`
   .rs-notification-content {
     padding: 10px 15px;
   }
+
+  .rs-modal-content {
+    background: linear-gradient(
+      200.96deg,
+      ${({ theme }) => theme.gray_darker} -29.09%,
+      ${({ theme }) => theme.gray_darker} 51.77%,
+      ${({ theme }) => theme.black} 129.35%
+    );
+    display: flex;
+    flex-direction: column;
+  }
+
+  .rs-modal-title {
+    color: ${({ theme }) => theme.white};
+  }
   
   ${CustomScroll}
 `;

@@ -1,19 +1,39 @@
 import React from 'react';
 import * as S from './snippets.styled';
 import InputTextArea from 'components/textarea/textarea';
-import { Button, Notification, useToaster } from 'rsuite';
-import { data, initialElement } from 'atoms/atoms';
+import { Button, Modal, Notification, useToaster } from 'rsuite';
+import {
+  cloneSnippetAtom,
+  dataAtom,
+  initialElementAtom,
+  deleteSnippetAtom,
+  openModalAtom,
+  openConfirmationModalAtom,
+  changeDataAtom,
+} from 'atoms/atoms';
 import { useAtom } from 'jotai';
 import { MessageType } from 'rsuite/esm/Notification/Notification';
+import { useTheme } from 'styled-components';
+import { SnippetType } from 'types/snippets';
 
 const message = (text: string, type?: MessageType) => (
   <Notification type={type} header={text} closable />
 );
 
 const SnippetsPage: React.FC = () => {
-  const [selected, setSelected] = useAtom(initialElement);
-  const [contentValue, setContentValue] = useAtom(data);
+  const [selected, setSelected] = useAtom(initialElementAtom);
+  const [snippets] = useAtom(dataAtom);
+  const [contentValue, setContentValue] = useAtom(dataAtom);
+  const [deleteSnippet, setDeleteSnippet] = useAtom(deleteSnippetAtom);
+  const [, setOpenModal] = useAtom(openModalAtom);
+  const [, setCloneSnippet] = useAtom(cloneSnippetAtom);
+  const [, setChangeData] = useAtom(changeDataAtom);
+  const [openConfirmationModal, setOpenConfirmationModal] = useAtom(
+    openConfirmationModalAtom
+  );
+
   const toaster = useToaster();
+  const theme = useTheme();
   const handleCopyClick = async () => {
     try {
       const textarea = document.getElementById(
@@ -34,30 +54,87 @@ const SnippetsPage: React.FC = () => {
       );
     }
   };
+  const handleDelete = (snippet: SnippetType) => {
+    setDeleteSnippet(snippet);
+    setOpenConfirmationModal(true);
+  };
+  const handleClone = (snippet: SnippetType) => {
+    setCloneSnippet(snippet);
+    setOpenModal(true);
+  };
+  const handleDeleteSnippet = () => {
+    const newData: SnippetType[] = snippets.filter(
+      (snippet) => snippet.keyword !== deleteSnippet.keyword
+    );
+    setChangeData(newData);
+    setOpenConfirmationModal(false);
+    setSelected(newData[0]);
+  };
 
   return (
-    <S.SnippetsPage>
-      <S.Actions>
-        <Button appearance="ghost" onClick={handleCopyClick}>
-          Copy
-        </Button>
-      </S.Actions>
-      <InputTextArea
-        value={
-          contentValue.find((element) => element.keyword === selected.keyword)
-            ?.text
-        }
-        onChange={(newContent: string) => {
-          const newData = contentValue.map((element) => {
-            if (element.keyword === selected.keyword)
-              return { ...element, text: newContent };
-            return element;
-          });
-          setContentValue(newData);
-          setSelected(selected);
-        }}
-      />
-    </S.SnippetsPage>
+    <>
+      <S.SnippetsPage>
+        <S.Actions>
+          <Button appearance="ghost" onClick={handleCopyClick}>
+            Copy
+          </Button>
+          <Button appearance="ghost" onClick={() => handleClone(selected)}>
+            Clone
+          </Button>
+          <Button
+            appearance="primary"
+            style={{ backgroundColor: theme.red }}
+            onClick={() => handleDelete(selected)}
+          >
+            Delete
+          </Button>
+        </S.Actions>
+        <InputTextArea
+          value={
+            contentValue.find((element) => element.keyword === selected.keyword)
+              ?.text
+          }
+          onChange={(newContent: string) => {
+            const newData = contentValue.map((element) => {
+              if (element.keyword === selected.keyword)
+                return { ...element, text: newContent };
+              return element;
+            });
+            setContentValue(newData);
+            setSelected(selected);
+          }}
+        />
+      </S.SnippetsPage>
+      <Modal
+        open={openConfirmationModal}
+        onClose={() => setOpenConfirmationModal(false)}
+      >
+        <Modal.Header>
+          <Modal.Title>
+            Delete <b>"{deleteSnippet.keyword}"</b> snippet
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          This action can not be undone and the snippet will be remove
+          permanently!
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            onClick={() => setOpenConfirmationModal(false)}
+            appearance="subtle"
+          >
+            Cancel
+          </Button>
+          <Button
+            appearance="primary"
+            style={{ backgroundColor: theme.red }}
+            onClick={handleDeleteSnippet}
+          >
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
 };
 

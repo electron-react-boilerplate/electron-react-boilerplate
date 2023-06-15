@@ -1,12 +1,13 @@
 import React from 'react';
 import * as S from './results-list.styled';
 import { useAtom } from 'jotai';
-import { data, changeElement, initialElement } from 'atoms/atoms';
+import { dataAtom, changeElementAtom, initialElementAtom } from 'atoms/atoms';
 
 const ResultsList: React.FC<{ search?: string }> = ({ search }) => {
-  const [listData] = useAtom(data);
-  const [, selectNewItem] = useAtom(changeElement);
-  const [selected] = useAtom(initialElement);
+  const [listData] = useAtom(dataAtom);
+  const [, selectNewItem] = useAtom(changeElementAtom);
+  const [selected] = useAtom(initialElementAtom);
+  console.log('🚀 ~ file: results-list.tsx:10 ~ selected:', selected);
   let newList = listData;
   if (search) {
     newList = listData.filter((element) => {
