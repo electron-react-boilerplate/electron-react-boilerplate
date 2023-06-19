@@ -180,103 +180,104 @@ export const Home = () => {
         </Dropdown>
       </Row>
       <Row align="top" gutter={[16, 16]}>
-        <Form
-          form={form}
-          style={{
-            display: 'flex',
-            // marginLeft: '30px',
-            // marginTop: '16px',
-          }}
-          onValuesChange={(changedValues, allValues) => {
-            setFormValues((oldValues) => ({ ...oldValues, ...allValues }));
-          }}
-        >
-          <Col>
-            <Typography.Text>Address</Typography.Text>
-            <Form.Item
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-              name={formName.address}
-            >
-              <Input
-                style={{ width: '100%' }}
-                placeholder="1.1.1.1 or url"
-                disabled={loading}
-              />
-            </Form.Item>
-          </Col>
-          <Col>
-            <Typography.Text>Scan Type</Typography.Text>
-            <Form.Item name={formName.scanType}>
-              <Select
-                placeholder="Scan Type"
-                allowClear
-                mode="multiple"
-                style={{ width: '200px' }}
+        <Col flex={1}>
+          <Form
+            form={form}
+            style={{
+              display: 'flex',
+              // marginLeft: '30px',
+              // marginTop: '16px',
+            }}
+            onValuesChange={(changedValues, allValues) => {
+              setFormValues((oldValues) => ({ ...oldValues, ...allValues }));
+            }}
+          >
+            <Col>
+              <Typography.Text>Address</Typography.Text>
+              <Form.Item
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+                name={formName.address}
               >
-                {Object.keys(ScanTypeSelect).map((type) => (
-                  <Option
-                    disabled={
-                      // eslint-disable-next-line no-nested-ternary
-                      formValues?.scanType?.find((e) => e === '-sO')
-                        ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                          // @ts-ignore
-                          ScanTypeSelect[type] !== '-sO'
-                        : undefined
-                    }
-                    key={type}
-                    label={type}
-                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                    // @ts-ignore
-                    value={ScanTypeSelect[type]}
-                  >
-                    <TooltipQuestion title={type} text={type} />
-                  </Option>
-                ))}
-              </Select>
-            </Form.Item>
-          </Col>
-          <Col>
-            <Typography.Text>Scripts</Typography.Text>
-            <Form.Item name="script">
-              <Select
-                placeholder="Script"
-                allowClear
-                mode="multiple"
-                style={{ width: '200px' }}
-              >
-                {Object.keys(ScriptSelect).map((type) => (
-                  <Option
-                    key={type}
-                    label={type}
-                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                    // @ts-ignore
-                    value={ScriptSelect[type]}
-                  >
-                    {type}
-                  </Option>
-                ))}
-              </Select>
-            </Form.Item>
-          </Col>
-          <Col>
-            <Typography.Text>Port</Typography.Text>
-            <Form.Item name={formName.port}>
-              <Input placeholder="1-80" />
-            </Form.Item>
-          </Col>
-        </Form>
-
-        <Col>
+                <Input
+                  style={{ width: '100%' }}
+                  placeholder="1.1.1.1 or url"
+                  disabled={loading}
+                />
+              </Form.Item>
+            </Col>
+            <Col>
+              <Typography.Text>Scan Type</Typography.Text>
+              <Form.Item name={formName.scanType}>
+                <Select
+                  placeholder="Scan Type"
+                  allowClear
+                  mode="multiple"
+                  style={{ width: '200px' }}
+                >
+                  {Object.keys(ScanTypeSelect).map((type) => (
+                    <Option
+                      disabled={
+                        // eslint-disable-next-line no-nested-ternary
+                        formValues?.scanType?.find((e) => e === '-sO')
+                          ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                            // @ts-ignore
+                            ScanTypeSelect[type] !== '-sO'
+                          : undefined
+                      }
+                      key={type}
+                      label={type}
+                      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                      // @ts-ignore
+                      value={ScanTypeSelect[type]}
+                    >
+                      <TooltipQuestion title={type} text={type} />
+                    </Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col>
+              <Typography.Text>Scripts</Typography.Text>
+              <Form.Item name="script">
+                <Select
+                  placeholder="Script"
+                  allowClear
+                  mode="multiple"
+                  style={{ width: '200px' }}
+                >
+                  {Object.keys(ScriptSelect).map((type) => (
+                    <Option
+                      key={type}
+                      label={type}
+                      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                      // @ts-ignore
+                      value={ScriptSelect[type]}
+                    >
+                      {type}
+                    </Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col>
+              <Typography.Text>Port</Typography.Text>
+              <Form.Item name={formName.port}>
+                <Input placeholder="1-80" />
+              </Form.Item>
+            </Col>
+          </Form>
           {!loading ? (
             <Button
-              style={{
-                marginLeft: '16px',
-                marginTop: '15px',
-              }}
+              // style={
+              //   {
+              //     // marginLeft: '16px',
+              //     // marginTop: '15px',
+              //   }
+              // }
               className={buttonSend}
               icon={<AiOutlineSend className="anticon" />}
               loading={loading}
@@ -293,8 +294,8 @@ export const Home = () => {
             <Button
               style={{
                 backgroundColor: 'red',
-                marginLeft: '16px',
-                marginTop: '15px',
+                // marginLeft: '16px',
+                // marginTop: '15px',
               }}
               className={buttonSend}
               icon={<MdOutlineCancelScheduleSend className="anticon" />}
@@ -307,7 +308,7 @@ export const Home = () => {
       </Row>
       <hr />
       <Row>
-        <Col style={{ width: '100%', height: '100%' }}>
+        <Col flex={1}>
           {loading && dataSource === undefined ? (
             <Spin />
           ) : (
