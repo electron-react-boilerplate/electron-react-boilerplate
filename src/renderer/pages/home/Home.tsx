@@ -12,7 +12,6 @@ import {
   Spin,
   Typography,
 } from 'antd';
-import { createUseStyles } from 'react-jss';
 import { AiOutlineMenu, AiOutlineSend } from 'react-icons/ai';
 import { MdOutlineCancelScheduleSend } from 'react-icons/md';
 import { useEffect, useState } from 'react';
@@ -22,50 +21,8 @@ import {
   ScriptSelect,
 } from 'tools/network-scan/types';
 import TooltipQuestion from './components/tooltop-question';
+import useStyle from './style/home.style';
 
-const useStyle = createUseStyles({
-  label: {
-    display: 'block',
-    marginBottom: 10,
-    fontWeight: 'bold',
-  },
-  buttonStyle: {
-    margin: 4,
-    backgroundColor: 'white',
-    padding: '10px 20px',
-    borderRadius: '10px',
-    border: 'none',
-    appearance: 'none',
-    fontSize: '1.3rem',
-    cursor: 'pointer',
-    opacity: 0.9,
-    boxShadow:
-      '0px 8px 28px -6px rgba(24, 39, 75, 0.12), 0px 18px 88px -4px rgba(24, 39, 75, 0.14)',
-    transition: 'all ease-in 0.1s',
-    '&:hover': {
-      color: '#fff',
-      background: '#40a9ff',
-    },
-  },
-  buttonSend: {
-    marginTop: '-5px',
-    backgroundColor: 'white',
-    padding: '1px 10px',
-    borderRadius: '10px',
-    border: 'none',
-    appearance: 'none',
-    fontSize: '1.3rem',
-    cursor: 'pointer',
-    opacity: 0.9,
-    boxShadow:
-      '0px 8px 28px -6px rgba(24, 39, 75, 0.12), 0px 18px 88px -4px rgba(24, 39, 75, 0.14)',
-    transition: 'all ease-in 0.1s',
-    '&:hover': {
-      color: '#fff',
-      background: '#40a9ff',
-    },
-  },
-});
 type FormParam = {
   address: string;
   scanType?: string[];
@@ -82,7 +39,7 @@ export const Home = () => {
   });
   useEffect(() => {}, [resp]);
   const [form] = Form.useForm();
-  const { buttonStyle, buttonSend, label } = useStyle();
+  const { buttonStyle, buttonSend, list } = useStyle();
   const formName = {
     address: 'address',
     scanType: 'scanType',
@@ -134,18 +91,22 @@ export const Home = () => {
                 addrType: addr?.addrType,
               };
             }),
-            ports: hosts?.ports?.[0]?.map((port) => {
-              return {
-                protocol: port?.protocol,
-                service: port?.service,
-                state: port?.state,
-                number: port?.number,
-                osType: port?.osType,
-                product: port?.product,
-                deviceType: port?.deviceType,
-                extraInfo: port?.extraInfo,
-              };
-            }),
+            ports: hosts?.ports?.[0]?.map<ITcpScanResponse['ports'][0][0]>(
+              (port) => {
+                return {
+                  version: port?.version,
+                  cpe: port?.cpe,
+                  protocol: port?.protocol,
+                  service: port?.service,
+                  state: port?.state,
+                  number: port?.number,
+                  osType: port?.osType,
+                  product: port?.product,
+                  deviceType: port?.deviceType,
+                  extraInfo: port?.extraInfo,
+                };
+              }
+            ),
           };
         })
       : undefined;
@@ -310,58 +271,58 @@ export const Home = () => {
       <Row>
         <Col flex={1}>
           {loading && dataSource === undefined ? (
-            <Spin />
+            <Spin style={{ alignContent: 'center' }} />
           ) : (
-            <List
-              itemLayout="vertical"
-              size="small"
-              bordered
-              style={{
-                backgroundColor: '#D9D9D9',
-                width: '100%',
-                fontFamily: 'monospace',
-                maxHeight: 612,
-                overflow: 'auto',
-              }}
-              loading={loading}
-              dataSource={dataSource}
-              renderItem={(item, index) => {
-                return (
-                  <>
-                    <Divider dashed />
-                    {item?.address?.length > 0 && (
-                      <List.Item key={index}>
-                        <p>
-                          Name:{' '}
-                          {item?.hostName?.[index]?.names?.[index]?.name?.name}
-                        </p>
-                        <Divider dashed />
-                        <p>
-                          Address:{' '}
-                          {item?.address?.find((addr) => addr?.addr)?.addr}
-                        </p>
-                        {item?.ports?.map((serv) => {
-                          return (
-                            <>
-                              <Divider />
-                              <p>Port: {serv.number}</p>
-                              <p>Protocol: {serv.protocol}</p>
-                              <p>Service: {serv.service}</p>
-                              {serv.osType && <p>OS Type: {serv.osType}</p>}
-                              <p>State: {serv.state}</p>
-                              <p>Product: {serv.product}</p>
-                              <p>Device Type: {serv.deviceType}</p>
-                              <p>Extra Info: {serv.extraInfo}</p>
-                            </>
-                          );
-                        })}
-                        <Divider />
-                      </List.Item>
-                    )}
-                  </>
-                );
-              }}
-            />
+            <div>
+              <List
+                itemLayout="vertical"
+                size="small"
+                bordered
+                className={list}
+                loading={loading}
+                dataSource={dataSource}
+                renderItem={(item, index) => {
+                  return (
+                    <>
+                      <Divider dashed />
+                      {item?.address?.length > 0 && (
+                        <List.Item key={index}>
+                          <p>
+                            Name:{' '}
+                            {
+                              item?.hostName?.[index]?.names?.[index]?.name
+                                ?.name
+                            }
+                          </p>
+                          <Divider dashed />
+                          <p>
+                            Address:{' '}
+                            {item?.address?.find((addr) => addr?.addr)?.addr}
+                          </p>
+                          {item?.ports?.map((serv) => {
+                            return (
+                              <>
+                                <Divider />
+                                <p>Port: {serv.number}</p>
+                                <p>Protocol: {serv.protocol}</p>
+                                <p>Service: {serv.service}</p>
+                                <p>Product: {serv.product}</p>
+                                <p>Version: {serv.version}</p>
+                                {serv.osType && <p>OS Type: {serv.osType}</p>}
+                                <p>State: {serv.state}</p>
+                                <p>Device Type: {serv.deviceType}</p>
+                                <p>Extra Info: {serv.extraInfo}</p>
+                              </>
+                            );
+                          })}
+                          <Divider />
+                        </List.Item>
+                      )}
+                    </>
+                  );
+                }}
+              />
+            </div>
           )}
         </Col>
       </Row>
