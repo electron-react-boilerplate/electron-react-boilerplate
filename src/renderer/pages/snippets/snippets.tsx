@@ -4,12 +4,12 @@ import InputTextArea from 'components/textarea/textarea';
 import { Button, Modal, Notification, useToaster } from 'rsuite';
 import {
   cloneSnippetAtom,
-  dataAtom,
+  snippetsAtom,
   initialElementAtom,
   deleteSnippetAtom,
   openModalAtom,
   openConfirmationModalAtom,
-  changeDataAtom,
+  changeSnippetsAtom,
 } from 'atoms/atoms';
 import { useAtom } from 'jotai';
 import { MessageType } from 'rsuite/esm/Notification/Notification';
@@ -22,12 +22,12 @@ const message = (text: string, type?: MessageType) => (
 
 const SnippetsPage: React.FC = () => {
   const [selected, setSelected] = useAtom(initialElementAtom);
-  const [snippets] = useAtom(dataAtom);
-  const [contentValue, setContentValue] = useAtom(dataAtom);
+  const [snippets] = useAtom(snippetsAtom);
+  const [contentValue, setContentValue] = useAtom(snippetsAtom);
   const [deleteSnippet, setDeleteSnippet] = useAtom(deleteSnippetAtom);
   const [, setOpenModal] = useAtom(openModalAtom);
   const [, setCloneSnippet] = useAtom(cloneSnippetAtom);
-  const [, setChangeData] = useAtom(changeDataAtom);
+  const [, setChangeData] = useAtom(changeSnippetsAtom);
   const [openConfirmationModal, setOpenConfirmationModal] = useAtom(
     openConfirmationModalAtom
   );
@@ -64,7 +64,7 @@ const SnippetsPage: React.FC = () => {
   };
   const handleDeleteSnippet = () => {
     const newData: SnippetType[] = snippets.filter(
-      (snippet) => snippet.keyword !== deleteSnippet.keyword
+      (snippet: SnippetType) => snippet.keyword !== deleteSnippet.keyword
     );
     setChangeData(newData);
     setOpenConfirmationModal(false);
@@ -91,12 +91,13 @@ const SnippetsPage: React.FC = () => {
         </S.Actions>
         <InputTextArea
           value={
-            contentValue.find((element) => element.keyword === selected.keyword)
-              ?.text
+            contentValue.find(
+              (element: SnippetType) => element?.keyword === selected?.keyword
+            )?.text
           }
           onChange={(newContent: string) => {
-            const newData = contentValue.map((element) => {
-              if (element.keyword === selected.keyword)
+            const newData = contentValue.map((element: SnippetType) => {
+              if (element?.keyword === selected.keyword)
                 return { ...element, text: newContent };
               return element;
             });

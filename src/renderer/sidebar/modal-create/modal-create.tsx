@@ -2,29 +2,42 @@ import React, { SyntheticEvent } from 'react';
 import * as S from './modal-create.styled';
 import { Button, Modal } from 'rsuite';
 import { atom, useAtom } from 'jotai';
-import { openModalAtom } from 'atoms/atoms';
+import { changeElementAtom, openModalAtom, snippetsAtom } from 'atoms/atoms';
 import { SnippetType } from 'types/snippets';
 
-const keywordsAtom = atom(['']);
 const formErrorAtom = atom(false);
 
 const ModalCreateSnippet: React.FC<{ cloneSnippet: SnippetType }> = ({
   cloneSnippet,
 }) => {
+  const [snippets, setSnippets] = useAtom(snippetsAtom);
   const [openModal, setOpenModal] = useAtom(openModalAtom);
-  const [keywords, setKeywords] = useAtom(keywordsAtom);
   const [formError, setFormError] = useAtom(formErrorAtom);
+  const [, setSelectedSnippet] = useAtom(changeElementAtom);
 
   const handleClose = () => setOpenModal(false);
   const handleSubmit = (e: SyntheticEvent) => {
     const target = e.target as typeof e.target & {
+      keyword: HTMLInputElement;
       text: HTMLInputElement;
     };
-    if (!target.text?.value.trim() || !keywords.length) setFormError(true);
+    if (!target.text?.value.trim() || !target.keyword?.value.trim())
+      setFormError(true);
     else {
       formError && setFormError(false);
     }
-    console.log(keywords);
+
+    const newSnip = {
+      keyword: target.keyword?.value,
+      text: target.text?.value,
+    };
+    if (snippets) {
+      setSnippets([...snippets, newSnip]);
+    } else {
+      setSnippets([newSnip]);
+    }
+    handleClose();
+    setSelectedSnippet(newSnip);
   };
   return (
     <S.SnippetModal
@@ -32,7 +45,7 @@ const ModalCreateSnippet: React.FC<{ cloneSnippet: SnippetType }> = ({
       size="md"
       open={openModal}
       onClose={handleClose}
-      error={formError}
+      $error={formError}
     >
       <Modal.Header>
         <Modal.Title>
@@ -51,16 +64,9 @@ const ModalCreateSnippet: React.FC<{ cloneSnippet: SnippetType }> = ({
           }}
         >
           <S.SnippetKeywordInput
-            name="keywords"
-            trigger={['Enter', 'Space', 'Comma']}
+            name="keyword"
             placeholder="Keywords (add pressing enter, space, or comma)"
-            value={cloneSnippet.keyword ? [cloneSnippet.keyword] : undefined}
-            onCreate={(
-              value: string[],
-              _item: [{ label: string; value: string }]
-            ) => {
-              setKeywords(value);
-            }}
+            value={cloneSnippet.keyword ? cloneSnippet.keyword : undefined}
           />
           <S.SnippetTextInput
             as="textarea"

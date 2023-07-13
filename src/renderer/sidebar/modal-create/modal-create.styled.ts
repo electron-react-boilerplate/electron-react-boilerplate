@@ -1,4 +1,4 @@
-import { Input, Modal, TagInput } from 'rsuite';
+import { Input, Modal } from 'rsuite';
 import styled, { css } from 'styled-components';
 
 export const SnippetTextInput = styled(Input)`
@@ -13,7 +13,8 @@ export const SnippetTextInput = styled(Input)`
     border-color: ${({ theme }) => theme.primary};
   }
 `;
-export const SnippetKeywordInput = styled(TagInput)`
+// export const SnippetKeywordInput = styled(TagInput)`
+export const SnippetKeywordInput = styled(Input)`
   color: ${({ theme }) => theme.gray_darker};
 
   .rs-picker-tag {
@@ -27,9 +28,9 @@ export const SnippetKeywordInput = styled(TagInput)`
     }
   }
 `;
-export const SnippetModal = styled(Modal)<{ error: boolean }>`
-  ${({ theme, error }) =>
-    error
+export const SnippetModal = styled(Modal)<{ $error: boolean }>`
+  ${({ theme, $error }) =>
+    $error
       ? css`
           ${SnippetKeywordInput}, ${SnippetTextInput} {
             outline: ${theme.red};

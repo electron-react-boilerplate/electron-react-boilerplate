@@ -1,18 +1,21 @@
 import React from 'react';
 import * as S from './results-list.styled';
 import { useAtom } from 'jotai';
-import { dataAtom, changeElementAtom, initialElementAtom } from 'atoms/atoms';
+import {
+  snippetsAtom,
+  changeElementAtom,
+  initialElementAtom,
+} from 'atoms/atoms';
+import { SnippetType } from 'types/snippets';
 
 const ResultsList: React.FC<{ search?: string }> = ({ search }) => {
-  const [listData] = useAtom(dataAtom);
+  const [listData] = useAtom(snippetsAtom);
   const [, selectNewItem] = useAtom(changeElementAtom);
   const [selected] = useAtom(initialElementAtom);
-  console.log('🚀 ~ file: results-list.tsx:10 ~ selected:', selected);
   let newList = listData;
   if (search) {
-    newList = listData.filter((element) => {
-      const keywordMatch = element.keyword.toLowerCase().includes(search);
-      // const textMatch = element.text.toLowerCase().includes(search);
+    newList = listData.filter((element: SnippetType) => {
+      const keywordMatch = element.keyword[0].toLowerCase().includes(search);
 
       return keywordMatch;
     });
@@ -21,13 +24,13 @@ const ResultsList: React.FC<{ search?: string }> = ({ search }) => {
   return (
     <S.ResultsList bordered={!!newList.length}>
       {newList.length ? (
-        newList.map((item) => (
+        newList.map((item: SnippetType) => (
           <S.ResultElement
             onClick={() => selectNewItem(item)}
-            key={item.keyword}
+            key={item.keyword[0]}
             selected={item.keyword === selected?.keyword}
           >
-            {item.keyword ?? '-'}
+            {item.keyword || '-'}
           </S.ResultElement>
         ))
       ) : (
