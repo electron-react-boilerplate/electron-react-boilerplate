@@ -3,7 +3,7 @@ import xml2js from 'xml2js';
 import { EventEmitter } from 'events';
 import { exec, spawn } from 'child_process';
 import { platform } from 'os';
-// import { exec } from 'sudo-prompt';
+import { dialog } from 'electron';
 import convertRawJsonToScanResults from './scan-network';
 import { ITcpScan } from './types';
 
@@ -92,16 +92,31 @@ class NmapScan extends EventEmitter {
 
   async initializeChildProcess() {
     this.startTimer();
-    if (platform() === 'linux') {
-      this.child = this.command.find(
-        (e) => e === '-O' || e === '-sO' || e === '-sS' || e === '-sU'
-      )
-        ? exec(`pkexec ${nmap.nmapLocation} ${this.command.join(' ')}`)
-        : spawn(nmap.nmapLocation, this.command);
+    const options: Electron.MessageBoxOptions = {
+      type: 'question',
+      buttons: ['Cancel', 'OK'],
+      defaultId: 1,
+      title: 'Elevated Privileges Required',
+      message:
+        'This action requires elevated privileges. Please enter your password.',
+    };
+
+    const rootCommands = this.command.some((e) =>
+      ['-O', '-sO', '-sS', '-sU'].includes(e)
+    );
+    if (platform() === 'linux' && rootCommands) {
+      const response = await dialog.showMessageBox(options);
+      if (response.response === 1) {
+        this.child = exec(
+          `pkexec ${nmap.nmapLocation} ${this.command.join(' ')}`
+        );
+      } else {
+        this.killChild();
+      }
     } else {
       this.child = spawn(nmap.nmapLocation, this.command);
     }
-    console.log('ALOPAE', this.command);
+    console.log('COMMAND-CLASS', this.command);
     process.on('SIGINT', this.killChild);
     process.on('uncaughtException', this.killChild);
     process.on('exit', this.killChild);
@@ -178,19 +193,6 @@ class NmapScan extends EventEmitter {
   }
 }
 
-// function runAsRoot(firstArg: string) {
-//   const options = {
-//     name: 'Electron',
-//     icns: '/Applications/Electron.app/Contents/Resources/Electron.icns', // (optional)
-//   };
-
-//   exec(firstArg, options, (error, stdout, stderr) => {
-//     if (error) throw error;
-//     console.log(`stdout: ${stdout}`);
-//   });
-// }
-
-// export default NmapScan;
 const operationalSystem = platform();
 const nmap = {
   nmapLocation: operationalSystem === 'linux' ? 'nmap' : 'nmap.exe',
