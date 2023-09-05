@@ -10,8 +10,8 @@ import { SnippetType } from 'types/snippets';
 
 const ResultsList: React.FC<{ search?: string }> = ({ search }) => {
   const [listData] = useAtom(snippetsAtom);
-  const [, selectNewItem] = useAtom(changeElementAtom);
   const [selected] = useAtom(initialElementAtom);
+  const [, selectNewItem] = useAtom(changeElementAtom);
   let newList = listData;
   if (search) {
     newList = listData.filter((element: SnippetType) => {

@@ -4,7 +4,7 @@ import 'rsuite/dist/rsuite.min.css';
 
 const container = document.getElementById('root') as HTMLElement;
 const root = createRoot(container);
-root.render(<App />);
+root.render(<App snippetWindow={false} />);
 
 // calling IPC exposed from preload script
 window.electron.ipcRenderer.once('ipc-example', (arg) => {
@@ -12,3 +12,6 @@ window.electron.ipcRenderer.once('ipc-example', (arg) => {
   console.log(arg);
 });
 window.electron.ipcRenderer.sendMessage('ipc-example', ['ping']);
+window.electron.ipcRenderer.on('snippetWindow', (args) => {
+  root.render(<App snippetWindow={args} />);
+});

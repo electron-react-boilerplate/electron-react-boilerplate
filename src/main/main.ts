@@ -9,7 +9,7 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow, shell, ipcMain } from 'electron';
+import { app, BrowserWindow, shell, ipcMain, globalShortcut } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
@@ -112,6 +112,14 @@ const createWindow = async () => {
   new AppUpdater();
 };
 
+const createSnippetWindow = async () => {
+  if (isDebug) {
+    await installExtensions();
+  }
+
+  mainWindow?.webContents.send('snippetWindow', true);
+};
+
 /**
  * Add event listeners...
  */
@@ -127,11 +135,25 @@ app.on('window-all-closed', () => {
 app
   .whenReady()
   .then(() => {
+    // Crear y configurar el menú contextual
     createWindow();
     app.on('activate', () => {
       // On macOS it's common to re-create a window in the app when the
       // dock icon is clicked and there are no other windows open.
       if (mainWindow === null) createWindow();
     });
+    const shortcut = globalShortcut.register('CommandOrControl+Shift+S', () => {
+      console.log('shortcut detected: showing context menu');
+      createSnippetWindow();
+    });
+
+    if (!shortcut) {
+      console.log('registration of main shortcut failed');
+    }
   })
   .catch(console.log);
+
+app.on('will-quit', () => {
+  // Unregister all shortcuts.
+  globalShortcut.unregisterAll();
+});

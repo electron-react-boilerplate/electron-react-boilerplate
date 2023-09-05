@@ -6,18 +6,22 @@ import Sidebar from './sidebar/sidebar';
 import NavBar from './navbar';
 import * as S from './App.styled';
 
-export default function App() {
+export default function App(snippetWindow?: any) {
   return (
     <React.Suspense fallback={'Loading...'}>
       <Theme>
         <GlobalStyle />
-        <S.AppContainer>
-          <NavBar />
-          <S.Content>
-            <Sidebar />
-            <MainContent />
-          </S.Content>
-        </S.AppContainer>
+        {snippetWindow?.snippetWindow ? (
+          <h1>SNIPPET WINDOWS</h1>
+        ) : (
+          <S.AppContainer>
+            <NavBar />
+            <S.Content>
+              <Sidebar />
+              <MainContent />
+            </S.Content>
+          </S.AppContainer>
+        )}
       </Theme>
     </React.Suspense>
   );
