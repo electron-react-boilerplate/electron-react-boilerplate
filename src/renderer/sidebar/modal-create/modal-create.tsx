@@ -5,12 +5,11 @@ import { atom, useAtom } from 'jotai';
 import { changeElementAtom, openModalAtom, snippetsAtom } from 'atoms/atoms';
 import { SnippetType } from 'types/snippets';
 
-const formErrorAtom = atom(false);
+const formErrorAtom = atom('');
 
 const ModalCreateSnippet: React.FC<{ cloneSnippet: SnippetType }> = ({
   cloneSnippet,
 }) => {
-  console.log('🚀 ~ file: modal-create.tsx:94 ~ cloneSnippet:', cloneSnippet);
   const [snippets, setSnippets] = useAtom(snippetsAtom);
   const [openModal, setOpenModal] = useAtom(openModalAtom);
   const [formError, setFormError] = useAtom(formErrorAtom);
@@ -22,23 +21,31 @@ const ModalCreateSnippet: React.FC<{ cloneSnippet: SnippetType }> = ({
       keyword: HTMLInputElement;
       text: HTMLInputElement;
     };
-    if (!target.text?.value.trim() || !target.keyword?.value.trim())
-      setFormError(true);
-    else {
-      formError && setFormError(false);
-    }
 
-    const newSnip = {
-      keyword: target.keyword?.value,
-      text: target.text?.value,
-    };
-    if (snippets) {
-      setSnippets([...snippets, newSnip]);
+    if (!target.text?.value.trim() || !target.keyword?.value.trim())
+      setFormError('Fields can not be empty');
+    else if (
+      snippets.find(
+        (element: SnippetType) => element.keyword === target.keyword?.value
+      )
+    ) {
+      setFormError('This keyword already exists');
     } else {
-      setSnippets([newSnip]);
+      formError && setFormError('');
+
+      const newSnip = {
+        keyword: target.keyword?.value,
+        text: target.text?.value,
+      };
+      if (snippets) {
+        setSnippets([...snippets, newSnip]);
+      } else {
+        setSnippets([newSnip]);
+      }
+
+      handleClose();
+      setSelectedSnippet(newSnip);
     }
-    handleClose();
-    setSelectedSnippet(newSnip);
   };
   return (
     <S.SnippetModal
@@ -46,7 +53,7 @@ const ModalCreateSnippet: React.FC<{ cloneSnippet: SnippetType }> = ({
       size="md"
       open={openModal}
       onClose={handleClose}
-      $error={formError}
+      $error={!!formError}
     >
       <Modal.Header>
         <Modal.Title>
@@ -80,9 +87,7 @@ const ModalCreateSnippet: React.FC<{ cloneSnippet: SnippetType }> = ({
             defaultValue={cloneSnippet.text}
             rows={10}
           />
-          {formError && (
-            <S.FormErrorText>Fields can't be empty</S.FormErrorText>
-          )}
+          {!!formError && <S.FormErrorText>{formError}</S.FormErrorText>}
         </S.SnippetModalForm>
       </Modal.Body>
       <Modal.Footer>
