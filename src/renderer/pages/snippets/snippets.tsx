@@ -24,6 +24,9 @@ const SnippetsPage: React.FC = () => {
   const [selected, setSelected] = useAtom(initialElementAtom);
   const [snippets] = useAtom(snippetsAtom);
   const [contentValue, setContentValue] = useAtom(snippetsAtom);
+  const textareaValue = contentValue.find(
+    (element: SnippetType) => element?.keyword === selected?.keyword
+  )?.text;
   const [deleteSnippet, setDeleteSnippet] = useAtom(deleteSnippetAtom);
   const [, setOpenModal] = useAtom(openModalAtom);
   const [, setCloneSnippet] = useAtom(cloneSnippetAtom);
@@ -67,34 +70,32 @@ const SnippetsPage: React.FC = () => {
       (snippet: SnippetType) => snippet.keyword !== deleteSnippet.keyword
     );
     setChangeData(newData);
-    setOpenConfirmationModal(false);
     setSelected(newData[0]);
+    setOpenConfirmationModal(false);
   };
 
   return (
     <>
       <S.SnippetsPage>
-        <S.Actions>
-          <Button appearance="ghost" onClick={handleCopyClick}>
-            Copy
-          </Button>
-          <Button appearance="ghost" onClick={() => handleClone(selected)}>
-            Clone
-          </Button>
-          <Button
-            appearance="primary"
-            style={{ backgroundColor: theme.red }}
-            onClick={() => handleDelete(selected)}
-          >
-            Delete
-          </Button>
-        </S.Actions>
+        {selected && (
+          <S.Actions>
+            <Button appearance="ghost" onClick={handleCopyClick}>
+              Copy
+            </Button>
+            <Button appearance="ghost" onClick={() => handleClone(selected)}>
+              Clone
+            </Button>
+            <Button
+              appearance="primary"
+              style={{ backgroundColor: theme.red }}
+              onClick={() => handleDelete(selected)}
+            >
+              Delete
+            </Button>
+          </S.Actions>
+        )}
         <InputTextArea
-          value={
-            contentValue.find(
-              (element: SnippetType) => element?.keyword === selected?.keyword
-            )?.text
-          }
+          value={textareaValue || ''}
           onChange={(newContent: string) => {
             const newData = contentValue.map((element: SnippetType) => {
               if (element?.keyword === selected.keyword)

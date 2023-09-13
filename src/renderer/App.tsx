@@ -11,17 +11,13 @@ export default function App(snippetWindow?: any) {
     <React.Suspense fallback={'Loading...'}>
       <Theme>
         <GlobalStyle />
-        {snippetWindow?.snippetWindow ? (
-          <h1>SNIPPET WINDOWS</h1>
-        ) : (
-          <S.AppContainer>
-            <NavBar />
-            <S.Content>
-              <Sidebar />
-              <MainContent />
-            </S.Content>
-          </S.AppContainer>
-        )}
+        <S.AppContainer>
+          <NavBar />
+          <S.Content>
+            <Sidebar initial={snippetWindow?.snippetWindow} />
+            <MainContent />
+          </S.Content>
+        </S.AppContainer>
       </Theme>
     </React.Suspense>
   );

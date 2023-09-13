@@ -15,9 +15,10 @@ const ResultsList: React.FC<{ search?: string }> = ({ search }) => {
   let newList = listData;
   if (search) {
     newList = listData.filter((element: SnippetType) => {
-      const keywordMatch = element.keyword[0].toLowerCase().includes(search);
+      const keywordMatch = element.keyword.toLowerCase().includes(search);
+      const contentMatch = element.text.toLowerCase().includes(search);
 
-      return keywordMatch;
+      return keywordMatch || contentMatch;
     });
   }
 
@@ -27,7 +28,7 @@ const ResultsList: React.FC<{ search?: string }> = ({ search }) => {
         newList.map((item: SnippetType) => (
           <S.ResultElement
             onClick={() => selectNewItem(item)}
-            key={item.keyword[0]}
+            key={item.keyword}
             selected={item.keyword === selected?.keyword}
           >
             {item.keyword || '-'}

@@ -10,6 +10,7 @@ const formErrorAtom = atom(false);
 const ModalCreateSnippet: React.FC<{ cloneSnippet: SnippetType }> = ({
   cloneSnippet,
 }) => {
+  console.log('🚀 ~ file: modal-create.tsx:94 ~ cloneSnippet:', cloneSnippet);
   const [snippets, setSnippets] = useAtom(snippetsAtom);
   const [openModal, setOpenModal] = useAtom(openModalAtom);
   const [formError, setFormError] = useAtom(formErrorAtom);
@@ -66,13 +67,17 @@ const ModalCreateSnippet: React.FC<{ cloneSnippet: SnippetType }> = ({
           <S.SnippetKeywordInput
             name="keyword"
             placeholder="Keywords (add pressing enter, space, or comma)"
-            value={cloneSnippet.keyword ? cloneSnippet.keyword : undefined}
+            defaultValue={
+              cloneSnippet.keyword
+                ? `${cloneSnippet.keyword} - Copy`
+                : undefined
+            }
           />
           <S.SnippetTextInput
             as="textarea"
             name="text"
             placeholder="Write the snippet's text"
-            defaultValue={cloneSnippet?.text}
+            defaultValue={cloneSnippet.text}
             rows={10}
           />
           {formError && (

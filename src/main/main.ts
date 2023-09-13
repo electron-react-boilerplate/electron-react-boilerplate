@@ -71,8 +71,8 @@ const createWindow = async () => {
 
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1024,
-    height: 728,
+    width: 924,
+    height: 528,
     icon: getAssetPath('icon.png'),
     webPreferences: {
       preload: app.isPackaged
@@ -113,11 +113,16 @@ const createWindow = async () => {
 };
 
 const createSnippetWindow = async () => {
-  if (isDebug) {
-    await installExtensions();
+  const { clipboard } = require('electron');
+  const text = clipboard.readText();
+  if (text.trim()) {
+    // mainWindow?.setSize(500, 400);
+    mainWindow?.center();
+    mainWindow?.webContents.send('snippetWindow', text);
   }
 
-  mainWindow?.webContents.send('snippetWindow', true);
+  if (mainWindow?.isMinimized()) mainWindow?.restore();
+  if (mainWindow?.isVisible()) mainWindow?.show();
 };
 
 /**

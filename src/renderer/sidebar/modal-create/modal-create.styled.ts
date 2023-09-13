@@ -13,7 +13,6 @@ export const SnippetTextInput = styled(Input)`
     border-color: ${({ theme }) => theme.primary};
   }
 `;
-// export const SnippetKeywordInput = styled(TagInput)`
 export const SnippetKeywordInput = styled(Input)`
   color: ${({ theme }) => theme.gray_darker};
 

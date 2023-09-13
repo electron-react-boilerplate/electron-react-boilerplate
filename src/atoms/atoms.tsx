@@ -6,7 +6,7 @@ import { SnippetType } from 'types/snippets';
 const localSnippets = localStorage.getItem('snippets');
 const snippets: SnippetType[] = localSnippets ? JSON.parse(localSnippets) : [];
 export const snippetsAtom = atomWithStorage('snippets', snippets, {
-  getItem(key, initialValue) {
+  getItem(_, initialValue) {
     try {
       return snippets;
     } catch {
