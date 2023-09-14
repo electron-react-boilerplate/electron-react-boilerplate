@@ -56,6 +56,16 @@ const installExtensions = async () => {
     .catch(console.log);
 };
 
+const showOrRestoreWindow = () => {
+  if (mainWindow?.isMinimized()) mainWindow?.restore();
+  else if (mainWindow?.isFocused()) {
+    {
+      mainWindow?.minimize();
+      console.log('1');
+    }
+  } else mainWindow?.show();
+};
+
 const createWindow = async () => {
   if (isDebug) {
     await installExtensions();
@@ -121,8 +131,7 @@ const createSnippetWindow = async () => {
     mainWindow?.webContents.send('snippetWindow', text);
   }
 
-  if (mainWindow?.isMinimized()) mainWindow?.restore();
-  if (mainWindow?.isVisible()) mainWindow?.show();
+  showOrRestoreWindow();
 };
 
 /**
@@ -151,9 +160,15 @@ app
       console.log('shortcut detected: showing context menu');
       createSnippetWindow();
     });
+    const showWindow = globalShortcut.register('CommandOrControl+Alt+S', () => {
+      showOrRestoreWindow();
+    });
 
     if (!shortcut) {
       console.log('registration of main shortcut failed');
+    }
+    if (!showWindow) {
+      console.log('registration of show window shortcut failed');
     }
   })
   .catch(console.log);
