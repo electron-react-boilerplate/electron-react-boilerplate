@@ -1,13 +1,12 @@
 {
   "compilerOptions": {
     "incremental": true,
-    "target": "es2021",
+    "target": "es2022",
     "module": "commonjs",
-    "lib": ["dom", "es2021"],
+    "lib": ["dom", "es2022"],
     "jsx": "react-jsx",
     "strict": true,
     "sourceMap": true,
-    "baseUrl": "./src",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
