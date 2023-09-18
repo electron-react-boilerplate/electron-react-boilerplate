@@ -20,6 +20,10 @@ const message = (text: string, type?: MessageType) => (
   <Notification type={type} header={text} closable />
 );
 
+window.electron.ipcRenderer.on('show-copied-notification', (args) => {
+  window.document.getElementById('copy-button')?.click();
+});
+
 const SnippetsPage: React.FC = () => {
   const [selected, setSelected] = useAtom(initialElementAtom);
   const [snippets] = useAtom(snippetsAtom);
@@ -34,7 +38,6 @@ const SnippetsPage: React.FC = () => {
   const [openConfirmationModal, setOpenConfirmationModal] = useAtom(
     openConfirmationModalAtom
   );
-
   const toaster = useToaster();
   const theme = useTheme();
   const handleCopyClick = async () => {
@@ -79,7 +82,11 @@ const SnippetsPage: React.FC = () => {
       <S.SnippetsPage>
         {selected && (
           <S.Actions>
-            <Button appearance="ghost" onClick={handleCopyClick}>
+            <Button
+              id="copy-button"
+              appearance="ghost"
+              onClick={handleCopyClick}
+            >
               Copy
             </Button>
             <Button appearance="ghost" onClick={() => handleClone(selected)}>

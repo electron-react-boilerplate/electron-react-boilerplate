@@ -14,7 +14,10 @@ type ResultListElement = SnippetType & {
   edition: boolean;
 };
 
-const ResultsList: React.FC<{ search?: string }> = ({ search }) => {
+const ResultsList: React.FC<{ search?: string; autoCopy?: boolean }> = ({
+  search,
+  autoCopy,
+}) => {
   const [listData, setListData] = useAtom(snippetsAtom);
   const [selected] = useAtom(initialElementAtom);
   const [, selectNewItem] = useAtom(changeElementAtom);
@@ -32,6 +35,8 @@ const ResultsList: React.FC<{ search?: string }> = ({ search }) => {
 
       return keywordMatch;
     });
+    if (autoCopy && newList.length === 1)
+      window.electron.ipcRenderer.sendMessage('autoCopy', newList[0].text);
   }
 
   const handleStartEditing = (index: number) => {

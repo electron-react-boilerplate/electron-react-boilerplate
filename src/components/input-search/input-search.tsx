@@ -6,10 +6,18 @@ import Clear from '@rsuite/icons/CloseOutline';
 import { Input, InputGroup } from 'rsuite';
 
 const InputSearch: React.FC<{ initial?: string }> = ({ initial }) => {
-  const [search, setSearch] = useState<string | undefined>(initial);
+  const [search, setSearch] = useState<string | undefined>();
+  const [autoCopy, setAutoCopy] = useState(false);
 
   useEffect(() => {
-    initial && setSearch(initial);
+    if (initial) {
+      setSearch(initial);
+      setAutoCopy(true);
+    }
+
+    return () => {
+      setAutoCopy(false);
+    };
   }, [initial]);
   return (
     <>
@@ -20,13 +28,21 @@ const InputSearch: React.FC<{ initial?: string }> = ({ initial }) => {
         <Input
           value={search || ''}
           placeholder="Search..."
-          onChange={(newSearch) => setSearch(newSearch)}
+          onChange={(newSearch) => {
+            setSearch(newSearch);
+            autoCopy && setAutoCopy(false);
+          }}
         />
-        <InputGroup.Button onClick={() => setSearch('')}>
+        <InputGroup.Button
+          onClick={() => {
+            setSearch('');
+            autoCopy && setAutoCopy(false);
+          }}
+        >
           <Clear />
         </InputGroup.Button>
       </S.InputSearch>
-      <ResultsList search={search?.toLowerCase()} />
+      <ResultsList search={search?.toLowerCase()} autoCopy={autoCopy} />
     </>
   );
 };

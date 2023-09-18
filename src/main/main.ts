@@ -31,6 +31,15 @@ ipcMain.on('ipc-example', async (event, arg) => {
   event.reply('ipc-example', msgTemplate('pong'));
 });
 
+ipcMain.on('autoCopy', async (event, arg) => {
+  const msgTemplate = (pingPong: string) => `autoCopy test: ${pingPong}`;
+  console.log('AAAAAAAAAAAAAA', msgTemplate(arg));
+
+  const { clipboard } = require('electron');
+  clipboard.writeText(arg);
+  event.reply('show-copied-notification', '');
+});
+
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
   sourceMapSupport.install();
@@ -59,10 +68,7 @@ const installExtensions = async () => {
 const showOrRestoreWindow = () => {
   if (mainWindow?.isMinimized()) mainWindow?.restore();
   else if (mainWindow?.isFocused()) {
-    {
-      mainWindow?.minimize();
-      console.log('1');
-    }
+    mainWindow?.minimize();
   } else mainWindow?.show();
 };
 
@@ -126,7 +132,6 @@ const createSnippetWindow = async () => {
   const { clipboard } = require('electron');
   const text = clipboard.readText();
   if (text.trim()) {
-    // mainWindow?.setSize(500, 400);
     mainWindow?.center();
     mainWindow?.webContents.send('snippetWindow', text);
   }
