@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from './guides.styled';
-import Collapsible from 'components/Collapsible/collapsible';
+import Collapsible from 'components/collapsible/collapsible';
 
 const GuidesPage: React.FC = () => {
   return (

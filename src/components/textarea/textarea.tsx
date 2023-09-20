@@ -11,6 +11,7 @@ const InputTextArea: React.FC<{
       as="textarea"
       value={value}
       onChange={(e) => onChange(e.target.value)}
+      onBlur={(e) => onChange(e.target.value)}
     />
   );
 };

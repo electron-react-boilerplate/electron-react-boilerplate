@@ -32,9 +32,6 @@ ipcMain.on('ipc-example', async (event, arg) => {
 });
 
 ipcMain.on('autoCopy', async (event, arg) => {
-  const msgTemplate = (pingPong: string) => `autoCopy test: ${pingPong}`;
-  console.log('AAAAAAAAAAAAAA', msgTemplate(arg));
-
   const { clipboard } = require('electron');
   clipboard.writeText(arg);
   event.reply('show-copied-notification', '');
