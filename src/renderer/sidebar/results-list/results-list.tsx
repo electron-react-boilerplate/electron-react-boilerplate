@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import * as S from './results-list.styled';
 import CheckRoundIcon from '@rsuite/icons/CheckRound';
 import { Input, InputGroup } from 'rsuite';
@@ -21,22 +21,21 @@ const ResultsList: React.FC<{ search?: string; autoCopy?: boolean }> = ({
   const [listData, setListData] = useAtom(snippetsAtom);
   const [selected] = useAtom(initialElementAtom);
   const [, selectNewItem] = useAtom(changeElementAtom);
-  let newList = listData.map((snippet) => {
-    return { ...snippet, edition: false };
-  });
+  const lastSearch = useRef(search);
+  let newList = listData;
   const [isEditing, setIsEditing] = useState(
     Array.from({ length: newList.length }, () => false)
   );
   const [editionError, setEditionError] = useState(false);
 
   if (search) {
-    newList = newList.filter((element: SnippetType) => {
-      const keywordMatch = element.keyword.toLowerCase().includes(search);
-
-      return keywordMatch;
-    });
-    if (autoCopy && newList.length === 1)
+    newList = newList.filter((element: SnippetType) =>
+      element.keyword.toLowerCase().includes(search)
+    );
+    if (autoCopy && newList.length === 1 && lastSearch.current !== search) {
+      lastSearch.current = search;
       window.electron.ipcRenderer.sendMessage('autoCopy', newList[0].text);
+    }
   }
 
   const handleStartEditing = (index: number) => {

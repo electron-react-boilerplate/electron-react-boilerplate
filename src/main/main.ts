@@ -62,9 +62,15 @@ const installExtensions = async () => {
     .catch(console.log);
 };
 
-const showOrRestoreWindow = () => {
-  if (mainWindow?.isMinimized()) mainWindow?.restore();
-  else if (mainWindow?.isFocused()) {
+const showOrRestoreWindow = ({
+  restore = true,
+  minimize,
+}: {
+  restore?: boolean;
+  minimize?: boolean;
+}) => {
+  if (restore && mainWindow?.isMinimized()) mainWindow?.restore();
+  else if (minimize && mainWindow?.isFocused()) {
     mainWindow?.minimize();
   } else mainWindow?.show();
 };
@@ -129,11 +135,10 @@ const createSnippetWindow = async () => {
   const { clipboard } = require('electron');
   const text = clipboard.readText();
   if (text.trim()) {
-    mainWindow?.center();
     mainWindow?.webContents.send('snippetWindow', text);
   }
 
-  showOrRestoreWindow();
+  showOrRestoreWindow({ minimize: false });
 };
 
 /**
@@ -163,7 +168,7 @@ app
       createSnippetWindow();
     });
     const showWindow = globalShortcut.register('CommandOrControl+Alt+S', () => {
-      showOrRestoreWindow();
+      showOrRestoreWindow({ restore: true, minimize: true });
     });
 
     if (!shortcut) {
