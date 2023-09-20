@@ -86,7 +86,7 @@ const ResultsList: React.FC<{ search?: string; autoCopy?: boolean }> = ({
                 name={`edit-${item.keyword}`}
                 defaultValue={item.keyword}
                 onChange={(newKeyword) => handleEditKeyword(newKeyword, item)}
-                onBlur={handleSaveKeyword}
+                // onBlur={handleSaveKeyword}
                 autoFocus={true}
               />
               <InputGroup.Button onClick={handleSaveKeyword}>

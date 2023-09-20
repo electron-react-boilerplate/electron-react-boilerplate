@@ -73,12 +73,25 @@ export const ResultsList = styled(List)<{ $error: boolean }>`
   margin-top: 0;
   padding: 0;
 
+  .rs-input-group.rs-input-group-inside {
+    .edition-input {
+      min-height: 39px;
+      border-radius: 4px;
+    }
+
+    .rs-btn {
+      height: 100%;
+      border-radius: 4px;
+    }
+  }
+
   ${({ theme, $error }) =>
     $error
       ? css`
           .rs-input-group.rs-input-group-inside {
             .edition-input {
-              box-shadow: inset 0px 0px 0px 1px ${theme.red};
+              border-radius: 4px;
+              box-shadow: inset 0px 0px 2px 1px ${theme.red};
 
               &::placeholder {
                 color: ${theme.red} !important;
@@ -98,7 +111,7 @@ export const ResultsList = styled(List)<{ $error: boolean }>`
           .rs-input-group.rs-input-group-inside {
             .edition-input {
               &:focus {
-                box-shadow: inset 0px 0px 0px 1px ${theme.primary};
+                box-shadow: inset 0px 0px 2px 1px ${theme.primary};
               }
             }
             .rs-btn {
