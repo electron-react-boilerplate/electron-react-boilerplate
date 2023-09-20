@@ -26,12 +26,13 @@ export const InputEdit = styled(InputGroup)`
 `;
 
 export const Edit = styled(EditIcon)`
+  border-radius: 50%;
   color: ${({ theme }) => theme.black};
   padding: 4px;
   min-width: 23px;
+  transition: background-color ${({ theme }) => theme.animation_time} ease;
 
   &:hover {
-    border-radius: 50%;
     color: ${({ theme }) => theme.black};
     background-color: ${({ theme }) => theme.primary_30};
   }
@@ -77,7 +78,7 @@ export const ResultsList = styled(List)<{ $error: boolean }>`
       ? css`
           .rs-input-group.rs-input-group-inside {
             .edition-input {
-              box-shadow: inset 0px 0px 0px 1px red;
+              box-shadow: inset 0px 0px 0px 1px ${theme.red};
 
               &::placeholder {
                 color: ${theme.red} !important;
@@ -93,5 +94,22 @@ export const ResultsList = styled(List)<{ $error: boolean }>`
             }
           }
         `
-      : ''}
+      : css`
+          .rs-input-group.rs-input-group-inside {
+            .edition-input {
+              &:focus {
+                box-shadow: inset 0px 0px 0px 1px ${theme.primary};
+              }
+            }
+            .rs-btn {
+              &:hover {
+                background: ${({ theme }) => theme.primary_5} !important;
+              }
+
+              svg {
+                fill: ${theme.primary} !important;
+              }
+            }
+          }
+        `}
 `;
