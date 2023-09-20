@@ -2,12 +2,13 @@ import 'styled-components';
 
 declare module 'styled-components' {
   export interface DefaultTheme {
-    // Colors
     primary: string;
     primary_5: string;
     primary_30: string;
     primary_60: string;
     primary_dark: string;
+    secondary: string;
+    secondary_light: string;
     white: string;
     black: string;
 

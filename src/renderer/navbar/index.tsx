@@ -10,8 +10,8 @@ const tabs = [
     value: 'Snippets',
   },
   {
-    id: 'autocompletes',
-    value: 'Autocompletes',
+    id: 'guides',
+    value: 'Guides',
   },
   {
     id: 'contact',

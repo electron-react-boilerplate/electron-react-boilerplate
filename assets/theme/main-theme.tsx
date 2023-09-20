@@ -1,17 +1,17 @@
 import React from 'react';
 import { ThemeProvider, DefaultTheme } from 'styled-components';
 
-// Colors (Validated in pvDesign)
 const primaryColors = {
   primary: '#3498ff',
   primary_5: '#bfdfff',
   primary_30: '#75b6f7',
   primary_60: '#64aef8',
   primary_dark: '#1f7af1',
+  secondary: '#49c5ff',
+  secondary_light: '#70d2ff',
   white: '#FFFFFF',
   black: '#000000',
 };
-
 const grayColors = {
   gray_darker: '#333333',
   gray_dark: '#828282',
@@ -31,8 +31,7 @@ const paletteColors = {
   yellow: '#fbff09',
   yellow_dark: '#eef077',
 };
-
-const light: DefaultTheme = {
+const dark: DefaultTheme = {
   animation_time: '250ms',
 
   box_shadow_x_small: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
@@ -57,12 +56,12 @@ interface IAppThemes {
 }
 
 export const AppThemes: IAppThemes = {
-  DARK: light, // TODO: implement dark theme
-  LIGHT: light,
+  DARK: dark,
+  LIGHT: dark, // TODO: implement light theme
 };
 
 const Theme = ({ children }: { children: React.ReactNode }) => (
-  <ThemeProvider theme={AppThemes.LIGHT}>{children}</ThemeProvider>
+  <ThemeProvider theme={AppThemes.DARK}>{children}</ThemeProvider>
 );
 
 export default Theme;

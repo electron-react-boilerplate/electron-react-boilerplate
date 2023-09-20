@@ -11,9 +11,11 @@ export const AppContainer = styled.div`
 `;
 
 export const Content = styled.div`
+  column-gap: 1rem;
   display: flex;
   flex-grow: 1;
-  width: 100%;
-  column-gap: 1rem;
+  height: 100%;
+  overflow: auto;
   padding: 0 10px;
+  width: 100%;
 `;

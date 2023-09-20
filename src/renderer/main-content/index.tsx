@@ -4,17 +4,15 @@ import SnippetsPage from '../pages/snippets/snippets';
 import { useAtom } from 'jotai';
 import { tabSelectedAtom } from 'atoms/atoms';
 
-const AutoCompletes = lazy(
-  () => import('../pages/autocompletes/autocompletes')
-);
+const Guides = lazy(() => import('../pages/guides/guides'));
 const Contact = lazy(() => import('../pages/contact/contact'));
 
 const MainContent: React.FC = () => {
   const [tab] = useAtom(tabSelectedAtom);
   let Content = <></>;
   switch (tab) {
-    case 'autocompletes':
-      Content = <AutoCompletes />;
+    case 'guides':
+      Content = <Guides />;
       break;
     case 'contact':
       Content = <Contact />;

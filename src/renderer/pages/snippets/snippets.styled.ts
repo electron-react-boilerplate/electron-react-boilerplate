@@ -10,5 +10,5 @@ export const Actions = styled.div`
   align-items: center;
   justify-content: flex-end;
   column-gap: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 `;

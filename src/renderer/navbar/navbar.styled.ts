@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const MainLogo = styled.div`
-  min-width: 35%;
+  min-width: 25%;
 
   img {
     height: auto;

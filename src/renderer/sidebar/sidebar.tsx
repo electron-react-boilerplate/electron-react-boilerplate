@@ -4,16 +4,17 @@ import InputSearch from 'components/input-search/input-search';
 import ModalCreateSnippet from './modal-create/modal-create';
 import { Button } from 'rsuite';
 import { useAtom } from 'jotai';
-import { cloneSnippetAtom, openModalAtom } from 'atoms/atoms';
+import { cloneSnippetAtom, openModalAtom, tabSelectedAtom } from 'atoms/atoms';
 
 const Sidebar: React.FC<{ initial?: string }> = ({ initial }) => {
   const [, setOpenModal] = useAtom(openModalAtom);
   const [cloneSnippet, setCloneSnippet] = useAtom(cloneSnippetAtom);
+  const [selectedPage] = useAtom(tabSelectedAtom);
   const handleOpen = () => {
     setCloneSnippet({ keyword: '', text: '' });
     setOpenModal(true);
   };
-  return (
+  return selectedPage === 'snippets' ? (
     <S.SideBar>
       <Button appearance="primary" onClick={handleOpen}>
         Create Snippet
@@ -21,6 +22,8 @@ const Sidebar: React.FC<{ initial?: string }> = ({ initial }) => {
       <InputSearch initial={initial} />
       <ModalCreateSnippet cloneSnippet={cloneSnippet} />
     </S.SideBar>
+  ) : (
+    <></>
   );
 };
 
