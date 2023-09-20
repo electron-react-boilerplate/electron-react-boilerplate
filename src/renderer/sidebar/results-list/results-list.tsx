@@ -78,7 +78,7 @@ const ResultsList: React.FC<{ search?: string; autoCopy?: boolean }> = ({
   return (
     <S.ResultsList $error={editionError} bordered={!!newList.length}>
       {newList.length ? (
-        newList.map((item: ResultListElement, index) =>
+        newList.map((item: SnippetType, index) =>
           isEditing[index] ? (
             <S.InputEdit inside key={item.keyword}>
               <Input
