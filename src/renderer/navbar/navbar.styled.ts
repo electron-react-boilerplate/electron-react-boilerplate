@@ -30,7 +30,7 @@ export const Tab = styled.div<{ selected: boolean }>`
   cursor: pointer;
   text-transform: uppercase;
   padding-right: 15px;
-  transition: all ${({ theme }) => theme.animation_time} ease;
+  position: relative;
 
   &:last-of-type {
     border: 0;
@@ -44,7 +44,20 @@ export const Tab = styled.div<{ selected: boolean }>`
     selected
       ? css`
           font-weight: bold;
-          text-decoration: underline;
+          &:hover {
+            text-decoration: none;
+          }
+          &:after {
+            content: '';
+            background-color: ${theme.primary};
+            border-radius: 4px;
+            height: 100%;
+            left: -10%;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: -1;
+          }
         `
       : ''}
 `;
