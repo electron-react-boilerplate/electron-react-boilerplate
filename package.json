@@ -1,5 +1,7 @@
 {
-  "description": "A foundation for scalable desktop apps",
+  "version": "1.0.0",
+  "name": "custom_snippet",
+  "description": "A cross-platform desktop app that mimics IDE's snippets functionality",
   "keywords": [
     "electron",
     "boilerplate",
@@ -11,25 +13,30 @@
     "hot",
     "reload"
   ],
-  "homepage": "https://github.com/electron-react-boilerplate/electron-react-boilerplate#readme",
+  "homepage": "https://github.com/Jle10/customSnippet#readme",
   "bugs": {
-    "url": "https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues"
+    "url": "https://github.com/Jle10/customSnippet/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/electron-react-boilerplate/electron-react-boilerplate.git"
+    "url": "git+https://github.com/Jle10/customSnippet.git"
   },
   "license": "MIT",
   "author": {
-    "name": "Electron React Boilerplate Maintainers",
-    "email": "electronreactboilerplate@gmail.com",
-    "url": "https://electron-react-boilerplate.js.org"
+    "name": "Coke Javier Lopez Espinos",
+    "email": "lopezespinosjavier+snippetapp@gmail.com",
+    "url": "https://github.com/Jle10"
   },
   "contributors": [
     {
       "name": "Amila Welihinda",
       "email": "amilajack@gmail.com",
       "url": "https://github.com/amilajack"
+    },
+    {
+      "name": "Electron React Boilerplate Maintainers",
+      "email": "electronreactboilerplate@gmail.com",
+      "url": "https://electron-react-boilerplate.js.org"
     }
   ],
   "main": "./src/main/main.ts",
