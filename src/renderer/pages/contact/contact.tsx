@@ -8,13 +8,13 @@ const SnippetsPage: React.FC = () => {
     <S.ContactPage>
       <h2>What is going on?</h2>
       <p>
-        If you need to notify any bug, new feature{' '}
+        If you need to notify a bug or suggest a new feature{' '}
         <a href="mailto:lopezespinosjavier+snippetapp@gmail.com">
           send me an email
         </a>{' '}
         and I will answer as soon as posible
       </p>
-      <p>You can also follow me on IG and GitHub to follow more updates:</p>
+      <p>You can also follow me on my instagram and GitHub to be updated:</p>
       <S.Icons>
         <a href="https://www.instagram.com/coke_javier/" target="_blank">
           <Instagram />
