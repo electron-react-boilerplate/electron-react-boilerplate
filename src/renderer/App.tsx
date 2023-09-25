@@ -6,7 +6,7 @@ import Sidebar from './sidebar/sidebar';
 import NavBar from './navbar';
 import * as S from './App.styled';
 
-export default function App(snippetWindow?: any) {
+export default function App() {
   return (
     <React.Suspense fallback={'Loading...'}>
       <Theme>
@@ -14,7 +14,7 @@ export default function App(snippetWindow?: any) {
         <S.AppContainer>
           <NavBar />
           <S.Content>
-            <Sidebar initial={snippetWindow?.snippetWindow} />
+            <Sidebar />
             <MainContent />
           </S.Content>
         </S.AppContainer>

@@ -6,7 +6,7 @@ import { Button } from 'rsuite';
 import { useAtom } from 'jotai';
 import { cloneSnippetAtom, openModalAtom, tabSelectedAtom } from 'atoms/atoms';
 
-const Sidebar: React.FC<{ initial?: string }> = ({ initial }) => {
+const Sidebar: React.FC = () => {
   const [, setOpenModal] = useAtom(openModalAtom);
   const [cloneSnippet, setCloneSnippet] = useAtom(cloneSnippetAtom);
   const [selectedPage] = useAtom(tabSelectedAtom);
@@ -19,7 +19,7 @@ const Sidebar: React.FC<{ initial?: string }> = ({ initial }) => {
       <Button appearance="primary" onClick={handleOpen}>
         Create Snippet
       </Button>
-      <InputSearch initial={initial} />
+      <InputSearch />
       <ModalCreateSnippet cloneSnippet={cloneSnippet} />
     </S.SideBar>
   ) : (

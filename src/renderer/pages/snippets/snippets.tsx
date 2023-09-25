@@ -81,31 +81,36 @@ const SnippetsPage: React.FC = () => {
     <>
       <S.SnippetsPage>
         {selected && (
-          <S.Actions>
-            <Button
-              id="copy-button"
-              appearance="ghost"
-              onClick={handleCopyClick}
-            >
-              Copy
-            </Button>
-            <Button appearance="ghost" onClick={() => handleClone(selected)}>
-              Clone
-            </Button>
-            <Button
-              appearance="primary"
-              style={{ backgroundColor: theme.red }}
-              onClick={() => handleDelete(selected)}
-            >
-              Delete
-            </Button>
-          </S.Actions>
+          <S.TextAreaHeader>
+            <p>
+              Selected item: <b>{selected?.keyword}</b>
+            </p>
+            <S.Actions>
+              <Button
+                id="copy-button"
+                appearance="ghost"
+                onClick={handleCopyClick}
+              >
+                Copy
+              </Button>
+              <Button appearance="ghost" onClick={() => handleClone(selected)}>
+                Clone
+              </Button>
+              <Button
+                appearance="primary"
+                style={{ backgroundColor: theme.red }}
+                onClick={() => handleDelete(selected)}
+              >
+                Delete
+              </Button>
+            </S.Actions>
+          </S.TextAreaHeader>
         )}
         <InputTextArea
           value={textareaValue || ''}
           onChange={(newContent: string) => {
             const newData = contentValue.map((element: SnippetType) => {
-              if (element?.keyword === selected.keyword)
+              if (element?.keyword === selected?.keyword)
                 return { ...element, text: newContent };
               return element;
             });

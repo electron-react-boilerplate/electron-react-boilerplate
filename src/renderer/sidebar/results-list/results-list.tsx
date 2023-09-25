@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import * as S from './results-list.styled';
 import CheckRoundIcon from '@rsuite/icons/CheckRound';
 import { Input, InputGroup } from 'rsuite';
@@ -10,10 +10,6 @@ import {
   initialElementAtom,
 } from 'atoms/atoms';
 
-type ResultListElement = SnippetType & {
-  edition: boolean;
-};
-
 const ResultsList: React.FC<{ search?: string; autoCopy?: boolean }> = ({
   search,
   autoCopy,
@@ -21,20 +17,21 @@ const ResultsList: React.FC<{ search?: string; autoCopy?: boolean }> = ({
   const [listData, setListData] = useAtom(snippetsAtom);
   const [selected] = useAtom(initialElementAtom);
   const [, selectNewItem] = useAtom(changeElementAtom);
-  const lastSearch = useRef(search);
   let newList = listData;
   const [isEditing, setIsEditing] = useState(
     Array.from({ length: newList.length }, () => false)
   );
   const [editionError, setEditionError] = useState(false);
 
-  if (search) {
+  const searchNoCapsNoBlanks = search?.trim().toLowerCase();
+  if (searchNoCapsNoBlanks) {
     newList = newList.filter((element: SnippetType) =>
-      element.keyword.toLowerCase().includes(search)
+      element.keyword.toLowerCase().includes(searchNoCapsNoBlanks)
     );
-    if (autoCopy && newList.length === 1 && lastSearch.current !== search) {
-      lastSearch.current = search;
+
+    if (autoCopy && newList.length === 1) {
       window.electron.ipcRenderer.sendMessage('autoCopy', newList[0].text);
+      selectNewItem(newList[0]);
     }
   }
 
@@ -99,7 +96,7 @@ const ResultsList: React.FC<{ search?: string; autoCopy?: boolean }> = ({
               key={item.keyword}
               selected={item.keyword === selected?.keyword}
             >
-              {item.keyword || '-'}
+              <S.ResultKeyword>{item.keyword || '-'}</S.ResultKeyword>
               <S.Edit onClick={() => handleStartEditing(index)} />
             </S.ResultElement>
           )

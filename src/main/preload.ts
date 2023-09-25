@@ -6,7 +6,8 @@ export type Channels =
   | 'ipc-example'
   | 'snippetWindow'
   | 'autoCopy'
-  | 'show-copied-notification';
+  | 'show-copied-notification'
+  | 'emit-copied-notification';
 
 const electronHandler = {
   ipcRenderer: {

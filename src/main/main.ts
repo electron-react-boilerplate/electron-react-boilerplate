@@ -25,6 +25,7 @@ class AppUpdater {
 
 let mainWindow: BrowserWindow | null = null;
 
+const { clipboard } = require('electron');
 ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
   console.log(msgTemplate(arg));
@@ -32,8 +33,10 @@ ipcMain.on('ipc-example', async (event, arg) => {
 });
 
 ipcMain.on('autoCopy', async (event, arg) => {
-  const { clipboard } = require('electron');
   clipboard.writeText(arg);
+});
+
+ipcMain.on('emit-copied-notification', async (event, arg) => {
   event.reply('show-copied-notification', '');
 });
 
@@ -132,7 +135,6 @@ const createWindow = async () => {
 };
 
 const createSnippetWindow = async () => {
-  const { clipboard } = require('electron');
   const text = clipboard.readText();
   if (text.trim()) {
     mainWindow?.webContents.send('snippetWindow', text);

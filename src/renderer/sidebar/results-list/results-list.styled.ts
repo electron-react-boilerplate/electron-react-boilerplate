@@ -126,3 +126,11 @@ export const ResultsList = styled(List)<{ $error: boolean }>`
           }
         `}
 `;
+
+export const ResultKeyword = styled.span`
+  display: block;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;

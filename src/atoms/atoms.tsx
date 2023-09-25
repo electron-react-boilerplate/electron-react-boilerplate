@@ -28,7 +28,7 @@ export const changeSnippetsAtom = atom(
 );
 
 //SideBar
-export const initialElementAtom = atom<SnippetType>(snippets[0]);
+export const initialElementAtom = atom<SnippetType | undefined>(undefined);
 export const changeElementAtom = atom(null, (_get, set, value: SnippetType) => {
   set(initialElementAtom, value);
 });

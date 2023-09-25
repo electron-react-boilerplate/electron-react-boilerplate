@@ -13,8 +13,8 @@ const GuidesPage: React.FC = () => {
         <ol>
           <li>
             First, select the text you want to use to search for snippets in
-            your database and then use the shortcut. The app will open
-            automatically.
+            your database, copy it (Ctrl+C) and then use the shortcut. The app
+            will open automatically.
           </li>
           <li>
             - If the text perfectly match a snippet you had created then the
