@@ -1,23 +1,34 @@
 import React from 'react';
 
-import { HeaderContainer, Logo, LogoG } from './styles';
+import {
+  Container,
+  Logo,
+  LogoText,
+  LogoTextG,
+  Menu,
+  Middle,
+  MiddleItemHome,
+  MiddleItemPart,
+} from './styles';
 
 const Header: React.FC = () => {
   return (
-    <HeaderContainer>
+    <Container>
       <Logo>
-        <p>
-          <LogoG>G</LogoG>Zema
-        </p>
+        <LogoText>
+          <LogoTextG>G</LogoTextG>Zema
+        </LogoText>
       </Logo>
-      <div>
-        <p>Peças</p>
-        <p>Peça PC011 TESTE</p>
-      </div>
+      <Menu>
+        <Middle>
+          <MiddleItemHome>Peças</MiddleItemHome>
+          <MiddleItemPart>Peça PC011 TESTE</MiddleItemPart>
+        </Middle>
+      </Menu>
       <div>
         <p>Icon</p>
       </div>
-    </HeaderContainer>
+    </Container>
   );
 };
 

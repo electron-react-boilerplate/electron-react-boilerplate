@@ -9,6 +9,7 @@ export const colors = {
   greyMedium: '#DFDFDF',
   greyDark: '#BABABA',
   greyLogo: '#666262',
+  greyFont: '#807979',
   blue: '#318AF7',
   blueDark: '#2772CE',
   red: '#CE5A5A',

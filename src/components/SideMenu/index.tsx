@@ -1,14 +1,21 @@
 import React from 'react';
-import { Container } from './styles';
+import { MenuContainer, Menu, MenuItem } from './styles';
 
-const HeaderMenu: React.FC = () => {
+const SideMenu: React.FC = () => {
   return (
-    <Container>
-      <ul>
-        <li>Grupo de Trabalho</li>
-      </ul>
-    </Container>
+    <MenuContainer>
+      <Menu>
+        <ul>
+          <li>
+            <MenuItem href="/">Grupo de Trabalho</MenuItem>
+          </li>
+          <li>
+            <MenuItem href="/">Visualização</MenuItem>
+          </li>
+        </ul>
+      </Menu>
+    </MenuContainer>
   );
 };
 
-export default HeaderMenu;
+export default SideMenu;
