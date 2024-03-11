@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { measures, fonts } from 'styles/global.styles';
+import { fonts } from 'styles/global.styles';
 
 export const LayoutContainer = styled.div`
   font-family: ${fonts.primary};
@@ -11,5 +11,5 @@ export const PageContainer = styled.div`
 `;
 
 export const Page = styled.div`
-  padding: ${measures.gutter};
+  flex-grow: 1;
 `;

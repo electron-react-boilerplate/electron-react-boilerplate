@@ -5,7 +5,7 @@ import Header from 'components/Header';
 import { LayoutContainer, PageContainer, Page } from './styles';
 
 interface LayoutProps {
-  children: React.ReactNode;
+  children: React.ReactChild;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {

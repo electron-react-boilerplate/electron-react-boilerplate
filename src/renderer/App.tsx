@@ -1,12 +1,11 @@
 import Layout from 'components/Layout';
+import Diam from 'pages/Diam';
 import './App.css';
-
-const Home = () => <h1>Home</h1>;
 
 export default function App() {
   return (
     <Layout>
-      <Home />
+      <Diam />
     </Layout>
   );
 }
