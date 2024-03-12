@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { fonts } from 'styles/global.styles';
+import { fonts, colors } from 'styles/global.styles';
 
 export const LayoutContainer = styled.div`
   font-family: ${fonts.primary};
@@ -11,5 +11,6 @@ export const PageContainer = styled.div`
 `;
 
 export const Page = styled.div`
+  border-top: 1px solid ${colors.greyMedium};
   flex-grow: 1;
 `;

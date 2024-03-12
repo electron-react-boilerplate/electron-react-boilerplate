@@ -8,7 +8,9 @@ import {
   Menu,
   Middle,
   MiddleItemHome,
+  MiddleItemHomeLink,
   MiddleItemPart,
+  Icon,
 } from './styles';
 
 const Header: React.FC = () => {
@@ -21,12 +23,16 @@ const Header: React.FC = () => {
       </Logo>
       <Menu>
         <Middle>
-          <MiddleItemHome>Peças</MiddleItemHome>
+          <MiddleItemHome>
+            <MiddleItemHomeLink>Peças</MiddleItemHomeLink>
+          </MiddleItemHome>
           <MiddleItemPart>Peça PC011 TESTE</MiddleItemPart>
         </Middle>
       </Menu>
       <div>
-        <p>Icon</p>
+        <p>
+          <Icon href="/" className="icon-more_vert" />
+        </p>
       </div>
     </Container>
   );

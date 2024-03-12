@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import { colors } from 'styles/global.styles';
+import { Link } from 'styles/Components';
 
 export const Container = styled.div`
   padding: 24px;
-  border: 1px solid ${colors.greyMedium};
+  border-bottom: 1px solid ${colors.greyMedium};
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -22,7 +23,9 @@ export const Menu = styled.div`
   flex-grow: 1;
 `;
 
-export const LogoText = styled.p``;
+export const LogoText = styled.p`
+  cursor: default;
+`;
 
 export const LogoTextG = styled.span`
   color: ${colors.blue};
@@ -37,7 +40,7 @@ export const Middle = styled.div`
   flex-grow: 1;
 `;
 
-export const MiddleItemHome = styled.a`
+export const MiddleItemHome = styled.div`
   cursor: pointer;
   padding-left: 24px;
   border-left: 1px solid ${colors.greyMedium};
@@ -46,9 +49,19 @@ export const MiddleItemHome = styled.a`
   color: ${colors.greyFont};
 `;
 
-export const MiddleItemPart = styled.a`
+export const MiddleItemHomeLink = styled(Link)`
+  padding: 8px;
+`;
+
+export const MiddleItemPart = styled(Link)`
   cursor: pointer;
   color: ${colors.blue};
   font-size: 18px;
+  padding: 8px;
   margin-right: 46px;
+`;
+
+export const Icon = styled(Link)`
+  color: ${colors.greyFont};
+  font-size: 28px;
 `;
