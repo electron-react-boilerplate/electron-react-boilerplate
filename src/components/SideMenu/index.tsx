@@ -7,18 +7,18 @@ const SideMenu: React.FC = () => {
       <Menu>
         <List>
           <li>
-            <Item href="/">Grupo de Trabalho</Item>
+            <Item to="/workgroup">Grupo de Trabalho</Item>
           </li>
           <li>
-            <Item href="/">Visualização</Item>
+            <Item to="/">Visualização</Item>
           </li>
         </List>
         <List>
           <li>
-            <Item href="/">Code Preview</Item>
+            <Item to="/">Code Preview</Item>
           </li>
           <li>
-            <Item href="/">Exportar</Item>
+            <Item to="/">Exportar</Item>
           </li>
         </List>
       </Menu>

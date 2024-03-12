@@ -1,8 +1,9 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { colors } from 'styles/global.styles';
 
 export const MenuContainer = styled.div`
-  background-color: #318af7;
+  background-color: ${colors.blue};
   width: 170px;
   min-height: calc(100vh - 84px);
 `;
@@ -19,7 +20,7 @@ export const List = styled.ul`
   list-style: none;
 `;
 
-export const Item = styled.a`
+export const Item = styled(Link)`
   display: block;
   text-decoration: none;
   text-align: left;

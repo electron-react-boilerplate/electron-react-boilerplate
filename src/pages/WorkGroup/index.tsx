@@ -1,17 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-
 import Breadcrumbs from 'components/Breadcrumbs';
-
 import { Container } from './style';
 
-const Diam: React.FC = () => {
+const WorkGroup: React.FC = () => {
   return (
     <Container>
       <Breadcrumbs />
-      <Link to="/">asdas</Link>
+      WorkGroup bruh
     </Container>
   );
 };
 
-export default Diam;
+export default WorkGroup;
