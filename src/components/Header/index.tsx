@@ -24,14 +24,14 @@ const Header: React.FC = () => {
       <Menu>
         <Middle>
           <MiddleItemHome>
-            <MiddleItemHomeLink>Peças</MiddleItemHomeLink>
+            <MiddleItemHomeLink to="/">Peças</MiddleItemHomeLink>
           </MiddleItemHome>
-          <MiddleItemPart>Peça PC011 TESTE</MiddleItemPart>
+          <MiddleItemPart to="/">Peça PC011 TESTE</MiddleItemPart>
         </Middle>
       </Menu>
       <div>
         <p>
-          <Icon href="/" className="icon-more_vert" />
+          <Icon to="/" className="icon-more_vert" />
         </p>
       </div>
     </Container>

@@ -1,34 +1,17 @@
 import React from 'react';
-import { Container, Nav, List, Item, Link } from './style';
+import { BreadcrumbsProps } from './interface';
+import { Container, Nav, List, Item, ItemLink } from './style';
 
-const breadcrumbsItems = [
-  {
-    label: 'Home',
-    url: '/',
-    isActive: false,
-  },
-  {
-    label: 'Grupo de Trabalho',
-    url: '/',
-    isActive: false,
-  },
-  {
-    label: 'Diametro',
-    url: '/',
-    isActive: true,
-  },
-];
-
-const Breadcrumbs: React.FC = () => {
+const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
   return (
     <Container>
       <Nav>
         <List>
-          {breadcrumbsItems.map((item) => (
+          {items.map((item: any) => (
             <Item key={item.label}>
-              <Link href={item.url} isActive={item.isActive}>
+              <ItemLink to={item.url} isActive={item.isActive}>
                 {item.label}
-              </Link>
+              </ItemLink>
             </Item>
           ))}
         </List>

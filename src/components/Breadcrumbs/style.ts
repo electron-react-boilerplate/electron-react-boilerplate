@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { colors } from 'styles/global.styles';
 
@@ -39,7 +40,7 @@ export const Item = styled.li`
   }
 `;
 
-export const Link = styled.a<{ isActive?: boolean }>`
+export const ItemLink = styled(Link)<{ isActive?: boolean }>`
   padding: 0 8px;
   display: inline-block;
   text-decoration: none;

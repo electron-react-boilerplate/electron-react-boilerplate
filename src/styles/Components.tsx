@@ -1,7 +1,9 @@
-import { colors } from 'styles/global.styles';
+import { Link as LinkRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
-export const Link = styled.a`
+import { colors } from 'styles/global.styles';
+
+export const Link = styled(LinkRouter)`
   text-decoration: none;
 
   &:hover {

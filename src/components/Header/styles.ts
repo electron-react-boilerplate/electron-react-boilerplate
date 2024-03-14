@@ -51,6 +51,7 @@ export const MiddleItemHome = styled.div`
 
 export const MiddleItemHomeLink = styled(Link)`
   padding: 8px;
+  color: ${colors.greyFont};
 `;
 
 export const MiddleItemPart = styled(Link)`
