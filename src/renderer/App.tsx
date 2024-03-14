@@ -19,7 +19,7 @@ function Hello() {
         width: '100vw',
       }}
     >
-      <div className="flex items-center justify-center min-h-screen from-teal-100 via-teal-300 to-teal-500 bg-gradient-to-br">
+      {/* <div className="flex items-center justify-center min-h-screen from-teal-100 via-teal-300 to-teal-500 bg-gradient-to-br">
         <form action="" className="relative mx-auto flex">
           <input
             type="search"
@@ -28,7 +28,7 @@ function Hello() {
           />
           <button className="absolute top-0 right-0 bottom-0 my-auto h-8 w-10 px-3 bg-slate-300 rounded-lg peer-focus:relative peer-focus:rounded-l-none"></button>
         </form>
-      </div>
+      </div> */}
       <Layer type="symbol" id="marker" layout={{ 'icon-image': 'marker-15' }}>
         <Feature coordinates={[46.595806, -112.027031]} />
       </Layer>
