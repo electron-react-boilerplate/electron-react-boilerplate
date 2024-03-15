@@ -96,13 +96,16 @@
     }
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.2.1",
     "bulma": "^0.9.4",
     "electron-debug": "^3.2.0",
     "electron-log": "^4.4.8",
     "electron-updater": "^6.1.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-redux": "^9.1.0",
     "react-router-dom": "^6.16.0",
+    "redux": "^5.0.1",
     "styled-components": "^6.1.8"
   },
   "devDependencies": {

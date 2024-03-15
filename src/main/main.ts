@@ -10,6 +10,10 @@
  */
 import path from 'path';
 import { app, BrowserWindow, shell, ipcMain } from 'electron';
+import installExtension, {
+  REACT_DEVELOPER_TOOLS,
+  REDUX_DEVTOOLS,
+} from 'electron-devtools-installer';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
@@ -126,8 +130,19 @@ app.on('window-all-closed', () => {
 
 app
   .whenReady()
-  .then(() => {
+  .then(async () => {
     createWindow();
+
+    try {
+      const extensions = await installExtension([
+        REACT_DEVELOPER_TOOLS,
+        REDUX_DEVTOOLS,
+      ]);
+      console.log(`Added Extension:  ${extensions}`);
+    } catch (err) {
+      console.log('An error occurred: ', err);
+    }
+
     app.on('activate', () => {
       // On macOS it's common to re-create a window in the app when the
       // dock icon is clicked and there are no other windows open.
