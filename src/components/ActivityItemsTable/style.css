@@ -1,0 +1,35 @@
+.activity-items-table {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.table-ordenation {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.table-ordenation .body tr td {
+  border-right: 1px solid #dbdbdb;
+  padding: 0;
+}
+
+.table-ordenation .body tr td:last-child {
+  border-right: 0;
+}
+
+.is-edit {
+  font-size: 16px;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  border: 0;
+}
+
+.activity-items-table .button {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  padding: 7px 11px;
+  font-size: 100%;
+  line-height: 100%;
+}
