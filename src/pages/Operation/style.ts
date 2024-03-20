@@ -68,6 +68,16 @@ export const TableInputText = styled.input`
   font-size: 16px;
 `;
 
+export const TableSelect = styled.select`
+  background-color: ${colors.white};
+  border: 0;
+  box-sizing: border-box;
+  padding: 10px 10px;
+  width: 100%;
+  min-width: 200px;
+  font-size: 16px;
+`;
+
 export const TableDContent = styled.div`
   position: relative;
   height: 40px;
