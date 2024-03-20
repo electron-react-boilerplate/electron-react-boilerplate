@@ -69,24 +69,33 @@ export const TableInputText = styled.input`
 `;
 
 export const TableDContent = styled.div`
-  width: auto;
+  position: relative;
+  height: 40px;
+  width: 100%;
 `;
 
 export const TableInputTextLabeled = styled.input`
   background-color: ${colors.white};
   border: 0;
   box-sizing: border-box;
-  padding: 10px 10px;
+  padding: 10px 10px 10px 35px;
   width: 100%;
   font-size: 16px;
 `;
 
 export const TableInputLabel = styled.label`
+  position: absolute;
+  top: 0;
+  width: 30px;
+  height: 40px;
+  line-height: 30px;
   background-color: ${colors.greyMedium};
   color: ${colors.greyFont};
   padding: 5px;
   height: 100%;
   box-sizing: border-box;
+  font-weight: bold;
+  text-align: center;
 `;
 
 export const AddBtn = styled.button`
