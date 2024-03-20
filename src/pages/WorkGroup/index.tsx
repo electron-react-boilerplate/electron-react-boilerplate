@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Breadcrumbs from 'components/Breadcrumbs';
-import { Container } from './style';
+import { Container, Content, Title } from './style';
 
 const breadcrumbsItems = [
   {
@@ -15,7 +15,16 @@ const WorkGroup: React.FC = () => {
   return (
     <Container>
       <Breadcrumbs items={breadcrumbsItems} />
-      <Link to="/operation">Operation Test</Link>
+      <Content>
+        <Title>Grupo de Trabalho</Title>
+        <p>Lista de operação:</p>
+        <br />
+        <ul>
+          <li>
+            <Link to="/operation">Operação</Link>
+          </li>
+        </ul>
+      </Content>
     </Container>
   );
 };

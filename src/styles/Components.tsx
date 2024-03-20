@@ -12,3 +12,14 @@ export const Link = styled(LinkRouter)`
     opacity: 0.6;
   }
 `;
+
+export const PageTitle = styled.h1`
+  font-size: 34px;
+  font-weight: bold;
+  margin-bottom: 24px;
+  color: ${colors.greyFont};
+`;
+
+export const PageContent = styled.div`
+  margin: 15px 24px;
+`;

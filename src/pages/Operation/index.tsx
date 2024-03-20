@@ -1,8 +1,29 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 import React from 'react';
 
 import Breadcrumbs from 'components/Breadcrumbs';
 
-import { Container } from './style';
+import {
+  Container,
+  Content,
+  Title,
+  Block,
+  TableWrapper,
+  Table,
+  TableHead,
+  TableBody,
+  TableH,
+  HText,
+  TableD,
+  TableIdText,
+  TableInputText,
+  TableInputLabel,
+  TableDivision,
+  AddBtn,
+  DeleteBtn,
+  TableDContent,
+  TableInputTextLabeled,
+} from './style';
 
 const breadcrumbsItems = [
   {
@@ -17,29 +38,146 @@ const breadcrumbsItems = [
   },
 ];
 
+const formData = {
+  activityItems: [
+    { xaxis: '12', zaxis: '', fvalue: '', tvalue: '', action: '' },
+    { xaxis: '', zaxis: '31', fvalue: '', tvalue: '', action: '' },
+  ],
+};
+
 const Operation: React.FC = () => {
   return (
     <Container>
       <Breadcrumbs items={breadcrumbsItems} />
-      <h1>Operation</h1>
-      <form>
-        <button
-          type="button"
-          onClick={() => {
-            window.electron.store.set('foo', 'asdasdas');
-          }}
-        >
-          Set
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            console.log(window.electron.store.get('foo'));
-          }}
-        >
-          Get
-        </button>
-      </form>
+      <Content>
+        <Title>Operação</Title>
+        <Block>
+          <TableWrapper>
+            <form
+              name="activity-items-table"
+              className="activity-items-table"
+              // onSubmit={handleSubmit}
+            >
+              <Table className="table table-ordenation">
+                <TableHead className="table-ordenation head">
+                  <tr>
+                    <TableH />
+                    <TableH />
+                    <TableH>
+                      <HText>X</HText>
+                    </TableH>
+                    <TableH>
+                      <HText>Z</HText>
+                    </TableH>
+                    <TableH>
+                      <HText>F</HText>
+                    </TableH>
+                    <TableH>
+                      <HText>Ação</HText>
+                    </TableH>
+                    <TableH />
+                    <TableH />
+                    <TableH />
+                    <TableH />
+                    <TableH />
+                  </tr>
+                </TableHead>
+                <TableBody>
+                  {formData.activityItems.map((item) => (
+                    <tr>
+                      <TableD>
+                        <AddBtn type="button" className="icon-add" />
+                      </TableD>
+                      <TableD>
+                        <TableIdText>01</TableIdText>
+                      </TableD>
+                      <TableD>
+                        <TableInputText
+                          className="input is-edit"
+                          type="text"
+                          name="xaxis"
+                          value={item.xaxis}
+                          // onChange={(e) => handleChange(e, index)}
+                        />
+                      </TableD>
+                      <TableD>
+                        <TableInputText
+                          className="input is-edit"
+                          type="text"
+                          name="zaxis"
+                          value={item.zaxis}
+                          // onChange={(e) => handleChange(e, index)}
+                        />
+                      </TableD>
+                      <TableD>
+                        <TableInputText
+                          className="input is-edit"
+                          type="text"
+                          name="fvalue"
+                          value={item.fvalue}
+                          // onChange={(e) => handleChange(e, index)}
+                        />
+                      </TableD>
+                      <TableD>
+                        <TableInputText
+                          className="input is-edit"
+                          type="text"
+                          name="action"
+                          value={item.action}
+                          // onChange={(e) => handleChange(e, index)}
+                          disabled
+                        />
+                      </TableD>
+                      <TableD>
+                        <TableDivision>|</TableDivision>
+                      </TableD>
+                      <TableD>
+                        <TableDContent>
+                          <TableInputLabel>X</TableInputLabel>
+                          <TableInputTextLabeled
+                            className="input is-edit"
+                            type="text"
+                            name="fvalue"
+                            value={item.fvalue}
+                            // onChange={(e) => handleChange(e, index)}
+                          />
+                        </TableDContent>
+                      </TableD>
+                      <TableD>
+                        <TableDContent>
+                          <TableInputLabel>X</TableInputLabel>
+                          <TableInputTextLabeled
+                            className="input is-edit"
+                            type="text"
+                            name="fvalue"
+                            value={item.fvalue}
+                            // onChange={(e) => handleChange(e, index)}
+                          />
+                        </TableDContent>
+                      </TableD>
+                      <TableD>
+                        <TableDContent>
+                          <TableInputLabel>X</TableInputLabel>
+                          <TableInputTextLabeled
+                            className="input is-edit"
+                            type="text"
+                            name="fvalue"
+                            value={item.fvalue}
+                            // onChange={(e) => handleChange(e, index)}
+                          />
+                        </TableDContent>
+                      </TableD>
+                      <TableD>
+                        <DeleteBtn type="button" className="icon-delete" />
+                      </TableD>
+                    </tr>
+                  ))}
+                </TableBody>
+              </Table>
+            </form>
+          </TableWrapper>
+        </Block>
+      </Content>
     </Container>
   );
 };

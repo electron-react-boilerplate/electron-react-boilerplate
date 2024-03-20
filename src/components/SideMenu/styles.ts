@@ -6,6 +6,7 @@ export const MenuContainer = styled.div`
   background-color: ${colors.blue};
   width: 170px;
   min-height: calc(100vh - 84px);
+  flex-shrink: 0;
 `;
 
 export const Menu = styled.nav`
