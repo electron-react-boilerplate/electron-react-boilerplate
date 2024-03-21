@@ -24,6 +24,7 @@ import {
   TableDContent,
   TableInputTextLabeled,
   TableSelect,
+  TableSelectOption,
 } from './style';
 
 const breadcrumbsItems = [
@@ -122,14 +123,19 @@ const Operation: React.FC = () => {
                       <TableD>
                         <TableSelect
                           className="input is-edit"
-                          type="text"
                           name="action"
                           value={item.action}
                           // onChange={(e) => handleChange(e, index)}
                         >
-                          <option value="1">Ação 1</option>
-                          <option value="2">Ação 2</option>
-                          <option value="3">Ação 3</option>
+                          <TableSelectOption value="1">
+                            Ação 1
+                          </TableSelectOption>
+                          <TableSelectOption value="2">
+                            Ação 2
+                          </TableSelectOption>
+                          <TableSelectOption value="3">
+                            Ação 3
+                          </TableSelectOption>
                         </TableSelect>
                       </TableD>
                       <TableD>

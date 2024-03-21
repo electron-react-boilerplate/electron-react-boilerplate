@@ -61,7 +61,7 @@ export const TableDivision = styled.p`
 
 export const TableInputText = styled.input`
   background-color: ${colors.white};
-  border: 0;
+  border: 1px solid ${colors.greyMedium};
   box-sizing: border-box;
   padding: 10px 10px;
   width: 100%;
@@ -70,12 +70,22 @@ export const TableInputText = styled.input`
 
 export const TableSelect = styled.select`
   background-color: ${colors.white};
-  border: 0;
+  border: 1px solid ${colors.greyMedium};
   box-sizing: border-box;
   padding: 10px 10px;
   width: 100%;
   min-width: 200px;
   font-size: 16px;
+  appearance: none; /* Remove a seta padrão */
+  background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+  background-repeat: no-repeat;
+  background-position-x: 95%;
+  background-position-y: 50%;
+`;
+
+export const TableSelectOption = styled.option`
+  height: 40px;
+  line-height: 40px;
 `;
 
 export const TableDContent = styled.div`
@@ -86,9 +96,10 @@ export const TableDContent = styled.div`
 
 export const TableInputTextLabeled = styled.input`
   background-color: ${colors.white};
-  border: 0;
+  border: 1px solid ${colors.greyMedium};
   box-sizing: border-box;
   padding: 10px 10px 10px 35px;
+  height: 40px;
   width: 100%;
   font-size: 16px;
 `;
@@ -97,10 +108,10 @@ export const TableInputLabel = styled.label`
   position: absolute;
   top: 0;
   width: 30px;
-  height: 40px;
   line-height: 30px;
   background-color: ${colors.greyMedium};
-  color: ${colors.greyFont};
+  border-radius: 5px 0 0 5px;
+  color: ${colors.greyLogo};
   padding: 5px;
   height: 100%;
   box-sizing: border-box;
@@ -120,6 +131,7 @@ export const AddBtn = styled.button`
   vertical-align: middle;
   border-radius: 100%;
   font-weight: bolder;
+  cursor: pointer;
 `;
 
 export const DeleteBtn = styled.button`
@@ -133,4 +145,5 @@ export const DeleteBtn = styled.button`
   padding: 5px 0;
   vertical-align: middle;
   border-radius: 5px;
+  cursor: pointer;
 `;
