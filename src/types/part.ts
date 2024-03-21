@@ -14,7 +14,7 @@ export interface Operations {
   id: number;
   name: string;
   type: OperationType;
-  activities: Activities;
+  activities: Activities[];
 }
 
 export interface Part {

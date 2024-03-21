@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import React from 'react';
+import React, { ChangeEvent, useState } from 'react';
 // import { useDispatch } from 'react-redux';
 
 // import { operationsSlice } from 'state/operations/operationsSlice';
+import { XZ_REGEX } from 'constants/constants';
 import Breadcrumbs from 'components/Breadcrumbs';
 
 import {
@@ -42,14 +43,33 @@ const breadcrumbsItems = [
   },
 ];
 
-const formData = {
-  activityItems: [
-    { xaxis: '12', zaxis: '', fvalue: '', tvalue: '', action: '' },
-    { xaxis: '', zaxis: '31', fvalue: '', tvalue: '', action: '' },
+const initialState = {
+  activities: [
+    { id: 1, xaxis: '12', zaxis: '', fvalue: '', tvalue: '', action: '' },
+    { id: 2, xaxis: '', zaxis: '31', fvalue: '', tvalue: '', action: '' },
   ],
 };
 
 const Operation: React.FC = () => {
+  const [formData, setFormData] = useState({
+    ...initialState,
+  });
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
+    const { value } = e.currentTarget;
+    if (value.match(XZ_REGEX) || value === '') {
+      setFormData({
+        ...formData,
+        activities: formData.activities.map((item, i) => {
+          if (i === index) {
+            return { ...item, [e.currentTarget.name]: value };
+          }
+          return item;
+        }),
+      });
+    }
+  };
+
   return (
     <Container>
       <Breadcrumbs items={breadcrumbsItems} />
@@ -87,13 +107,13 @@ const Operation: React.FC = () => {
                   </tr>
                 </TableHead>
                 <TableBody>
-                  {formData.activityItems.map((item) => (
+                  {formData.activities.map((item, index) => (
                     <tr>
                       <TableD>
                         <AddBtn type="button" className="icon-add" />
                       </TableD>
                       <TableD>
-                        <TableIdText>01</TableIdText>
+                        <TableIdText>{item.id}</TableIdText>
                       </TableD>
                       <TableD>
                         <TableInputText
@@ -101,7 +121,7 @@ const Operation: React.FC = () => {
                           type="text"
                           name="xaxis"
                           value={item.xaxis}
-                          // onChange={(e) => handleChange(e, index)}
+                          onChange={(e) => handleChange(e, index)}
                         />
                       </TableD>
                       <TableD>
@@ -110,7 +130,7 @@ const Operation: React.FC = () => {
                           type="text"
                           name="zaxis"
                           value={item.zaxis}
-                          // onChange={(e) => handleChange(e, index)}
+                          onChange={(e) => handleChange(e, index)}
                         />
                       </TableD>
                       <TableD>
@@ -119,7 +139,7 @@ const Operation: React.FC = () => {
                           type="text"
                           name="fvalue"
                           value={item.fvalue}
-                          // onChange={(e) => handleChange(e, index)}
+                          onChange={(e) => handleChange(e, index)}
                         />
                       </TableD>
                       <TableD>
@@ -151,7 +171,7 @@ const Operation: React.FC = () => {
                             type="text"
                             name="fvalue"
                             value={item.fvalue}
-                            // onChange={(e) => handleChange(e, index)}
+                            onChange={(e) => handleChange(e, index)}
                           />
                         </TableDContent>
                       </TableD>
@@ -163,7 +183,7 @@ const Operation: React.FC = () => {
                             type="text"
                             name="fvalue"
                             value={item.fvalue}
-                            // onChange={(e) => handleChange(e, index)}
+                            onChange={(e) => handleChange(e, index)}
                           />
                         </TableDContent>
                       </TableD>
@@ -175,7 +195,7 @@ const Operation: React.FC = () => {
                             type="text"
                             name="fvalue"
                             value={item.fvalue}
-                            // onChange={(e) => handleChange(e, index)}
+                            onChange={(e) => handleChange(e, index)}
                           />
                         </TableDContent>
                       </TableD>
