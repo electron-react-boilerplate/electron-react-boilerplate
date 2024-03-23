@@ -111,6 +111,8 @@ const initialState = {
   ],
 };
 
+const maxActionParamsNumber = 3;
+
 const Operation: React.FC = () => {
   const [formData, setFormData] = useState({
     ...initialState,
@@ -224,7 +226,7 @@ const Operation: React.FC = () => {
                       <TableD>
                         <TableDivision>|</TableDivision>
                       </TableD>
-                      {Array(3)
+                      {Array(maxActionParamsNumber)
                         .fill(null)
                         .map((_, subIndex) => {
                           const subItem = item.action.params[subIndex] || {
