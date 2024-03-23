@@ -45,8 +45,69 @@ const breadcrumbsItems = [
 
 const initialState = {
   activities: [
-    { id: 1, xaxis: '12', zaxis: '', fvalue: '', tvalue: '', action: '' },
-    { id: 2, xaxis: '', zaxis: '31', fvalue: '', tvalue: '', action: '' },
+    {
+      id: 2,
+      xaxis: '',
+      zaxis: '31',
+      fvalue: '',
+      tvalue: '',
+      action: {
+        id: 1000,
+        name: 'Ação 1',
+        params: [
+          {
+            param: 'x',
+            value: '12',
+          },
+          {
+            param: 'z',
+            value: '25',
+          },
+        ],
+      },
+    },
+    {
+      id: 2,
+      xaxis: '',
+      zaxis: '31',
+      fvalue: '',
+      tvalue: '',
+      action: {
+        id: 1000,
+        name: 'Ação 1',
+        params: [
+          {
+            param: 'a',
+            value: '46.23',
+          },
+        ],
+      },
+    },
+    {
+      id: 2,
+      xaxis: '',
+      zaxis: '31',
+      fvalue: '',
+      tvalue: '',
+      action: {
+        id: 1000,
+        name: 'Ação 1',
+        params: [
+          {
+            param: 'a',
+            value: '46.23',
+          },
+          {
+            param: 'r',
+            value: '6',
+          },
+          {
+            param: 'k',
+            value: '2',
+          },
+        ],
+      },
+    },
   ],
 };
 
@@ -146,7 +207,7 @@ const Operation: React.FC = () => {
                         <TableSelect
                           className="input is-edit"
                           name="action"
-                          value={item.action}
+                          // value={item.action}
                           // onChange={(e) => handleChange(e, index)}
                         >
                           <TableSelectOption value="1">
@@ -163,42 +224,35 @@ const Operation: React.FC = () => {
                       <TableD>
                         <TableDivision>|</TableDivision>
                       </TableD>
-                      <TableD>
-                        <TableDContent>
-                          <TableInputLabel>X</TableInputLabel>
-                          <TableInputTextLabeled
-                            className="input is-edit"
-                            type="text"
-                            name="fvalue"
-                            value={item.fvalue}
-                            onChange={(e) => handleChange(e, index)}
-                          />
-                        </TableDContent>
-                      </TableD>
-                      <TableD>
-                        <TableDContent>
-                          <TableInputLabel>X</TableInputLabel>
-                          <TableInputTextLabeled
-                            className="input is-edit"
-                            type="text"
-                            name="fvalue"
-                            value={item.fvalue}
-                            onChange={(e) => handleChange(e, index)}
-                          />
-                        </TableDContent>
-                      </TableD>
-                      <TableD>
-                        <TableDContent>
-                          <TableInputLabel>X</TableInputLabel>
-                          <TableInputTextLabeled
-                            className="input is-edit"
-                            type="text"
-                            name="fvalue"
-                            value={item.fvalue}
-                            onChange={(e) => handleChange(e, index)}
-                          />
-                        </TableDContent>
-                      </TableD>
+                      {Array(3)
+                        .fill(null)
+                        .map((_, subIndex) => {
+                          const subItem = item.action.params[subIndex] || {
+                            param: 'fill',
+                            value: '',
+                          };
+
+                          if (subItem.param === 'fill') {
+                            return <TableD />;
+                          }
+
+                          return (
+                            <TableD>
+                              <TableDContent>
+                                <TableInputLabel>
+                                  {subItem.param}
+                                </TableInputLabel>
+                                <TableInputTextLabeled
+                                  className="input is-edit"
+                                  type="text"
+                                  name={`${subItem.param}value`}
+                                  value={subItem.value}
+                                  onChange={(e) => handleChange(e, subIndex)}
+                                />
+                              </TableDContent>
+                            </TableD>
+                          );
+                        })}
                       <TableD>
                         <DeleteBtn type="button" className="icon-delete" />
                       </TableD>
