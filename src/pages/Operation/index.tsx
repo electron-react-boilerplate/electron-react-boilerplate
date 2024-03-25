@@ -102,9 +102,14 @@ const Operation: React.FC = () => {
   };
 
   const handleDelete = (index: number) => () => {
+    const newActivities = [...formData.activities];
+    newActivities.splice(index, 1);
+    for (let i = index; i < newActivities.length; i += 1) {
+      newActivities[i].id = i + 1;
+    }
     setFormData({
       ...formData,
-      activities: formData.activities.filter((item, i) => i !== index),
+      activities: newActivities,
     });
   };
 
