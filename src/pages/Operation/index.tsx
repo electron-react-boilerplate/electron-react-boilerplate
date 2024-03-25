@@ -101,6 +101,13 @@ const Operation: React.FC = () => {
     });
   };
 
+  const handleDelete = (index: number) => () => {
+    setFormData({
+      ...formData,
+      activities: formData.activities.filter((item, i) => i !== index),
+    });
+  };
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
@@ -255,7 +262,11 @@ const Operation: React.FC = () => {
                         <TableD />
                       )}
                       <TableD>
-                        <DeleteBtn type="button" className="icon-delete" />
+                        <DeleteBtn
+                          type="button"
+                          className="icon-delete"
+                          onClick={handleDelete(index)}
+                        />
                       </TableD>
                     </tr>
                   ))}
