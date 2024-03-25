@@ -46,79 +46,31 @@ const breadcrumbsItems = [
 const initialState = {
   activities: [
     {
-      id: 2,
+      id: 3,
       xaxis: '',
       zaxis: '31',
       fvalue: '',
       tvalue: '',
-      action: {
-        id: 1000,
-        name: 'Ação 1',
-        params: [
-          {
-            param: 'x',
-            value: '12',
-          },
-          {
-            param: 'z',
-            value: '25',
-          },
-        ],
-      },
-    },
-    {
-      id: 2,
-      xaxis: '',
-      zaxis: '31',
-      fvalue: '',
-      tvalue: '',
-      action: {
-        id: 1000,
-        name: 'Ação 1',
-        params: [
-          {
-            param: 'a',
-            value: '46.23',
-          },
-        ],
-      },
-    },
-    {
-      id: 2,
-      xaxis: '',
-      zaxis: '31',
-      fvalue: '',
-      tvalue: '',
-      action: {
-        id: 1000,
-        name: 'Ação 1',
-        params: [
-          {
-            param: 'a',
-            value: '46.23',
-          },
-          {
-            param: 'r',
-            value: '6',
-          },
-          {
-            param: 'k',
-            value: '2',
-          },
-        ],
-      },
+      actionValue: 'action2',
+      aParamValue: '46.23',
+      aParamId: 'x',
+      bParamValue: '46.23',
+      bParamId: 'z',
+      cParamValue: '46.23',
+      cParamId: 'a',
     },
   ],
 };
-
-const maxActionParamsNumber = 3;
 
 const Operation: React.FC = () => {
   const [formData, setFormData] = useState({
     ...initialState,
   });
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    index: number,
+  ) => {
     const { value } = e.currentTarget;
     if (value.match(XZ_REGEX) || value === '') {
       setFormData({
@@ -208,17 +160,20 @@ const Operation: React.FC = () => {
                       <TableD>
                         <TableSelect
                           className="input is-edit"
-                          name="action"
-                          // value={item.action}
-                          // onChange={(e) => handleChange(e, index)}
+                          name="actionValue"
+                          value={item.actionValue}
+                          onChange={(e) => handleChange(e, index)}
                         >
-                          <TableSelectOption value="1">
+                          <TableSelectOption value="">
+                            Selecione...
+                          </TableSelectOption>
+                          <TableSelectOption value="action1">
                             Ação 1
                           </TableSelectOption>
-                          <TableSelectOption value="2">
+                          <TableSelectOption value="action2">
                             Ação 2
                           </TableSelectOption>
-                          <TableSelectOption value="3">
+                          <TableSelectOption value="action3">
                             Ação 3
                           </TableSelectOption>
                         </TableSelect>
@@ -226,35 +181,54 @@ const Operation: React.FC = () => {
                       <TableD>
                         <TableDivision>|</TableDivision>
                       </TableD>
-                      {Array(maxActionParamsNumber)
-                        .fill(null)
-                        .map((_, subIndex) => {
-                          const subItem = item.action.params[subIndex] || {
-                            param: 'fill',
-                            value: '',
-                          };
-
-                          if (subItem.param === 'fill') {
-                            return <TableD />;
-                          }
-
-                          return (
-                            <TableD>
-                              <TableDContent>
-                                <TableInputLabel>
-                                  {subItem.param}
-                                </TableInputLabel>
-                                <TableInputTextLabeled
-                                  className="input is-edit"
-                                  type="text"
-                                  name={`${subItem.param}value`}
-                                  value={subItem.value}
-                                  onChange={(e) => handleChange(e, subIndex)}
-                                />
-                              </TableDContent>
-                            </TableD>
-                          );
-                        })}
+                      {item.aParamValue || item.aParamValue === '' ? (
+                        <TableD>
+                          <TableDContent>
+                            <TableInputLabel>{item.aParamId}</TableInputLabel>
+                            <TableInputTextLabeled
+                              className="input is-edit"
+                              type="text"
+                              name="aParamValue"
+                              value={item.aParamValue}
+                              onChange={(e) => handleChange(e, index)}
+                            />
+                          </TableDContent>
+                        </TableD>
+                      ) : (
+                        <TableD />
+                      )}
+                      {item.bParamValue || item.bParamValue === '' ? (
+                        <TableD>
+                          <TableDContent>
+                            <TableInputLabel>{item.bParamId}</TableInputLabel>
+                            <TableInputTextLabeled
+                              className="input is-edit"
+                              type="text"
+                              name="bParamValue"
+                              value={item.bParamValue}
+                              onChange={(e) => handleChange(e, index)}
+                            />
+                          </TableDContent>
+                        </TableD>
+                      ) : (
+                        <TableD />
+                      )}
+                      {item.cParamValue || item.cParamValue === '' ? (
+                        <TableD>
+                          <TableDContent>
+                            <TableInputLabel>{item.cParamId}</TableInputLabel>
+                            <TableInputTextLabeled
+                              className="input is-edit"
+                              type="text"
+                              name="cParamValue"
+                              value={item.cParamValue}
+                              onChange={(e) => handleChange(e, index)}
+                            />
+                          </TableDContent>
+                        </TableD>
+                      ) : (
+                        <TableD />
+                      )}
                       <TableD>
                         <DeleteBtn type="button" className="icon-delete" />
                       </TableD>
