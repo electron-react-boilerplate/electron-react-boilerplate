@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 // import { useDispatch } from 'react-redux';
 
 // import { operationsSlice } from 'state/operations/operationsSlice';
@@ -46,7 +46,7 @@ const breadcrumbsItems = [
 const initialState = {
   activities: [
     {
-      id: 3,
+      id: 1,
       xaxis: '',
       zaxis: '31',
       fvalue: '',
@@ -85,6 +85,26 @@ const Operation: React.FC = () => {
     }
   };
 
+  const handleAdd = (index: number) => {
+    const newActivities = [...formData.activities];
+    const newActivity = {
+      ...formData.activities[index],
+      id: index + 2,
+    };
+    newActivities.splice(index + 1, 0, newActivity);
+    for (let i = index + 2; i < newActivities.length; i += 1) {
+      newActivities[i].id = i + 1;
+    }
+    setFormData({
+      ...formData,
+      activities: newActivities,
+    });
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   return (
     <Container>
       <Breadcrumbs items={breadcrumbsItems} />
@@ -95,7 +115,7 @@ const Operation: React.FC = () => {
             <form
               name="activity-items-table"
               className="activity-items-table"
-              // onSubmit={handleSubmit}
+              onSubmit={handleSubmit}
             >
               <Table className="table table-ordenation">
                 <TableHead className="table-ordenation head">
@@ -125,7 +145,11 @@ const Operation: React.FC = () => {
                   {formData.activities.map((item, index) => (
                     <tr>
                       <TableD>
-                        <AddBtn type="button" className="icon-add" />
+                        <AddBtn
+                          type="button"
+                          className="icon-add"
+                          onClick={() => handleAdd(index)}
+                        />
                       </TableD>
                       <TableD>
                         <TableIdText>{item.id}</TableIdText>
@@ -157,6 +181,7 @@ const Operation: React.FC = () => {
                           onChange={(e) => handleChange(e, index)}
                         />
                       </TableD>
+                      {/* TODO De acordo com os valores selecionados de ações, a geração dos campos e seus IDs pra aquela linha */}
                       <TableD>
                         <TableSelect
                           className="input is-edit"
@@ -236,6 +261,7 @@ const Operation: React.FC = () => {
                   ))}
                 </TableBody>
               </Table>
+              <button type="submit">Salvar</button>
             </form>
           </TableWrapper>
         </Block>
