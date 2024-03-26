@@ -7,8 +7,8 @@ export interface Activities {
   id: number;
   xaxis: string;
   zaxis: string;
-  tvalue: string;
-  action: string;
+  fvalue: string;
+  actionValue: string;
   aParamId: string;
   aParamValue: string;
   bParamId: string;

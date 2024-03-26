@@ -6,9 +6,32 @@ interface EditOperationPayload {
   changes: Partial<Operations>;
 }
 
+const initialState: Operations[] = [
+  {
+    id: 1,
+    name: 'Operation 1',
+    type: 'Internal',
+    activities: [
+      {
+        id: 1,
+        xaxis: '',
+        zaxis: '',
+        fvalue: '',
+        actionValue: '',
+        aParamId: '',
+        aParamValue: '',
+        bParamId: '',
+        bParamValue: '',
+        cParamId: '',
+        cParamValue: '',
+      },
+    ],
+  },
+];
+
 const operationsSlice = createSlice({
   name: 'operations',
-  initialState: [] as Operations[],
+  initialState,
   reducers: {
     addOperation: (state, action: PayloadAction<Operations>) => {
       state.push(action.payload);
@@ -25,5 +48,8 @@ const operationsSlice = createSlice({
     },
   },
 });
+
+export const { addOperation, removeOperation, editOperation } =
+  operationsSlice.actions;
 
 export default operationsSlice.reducer;

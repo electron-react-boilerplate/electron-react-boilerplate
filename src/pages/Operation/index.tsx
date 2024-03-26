@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import React, { ChangeEvent, FormEvent, useState } from 'react';
-// import { useDispatch } from 'react-redux';
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-// import { operationsSlice } from 'state/operations/operationsSlice';
+import { editOperation } from 'state/operations/operationsSlice';
+import { Operations } from 'types/part';
 import { XZ_REGEX } from 'constants/constants';
 import Breadcrumbs from 'components/Breadcrumbs';
 
@@ -43,26 +44,30 @@ const breadcrumbsItems = [
   },
 ];
 
-const initialState = {
-  activities: [
-    {
-      id: 1,
-      xaxis: '',
-      zaxis: '31',
-      fvalue: '',
-      tvalue: '',
-      actionValue: 'action2',
-      aParamValue: '46.23',
-      aParamId: 'x',
-      bParamValue: '46.23',
-      bParamId: 'z',
-      cParamValue: '46.23',
-      cParamId: 'a',
-    },
-  ],
-};
+// const initialState = {
+//   activities: [
+//     {
+//       id: 1,
+//       xaxis: '',
+//       zaxis: '31',
+//       fvalue: '',
+//       tvalue: '',
+//       actionValue: 'action2',
+//       aParamValue: '46.23',
+//       aParamId: 'x',
+//       bParamValue: '46.23',
+//       bParamId: 'z',
+//       cParamValue: '46.23',
+//       cParamId: 'a',
+//     },
+//   ],
+// };
 
 const Operation: React.FC = () => {
+  const dispatch = useDispatch();
+  const initialState = useSelector(
+    (state: { operations: Operations[] }) => state.operations[0],
+  );
   const [formData, setFormData] = useState({
     ...initialState,
   });
@@ -86,15 +91,20 @@ const Operation: React.FC = () => {
   };
 
   const handleAdd = (index: number) => {
-    const newActivities = [...formData.activities];
+    let newActivities = [...formData.activities];
     const newActivity = {
       ...formData.activities[index],
       id: index + 2,
     };
+    // função splice adiciona o novo item na posição index + 1
     newActivities.splice(index + 1, 0, newActivity);
-    for (let i = index + 2; i < newActivities.length; i += 1) {
-      newActivities[i].id = i + 1;
-    }
+    // função map atualiza os ids dos itens seguintes
+    newActivities = newActivities.map((activity, i) => {
+      if (i >= index + 2) {
+        return { ...activity, id: activity.id + 1 };
+      }
+      return activity;
+    });
     setFormData({
       ...formData,
       activities: newActivities,
@@ -102,20 +112,26 @@ const Operation: React.FC = () => {
   };
 
   const handleDelete = (index: number) => () => {
-    const newActivities = [...formData.activities];
-    newActivities.splice(index, 1);
-    for (let i = index; i < newActivities.length; i += 1) {
-      newActivities[i].id = i + 1;
+    if (formData.activities.length > 1) {
+      const newActivities = [...formData.activities];
+      newActivities.splice(index, 1);
+      newActivities.map((activity, i) => {
+        if (i >= index + 2) {
+          return { ...activity, id: activity.id + 1 };
+        }
+        return activity;
+      });
+      setFormData({
+        ...formData,
+        activities: newActivities,
+      });
     }
-    setFormData({
-      ...formData,
-      activities: newActivities,
-    });
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  };
+  useEffect(() => {
+    // console.log('formData', formData);
+    dispatch(editOperation({ id: formData.id, changes: formData }));
+  }, [dispatch, formData]);
 
   return (
     <Container>
@@ -127,7 +143,7 @@ const Operation: React.FC = () => {
             <form
               name="activity-items-table"
               className="activity-items-table"
-              onSubmit={handleSubmit}
+              // onSubmit={handleSubmit}
             >
               <Table className="table table-ordenation">
                 <TableHead className="table-ordenation head">
@@ -155,7 +171,7 @@ const Operation: React.FC = () => {
                 </TableHead>
                 <TableBody>
                   {formData.activities.map((item, index) => (
-                    <tr>
+                    <tr key={item.id}>
                       <TableD>
                         <AddBtn
                           type="button"
