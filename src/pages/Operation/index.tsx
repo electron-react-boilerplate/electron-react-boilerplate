@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { editOperation } from 'state/operations/operationsSlice';
@@ -113,13 +113,10 @@ const Operation: React.FC = () => {
 
   const handleDelete = (index: number) => () => {
     if (formData.activities.length > 1) {
-      const newActivities = [...formData.activities];
+      let newActivities = [...formData.activities];
       newActivities.splice(index, 1);
-      newActivities.map((activity, i) => {
-        if (i >= index + 2) {
-          return { ...activity, id: activity.id + 1 };
-        }
-        return activity;
+      newActivities = newActivities.map((activity, i) => {
+        return { ...activity, id: i + 1 };
       });
       setFormData({
         ...formData,
@@ -129,7 +126,6 @@ const Operation: React.FC = () => {
   };
 
   useEffect(() => {
-    // console.log('formData', formData);
     dispatch(editOperation({ id: formData.id, changes: formData }));
   }, [dispatch, formData]);
 
