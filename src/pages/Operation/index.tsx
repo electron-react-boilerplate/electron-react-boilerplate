@@ -155,9 +155,9 @@ const Operation: React.FC = () => {
                       <HText>Ação</HText>
                     </TableH>
                     <TableH />
-                    <TableH />
-                    <TableH />
-                    <TableH />
+                    <TableH colSpan={3}>
+                      <HText>Parâmetros Adicionais</HText>
+                    </TableH>
                     <TableH />
                   </tr>
                 </TableHead>
@@ -209,7 +209,7 @@ const Operation: React.FC = () => {
                           value={item.actionValue}
                           onChange={(e) => handleChange(e, index)}
                         >
-                          <TableSelectOption value="">
+                          <TableSelectOption value="default">
                             Selecione...
                           </TableSelectOption>
                           <TableSelectOption value="action1">
@@ -240,7 +240,12 @@ const Operation: React.FC = () => {
                           </TableDContent>
                         </TableD>
                       ) : (
-                        <TableD />
+                        <TableD>
+                          <TableDContent>
+                            <TableInputLabel />
+                            <TableInputTextLabeled type="text" disabled />
+                          </TableDContent>
+                        </TableD>
                       )}
                       {item.bParamValue || item.bParamValue === '' ? (
                         <TableD>
@@ -256,7 +261,12 @@ const Operation: React.FC = () => {
                           </TableDContent>
                         </TableD>
                       ) : (
-                        <TableD />
+                        <TableD>
+                          <TableDContent>
+                            <TableInputLabel />
+                            <TableInputTextLabeled type="text" disabled />
+                          </TableDContent>
+                        </TableD>
                       )}
                       {item.cParamValue || item.cParamValue === '' ? (
                         <TableD>
@@ -272,7 +282,12 @@ const Operation: React.FC = () => {
                           </TableDContent>
                         </TableD>
                       ) : (
-                        <TableD />
+                        <TableD>
+                          <TableDContent>
+                            <TableInputLabel />
+                            <TableInputTextLabeled type="text" disabled />
+                          </TableDContent>
+                        </TableD>
                       )}
                       <TableD>
                         <DeleteBtn

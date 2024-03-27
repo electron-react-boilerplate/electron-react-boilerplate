@@ -102,6 +102,11 @@ export const TableInputTextLabeled = styled.input`
   height: 40px;
   width: 100%;
   font-size: 16px;
+
+  &:disabled {
+    background-color: ${colors.greyMedium};
+    opacity: 0.3;
+  }
 `;
 
 export const TableInputLabel = styled.label`

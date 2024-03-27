@@ -8,11 +8,11 @@ export interface Activities {
   zaxis: string;
   fvalue: string;
   actionValue: string;
-  aParamId: string | null;
+  aParamId: string;
   aParamValue: string | null;
-  bParamId: string | null;
+  bParamId: string;
   bParamValue: string | null;
-  cParamId: string | null;
+  cParamId: string;
   cParamValue: string | null;
 }
 
