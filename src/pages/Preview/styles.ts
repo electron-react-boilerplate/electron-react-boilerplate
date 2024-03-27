@@ -11,7 +11,7 @@ export const Content = styled(PageContent)``;
 export const Title = styled(PageTitle)``;
 
 export const CodeBlock = styled.pre`
-  overflow-y: scroll;
+  overflow-y: auto;
   background-color: ${colors.greyCodeBg};
   color: ${colors.blueCodeFont};
   width: 100%;
