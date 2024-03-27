@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { PageTitle, PageContent } from 'styles/Components';
+import { PageTitle, PageContent, ContentBlock } from 'styles/Components';
 import { colors } from 'styles/global.styles';
 
 export const Container = styled.div`
@@ -10,7 +10,7 @@ export const Content = styled(PageContent)``;
 
 export const Title = styled(PageTitle)``;
 
-export const Block = styled.div`
+export const Block = styled(ContentBlock)`
   background-color: ${colors.grey};
   width: 100%;
   height: 100%;

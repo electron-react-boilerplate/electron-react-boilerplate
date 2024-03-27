@@ -15,7 +15,7 @@ const SideMenu: React.FC = () => {
         </List>
         <List>
           <li>
-            <Item to="/">Code Preview</Item>
+            <Item to="/preview">Code Preview</Item>
           </li>
           <li>
             <Item to="/">Exportar</Item>
