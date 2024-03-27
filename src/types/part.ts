@@ -2,19 +2,18 @@
 export type OperationType = 'Internal' | 'External';
 
 // Interfaces
-
 export interface Activities {
   id: number;
   xaxis: string;
   zaxis: string;
   fvalue: string;
   actionValue: string;
-  aParamId: string;
-  aParamValue: string;
-  bParamId: string;
-  bParamValue: string;
-  cParamId: string;
-  cParamValue: string;
+  aParamId: string | null;
+  aParamValue: string | null;
+  bParamId: string | null;
+  bParamValue: string | null;
+  cParamId: string | null;
+  cParamValue: string | null;
 }
 
 export interface Operations {

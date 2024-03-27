@@ -3,10 +3,10 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { editOperation } from 'state/operations/operationsSlice';
-import { Operations } from 'types/part';
-import { XZ_REGEX } from 'constants/constants';
 import Breadcrumbs from 'components/Breadcrumbs';
-
+import { XZ_REGEX } from 'constants/constants';
+import { Operations } from 'types/part';
+import defineActionParams from './defineActionParams';
 import {
   Container,
   Content,
@@ -44,25 +44,6 @@ const breadcrumbsItems = [
   },
 ];
 
-// const initialState = {
-//   activities: [
-//     {
-//       id: 1,
-//       xaxis: '',
-//       zaxis: '31',
-//       fvalue: '',
-//       tvalue: '',
-//       actionValue: 'action2',
-//       aParamValue: '46.23',
-//       aParamId: 'x',
-//       bParamValue: '46.23',
-//       bParamId: 'z',
-//       cParamValue: '46.23',
-//       cParamId: 'a',
-//     },
-//   ],
-// };
-
 const Operation: React.FC = () => {
   const dispatch = useDispatch();
   const initialState = useSelector(
@@ -83,6 +64,21 @@ const Operation: React.FC = () => {
         activities: formData.activities.map((item, i) => {
           if (i === index) {
             return { ...item, [e.currentTarget.name]: value };
+          }
+          return item;
+        }),
+      });
+    } else if (e.currentTarget.name === 'actionValue') {
+      setFormData({
+        ...formData,
+        activities: formData.activities.map((item, i) => {
+          if (i === index) {
+            const actionParams = defineActionParams(value);
+            return {
+              ...item,
+              [e.currentTarget.name]: value,
+              ...actionParams,
+            };
           }
           return item;
         }),
