@@ -97,9 +97,9 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.1",
-    "bulma": "^0.9.4",
     "electron-debug": "^3.2.0",
     "electron-log": "^4.4.8",
+    "electron-store": "^8.2.0",
     "electron-updater": "^6.1.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
