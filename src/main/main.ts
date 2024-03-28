@@ -10,7 +10,8 @@
  */
 import path from 'path';
 import Store from 'electron-store';
-import { app, BrowserWindow, shell, ipcMain } from 'electron';
+import fs from 'fs';
+import { app, BrowserWindow, shell, ipcMain, dialog } from 'electron';
 import installExtension, {
   REACT_DEVELOPER_TOOLS,
   REDUX_DEVTOOLS,
@@ -37,14 +38,6 @@ ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
   console.log(msgTemplate(arg));
   event.reply('ipc-example', msgTemplate('pong'));
-});
-
-ipcMain.on('electron-store-get', async (event, val) => {
-  event.returnValue = store.get(val);
-});
-
-ipcMain.on('electron-store-set', async (event, key, val) => {
-  store.set(key, val);
 });
 
 if (process.env.NODE_ENV === 'production') {
@@ -108,6 +101,37 @@ const createWindow = async () => {
     } else {
       mainWindow.show();
     }
+  });
+
+  ipcMain.on('electron-store-get', async (event, val) => {
+    event.returnValue = store.get(val);
+  });
+
+  ipcMain.on('electron-store-set', async (event, key, val) => {
+    store.set(key, val);
+  });
+
+  ipcMain.handle('save-gcode', (event, data) => {
+    dialog
+      .showSaveDialog(mainWindow!, {
+        title: 'Save GCode',
+        defaultPath: path.join(app.getPath('documents'), 'gcode.dat'),
+        filters: [{ name: 'GCode', extensions: ['dat'] }],
+      })
+      .then((result) => {
+        if (!result.canceled && result.filePath) {
+          fs.writeFile(result.filePath, data, (err) => {
+            if (err) {
+              console.error(err);
+            } else {
+              event.sender.send('gcode-saved', data);
+            }
+          });
+        }
+      })
+      .catch((err) => {
+        console.error('Erro ao mostrar caixa de diálogo', err);
+      });
   });
 
   mainWindow.on('closed', () => {

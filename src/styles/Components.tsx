@@ -31,5 +31,6 @@ export const ContentBlock = styled.div`
   max-height: calc(100vh - 215px);
   padding: 15px 10px;
   box-sizing: border-box;
-  box-shadow: 0px 5px 10px -3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 5px 8px -3px rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
 `;

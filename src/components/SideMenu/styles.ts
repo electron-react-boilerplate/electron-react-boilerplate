@@ -35,3 +35,22 @@ export const Item = styled(Link)`
     opacity: 0.6;
   }
 `;
+
+export const ItemBtn = styled.button`
+  display: block;
+  text-decoration: none;
+  text-align: left;
+  color: ${colors.white};
+  cursor: pointer;
+  line-height: 100%;
+  padding: 15px;
+  width: 100%;
+  background-color: ${colors.blue};
+  border: none;
+  font-size: 16px;
+
+  &:hover {
+    background-color: ${colors.blueDark};
+    opacity: 0.6;
+  }
+`;
