@@ -300,7 +300,6 @@ const Operation: React.FC = () => {
                   ))}
                 </TableBody>
               </Table>
-              <button type="submit">Salvar</button>
             </form>
           </TableWrapper>
         </Block>
