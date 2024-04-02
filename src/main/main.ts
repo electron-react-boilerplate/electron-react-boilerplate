@@ -126,6 +126,32 @@ const createWindow = async () => {
       });
   });
 
+  ipcMain.handle('open-file', async () => {
+    const { filePaths } = await dialog.showOpenDialog({
+      properties: ['openFile'],
+      filters: [{ name: 'Arquivos Personalizados', extensions: ['gz'] }],
+    });
+
+    if (filePaths.length > 0) {
+      const data = fs.readFileSync(filePaths[0], 'utf-8');
+      return JSON.parse(data);
+    }
+
+    return null;
+  });
+
+  ipcMain.handle('save-file-as', async (_, content) => {
+    const { filePath } = await dialog.showSaveDialog({
+      title: 'Salvar como...',
+      filters: [{ name: 'Arquivos Personalizados', extensions: ['gz'] }],
+      defaultPath: path.join(app.getPath('documents'), '.gz'),
+    });
+
+    if (filePath) {
+      fs.writeFileSync(filePath, content);
+    }
+  });
+
   mainWindow.on('closed', () => {
     mainWindow = null;
   });

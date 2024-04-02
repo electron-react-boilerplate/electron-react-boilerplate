@@ -24,6 +24,12 @@ const electronHandler = {
     saveGCode(data: string, filePath: string) {
       ipcRenderer.invoke('save-gcode', data, filePath);
     },
+    openFile() {
+      return ipcRenderer.invoke('open-file');
+    },
+    saveFileAs(content: string) {
+      return ipcRenderer.invoke('save-file-as', content);
+    },
   },
   store: {
     get(key: any) {
