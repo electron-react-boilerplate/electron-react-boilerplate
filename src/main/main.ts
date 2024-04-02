@@ -33,7 +33,6 @@ let mainWindow: BrowserWindow | null = null;
 
 const store = new Store();
 
-// Listeners for IPC
 ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
   console.log(msgTemplate(arg));
@@ -103,14 +102,6 @@ const createWindow = async () => {
     }
   });
 
-  ipcMain.on('electron-store-get', async (event, val) => {
-    event.returnValue = store.get(val);
-  });
-
-  ipcMain.on('electron-store-set', async (event, key, val) => {
-    store.set(key, val);
-  });
-
   ipcMain.handle('save-gcode', (event, data) => {
     dialog
       .showSaveDialog(mainWindow!, {
@@ -155,6 +146,14 @@ const createWindow = async () => {
 /**
  * Add event listeners...
  */
+
+ipcMain.on('electron-store-get', async (event, val) => {
+  event.returnValue = store.get(val);
+});
+
+ipcMain.on('electron-store-set', async (event, key, val) => {
+  store.set(key, val);
+});
 
 app.on('window-all-closed', () => {
   // Respect the OSX convention of having the application in memory even

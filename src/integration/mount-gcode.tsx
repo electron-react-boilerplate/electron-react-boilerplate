@@ -1,11 +1,11 @@
-import { Operations, Activities } from 'types/part';
+import { OperationItem, ActivitiyItem } from 'types/part';
 
 // Some string have right blank spaces that are required for CNC syntax
 const isRapidMovement = (fvalue: string | undefined): string =>
   fvalue ? 'G01 ' : 'G00 ';
 
 function mountGCodeLine(
-  activity: Activities,
+  activity: ActivitiyItem,
   index: number,
   isLastLine: boolean,
 ): string {
@@ -21,11 +21,12 @@ function mountGCodeLine(
   return gCodeLine;
 }
 
-function mountGCode(operation: Operations) {
+// Vai ter que mudar pra ao inves de receber um OperationItem receber um Part
+function mountGCode(operation: OperationItem) {
   let gCodeOutput: String = '';
   let gCodeTemplate: String = '';
 
-  operation.activities.forEach((element, index) => {
+  operation.activities.forEach((element: any, index: any) => {
     const isLastLine = operation.activities.length === index + 1;
     gCodeOutput = `${gCodeOutput}${mountGCodeLine(element, index, isLastLine)}`;
   });

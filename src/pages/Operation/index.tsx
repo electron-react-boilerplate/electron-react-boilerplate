@@ -47,7 +47,7 @@ const breadcrumbsItems = [
 const Operation: React.FC = () => {
   const dispatch = useDispatch();
   const initialState = useSelector(
-    (state: { operations: Operations[] }) => state.operations[0],
+    (state: { operations: Operations }) => state.operations[0],
   );
   const [formData, setFormData] = useState({
     ...initialState,
@@ -201,7 +201,6 @@ const Operation: React.FC = () => {
                           onChange={(e) => handleChange(e, index)}
                         />
                       </TableD>
-                      {/* TODO De acordo com os valores selecionados de ações, a geração dos campos e seus IDs pra aquela linha */}
                       <TableD>
                         <TableSelect
                           className="input is-edit"

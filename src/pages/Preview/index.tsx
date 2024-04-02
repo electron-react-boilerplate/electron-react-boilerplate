@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import Breadcrumbs from 'components/Breadcrumbs';
 import { mountGCode } from 'integration/mount-gcode';
 
-import { Operations } from 'types/part';
+import { Part } from 'types/part';
 import { Container, Content, Title, CodeBlock } from './styles';
 
 const breadcrumbsItems = [
@@ -18,9 +18,7 @@ const breadcrumbsItems = [
 const Preview: React.FC = () => {
   const [gCodePreview, setGCodePreview] = useState<string>('');
 
-  const operations = useSelector(
-    (state: { operations: Operations[] }) => state.operations[0],
-  );
+  const operations = useSelector((state: Part) => state.operations[0]);
 
   useEffect(() => {
     setGCodePreview(`${mountGCode(operations)}`);

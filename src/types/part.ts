@@ -2,7 +2,7 @@
 export type OperationType = 'Internal' | 'External';
 
 // Interfaces
-export interface Activities {
+export interface ActivitiyItem {
   id: number;
   xaxis: string;
   zaxis: string;
@@ -16,12 +16,16 @@ export interface Activities {
   cParamValue: string | null;
 }
 
-export interface Operations {
+export interface Activities extends Array<ActivitiyItem> {}
+
+export interface OperationItem {
   id: number;
   name: string;
   type: OperationType;
-  activities: Activities[];
+  activities: Activities;
 }
+
+export interface Operations extends Array<OperationItem> {}
 
 export interface Part {
   id: number;
