@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { colors } from 'styles/global.styles';
 import { Link } from 'styles/Components';
 
-export const Container = styled.div`
+export const AppMenu = styled.div`
   padding: 24px;
   border-bottom: 1px solid ${colors.greyMedium};
   display: flex;
