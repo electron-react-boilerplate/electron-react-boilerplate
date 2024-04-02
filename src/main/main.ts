@@ -129,7 +129,7 @@ const createWindow = async () => {
   ipcMain.handle('open-file', async () => {
     const { filePaths } = await dialog.showOpenDialog({
       properties: ['openFile'],
-      filters: [{ name: 'Arquivos Personalizados', extensions: ['gz'] }],
+      filters: [{ name: 'Arquivos Personalizados', extensions: ['gzm'] }],
     });
 
     if (filePaths.length > 0) {
@@ -143,8 +143,8 @@ const createWindow = async () => {
   ipcMain.handle('save-file-as', async (_, content) => {
     const { filePath } = await dialog.showSaveDialog({
       title: 'Salvar como...',
-      filters: [{ name: 'Arquivos Personalizados', extensions: ['gz'] }],
-      defaultPath: path.join(app.getPath('documents'), '.gz'),
+      filters: [{ name: 'Arquivos Personalizados', extensions: ['gzm'] }],
+      defaultPath: path.join(app.getPath('documents'), '.gzm'),
     });
 
     if (filePath) {

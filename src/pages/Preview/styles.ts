@@ -15,7 +15,7 @@ export const CodeBlock = styled.pre`
   background-color: ${colors.greyCodeBg};
   color: ${colors.blueCodeFont};
   width: 100%;
-  height: calc(100vh - 215px);
+  height: calc(100vh - 255px);
   padding: 15px 10px;
   box-sizing: border-box;
   box-shadow: 0px 5px 8px -3px rgba(0, 0, 0, 0.4);
