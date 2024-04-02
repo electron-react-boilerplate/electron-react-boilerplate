@@ -30,6 +30,11 @@
       "name": "Amila Welihinda",
       "email": "amilajack@gmail.com",
       "url": "https://github.com/amilajack"
+    },
+    {
+      "name": "Ítalo Viola",
+      "email": "italoviola46gmail.com",
+      "url": "https://github.com/italoviola"
     }
   ],
   "main": "./src/main/main.ts",
@@ -177,8 +182,9 @@
     "webpack-merge": "^5.9.0"
   },
   "build": {
-    "productName": "ElectronReact",
-    "appId": "org.erb.ElectronReact",
+    "productName": "GZema",
+    "version": "1.0.0",
+    "appId": "org.erb.GZema",
     "asar": true,
     "asarUnpack": "**\\*.{node,dll}",
     "files": [
