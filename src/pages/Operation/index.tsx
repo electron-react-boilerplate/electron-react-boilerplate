@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { editOperation } from 'state/operations/operationsSlice';
@@ -52,6 +52,7 @@ const Operation: React.FC = () => {
   const [formData, setFormData] = useState({
     ...initialState,
   });
+  const prevFormDataRef = useRef(formData);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -122,7 +123,10 @@ const Operation: React.FC = () => {
   };
 
   useEffect(() => {
-    dispatch(editOperation({ id: formData.id, changes: formData }));
+    if (JSON.stringify(formData) !== JSON.stringify(prevFormDataRef.current)) {
+      dispatch(editOperation({ id: formData.id, changes: formData }));
+    }
+    prevFormDataRef.current = formData;
   }, [dispatch, formData]);
 
   useEffect(() => {
