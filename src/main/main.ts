@@ -150,6 +150,8 @@ const createWindow = async () => {
     if (filePath) {
       fs.writeFileSync(filePath, content);
     }
+
+    return filePath;
   });
 
   mainWindow.on('closed', () => {

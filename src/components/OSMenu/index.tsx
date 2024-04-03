@@ -8,6 +8,7 @@ import { Button, SubButton, Container, Menu, SubMenu, Hr } from './styles';
 
 const OSMenu: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [lastFilePath, setLastFilePath] = useState<string>('');
   const menuRef = useRef<HTMLElement | null>(null);
 
   const reduxState = useSelector((state: Operations) => state);
@@ -36,12 +37,13 @@ const OSMenu: React.FC = () => {
 
   const saveFileAs = async (data: Operations) => {
     try {
-      const save: any = await window.electron.ipcRenderer
-        .saveFileAs(JSON.stringify(data))
-        .then((res: any) => {
-          return res;
-        });
-      if (save) console.log('Arquivo salvo com sucesso');
+      const filePath: any = await window.electron.ipcRenderer.saveFileAs(
+        JSON.stringify(data),
+      );
+      if (filePath) {
+        setLastFilePath(filePath);
+        console.log('Arquivo salvo com sucesso');
+      }
     } catch (error: any) {
       console.error(error);
     }
@@ -64,6 +66,12 @@ const OSMenu: React.FC = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isOpen]);
+
+  useEffect(() => {
+    if (lastFilePath) {
+      console.log('lastFilePath', lastFilePath);
+    }
+  }, [lastFilePath]);
 
   return (
     <Container>
