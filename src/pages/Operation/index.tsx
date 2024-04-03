@@ -125,6 +125,10 @@ const Operation: React.FC = () => {
     dispatch(editOperation({ id: formData.id, changes: formData }));
   }, [dispatch, formData]);
 
+  useEffect(() => {
+    setFormData({ ...initialState });
+  }, [initialState]);
+
   return (
     <Container>
       <Breadcrumbs items={breadcrumbsItems} />

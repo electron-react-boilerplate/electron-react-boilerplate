@@ -1,45 +1,50 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
+import { replaceOperation } from 'state/operations/operationsSlice';
 import { Operations } from 'types/part';
 
 import { Button, SubButton, Container, Menu, SubMenu, Hr } from './styles';
-
-const openFile = () => {
-  window.electron.ipcRenderer
-    .openFile()
-    .then((data: string) => {
-      console.log(data);
-      return data;
-    })
-    .catch((error: Error) => {
-      console.error(error);
-      throw error;
-    });
-};
-
-const saveFileAs = (content: Operations) => {
-  const stringContent = JSON.stringify(content);
-  window.electron.ipcRenderer
-    .saveFileAs(stringContent)
-    // eslint-disable-next-line promise/always-return
-    .then(() => {
-      console.log('Arquivo salvo com sucesso');
-    })
-    .catch((error: Error) => {
-      console.error(error);
-      throw error;
-    });
-};
 
 const OSMenu: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLElement | null>(null);
 
   const reduxState = useSelector((state: Operations) => state);
+  const dispatch = useDispatch();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+  // TODO padronizar funções IPC no main.ts
+
+  const openFile = async () => {
+    try {
+      // change type to Part in the future
+      const data: any = await window.electron.ipcRenderer
+        .openFile()
+        // change type to Part in the future
+        .then((res: any) => {
+          return res;
+        });
+      if (data) dispatch(replaceOperation(data.operations));
+    } catch (error: any) {
+      console.error(error);
+    }
+  };
+
+  const saveFileAs = async (data: Operations) => {
+    try {
+      const save: any = await window.electron.ipcRenderer
+        .saveFileAs(JSON.stringify(data))
+        .then((res: any) => {
+          return res;
+        });
+      if (save) console.log('Arquivo salvo com sucesso');
+    } catch (error: any) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {

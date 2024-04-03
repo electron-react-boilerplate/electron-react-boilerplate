@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Operations, OperationItem } from 'types/part';
+import { Operations } from 'types/part';
 
 interface EditOperationPayload {
   id: number;
@@ -33,8 +33,8 @@ const operationsSlice = createSlice({
   name: 'operations',
   initialState,
   reducers: {
-    addOperation: (state, action: PayloadAction<OperationItem>) => {
-      state.push(action.payload);
+    replaceOperation: (state, action: PayloadAction<Operations>) => {
+      return action.payload;
     },
     removeOperation: (state, action: PayloadAction<number>) => {
       return state.filter((operation) => operation.id !== action.payload);
@@ -49,7 +49,7 @@ const operationsSlice = createSlice({
   },
 });
 
-export const { addOperation, removeOperation, editOperation } =
+export const { replaceOperation, removeOperation, editOperation } =
   operationsSlice.actions;
 
 export default operationsSlice.reducer;
