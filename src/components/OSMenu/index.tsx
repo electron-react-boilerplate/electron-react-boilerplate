@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { replaceOperation } from 'state/operations/operationsSlice';
+import { replaceApp } from 'state/app/appSlice';
 import { Operations } from 'types/part';
 
 import { Button, SubButton, Container, Menu, SubMenu, Hr } from './styles';
@@ -49,6 +50,20 @@ const OSMenu: React.FC = () => {
     }
   };
 
+  const saveFile = async (data: Operations) => {
+    try {
+      const response = await window.electron.ipcRenderer.saveFile(
+        JSON.stringify(data),
+        lastFilePath,
+      );
+      if (response.success) {
+        console.log(response.message);
+      }
+    } catch (error: any) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
@@ -68,10 +83,8 @@ const OSMenu: React.FC = () => {
   }, [isOpen]);
 
   useEffect(() => {
-    if (lastFilePath) {
-      console.log('lastFilePath', lastFilePath);
-    }
-  }, [lastFilePath]);
+    if (lastFilePath) dispatch(replaceApp({ lastFilePathSaved: lastFilePath }));
+  }, [dispatch, lastFilePath]);
 
   return (
     <Container>
@@ -81,7 +94,7 @@ const OSMenu: React.FC = () => {
           {isOpen && (
             <SubMenu>
               <SubButton onClick={() => openFile()}>Abrir</SubButton>
-              <SubButton>Salvar</SubButton>
+              <SubButton onClick={() => saveFile(reduxState)}>Salvar</SubButton>
               <SubButton onClick={() => saveFileAs(reduxState)}>
                 Salvar como...
               </SubButton>

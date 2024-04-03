@@ -154,6 +154,16 @@ const createWindow = async () => {
     return filePath;
   });
 
+  ipcMain.handle('save-file', async (_, content, filePath) => {
+    try {
+      fs.writeFileSync(filePath, content);
+      return { success: true, message: 'Arquivo salvo com sucesso' };
+    } catch (error) {
+      console.error('Erro ao salvar o arquivo', error);
+      return { success: false, message: 'Erro ao salvar o arquivo' };
+    }
+  });
+
   mainWindow.on('closed', () => {
     mainWindow = null;
   });

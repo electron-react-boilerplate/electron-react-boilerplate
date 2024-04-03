@@ -33,7 +33,7 @@ const operationsSlice = createSlice({
   name: 'operations',
   initialState,
   reducers: {
-    replaceOperation: (state, action: PayloadAction<Operations>) => {
+    replaceOperation: (_state, action: PayloadAction<Operations>) => {
       return action.payload;
     },
     removeOperation: (state, action: PayloadAction<number>) => {
