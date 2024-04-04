@@ -28,7 +28,7 @@ const electronHandler = {
       return ipcRenderer.invoke('open-file');
     },
     saveFile(content: string, filePath: string) {
-      return ipcRenderer.invoke('save-file-as', content, filePath);
+      return ipcRenderer.invoke('save-file', content, filePath);
     },
     saveFileAs(content: string) {
       return ipcRenderer.invoke('save-file-as', content);
