@@ -1,5 +1,8 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+
 import OSMenu from 'components/OSMenu';
+import { Operations } from 'types/part';
 
 import {
   AppMenu,
@@ -15,6 +18,16 @@ import {
 } from './styles';
 
 const Header: React.FC = () => {
+  const isSaved = useSelector(
+    (state: { app: { isSaved: boolean } }) => state.app.isSaved,
+  );
+  const operationName = useSelector(
+    (state: { operations: Operations }) => state.operations[0].name,
+  );
+  const showUnsavedHighlight = () => {
+    if (!isSaved) return '*';
+    return '';
+  };
   return (
     <div>
       <OSMenu />
@@ -29,7 +42,11 @@ const Header: React.FC = () => {
             <MiddleItemHome>
               <MiddleItemHomeLink to="/">Peças</MiddleItemHomeLink>
             </MiddleItemHome>
-            <MiddleItemPart to="/">Peça PC011 TESTE</MiddleItemPart>
+            <MiddleItemPart to="/" isSaved={isSaved}>
+              {showUnsavedHighlight()}
+              {operationName}
+              {showUnsavedHighlight()}
+            </MiddleItemPart>
           </Middle>
         </Menu>
         <div>

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { PageTitle, PageContent, ContentBlock } from 'styles/Components';
+import { PageContent, ContentBlock } from 'styles/Components';
 import { colors } from 'styles/global.styles';
 
 export const Container = styled.div`
@@ -8,7 +8,12 @@ export const Container = styled.div`
 
 export const Content = styled(PageContent)``;
 
-export const Title = styled(PageTitle)``;
+export const Title = styled.input`
+  font-size: 34px;
+  font-weight: bold;
+  margin-bottom: 24px;
+  color: ${colors.greyFont};
+`;
 
 export const Block = styled(ContentBlock)`
   background-color: ${colors.grey};

@@ -3,6 +3,7 @@ import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { editOperation } from 'state/operations/operationsSlice';
+
 import Breadcrumbs from 'components/Breadcrumbs';
 import { XZ_REGEX } from 'constants/constants';
 import { Operations } from 'types/part';
@@ -56,10 +57,15 @@ const Operation: React.FC = () => {
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-    index: number,
+    index?: number,
   ) => {
     const { value } = e.currentTarget;
-    if (value.match(XZ_REGEX) || value === '') {
+    if (e.currentTarget.name === 'name') {
+      setFormData({
+        ...formData,
+        [e.currentTarget.name]: value,
+      });
+    } else if (value.match(XZ_REGEX) || value === '') {
       setFormData({
         ...formData,
         activities: formData.activities.map((item, i) => {
@@ -123,28 +129,33 @@ const Operation: React.FC = () => {
   };
 
   useEffect(() => {
-    if (JSON.stringify(formData) !== JSON.stringify(prevFormDataRef.current)) {
+    if (JSON.stringify(formData) !== JSON.stringify(prevFormDataRef.current))
       dispatch(editOperation({ id: formData.id, changes: formData }));
-    }
     prevFormDataRef.current = formData;
   }, [dispatch, formData]);
 
   useEffect(() => {
     setFormData({ ...initialState });
-  }, [initialState]);
+  }, [dispatch, initialState]);
 
   return (
     <Container>
       <Breadcrumbs items={breadcrumbsItems} />
       <Content>
-        <Title>Operação</Title>
-        <Block>
-          <TableWrapper>
-            <form
-              name="activity-items-table"
-              className="activity-items-table"
-              // onSubmit={handleSubmit}
-            >
+        <form
+          name="activity-items-table"
+          className="activity-items-table"
+          // onSubmit={handleSubmit}
+        >
+          {/* <Title>{formData.name}</Title> */}
+          <Title
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={(e) => handleChange(e)}
+          />
+          <Block>
+            <TableWrapper>
               <Table className="table table-ordenation">
                 <TableHead className="table-ordenation head">
                   <tr>
@@ -307,9 +318,9 @@ const Operation: React.FC = () => {
                   ))}
                 </TableBody>
               </Table>
-            </form>
-          </TableWrapper>
-        </Block>
+            </TableWrapper>
+          </Block>
+        </form>
       </Content>
     </Container>
   );

@@ -134,7 +134,10 @@ const createWindow = async () => {
 
     if (filePaths.length > 0) {
       const data = fs.readFileSync(filePaths[0], 'utf-8');
-      return JSON.parse(data);
+      return {
+        data: JSON.parse(data),
+        path: filePaths[0],
+      };
     }
 
     return null;

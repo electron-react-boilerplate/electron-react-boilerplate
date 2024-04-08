@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { replaceOperation } from 'state/operations/operationsSlice';
-import { replaceApp } from 'state/app/appSlice';
-import { Operations } from 'types/part';
+import { editApp } from 'state/app/appSlice';
+import { Part, Operations } from 'types/part';
 
 import { Button, SubButton, Container, Menu, SubMenu, Hr } from './styles';
 
@@ -12,7 +12,7 @@ const OSMenu: React.FC = () => {
   const [lastFilePath, setLastFilePath] = useState<string>('');
   const menuRef = useRef<HTMLElement | null>(null);
 
-  const reduxState = useSelector((state: Operations) => state);
+  const operationState = useSelector((state: Part) => state.operations);
   const dispatch = useDispatch();
 
   const toggleMenu = () => {
@@ -24,13 +24,17 @@ const OSMenu: React.FC = () => {
   const openFile = async () => {
     try {
       // change type to Part in the future
-      const data: any = await window.electron.ipcRenderer
-        .openFile()
-        // change type to Part in the future
-        .then((res: any) => {
-          return res;
-        });
-      if (data) dispatch(replaceOperation(data.operations));
+      const file: any = await window.electron.ipcRenderer.openFile();
+      if (file) {
+        dispatch(replaceOperation(file.data));
+        dispatch(
+          editApp({
+            isSaved: true,
+            lastFilePathSaved: file.path,
+            lastSavedFileState: JSON.stringify(file.data),
+          }),
+        );
+      }
     } catch (error: any) {
       console.error(error);
     }
@@ -38,12 +42,18 @@ const OSMenu: React.FC = () => {
 
   const saveFileAs = async (data: Operations) => {
     try {
-      const filePath: any = await window.electron.ipcRenderer.saveFileAs(
+      const file: any = await window.electron.ipcRenderer.saveFileAs(
         JSON.stringify(data),
       );
-      if (filePath) {
-        setLastFilePath(filePath);
-        console.log('Arquivo salvo com sucesso');
+      if (file) {
+        setLastFilePath(file);
+        dispatch(
+          editApp({
+            isSaved: true,
+            lastFilePathSaved: file,
+            lastSavedFileState: JSON.stringify(operationState),
+          }),
+        );
       }
     } catch (error: any) {
       console.error(error);
@@ -52,12 +62,13 @@ const OSMenu: React.FC = () => {
 
   const saveFile = async (data: Operations) => {
     try {
-      const response = await window.electron.ipcRenderer.saveFile(
+      const file = await window.electron.ipcRenderer.saveFile(
         JSON.stringify(data),
         lastFilePath,
       );
-      if (response.success) {
-        console.log(response.message);
+      if (file) {
+        dispatch(dispatch(editApp({ isSaved: true })));
+        console.log(file.message);
       }
     } catch (error: any) {
       console.error(error);
@@ -83,7 +94,7 @@ const OSMenu: React.FC = () => {
   }, [isOpen]);
 
   useEffect(() => {
-    if (lastFilePath) dispatch(replaceApp({ lastFilePathSaved: lastFilePath }));
+    if (lastFilePath) dispatch(editApp({ lastFilePathSaved: lastFilePath }));
   }, [dispatch, lastFilePath]);
 
   return (
@@ -94,8 +105,10 @@ const OSMenu: React.FC = () => {
           {isOpen && (
             <SubMenu>
               <SubButton onClick={() => openFile()}>Abrir</SubButton>
-              <SubButton onClick={() => saveFile(reduxState)}>Salvar</SubButton>
-              <SubButton onClick={() => saveFileAs(reduxState)}>
+              <SubButton onClick={() => saveFile(operationState)}>
+                Salvar
+              </SubButton>
+              <SubButton onClick={() => saveFileAs(operationState)}>
                 Salvar como...
               </SubButton>
               <Hr />

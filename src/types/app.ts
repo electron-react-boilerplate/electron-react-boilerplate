@@ -1,3 +1,5 @@
 export interface App {
-  lastFilePathSaved: string;
+  isSaved?: boolean;
+  lastSavedFileState?: string;
+  lastFilePathSaved?: string;
 }
