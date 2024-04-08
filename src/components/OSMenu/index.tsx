@@ -19,7 +19,8 @@ const OSMenu: React.FC = () => {
     setIsOpen(!isOpen);
   };
 
-  // TODO padronizar funções IPC no main.ts
+  // TODO criar operação não esta funcionando o savestate
+  // TODO fazer save quando nao tem arquivo de ref ir pro save As
 
   const openFile = async () => {
     try {

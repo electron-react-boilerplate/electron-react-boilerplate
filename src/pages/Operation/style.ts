@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { PageContent, ContentBlock } from 'styles/Components';
+import { PageTitle, PageContent, ContentBlock } from 'styles/Components';
 import { colors } from 'styles/global.styles';
 
 export const Container = styled.div`
@@ -8,10 +8,40 @@ export const Container = styled.div`
 
 export const Content = styled(PageContent)``;
 
-export const Title = styled.input`
+export const TitleContainer = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  margin-bottom: 24px;
+`;
+
+export const Title = styled(PageTitle)`
+  display: block;
+  margin-bottom: 0;
+  margin-right: 24px;
+`;
+
+export const TitleEdit = styled.input`
   font-size: 34px;
   font-weight: bold;
-  margin-bottom: 24px;
+  color: ${colors.greyFont};
+  background-color: ${colors.grey};
+  border: 0;
+`;
+
+export const TitleEditBtn = styled.button`
+  background-color: inherit;
+  outline: 0;
+  border: 0;
+  cursor: pointer;
+`;
+
+export const TitleEditIconEdit = styled.span`
+  font-size: 24px;
+  color: ${colors.blue};
+`;
+
+export const TitleEditIconDone = styled.span`
+  font-size: 24px;
   color: ${colors.greyFont};
 `;
 

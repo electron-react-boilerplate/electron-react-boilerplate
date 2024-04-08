@@ -11,7 +11,9 @@ import defineActionParams from './defineActionParams';
 import {
   Container,
   Content,
+  TitleContainer,
   Title,
+  TitleEdit,
   Block,
   TableWrapper,
   Table,
@@ -30,6 +32,9 @@ import {
   TableInputTextLabeled,
   TableSelect,
   TableSelectOption,
+  TitleEditBtn,
+  TitleEditIconEdit,
+  TitleEditIconDone,
 } from './style';
 
 const breadcrumbsItems = [
@@ -53,6 +58,7 @@ const Operation: React.FC = () => {
   const [formData, setFormData] = useState({
     ...initialState,
   });
+  const [isEditingName, setIsEditingName] = useState(false);
   const prevFormDataRef = useRef(formData);
 
   const handleChange = (
@@ -128,6 +134,10 @@ const Operation: React.FC = () => {
     }
   };
 
+  const toggleEdit = () => {
+    setIsEditingName(!isEditingName);
+  };
+
   useEffect(() => {
     if (JSON.stringify(formData) !== JSON.stringify(prevFormDataRef.current))
       dispatch(editOperation({ id: formData.id, changes: formData }));
@@ -147,13 +157,26 @@ const Operation: React.FC = () => {
           className="activity-items-table"
           // onSubmit={handleSubmit}
         >
-          {/* <Title>{formData.name}</Title> */}
-          <Title
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={(e) => handleChange(e)}
-          />
+          <TitleContainer>
+            {isEditingName ? (
+              <TitleEdit
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                style={{ width: `${formData.name.length}ch` }}
+              />
+            ) : (
+              <Title>{formData.name}</Title>
+            )}
+            <TitleEditBtn type="button" onClick={toggleEdit}>
+              {isEditingName ? (
+                <TitleEditIconEdit className="icon-check_circle" />
+              ) : (
+                <TitleEditIconDone className="icon-create" />
+              )}
+            </TitleEditBtn>
+          </TitleContainer>
           <Block>
             <TableWrapper>
               <Table className="table table-ordenation">
