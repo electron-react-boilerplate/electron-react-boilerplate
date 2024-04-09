@@ -22,14 +22,11 @@ const OSMenu: React.FC = () => {
     setIsOpen(!isOpen);
   };
 
-  // TODO fazer save quando nao tem arquivo de ref ir pro save As
-
   const openFile = async () => {
     try {
       // change type to Part in the future
       const file: any = await window.electron.ipcRenderer.openFile();
       if (file) {
-        console.log('openfile', file);
         dispatch(replaceOperation(file.data));
         dispatch(
           editApp({
@@ -64,19 +61,23 @@ const OSMenu: React.FC = () => {
   };
 
   const saveFile = async (data: Operations) => {
-    try {
-      const file = await window.electron.ipcRenderer.saveFile(
-        JSON.stringify(data),
-        lastFilePath,
-      );
-      if (file.success) {
-        dispatch(dispatch(editApp({ isSaved: true })));
-      } else {
-        alert(file.message);
-        console.error(file.message, `lasfilepath: ${lastFilePath}`);
+    if (lastFilePath) {
+      try {
+        const file = await window.electron.ipcRenderer.saveFile(
+          JSON.stringify(data),
+          lastFilePath,
+        );
+        if (file.success) {
+          dispatch(dispatch(editApp({ isSaved: true })));
+        } else {
+          alert(file.message);
+          console.error(file.message, `lasfilepath: ${lastFilePath}`);
+        }
+      } catch (error: any) {
+        console.error(error);
       }
-    } catch (error: any) {
-      console.error(error);
+    } else {
+      saveFileAs(data);
     }
   };
 
