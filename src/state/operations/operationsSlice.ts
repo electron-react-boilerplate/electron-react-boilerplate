@@ -6,10 +6,10 @@ interface EditOperationPayload {
   changes: Partial<Operations>;
 }
 
-const initialState: Operations = [
+export const initialState: Operations = [
   {
     id: 1,
-    name: 'Operation 1',
+    name: 'Operação',
     type: 'Internal',
     activities: [
       {

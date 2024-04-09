@@ -19,7 +19,6 @@ const OSMenu: React.FC = () => {
     setIsOpen(!isOpen);
   };
 
-  // TODO criar operação não esta funcionando o savestate
   // TODO fazer save quando nao tem arquivo de ref ir pro save As
 
   const openFile = async () => {

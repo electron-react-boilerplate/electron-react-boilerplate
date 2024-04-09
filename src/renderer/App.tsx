@@ -4,6 +4,7 @@ import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { Operations } from 'types/part';
 import { editApp } from 'state/app/appSlice';
+import { initialState } from 'state/operations/operationsSlice';
 
 import Layout from 'components/Layout';
 // Pages
@@ -20,11 +21,16 @@ const App: React.FC = () => {
       state.app.lastSavedFileState,
   );
   const operations = useSelector(
-    (state: { operations: { operations: Operations } }) => state.operations,
+    (state: { operations: Operations }) => state.operations,
   );
 
   useEffect(() => {
     if (lastSavedFileState && lastSavedFileState !== JSON.stringify(operations))
+      dispatch(editApp({ isSaved: false }));
+    else if (
+      !lastSavedFileState &&
+      JSON.stringify(operations) !== JSON.stringify(initialState)
+    )
       dispatch(editApp({ isSaved: false }));
     else dispatch(editApp({ isSaved: true }));
   }, [dispatch, lastSavedFileState, operations]);
