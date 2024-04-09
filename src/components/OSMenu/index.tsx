@@ -66,9 +66,11 @@ const OSMenu: React.FC = () => {
         JSON.stringify(data),
         lastFilePath,
       );
-      if (file) {
+      if (file.success) {
         dispatch(dispatch(editApp({ isSaved: true })));
-        console.log(file.message);
+      } else {
+        alert(file.message);
+        console.error(file.message);
       }
     } catch (error: any) {
       console.error(error);
