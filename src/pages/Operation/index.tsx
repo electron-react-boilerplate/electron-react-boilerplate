@@ -60,6 +60,7 @@ const Operation: React.FC = () => {
   });
   const [isEditingName, setIsEditingName] = useState(false);
   const prevFormDataRef = useRef(formData);
+  const nameInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -148,6 +149,12 @@ const Operation: React.FC = () => {
     setFormData({ ...initialState });
   }, [dispatch, initialState]);
 
+  useEffect(() => {
+    if (isEditingName && nameInputRef.current) {
+      nameInputRef.current.focus();
+    }
+  }, [isEditingName]);
+
   return (
     <Container>
       <Breadcrumbs items={breadcrumbsItems} />
@@ -160,6 +167,7 @@ const Operation: React.FC = () => {
           <TitleContainer>
             {isEditingName ? (
               <TitleEdit
+                ref={nameInputRef}
                 type="text"
                 name="name"
                 value={formData.name}
