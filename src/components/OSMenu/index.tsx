@@ -4,14 +4,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import { replaceOperation } from 'state/operations/operationsSlice';
 import { editApp } from 'state/app/appSlice';
 import { Part, Operations } from 'types/part';
+import { App } from 'types/app';
 
 import { Button, SubButton, Container, Menu, SubMenu, Hr } from './styles';
 
 const OSMenu: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [lastFilePath, setLastFilePath] = useState<string>('');
   const menuRef = useRef<HTMLElement | null>(null);
 
+  const lastFilePath = useSelector(
+    (state: { app: App }) => state.app.lastFilePathSaved,
+  );
   const operationState = useSelector((state: Part) => state.operations);
   const dispatch = useDispatch();
 
@@ -26,6 +29,7 @@ const OSMenu: React.FC = () => {
       // change type to Part in the future
       const file: any = await window.electron.ipcRenderer.openFile();
       if (file) {
+        console.log('openfile', file);
         dispatch(replaceOperation(file.data));
         dispatch(
           editApp({
@@ -46,7 +50,6 @@ const OSMenu: React.FC = () => {
         JSON.stringify(data),
       );
       if (file) {
-        setLastFilePath(file);
         dispatch(
           editApp({
             isSaved: true,
@@ -70,7 +73,7 @@ const OSMenu: React.FC = () => {
         dispatch(dispatch(editApp({ isSaved: true })));
       } else {
         alert(file.message);
-        console.error(file.message);
+        console.error(file.message, `lasfilepath: ${lastFilePath}`);
       }
     } catch (error: any) {
       console.error(error);
