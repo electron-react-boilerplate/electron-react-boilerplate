@@ -11,7 +11,14 @@
 import path from 'path';
 import Store from 'electron-store';
 import fs from 'fs';
-import { app, BrowserWindow, shell, ipcMain, dialog } from 'electron';
+import {
+  app,
+  BrowserWindow,
+  shell,
+  ipcMain,
+  dialog,
+  globalShortcut,
+} from 'electron';
 import installExtension, {
   REACT_DEVELOPER_TOOLS,
   REDUX_DEVTOOLS,
@@ -220,10 +227,55 @@ app
       console.log('An error occurred: ', err);
     }
 
-    app.on('activate', () => {
-      // On macOS it's common to re-create a window in the app when the
-      // dock icon is clicked and there are no other windows open.
-      if (mainWindow === null) createWindow();
+    const shortcuts = [
+      {
+        key: 'CommandOrControl+O',
+        callback: () => {
+          if (mainWindow) mainWindow.webContents.send('shortcut-pressed-o');
+          else console.error('mainWindow not defined');
+        },
+      },
+      {
+        key: 'CommandOrControl+S',
+        callback: () => {
+          if (mainWindow) mainWindow.webContents.send('shortcut-pressed-s');
+          else console.error('mainWindow not defined');
+        },
+      },
+      {
+        key: 'CommandOrControl+Shift+S',
+        callback: () => {
+          if (mainWindow)
+            mainWindow.webContents.send('shortcut-pressed-shift-s');
+          else console.error('mainWindow not defined');
+        },
+      },
+    ];
+
+    if (mainWindow) {
+      mainWindow.on('focus', () => {
+        shortcuts.forEach(({ key, callback }) => {
+          const ret = globalShortcut.register(key, callback);
+
+          if (!ret)
+            console.log(`Falha ao registrar o atalho de teclado: ${key}`);
+
+          console.log(
+            `Atalho de teclado registrado: ${key}`,
+            globalShortcut.isRegistered(key),
+          );
+        });
+      });
+
+      mainWindow.on('blur', () => {
+        globalShortcut.unregisterAll();
+      });
+    } else {
+      console.error('mainWindow not defined');
+    }
+
+    app.on('will-quit', () => {
+      globalShortcut.unregisterAll();
     });
   })
   .catch(console.log);

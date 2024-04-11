@@ -82,6 +82,35 @@ const OSMenu: React.FC = () => {
   };
 
   useEffect(() => {
+    const handleShortcutO = () => openFile();
+    const handleShortcutS = () => saveFile(operationState);
+    const handleShortcutShiftS = () => saveFileAs(operationState);
+
+    window.electron.ipcRenderer.on('shortcut-pressed-o', handleShortcutO);
+    window.electron.ipcRenderer.on('shortcut-pressed-s', handleShortcutS);
+    window.electron.ipcRenderer.on(
+      'shortcut-pressed-shift-s',
+      handleShortcutShiftS,
+    );
+
+    return () => {
+      window.electron.ipcRenderer.removeListener(
+        'shortcut-pressed-o',
+        handleShortcutO,
+      );
+      window.electron.ipcRenderer.removeListener(
+        'shortcut-pressed-s',
+        handleShortcutS,
+      );
+      window.electron.ipcRenderer.removeListener(
+        'shortcut-pressed-shift-s',
+        handleShortcutShiftS,
+      );
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setIsOpen(false);
