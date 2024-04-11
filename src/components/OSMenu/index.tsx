@@ -45,6 +45,7 @@ const OSMenu: React.FC = () => {
         );
       }
     } catch (error: any) {
+      alert('Erro ao abrir o arquivo', error);
       console.error(error);
     }
   };
@@ -64,6 +65,7 @@ const OSMenu: React.FC = () => {
         );
       }
     } catch (error: any) {
+      alert('Erro ao salvar o arquivo', error);
       console.error(error);
     }
   };
@@ -78,10 +80,11 @@ const OSMenu: React.FC = () => {
         if (file.success) {
           dispatch(dispatch(editApp({ isSaved: true })));
         } else {
-          alert(file.message);
+          alert('Erro ao ler arquivo', file.message);
           console.error(file.message, `lasfilepath: ${lastFilePath}`);
         }
       } catch (error: any) {
+        alert('Erro ao salvar o arquivo', error);
         console.error(error);
       }
     } else {
