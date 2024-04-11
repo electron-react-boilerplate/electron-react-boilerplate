@@ -6,7 +6,15 @@ import { editApp } from 'state/app/appSlice';
 import { Part, Operations } from 'types/part';
 import { App } from 'types/app';
 
-import { Button, SubButton, Container, Menu, SubMenu, Hr } from './styles';
+import {
+  Button,
+  SubButton,
+  Container,
+  Menu,
+  SubMenu,
+  Hr,
+  SubButtonLabel,
+} from './styles';
 
 const OSMenu: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -139,15 +147,19 @@ const OSMenu: React.FC = () => {
           <Button onClick={toggleMenu}>Arquivo</Button>
           {isOpen && (
             <SubMenu>
-              <SubButton onClick={() => openFile()}>Abrir</SubButton>
+              <SubButton onClick={() => openFile()}>
+                Abrir<SubButtonLabel>Ctrl + O</SubButtonLabel>
+              </SubButton>
               <SubButton onClick={() => saveFile(operationState)}>
-                Salvar
+                Salvar<SubButtonLabel>Ctrl + S</SubButtonLabel>
               </SubButton>
               <SubButton onClick={() => saveFileAs(operationState)}>
-                Salvar como...
+                Salvar como...<SubButtonLabel>Ctrl + Shift + N</SubButtonLabel>
               </SubButton>
               <Hr />
-              <SubButton>Sair</SubButton>
+              <SubButton onClick={() => window.electron.ipcRenderer.quitApp()}>
+                Sair<SubButtonLabel>Ctrl + Q</SubButtonLabel>
+              </SubButton>
             </SubMenu>
           )}
         </li>

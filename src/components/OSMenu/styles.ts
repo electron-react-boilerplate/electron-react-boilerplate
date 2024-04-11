@@ -45,13 +45,23 @@ export const Button = styled.button`
 `;
 
 export const SubButton = styled(Button)`
+  position: relative;
   text-align: left;
-  width: 150px;
+  width: 230px;
   color: ${colors.greyMedium};
 `;
 
+export const SubButtonLabel = styled.span`
+  position: absolute;
+  right: 15px;
+  transform: translateY(-50%);
+  top: 50%;
+  font-size: 12px;
+  color: ${colors.greyDark};
+`;
+
 export const Hr = styled.div`
-  width: 150px;
+  width: 100%;
   margin: 5px 0;
   box-sizing: border-box;
   height: 1px;

@@ -33,6 +33,9 @@ const electronHandler = {
     saveFileAs(content: string) {
       return ipcRenderer.invoke('save-file-as', content);
     },
+    quitApp() {
+      return ipcRenderer.invoke('quit-app');
+    },
   },
   store: {
     get(key: any) {

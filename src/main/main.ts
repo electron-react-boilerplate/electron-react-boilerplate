@@ -174,6 +174,10 @@ const createWindow = async () => {
     }
   });
 
+  ipcMain.handle('quit-app', () => {
+    app.quit();
+  });
+
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
@@ -248,6 +252,12 @@ app
           if (mainWindow)
             mainWindow.webContents.send('shortcut-pressed-shift-s');
           else console.error('mainWindow not defined');
+        },
+      },
+      {
+        key: 'CommandOrControl+Q',
+        callback: () => {
+          app.quit();
         },
       },
     ];
