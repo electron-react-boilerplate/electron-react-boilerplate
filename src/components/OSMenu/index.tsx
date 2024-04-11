@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable no-alert */
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -32,8 +34,8 @@ const OSMenu: React.FC = () => {
 
   const openFile = async () => {
     try {
-      // change type to Part in the future
-      const file: any = await window.electron.ipcRenderer.openFile();
+      // change type to what is expected from file (wich is part)
+      const file = await window.electron.ipcRenderer.openFile();
       if (file) {
         dispatch(replaceOperation(file.data));
         dispatch(
@@ -44,15 +46,16 @@ const OSMenu: React.FC = () => {
           }),
         );
       }
-    } catch (error: any) {
-      alert('Erro ao abrir o arquivo', error);
+    } catch (error: unknown) {
+      alert(`Erro ao abrir o arquivo ${error}`);
       console.error(error);
     }
   };
 
+  // change type to Part in the future
   const saveFileAs = async (data: Operations) => {
     try {
-      const file: any = await window.electron.ipcRenderer.saveFileAs(
+      const file = await window.electron.ipcRenderer.saveFileAs(
         JSON.stringify(data),
       );
       if (file) {
@@ -64,12 +67,13 @@ const OSMenu: React.FC = () => {
           }),
         );
       }
-    } catch (error: any) {
-      alert('Erro ao salvar o arquivo', error);
+    } catch (error: unknown) {
+      alert(`Erro ao salvar o arquivo ${error}`);
       console.error(error);
     }
   };
 
+  // change type to Part in the future
   const saveFile = async (data: Operations) => {
     if (lastFilePath) {
       try {
@@ -80,11 +84,11 @@ const OSMenu: React.FC = () => {
         if (file.success) {
           dispatch(dispatch(editApp({ isSaved: true })));
         } else {
-          alert('Erro ao ler arquivo', file.message);
+          alert(`Erro ao ler arquivo ${file.message}`);
           console.error(file.message, `lasfilepath: ${lastFilePath}`);
         }
-      } catch (error: any) {
-        alert('Erro ao salvar o arquivo', error);
+      } catch (error: unknown) {
+        alert(`Erro ao salvar o arquivo ${error}`);
         console.error(error);
       }
     } else {
