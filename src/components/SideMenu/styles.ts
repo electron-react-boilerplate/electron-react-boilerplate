@@ -5,7 +5,7 @@ import { colors } from 'styles/global.styles';
 export const MenuContainer = styled.div`
   background-color: ${colors.blue};
   width: 170px;
-  min-height: calc(100vh - 84px);
+  min-height: calc(100vh - 124px);
   flex-shrink: 0;
 `;
 

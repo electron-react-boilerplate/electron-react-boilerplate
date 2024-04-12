@@ -8,7 +8,42 @@ export const Container = styled.div`
 
 export const Content = styled(PageContent)``;
 
-export const Title = styled(PageTitle)``;
+export const TitleContainer = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  margin-bottom: 24px;
+`;
+
+export const Title = styled(PageTitle)`
+  display: block;
+  margin-bottom: 0;
+  margin-right: 8px;
+`;
+
+export const TitleEdit = styled.input`
+  font-size: 34px;
+  font-weight: bold;
+  color: ${colors.greyFont};
+  background-color: ${colors.grey};
+  border: 0;
+`;
+
+export const TitleEditBtn = styled.button`
+  background-color: inherit;
+  outline: 0;
+  border: 0;
+  cursor: pointer;
+`;
+
+export const TitleEditIconEdit = styled.span`
+  font-size: 24px;
+  color: ${colors.blue};
+`;
+
+export const TitleEditIconDone = styled.span`
+  font-size: 24px;
+  color: ${colors.greyFont};
+`;
 
 export const Block = styled(ContentBlock)`
   background-color: ${colors.grey};

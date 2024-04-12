@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { editOperation } from 'state/operations/operationsSlice';
+
 import Breadcrumbs from 'components/Breadcrumbs';
 import { XZ_REGEX } from 'constants/constants';
 import { Operations } from 'types/part';
@@ -10,7 +11,9 @@ import defineActionParams from './defineActionParams';
 import {
   Container,
   Content,
+  TitleContainer,
   Title,
+  TitleEdit,
   Block,
   TableWrapper,
   Table,
@@ -29,6 +32,9 @@ import {
   TableInputTextLabeled,
   TableSelect,
   TableSelectOption,
+  TitleEditBtn,
+  TitleEditIconEdit,
+  TitleEditIconDone,
 } from './style';
 
 const breadcrumbsItems = [
@@ -52,13 +58,21 @@ const Operation: React.FC = () => {
   const [formData, setFormData] = useState({
     ...initialState,
   });
+  const [isEditingName, setIsEditingName] = useState(false);
+  const prevFormDataRef = useRef(formData);
+  const nameInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-    index: number,
+    index?: number,
   ) => {
     const { value } = e.currentTarget;
-    if (value.match(XZ_REGEX) || value === '') {
+    if (e.currentTarget.name === 'name') {
+      setFormData({
+        ...formData,
+        [e.currentTarget.name]: value,
+      });
+    } else if (value.match(XZ_REGEX) || value === '') {
       setFormData({
         ...formData,
         activities: formData.activities.map((item, i) => {
@@ -121,22 +135,58 @@ const Operation: React.FC = () => {
     }
   };
 
+  const toggleEdit = () => {
+    setIsEditingName(!isEditingName);
+  };
+
   useEffect(() => {
-    dispatch(editOperation({ id: formData.id, changes: formData }));
+    if (JSON.stringify(formData) !== JSON.stringify(prevFormDataRef.current))
+      dispatch(editOperation({ id: formData.id, changes: formData }));
+    prevFormDataRef.current = formData;
   }, [dispatch, formData]);
+
+  useEffect(() => {
+    setFormData({ ...initialState });
+  }, [dispatch, initialState]);
+
+  useEffect(() => {
+    if (isEditingName && nameInputRef.current) {
+      nameInputRef.current.focus();
+    }
+  }, [isEditingName]);
 
   return (
     <Container>
       <Breadcrumbs items={breadcrumbsItems} />
       <Content>
-        <Title>Operação</Title>
-        <Block>
-          <TableWrapper>
-            <form
-              name="activity-items-table"
-              className="activity-items-table"
-              // onSubmit={handleSubmit}
-            >
+        <form
+          name="activity-items-table"
+          className="activity-items-table"
+          // onSubmit={handleSubmit}
+        >
+          <TitleContainer>
+            {isEditingName ? (
+              <TitleEdit
+                ref={nameInputRef}
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                style={{ width: `${formData.name.length}ch` }}
+              />
+            ) : (
+              <Title>{formData.name}</Title>
+            )}
+            <TitleEditBtn type="button" onClick={toggleEdit}>
+              {isEditingName ? (
+                <TitleEditIconEdit className="icon-check_circle" />
+              ) : (
+                <TitleEditIconDone className="icon-create" />
+              )}
+            </TitleEditBtn>
+          </TitleContainer>
+          <Block>
+            <TableWrapper>
               <Table className="table table-ordenation">
                 <TableHead className="table-ordenation head">
                   <tr>
@@ -299,9 +349,9 @@ const Operation: React.FC = () => {
                   ))}
                 </TableBody>
               </Table>
-            </form>
-          </TableWrapper>
-        </Block>
+            </TableWrapper>
+          </Block>
+        </form>
       </Content>
     </Container>
   );

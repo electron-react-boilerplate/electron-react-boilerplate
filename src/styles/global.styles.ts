@@ -16,10 +16,13 @@ export const colors = {
   blueLight: '#72B2FF',
   blueDark: '#2772CE',
   blueCodeFont: '#6D9CBE',
+  black: '#363636',
+  blackLight: '#504E4E',
   red: '#CE5A5A',
   redDark: '#D04848',
   green: '#73B566',
   greenDark: '#5E9C4F',
+  orange: '#FDA403',
 };
 
 export const measures = {

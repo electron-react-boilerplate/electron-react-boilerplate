@@ -5,7 +5,6 @@ import { mountGCode } from 'integration/mount-gcode';
 import { MenuContainer, Menu, List, Item, ItemBtn } from './styles';
 
 const generateGCode = (stateValue: OperationItem) => {
-  console.log('generateGCode', stateValue);
   window.electron.ipcRenderer.saveGCode(mountGCode(stateValue));
 };
 

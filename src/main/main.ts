@@ -11,7 +11,14 @@
 import path from 'path';
 import Store from 'electron-store';
 import fs from 'fs';
-import { app, BrowserWindow, shell, ipcMain, dialog } from 'electron';
+import {
+  app,
+  BrowserWindow,
+  shell,
+  ipcMain,
+  dialog,
+  globalShortcut,
+} from 'electron';
 import installExtension, {
   REACT_DEVELOPER_TOOLS,
   REDUX_DEVTOOLS,
@@ -79,8 +86,9 @@ const createWindow = async () => {
 
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1024,
+    width: 1366,
     height: 728,
+    autoHideMenuBar: true,
     icon: getAssetPath('icon.png'),
     webPreferences: {
       preload: app.isPackaged
@@ -123,6 +131,51 @@ const createWindow = async () => {
       .catch((err) => {
         console.error('Erro ao mostrar caixa de diálogo', err);
       });
+  });
+
+  ipcMain.handle('open-file', async () => {
+    const { filePaths } = await dialog.showOpenDialog({
+      properties: ['openFile'],
+      filters: [{ name: 'Arquivos Personalizados', extensions: ['gzm'] }],
+    });
+
+    if (filePaths.length > 0) {
+      const data = fs.readFileSync(filePaths[0], 'utf-8');
+      return {
+        data: JSON.parse(data),
+        path: filePaths[0],
+      };
+    }
+
+    return null;
+  });
+
+  ipcMain.handle('save-file-as', async (_, content) => {
+    const { filePath } = await dialog.showSaveDialog({
+      title: 'Salvar como...',
+      filters: [{ name: 'Arquivos Personalizados', extensions: ['gzm'] }],
+      defaultPath: path.join(app.getPath('documents'), '.gzm'),
+    });
+
+    if (filePath) {
+      fs.writeFileSync(filePath, content);
+    }
+
+    return filePath;
+  });
+
+  ipcMain.handle('save-file', async (_, content, filePath) => {
+    try {
+      fs.writeFileSync(filePath, content);
+      return { success: true, message: 'Arquivo salvo com sucesso' };
+    } catch (error) {
+      console.error('Erro ao salvar o arquivo', error);
+      return { success: false, message: 'Erro ao salvar o arquivo' };
+    }
+  });
+
+  ipcMain.handle('quit-app', () => {
+    app.quit();
   });
 
   mainWindow.on('closed', () => {
@@ -178,10 +231,61 @@ app
       console.log('An error occurred: ', err);
     }
 
-    app.on('activate', () => {
-      // On macOS it's common to re-create a window in the app when the
-      // dock icon is clicked and there are no other windows open.
-      if (mainWindow === null) createWindow();
+    const shortcuts = [
+      {
+        key: 'CommandOrControl+O',
+        callback: () => {
+          if (mainWindow) mainWindow.webContents.send('shortcut-pressed-o');
+          else console.error('mainWindow not defined');
+        },
+      },
+      {
+        key: 'CommandOrControl+S',
+        callback: () => {
+          if (mainWindow) mainWindow.webContents.send('shortcut-pressed-s');
+          else console.error('mainWindow not defined');
+        },
+      },
+      {
+        key: 'CommandOrControl+Shift+S',
+        callback: () => {
+          if (mainWindow)
+            mainWindow.webContents.send('shortcut-pressed-shift-s');
+          else console.error('mainWindow not defined');
+        },
+      },
+      {
+        key: 'CommandOrControl+Q',
+        callback: () => {
+          app.quit();
+        },
+      },
+    ];
+
+    if (mainWindow) {
+      mainWindow.on('focus', () => {
+        shortcuts.forEach(({ key, callback }) => {
+          const ret = globalShortcut.register(key, callback);
+
+          if (!ret)
+            console.log(`Falha ao registrar o atalho de teclado: ${key}`);
+
+          console.log(
+            `Atalho de teclado registrado: ${key}`,
+            globalShortcut.isRegistered(key),
+          );
+        });
+      });
+
+      mainWindow.on('blur', () => {
+        globalShortcut.unregisterAll();
+      });
+    } else {
+      console.error('mainWindow not defined');
+    }
+
+    app.on('will-quit', () => {
+      globalShortcut.unregisterAll();
     });
   })
   .catch(console.log);

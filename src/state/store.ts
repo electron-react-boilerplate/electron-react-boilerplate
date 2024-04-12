@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import partReducer from './part/partSlice';
 import operationsReducer from './operations/operationsSlice';
+import appReducer from './app/appSlice';
 
 export const store = configureStore({
   reducer: {
-    part: partReducer,
     operations: operationsReducer,
+    app: appReducer,
   },
 });
 

@@ -2,12 +2,13 @@ import styled from 'styled-components';
 import { colors } from 'styles/global.styles';
 import { Link } from 'styles/Components';
 
-export const Container = styled.div`
+export const AppMenu = styled.div`
   padding: 24px;
   border-bottom: 1px solid ${colors.greyMedium};
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+  position: relative;
 `;
 
 export const Logo = styled.div`
@@ -54,12 +55,15 @@ export const MiddleItemHomeLink = styled(Link)`
   color: ${colors.greyFont};
 `;
 
-export const MiddleItemPart = styled(Link)`
+export const MiddleItemPart = styled(Link)<{ isSaved: boolean }>`
   cursor: pointer;
-  color: ${colors.blue};
+  color: ${({ isSaved }) => (isSaved ? colors.blue : colors.orange)};
   font-size: 18px;
   padding: 8px;
-  margin-right: 46px;
+  /* margin-right: 46px; */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 `;
 
 export const Icon = styled(Link)`

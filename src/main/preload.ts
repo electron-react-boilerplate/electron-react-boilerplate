@@ -18,11 +18,26 @@ const electronHandler = {
         ipcRenderer.removeListener(channel, subscription);
       };
     },
+    removeListener: (channel: Channels, func: (...args: unknown[]) => void) => {
+      ipcRenderer.removeListener(channel, func);
+    },
     once(channel: Channels, func: (...args: unknown[]) => void) {
       ipcRenderer.once(channel, (_event, ...args) => func(...args));
     },
     saveGCode(data: string, filePath: string) {
       ipcRenderer.invoke('save-gcode', data, filePath);
+    },
+    openFile() {
+      return ipcRenderer.invoke('open-file');
+    },
+    saveFile(content: string, filePath: string) {
+      return ipcRenderer.invoke('save-file', content, filePath);
+    },
+    saveFileAs(content: string) {
+      return ipcRenderer.invoke('save-file-as', content);
+    },
+    quitApp() {
+      return ipcRenderer.invoke('quit-app');
     },
   },
   store: {
