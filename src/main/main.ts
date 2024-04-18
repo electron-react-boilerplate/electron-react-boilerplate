@@ -139,7 +139,7 @@ const createWindow = async () => {
       filters: [{ name: 'Arquivos Personalizados', extensions: ['gzm'] }],
     });
 
-    if (filePaths.length > 0) {
+    if (filePaths && filePaths.length > 0) {
       const data = fs.readFileSync(filePaths[0], 'utf-8');
       return {
         data: JSON.parse(data),
@@ -228,7 +228,7 @@ app
       ]);
       console.log(`Added Extension:  ${extensions}`);
     } catch (err) {
-      console.log('An error occurred: ', err);
+      console.log('An error occurred when adding extension: ', err);
     }
 
     const shortcuts = [
