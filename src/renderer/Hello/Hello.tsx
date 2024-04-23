@@ -1,4 +1,4 @@
-import icon from '../../../assets/icon.svg';
+import icon from 'assets/icon.svg';
 
 export function Hello() {
   return (
