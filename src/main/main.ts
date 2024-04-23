@@ -15,6 +15,7 @@ import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
+log.info('## main.ts START');
 class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
@@ -28,7 +29,12 @@ let mainWindow: BrowserWindow | null = null;
 ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
   console.log(msgTemplate(arg));
+  log.info("ipcMain.on('ipc-example'", msgTemplate(arg));
   event.reply('ipc-example', msgTemplate('pong'));
+});
+
+ipcMain.on('ipc-msg', async (event, arg) => {
+  log.info("ipcMain.on('ipc-msg' =", arg);
 });
 
 if (process.env.NODE_ENV === 'production') {
@@ -135,3 +141,5 @@ app
     });
   })
   .catch(console.log);
+
+log.info('## main.ts FINISH');
