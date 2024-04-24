@@ -7,6 +7,7 @@ import { replaceOperation } from 'state/operations/operationsSlice';
 import { editApp } from 'state/app/appSlice';
 import { Part, Operations } from 'types/part';
 import { App } from 'types/app';
+import { isElectron } from 'constants/constants';
 
 import {
   Button,
@@ -34,8 +35,41 @@ const OSMenu: React.FC = () => {
 
   const openFile = async () => {
     try {
-      // change type to what is expected from file (wich is part)
-      const file = await window.electron.ipcRenderer.openFile();
+      let file;
+      if (isElectron()) {
+        file = await window.electron.ipcRenderer.openFile();
+      } else {
+        const fileRead = new Promise((resolve, reject) => {
+          const reader = new FileReader();
+
+          reader.onload = (e) => {
+            const f = e.target?.result;
+            if (f) {
+              resolve({
+                data: JSON.parse(f as string),
+                path: null,
+              });
+            }
+          };
+
+          reader.onerror = reject;
+
+          const input = document.createElement('input');
+          input.type = 'file';
+          input.accept = '.gzm';
+          input.onchange = (event) => {
+            const files = (event.target as HTMLInputElement)?.files;
+            if (files && files.length > 0) {
+              const f = files[0];
+              reader.readAsText(f);
+            }
+          };
+          input.click();
+        });
+
+        file = await fileRead;
+      }
+
       if (file) {
         dispatch(replaceOperation(file.data));
         dispatch(
@@ -55,9 +89,11 @@ const OSMenu: React.FC = () => {
   // change type to Part in the future
   const saveFileAs = async (data: Operations) => {
     try {
-      const file = await window.electron.ipcRenderer.saveFileAs(
-        JSON.stringify(data),
-      );
+      let file;
+      if (isElectron())
+        file = await window.electron.ipcRenderer.saveFileAs(
+          JSON.stringify(data),
+        );
       if (file) {
         dispatch(
           editApp({
@@ -77,10 +113,12 @@ const OSMenu: React.FC = () => {
   const saveFile = async (data: Operations) => {
     if (lastFilePath) {
       try {
-        const file = await window.electron.ipcRenderer.saveFile(
-          JSON.stringify(data),
-          lastFilePath,
-        );
+        let file;
+        if (isElectron())
+          file = await window.electron.ipcRenderer.saveFile(
+            JSON.stringify(data),
+            lastFilePath,
+          );
         if (file.success) {
           dispatch(dispatch(editApp({ isSaved: true })));
         } else {
@@ -96,32 +134,35 @@ const OSMenu: React.FC = () => {
     }
   };
 
+  // eslint-disable-next-line consistent-return
   useEffect(() => {
     const handleShortcutO = () => openFile();
     const handleShortcutS = () => saveFile(operationState);
     const handleShortcutShiftS = () => saveFileAs(operationState);
 
-    window.electron.ipcRenderer.on('shortcut-pressed-o', handleShortcutO);
-    window.electron.ipcRenderer.on('shortcut-pressed-s', handleShortcutS);
-    window.electron.ipcRenderer.on(
-      'shortcut-pressed-shift-s',
-      handleShortcutShiftS,
-    );
-
-    return () => {
-      window.electron.ipcRenderer.removeListener(
-        'shortcut-pressed-o',
-        handleShortcutO,
-      );
-      window.electron.ipcRenderer.removeListener(
-        'shortcut-pressed-s',
-        handleShortcutS,
-      );
-      window.electron.ipcRenderer.removeListener(
+    if (isElectron()) {
+      window.electron.ipcRenderer.on('shortcut-pressed-o', handleShortcutO);
+      window.electron.ipcRenderer.on('shortcut-pressed-s', handleShortcutS);
+      window.electron.ipcRenderer.on(
         'shortcut-pressed-shift-s',
         handleShortcutShiftS,
       );
-    };
+
+      return () => {
+        window.electron.ipcRenderer.removeListener(
+          'shortcut-pressed-o',
+          handleShortcutO,
+        );
+        window.electron.ipcRenderer.removeListener(
+          'shortcut-pressed-s',
+          handleShortcutS,
+        );
+        window.electron.ipcRenderer.removeListener(
+          'shortcut-pressed-shift-s',
+          handleShortcutShiftS,
+        );
+      };
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

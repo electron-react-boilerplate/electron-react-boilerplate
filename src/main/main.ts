@@ -19,10 +19,6 @@ import {
   dialog,
   globalShortcut,
 } from 'electron';
-import installExtension, {
-  REACT_DEVELOPER_TOOLS,
-  REDUX_DEVTOOLS,
-} from 'electron-devtools-installer';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
@@ -61,7 +57,7 @@ if (isDebug) {
 const installExtensions = async () => {
   const installer = require('electron-devtools-installer');
   const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
-  const extensions = ['REACT_DEVELOPER_TOOLS'];
+  const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS'];
 
   return installer
     .default(
@@ -72,10 +68,6 @@ const installExtensions = async () => {
 };
 
 const createWindow = async () => {
-  if (isDebug) {
-    await installExtensions();
-  }
-
   const RESOURCES_PATH = app.isPackaged
     ? path.join(process.resourcesPath, 'assets')
     : path.join(__dirname, '../../assets');
@@ -221,14 +213,8 @@ app
   .then(async () => {
     createWindow();
 
-    try {
-      const extensions = await installExtension([
-        REACT_DEVELOPER_TOOLS,
-        REDUX_DEVTOOLS,
-      ]);
-      console.log(`Added Extension:  ${extensions}`);
-    } catch (err) {
-      console.log('An error occurred when adding extension: ', err);
+    if (isDebug) {
+      await installExtensions();
     }
 
     const shortcuts = [
