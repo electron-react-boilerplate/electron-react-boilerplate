@@ -250,7 +250,7 @@ const Operation: React.FC = () => {
                       <HText>Código</HText>
                     </TableH>
                     <TableH />
-                    <TableH colSpan={2}>
+                    <TableH colSpan={3}>
                       <HText>Parâmetros Adicionais</HText>
                     </TableH>
                     <TableH />
