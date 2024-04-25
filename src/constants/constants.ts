@@ -39,3 +39,7 @@ export const FROM_1_TO_3K_REGEX: RegExp = /^(3000|[1-2]?[0-9]{1,3}|[1-9])$/;
 export const FROM_1_TO_10K_REGEX: RegExp = /^(10000|[1-9][0-9]{0,3})$/;
 export const FROM_1_TO_18K_REGEX: RegExp =
   /^(18000|1[0-7][0-9]{3}|[1-9][0-9]{0,3})$/;
+export const FROM_0001_TO_100_REGEX: RegExp =
+  /^(100(\.0{1,3})?|([0-9]{1,2})(\.[0-9]{1,3})?|(0\.[0-9]{2,3}))$/;
+export const FROM_1_TO_10_REGEX: RegExp = /^(10|[1-9])$/;
+export const FROM_1_TO_9999_REGEX: RegExp = /^(9999|[1-9][0-9]{0,3})$/;

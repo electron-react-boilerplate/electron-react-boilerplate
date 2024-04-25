@@ -109,7 +109,19 @@ const Operation: React.FC = () => {
       const params = actionParamsAux.find(
         (p) => p.actionCode === actionCodeValue,
       );
-      if (params && (value.match(params.aParamValidation) || value === '')) {
+      if (
+        (params &&
+          ((e.currentTarget.name === 'aParamValue' &&
+            params.aParamValidation &&
+            value.match(params.aParamValidation)) ||
+            (e.currentTarget.name === 'bParamValue' &&
+              params.bParamValidation &&
+              value.match(params.bParamValidation)) ||
+            (e.currentTarget.name === 'cParamValue' &&
+              params.cParamValidation &&
+              value.match(params.cParamValidation)))) ||
+        value === ''
+      ) {
         setFormData({
           ...formData,
           activities: formData.activities.map((item, i) => {
