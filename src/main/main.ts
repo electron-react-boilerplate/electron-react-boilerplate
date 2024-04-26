@@ -19,12 +19,9 @@ import {
   dialog,
   globalShortcut,
 } from 'electron';
-import installExtension, {
-  REACT_DEVELOPER_TOOLS,
-  REDUX_DEVTOOLS,
-} from 'electron-devtools-installer';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
+import { FileObject, SaveObject } from 'types/general';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
@@ -61,7 +58,7 @@ if (isDebug) {
 const installExtensions = async () => {
   const installer = require('electron-devtools-installer');
   const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
-  const extensions = ['REACT_DEVELOPER_TOOLS'];
+  const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS'];
 
   return installer
     .default(
@@ -72,10 +69,6 @@ const installExtensions = async () => {
 };
 
 const createWindow = async () => {
-  if (isDebug) {
-    await installExtensions();
-  }
-
   const RESOURCES_PATH = app.isPackaged
     ? path.join(process.resourcesPath, 'assets')
     : path.join(__dirname, '../../assets');
@@ -133,13 +126,13 @@ const createWindow = async () => {
       });
   });
 
-  ipcMain.handle('open-file', async () => {
+  ipcMain.handle('open-file', async (): Promise<FileObject | null> => {
     const { filePaths } = await dialog.showOpenDialog({
       properties: ['openFile'],
       filters: [{ name: 'Arquivos Personalizados', extensions: ['gzm'] }],
     });
 
-    if (filePaths.length > 0) {
+    if (filePaths && filePaths.length > 0) {
       const data = fs.readFileSync(filePaths[0], 'utf-8');
       return {
         data: JSON.parse(data),
@@ -150,29 +143,35 @@ const createWindow = async () => {
     return null;
   });
 
-  ipcMain.handle('save-file-as', async (_, content) => {
-    const { filePath } = await dialog.showSaveDialog({
-      title: 'Salvar como...',
-      filters: [{ name: 'Arquivos Personalizados', extensions: ['gzm'] }],
-      defaultPath: path.join(app.getPath('documents'), '.gzm'),
-    });
+  ipcMain.handle(
+    'save-file-as',
+    async (_, content): Promise<string | undefined> => {
+      const { filePath } = await dialog.showSaveDialog({
+        title: 'Salvar como...',
+        filters: [{ name: 'Arquivos Personalizados', extensions: ['gzm'] }],
+        defaultPath: path.join(app.getPath('documents'), '.gzm'),
+      });
 
-    if (filePath) {
-      fs.writeFileSync(filePath, content);
-    }
+      if (filePath) {
+        fs.writeFileSync(filePath, content);
+      }
 
-    return filePath;
-  });
+      return filePath;
+    },
+  );
 
-  ipcMain.handle('save-file', async (_, content, filePath) => {
-    try {
-      fs.writeFileSync(filePath, content);
-      return { success: true, message: 'Arquivo salvo com sucesso' };
-    } catch (error) {
-      console.error('Erro ao salvar o arquivo', error);
-      return { success: false, message: 'Erro ao salvar o arquivo' };
-    }
-  });
+  ipcMain.handle(
+    'save-file',
+    async (_, content, filePath: string): Promise<SaveObject> => {
+      try {
+        fs.writeFileSync(filePath, content);
+        return { success: true, message: 'Arquivo salvo com sucesso' };
+      } catch (error) {
+        console.error('Erro ao salvar o arquivo', error);
+        return { success: false, message: 'Erro ao salvar o arquivo' };
+      }
+    },
+  );
 
   ipcMain.handle('quit-app', () => {
     app.quit();
@@ -221,14 +220,8 @@ app
   .then(async () => {
     createWindow();
 
-    try {
-      const extensions = await installExtension([
-        REACT_DEVELOPER_TOOLS,
-        REDUX_DEVTOOLS,
-      ]);
-      console.log(`Added Extension:  ${extensions}`);
-    } catch (err) {
-      console.log('An error occurred: ', err);
+    if (isDebug) {
+      await installExtensions();
     }
 
     const shortcuts = [

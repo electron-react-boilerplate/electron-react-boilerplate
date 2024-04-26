@@ -6,7 +6,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { replaceOperation } from 'state/operations/operationsSlice';
 import { editApp } from 'state/app/appSlice';
 import { Part, Operations } from 'types/part';
+import { FileObject, SaveObject } from 'types/general';
 import { App } from 'types/app';
+import { isElectron } from 'constants/constants';
 
 import {
   Button,
@@ -34,15 +36,49 @@ const OSMenu: React.FC = () => {
 
   const openFile = async () => {
     try {
-      // change type to what is expected from file (wich is part)
-      const file = await window.electron.ipcRenderer.openFile();
+      let file: FileObject | undefined;
+
+      if (isElectron()) {
+        file = await window.electron.ipcRenderer.openFile();
+      } else {
+        const fileRead: Promise<FileObject> = new Promise((resolve, reject) => {
+          const reader = new FileReader();
+
+          reader.onload = (e) => {
+            const f = e.target?.result;
+            if (f) {
+              resolve({
+                data: JSON.parse(f as string),
+                path: undefined,
+              });
+            }
+          };
+
+          reader.onerror = reject;
+
+          const input = document.createElement('input');
+          input.type = 'file';
+          input.accept = '.gzm';
+          input.onchange = (event) => {
+            const files = (event.target as HTMLInputElement)?.files;
+            if (files && files.length > 0) {
+              const f = files[0];
+              reader.readAsText(f);
+            }
+          };
+          input.click();
+        });
+
+        file = await fileRead;
+      }
+
       if (file) {
-        dispatch(replaceOperation(file.data));
+        dispatch(replaceOperation((file as FileObject).data));
         dispatch(
           editApp({
             isSaved: true,
-            lastFilePathSaved: file.path,
-            lastSavedFileState: JSON.stringify(file.data),
+            lastFilePathSaved: (file as FileObject).path,
+            lastSavedFileState: JSON.stringify((file as FileObject).data),
           }),
         );
       }
@@ -55,14 +91,16 @@ const OSMenu: React.FC = () => {
   // change type to Part in the future
   const saveFileAs = async (data: Operations) => {
     try {
-      const file = await window.electron.ipcRenderer.saveFileAs(
-        JSON.stringify(data),
-      );
-      if (file) {
+      let filePath: string | undefined;
+      if (isElectron())
+        filePath = await window.electron.ipcRenderer.saveFileAs(
+          JSON.stringify(data),
+        );
+      if (filePath) {
         dispatch(
           editApp({
             isSaved: true,
-            lastFilePathSaved: file,
+            lastFilePathSaved: filePath,
             lastSavedFileState: JSON.stringify(operationState),
           }),
         );
@@ -77,15 +115,20 @@ const OSMenu: React.FC = () => {
   const saveFile = async (data: Operations) => {
     if (lastFilePath) {
       try {
-        const file = await window.electron.ipcRenderer.saveFile(
-          JSON.stringify(data),
-          lastFilePath,
-        );
-        if (file.success) {
+        let saveObj: SaveObject = {
+          success: false,
+          message: 'Operação de salvamento não executada',
+        };
+        if (isElectron())
+          saveObj = await window.electron.ipcRenderer.saveFile(
+            JSON.stringify(data),
+            lastFilePath,
+          );
+        if (saveObj && saveObj.success) {
           dispatch(dispatch(editApp({ isSaved: true })));
         } else {
-          alert(`Erro ao ler arquivo ${file.message}`);
-          console.error(file.message, `lasfilepath: ${lastFilePath}`);
+          alert(`Erro ao ler arquivo ${saveObj.message}`);
+          console.error(saveObj.message, `lasfilepath: ${lastFilePath}`);
         }
       } catch (error: unknown) {
         alert(`Erro ao salvar o arquivo ${error}`);
@@ -96,32 +139,35 @@ const OSMenu: React.FC = () => {
     }
   };
 
+  // eslint-disable-next-line consistent-return
   useEffect(() => {
     const handleShortcutO = () => openFile();
     const handleShortcutS = () => saveFile(operationState);
     const handleShortcutShiftS = () => saveFileAs(operationState);
 
-    window.electron.ipcRenderer.on('shortcut-pressed-o', handleShortcutO);
-    window.electron.ipcRenderer.on('shortcut-pressed-s', handleShortcutS);
-    window.electron.ipcRenderer.on(
-      'shortcut-pressed-shift-s',
-      handleShortcutShiftS,
-    );
-
-    return () => {
-      window.electron.ipcRenderer.removeListener(
-        'shortcut-pressed-o',
-        handleShortcutO,
-      );
-      window.electron.ipcRenderer.removeListener(
-        'shortcut-pressed-s',
-        handleShortcutS,
-      );
-      window.electron.ipcRenderer.removeListener(
+    if (isElectron()) {
+      window.electron.ipcRenderer.on('shortcut-pressed-o', handleShortcutO);
+      window.electron.ipcRenderer.on('shortcut-pressed-s', handleShortcutS);
+      window.electron.ipcRenderer.on(
         'shortcut-pressed-shift-s',
         handleShortcutShiftS,
       );
-    };
+
+      return () => {
+        window.electron.ipcRenderer.removeListener(
+          'shortcut-pressed-o',
+          handleShortcutO,
+        );
+        window.electron.ipcRenderer.removeListener(
+          'shortcut-pressed-s',
+          handleShortcutS,
+        );
+        window.electron.ipcRenderer.removeListener(
+          'shortcut-pressed-shift-s',
+          handleShortcutShiftS,
+        );
+      };
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

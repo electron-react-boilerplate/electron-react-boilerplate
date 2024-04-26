@@ -17,7 +17,7 @@ export const initialState: Operations = [
         xaxis: '',
         zaxis: '',
         fvalue: '',
-        actionValue: '',
+        actionCode: '',
         aParamId: '',
         aParamValue: null,
         bParamId: '',

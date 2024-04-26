@@ -7,7 +7,9 @@ import { editOperation } from 'state/operations/operationsSlice';
 import Breadcrumbs from 'components/Breadcrumbs';
 import { XZ_REGEX } from 'constants/constants';
 import { Operations } from 'types/part';
+import { actionParams as actionParamsAux } from 'integration/functions-code';
 import defineActionParams from './defineActionParams';
+
 import {
   Container,
   Content,
@@ -24,14 +26,12 @@ import {
   TableD,
   TableIdText,
   TableInputText,
+  TableInputTextLabeled,
   TableInputLabel,
   TableDivision,
   AddBtn,
   DeleteBtn,
   TableDContent,
-  TableInputTextLabeled,
-  TableSelect,
-  TableSelectOption,
   TitleEditBtn,
   TitleEditIconEdit,
   TitleEditIconDone,
@@ -72,27 +72,72 @@ const Operation: React.FC = () => {
         ...formData,
         [e.currentTarget.name]: value,
       });
+    } else if (
+      e.currentTarget.name === 'actionCode' ||
+      (e.currentTarget.name === 'actionCode' && value === '')
+    ) {
+      setFormData({
+        ...formData,
+        activities: formData.activities.map((item, i) => {
+          if (i === index) {
+            const actionParams = defineActionParams(value);
+            const {
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              aParamValidation,
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              bParamValidation,
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              cParamValidation,
+              ...rest
+            } = actionParams;
+            return {
+              ...item,
+              [e.currentTarget.name]: value,
+              ...rest,
+            };
+          }
+          return item;
+        }),
+      });
+    } else if (
+      index !== undefined &&
+      (e.currentTarget.name === 'aParamValue' ||
+        e.currentTarget.name === 'bParamValue' ||
+        e.currentTarget.name === 'cParamValue')
+    ) {
+      const actionCodeValue = formData.activities[index].actionCode;
+      const params = actionParamsAux.find(
+        (p) => p.actionCode === actionCodeValue,
+      );
+      if (
+        (params &&
+          ((e.currentTarget.name === 'aParamValue' &&
+            params.aParamValidation &&
+            value.match(params.aParamValidation)) ||
+            (e.currentTarget.name === 'bParamValue' &&
+              params.bParamValidation &&
+              value.match(params.bParamValidation)) ||
+            (e.currentTarget.name === 'cParamValue' &&
+              params.cParamValidation &&
+              value.match(params.cParamValidation)))) ||
+        value === ''
+      ) {
+        setFormData({
+          ...formData,
+          activities: formData.activities.map((item, i) => {
+            if (i === index) {
+              return { ...item, [e.currentTarget.name]: value };
+            }
+            return item;
+          }),
+        });
+      }
     } else if (value.match(XZ_REGEX) || value === '') {
       setFormData({
         ...formData,
         activities: formData.activities.map((item, i) => {
           if (i === index) {
             return { ...item, [e.currentTarget.name]: value };
-          }
-          return item;
-        }),
-      });
-    } else if (e.currentTarget.name === 'actionValue') {
-      setFormData({
-        ...formData,
-        activities: formData.activities.map((item, i) => {
-          if (i === index) {
-            const actionParams = defineActionParams(value);
-            return {
-              ...item,
-              [e.currentTarget.name]: value,
-              ...actionParams,
-            };
           }
           return item;
         }),
@@ -202,7 +247,7 @@ const Operation: React.FC = () => {
                       <HText>F</HText>
                     </TableH>
                     <TableH>
-                      <HText>Ação</HText>
+                      <HText>Código</HText>
                     </TableH>
                     <TableH />
                     <TableH colSpan={3}>
@@ -252,25 +297,13 @@ const Operation: React.FC = () => {
                         />
                       </TableD>
                       <TableD>
-                        <TableSelect
+                        <TableInputText
                           className="input is-edit"
-                          name="actionValue"
-                          value={item.actionValue}
+                          type="text"
+                          name="actionCode"
+                          value={item.actionCode}
                           onChange={(e) => handleChange(e, index)}
-                        >
-                          <TableSelectOption value="default">
-                            Selecione...
-                          </TableSelectOption>
-                          <TableSelectOption value="action1">
-                            Ação 1
-                          </TableSelectOption>
-                          <TableSelectOption value="action2">
-                            Ação 2
-                          </TableSelectOption>
-                          <TableSelectOption value="action3">
-                            Ação 3
-                          </TableSelectOption>
-                        </TableSelect>
+                        />
                       </TableD>
                       <TableD>
                         <TableDivision>|</TableDivision>

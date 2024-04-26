@@ -14,7 +14,19 @@ function mountGCodeLine(
   const x = activity.xaxis ? `X${activity.xaxis} ` : '';
   const z = activity.zaxis ? `Z${activity.zaxis} ` : '';
   const f = activity.fvalue ? `F${activity.fvalue} ` : '';
-  let gCodeLine = `N00${n * 10} G90 ${rm}${x}${z}${f}\n`;
+  const a = activity.actionCode ? `${activity.actionCode} ` : '';
+  const aParam = activity.aParamValue
+    ? `${activity.aParamId}${activity.aParamValue} `
+    : '';
+  const bParam = activity.bParamValue
+    ? `${activity.bParamId}${activity.bParamValue} `
+    : '';
+  const cParam = activity.cParamValue
+    ? `${activity.cParamId}${activity.cParamValue} `
+    : '';
+  let gCodeLine = `N00${
+    n * 10
+  } G90 ${rm}${x}${z}${f}${a}${aParam}${bParam}${cParam}\n`;
 
   if (isLastLine) gCodeLine = `${gCodeLine}N00${(n + 1) * 10} M99`;
 

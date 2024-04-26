@@ -7,7 +7,7 @@ export interface ActivitiyItem {
   xaxis: string;
   zaxis: string;
   fvalue: string;
-  actionValue: string;
+  actionCode: string;
   aParamId: string;
   aParamValue: string | null;
   bParamId: string;

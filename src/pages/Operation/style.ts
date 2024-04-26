@@ -103,26 +103,6 @@ export const TableInputText = styled.input`
   font-size: 16px;
 `;
 
-export const TableSelect = styled.select`
-  background-color: ${colors.white};
-  border: 1px solid ${colors.greyMedium};
-  box-sizing: border-box;
-  padding: 10px 10px;
-  width: 100%;
-  min-width: 200px;
-  font-size: 16px;
-  appearance: none; /* Remove a seta padrão */
-  background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
-  background-repeat: no-repeat;
-  background-position-x: 95%;
-  background-position-y: 50%;
-`;
-
-export const TableSelectOption = styled.option`
-  height: 40px;
-  line-height: 40px;
-`;
-
 export const TableDContent = styled.div`
   position: relative;
   height: 40px;
