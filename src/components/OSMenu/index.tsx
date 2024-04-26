@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { replaceOperation } from 'state/operations/operationsSlice';
 import { editApp } from 'state/app/appSlice';
 import { Part, Operations } from 'types/part';
+import { FileObject } from 'types/general';
 import { App } from 'types/app';
 import { isElectron } from 'constants/constants';
 
@@ -35,11 +36,12 @@ const OSMenu: React.FC = () => {
 
   const openFile = async () => {
     try {
-      let file;
+      let file: FileObject | undefined;
+
       if (isElectron()) {
         file = await window.electron.ipcRenderer.openFile();
       } else {
-        const fileRead = new Promise((resolve, reject) => {
+        const fileRead: Promise<FileObject> = new Promise((resolve, reject) => {
           const reader = new FileReader();
 
           reader.onload = (e) => {
@@ -47,7 +49,7 @@ const OSMenu: React.FC = () => {
             if (f) {
               resolve({
                 data: JSON.parse(f as string),
-                path: null,
+                path: undefined,
               });
             }
           };
@@ -71,12 +73,12 @@ const OSMenu: React.FC = () => {
       }
 
       if (file) {
-        dispatch(replaceOperation(file.data));
+        dispatch(replaceOperation((file as FileObject).data));
         dispatch(
           editApp({
             isSaved: true,
-            lastFilePathSaved: file.path,
-            lastSavedFileState: JSON.stringify(file.data),
+            lastFilePathSaved: (file as FileObject).path,
+            lastSavedFileState: JSON.stringify((file as FileObject).data),
           }),
         );
       }
@@ -89,16 +91,16 @@ const OSMenu: React.FC = () => {
   // change type to Part in the future
   const saveFileAs = async (data: Operations) => {
     try {
-      let file;
+      let filePath;
       if (isElectron())
-        file = await window.electron.ipcRenderer.saveFileAs(
+        filePath = await window.electron.ipcRenderer.saveFileAs(
           JSON.stringify(data),
         );
-      if (file) {
+      if (filePath) {
         dispatch(
           editApp({
             isSaved: true,
-            lastFilePathSaved: file,
+            lastFilePathSaved: filePath,
             lastSavedFileState: JSON.stringify(operationState),
           }),
         );

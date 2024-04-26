@@ -21,6 +21,7 @@ import {
 } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
+import { FileObject } from 'types/general';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
@@ -125,7 +126,7 @@ const createWindow = async () => {
       });
   });
 
-  ipcMain.handle('open-file', async () => {
+  ipcMain.handle('open-file', async (): Promise<FileObject | null> => {
     const { filePaths } = await dialog.showOpenDialog({
       properties: ['openFile'],
       filters: [{ name: 'Arquivos Personalizados', extensions: ['gzm'] }],
@@ -142,19 +143,22 @@ const createWindow = async () => {
     return null;
   });
 
-  ipcMain.handle('save-file-as', async (_, content) => {
-    const { filePath } = await dialog.showSaveDialog({
-      title: 'Salvar como...',
-      filters: [{ name: 'Arquivos Personalizados', extensions: ['gzm'] }],
-      defaultPath: path.join(app.getPath('documents'), '.gzm'),
-    });
+  ipcMain.handle(
+    'save-file-as',
+    async (_, content): Promise<string | undefined> => {
+      const { filePath } = await dialog.showSaveDialog({
+        title: 'Salvar como...',
+        filters: [{ name: 'Arquivos Personalizados', extensions: ['gzm'] }],
+        defaultPath: path.join(app.getPath('documents'), '.gzm'),
+      });
 
-    if (filePath) {
-      fs.writeFileSync(filePath, content);
-    }
+      if (filePath) {
+        fs.writeFileSync(filePath, content);
+      }
 
-    return filePath;
-  });
+      return filePath;
+    },
+  );
 
   ipcMain.handle('save-file', async (_, content, filePath) => {
     try {
