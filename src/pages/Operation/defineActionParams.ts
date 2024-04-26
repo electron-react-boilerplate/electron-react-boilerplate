@@ -1,19 +1,8 @@
 // Provavelmente essa função vai virar um componente que pegara os dados do select do menu config para abastecer o select e os seus respectivos parametros
 import { actionParams } from 'integration/functions-code';
+import { auxActionParams as auxActionParamsInterface } from './interface';
 
-interface AUX_ActionParams {
-  aParamId: string;
-  aParamValue: string | null;
-  aParamValidation: RegExp | null;
-  bParamId: string;
-  bParamValue: string | null;
-  bParamValidation: RegExp | null;
-  cParamId: string;
-  cParamValue: string | null;
-  cParamValidation: RegExp | null;
-}
-
-function defineActionParams(actionCodeValue: string): AUX_ActionParams {
+function defineActionParams(actionCodeValue: string): auxActionParamsInterface {
   // faria uma chamada de API para pegar os parametros de acordo com o actionCodeValue
   const params = actionParams.find((p) => p.actionCode === actionCodeValue);
 

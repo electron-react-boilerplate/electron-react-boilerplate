@@ -21,7 +21,7 @@ import {
 } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
-import { FileObject } from 'types/general';
+import { FileObject, SaveObject } from 'types/general';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
@@ -160,15 +160,18 @@ const createWindow = async () => {
     },
   );
 
-  ipcMain.handle('save-file', async (_, content, filePath) => {
-    try {
-      fs.writeFileSync(filePath, content);
-      return { success: true, message: 'Arquivo salvo com sucesso' };
-    } catch (error) {
-      console.error('Erro ao salvar o arquivo', error);
-      return { success: false, message: 'Erro ao salvar o arquivo' };
-    }
-  });
+  ipcMain.handle(
+    'save-file',
+    async (_, content, filePath: string): Promise<SaveObject> => {
+      try {
+        fs.writeFileSync(filePath, content);
+        return { success: true, message: 'Arquivo salvo com sucesso' };
+      } catch (error) {
+        console.error('Erro ao salvar o arquivo', error);
+        return { success: false, message: 'Erro ao salvar o arquivo' };
+      }
+    },
+  );
 
   ipcMain.handle('quit-app', () => {
     app.quit();

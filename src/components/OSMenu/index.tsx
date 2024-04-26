@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { replaceOperation } from 'state/operations/operationsSlice';
 import { editApp } from 'state/app/appSlice';
 import { Part, Operations } from 'types/part';
-import { FileObject } from 'types/general';
+import { FileObject, SaveObject } from 'types/general';
 import { App } from 'types/app';
 import { isElectron } from 'constants/constants';
 
@@ -91,7 +91,7 @@ const OSMenu: React.FC = () => {
   // change type to Part in the future
   const saveFileAs = async (data: Operations) => {
     try {
-      let filePath;
+      let filePath: string | undefined;
       if (isElectron())
         filePath = await window.electron.ipcRenderer.saveFileAs(
           JSON.stringify(data),
@@ -115,17 +115,20 @@ const OSMenu: React.FC = () => {
   const saveFile = async (data: Operations) => {
     if (lastFilePath) {
       try {
-        let file;
+        let saveObj: SaveObject = {
+          success: false,
+          message: 'Operação de salvamento não executada',
+        };
         if (isElectron())
-          file = await window.electron.ipcRenderer.saveFile(
+          saveObj = await window.electron.ipcRenderer.saveFile(
             JSON.stringify(data),
             lastFilePath,
           );
-        if (file.success) {
+        if (saveObj && saveObj.success) {
           dispatch(dispatch(editApp({ isSaved: true })));
         } else {
-          alert(`Erro ao ler arquivo ${file.message}`);
-          console.error(file.message, `lasfilepath: ${lastFilePath}`);
+          alert(`Erro ao ler arquivo ${saveObj.message}`);
+          console.error(saveObj.message, `lasfilepath: ${lastFilePath}`);
         }
       } catch (error: unknown) {
         alert(`Erro ao salvar o arquivo ${error}`);
