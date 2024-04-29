@@ -32,3 +32,8 @@ export const measures = {
 export const fonts = {
   primary: 'Roboto, sans-serif',
 };
+
+export const shadows = {
+  std: '0px 5px 8px -3px rgba(0, 0, 0, 0.4)',
+  strong: '0px 10px 16px -3px rgba(0, 0, 0, 0.8)',
+};

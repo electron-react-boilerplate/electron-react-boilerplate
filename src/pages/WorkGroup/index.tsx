@@ -1,7 +1,10 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useRef } from 'react';
+
 import Breadcrumbs from 'components/Breadcrumbs';
-import { Container, Content, Title } from './style';
+import ContentBlock from 'components/ContentBlock';
+import Card from 'components/Card';
+
+import { Block, Container, Content, AddBtn, IconAdd, Title } from './style';
 
 const breadcrumbsItems = [
   {
@@ -11,19 +14,53 @@ const breadcrumbsItems = [
   },
 ];
 
+// just for dev and test
+const card = {
+  name: 'Diametro',
+  type: 'Interno',
+};
+
 const WorkGroup: React.FC = () => {
+  const containerRef = useRef<HTMLElement | null>(null);
+
   return (
     <Container>
       <Breadcrumbs items={breadcrumbsItems} />
       <Content>
-        <Title>Grupo de Trabalho</Title>
-        <p>Lista de operação:</p>
-        <br />
-        <ul>
-          <li>
-            <Link to="/operation">Operação</Link>
-          </li>
-        </ul>
+        <Block>
+          <Title>Contornos/Elementos</Title>
+          <ContentBlock ref={containerRef}>
+            <div>
+              <Card content={card} containerRef={containerRef} />
+              <Card content={card} containerRef={containerRef} />
+              <Card content={card} containerRef={containerRef} />
+              <Card content={card} containerRef={containerRef} />
+              <Card content={card} containerRef={containerRef} />
+              <Card content={card} containerRef={containerRef} />
+              <Card content={card} containerRef={containerRef} />
+              <Card content={card} containerRef={containerRef} />
+              <Card content={card} containerRef={containerRef} />
+              <Card content={card} containerRef={containerRef} />
+              <Card content={card} containerRef={containerRef} />
+              <Card content={card} containerRef={containerRef} />
+              <Card content={card} containerRef={containerRef} />
+              <Card content={card} containerRef={containerRef} />
+              <Card content={card} containerRef={containerRef} />
+              <Card content={card} containerRef={containerRef} />
+              <Card content={card} containerRef={containerRef} />
+              <Card content={card} containerRef={containerRef} />
+              <Card content={card} containerRef={containerRef} />
+              <Card content={card} containerRef={containerRef} />
+            </div>
+            <AddBtn>
+              <IconAdd className="icon-add" />
+            </AddBtn>
+          </ContentBlock>
+        </Block>
+        <Block>
+          <Title>Sequência de Execução</Title>
+          {/* <ContentBlock>asd</ContentBlock> */}
+        </Block>
       </Content>
     </Container>
   );
