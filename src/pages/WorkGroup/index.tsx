@@ -4,7 +4,15 @@ import Breadcrumbs from 'components/Breadcrumbs';
 import ContentBlock from 'components/ContentBlock';
 import Card from 'components/Card';
 
-import { Block, Container, Content, AddBtn, IconAdd, Title } from './style';
+import {
+  Block,
+  Container,
+  Content,
+  AddBtn,
+  IconAdd,
+  Title,
+  TextAdd,
+} from './style';
 
 const breadcrumbsItems = [
   {
@@ -31,6 +39,10 @@ const WorkGroup: React.FC = () => {
           <Title>Contornos/Elementos</Title>
           <ContentBlock ref={containerRef}>
             <div>
+              <AddBtn>
+                <IconAdd className="icon-add" />
+                <TextAdd>Adicionar Contorno</TextAdd>
+              </AddBtn>
               <Card content={card} containerRef={containerRef} />
               <Card content={card} containerRef={containerRef} />
               <Card content={card} containerRef={containerRef} />
@@ -52,9 +64,6 @@ const WorkGroup: React.FC = () => {
               <Card content={card} containerRef={containerRef} />
               <Card content={card} containerRef={containerRef} />
             </div>
-            <AddBtn>
-              <IconAdd className="icon-add" />
-            </AddBtn>
           </ContentBlock>
         </Block>
         <Block>
