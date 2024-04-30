@@ -23,9 +23,24 @@ const breadcrumbsItems = [
 ];
 
 // just for dev and test
-const card = {
+const card1 = {
   name: 'Diametro',
   type: 'Interno',
+};
+
+const card2 = {
+  name: 'Diametro DM01',
+  type: 'Externo',
+};
+
+const card3 = {
+  name: 'C01 Contrno',
+  type: 'Externo',
+};
+
+const card4 = {
+  name: 'Nome elemento 01',
+  type: 'Externo',
 };
 
 const WorkGroup: React.FC = () => {
@@ -44,7 +59,32 @@ const WorkGroup: React.FC = () => {
                 <TextAdd>Cadastrar Contorno</TextAdd>
               </AddBtn>
               <Card
-                content={card}
+                content={card1}
+                variation="contour"
+                containerRef={containerRef}
+              />
+              <Card
+                content={card2}
+                variation="contour"
+                containerRef={containerRef}
+              />
+              <Card
+                content={card3}
+                variation="contour"
+                containerRef={containerRef}
+              />
+              <Card
+                content={card4}
+                variation="contour"
+                containerRef={containerRef}
+              />
+              <Card
+                content={card2}
+                variation="contour"
+                containerRef={containerRef}
+              />
+              <Card
+                content={card3}
                 variation="contour"
                 containerRef={containerRef}
               />
@@ -56,7 +96,12 @@ const WorkGroup: React.FC = () => {
           <ContentBlock ref={containerRef}>
             <div>
               <Card
-                content={card}
+                content={card2}
+                variation="operation"
+                containerRef={containerRef}
+              />
+              <Card
+                content={card3}
                 variation="operation"
                 containerRef={containerRef}
               />
