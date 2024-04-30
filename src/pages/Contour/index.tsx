@@ -2,11 +2,11 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { editOperation } from 'state/operations/operationsSlice';
+import { editContour } from 'state/contours/contoursSlice';
 
 import Breadcrumbs from 'components/Breadcrumbs';
 import { XZ_REGEX } from 'constants/constants';
-import { Operations } from 'types/part';
+import { Contours } from 'types/part';
 import { actionParams as actionParamsAux } from 'integration/functions-code';
 import defineActionParams from './defineActionParams';
 
@@ -44,16 +44,16 @@ const breadcrumbsItems = [
     isActive: false,
   },
   {
-    label: 'Operation',
-    url: '/operation',
+    label: 'Contour',
+    url: '/contour',
     isActive: true,
   },
 ];
 
-const Operation: React.FC = () => {
+const Contour: React.FC = () => {
   const dispatch = useDispatch();
   const initialState = useSelector(
-    (state: { operations: Operations }) => state.operations[0],
+    (state: { contours: Contours }) => state.contours[0],
   );
   const [formData, setFormData] = useState({
     ...initialState,
@@ -186,7 +186,7 @@ const Operation: React.FC = () => {
 
   useEffect(() => {
     if (JSON.stringify(formData) !== JSON.stringify(prevFormDataRef.current))
-      dispatch(editOperation({ id: formData.id, changes: formData }));
+      dispatch(editContour({ id: formData.id, changes: formData }));
     prevFormDataRef.current = formData;
   }, [dispatch, formData]);
 
@@ -390,4 +390,4 @@ const Operation: React.FC = () => {
   );
 };
 
-export default Operation;
+export default Contour;

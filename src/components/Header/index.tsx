@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import OSMenu from 'components/OSMenu';
-import { Operations } from 'types/part';
+import { Contours } from 'types/part';
 
 import {
   AppMenu,
@@ -21,8 +21,8 @@ const Header: React.FC = () => {
   const isSaved = useSelector(
     (state: { app: { isSaved: boolean } }) => state.app.isSaved,
   );
-  const operationName = useSelector(
-    (state: { operations: Operations }) => state.operations[0].name,
+  const contourName = useSelector(
+    (state: { contours: Contours }) => state.contours[0].name,
   );
   const showUnsavedHighlight = () => {
     if (!isSaved) return '*';
@@ -44,7 +44,7 @@ const Header: React.FC = () => {
             </MiddleItemHome>
             <MiddleItemPart to="/" isSaved={isSaved}>
               {showUnsavedHighlight()}
-              {operationName}
+              {contourName}
               {showUnsavedHighlight()}
             </MiddleItemPart>
           </Middle>

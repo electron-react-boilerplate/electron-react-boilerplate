@@ -74,7 +74,7 @@ const Card: React.FC<CardProps> = ({ content, variation }) => {
         <Type>{content.type}</Type>
         {variation === 'contour' && (
           <Edit>
-            <LinkStyled to="/operation">
+            <LinkStyled to="/contour">
               <IconEdit className="icon-create" />
             </LinkStyled>
           </Edit>
@@ -95,7 +95,7 @@ const Card: React.FC<CardProps> = ({ content, variation }) => {
           </Menu>
         ) : (
           <Remove>
-            <LinkStyled to="/operation">
+            <LinkStyled to="/contour">
               <IconRemove className="icon-x" />
             </LinkStyled>
           </Remove>

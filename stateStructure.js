@@ -37,7 +37,7 @@
         ]
       }
     ],
-    operations: [
+    contours: [
       {
         id: 1,
         name: 'Operação 1',

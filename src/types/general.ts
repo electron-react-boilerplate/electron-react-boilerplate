@@ -1,7 +1,7 @@
-import { Operations } from 'types/part';
+import { Contours } from 'types/part';
 
 export interface FileObject {
-  data: Operations;
+  data: Contours;
   path: string | undefined;
 }
 

@@ -1,15 +1,15 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Part, OperationItem } from 'types/part';
+import { Part, ContourItem } from 'types/part';
 import { mountGCode } from 'integration/mount-gcode';
 import { MenuContainer, Menu, List, Item, ItemBtn } from './styles';
 
-const generateGCode = (stateValue: OperationItem) => {
+const generateGCode = (stateValue: ContourItem) => {
   window.electron.ipcRenderer.saveGCode(mountGCode(stateValue));
 };
 
 const SideMenu: React.FC = () => {
-  const stateValue = useSelector((state: Part) => state.operations[0]);
+  const stateValue = useSelector((state: Part) => state.contours[0]);
   return (
     <MenuContainer>
       <Menu>

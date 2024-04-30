@@ -1,5 +1,5 @@
 // Types
-export type OperationType = 'Internal' | 'External';
+export type ContourType = 'Internal' | 'External';
 
 // Interfaces
 export interface ActivitiyItem {
@@ -18,17 +18,17 @@ export interface ActivitiyItem {
 
 export interface Activities extends Array<ActivitiyItem> {}
 
-export interface OperationItem {
+export interface ContourItem {
   id: number;
   name: string;
-  type: OperationType;
+  type: ContourType;
   activities: Activities;
 }
 
-export interface Operations extends Array<OperationItem> {}
+export interface Contours extends Array<ContourItem> {}
 
 export interface Part {
   id: number;
   name: string;
-  operations: Operations;
+  contours: Contours;
 }

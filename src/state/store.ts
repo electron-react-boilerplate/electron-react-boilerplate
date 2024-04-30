@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import operationsReducer from './operations/operationsSlice';
+import contoursReducer from './contours/contoursSlice';
 import appReducer from './app/appSlice';
 
 export const store = configureStore({
   reducer: {
-    operations: operationsReducer,
+    contours: contoursReducer,
     app: appReducer,
   },
 });
