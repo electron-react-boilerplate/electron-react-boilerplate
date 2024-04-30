@@ -4,7 +4,7 @@ import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { Contours } from 'types/part';
 import { editApp } from 'state/app/appSlice';
-import { initialState } from 'state/contours/contoursSlice';
+import { initialState } from 'state/part/partSlice';
 
 import Layout from 'components/Layout';
 // Pages

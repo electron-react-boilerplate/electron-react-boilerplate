@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import contoursReducer from './contours/contoursSlice';
+import partsReducer from './part/partSlice';
 import appReducer from './app/appSlice';
 
 export const store = configureStore({
   reducer: {
-    contours: contoursReducer,
+    part: partsReducer,
     app: appReducer,
   },
 });

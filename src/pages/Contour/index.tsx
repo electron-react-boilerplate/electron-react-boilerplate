@@ -2,11 +2,11 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { editContour } from 'state/contours/contoursSlice';
+import { editContour } from 'state/part/partSlice';
 
 import Breadcrumbs from 'components/Breadcrumbs';
 import { XZ_REGEX } from 'constants/constants';
-import { Contours } from 'types/part';
+import { ContourItem, Part } from 'types/part';
 import { actionParams as actionParamsAux } from 'integration/functions-code';
 import defineActionParams from './defineActionParams';
 
@@ -52,14 +52,14 @@ const breadcrumbsItems = [
 
 const Contour: React.FC = () => {
   const dispatch = useDispatch();
-  const initialState = useSelector(
-    (state: { contours: Contours }) => state.contours[0],
+  const initialState: ContourItem = useSelector(
+    (state: { part: Part }) => state.part.contours[0],
   );
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ContourItem>({
     ...initialState,
   });
-  const [isEditingName, setIsEditingName] = useState(false);
-  const prevFormDataRef = useRef(formData);
+  const [isEditingName, setIsEditingName] = useState<boolean>(false);
+  const prevFormDataRef = useRef<ContourItem>(formData);
   const nameInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleChange = (

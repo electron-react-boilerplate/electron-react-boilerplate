@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import OSMenu from 'components/OSMenu';
-import { Contours } from 'types/part';
+import { Part } from 'types/part';
 
 import {
   AppMenu,
@@ -21,9 +21,7 @@ const Header: React.FC = () => {
   const isSaved = useSelector(
     (state: { app: { isSaved: boolean } }) => state.app.isSaved,
   );
-  const contourName = useSelector(
-    (state: { contours: Contours }) => state.contours[0].name,
-  );
+  const contourName = useSelector((state: { part: Part }) => state.part.name);
   const showUnsavedHighlight = () => {
     if (!isSaved) return '*';
     return '';

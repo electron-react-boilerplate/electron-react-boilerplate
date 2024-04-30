@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { replaceContour } from 'state/contours/contoursSlice';
+import { replaceContour } from 'state/part/partSlice';
 import { editApp } from 'state/app/appSlice';
 import { Part, Contours } from 'types/part';
 import { FileObject, SaveObject } from 'types/general';

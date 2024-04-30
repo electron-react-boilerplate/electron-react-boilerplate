@@ -9,7 +9,9 @@ const generateGCode = (stateValue: ContourItem) => {
 };
 
 const SideMenu: React.FC = () => {
-  const stateValue = useSelector((state: Part) => state.contours[0]);
+  const stateValue = useSelector(
+    (state: { part: Part }) => state.part.contours[0],
+  );
   return (
     <MenuContainer>
       <Menu>

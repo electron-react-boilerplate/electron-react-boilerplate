@@ -18,7 +18,9 @@ const breadcrumbsItems = [
 const Preview: React.FC = () => {
   const [gCodePreview, setGCodePreview] = useState<string>('');
 
-  const contours = useSelector((state: Part) => state.contours[0]);
+  const contours = useSelector(
+    (state: { part: Part }) => state.part.contours[0],
+  );
 
   useEffect(() => {
     setGCodePreview(`${mountGCode(contours)}`);
