@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
-import { Contours } from 'types/part';
+import { Part } from 'types/part';
 import { editApp } from 'state/app/appSlice';
 import { initialState } from 'state/part/partSlice';
 
@@ -20,20 +20,18 @@ const App: React.FC = () => {
     (state: { app: { lastSavedFileState: string } }) =>
       state.app.lastSavedFileState,
   );
-  const contours = useSelector(
-    (state: { contours: Contours }) => state.contours,
-  );
+  const part = useSelector((state: { part: Part }) => state.part);
 
   useEffect(() => {
-    if (lastSavedFileState && lastSavedFileState !== JSON.stringify(contours))
+    if (lastSavedFileState && lastSavedFileState !== JSON.stringify(part))
       dispatch(editApp({ isSaved: false }));
     else if (
       !lastSavedFileState &&
-      JSON.stringify(contours) !== JSON.stringify(initialState)
+      JSON.stringify(part) !== JSON.stringify(initialState)
     )
       dispatch(editApp({ isSaved: false }));
     else dispatch(editApp({ isSaved: true }));
-  }, [dispatch, lastSavedFileState, contours]);
+  }, [dispatch, lastSavedFileState, part]);
   return (
     <Router>
       <Layout>
