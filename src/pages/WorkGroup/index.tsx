@@ -41,34 +41,27 @@ const WorkGroup: React.FC = () => {
             <div>
               <AddBtn>
                 <IconAdd className="icon-add" />
-                <TextAdd>Adicionar Contorno</TextAdd>
+                <TextAdd>Cadastrar Contorno</TextAdd>
               </AddBtn>
-              <Card content={card} containerRef={containerRef} />
-              <Card content={card} containerRef={containerRef} />
-              <Card content={card} containerRef={containerRef} />
-              <Card content={card} containerRef={containerRef} />
-              <Card content={card} containerRef={containerRef} />
-              <Card content={card} containerRef={containerRef} />
-              <Card content={card} containerRef={containerRef} />
-              <Card content={card} containerRef={containerRef} />
-              <Card content={card} containerRef={containerRef} />
-              <Card content={card} containerRef={containerRef} />
-              <Card content={card} containerRef={containerRef} />
-              <Card content={card} containerRef={containerRef} />
-              <Card content={card} containerRef={containerRef} />
-              <Card content={card} containerRef={containerRef} />
-              <Card content={card} containerRef={containerRef} />
-              <Card content={card} containerRef={containerRef} />
-              <Card content={card} containerRef={containerRef} />
-              <Card content={card} containerRef={containerRef} />
-              <Card content={card} containerRef={containerRef} />
-              <Card content={card} containerRef={containerRef} />
+              <Card
+                content={card}
+                variation="contour"
+                containerRef={containerRef}
+              />
             </div>
           </ContentBlock>
         </Block>
         <Block>
           <Title>Sequência de Execução</Title>
-          {/* <ContentBlock>asd</ContentBlock> */}
+          <ContentBlock ref={containerRef}>
+            <div>
+              <Card
+                content={card}
+                variation="operation"
+                containerRef={containerRef}
+              />
+            </div>
+          </ContentBlock>
         </Block>
       </Content>
     </Container>

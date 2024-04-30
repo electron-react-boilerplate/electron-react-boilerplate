@@ -2,12 +2,13 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { colors } from 'styles/global.styles';
 
-export const Container = styled.div`
+export const Container = styled.div<{ isActive?: boolean }>`
   background-color: ${colors.white};
   border-bottom: 1px solid ${colors.greyMedium};
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
+  opacity: ${(props) => (props.isActive ? 0.5 : 1)};
 `;
 
 export const ContentLeft = styled.div`
@@ -34,6 +35,22 @@ export const Drag = styled.button`
 
 export const IconDrag = styled.p`
   color: ${colors.greyDark};
+  font-size: 24px;
+`;
+
+export const Toggle = styled.button`
+  position: relative;
+  background: none;
+  border: none;
+  background-color: ${colors.white};
+  margin-right: 12px;
+  cursor: pointer;
+  padding: 0;
+  height: 100%;
+`;
+
+export const IconToggle = styled.p`
+  color: ${colors.green};
   font-size: 24px;
 `;
 
@@ -65,6 +82,21 @@ export const LinkStyled = styled(Link)`
 `;
 
 export const IconEdit = styled.p`
+  color: ${colors.white};
+  font-size: 28px;
+`;
+
+export const Remove = styled.button`
+  background: none;
+  border: none;
+  background-color: ${colors.red};
+  cursor: pointer;
+  height: 100%;
+  width: 48px;
+  text-decoration: none;
+`;
+
+export const IconRemove = styled.p`
   color: ${colors.white};
   font-size: 28px;
 `;
