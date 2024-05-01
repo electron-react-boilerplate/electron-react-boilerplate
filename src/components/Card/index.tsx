@@ -1,5 +1,9 @@
 // Card.tsx
 import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { removeContour } from 'state/part/partSlice';
+
 import { CardProps } from './interface';
 import {
   Container,
@@ -23,6 +27,7 @@ import {
 } from './styles';
 
 const Card: React.FC<CardProps> = ({ content, variation }) => {
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [isCardActive, setIsCardActive] = useState(false);
   const menuRef = useRef<HTMLElement | null>(null);
@@ -33,6 +38,10 @@ const Card: React.FC<CardProps> = ({ content, variation }) => {
 
   const toggleCard = () => {
     setIsCardActive(!isCardActive);
+  };
+
+  const excludeContour = () => {
+    dispatch(removeContour(content.id));
   };
 
   useEffect(() => {
@@ -74,7 +83,7 @@ const Card: React.FC<CardProps> = ({ content, variation }) => {
         <Type>{content.type}</Type>
         {variation === 'contour' && (
           <Edit>
-            <LinkStyled to="/contour">
+            <LinkStyled to={`/contour/${content.id}`}>
               <IconEdit className="icon-create" />
             </LinkStyled>
           </Edit>
@@ -87,9 +96,9 @@ const Card: React.FC<CardProps> = ({ content, variation }) => {
             <IconMenu className="icon-more_vert" />
             {isOpen && (
               <SubMenuDown>
-                <SubButton>Duplicar</SubButton>
-                <SubButton>Renomear</SubButton>
-                <SubButton>Excluir</SubButton>
+                {/* <SubButton>Duplicar</SubButton>
+                <SubButton>Renomear</SubButton> */}
+                <SubButton onClick={() => excludeContour()}>Excluir</SubButton>
               </SubMenuDown>
             )}
           </Menu>

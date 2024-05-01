@@ -1,14 +1,28 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Part, Contours } from 'types/part';
+import { Part, ContourItem, ActivitiyItem } from 'types/part';
 
 interface EditContourPayload {
   id: number;
   changes: Partial<Part>;
 }
 
+const initialActivity: ActivitiyItem = {
+  id: 1,
+  xaxis: '',
+  zaxis: '',
+  fvalue: '',
+  actionCode: '',
+  aParamId: '',
+  aParamValue: null,
+  bParamId: '',
+  bParamValue: null,
+  cParamId: '',
+  cParamValue: null,
+};
+
 export const initialState: Part = {
   id: 1,
-  name: 'Part 1',
+  name: 'Nome da peça (Demo)',
   contours: [
     {
       id: 1,
@@ -37,8 +51,19 @@ const partSlice = createSlice({
   name: 'parts',
   initialState,
   reducers: {
-    replaceContour: (state, action: PayloadAction<Contours>) => {
-      state.contours = action.payload;
+    addContour: (
+      state,
+      action: PayloadAction<Omit<Omit<ContourItem, 'id'>, 'activities'>>,
+    ) => {
+      const maxId = Math.max(...state.contours.map((contour) => contour.id), 0);
+      state.contours.push({
+        ...action.payload,
+        id: maxId + 1,
+        activities: [initialActivity],
+      });
+    },
+    replacePart: (_, action: PayloadAction<Part>) => {
+      return action.payload;
     },
     removeContour: (state, action: PayloadAction<number>) => {
       state.contours = state.contours.filter(
@@ -58,6 +83,7 @@ const partSlice = createSlice({
   },
 });
 
-export const { replaceContour, removeContour, editContour } = partSlice.actions;
+export const { replacePart, removeContour, editContour, addContour } =
+  partSlice.actions;
 
 export default partSlice.reducer;

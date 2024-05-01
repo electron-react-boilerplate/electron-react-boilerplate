@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import { editContour } from 'state/part/partSlice';
 
@@ -50,10 +51,20 @@ const breadcrumbsItems = [
   },
 ];
 
+const defaultValue: ContourItem = {
+  id: 0,
+  name: '',
+  type: 'Internal',
+  activities: [],
+};
+
 const Contour: React.FC = () => {
   const dispatch = useDispatch();
+  const { id } = useParams<{ id: string }>();
   const initialState: ContourItem = useSelector(
-    (state: { part: Part }) => state.part.contours[0],
+    (state: { part: Part }) =>
+      state.part.contours.find((contour) => contour.id === Number(id)) ||
+      defaultValue,
   );
   const [formData, setFormData] = useState<ContourItem>({
     ...initialState,
@@ -202,190 +213,198 @@ const Contour: React.FC = () => {
 
   return (
     <Container>
-      <Breadcrumbs items={breadcrumbsItems} />
-      <Content>
-        <form
-          name="activity-items-table"
-          className="activity-items-table"
-          // onSubmit={handleSubmit}
-        >
-          <TitleContainer>
-            {isEditingName ? (
-              <TitleEdit
-                ref={nameInputRef}
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                style={{ width: `${formData.name.length}ch` }}
-              />
-            ) : (
-              <Title>{formData.name}</Title>
-            )}
-            <TitleEditBtn type="button" onClick={toggleEdit}>
-              {isEditingName ? (
-                <TitleEditIconEdit className="icon-check_circle" />
-              ) : (
-                <TitleEditIconDone className="icon-create" />
-              )}
-            </TitleEditBtn>
-          </TitleContainer>
-          <Block>
-            <TableWrapper>
-              <Table className="table table-ordenation">
-                <TableHead className="table-ordenation head">
-                  <tr>
-                    <TableH />
-                    <TableH />
-                    <TableH>
-                      <HText>X</HText>
-                    </TableH>
-                    <TableH>
-                      <HText>Z</HText>
-                    </TableH>
-                    <TableH>
-                      <HText>F</HText>
-                    </TableH>
-                    <TableH>
-                      <HText>Código</HText>
-                    </TableH>
-                    <TableH />
-                    <TableH colSpan={3}>
-                      <HText>Parâmetros Adicionais</HText>
-                    </TableH>
-                    <TableH />
-                  </tr>
-                </TableHead>
-                <TableBody>
-                  {formData.activities.map((item, index) => (
-                    <tr key={item.id}>
-                      <TableD>
-                        <AddBtn
-                          type="button"
-                          className="icon-add"
-                          onClick={() => handleAdd(index)}
-                        />
-                      </TableD>
-                      <TableD>
-                        <TableIdText>{item.id}</TableIdText>
-                      </TableD>
-                      <TableD>
-                        <TableInputText
-                          className="input is-edit"
-                          type="text"
-                          name="xaxis"
-                          value={item.xaxis}
-                          onChange={(e) => handleChange(e, index)}
-                        />
-                      </TableD>
-                      <TableD>
-                        <TableInputText
-                          className="input is-edit"
-                          type="text"
-                          name="zaxis"
-                          value={item.zaxis}
-                          onChange={(e) => handleChange(e, index)}
-                        />
-                      </TableD>
-                      <TableD>
-                        <TableInputText
-                          className="input is-edit"
-                          type="text"
-                          name="fvalue"
-                          value={item.fvalue}
-                          onChange={(e) => handleChange(e, index)}
-                        />
-                      </TableD>
-                      <TableD>
-                        <TableInputText
-                          className="input is-edit"
-                          type="text"
-                          name="actionCode"
-                          value={item.actionCode}
-                          onChange={(e) => handleChange(e, index)}
-                        />
-                      </TableD>
-                      <TableD>
-                        <TableDivision>|</TableDivision>
-                      </TableD>
-                      {item.aParamValue || item.aParamValue === '' ? (
-                        <TableD>
-                          <TableDContent>
-                            <TableInputLabel>{item.aParamId}</TableInputLabel>
-                            <TableInputTextLabeled
+      {formData.activities ? (
+        <>
+          <Breadcrumbs items={breadcrumbsItems} />
+          <Content>
+            <form name="activity-items-table" className="activity-items-table">
+              <TitleContainer>
+                {isEditingName ? (
+                  <TitleEdit
+                    ref={nameInputRef}
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    style={{ width: `${formData.name.length}ch` }}
+                  />
+                ) : (
+                  <Title>{formData.name}</Title>
+                )}
+                <TitleEditBtn type="button" onClick={toggleEdit}>
+                  {isEditingName ? (
+                    <TitleEditIconEdit className="icon-check_circle" />
+                  ) : (
+                    <TitleEditIconDone className="icon-create" />
+                  )}
+                </TitleEditBtn>
+              </TitleContainer>
+              <Block>
+                <TableWrapper>
+                  <Table className="table table-ordenation">
+                    <TableHead className="table-ordenation head">
+                      <tr>
+                        <TableH />
+                        <TableH />
+                        <TableH>
+                          <HText>X</HText>
+                        </TableH>
+                        <TableH>
+                          <HText>Z</HText>
+                        </TableH>
+                        <TableH>
+                          <HText>F</HText>
+                        </TableH>
+                        <TableH>
+                          <HText>Código</HText>
+                        </TableH>
+                        <TableH />
+                        <TableH colSpan={3}>
+                          <HText>Parâmetros Adicionais</HText>
+                        </TableH>
+                        <TableH />
+                      </tr>
+                    </TableHead>
+                    <TableBody>
+                      {formData.activities.map((item, index) => (
+                        <tr key={item.id}>
+                          <TableD>
+                            <AddBtn
+                              type="button"
+                              className="icon-add"
+                              onClick={() => handleAdd(index)}
+                            />
+                          </TableD>
+                          <TableD>
+                            <TableIdText>{item.id}</TableIdText>
+                          </TableD>
+                          <TableD>
+                            <TableInputText
                               className="input is-edit"
                               type="text"
-                              name="aParamValue"
-                              value={item.aParamValue}
+                              name="xaxis"
+                              value={item.xaxis}
                               onChange={(e) => handleChange(e, index)}
                             />
-                          </TableDContent>
-                        </TableD>
-                      ) : (
-                        <TableD>
-                          <TableDContent>
-                            <TableInputLabel />
-                            <TableInputTextLabeled type="text" disabled />
-                          </TableDContent>
-                        </TableD>
-                      )}
-                      {item.bParamValue || item.bParamValue === '' ? (
-                        <TableD>
-                          <TableDContent>
-                            <TableInputLabel>{item.bParamId}</TableInputLabel>
-                            <TableInputTextLabeled
+                          </TableD>
+                          <TableD>
+                            <TableInputText
                               className="input is-edit"
                               type="text"
-                              name="bParamValue"
-                              value={item.bParamValue}
+                              name="zaxis"
+                              value={item.zaxis}
                               onChange={(e) => handleChange(e, index)}
                             />
-                          </TableDContent>
-                        </TableD>
-                      ) : (
-                        <TableD>
-                          <TableDContent>
-                            <TableInputLabel />
-                            <TableInputTextLabeled type="text" disabled />
-                          </TableDContent>
-                        </TableD>
-                      )}
-                      {item.cParamValue || item.cParamValue === '' ? (
-                        <TableD>
-                          <TableDContent>
-                            <TableInputLabel>{item.cParamId}</TableInputLabel>
-                            <TableInputTextLabeled
+                          </TableD>
+                          <TableD>
+                            <TableInputText
                               className="input is-edit"
                               type="text"
-                              name="cParamValue"
-                              value={item.cParamValue}
+                              name="fvalue"
+                              value={item.fvalue}
                               onChange={(e) => handleChange(e, index)}
                             />
-                          </TableDContent>
-                        </TableD>
-                      ) : (
-                        <TableD>
-                          <TableDContent>
-                            <TableInputLabel />
-                            <TableInputTextLabeled type="text" disabled />
-                          </TableDContent>
-                        </TableD>
-                      )}
-                      <TableD>
-                        <DeleteBtn
-                          type="button"
-                          className="icon-delete"
-                          onClick={handleDelete(index)}
-                        />
-                      </TableD>
-                    </tr>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableWrapper>
-          </Block>
-        </form>
-      </Content>
+                          </TableD>
+                          <TableD>
+                            <TableInputText
+                              className="input is-edit"
+                              type="text"
+                              name="actionCode"
+                              value={item.actionCode}
+                              onChange={(e) => handleChange(e, index)}
+                            />
+                          </TableD>
+                          <TableD>
+                            <TableDivision>|</TableDivision>
+                          </TableD>
+                          {item.aParamValue || item.aParamValue === '' ? (
+                            <TableD>
+                              <TableDContent>
+                                <TableInputLabel>
+                                  {item.aParamId}
+                                </TableInputLabel>
+                                <TableInputTextLabeled
+                                  className="input is-edit"
+                                  type="text"
+                                  name="aParamValue"
+                                  value={item.aParamValue}
+                                  onChange={(e) => handleChange(e, index)}
+                                />
+                              </TableDContent>
+                            </TableD>
+                          ) : (
+                            <TableD>
+                              <TableDContent>
+                                <TableInputLabel />
+                                <TableInputTextLabeled type="text" disabled />
+                              </TableDContent>
+                            </TableD>
+                          )}
+                          {item.bParamValue || item.bParamValue === '' ? (
+                            <TableD>
+                              <TableDContent>
+                                <TableInputLabel>
+                                  {item.bParamId}
+                                </TableInputLabel>
+                                <TableInputTextLabeled
+                                  className="input is-edit"
+                                  type="text"
+                                  name="bParamValue"
+                                  value={item.bParamValue}
+                                  onChange={(e) => handleChange(e, index)}
+                                />
+                              </TableDContent>
+                            </TableD>
+                          ) : (
+                            <TableD>
+                              <TableDContent>
+                                <TableInputLabel />
+                                <TableInputTextLabeled type="text" disabled />
+                              </TableDContent>
+                            </TableD>
+                          )}
+                          {item.cParamValue || item.cParamValue === '' ? (
+                            <TableD>
+                              <TableDContent>
+                                <TableInputLabel>
+                                  {item.cParamId}
+                                </TableInputLabel>
+                                <TableInputTextLabeled
+                                  className="input is-edit"
+                                  type="text"
+                                  name="cParamValue"
+                                  value={item.cParamValue}
+                                  onChange={(e) => handleChange(e, index)}
+                                />
+                              </TableDContent>
+                            </TableD>
+                          ) : (
+                            <TableD>
+                              <TableDContent>
+                                <TableInputLabel />
+                                <TableInputTextLabeled type="text" disabled />
+                              </TableDContent>
+                            </TableD>
+                          )}
+                          <TableD>
+                            <DeleteBtn
+                              type="button"
+                              className="icon-delete"
+                              onClick={handleDelete(index)}
+                            />
+                          </TableD>
+                        </tr>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableWrapper>
+              </Block>
+            </form>
+          </Content>
+        </>
+      ) : (
+        'Página não encontrada'
+      )}
     </Container>
   );
 };

@@ -1,8 +1,13 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 
 import Breadcrumbs from 'components/Breadcrumbs';
 import ContentBlock from 'components/ContentBlock';
 import Card from 'components/Card';
+import Modal from 'components/Modal';
+import ContourForm from 'components/ContourForm';
+
+import { useSelector } from 'react-redux';
+import { Contours } from 'types/part';
 
 import {
   Block,
@@ -22,72 +27,36 @@ const breadcrumbsItems = [
   },
 ];
 
-// just for dev and test
-const card1 = {
-  name: 'Diametro',
-  type: 'Interno',
-};
-
-const card2 = {
-  name: 'Diametro DM01',
-  type: 'Externo',
-};
-
-const card3 = {
-  name: 'C01 Contrno',
-  type: 'Externo',
-};
-
-const card4 = {
-  name: 'Nome elemento 01',
-  type: 'Externo',
-};
-
 const WorkGroup: React.FC = () => {
   const containerRef = useRef<HTMLElement | null>(null);
+  const contours = useSelector(
+    (state: { part: { contours: Contours } }) => state.part.contours,
+  );
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   return (
     <Container>
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <ContourForm action="add" onButtonClick={() => setIsModalOpen(false)} />
+      </Modal>
       <Breadcrumbs items={breadcrumbsItems} />
       <Content>
         <Block>
           <Title>Contornos/Elementos</Title>
           <ContentBlock ref={containerRef}>
             <div>
-              <AddBtn>
+              <AddBtn onClick={() => setIsModalOpen(true)}>
                 <IconAdd className="icon-add" />
                 <TextAdd>Cadastrar Contorno</TextAdd>
               </AddBtn>
-              <Card
-                content={card1}
-                variation="contour"
-                containerRef={containerRef}
-              />
-              <Card
-                content={card2}
-                variation="contour"
-                containerRef={containerRef}
-              />
-              <Card
-                content={card3}
-                variation="contour"
-                containerRef={containerRef}
-              />
-              <Card
-                content={card4}
-                variation="contour"
-                containerRef={containerRef}
-              />
-              <Card
-                content={card2}
-                variation="contour"
-                containerRef={containerRef}
-              />
-              <Card
-                content={card3}
-                variation="contour"
-                containerRef={containerRef}
-              />
+              {contours.map((contour) => (
+                <Card
+                  key={contour.id}
+                  content={contour}
+                  variation="contour"
+                  containerRef={containerRef}
+                />
+              ))}
             </div>
           </ContentBlock>
         </Block>
@@ -95,7 +64,7 @@ const WorkGroup: React.FC = () => {
           <Title>Sequência de Execução</Title>
           <ContentBlock ref={containerRef}>
             <div>
-              <Card
+              {/* <Card
                 content={card2}
                 variation="operation"
                 containerRef={containerRef}
@@ -104,7 +73,7 @@ const WorkGroup: React.FC = () => {
                 content={card3}
                 variation="operation"
                 containerRef={containerRef}
-              />
+              /> */}
             </div>
           </ContentBlock>
         </Block>

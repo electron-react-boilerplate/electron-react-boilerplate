@@ -37,7 +37,7 @@ const App: React.FC = () => {
       <Layout>
         <Routes>
           <Route path="/workgroup" element={<WorkGroup />} />
-          <Route path="/contour" element={<Contour />} />
+          <Route path="/contour/:id" element={<Contour />} />
           <Route path="/preview" element={<Preview />} />
         </Routes>
       </Layout>
