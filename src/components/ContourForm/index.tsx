@@ -6,7 +6,7 @@ import { addContour } from 'state/part/partSlice';
 import { ContourType } from 'types/part';
 
 import { FormProps } from './interface';
-import { Container, Field, Label, Select, Button } from './style';
+import { Container, Field, Label, RadioButton, Button } from './style';
 
 interface addContourPayload {
   name: string;
@@ -64,17 +64,29 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick }) => {
         />
       </Field>
       <Field>
-        <Label>Tipo</Label>
-        <Select
-          name="type"
-          value={formData.type}
-          onChange={handleChange}
-          required
-        >
-          <option value="">Selecione...</option>
-          <option value="Internal">Interno</option>
-          <option value="External">Externo</option>
-        </Select>
+        <Label>Tipo:</Label>
+        <RadioButton>
+          <input
+            type="radio"
+            value="Internal"
+            name="type"
+            onChange={(e) => handleChange(e)}
+            required
+          />
+          <span />
+          Interno
+        </RadioButton>
+        <RadioButton>
+          <input
+            type="radio"
+            value="External"
+            name="type"
+            onChange={(e) => handleChange(e)}
+            required
+          />
+          <span />
+          Externo
+        </RadioButton>
       </Field>
       <Button onClick={handleClick}>Cadastrar</Button>
     </Container>

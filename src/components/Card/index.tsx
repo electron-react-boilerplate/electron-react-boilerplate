@@ -2,7 +2,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { removeContour } from 'state/part/partSlice';
+import Modal from 'components/Modal';
+import ConfirmAction from 'components/ConfirmAction';
+import { addContour, removeContour } from 'state/part/partSlice';
+import { ContourType } from 'types/part';
 
 import { CardProps } from './interface';
 import {
@@ -30,6 +33,7 @@ const Card: React.FC<CardProps> = ({ content, variation }) => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [isCardActive, setIsCardActive] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const menuRef = useRef<HTMLElement | null>(null);
 
   const toggleMenu = () => {
@@ -42,6 +46,16 @@ const Card: React.FC<CardProps> = ({ content, variation }) => {
 
   const excludeContour = () => {
     dispatch(removeContour(content.id));
+  };
+
+  const duplicateContour = () => {
+    dispatch(
+      addContour({
+        ...content,
+        name: `${content.name} (Cópia)`,
+        type: content.type as ContourType,
+      }),
+    );
   };
 
   useEffect(() => {
@@ -64,6 +78,16 @@ const Card: React.FC<CardProps> = ({ content, variation }) => {
 
   return (
     <Container isActive={isCardActive}>
+      <Modal
+        title="Deseja excluir Contorno?"
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      >
+        <ConfirmAction
+          onConfirm={() => excludeContour()}
+          onCancel={() => setIsModalOpen(false)}
+        />
+      </Modal>
       <ContentLeft>
         <Drag>
           <IconDrag className="icon-drag_indicator" />
@@ -96,9 +120,13 @@ const Card: React.FC<CardProps> = ({ content, variation }) => {
             <IconMenu className="icon-more_vert" />
             {isOpen && (
               <SubMenuDown>
-                {/* <SubButton>Duplicar</SubButton>
-                <SubButton>Renomear</SubButton> */}
-                <SubButton onClick={() => excludeContour()}>Excluir</SubButton>
+                <SubButton onClick={() => duplicateContour()}>
+                  Duplicar
+                </SubButton>
+                {/* <SubButton>Renomear</SubButton> */}
+                <SubButton onClick={() => setIsModalOpen(true)}>
+                  Excluir
+                </SubButton>
               </SubMenuDown>
             )}
           </Menu>

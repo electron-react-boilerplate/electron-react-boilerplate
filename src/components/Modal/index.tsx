@@ -11,7 +11,7 @@ import {
   IconClose,
 } from './style';
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title }) => {
   if (!isOpen) {
     return null;
   }
@@ -20,7 +20,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
     <Overlay>
       <ModalContainer>
         <Header>
-          <Title>Cadastrar Contorno</Title>
+          <Title>{title}</Title>
           <CloseButton onClick={onClose}>
             <IconClose className="icon-x" />
           </CloseButton>

@@ -36,7 +36,11 @@ const WorkGroup: React.FC = () => {
 
   return (
     <Container>
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+      <Modal
+        title="Cadastrar Contorno"
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      >
         <ContourForm action="add" onButtonClick={() => setIsModalOpen(false)} />
       </Modal>
       <Breadcrumbs items={breadcrumbsItems} />
