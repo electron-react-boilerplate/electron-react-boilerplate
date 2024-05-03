@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Part, ContourItem } from 'types/part';
 import { mountGCode } from 'integration/mount-gcode';
@@ -12,9 +12,13 @@ const SideMenu: React.FC = () => {
   const stateValue = useSelector(
     (state: { part: Part }) => state.part.contours[0],
   );
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
   return (
     <MenuContainer>
-      <Menu>
+      <Menu className={loaded ? 'loaded' : ''}>
         <List>
           <li>
             <Item to="/workgroup">Grupo de Trabalho</Item>

@@ -4,6 +4,17 @@ import { colors } from 'styles/global.styles';
 
 export const Container = styled.div`
   width: 100%;
+  opacity: 0;
+  transition: all 1s;
+
+  &.loaded {
+    opacity: 1;
+  }
+`;
+
+export const Text = styled.p`
+  color: ${colors.blackLight};
+  text-align: right;
 `;
 
 export const Content = styled(PageContent)`
@@ -12,7 +23,8 @@ export const Content = styled(PageContent)`
   /* opacity: 0.8; */
 
   img {
-    width: auto;
+    height: calc(100vh - 180px);
+    object-fit: cover;
   }
 
   &::after {
@@ -23,9 +35,9 @@ export const Content = styled(PageContent)`
     width: 100%;
     height: 100%;
     background: linear-gradient(
-      to bottom left,
-      rgba(255, 255, 255, 0),
-      rgba(255, 255, 255, 0.7)
+      to bottom,
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 1)
     );
   }
 `;

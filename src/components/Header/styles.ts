@@ -9,6 +9,12 @@ export const AppMenu = styled.div`
   flex-flow: row nowrap;
   align-items: center;
   position: relative;
+  opacity: 0;
+  transition: all 2s;
+
+  &.loaded {
+    opacity: 1;
+  }
 `;
 
 export const Logo = styled.div`

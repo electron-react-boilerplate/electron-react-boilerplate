@@ -14,6 +14,12 @@ export const Menu = styled.nav`
   flex-flow: column nowrap;
   justify-content: space-between;
   height: 100%;
+  opacity: 0;
+  transition: all 2s;
+
+  &.loaded {
+    opacity: 1;
+  }
 `;
 
 export const List = styled.ul`

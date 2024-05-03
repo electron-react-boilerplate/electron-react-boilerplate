@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import OSMenu from 'components/OSMenu';
@@ -26,10 +26,14 @@ const Header: React.FC = () => {
     if (!isSaved) return '*';
     return '';
   };
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
   return (
     <div>
       <OSMenu />
-      <AppMenu>
+      <AppMenu className={loaded ? 'loaded' : ''}>
         <Logo>
           <img src={logo} alt="Logo" />
         </Logo>
