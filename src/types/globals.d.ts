@@ -11,4 +11,7 @@ interface Window {
 
 declare module '*.module.css';
 declare module '*.module.styl';
-declare module 'react-beautiful-dnd';
+declare module '*.png' {
+  const value: any;
+  export default value;
+}

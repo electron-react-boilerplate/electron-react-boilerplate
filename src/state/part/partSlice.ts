@@ -78,6 +78,29 @@ const partSlice = createSlice({
         (id) => id !== action.payload,
       );
     },
+    changeContourPositionOnOperation: (
+      state,
+      action: PayloadAction<{ contourId: number; direction: 'up' | 'down' }>,
+    ) => {
+      const { contourId, direction } = action.payload;
+      const operation = state.operations[0]; // assumindo que você quer modificar a primeira operação
+
+      const index = operation.contoursIds.findIndex((id) => id === contourId);
+      if (index < 0) return;
+
+      if (direction === 'up' && index > 0) {
+        const temp = operation.contoursIds[index];
+        operation.contoursIds[index] = operation.contoursIds[index - 1];
+        operation.contoursIds[index - 1] = temp;
+      } else if (
+        direction === 'down' &&
+        index < operation.contoursIds.length - 1
+      ) {
+        const temp = operation.contoursIds[index];
+        operation.contoursIds[index] = operation.contoursIds[index + 1];
+        operation.contoursIds[index + 1] = temp;
+      }
+    },
     replacePart: (_, action: PayloadAction<Part>) => {
       return action.payload;
     },
@@ -106,6 +129,7 @@ export const {
   addContour,
   addContourToOperation,
   removeContourFromOperation,
+  changeContourPositionOnOperation,
 } = partSlice.actions;
 
 export default partSlice.reducer;

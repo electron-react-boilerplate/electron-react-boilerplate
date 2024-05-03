@@ -12,7 +12,7 @@ export const colors = {
   greyLogo: '#666262',
   greyFont: '#807979',
   greyCodeBg: '#282c34',
-  blue: '#318AF7',
+  blue: '#0069b5',
   blueLight: '#72B2FF',
   blueDark: '#2772CE',
   blueCodeFont: '#6D9CBE',

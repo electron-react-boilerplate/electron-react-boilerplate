@@ -4,11 +4,11 @@ import { useSelector } from 'react-redux';
 import OSMenu from 'components/OSMenu';
 import { Part } from 'types/part';
 
+import logo from '../../../assets/images/zema-logo.png';
+
 import {
   AppMenu,
   Logo,
-  LogoText,
-  LogoTextG,
   Menu,
   Middle,
   MiddleItemHome,
@@ -31,9 +31,7 @@ const Header: React.FC = () => {
       <OSMenu />
       <AppMenu>
         <Logo>
-          <LogoText>
-            <LogoTextG>G</LogoTextG>Zema
-          </LogoText>
+          <img src={logo} alt="Logo" />
         </Logo>
         <Menu>
           <Middle>

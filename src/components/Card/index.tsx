@@ -7,6 +7,7 @@ import ConfirmAction from 'components/ConfirmAction';
 import {
   addContour,
   addContourToOperation,
+  changeContourPositionOnOperation,
   removeContour,
   removeContourFromOperation,
 } from 'state/part/partSlice';
@@ -32,6 +33,9 @@ import {
   IconToggle,
   Remove,
   IconRemove,
+  Up,
+  Down,
+  IconUpDown,
 } from './styles';
 
 const Card: React.FC<CardProps> = ({ content, variation }) => {
@@ -71,6 +75,24 @@ const Card: React.FC<CardProps> = ({ content, variation }) => {
     dispatch(removeContourFromOperation(content.id));
   };
 
+  const handleMoveUp = () => {
+    dispatch(
+      changeContourPositionOnOperation({
+        contourId: content.id,
+        direction: 'up',
+      }),
+    );
+  };
+
+  const handleMoveDown = () => {
+    dispatch(
+      changeContourPositionOnOperation({
+        contourId: content.id,
+        direction: 'down',
+      }),
+    );
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
@@ -106,13 +128,21 @@ const Card: React.FC<CardProps> = ({ content, variation }) => {
           <IconDrag className="icon-drag_indicator" />
         </Drag>
         {variation === 'operation' && (
-          <Toggle onClick={() => toggleCard()}>
-            {isCardActive ? (
-              <IconToggle className="icon-panorama_fisheye" />
-            ) : (
-              <IconToggle className="icon-check_circle" />
-            )}
-          </Toggle>
+          <>
+            <Toggle onClick={() => toggleCard()}>
+              {isCardActive ? (
+                <IconToggle className="icon-panorama_fisheye" />
+              ) : (
+                <IconToggle className="icon-check_circle" />
+              )}
+            </Toggle>
+            <Up onClick={() => handleMoveUp()}>
+              <IconUpDown className="icon-expand_less" />
+            </Up>
+            <Down onClick={() => handleMoveDown()}>
+              <IconUpDown className="icon-expand_more" />
+            </Down>
+          </>
         )}
         <Name>{content.name}</Name>
       </ContentLeft>

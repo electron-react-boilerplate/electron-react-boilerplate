@@ -9,10 +9,11 @@ export const Container = styled.div<{ isActive?: boolean }>`
   flex-flow: row nowrap;
   justify-content: space-between;
   opacity: ${(props) => (props.isActive ? 0.5 : 1)};
+  height: 56px;
 `;
 
 export const ContentLeft = styled.div`
-  padding: 10px 3px;
+  /* padding: 0 3px; */
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -39,19 +40,48 @@ export const IconDrag = styled.p`
 `;
 
 export const Toggle = styled.button`
+  text-align: center;
   position: relative;
   background: none;
   border: none;
   background-color: ${colors.white};
-  margin-right: 12px;
   cursor: pointer;
   padding: 0;
   height: 100%;
+  width: 36px;
 `;
 
 export const IconToggle = styled.p`
   color: ${colors.green};
   font-size: 24px;
+`;
+
+export const Up = styled.button`
+  position: relative;
+  background: none;
+  border: none;
+  background-color: ${colors.white};
+  cursor: pointer;
+  padding: 0;
+  height: 100%;
+  width: 52px;
+`;
+
+export const Down = styled.button`
+  position: relative;
+  background: none;
+  border: none;
+  background-color: ${colors.white};
+  cursor: pointer;
+  padding: 0;
+  height: 100%;
+  width: 52px;
+  margin-right: 12px;
+`;
+
+export const IconUpDown = styled.p`
+  color: ${colors.greyFont};
+  font-size: 28px;
 `;
 
 export const Name = styled.div`
@@ -64,7 +94,7 @@ export const Type = styled.div`
   border: 1px solid ${colors.blue};
   color: ${colors.blue};
   font-weight: strong;
-  margin-right: 8px;
+  margin-right: 16px;
 `;
 
 export const Edit = styled.button`
@@ -73,7 +103,7 @@ export const Edit = styled.button`
   background-color: ${colors.green};
   cursor: pointer;
   height: 100%;
-  width: 48px;
+  width: 56px;
   text-decoration: none;
 `;
 
@@ -108,6 +138,7 @@ export const Menu = styled.button`
   background-color: ${colors.white};
   cursor: pointer;
   height: 100%;
+  width: 56px;
 `;
 
 export const IconMenu = styled.p`
