@@ -7,7 +7,7 @@ import Modal from 'components/Modal';
 import ContourForm from 'components/ContourForm';
 
 import { useSelector } from 'react-redux';
-import { Contours } from 'types/part';
+import { Contours, Operations } from 'types/part';
 
 import {
   Block,
@@ -31,6 +31,9 @@ const WorkGroup: React.FC = () => {
   const containerRef = useRef<HTMLElement | null>(null);
   const contours = useSelector(
     (state: { part: { contours: Contours } }) => state.part.contours,
+  );
+  const operations = useSelector(
+    (state: { part: { operations: Operations } }) => state.part.operations,
   );
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -68,6 +71,23 @@ const WorkGroup: React.FC = () => {
           <Title>Sequência de Execução</Title>
           <ContentBlock ref={containerRef}>
             <div>
+              {operations.map((operation) => {
+                return operation.contoursIds.map((contourId) => {
+                  const contour = contours.find(
+                    // eslint-disable-next-line @typescript-eslint/no-shadow
+                    (contour) => contour.id === contourId,
+                  );
+                  if (!contour) return null;
+                  return (
+                    <Card
+                      key={contourId}
+                      content={contour}
+                      variation="operation"
+                      containerRef={containerRef}
+                    />
+                  );
+                });
+              })}
               {/* <Card
                 content={card2}
                 variation="operation"

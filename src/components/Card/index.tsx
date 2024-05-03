@@ -4,7 +4,12 @@ import { useDispatch } from 'react-redux';
 
 import Modal from 'components/Modal';
 import ConfirmAction from 'components/ConfirmAction';
-import { addContour, removeContour } from 'state/part/partSlice';
+import {
+  addContour,
+  addContourToOperation,
+  removeContour,
+  removeContourFromOperation,
+} from 'state/part/partSlice';
 import { ContourType } from 'types/part';
 
 import { CardProps } from './interface';
@@ -56,6 +61,14 @@ const Card: React.FC<CardProps> = ({ content, variation }) => {
         type: content.type as ContourType,
       }),
     );
+  };
+
+  const addToOperation = () => {
+    dispatch(addContourToOperation(content.id));
+  };
+
+  const removeFromOperation = () => {
+    dispatch(removeContourFromOperation(content.id));
   };
 
   useEffect(() => {
@@ -120,6 +133,9 @@ const Card: React.FC<CardProps> = ({ content, variation }) => {
             <IconMenu className="icon-more_vert" />
             {isOpen && (
               <SubMenuDown>
+                <SubButton onClick={() => addToOperation()}>
+                  Adicionar à Sequência
+                </SubButton>
                 <SubButton onClick={() => duplicateContour()}>
                   Duplicar
                 </SubButton>
@@ -131,10 +147,8 @@ const Card: React.FC<CardProps> = ({ content, variation }) => {
             )}
           </Menu>
         ) : (
-          <Remove>
-            <LinkStyled to="/contour">
-              <IconRemove className="icon-x" />
-            </LinkStyled>
+          <Remove onClick={() => removeFromOperation()}>
+            <IconRemove className="icon-x" />
           </Remove>
         )}
       </ContentRight>

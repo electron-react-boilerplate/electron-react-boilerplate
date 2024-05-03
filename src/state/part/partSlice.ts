@@ -45,6 +45,11 @@ export const initialState: Part = {
       ],
     },
   ],
+  operations: [
+    {
+      contoursIds: [],
+    },
+  ],
 };
 
 const partSlice = createSlice({
@@ -61,6 +66,17 @@ const partSlice = createSlice({
         id: maxId + 1,
         activities: [initialActivity],
       });
+    },
+    // refactor after Demo
+    addContourToOperation: (state, action: PayloadAction<number>) => {
+      if (!state.operations[0].contoursIds.includes(action.payload)) {
+        state.operations[0].contoursIds.push(action.payload);
+      }
+    },
+    removeContourFromOperation: (state, action: PayloadAction<number>) => {
+      state.operations[0].contoursIds = state.operations[0].contoursIds.filter(
+        (id) => id !== action.payload,
+      );
     },
     replacePart: (_, action: PayloadAction<Part>) => {
       return action.payload;
@@ -83,7 +99,13 @@ const partSlice = createSlice({
   },
 });
 
-export const { replacePart, removeContour, editContour, addContour } =
-  partSlice.actions;
+export const {
+  replacePart,
+  removeContour,
+  editContour,
+  addContour,
+  addContourToOperation,
+  removeContourFromOperation,
+} = partSlice.actions;
 
 export default partSlice.reducer;

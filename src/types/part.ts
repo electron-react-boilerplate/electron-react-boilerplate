@@ -27,8 +27,19 @@ export interface ContourItem {
 
 export interface Contours extends Array<ContourItem> {}
 
+export interface OperationItem {
+  // id: number;
+  // name: string;
+  // grindingWheel?: string;
+  // dAngle?: number;
+  contoursIds: number[];
+}
+
+export interface Operations extends Array<OperationItem> {}
+
 export interface Part {
   id: number;
   name: string;
   contours: Contours;
+  operations: Operations;
 }
