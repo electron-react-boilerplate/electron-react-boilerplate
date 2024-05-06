@@ -23,6 +23,7 @@ export const Content = styled(PageContent)`
   /* opacity: 0.8; */
 
   img {
+    width: 100%;
     height: calc(100vh - 180px);
     object-fit: cover;
   }
