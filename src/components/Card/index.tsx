@@ -19,7 +19,6 @@ import {
   ContentLeft,
   ContentRight,
   Edit,
-  IconDrag,
   IconEdit,
   IconMenu,
   Name,
@@ -28,7 +27,6 @@ import {
   SubMenuDown,
   SubButton,
   LinkStyled,
-  Drag,
   Toggle,
   IconToggle,
   Remove,
@@ -36,6 +34,7 @@ import {
   Up,
   Down,
   IconUpDown,
+  UpDownContainer,
 } from './styles';
 
 const Card: React.FC<CardProps> = ({ content, variation }) => {
@@ -124,9 +123,9 @@ const Card: React.FC<CardProps> = ({ content, variation }) => {
         />
       </Modal>
       <ContentLeft>
-        <Drag>
+        {/* <Drag>
           <IconDrag className="icon-drag_indicator" />
-        </Drag>
+        </Drag> */}
         {variation === 'operation' && (
           <>
             <Toggle onClick={() => toggleCard()}>
@@ -136,12 +135,14 @@ const Card: React.FC<CardProps> = ({ content, variation }) => {
                 <IconToggle className="icon-check_circle" />
               )}
             </Toggle>
-            <Up onClick={() => handleMoveUp()}>
-              <IconUpDown className="icon-expand_less" />
-            </Up>
-            <Down onClick={() => handleMoveDown()}>
-              <IconUpDown className="icon-expand_more" />
-            </Down>
+            <UpDownContainer>
+              <Up onClick={() => handleMoveUp()}>
+                <IconUpDown className="icon-expand_less" />
+              </Up>
+              <Down onClick={() => handleMoveDown()}>
+                <IconUpDown className="icon-expand_more" />
+              </Down>
+            </UpDownContainer>
           </>
         )}
         <Name>{content.name}</Name>

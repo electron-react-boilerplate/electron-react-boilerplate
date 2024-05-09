@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { colors } from 'styles/global.styles';
+import { colors, shadows } from 'styles/global.styles';
 
 export const Container = styled.div<{ isActive?: boolean }>`
   background-color: ${colors.white};
@@ -13,7 +13,6 @@ export const Container = styled.div<{ isActive?: boolean }>`
 `;
 
 export const ContentLeft = styled.div`
-  /* padding: 0 3px; */
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -25,13 +24,20 @@ export const ContentRight = styled.div`
   align-items: center;
 `;
 
-export const Drag = styled.button`
+const BaseButton = styled.button`
+  flex-shrink: 0;
   position: relative;
   background: none;
   border: none;
+  cursor: pointer;
+  padding: 0;
+  height: 100%;
+`;
+
+export const Drag = styled(BaseButton)`
   background-color: ${colors.white};
   cursor: grab;
-  height: 100%;
+  width: 36px;
 `;
 
 export const IconDrag = styled.p`
@@ -39,15 +45,9 @@ export const IconDrag = styled.p`
   font-size: 24px;
 `;
 
-export const Toggle = styled.button`
+export const Toggle = styled(BaseButton)`
   text-align: center;
-  position: relative;
-  background: none;
-  border: none;
   background-color: ${colors.white};
-  cursor: pointer;
-  padding: 0;
-  height: 100%;
   width: 36px;
 `;
 
@@ -56,27 +56,22 @@ export const IconToggle = styled.p`
   font-size: 24px;
 `;
 
-export const Up = styled.button`
-  position: relative;
-  background: none;
-  border: none;
-  background-color: ${colors.white};
-  cursor: pointer;
-  padding: 0;
-  height: 100%;
+export const UpDownContainer = styled.div`
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
   width: 52px;
 `;
 
-export const Down = styled.button`
-  position: relative;
-  background: none;
-  border: none;
+export const Up = styled(BaseButton)`
   background-color: ${colors.white};
-  cursor: pointer;
-  padding: 0;
-  height: 100%;
   width: 52px;
-  margin-right: 12px;
+`;
+
+export const Down = styled(BaseButton)`
+  background-color: ${colors.white};
+  width: 52px;
 `;
 
 export const IconUpDown = styled.p`
@@ -97,14 +92,9 @@ export const Type = styled.div`
   margin-right: 16px;
 `;
 
-export const Edit = styled.button`
-  background: none;
-  border: none;
+export const Edit = styled(BaseButton)`
   background-color: ${colors.green};
-  cursor: pointer;
-  height: 100%;
   width: 56px;
-  text-decoration: none;
 `;
 
 export const LinkStyled = styled(Link)`
@@ -116,14 +106,9 @@ export const IconEdit = styled.p`
   font-size: 28px;
 `;
 
-export const Remove = styled.button`
-  background: none;
-  border: none;
+export const Remove = styled(BaseButton)`
   background-color: ${colors.red};
-  cursor: pointer;
-  height: 100%;
-  width: 48px;
-  text-decoration: none;
+  width: 56px;
 `;
 
 export const IconRemove = styled.p`
@@ -131,13 +116,8 @@ export const IconRemove = styled.p`
   font-size: 28px;
 `;
 
-export const Menu = styled.button`
-  position: relative;
-  background: none;
-  border: none;
+export const Menu = styled(BaseButton)`
   background-color: ${colors.white};
-  cursor: pointer;
-  height: 100%;
   width: 56px;
 `;
 
@@ -151,7 +131,6 @@ export const SubMenuDown = styled.nav`
   position: absolute;
   top: 100%;
   right: 0;
-  /* transform: translateY(100%); */
   display: flex;
   flex-flow: column nowrap;
   list-style: none;
@@ -160,7 +139,7 @@ export const SubMenuDown = styled.nav`
   background-color: ${colors.white};
   z-index: 9999;
   border: 1px solid ${colors.greyDark};
-  box-shadow: 0px 5px 8px -3px rgba(0, 0, 0, 0.4);
+  box-shadow: ${shadows.std};
   border-bottom: none;
 `;
 
