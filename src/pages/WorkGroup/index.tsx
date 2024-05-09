@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 
 import Breadcrumbs from 'components/Breadcrumbs';
 import ContentBlock from 'components/ContentBlock';
@@ -28,7 +28,6 @@ const breadcrumbsItems = [
 ];
 
 const WorkGroup: React.FC = () => {
-  const containerRef = useRef<HTMLElement | null>(null);
   const contours = useSelector(
     (state: { part: { contours: Contours } }) => state.part.contours,
   );
@@ -50,26 +49,21 @@ const WorkGroup: React.FC = () => {
       <Content>
         <Block>
           <Title>Contornos/Elementos</Title>
-          <ContentBlock ref={containerRef}>
+          <ContentBlock>
             <div>
               <AddBtn onClick={() => setIsModalOpen(true)}>
                 <IconAdd className="icon-add" />
                 <TextAdd>Cadastrar Contorno</TextAdd>
               </AddBtn>
               {contours.map((contour) => (
-                <Card
-                  key={contour.id}
-                  content={contour}
-                  variation="contour"
-                  containerRef={containerRef}
-                />
+                <Card key={contour.id} content={contour} variation="contour" />
               ))}
             </div>
           </ContentBlock>
         </Block>
         <Block>
           <Title>Sequência de Execução</Title>
-          <ContentBlock ref={containerRef}>
+          <ContentBlock>
             <div>
               {operations.map((operation) => {
                 return operation.contoursIds.map((contourId) => {
@@ -83,21 +77,10 @@ const WorkGroup: React.FC = () => {
                       key={contourId}
                       content={contour}
                       variation="operation"
-                      containerRef={containerRef}
                     />
                   );
                 });
               })}
-              {/* <Card
-                content={card2}
-                variation="operation"
-                containerRef={containerRef}
-              />
-              <Card
-                content={card3}
-                variation="operation"
-                containerRef={containerRef}
-              /> */}
             </div>
           </ContentBlock>
         </Block>

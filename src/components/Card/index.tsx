@@ -35,6 +35,8 @@ import {
   Down,
   IconUpDown,
   UpDownContainer,
+  Drag,
+  IconDrag,
 } from './styles';
 
 const Card: React.FC<CardProps> = ({ content, variation }) => {
@@ -123,9 +125,9 @@ const Card: React.FC<CardProps> = ({ content, variation }) => {
         />
       </Modal>
       <ContentLeft>
-        {/* <Drag>
+        <Drag>
           <IconDrag className="icon-drag_indicator" />
-        </Drag> */}
+        </Drag>
         {variation === 'operation' && (
           <>
             <Toggle onClick={() => toggleCard()}>

@@ -61,17 +61,17 @@ export const UpDownContainer = styled.div`
   flex-flow: column nowrap;
   align-items: center;
   justify-content: center;
-  width: 52px;
+  width: 56px;
 `;
 
 export const Up = styled(BaseButton)`
   background-color: ${colors.white};
-  width: 52px;
+  width: 56px;
 `;
 
 export const Down = styled(BaseButton)`
   background-color: ${colors.white};
-  width: 52px;
+  width: 56px;
 `;
 
 export const IconUpDown = styled.p`
@@ -79,8 +79,9 @@ export const IconUpDown = styled.p`
   font-size: 28px;
 `;
 
-export const Name = styled.div`
+export const Name = styled.div<{ paddingLeft?: boolean }>`
   font-size: 18px;
+  padding-left: ${(props) => (props.paddingLeft ? '16px' : 'none')};
 `;
 
 export const Type = styled.div`

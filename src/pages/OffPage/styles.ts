@@ -20,7 +20,6 @@ export const Text = styled.p`
 export const Content = styled(PageContent)`
   text-align: center;
   position: relative;
-  /* opacity: 0.8; */
 
   img {
     width: 100%;
