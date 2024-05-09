@@ -14,7 +14,7 @@ export const Link = styled(LinkRouter)`
 `;
 
 export const PageTitle = styled.h1`
-  font-size: 34px;
+  font-size: 30px;
   font-weight: bold;
   margin-bottom: 24px;
   color: ${colors.greyFont};
