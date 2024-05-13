@@ -196,7 +196,6 @@ const Card: React.FC<CardProps> = ({ content, variation }) => {
                 <SubButton onClick={() => duplicateContour()}>
                   Duplicar
                 </SubButton>
-                {/* <SubButton>Renomear</SubButton> */}
                 <SubButton onClick={() => setIsModalOpen(true)}>
                   Excluir
                 </SubButton>

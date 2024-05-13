@@ -10,8 +10,6 @@ import { Container, Field, Label, RadioButton, Button } from './style';
 
 const initialFormData: addContourPayload = { name: '', type: '' };
 
-/* Por questões de prazo para a Demo da feira, estou deixando a lógica de adicionar Contorno dentro do
-componente ContourForm. O ideal seria que essa lógica fosse movida para o componente pai, WorkGroup. */
 const ContourForm: React.FC<FormProps> = ({ onButtonClick }) => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState<addContourPayload>({
