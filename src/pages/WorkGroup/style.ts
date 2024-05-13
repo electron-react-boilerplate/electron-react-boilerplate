@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { PageTitle, PageContent } from 'styles/Components';
-import { colors } from 'styles/global.styles';
-// import { colors } from 'styles/global.styles';
+import { colors, measures } from 'styles/global.styles';
 
 export const Container = styled.div`
   height: 100%;
@@ -36,16 +35,11 @@ export const AddBtn = styled.button`
   color: ${colors.white};
   margin-bottom: 15px;
   font-size: 16px;
-  border-radius: 5px;
+  border-radius: ${measures.borderRadius};
 `;
 
 export const TextAdd = styled.p`
   margin-left: 5px;
   line-height: 100%;
   font-size: 18px;
-`;
-
-export const IconAdd = styled.span`
-  font-size: 26px;
-  color: ${colors.white};
 `;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { PageTitle, PageContent, ContentBlock } from 'styles/Components';
-import { colors } from 'styles/global.styles';
+import { colors, measures } from 'styles/global.styles';
 
 export const Container = styled.div`
   width: 100%;
@@ -130,7 +130,7 @@ export const TableInputLabel = styled.label`
   width: 30px;
   line-height: 30px;
   background-color: ${colors.greyMedium};
-  border-radius: 5px 0 0 5px;
+  border-radius: ${measures.borderRadius} 0 0 ${measures.borderRadius};
   color: ${colors.greyLogo};
   padding: 5px;
   height: 100%;
@@ -164,6 +164,6 @@ export const DeleteBtn = styled.button`
   height: 40px;
   padding: 5px 0;
   vertical-align: middle;
-  border-radius: 5px;
+  border-radius: ${measures.borderRadius};
   cursor: pointer;
 `;

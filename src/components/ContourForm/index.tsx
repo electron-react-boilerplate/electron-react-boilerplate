@@ -5,13 +5,8 @@ import InputText from 'components/InputText';
 import { addContour } from 'state/part/partSlice';
 import { ContourType } from 'types/part';
 
-import { FormProps } from './interface';
+import { addContourPayload, FormProps } from './interface';
 import { Container, Field, Label, RadioButton, Button } from './style';
-
-interface addContourPayload {
-  name: string;
-  type: ContourType | string;
-}
 
 const initialFormData: addContourPayload = { name: '', type: '' };
 

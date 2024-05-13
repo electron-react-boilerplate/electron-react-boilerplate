@@ -1,5 +1,8 @@
 import React from 'react';
 
+import Icon from 'components/Icon';
+
+import { colors } from 'styles/global.styles';
 import { ModalProps } from './interface';
 import {
   Overlay,
@@ -8,7 +11,6 @@ import {
   Title,
   Header,
   Content,
-  IconClose,
 } from './style';
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title }) => {
@@ -22,7 +24,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title }) => {
         <Header>
           <Title>{title}</Title>
           <CloseButton onClick={onClose}>
-            <IconClose className="icon-x" />
+            <Icon className="icon-x" color={colors.greyFont} fontSize="30px" />
           </CloseButton>
         </Header>
         <Content>{children}</Content>

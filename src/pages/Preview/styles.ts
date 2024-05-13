@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { PageTitle, PageContent } from 'styles/Components';
-import { colors, shadows } from 'styles/global.styles';
+import { colors, measures, shadows } from 'styles/global.styles';
 
 export const Container = styled.div`
   width: 100%;
@@ -15,12 +15,12 @@ export const CodeBlock = styled.pre`
   background-color: ${colors.greyCodeBg};
   color: ${colors.blueCodeFont};
   width: 100%;
-  height: calc(100vh - 255px);
+  height: calc(100vh - ${measures.contentToHeader});
   padding: 15px 10px;
   box-sizing: border-box;
   box-shadow: ${shadows.std};
   font-family: Consolas, monospace;
   font-size: 16px;
   line-height: 1.3;
-  border-radius: 4px;
+  border-radius: ${measures.borderRadius};
 `;

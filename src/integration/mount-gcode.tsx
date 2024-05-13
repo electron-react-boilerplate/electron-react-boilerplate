@@ -33,7 +33,6 @@ function mountGCodeLine(
   return gCodeLine;
 }
 
-// Vai ter que mudar pra ao inves de receber um ContourItem receber um Part
 function mountGCode(contour: ContourItem) {
   let gCodeOutput: String = '';
   let gCodeTemplate: String = '';

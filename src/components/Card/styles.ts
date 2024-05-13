@@ -40,20 +40,10 @@ export const Drag = styled(BaseButton)`
   width: 36px;
 `;
 
-export const IconDrag = styled.p`
-  color: ${colors.greyDark};
-  font-size: 24px;
-`;
-
 export const Toggle = styled(BaseButton)`
   text-align: center;
   background-color: ${colors.white};
   width: 36px;
-`;
-
-export const IconToggle = styled.p`
-  color: ${colors.green};
-  font-size: 24px;
 `;
 
 export const UpDownContainer = styled.div`
@@ -72,11 +62,6 @@ export const Up = styled(BaseButton)`
 export const Down = styled(BaseButton)`
   background-color: ${colors.white};
   width: 56px;
-`;
-
-export const IconUpDown = styled.p`
-  color: ${colors.greyFont};
-  font-size: 28px;
 `;
 
 export const Name = styled.div<{ paddingLeft?: boolean }>`
@@ -102,29 +87,14 @@ export const LinkStyled = styled(Link)`
   text-decoration: none;
 `;
 
-export const IconEdit = styled.p`
-  color: ${colors.white};
-  font-size: 28px;
-`;
-
 export const Remove = styled(BaseButton)`
   background-color: ${colors.red};
   width: 56px;
 `;
 
-export const IconRemove = styled.p`
-  color: ${colors.white};
-  font-size: 28px;
-`;
-
 export const Menu = styled(BaseButton)`
   background-color: ${colors.white};
   width: 56px;
-`;
-
-export const IconMenu = styled.p`
-  color: ${colors.greyFont};
-  font-size: 24px;
 `;
 
 export const SubMenuDown = styled.nav`

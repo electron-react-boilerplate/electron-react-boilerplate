@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import OSMenu from 'components/OSMenu';
+
+import { Link } from 'styles/Components';
+import { colors } from 'styles/global.styles';
+
 import { Part } from 'types/part';
 
 import logo from '../../../assets/images/zema-logo.png';
@@ -14,14 +18,15 @@ import {
   MiddleItemHome,
   MiddleItemHomeLink,
   MiddleItemPart,
-  Icon,
+  StyledIcon,
 } from './styles';
 
 const Header: React.FC = () => {
   const isSaved = useSelector(
     (state: { app: { isSaved: boolean } }) => state.app.isSaved,
   );
-  const contourName = useSelector((state: { part: Part }) => state.part.name);
+  // Usar nome do arquivo instead
+  const partName = useSelector((state: { part: Part }) => state.part.name);
   const showUnsavedHighlight = () => {
     if (!isSaved) return '*';
     return '';
@@ -44,16 +49,18 @@ const Header: React.FC = () => {
             </MiddleItemHome>
             <MiddleItemPart to="/" isSaved={isSaved}>
               {showUnsavedHighlight()}
-              {contourName}
+              {partName}
               {showUnsavedHighlight()}
             </MiddleItemPart>
           </Middle>
         </Menu>
-        <div>
-          <p>
-            <Icon to="/" className="icon-more_vert" />
-          </p>
-        </div>
+        <Link to="/">
+          <StyledIcon
+            className="icon-more_vert"
+            color={colors.greyFont}
+            fontSize="28px"
+          />
+        </Link>
       </AppMenu>
     </div>
   );

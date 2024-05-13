@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import Modal from 'components/Modal';
 import ConfirmAction from 'components/ConfirmAction';
+import Icon from 'components/Icon';
 import {
   addContour,
   addContourToOperation,
@@ -13,14 +14,13 @@ import {
 } from 'state/part/partSlice';
 import { ContourType } from 'types/part';
 
+import { colors } from 'styles/global.styles';
 import { CardProps } from './interface';
 import {
   Container,
   ContentLeft,
   ContentRight,
   Edit,
-  IconEdit,
-  IconMenu,
   Name,
   Menu,
   Type,
@@ -28,15 +28,11 @@ import {
   SubButton,
   LinkStyled,
   Toggle,
-  IconToggle,
   Remove,
-  IconRemove,
   Up,
   Down,
-  IconUpDown,
   UpDownContainer,
   Drag,
-  IconDrag,
 } from './styles';
 
 const Card: React.FC<CardProps> = ({ content, variation }) => {
@@ -126,23 +122,43 @@ const Card: React.FC<CardProps> = ({ content, variation }) => {
       </Modal>
       <ContentLeft>
         <Drag>
-          <IconDrag className="icon-drag_indicator" />
+          <Icon
+            className="icon-drag_indicator"
+            color={colors.greyDark}
+            fontSize="24px"
+          />
         </Drag>
         {variation === 'operation' && (
           <>
             <Toggle onClick={() => toggleCard()}>
               {isCardActive ? (
-                <IconToggle className="icon-panorama_fisheye" />
+                <Icon
+                  className="icon-panorama_fisheye"
+                  color={colors.green}
+                  fontSize="24px"
+                />
               ) : (
-                <IconToggle className="icon-check_circle" />
+                <Icon
+                  className="icon-check_circle"
+                  color={colors.green}
+                  fontSize="24px"
+                />
               )}
             </Toggle>
             <UpDownContainer>
               <Up onClick={() => handleMoveUp()}>
-                <IconUpDown className="icon-expand_less" />
+                <Icon
+                  className="icon-expand_less"
+                  color={colors.greyFont}
+                  fontSize="28px"
+                />
               </Up>
               <Down onClick={() => handleMoveDown()}>
-                <IconUpDown className="icon-expand_more" />
+                <Icon
+                  className="icon-expand_more"
+                  color={colors.greyFont}
+                  fontSize="28px"
+                />
               </Down>
             </UpDownContainer>
           </>
@@ -154,7 +170,11 @@ const Card: React.FC<CardProps> = ({ content, variation }) => {
         {variation === 'contour' && (
           <Edit>
             <LinkStyled to={`/contour/${content.id}`}>
-              <IconEdit className="icon-create" />
+              <Icon
+                className="icon-create"
+                color={colors.white}
+                fontSize="28px"
+              />
             </LinkStyled>
           </Edit>
         )}
@@ -163,7 +183,11 @@ const Card: React.FC<CardProps> = ({ content, variation }) => {
             ref={menuRef as React.RefObject<HTMLButtonElement>}
             onClick={toggleMenu}
           >
-            <IconMenu className="icon-more_vert" />
+            <Icon
+              className="icon-more_vert"
+              color={colors.greyFont}
+              fontSize="24px"
+            />
             {isOpen && (
               <SubMenuDown>
                 <SubButton onClick={() => addToOperation()}>
@@ -181,7 +205,7 @@ const Card: React.FC<CardProps> = ({ content, variation }) => {
           </Menu>
         ) : (
           <Remove onClick={() => removeFromOperation()}>
-            <IconRemove className="icon-x" />
+            <Icon className="icon-x" color={colors.white} fontSize="28px" />
           </Remove>
         )}
       </ContentRight>

@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+
+import { measures } from 'styles/global.styles';
 import { ButtonProps } from './interface';
 
 export const StyledButton = styled.button<ButtonProps>`
@@ -10,7 +12,7 @@ export const StyledButton = styled.button<ButtonProps>`
   text-decoration: none;
   display: inline-block;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: ${measures.borderRadius};
   width: 100%;
   border: 1px solid ${(props) => props.borderColor};
 `;
