@@ -1,10 +1,13 @@
 // Card.tsx
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import Modal from 'components/Modal';
 import ConfirmAction from 'components/ConfirmAction';
 import Icon from 'components/Icon';
+import MoreMenu from 'components/MoreMenu';
+import { SubMenuItem } from 'components/MoreMenu/interface';
+
 import {
   addContour,
   addContourToOperation,
@@ -12,8 +15,8 @@ import {
   removeContour,
   removeContourFromOperation,
 } from 'state/part/partSlice';
-import { ContourType } from 'types/part';
 
+import { ContourType } from 'types/part';
 import { colors } from 'styles/global.styles';
 import { CardProps } from './interface';
 import {
@@ -22,10 +25,7 @@ import {
   ContentRight,
   Edit,
   Name,
-  Menu,
   Type,
-  SubMenuDown,
-  SubButton,
   LinkStyled,
   Toggle,
   Remove,
@@ -37,14 +37,8 @@ import {
 
 const Card: React.FC<CardProps> = ({ content, variation }) => {
   const dispatch = useDispatch();
-  const [isOpen, setIsOpen] = useState(false);
   const [isCardActive, setIsCardActive] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const menuRef = useRef<HTMLElement | null>(null);
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
 
   const toggleCard = () => {
     setIsCardActive(!isCardActive);
@@ -72,6 +66,12 @@ const Card: React.FC<CardProps> = ({ content, variation }) => {
     dispatch(removeContourFromOperation(content.id));
   };
 
+  const moreMenuItems: SubMenuItem[] = [
+    { name: 'Adicionar à Sequência', action: addToOperation },
+    { name: 'Duplicar', action: duplicateContour },
+    { name: 'Excluir', action: () => setIsModalOpen(true) },
+  ];
+
   const handleMoveUp = () => {
     dispatch(
       changeContourPositionOnOperation({
@@ -89,24 +89,6 @@ const Card: React.FC<CardProps> = ({ content, variation }) => {
       }),
     );
   };
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-
-    if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isOpen]);
 
   return (
     <Container isActive={isCardActive}>
@@ -179,29 +161,7 @@ const Card: React.FC<CardProps> = ({ content, variation }) => {
           </Edit>
         )}
         {variation === 'contour' ? (
-          <Menu
-            ref={menuRef as React.RefObject<HTMLButtonElement>}
-            onClick={toggleMenu}
-          >
-            <Icon
-              className="icon-more_vert"
-              color={colors.greyFont}
-              fontSize="24px"
-            />
-            {isOpen && (
-              <SubMenuDown>
-                <SubButton onClick={() => addToOperation()}>
-                  Adicionar à Sequência
-                </SubButton>
-                <SubButton onClick={() => duplicateContour()}>
-                  Duplicar
-                </SubButton>
-                <SubButton onClick={() => setIsModalOpen(true)}>
-                  Excluir
-                </SubButton>
-              </SubMenuDown>
-            )}
-          </Menu>
+          <MoreMenu submenuItems={moreMenuItems as SubMenuItem[]} />
         ) : (
           <Remove onClick={() => removeFromOperation()}>
             <Icon className="icon-x" color={colors.white} fontSize="28px" />
