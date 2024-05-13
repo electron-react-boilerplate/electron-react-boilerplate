@@ -6,12 +6,21 @@ import Card from 'components/Card';
 import Modal from 'components/Modal';
 import ContourForm from 'components/ContourForm';
 import Icon from 'components/Icon';
+import Button from 'components/Button';
 
 import { useSelector } from 'react-redux';
 import { Contours, Operations } from 'types/part';
 
 import { colors } from 'styles/global.styles';
-import { Block, Container, Content, AddBtn, Title, TextAdd } from './style';
+import {
+  Block,
+  Container,
+  Content,
+  AddBtn,
+  Title,
+  TextAdd,
+  Wrap,
+} from './style';
 
 const breadcrumbsItems = [
   {
@@ -45,13 +54,21 @@ const WorkGroup: React.FC = () => {
           <Title>Contornos/Elementos</Title>
           <ContentBlock>
             <div>
-              <AddBtn onClick={() => setIsModalOpen(true)}>
-                <Icon
-                  className="icon-add"
+              <AddBtn>
+                <Button
+                  onClick={() => setIsModalOpen(true)}
                   color={colors.white}
-                  fontSize="26px"
-                />
-                <TextAdd>Cadastrar Contorno</TextAdd>
+                  bgColor={colors.blue}
+                >
+                  <Wrap>
+                    <Icon
+                      className="icon-add"
+                      color={colors.white}
+                      fontSize="26px"
+                    />
+                    <TextAdd>Cadastrar Contorno</TextAdd>
+                  </Wrap>
+                </Button>
               </AddBtn>
               {contours.map((contour) => (
                 <Card key={contour.id} content={contour} variation="contour" />

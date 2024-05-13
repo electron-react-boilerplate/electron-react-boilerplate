@@ -1,6 +1,6 @@
 import styled from 'styled-components';
+
 import { PageTitle, PageContent } from 'styles/Components';
-import { colors, measures } from 'styles/global.styles';
 
 export const Container = styled.div`
   height: 100%;
@@ -20,22 +20,17 @@ export const Block = styled.div`
   width: 100%;
 `;
 
-export const AddBtn = styled.button`
+export const AddBtn = styled.div`
+  height: 48px;
+  font-size: 16px;
+  margin-bottom: 15px;
+`;
+
+export const Wrap = styled.div`
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   justify-content: center;
-  background: none;
-  border: none;
-  cursor: pointer;
-  height: 48px;
-  width: 100%;
-  text-decoration: none;
-  background-color: ${colors.blue};
-  color: ${colors.white};
-  margin-bottom: 15px;
-  font-size: 16px;
-  border-radius: ${measures.borderRadius};
 `;
 
 export const TextAdd = styled.p`
