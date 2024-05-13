@@ -1,10 +1,13 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+
+import Icon from 'components/Icon';
+
 import { colors } from 'styles/global.styles';
 
 export const MenuContainer = styled.div`
   background-color: ${colors.blue};
-  width: 170px;
+  width: 56px;
   min-height: calc(100vh - 124px);
   flex-shrink: 0;
 `;
@@ -27,14 +30,18 @@ export const List = styled.ul`
   list-style: none;
 `;
 
-export const Item = styled(Link)`
-  display: block;
+export const ListItem = styled.li``;
+
+export const StyledLink = styled(Link)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  height: 56px;
   text-decoration: none;
   text-align: left;
   color: ${colors.white};
   cursor: pointer;
-  line-height: 100%;
-  padding: 15px;
 
   &:hover {
     background-color: ${colors.blueDark};
@@ -59,4 +66,10 @@ export const ItemBtn = styled.button`
     background-color: ${colors.blueDark};
     opacity: 0.6;
   }
+`;
+
+export const StyledIcon = styled(Icon)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
