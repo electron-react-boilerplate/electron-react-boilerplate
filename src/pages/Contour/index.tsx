@@ -7,6 +7,9 @@ import { editContour } from 'state/part/partSlice';
 
 import Breadcrumbs from 'components/Breadcrumbs';
 import GrindingTypeLabel from 'components/GrindingTypeLabel';
+import Modal from 'components/Modal';
+import CodePreview from 'components/CodePreview';
+
 import { StyledIcon } from 'components/SideMenu/styles';
 
 import { XZ_REGEX } from 'constants/constants';
@@ -45,19 +48,6 @@ import {
   BtnText,
 } from './style';
 
-const breadcrumbsItems = [
-  {
-    label: 'Grupo de Trabalho',
-    url: '/workgroup',
-    isActive: false,
-  },
-  {
-    label: 'Contour',
-    url: '/contour',
-    isActive: true,
-  },
-];
-
 const defaultValue: ContourItem = {
   id: 0,
   name: '',
@@ -73,12 +63,26 @@ const Contour: React.FC = () => {
       state.part.contours.find((contour) => contour.id === Number(id)) ||
       defaultValue,
   );
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [formData, setFormData] = useState<ContourItem>({
     ...initialState,
   });
   const [isEditingName, setIsEditingName] = useState<boolean>(false);
   const prevFormDataRef = useRef<ContourItem>(formData);
   const nameInputRef = useRef<HTMLInputElement | null>(null);
+
+  const breadcrumbsItems = [
+    {
+      label: 'Grupo de Trabalho',
+      url: '/workgroup',
+      isActive: false,
+    },
+    {
+      label: `${formData.name}`,
+      url: `/contour/${formData.id}`,
+      isActive: true,
+    },
+  ];
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -220,6 +224,13 @@ const Contour: React.FC = () => {
 
   return (
     <Container>
+      <Modal
+        title={`Code Preview de ${formData.name}`}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      >
+        <CodePreview contourId={formData.id} />
+      </Modal>
       {formData.activities ? (
         <>
           <Breadcrumbs items={breadcrumbsItems} />
@@ -258,7 +269,16 @@ const Contour: React.FC = () => {
                       color={colors.white}
                       fontSize="28px"
                     />
-                    <BtnText>Code Preview</BtnText>
+                    <BtnText
+                      onClick={(
+                        e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+                      ) => {
+                        e.preventDefault();
+                        setIsModalOpen(true);
+                      }}
+                    >
+                      Code Preview
+                    </BtnText>
                   </CodePreviewBtn>
                 </TitleContainer>
               </PageHead>

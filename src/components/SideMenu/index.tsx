@@ -52,15 +52,6 @@ const SideMenu: React.FC = () => {
         </List>
         <List>
           <ListItem>
-            <StyledLink to="/preview">
-              <StyledIcon
-                className="icon-code"
-                color={colors.white}
-                fontSize="28px"
-              />
-            </StyledLink>
-          </ListItem>
-          <ListItem>
             <ItemBtn onClick={() => generateGCode(stateValue)}>
               <StyledIcon
                 className="icon-double_arrow"

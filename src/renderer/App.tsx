@@ -10,7 +10,6 @@ import Layout from 'components/Layout';
 // Pages
 import WorkGroup from 'pages/WorkGroup';
 import Contour from 'pages/Contour';
-import Preview from 'pages/Preview';
 import OffPage from 'pages/OffPage';
 
 import './App.css';
@@ -40,7 +39,6 @@ const App: React.FC = () => {
           <Route path="/" element={<OffPage />} />
           <Route path="/workgroup" element={<WorkGroup />} />
           <Route path="/contour/:id" element={<Contour />} />
-          <Route path="/preview" element={<Preview />} />
         </Routes>
       </Layout>
     </Router>
