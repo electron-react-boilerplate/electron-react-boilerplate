@@ -69,15 +69,6 @@ export const Name = styled.div<{ paddingLeft?: boolean }>`
   padding-left: ${(props) => (props.paddingLeft ? '16px' : 'none')};
 `;
 
-export const Type = styled.div`
-  font-size: 14px;
-  padding: 3px 6px;
-  border: 1px solid ${colors.blue};
-  color: ${colors.blue};
-  font-weight: strong;
-  margin-right: 16px;
-`;
-
 export const Edit = styled(BaseButton)`
   background-color: ${colors.green};
   width: 56px;

@@ -6,8 +6,12 @@ import { useParams } from 'react-router-dom';
 import { editContour } from 'state/part/partSlice';
 
 import Breadcrumbs from 'components/Breadcrumbs';
+import GrindingTypeLabel from 'components/GrindingTypeLabel';
+import { StyledIcon } from 'components/SideMenu/styles';
+
 import { XZ_REGEX } from 'constants/constants';
 import { ContourItem, Part } from 'types/part';
+import { colors } from 'styles/global.styles';
 import { actionParams as actionParamsAux } from 'integration/functions-code';
 import defineActionParams from './defineActionParams';
 
@@ -36,6 +40,9 @@ import {
   TitleEditBtn,
   TitleEditIconEdit,
   TitleEditIconDone,
+  CodePreviewBtn,
+  PageHead,
+  BtnText,
 } from './style';
 
 const breadcrumbsItems = [
@@ -218,27 +225,43 @@ const Contour: React.FC = () => {
           <Breadcrumbs items={breadcrumbsItems} />
           <Content>
             <form name="activity-items-table" className="activity-items-table">
-              <TitleContainer>
-                {isEditingName ? (
-                  <TitleEdit
-                    ref={nameInputRef}
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    style={{ width: `${formData.name.length}ch` }}
-                  />
-                ) : (
-                  <Title>{formData.name}</Title>
-                )}
-                <TitleEditBtn type="button" onClick={toggleEdit}>
+              <PageHead>
+                <TitleContainer>
                   {isEditingName ? (
-                    <TitleEditIconEdit className="icon-check_circle" />
+                    <TitleEdit
+                      ref={nameInputRef}
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      style={{ width: `${formData.name.length}ch` }}
+                    />
                   ) : (
-                    <TitleEditIconDone className="icon-create" />
+                    <Title>{formData.name}</Title>
                   )}
-                </TitleEditBtn>
-              </TitleContainer>
+                  <TitleEditBtn type="button" onClick={toggleEdit}>
+                    {isEditingName ? (
+                      <TitleEditIconEdit className="icon-check_circle" />
+                    ) : (
+                      <TitleEditIconDone className="icon-create" />
+                    )}
+                  </TitleEditBtn>
+                </TitleContainer>
+                <TitleContainer>
+                  <GrindingTypeLabel
+                    contourType={formData.type}
+                    fontSize="14px"
+                  />
+                  <CodePreviewBtn>
+                    <StyledIcon
+                      className="icon-code"
+                      color={colors.white}
+                      fontSize="28px"
+                    />
+                    <BtnText>Code Preview</BtnText>
+                  </CodePreviewBtn>
+                </TitleContainer>
+              </PageHead>
               <Block>
                 <TableWrapper>
                   <Table className="table table-ordenation">

@@ -8,10 +8,18 @@ export const Container = styled.div`
 
 export const Content = styled(PageContent)``;
 
+export const PageHead = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+`;
+
 export const TitleContainer = styled.div`
   display: flex;
   flex-flow: row nowrap;
-  margin-bottom: 24px;
+  align-items: center;
 `;
 
 export const Title = styled(PageTitle)`
@@ -43,6 +51,25 @@ export const TitleEditIconEdit = styled.span`
 export const TitleEditIconDone = styled.span`
   font-size: 24px;
   color: ${colors.greyFont};
+`;
+
+export const CodePreviewBtn = styled.button`
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  align-self: flex-end;
+  background-color: ${colors.blue};
+  color: ${colors.white};
+  border: 0;
+  height: 40px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: ${measures.borderRadius};
+  padding: 0 10px;
+`;
+
+export const BtnText = styled.span`
+  margin-left: 5px;
 `;
 
 export const Block = styled(ContentBlock)`

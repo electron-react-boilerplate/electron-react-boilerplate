@@ -43,7 +43,7 @@ const SideMenu: React.FC = () => {
           <ListItem>
             <StyledLink to="/">
               <StyledIcon
-                className="icon-cube"
+                className="icon-remove_red_eye"
                 color={colors.white}
                 fontSize="28px"
               />

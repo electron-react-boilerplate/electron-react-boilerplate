@@ -6,7 +6,9 @@ import Modal from 'components/Modal';
 import ConfirmAction from 'components/ConfirmAction';
 import Icon from 'components/Icon';
 import MoreMenu from 'components/MoreMenu';
-import { SubMenuItem } from 'components/MoreMenu/interface';
+import GrindingTypeLabel from 'components/GrindingTypeLabel';
+
+import { colors } from 'styles/global.styles';
 
 import {
   addContour,
@@ -15,17 +17,16 @@ import {
   removeContour,
   removeContourFromOperation,
 } from 'state/part/partSlice';
-
 import { ContourType } from 'types/part';
-import { colors } from 'styles/global.styles';
+import { SubMenuItem } from 'components/MoreMenu/interface';
 import { CardProps } from './interface';
+
 import {
   Container,
   ContentLeft,
   ContentRight,
   Edit,
   Name,
-  Type,
   LinkStyled,
   Toggle,
   Remove,
@@ -148,7 +149,10 @@ const Card: React.FC<CardProps> = ({ content, variation }) => {
         <Name>{content.name}</Name>
       </ContentLeft>
       <ContentRight>
-        <Type>{content.type}</Type>
+        <GrindingTypeLabel
+          contourType={content.type as ContourType}
+          fontSize="14px"
+        />
         {variation === 'contour' && (
           <Edit>
             <LinkStyled to={`/contour/${content.id}`}>
