@@ -32,20 +32,38 @@ const SideMenu: React.FC = () => {
       <Menu className={loaded ? 'loaded' : ''}>
         <List>
           <ListItem>
-            <StyledLink to="/workgroup">GT</StyledLink>
+            <StyledLink to="/workgroup">
+              <StyledIcon
+                className="icon-make-group"
+                color={colors.white}
+                fontSize="28px"
+              />
+            </StyledLink>
           </ListItem>
           <ListItem>
-            <StyledLink to="/">VZ</StyledLink>
+            <StyledLink to="/">
+              <StyledIcon
+                className="icon-cube"
+                color={colors.white}
+                fontSize="28px"
+              />
+            </StyledLink>
           </ListItem>
         </List>
         <List>
           <ListItem>
-            <StyledLink to="/preview">PR</StyledLink>
+            <StyledLink to="/preview">
+              <StyledIcon
+                className="icon-code"
+                color={colors.white}
+                fontSize="28px"
+              />
+            </StyledLink>
           </ListItem>
           <ListItem>
             <ItemBtn onClick={() => generateGCode(stateValue)}>
               <StyledIcon
-                className="icon-file_upload"
+                className="icon-double_arrow"
                 color={colors.white}
                 fontSize="28px"
               />

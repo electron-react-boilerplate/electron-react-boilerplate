@@ -141,7 +141,6 @@ table {
   font-style: normal;
   font-display: block;
 }
-
 [class^='icon-'],
 [class*=' icon-'] {
   /* use !important to prevent issues with browser extensions that change fonts */
@@ -158,8 +157,23 @@ table {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-cube:before {
+  content: '\e909';
+}
+.icon-3d:before {
+  content: '\e909';
+}
+.icon-box:before {
+  content: '\e909';
+}
+.icon-make-group:before {
+  content: '\e90f';
+}
 .icon-x:before {
   content: '\e900';
+}
+.icon-play_arrow:before {
+  content: '\e910';
 }
 .icon-add:before {
   content: '\e90e';
@@ -179,6 +193,9 @@ table {
 .icon-panorama_fisheye:before {
   content: '\e903';
 }
+.icon-remove_red_eye:before {
+  content: '\e913';
+}
 .icon-expand_less:before {
   content: '\e904';
 }
@@ -191,12 +208,21 @@ table {
 .icon-check_circle:before {
   content: '\e907';
 }
+.icon-code:before {
+  content: '\e912';
+}
 .icon-delete:before {
   content: '\e908';
+}
+.icon-visibility_off:before {
+  content: '\e914';
 }
 .icon-drag_indicator:before {
   content: '\e90a';
 }
 .icon-drive_file_rename_outline:before {
   content: '\e90b';
+}
+.icon-double_arrow:before {
+  content: '\e915';
 }
