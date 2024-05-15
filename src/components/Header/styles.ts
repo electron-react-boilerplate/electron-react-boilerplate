@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+
+import Icon from 'components/Icon';
+
 import { colors } from 'styles/global.styles';
 import { Link } from 'styles/Components';
 
@@ -9,6 +12,12 @@ export const AppMenu = styled.div`
   flex-flow: row nowrap;
   align-items: center;
   position: relative;
+  opacity: 0;
+  transition: all 2s;
+
+  &.loaded {
+    opacity: 1;
+  }
 `;
 
 export const Logo = styled.div`
@@ -66,7 +75,8 @@ export const MiddleItemPart = styled(Link)<{ isSaved: boolean }>`
   transform: translateX(-50%);
 `;
 
-export const Icon = styled(Link)`
-  color: ${colors.greyFont};
-  font-size: 28px;
+export const StyledIcon = styled(Icon)`
+  &:hover {
+    color: ${colors.blue};
+  }
 `;

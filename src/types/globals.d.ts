@@ -11,3 +11,5 @@ interface Window {
 
 declare module '*.module.css';
 declare module '*.module.styl';
+declare module '*.jpg';
+declare module '*.png';

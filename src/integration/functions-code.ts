@@ -8,7 +8,7 @@ import {
   FROM_1_TO_10_REGEX,
   FROM_1_TO_9999_REGEX,
 } from 'constants/constants';
-import { auxActionParamsCode } from 'pages/Operation/interface';
+import { auxActionParamsCode } from 'pages/Contour/interface';
 
 export const actionParams: auxActionParamsCode[] = [
   {

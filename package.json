@@ -1,5 +1,7 @@
 {
-  "description": "A foundation for scalable desktop apps",
+  "name": "GZema",
+  "version": "1.2.2",
+  "description": "",
   "keywords": [
     "electron",
     "boilerplate",
@@ -183,7 +185,6 @@
   },
   "build": {
     "productName": "GZema",
-    "version": "1.0.0",
     "appId": "org.erb.GZema",
     "asar": true,
     "asarUnpack": "**\\*.{node,dll}",

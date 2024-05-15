@@ -1,7 +1,7 @@
 import { Link as LinkRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { colors } from 'styles/global.styles';
+import { colors, measures, shadows } from 'styles/global.styles';
 
 export const Link = styled(LinkRouter)`
   text-decoration: none;
@@ -14,7 +14,7 @@ export const Link = styled(LinkRouter)`
 `;
 
 export const PageTitle = styled.h1`
-  font-size: 34px;
+  font-size: 30px;
   font-weight: bold;
   margin-bottom: 24px;
   color: ${colors.greyFont};
@@ -28,9 +28,9 @@ export const ContentBlock = styled.div`
   overflow-y: auto;
   background-color: ${colors.grey};
   width: 100%;
-  max-height: calc(100vh - 255px);
+  max-height: calc(100vh - ${measures.contentToHeader});
   padding: 15px 10px;
   box-sizing: border-box;
-  box-shadow: 0px 5px 8px -3px rgba(0, 0, 0, 0.4);
-  border-radius: 4px;
+  box-shadow: ${shadows.std};
+  border-radius: ${measures.borderRadius};
 `;

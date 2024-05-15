@@ -3,9 +3,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { replaceOperation } from 'state/operations/operationsSlice';
+import { replacePart } from 'state/part/partSlice';
 import { editApp } from 'state/app/appSlice';
-import { Part, Operations } from 'types/part';
+import { Part } from 'types/part';
 import { FileObject, SaveObject } from 'types/general';
 import { App } from 'types/app';
 import { isElectron } from 'constants/constants';
@@ -27,7 +27,7 @@ const OSMenu: React.FC = () => {
   const lastFilePath = useSelector(
     (state: { app: App }) => state.app.lastFilePathSaved,
   );
-  const operationState = useSelector((state: Part) => state.operations);
+  const partState = useSelector((state: { part: Part }) => state.part);
   const dispatch = useDispatch();
 
   const toggleMenu = () => {
@@ -73,7 +73,8 @@ const OSMenu: React.FC = () => {
       }
 
       if (file) {
-        dispatch(replaceOperation((file as FileObject).data));
+        // refactor later maybe
+        dispatch(replacePart((file as FileObject).data as unknown as Part));
         dispatch(
           editApp({
             isSaved: true,
@@ -89,7 +90,7 @@ const OSMenu: React.FC = () => {
   };
 
   // change type to Part in the future
-  const saveFileAs = async (data: Operations) => {
+  const saveFileAs = async (data: Part) => {
     try {
       let filePath: string | undefined;
       if (isElectron())
@@ -101,7 +102,7 @@ const OSMenu: React.FC = () => {
           editApp({
             isSaved: true,
             lastFilePathSaved: filePath,
-            lastSavedFileState: JSON.stringify(operationState),
+            lastSavedFileState: JSON.stringify(partState),
           }),
         );
       }
@@ -112,7 +113,7 @@ const OSMenu: React.FC = () => {
   };
 
   // change type to Part in the future
-  const saveFile = async (data: Operations) => {
+  const saveFile = async (data: Part) => {
     if (lastFilePath) {
       try {
         let saveObj: SaveObject = {
@@ -142,8 +143,8 @@ const OSMenu: React.FC = () => {
   // eslint-disable-next-line consistent-return
   useEffect(() => {
     const handleShortcutO = () => openFile();
-    const handleShortcutS = () => saveFile(operationState);
-    const handleShortcutShiftS = () => saveFileAs(operationState);
+    const handleShortcutS = () => saveFile(partState);
+    const handleShortcutShiftS = () => saveFileAs(partState);
 
     if (isElectron()) {
       window.electron.ipcRenderer.on('shortcut-pressed-o', handleShortcutO);
@@ -203,10 +204,10 @@ const OSMenu: React.FC = () => {
               <SubButton onClick={() => openFile()}>
                 Abrir<SubButtonLabel>Ctrl + O</SubButtonLabel>
               </SubButton>
-              <SubButton onClick={() => saveFile(operationState)}>
+              <SubButton onClick={() => saveFile(partState)}>
                 Salvar<SubButtonLabel>Ctrl + S</SubButtonLabel>
               </SubButton>
-              <SubButton onClick={() => saveFileAs(operationState)}>
+              <SubButton onClick={() => saveFileAs(partState)}>
                 Salvar como...<SubButtonLabel>Ctrl + Shift + N</SubButtonLabel>
               </SubButton>
               <Hr />

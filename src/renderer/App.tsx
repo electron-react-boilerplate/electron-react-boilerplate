@@ -2,15 +2,15 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
-import { Operations } from 'types/part';
+import { Part } from 'types/part';
 import { editApp } from 'state/app/appSlice';
-import { initialState } from 'state/operations/operationsSlice';
+import { initialState } from 'state/part/partSlice';
 
 import Layout from 'components/Layout';
 // Pages
 import WorkGroup from 'pages/WorkGroup';
-import Operation from 'pages/Operation';
-import Preview from 'pages/Preview';
+import Contour from 'pages/Contour';
+import OffPage from 'pages/OffPage';
 
 import './App.css';
 
@@ -20,27 +20,25 @@ const App: React.FC = () => {
     (state: { app: { lastSavedFileState: string } }) =>
       state.app.lastSavedFileState,
   );
-  const operations = useSelector(
-    (state: { operations: Operations }) => state.operations,
-  );
+  const part = useSelector((state: { part: Part }) => state.part);
 
   useEffect(() => {
-    if (lastSavedFileState && lastSavedFileState !== JSON.stringify(operations))
+    if (lastSavedFileState && lastSavedFileState !== JSON.stringify(part))
       dispatch(editApp({ isSaved: false }));
     else if (
       !lastSavedFileState &&
-      JSON.stringify(operations) !== JSON.stringify(initialState)
+      JSON.stringify(part) !== JSON.stringify(initialState)
     )
       dispatch(editApp({ isSaved: false }));
     else dispatch(editApp({ isSaved: true }));
-  }, [dispatch, lastSavedFileState, operations]);
+  }, [dispatch, lastSavedFileState, part]);
   return (
     <Router>
       <Layout>
         <Routes>
+          <Route path="/" element={<OffPage />} />
           <Route path="/workgroup" element={<WorkGroup />} />
-          <Route path="/operation" element={<Operation />} />
-          <Route path="/preview" element={<Preview />} />
+          <Route path="/contour/:id" element={<Contour />} />
         </Routes>
       </Layout>
     </Router>

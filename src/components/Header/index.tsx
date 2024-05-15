@@ -1,41 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import OSMenu from 'components/OSMenu';
-import { Operations } from 'types/part';
+
+import { Link } from 'styles/Components';
+import { colors } from 'styles/global.styles';
+
+import { Part } from 'types/part';
+
+import logo from '../../../assets/images/zema-logo.png';
 
 import {
   AppMenu,
   Logo,
-  LogoText,
-  LogoTextG,
   Menu,
   Middle,
   MiddleItemHome,
   MiddleItemHomeLink,
   MiddleItemPart,
-  Icon,
+  StyledIcon,
 } from './styles';
 
 const Header: React.FC = () => {
   const isSaved = useSelector(
     (state: { app: { isSaved: boolean } }) => state.app.isSaved,
   );
-  const operationName = useSelector(
-    (state: { operations: Operations }) => state.operations[0].name,
-  );
+  // Usar nome do arquivo instead
+  const partName = useSelector((state: { part: Part }) => state.part.name);
   const showUnsavedHighlight = () => {
     if (!isSaved) return '*';
     return '';
   };
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
   return (
     <div>
       <OSMenu />
-      <AppMenu>
+      <AppMenu className={loaded ? 'loaded' : ''}>
         <Logo>
-          <LogoText>
-            <LogoTextG>G</LogoTextG>Zema
-          </LogoText>
+          <img src={logo} alt="Logo" />
         </Logo>
         <Menu>
           <Middle>
@@ -44,16 +49,18 @@ const Header: React.FC = () => {
             </MiddleItemHome>
             <MiddleItemPart to="/" isSaved={isSaved}>
               {showUnsavedHighlight()}
-              {operationName}
+              {partName}
               {showUnsavedHighlight()}
             </MiddleItemPart>
           </Middle>
         </Menu>
-        <div>
-          <p>
-            <Icon to="/" className="icon-more_vert" />
-          </p>
-        </div>
+        <Link to="/">
+          <StyledIcon
+            className="icon-more_vert"
+            color={colors.greyFont}
+            fontSize="28px"
+          />
+        </Link>
       </AppMenu>
     </div>
   );
