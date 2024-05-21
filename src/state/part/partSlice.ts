@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Part, ContourItem, ActivitiyItem } from 'types/part';
+import { Part, ContourItem, ActivitiyItem, OperationItem } from 'types/part';
 
 interface EditContourPayload {
   id: number;
@@ -47,6 +47,9 @@ export const initialState: Part = {
   ],
   operations: [
     {
+      id: 1,
+      grindingWheel: 'Rebolo',
+      name: 'Test',
       contoursIds: [],
     },
   ],
@@ -65,6 +68,20 @@ const partSlice = createSlice({
         ...action.payload,
         id: maxId + 1,
         activities: [initialActivity],
+      });
+    },
+    addOperation: (
+      state,
+      action: PayloadAction<Omit<Omit<OperationItem, 'id'>, 'contoursIds'>>,
+    ) => {
+      const maxId = Math.max(
+        ...state.operations.map((operation) => operation.id),
+        0,
+      );
+      state.operations.push({
+        ...action.payload,
+        id: maxId + 1,
+        contoursIds: [],
       });
     },
     // refactor after Demo
@@ -127,6 +144,7 @@ export const {
   removeContour,
   editContour,
   addContour,
+  addOperation,
   addContourToOperation,
   removeContourFromOperation,
   changeContourPositionOnOperation,

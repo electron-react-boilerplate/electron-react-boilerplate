@@ -11,7 +11,7 @@ export const Content = styled(PageContent)`
   flex-flow: row nowrap;
   gap: 18px;
   height: 100%;
-  max-height: calc(100vh - 190px);
+  max-height: calc(100vh - 308px);
 `;
 
 export const Title = styled(PageTitle)``;

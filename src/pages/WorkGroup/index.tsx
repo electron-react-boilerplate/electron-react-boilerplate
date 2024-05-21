@@ -7,6 +7,7 @@ import Modal from 'components/Modal';
 import ContourForm from 'components/ContourForm';
 import Icon from 'components/Icon';
 import Button from 'components/Button';
+import AddOperationForm from 'components/AddOperationForm';
 
 import { useSelector } from 'react-redux';
 import { Contours, Operations } from 'types/part';
@@ -37,39 +38,54 @@ const WorkGroup: React.FC = () => {
   const operations = useSelector(
     (state: { part: { operations: Operations } }) => state.part.operations,
   );
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isModalContourOpen, setIsModalContourOpen] = useState<boolean>(false);
+  const [isModalOperationOpen, setIsModalOperationOpen] =
+    useState<boolean>(false);
 
   return (
     <Container>
       <Modal
         title="Cadastrar Contorno"
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        isOpen={isModalContourOpen}
+        onClose={() => setIsModalContourOpen(false)}
       >
-        <ContourForm action="add" onButtonClick={() => setIsModalOpen(false)} />
+        <ContourForm
+          action="add"
+          onButtonClick={() => setIsModalContourOpen(false)}
+        />
+      </Modal>
+      <Modal
+        title="Adicionar Operação"
+        isOpen={isModalOperationOpen}
+        onClose={() => setIsModalOperationOpen(false)}
+      >
+        <AddOperationForm
+          // action="add"
+          onButtonClick={() => setIsModalOperationOpen(false)}
+        />
       </Modal>
       <Breadcrumbs items={breadcrumbsItems} />
       <Content>
         <Block>
           <Title>Contornos/Elementos</Title>
+          <AddBtn>
+            <Button
+              onClick={() => setIsModalContourOpen(true)}
+              color={colors.white}
+              bgColor={colors.green}
+            >
+              <Wrap>
+                <Icon
+                  className="icon-add"
+                  color={colors.white}
+                  fontSize="26px"
+                />
+                <TextAdd>Cadastrar Contorno</TextAdd>
+              </Wrap>
+            </Button>
+          </AddBtn>
           <ContentBlock>
             <div>
-              <AddBtn>
-                <Button
-                  onClick={() => setIsModalOpen(true)}
-                  color={colors.white}
-                  bgColor={colors.blue}
-                >
-                  <Wrap>
-                    <Icon
-                      className="icon-add"
-                      color={colors.white}
-                      fontSize="26px"
-                    />
-                    <TextAdd>Cadastrar Contorno</TextAdd>
-                  </Wrap>
-                </Button>
-              </AddBtn>
               {contours.map((contour) => (
                 <Card key={contour.id} content={contour} variation="contour" />
               ))}
@@ -78,26 +94,45 @@ const WorkGroup: React.FC = () => {
         </Block>
         <Block>
           <Title>Sequência de Execução</Title>
-          <ContentBlock>
-            <div>
-              {operations.map((operation) => {
-                return operation.contoursIds.map((contourId) => {
-                  const contour = contours.find(
-                    // eslint-disable-next-line @typescript-eslint/no-shadow
-                    (contour) => contour.id === contourId,
-                  );
-                  if (!contour) return null;
-                  return (
-                    <Card
-                      key={contourId}
-                      content={contour}
-                      variation="operation"
-                    />
-                  );
-                });
-              })}
-            </div>
-          </ContentBlock>
+          <AddBtn>
+            <Button
+              onClick={() => setIsModalOperationOpen(true)}
+              color={colors.white}
+              bgColor={colors.blue}
+            >
+              <Wrap>
+                <Icon
+                  className="icon-add"
+                  color={colors.white}
+                  fontSize="26px"
+                />
+                <TextAdd>Adicionar Operação</TextAdd>
+              </Wrap>
+            </Button>
+          </AddBtn>
+          <div>
+            {operations.map((operation) => {
+              return (
+                <ContentBlock key={operation.id}>
+                  <h3>{operation.name}</h3>
+                  {operation.contoursIds.map((contourId) => {
+                    const contour = contours.find(
+                      // eslint-disable-next-line @typescript-eslint/no-shadow
+                      (contour) => contour.id === contourId,
+                    );
+                    if (!contour) return null;
+                    return (
+                      <Card
+                        key={contourId}
+                        content={contour}
+                        variation="operation"
+                      />
+                    );
+                  })}
+                </ContentBlock>
+              );
+            })}
+          </div>
         </Block>
       </Content>
     </Container>
