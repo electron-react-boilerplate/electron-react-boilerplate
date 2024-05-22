@@ -85,15 +85,32 @@ const partSlice = createSlice({
       });
     },
     // refactor after Demo
-    addContourToOperation: (state, action: PayloadAction<number>) => {
-      if (!state.operations[0].contoursIds.includes(action.payload)) {
-        state.operations[0].contoursIds.push(action.payload);
+    addContourToOperation: (
+      state,
+      action: PayloadAction<{ operationId: number; contourId: number }>,
+    ) => {
+      const operation = state.operations.find(
+        (op) => op.id === action.payload.operationId,
+      );
+      if (
+        operation &&
+        !operation.contoursIds.includes(action.payload.contourId)
+      ) {
+        operation.contoursIds.push(action.payload.contourId);
       }
     },
-    removeContourFromOperation: (state, action: PayloadAction<number>) => {
-      state.operations[0].contoursIds = state.operations[0].contoursIds.filter(
-        (id) => id !== action.payload,
+    removeContourFromOperation: (
+      state,
+      action: PayloadAction<{ operationId: number; contourId: number }>,
+    ) => {
+      const operation = state.operations.find(
+        (op) => op.id === action.payload.operationId,
       );
+      if (operation) {
+        operation.contoursIds = operation.contoursIds.filter(
+          (id) => id !== action.payload.contourId,
+        );
+      }
     },
     changeContourPositionOnOperation: (
       state,

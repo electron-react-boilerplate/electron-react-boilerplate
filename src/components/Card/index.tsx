@@ -1,6 +1,6 @@
 // Card.tsx
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Modal from 'components/Modal';
 import ConfirmAction from 'components/ConfirmAction';
@@ -15,9 +15,8 @@ import {
   addContourToOperation,
   changeContourPositionOnOperation,
   removeContour,
-  removeContourFromOperation,
 } from 'state/part/partSlice';
-import { ContourType } from 'types/part';
+import { ContourType, Operations } from 'types/part';
 import { MenuItem } from 'components/MoreMenu/interface';
 import { CardProps } from './interface';
 
@@ -36,8 +35,15 @@ import {
   Drag,
 } from './styles';
 
-const Card: React.FC<CardProps> = ({ content, variation }) => {
+const Card: React.FC<CardProps> = ({
+  content,
+  variation,
+  removeFromOperation,
+}) => {
   const dispatch = useDispatch();
+  const operations = useSelector(
+    (state: { part: { operations: Operations } }) => state.part.operations,
+  );
   const [isCardActive, setIsCardActive] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -59,16 +65,20 @@ const Card: React.FC<CardProps> = ({ content, variation }) => {
     );
   };
 
-  const addToOperation = () => {
-    dispatch(addContourToOperation(content.id));
-  };
-
-  const removeFromOperation = () => {
-    dispatch(removeContourFromOperation(content.id));
-  };
-
   const moreMenuItems: MenuItem[] = [
-    { name: 'Adicionar à Sequência', action: addToOperation },
+    {
+      name: 'Adicionar à Sequência',
+      subItems: operations.map((operation) => ({
+        name: operation.name,
+        action: () =>
+          dispatch(
+            addContourToOperation({
+              operationId: operation.id,
+              contourId: content.id,
+            }),
+          ),
+      })),
+    },
     { name: 'Duplicar', action: duplicateContour },
     { name: 'Excluir', action: () => setIsModalOpen(true) },
   ];
@@ -167,7 +177,7 @@ const Card: React.FC<CardProps> = ({ content, variation }) => {
         {variation === 'contour' ? (
           <MoreMenu menuItems={moreMenuItems as MenuItem[]} />
         ) : (
-          <Remove onClick={() => removeFromOperation()}>
+          <Remove onClick={removeFromOperation}>
             <Icon className="icon-x" color={colors.white} fontSize="28px" />
           </Remove>
         )}

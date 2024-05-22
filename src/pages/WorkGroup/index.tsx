@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Breadcrumbs from 'components/Breadcrumbs';
-import ContentBlock from 'components/ContentBlock';
 import Card from 'components/Card';
 import Modal from 'components/Modal';
 import ContourForm from 'components/ContourForm';
@@ -9,7 +9,8 @@ import Icon from 'components/Icon';
 import Button from 'components/Button';
 import AddOperationForm from 'components/AddOperationForm';
 
-import { useSelector } from 'react-redux';
+import { removeContourFromOperation } from 'state/part/partSlice';
+
 import { Contours, Operations } from 'types/part';
 
 import { colors } from 'styles/global.styles';
@@ -22,6 +23,7 @@ import {
   TextAdd,
   Wrap,
   OperationsWrapper,
+  CContentBlock,
   SContentBlock,
 } from './style';
 
@@ -34,6 +36,7 @@ const breadcrumbsItems = [
 ];
 
 const WorkGroup: React.FC = () => {
+  const dispatch = useDispatch();
   const contours = useSelector(
     (state: { part: { contours: Contours } }) => state.part.contours,
   );
@@ -43,6 +46,15 @@ const WorkGroup: React.FC = () => {
   const [isModalContourOpen, setIsModalContourOpen] = useState<boolean>(false);
   const [isModalOperationOpen, setIsModalOperationOpen] =
     useState<boolean>(false);
+
+  const removeFromOperation = (operationId: number, contourId: number) => {
+    dispatch(
+      removeContourFromOperation({
+        operationId,
+        contourId,
+      }),
+    );
+  };
 
   return (
     <Container>
@@ -86,13 +98,13 @@ const WorkGroup: React.FC = () => {
               </Wrap>
             </Button>
           </AddBtn>
-          <ContentBlock>
+          <CContentBlock>
             <div>
               {contours.map((contour) => (
                 <Card key={contour.id} content={contour} variation="contour" />
               ))}
             </div>
-          </ContentBlock>
+          </CContentBlock>
         </Block>
         <Block>
           <Title>Sequência de Execução</Title>
@@ -128,6 +140,9 @@ const WorkGroup: React.FC = () => {
                         key={contourId}
                         content={contour}
                         variation="operation"
+                        removeFromOperation={() =>
+                          removeFromOperation(operation.id, contour.id)
+                        }
                       />
                     );
                   })}

@@ -5,20 +5,28 @@ import Icon from 'components/Icon';
 import { colors } from 'styles/global.styles';
 import { MoreMenuProps } from './interface';
 
-import { Menu, Button, DropDown } from './style';
+import { Menu, Button, DropDown, SubMenu, SubButton } from './style';
 
 const MoreMenu: React.FC<MoreMenuProps> = ({ menuItems }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [openSubMenuIndex, setOpenSubMenuIndex] = useState<number | null>(null);
   const menuRef = useRef<HTMLElement | null>(null);
 
-  const toggleMenu = () => {
+  const toggleMenu = (e: React.MouseEvent) => {
+    e.stopPropagation();
     setIsOpen(!isOpen);
+  };
+
+  const toggleSubMenu = (e: React.MouseEvent, index: number) => {
+    e.stopPropagation();
+    setOpenSubMenuIndex(openSubMenuIndex === index ? null : index);
   };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setIsOpen(false);
+        setOpenSubMenuIndex(null);
       }
     };
 
@@ -45,11 +53,31 @@ const MoreMenu: React.FC<MoreMenuProps> = ({ menuItems }) => {
       />
       {isOpen && (
         <DropDown>
-          {menuItems.map((item, index) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <Button key={index} onClick={item.action}>
-              {item.name}
-            </Button>
+          {menuItems.map((item: any, index: number) => (
+            <React.Fragment key={index}>
+              {item.subItems ? (
+                <Button onClick={(e) => toggleSubMenu(e, index)}>
+                  {item.name}
+                </Button>
+              ) : (
+                <Button onClick={item.action}>{item.name}</Button>
+              )}
+              {openSubMenuIndex === index && (
+                <SubMenu>
+                  {item.subItems.map((subItem: any, subIndex: number) => (
+                    <SubButton
+                      key={subIndex}
+                      onClick={() => {
+                        subItem.action();
+                        setOpenSubMenuIndex(null);
+                      }}
+                    >
+                      {subItem.name}
+                    </SubButton>
+                  ))}
+                </SubMenu>
+              )}
+            </React.Fragment>
           ))}
         </DropDown>
       )}
