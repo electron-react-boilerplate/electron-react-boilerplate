@@ -5,9 +5,9 @@ import Icon from 'components/Icon';
 import { colors } from 'styles/global.styles';
 import { MoreMenuProps } from './interface';
 
-import { Menu, SubButton, SubMenuDown } from './style';
+import { Menu, Button, DropDown } from './style';
 
-const MoreMenu: React.FC<MoreMenuProps> = ({ submenuItems }) => {
+const MoreMenu: React.FC<MoreMenuProps> = ({ menuItems }) => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLElement | null>(null);
 
@@ -44,14 +44,14 @@ const MoreMenu: React.FC<MoreMenuProps> = ({ submenuItems }) => {
         fontSize="28px"
       />
       {isOpen && (
-        <SubMenuDown>
-          {submenuItems.map((item, index) => (
+        <DropDown>
+          {menuItems.map((item, index) => (
             // eslint-disable-next-line react/no-array-index-key
-            <SubButton key={index} onClick={item.action}>
+            <Button key={index} onClick={item.action}>
               {item.name}
-            </SubButton>
+            </Button>
           ))}
-        </SubMenuDown>
+        </DropDown>
       )}
     </Menu>
   );

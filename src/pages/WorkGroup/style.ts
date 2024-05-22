@@ -1,9 +1,13 @@
 import styled from 'styled-components';
 
-import { PageTitle, PageContent } from 'styles/Components';
+import { PageTitle, PageContent, ContentBlock } from 'styles/Components';
 
 export const Container = styled.div`
   height: 100%;
+`;
+
+export const Block = styled.div`
+  width: 100%;
 `;
 
 export const Content = styled(PageContent)`
@@ -14,11 +18,16 @@ export const Content = styled(PageContent)`
   max-height: calc(100vh - 308px);
 `;
 
-export const Title = styled(PageTitle)``;
-
-export const Block = styled.div`
-  width: 100%;
+export const OperationsWrapper = styled.div`
+  max-height: calc(100vh - 308px);
+  overflow-y: auto;
 `;
+
+export const SContentBlock = styled(ContentBlock)`
+  margin-bottom: 15px;
+`;
+
+export const Title = styled(PageTitle)``;
 
 export const AddBtn = styled.div`
   height: 48px;

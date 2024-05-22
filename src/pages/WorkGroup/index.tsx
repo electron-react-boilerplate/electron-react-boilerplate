@@ -21,6 +21,8 @@ import {
   Title,
   TextAdd,
   Wrap,
+  OperationsWrapper,
+  SContentBlock,
 } from './style';
 
 const breadcrumbsItems = [
@@ -110,10 +112,10 @@ const WorkGroup: React.FC = () => {
               </Wrap>
             </Button>
           </AddBtn>
-          <div>
+          <OperationsWrapper>
             {operations.map((operation) => {
               return (
-                <ContentBlock key={operation.id}>
+                <SContentBlock key={operation.id}>
                   <h3>{operation.name}</h3>
                   {operation.contoursIds.map((contourId) => {
                     const contour = contours.find(
@@ -129,10 +131,10 @@ const WorkGroup: React.FC = () => {
                       />
                     );
                   })}
-                </ContentBlock>
+                </SContentBlock>
               );
             })}
-          </div>
+          </OperationsWrapper>
         </Block>
       </Content>
     </Container>

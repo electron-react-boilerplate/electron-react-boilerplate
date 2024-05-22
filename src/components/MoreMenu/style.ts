@@ -13,7 +13,7 @@ export const Menu = styled.button`
   width: 56px;
 `;
 
-export const SubMenuDown = styled.nav`
+export const DropDown = styled.nav`
   width: 150px;
   position: absolute;
   top: 100%;
@@ -30,7 +30,8 @@ export const SubMenuDown = styled.nav`
   border-bottom: none;
 `;
 
-export const SubButton = styled.button`
+// use component
+export const Button = styled.button`
   text-align: left;
   font-size: 16px;
   outline: none;

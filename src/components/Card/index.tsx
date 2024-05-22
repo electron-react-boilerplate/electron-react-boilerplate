@@ -18,7 +18,7 @@ import {
   removeContourFromOperation,
 } from 'state/part/partSlice';
 import { ContourType } from 'types/part';
-import { SubMenuItem } from 'components/MoreMenu/interface';
+import { MenuItem } from 'components/MoreMenu/interface';
 import { CardProps } from './interface';
 
 import {
@@ -67,7 +67,7 @@ const Card: React.FC<CardProps> = ({ content, variation }) => {
     dispatch(removeContourFromOperation(content.id));
   };
 
-  const moreMenuItems: SubMenuItem[] = [
+  const moreMenuItems: MenuItem[] = [
     { name: 'Adicionar à Sequência', action: addToOperation },
     { name: 'Duplicar', action: duplicateContour },
     { name: 'Excluir', action: () => setIsModalOpen(true) },
@@ -165,7 +165,7 @@ const Card: React.FC<CardProps> = ({ content, variation }) => {
           </Edit>
         )}
         {variation === 'contour' ? (
-          <MoreMenu submenuItems={moreMenuItems as SubMenuItem[]} />
+          <MoreMenu menuItems={moreMenuItems as MenuItem[]} />
         ) : (
           <Remove onClick={() => removeFromOperation()}>
             <Icon className="icon-x" color={colors.white} fontSize="28px" />

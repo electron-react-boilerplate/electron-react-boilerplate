@@ -1,8 +1,8 @@
-export interface SubMenuItem {
+export interface MenuItem {
   name: string;
   action: () => void;
 }
 
 export interface MoreMenuProps {
-  submenuItems: SubMenuItem[];
+  menuItems: MenuItem[];
 }
