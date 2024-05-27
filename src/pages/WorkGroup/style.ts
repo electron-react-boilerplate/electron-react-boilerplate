@@ -18,9 +18,17 @@ export const Content = styled(PageContent)`
   max-height: calc(100vh - 308px);
 `;
 
-export const OperationsWrapper = styled.div`
+export const OpWrapper = styled.div`
   max-height: calc(100vh - 308px);
   overflow-y: auto;
+`;
+
+export const OpItemHeader = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
 `;
 
 export const CContentBlock = styled(ContentBlock)`

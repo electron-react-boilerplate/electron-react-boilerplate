@@ -30,7 +30,7 @@ export interface Contours extends Array<ContourItem> {}
 export interface OperationItem {
   id: number;
   name: string;
-  grindingWheel?: string;
+  grindingWheel: string;
   dAngle?: number;
   contoursIds: number[];
 }

@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Icon from 'components/Icon';
 
 import { colors } from 'styles/global.styles';
-import { MoreMenuProps } from './interface';
+import { MenuItem, MoreMenuProps, SubMenuItem } from './interface';
 
 import { Menu, Button, DropDown, SubMenu, SubButton } from './style';
 
@@ -53,8 +53,8 @@ const MoreMenu: React.FC<MoreMenuProps> = ({ menuItems }) => {
       />
       {isOpen && (
         <DropDown>
-          {menuItems.map((item: any, index: number) => (
-            <React.Fragment key={index}>
+          {menuItems.map((item: MenuItem, index: number) => (
+            <React.Fragment key={item.name}>
               {item.subItems ? (
                 <Button onClick={(e) => toggleSubMenu(e, index)}>
                   {item.name}
@@ -62,11 +62,11 @@ const MoreMenu: React.FC<MoreMenuProps> = ({ menuItems }) => {
               ) : (
                 <Button onClick={item.action}>{item.name}</Button>
               )}
-              {openSubMenuIndex === index && (
+              {openSubMenuIndex === index && item.subItems && (
                 <SubMenu>
-                  {item.subItems.map((subItem: any, subIndex: number) => (
+                  {item.subItems.map((subItem: SubMenuItem) => (
                     <SubButton
-                      key={subIndex}
+                      key={subItem.name} // Replace 'key={subIndex}' with a unique identifier from the 'subItem' object
                       onClick={() => {
                         subItem.action();
                         setOpenSubMenuIndex(null);

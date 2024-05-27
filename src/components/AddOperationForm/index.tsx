@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import InputText from 'components/InputText';
+import Select from 'components/Select';
 import { addOperation } from 'state/part/partSlice';
 
 import { FormProps } from './interface';
@@ -11,9 +12,12 @@ const AddOperationForm: React.FC<FormProps> = ({ onButtonClick }) => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     name: '',
+    grindingWheel: '',
   });
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
     setFormData({
       ...formData,
       [event.target.name]: event.target.value,
@@ -51,12 +55,16 @@ const AddOperationForm: React.FC<FormProps> = ({ onButtonClick }) => {
           placeholder="Operação X1..."
         />
       </Field>
-      {/* <InputText
-          name="wheel"
-          label="Rebolo:"
-          value={formData.grindingWheel}
-          onChange={handleChange}
-        /> */}
+      <Select
+        label="Rebolo:"
+        name="grindingWheel"
+        onChange={handleChange}
+        value={formData.grindingWheel}
+        options={[
+          { value: '1', label: 'Rebolo 1' },
+          { value: '2', label: 'Rebolo 2' },
+        ]}
+      />
       {/* <InputText
         name="angleD"
         value={formData.dAngle}

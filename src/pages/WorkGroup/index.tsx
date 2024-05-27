@@ -22,9 +22,10 @@ import {
   Title,
   TextAdd,
   Wrap,
-  OperationsWrapper,
+  OpWrapper,
   CContentBlock,
   SContentBlock,
+  OpItemHeader,
 } from './style';
 
 const breadcrumbsItems = [
@@ -124,11 +125,19 @@ const WorkGroup: React.FC = () => {
               </Wrap>
             </Button>
           </AddBtn>
-          <OperationsWrapper>
+          <OpWrapper>
             {operations.map((operation) => {
               return (
                 <SContentBlock key={operation.id}>
-                  <h3>{operation.name}</h3>
+                  <OpItemHeader>
+                    <h3>{operation.name}</h3>
+                    <h3>{operation.grindingWheel}</h3>
+                    <Icon
+                      className="icon-delete"
+                      color={colors.greyFont}
+                      fontSize="28px"
+                    />
+                  </OpItemHeader>
                   {operation.contoursIds.map((contourId) => {
                     const contour = contours.find(
                       // eslint-disable-next-line @typescript-eslint/no-shadow
@@ -149,7 +158,7 @@ const WorkGroup: React.FC = () => {
                 </SContentBlock>
               );
             })}
-          </OperationsWrapper>
+          </OpWrapper>
         </Block>
       </Content>
     </Container>
