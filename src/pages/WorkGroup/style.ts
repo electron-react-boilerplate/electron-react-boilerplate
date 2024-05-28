@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { PageTitle, PageContent, ContentBlock } from 'styles/Components';
+import { colors } from 'styles/global.styles';
 
 export const Container = styled.div`
   height: 100%;
@@ -31,6 +32,23 @@ export const OpItemHeader = styled.div`
   margin-bottom: 10px;
 `;
 
+export const OpItemHeaderTitle = styled.h3`
+  font-size: 18px;
+  margin-bottom: 5px;
+  color: ${colors.black};
+`;
+
+export const OpItemHeaderSubTitle = styled.h4`
+  font-size: 14px;
+  color: ${colors.black};
+`;
+
+export const OpItemCards = styled.div`
+  min-height: 56px;
+  background-color: ${colors.greyPreMedium};
+  border: 1px dashed ${colors.greyDark};
+`;
+
 export const CContentBlock = styled(ContentBlock)`
   height: calc(100vh - 308px);
   overflow: visible;
@@ -59,4 +77,9 @@ export const TextAdd = styled.p`
   margin-left: 5px;
   line-height: 100%;
   font-size: 18px;
+`;
+
+export const SButton = styled.button`
+  border: 0;
+  background-color: transparent;
 `;

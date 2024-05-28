@@ -65,12 +65,6 @@ const AddOperationForm: React.FC<FormProps> = ({ onButtonClick }) => {
           { value: '2', label: 'Rebolo 2' },
         ]}
       />
-      {/* <InputText
-        name="angleD"
-        value={formData.dAngle}
-        onChange={handleChange}
-        placeholder="Ângulo D"
-      /> */}
       <SButton onClick={handleClick}>Adicionar</SButton>
     </Container>
   );

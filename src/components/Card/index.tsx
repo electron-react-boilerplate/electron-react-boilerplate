@@ -102,7 +102,7 @@ const Card: React.FC<CardProps> = ({
   };
 
   return (
-    <Container isActive={isCardActive}>
+    <Container isActive={isCardActive} isOperation={variation}>
       <Modal
         title="Deseja excluir Contorno?"
         isOpen={isModalOpen}

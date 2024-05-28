@@ -84,7 +84,15 @@ const partSlice = createSlice({
         contoursIds: [],
       });
     },
-    // refactor after Demo
+    deleteOperation: (state, action: PayloadAction<number>) => {
+      const id = action.payload;
+      const index = state.operations.findIndex(
+        (operation) => operation.id === id,
+      );
+      if (index !== -1) {
+        state.operations.splice(index, 1);
+      }
+    },
     addContourToOperation: (
       state,
       action: PayloadAction<{ operationId: number; contourId: number }>,
@@ -162,6 +170,7 @@ export const {
   editContour,
   addContour,
   addOperation,
+  deleteOperation,
   addContourToOperation,
   removeContourFromOperation,
   changeContourPositionOnOperation,
