@@ -5,14 +5,22 @@ import InputText from 'components/InputText';
 import Select from 'components/Select';
 import { addOperation } from 'state/part/partSlice';
 
+import { grindingWheels } from 'integration/grindingWheels';
+
+import { OptionType } from 'components/Select/interface';
 import { FormProps } from './interface';
 import { Container, Field, SButton } from './style';
+
+const formattedGrindingWheels: OptionType[] = grindingWheels.map((wheel) => ({
+  value: wheel.id,
+  label: wheel.name,
+}));
 
 const AddOperationForm: React.FC<FormProps> = ({ onButtonClick }) => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     name: '',
-    grindingWheel: '',
+    grindingWheelId: 1,
   });
 
   const handleChange = (
@@ -33,9 +41,7 @@ const AddOperationForm: React.FC<FormProps> = ({ onButtonClick }) => {
       return;
     }
 
-    dispatch(
-      addOperation({ ...formData }), // Pass the updated operationData to addOperation
-    );
+    dispatch(addOperation({ ...formData }));
   };
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -59,11 +65,8 @@ const AddOperationForm: React.FC<FormProps> = ({ onButtonClick }) => {
         label="Rebolo:"
         name="grindingWheel"
         onChange={handleChange}
-        value={formData.grindingWheel}
-        options={[
-          { value: '1', label: 'Rebolo 1' },
-          { value: '2', label: 'Rebolo 2' },
-        ]}
+        value={formData.grindingWheelId}
+        options={formattedGrindingWheels}
       />
       <SButton onClick={handleClick}>Adicionar</SButton>
     </Container>

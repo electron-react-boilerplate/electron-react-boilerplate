@@ -48,7 +48,7 @@ export const initialState: Part = {
   operations: [
     {
       id: 1,
-      grindingWheel: 'Rebolo 1',
+      grindingWheelId: 1,
       name: 'Test',
       contoursIds: [],
     },

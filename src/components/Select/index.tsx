@@ -1,18 +1,7 @@
 import React, { ChangeEvent } from 'react';
+
+import { SelectComponentProps } from './interface';
 import { Label, Container, SSelect } from './style';
-
-interface OptionType {
-  value: string;
-  label: string;
-}
-
-interface SelectComponentProps {
-  label: string;
-  name: string;
-  options: OptionType[];
-  onChange: (value: React.ChangeEvent<HTMLSelectElement>) => void;
-  value: string;
-}
 
 const SelectComponent: React.FC<SelectComponentProps> = ({
   label,

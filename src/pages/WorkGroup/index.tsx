@@ -10,6 +10,8 @@ import Button from 'components/Button';
 import AddOperationForm from 'components/AddOperationForm';
 import ConfirmAction from 'components/ConfirmAction';
 
+import { grindingWheels } from 'integration/grindingWheels';
+
 import {
   removeContourFromOperation,
   deleteOperation,
@@ -155,13 +157,16 @@ const WorkGroup: React.FC = () => {
           </AddBtn>
           <OpWrapper>
             {operations.map((operation) => {
+              const matchedGrindingWheel = grindingWheels.find(
+                (wheel) => wheel.id === operation.grindingWheelId,
+              );
               return (
                 <SContentBlock key={operation.id}>
                   <OpItemHeader>
                     <div>
                       <OpItemHeaderTitle>{operation.name}</OpItemHeaderTitle>
                       <OpItemHeaderSubTitle>
-                        {operation.grindingWheel}
+                        {matchedGrindingWheel && matchedGrindingWheel.name}
                       </OpItemHeaderSubTitle>
                     </div>
                     <SButton
