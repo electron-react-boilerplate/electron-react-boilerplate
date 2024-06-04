@@ -42,7 +42,7 @@ function mountGCode(contour: ContourItem) {
     gCodeOutput = `${gCodeOutput}${mountGCodeLine(element, index, isLastLine)}`;
   });
   gCodeOutput = `${gCodeOutput}\n`;
-  gCodeTemplate = `%\n7000(Teste GZema)\n${gCodeOutput}%`;
+  gCodeTemplate = `%\n7000(${contour.name})\n${gCodeOutput}%`;
 
   return gCodeTemplate;
 }

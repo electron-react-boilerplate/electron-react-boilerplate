@@ -157,6 +157,7 @@ const WorkGroup: React.FC = () => {
           </AddBtn>
           <OpWrapper>
             {operations.map((operation) => {
+              console.log(operation);
               const matchedGrindingWheel = grindingWheels.find(
                 (wheel) => wheel.id === operation.grindingWheelId,
               );

@@ -26,9 +26,15 @@ const AddOperationForm: React.FC<FormProps> = ({ onButtonClick }) => {
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
+    let v: string | number = event.target.value;
+    if (event.target.name === 'grindingWheelId') {
+      v = parseInt(v, 10);
+    }
+
+    console.log('event.target.name', event.target.name);
     setFormData({
       ...formData,
-      [event.target.name]: event.target.value,
+      [event.target.name]: v,
     });
   };
 
@@ -63,7 +69,7 @@ const AddOperationForm: React.FC<FormProps> = ({ onButtonClick }) => {
       </Field>
       <Select
         label="Rebolo:"
-        name="grindingWheel"
+        name="grindingWheelId"
         onChange={handleChange}
         value={formData.grindingWheelId}
         options={formattedGrindingWheels}

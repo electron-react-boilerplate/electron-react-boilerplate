@@ -20,10 +20,20 @@ const generateGCode = (stateValue: ContourItem) => {
 };
 
 const SideMenu: React.FC = () => {
-  const stateValue = useSelector(
-    (state: { part: Part }) => state.part.contours[0],
-  );
+  const part = useSelector((state: { part: Part }) => state.part);
   const [loaded, setLoaded] = useState(false);
+
+  const generateGCodeForOperations = () => {
+    part.operations.forEach((operation) => {
+      const operationContour = part.contours.find((contour) =>
+        operation.contoursIds.includes(contour.id),
+      );
+      if (operationContour) {
+        generateGCode(operationContour);
+      }
+    });
+  };
+
   useEffect(() => {
     setLoaded(true);
   }, []);
@@ -52,7 +62,7 @@ const SideMenu: React.FC = () => {
         </List>
         <List>
           <ListItem>
-            <ItemBtn onClick={() => generateGCode(stateValue)}>
+            <ItemBtn onClick={() => generateGCodeForOperations}>
               <StyledIcon
                 className="icon-double_arrow"
                 color={colors.white}

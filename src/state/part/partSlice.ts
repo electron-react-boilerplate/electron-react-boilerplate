@@ -49,7 +49,7 @@ export const initialState: Part = {
     {
       id: 1,
       grindingWheelId: 1,
-      name: 'Test',
+      name: 'Operação',
       contoursIds: [],
     },
   ],
