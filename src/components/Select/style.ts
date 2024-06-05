@@ -17,5 +17,4 @@ export const SSelect = styled.select`
   padding: 15px;
   width: 100%;
   font-size: 18px;
-  margin-bottom: 12px;
 `;

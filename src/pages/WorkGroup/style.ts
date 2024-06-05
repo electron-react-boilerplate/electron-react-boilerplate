@@ -29,16 +29,34 @@ export const OpItemHeader = styled.div`
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid ${colors.greyMedium};
 `;
 
 export const OpItemHeaderTitle = styled.h3`
-  font-size: 18px;
-  margin-bottom: 5px;
+  font-size: 20px;
+  color: ${colors.blue};
+`;
+
+export const OpItemHeaderSubTitle = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+`;
+
+export const OpItemHeaderContent = styled.div`
+  width: 100%;
+  margin-bottom: 15px;
+`;
+
+export const WheelText = styled.p`
+  font-size: 14px;
+  font-weight: bold;
   color: ${colors.black};
 `;
 
-export const OpItemHeaderSubTitle = styled.h4`
+export const DAngleText = styled.p`
   font-size: 14px;
   color: ${colors.black};
 `;
@@ -81,5 +99,6 @@ export const TextAdd = styled.p`
 
 export const SButton = styled.button`
   border: 0;
+  padding: 0;
   background-color: transparent;
 `;

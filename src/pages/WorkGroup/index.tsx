@@ -36,6 +36,9 @@ import {
   OpItemHeaderTitle,
   OpItemHeaderSubTitle,
   SButton,
+  DAngleText,
+  WheelText,
+  OpItemHeaderContent,
 } from './style';
 
 const breadcrumbsItems = [
@@ -157,19 +160,13 @@ const WorkGroup: React.FC = () => {
           </AddBtn>
           <OpWrapper>
             {operations.map((operation) => {
-              console.log(operation);
               const matchedGrindingWheel = grindingWheels.find(
                 (wheel) => wheel.id === operation.grindingWheelId,
               );
               return (
                 <SContentBlock key={operation.id}>
                   <OpItemHeader>
-                    <div>
-                      <OpItemHeaderTitle>{operation.name}</OpItemHeaderTitle>
-                      <OpItemHeaderSubTitle>
-                        {matchedGrindingWheel && matchedGrindingWheel.name}
-                      </OpItemHeaderSubTitle>
-                    </div>
+                    <OpItemHeaderTitle>{operation.name}</OpItemHeaderTitle>
                     <SButton
                       onClick={() => {
                         setOpIdToDelete(operation.id);
@@ -183,6 +180,14 @@ const WorkGroup: React.FC = () => {
                       />
                     </SButton>
                   </OpItemHeader>
+                  <OpItemHeaderContent>
+                    <OpItemHeaderSubTitle>
+                      <WheelText>
+                        {matchedGrindingWheel && matchedGrindingWheel.name}
+                      </WheelText>
+                      <DAngleText>Ângulo D: {operation.dAngle}</DAngleText>
+                    </OpItemHeaderSubTitle>
+                  </OpItemHeaderContent>
                   <OpItemCards>
                     {operation.contoursIds.map((contourId) => {
                       const contour = contours.find(

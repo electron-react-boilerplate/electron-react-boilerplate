@@ -16,6 +16,7 @@ import {
 } from './styles';
 
 const generateGCode = (stateValue: ContourItem) => {
+  console.log('generateGCode', stateValue);
   window.electron.ipcRenderer.saveGCode(mountGCode(stateValue));
 };
 
@@ -25,12 +26,14 @@ const SideMenu: React.FC = () => {
 
   const generateGCodeForOperations = () => {
     part.operations.forEach((operation) => {
-      const operationContour = part.contours.find((contour) =>
-        operation.contoursIds.includes(contour.id),
-      );
-      if (operationContour) {
-        generateGCode(operationContour);
-      }
+      operation.contoursIds.forEach((contourId) => {
+        const operationContour = part.contours.find(
+          (contour) => contour.id === contourId,
+        );
+        if (operationContour) {
+          generateGCode(operationContour);
+        }
+      });
     });
   };
 
@@ -62,7 +65,7 @@ const SideMenu: React.FC = () => {
         </List>
         <List>
           <ListItem>
-            <ItemBtn onClick={() => generateGCodeForOperations}>
+            <ItemBtn onClick={() => generateGCodeForOperations()}>
               <StyledIcon
                 className="icon-double_arrow"
                 color={colors.white}

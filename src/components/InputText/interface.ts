@@ -1,6 +1,7 @@
 import React from 'react';
 
 export interface InputTextProps {
+  type?: string;
   name: string;
   label?: string;
   placeholder?: string;

@@ -31,7 +31,7 @@ export interface OperationItem {
   id: number;
   name: string;
   grindingWheelId: number;
-  dAngle?: number;
+  dAngle: string;
   contoursIds: number[];
 }
 

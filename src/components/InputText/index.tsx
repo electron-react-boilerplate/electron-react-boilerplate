@@ -3,6 +3,7 @@ import { InputTextProps } from './interface';
 import { Container, Label, Input } from './style';
 
 const InputText: React.FC<InputTextProps> = ({
+  type = 'text',
   label,
   name,
   placeholder,
@@ -17,7 +18,7 @@ const InputText: React.FC<InputTextProps> = ({
     <Container>
       {label && <Label>{label}</Label>}
       <Input
-        type="text"
+        type={type}
         name={name}
         value={value}
         placeholder={placeholder}
