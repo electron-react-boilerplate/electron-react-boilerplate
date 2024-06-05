@@ -1,6 +1,6 @@
 import React from 'react';
 
-export interface InputTextProps {
+export interface InputProps {
   type?: string;
   name: string;
   label?: string;

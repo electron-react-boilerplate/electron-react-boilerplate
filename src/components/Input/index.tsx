@@ -1,8 +1,8 @@
 import React from 'react';
-import { InputTextProps } from './interface';
-import { Container, Label, Input } from './style';
+import { InputProps } from './interface';
+import { Container, Label, SInput } from './style';
 
-const InputText: React.FC<InputTextProps> = ({
+const Input: React.FC<InputProps> = ({
   type = 'text',
   label,
   name,
@@ -17,7 +17,7 @@ const InputText: React.FC<InputTextProps> = ({
   return (
     <Container>
       {label && <Label>{label}</Label>}
-      <Input
+      <SInput
         type={type}
         name={name}
         value={value}
@@ -28,4 +28,4 @@ const InputText: React.FC<InputTextProps> = ({
   );
 };
 
-export default InputText;
+export default Input;

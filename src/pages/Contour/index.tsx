@@ -33,8 +33,8 @@ import {
   HText,
   TableD,
   TableIdText,
-  TableInputText,
-  TableInputTextLabeled,
+  TableInput,
+  TableInputLabeled,
   TableInputLabel,
   TableDivision,
   AddBtn,
@@ -322,7 +322,7 @@ const Contour: React.FC = () => {
                             <TableIdText>{item.id}</TableIdText>
                           </TableD>
                           <TableD>
-                            <TableInputText
+                            <TableInput
                               className="input is-edit"
                               type="text"
                               name="xaxis"
@@ -331,7 +331,7 @@ const Contour: React.FC = () => {
                             />
                           </TableD>
                           <TableD>
-                            <TableInputText
+                            <TableInput
                               className="input is-edit"
                               type="text"
                               name="zaxis"
@@ -340,7 +340,7 @@ const Contour: React.FC = () => {
                             />
                           </TableD>
                           <TableD>
-                            <TableInputText
+                            <TableInput
                               className="input is-edit"
                               type="text"
                               name="fvalue"
@@ -349,7 +349,7 @@ const Contour: React.FC = () => {
                             />
                           </TableD>
                           <TableD>
-                            <TableInputText
+                            <TableInput
                               className="input is-edit"
                               type="text"
                               name="actionCode"
@@ -366,7 +366,7 @@ const Contour: React.FC = () => {
                                 <TableInputLabel>
                                   {item.aParamId}
                                 </TableInputLabel>
-                                <TableInputTextLabeled
+                                <TableInputLabeled
                                   className="input is-edit"
                                   type="text"
                                   name="aParamValue"
@@ -379,7 +379,7 @@ const Contour: React.FC = () => {
                             <TableD>
                               <TableDContent>
                                 <TableInputLabel />
-                                <TableInputTextLabeled type="text" disabled />
+                                <TableInputLabeled type="text" disabled />
                               </TableDContent>
                             </TableD>
                           )}
@@ -389,7 +389,7 @@ const Contour: React.FC = () => {
                                 <TableInputLabel>
                                   {item.bParamId}
                                 </TableInputLabel>
-                                <TableInputTextLabeled
+                                <TableInputLabeled
                                   className="input is-edit"
                                   type="text"
                                   name="bParamValue"
@@ -402,7 +402,7 @@ const Contour: React.FC = () => {
                             <TableD>
                               <TableDContent>
                                 <TableInputLabel />
-                                <TableInputTextLabeled type="text" disabled />
+                                <TableInputLabeled type="text" disabled />
                               </TableDContent>
                             </TableD>
                           )}
@@ -412,7 +412,7 @@ const Contour: React.FC = () => {
                                 <TableInputLabel>
                                   {item.cParamId}
                                 </TableInputLabel>
-                                <TableInputTextLabeled
+                                <TableInputLabeled
                                   className="input is-edit"
                                   type="text"
                                   name="cParamValue"
@@ -425,7 +425,7 @@ const Contour: React.FC = () => {
                             <TableD>
                               <TableDContent>
                                 <TableInputLabel />
-                                <TableInputTextLabeled type="text" disabled />
+                                <TableInputLabeled type="text" disabled />
                               </TableDContent>
                             </TableD>
                           )}

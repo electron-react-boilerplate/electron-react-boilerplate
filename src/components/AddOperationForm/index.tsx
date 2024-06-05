@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import InputText from 'components/InputText';
+import Input from 'components/Input';
 import Select from 'components/Select';
 import { addOperation } from 'state/part/partSlice';
 
@@ -57,7 +57,7 @@ const AddOperationForm: React.FC<FormProps> = ({ onButtonClick }) => {
   return (
     <Container>
       <Field>
-        <InputText
+        <Input
           name="name"
           label="Nome:"
           value={formData.name}
@@ -75,7 +75,7 @@ const AddOperationForm: React.FC<FormProps> = ({ onButtonClick }) => {
         />
       </Field>
       <Field>
-        <InputText
+        <Input
           type="number"
           name="dAngle"
           label="Ângulo D:"

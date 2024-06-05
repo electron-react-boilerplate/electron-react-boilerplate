@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import InputText from 'components/InputText';
+import Input from 'components/Input';
 import { addContour } from 'state/part/partSlice';
 import { ContourType } from 'types/part';
 
@@ -47,7 +47,7 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick }) => {
   return (
     <Container>
       <Field>
-        <InputText
+        <Input
           name="name"
           label="Nome:"
           placeholder="Peça PC01..."

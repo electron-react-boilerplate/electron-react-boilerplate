@@ -121,7 +121,7 @@ export const TableDivision = styled.p`
   padding: 5px;
 `;
 
-export const TableInputText = styled.input`
+export const TableInput = styled.input`
   background-color: ${colors.white};
   border: 1px solid ${colors.greyMedium};
   box-sizing: border-box;
@@ -136,7 +136,7 @@ export const TableDContent = styled.div`
   width: 100%;
 `;
 
-export const TableInputTextLabeled = styled.input`
+export const TableInputLabeled = styled.input`
   background-color: ${colors.white};
   border: 1px solid ${colors.greyMedium};
   box-sizing: border-box;
