@@ -1,6 +1,7 @@
 type Variations = 'contour' | 'operation';
 
 export interface CardData {
+  operationId?: number;
   id: number;
   name: string;
   type: string;

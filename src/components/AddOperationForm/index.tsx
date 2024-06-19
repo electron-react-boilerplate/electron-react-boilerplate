@@ -16,7 +16,10 @@ const formattedGrindingWheels: OptionType[] = grindingWheels.map((wheel) => ({
   label: wheel.name,
 }));
 
-const AddOperationForm: React.FC<FormProps> = ({ onButtonClick }) => {
+const AddOperationForm: React.FC<FormProps> = ({
+  onButtonClick,
+  variation = 'add',
+}) => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     name: '',
@@ -40,12 +43,10 @@ const AddOperationForm: React.FC<FormProps> = ({ onButtonClick }) => {
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    if (!formData.name) {
-      alert('Os campos nome e tipo são obrigatórios');
-      return;
-    }
+    if (!formData.name) alert('Os campos nome e tipo são obrigatórios');
 
-    dispatch(addOperation({ ...formData }));
+    if (variation === 'add') dispatch(addOperation({ ...formData }));
+    else dispatch(addOperation({ ...formData }));
   };
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -84,7 +85,9 @@ const AddOperationForm: React.FC<FormProps> = ({ onButtonClick }) => {
           placeholder="Valor do ângulo..."
         />
       </Field>
-      <SButton onClick={handleClick}>Adicionar</SButton>
+      <SButton onClick={handleClick}>
+        {variation === 'add' ? 'Adicionar' : 'Editar'}
+      </SButton>
     </Container>
   );
 };

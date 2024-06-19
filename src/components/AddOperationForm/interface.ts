@@ -5,5 +5,7 @@ export interface addOperationPayload {
 }
 
 export interface FormProps {
+  variation?: 'add' | 'edit';
+  operationId?: number;
   onButtonClick: () => void;
 }

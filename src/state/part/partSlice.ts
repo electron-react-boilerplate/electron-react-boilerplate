@@ -51,7 +51,7 @@ export const initialState: Part = {
       grindingWheelId: 1,
       name: 'Operação',
       contoursIds: [],
-      dAngle: 0,
+      dAngle: '0',
     },
   ],
 };
@@ -84,6 +84,19 @@ const partSlice = createSlice({
         id: maxId + 1,
         contoursIds: [],
       });
+    },
+    editOperation: (
+      state,
+      action: PayloadAction<{
+        id: number;
+        operation: Omit<Omit<OperationItem, 'id'>, 'contoursIds'>;
+      }>,
+    ) => {
+      const { id, operation } = action.payload;
+      const index = state.operations.findIndex((op) => op.id === id);
+      if (index !== -1) {
+        state.operations[index] = { ...state.operations[index], ...operation };
+      }
     },
     deleteOperation: (state, action: PayloadAction<number>) => {
       const id = action.payload;
@@ -121,12 +134,18 @@ const partSlice = createSlice({
         );
       }
     },
-    changeContourPositionOnOperation: (
+    changeContourPositionAtOperation: (
       state,
-      action: PayloadAction<{ contourId: number; direction: 'up' | 'down' }>,
+      action: PayloadAction<{
+        operationId: number;
+        contourId: number;
+        direction: 'up' | 'down';
+      }>,
     ) => {
-      const { contourId, direction } = action.payload;
-      const operation = state.operations[0]; // assumindo que você quer modificar a primeira operação
+      const { operationId, contourId, direction } = action.payload;
+      const operation = state.operations.find((op) => op.id === operationId); // encontrar a operação correta
+
+      if (!operation) return; // se a operação não for encontrada, retorne
 
       const index = operation.contoursIds.findIndex((id) => id === contourId);
       if (index < 0) return;
@@ -174,7 +193,7 @@ export const {
   deleteOperation,
   addContourToOperation,
   removeContourFromOperation,
-  changeContourPositionOnOperation,
+  changeContourPositionAtOperation,
 } = partSlice.actions;
 
 export default partSlice.reducer;

@@ -95,7 +95,6 @@ const WorkGroup: React.FC = () => {
         onClose={() => setIsModalOperationOpen(false)}
       >
         <AddOperationForm
-          // action="add"
           onButtonClick={() => setIsModalOperationOpen(false)}
         />
       </Modal>
@@ -167,18 +166,32 @@ const WorkGroup: React.FC = () => {
                 <SContentBlock key={operation.id}>
                   <OpItemHeader>
                     <OpItemHeaderTitle>{operation.name}</OpItemHeaderTitle>
-                    <SButton
-                      onClick={() => {
-                        setOpIdToDelete(operation.id);
-                        setIsModalCofirmDeleteOpOpen(true);
-                      }}
-                    >
-                      <Icon
-                        className="icon-delete"
-                        color={colors.greyFont}
-                        fontSize="28px"
-                      />
-                    </SButton>
+                    <div>
+                      <SButton
+                        onClick={() => {
+                          setOpIdToDelete(operation.id);
+                          setIsModalCofirmDeleteOpOpen(true);
+                        }}
+                      >
+                        <Icon
+                          className="icon-create"
+                          color={colors.greyFont}
+                          fontSize="28px"
+                        />
+                      </SButton>
+                      <SButton
+                        onClick={() => {
+                          setOpIdToDelete(operation.id);
+                          setIsModalCofirmDeleteOpOpen(true);
+                        }}
+                      >
+                        <Icon
+                          className="icon-delete"
+                          color={colors.greyFont}
+                          fontSize="28px"
+                        />
+                      </SButton>
+                    </div>
                   </OpItemHeader>
                   <OpItemHeaderContent>
                     <OpItemHeaderSubTitle>
@@ -198,7 +211,7 @@ const WorkGroup: React.FC = () => {
                       return (
                         <Card
                           key={contourId}
-                          content={contour}
+                          content={{ ...contour, operationId: operation.id }}
                           variation="operation"
                           removeFromOperation={() =>
                             removeFromOperation(operation.id, contour.id)

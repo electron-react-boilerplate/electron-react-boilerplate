@@ -13,7 +13,7 @@ import { colors } from 'styles/global.styles';
 import {
   addContour,
   addContourToOperation,
-  changeContourPositionOnOperation,
+  changeContourPositionAtOperation,
   removeContour,
 } from 'state/part/partSlice';
 import { ContourType, Operations } from 'types/part';
@@ -84,21 +84,27 @@ const Card: React.FC<CardProps> = ({
   ];
 
   const handleMoveUp = () => {
-    dispatch(
-      changeContourPositionOnOperation({
-        contourId: content.id,
-        direction: 'up',
-      }),
-    );
+    if (content.operationId) {
+      dispatch(
+        changeContourPositionAtOperation({
+          contourId: content.id,
+          direction: 'up',
+          operationId: content.operationId,
+        }),
+      );
+    }
   };
 
   const handleMoveDown = () => {
-    dispatch(
-      changeContourPositionOnOperation({
-        contourId: content.id,
-        direction: 'down',
-      }),
-    );
+    if (content.operationId) {
+      dispatch(
+        changeContourPositionAtOperation({
+          contourId: content.id,
+          direction: 'down',
+          operationId: content.operationId,
+        }),
+      );
+    }
   };
 
   return (
