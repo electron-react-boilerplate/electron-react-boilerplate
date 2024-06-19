@@ -93,9 +93,12 @@ const partSlice = createSlice({
       }>,
     ) => {
       const { id, operation } = action.payload;
-      const index = state.operations.findIndex((op) => op.id === id);
-      if (index !== -1) {
-        state.operations[index] = { ...state.operations[index], ...operation };
+      const operationIndex = state.operations.findIndex((op) => op.id === id);
+      if (operationIndex !== -1) {
+        state.operations[operationIndex] = {
+          ...state.operations[operationIndex],
+          ...operation,
+        };
       }
     },
     deleteOperation: (state, action: PayloadAction<number>) => {
@@ -190,6 +193,7 @@ export const {
   editContour,
   addContour,
   addOperation,
+  editOperation,
   deleteOperation,
   addContourToOperation,
   removeContourFromOperation,

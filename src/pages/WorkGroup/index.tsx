@@ -60,9 +60,11 @@ const WorkGroup: React.FC = () => {
   const [isModalContourOpen, setIsModalContourOpen] = useState<boolean>(false);
   const [isModalOperationOpen, setIsModalOperationOpen] =
     useState<boolean>(false);
+  const [isModalEditOperationOpen, setIsModalEditOperationOpen] =
+    useState<boolean>(false);
   const [isModalCofirmDeleteOpOpen, setIsModalCofirmDeleteOpOpen] =
     useState<boolean>(false);
-  const [opIdToDelete, setOpIdToDelete] = useState<number>(0);
+  const [opIdAux, setOpIdAux] = useState<number>(0);
 
   const removeFromOperation = (operationId: number, contourId: number) => {
     dispatch(
@@ -74,7 +76,7 @@ const WorkGroup: React.FC = () => {
   };
 
   const handleDeleteOperation = () => {
-    dispatch(deleteOperation(opIdToDelete));
+    dispatch(deleteOperation(opIdAux));
   };
 
   return (
@@ -96,6 +98,17 @@ const WorkGroup: React.FC = () => {
       >
         <AddOperationForm
           onButtonClick={() => setIsModalOperationOpen(false)}
+        />
+      </Modal>
+      <Modal
+        title="Editar Operação"
+        isOpen={isModalEditOperationOpen}
+        onClose={() => setIsModalEditOperationOpen(false)}
+      >
+        <AddOperationForm
+          variation="edit"
+          onButtonClick={() => setIsModalEditOperationOpen(false)}
+          operationId={opIdAux}
         />
       </Modal>
       <Modal
@@ -169,8 +182,8 @@ const WorkGroup: React.FC = () => {
                     <div>
                       <SButton
                         onClick={() => {
-                          setOpIdToDelete(operation.id);
-                          setIsModalCofirmDeleteOpOpen(true);
+                          setOpIdAux(operation.id);
+                          setIsModalEditOperationOpen(true);
                         }}
                       >
                         <Icon
@@ -181,7 +194,7 @@ const WorkGroup: React.FC = () => {
                       </SButton>
                       <SButton
                         onClick={() => {
-                          setOpIdToDelete(operation.id);
+                          setOpIdAux(operation.id);
                           setIsModalCofirmDeleteOpOpen(true);
                         }}
                       >

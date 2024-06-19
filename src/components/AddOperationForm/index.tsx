@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Input from 'components/Input';
 import Select from 'components/Select';
-import { addOperation } from 'state/part/partSlice';
+
+import { addOperation, editOperation } from 'state/part/partSlice';
 
 import { grindingWheels } from 'integration/grindingWheels';
 
+// Types
 import { OptionType } from 'components/Select/interface';
+import { Operations } from 'types/part';
 import { FormProps } from './interface';
 import { Container, Field, SButton } from './style';
 
@@ -19,13 +22,24 @@ const formattedGrindingWheels: OptionType[] = grindingWheels.map((wheel) => ({
 const AddOperationForm: React.FC<FormProps> = ({
   onButtonClick,
   variation = 'add',
+  operationId,
 }) => {
   const dispatch = useDispatch();
-  const [formData, setFormData] = useState({
-    name: '',
-    grindingWheelId: 1,
-    dAngle: '',
-  });
+  const operations = useSelector(
+    (state: { part: { operations: Operations } }) => state.part.operations,
+  );
+  let formValues = { name: '', grindingWheelId: 1, dAngle: '' };
+  if (variation === 'edit') {
+    const operation = operations.find((op) => op.id === operationId);
+    if (operation) {
+      formValues = {
+        name: operation.name,
+        grindingWheelId: operation.grindingWheelId,
+        dAngle: operation.dAngle,
+      };
+    }
+  }
+  const [formData, setFormData] = useState(formValues);
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -46,7 +60,8 @@ const AddOperationForm: React.FC<FormProps> = ({
     if (!formData.name) alert('Os campos nome e tipo são obrigatórios');
 
     if (variation === 'add') dispatch(addOperation({ ...formData }));
-    else dispatch(addOperation({ ...formData }));
+    else if (operationId)
+      dispatch(editOperation({ id: operationId, operation: formData }));
   };
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {

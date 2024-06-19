@@ -100,5 +100,10 @@ export const TextAdd = styled.p`
 export const SButton = styled.button`
   border: 0;
   padding: 0;
+  margin-right: 10px;
   background-color: transparent;
+
+  &:last-child {
+    margin-right: 0;
+  }
 `;
