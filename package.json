@@ -104,7 +104,6 @@
     "react-router-dom": "^6.16.0"
   },
   "devDependencies": {
-    "@electron/notarize": "^2.1.0",
     "@electron/rebuild": "^3.3.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.11",
     "@svgr/webpack": "^8.1.0",
