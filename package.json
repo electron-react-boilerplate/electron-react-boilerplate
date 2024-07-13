@@ -96,6 +96,7 @@
     }
   },
   "dependencies": {
+    "@electron/notarize": "^2.3.2",
     "electron-debug": "^3.2.0",
     "electron-log": "^4.4.8",
     "electron-updater": "^6.1.4",
@@ -179,9 +180,8 @@
       "package.json"
     ],
     "mac": {
-      "notarize": {
-        "appBundleId": "org.erb.ElectronReact"
-      },
+      "sign": ".erb/scripts/notarize.js",
+      "notarize": false,
       "target": {
         "target": "default",
         "arch": [
