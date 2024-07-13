@@ -179,6 +179,9 @@
       "package.json"
     ],
     "mac": {
+      "notarize": {
+        "appBundleId": "org.erb.ElectronReact"
+      },
       "target": {
         "target": "default",
         "arch": [
