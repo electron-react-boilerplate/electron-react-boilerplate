@@ -17,6 +17,7 @@ body {
   margin-left: 540px;
 }
 
+/* This is for adding some space between the navbar buttons */
 a {
   text-decoration: none;
   height: fit-content;
@@ -24,6 +25,7 @@ a {
   margin: 10px;
 }
 
+/* This adds some style to the navbar on the left side */
 .navbar {
   display: flex;
   flex-direction: column;
@@ -34,26 +36,20 @@ a {
   top: 0;
   width: 300px;
   align-items: flex-start;
-  /* Adjust width as needed */
   height: 100%;
   background-color: #1a1a1a;
-  /* Adjust background color as needed */
 }
 
+/* This is for the text "Quantum" + logo */
 .navbar .logo-container {
   display: flex;
   align-items: center;
   position: relative;
   bottom: 310px;
   margin-left: 55px;
-  /* Aligns the logo and text vertically */
 }
 
-.navbar .logo-text {
-  margin-left: 0px;
-  /* Adjust spacing between logo and text */
-}
-
+/* This is for each of the buttons on the navbar */
 .btn {
   color: #fff;
   font-family: 'Roboto Condensed', sans-serif;
@@ -78,6 +74,7 @@ a {
   border-radius: 10px 10px;
 }
 
+/* This adds some styling behind & in front of the navbar buttons */
 .btn:before,
 .btn:after {
   content: "";
@@ -108,15 +105,15 @@ a {
   transform: scale(1);
 }
 
+/* This styling is for when a button gets selected / clicked on*/
 .btn.active{
   border: 2px solid #0082d8;
   border-radius: 10px 10px;
   background-color: #0082d8;
-  /* Example background color for active state */
   color: white;
-  /* Example text color for active state */
 }
 
+/* This is for that cool navbar button animation */
 @keyframes swoosh {
 
   0%,
@@ -129,12 +126,14 @@ a {
   }
 }
 
+/* This adjusts the program for mobile devices */
 @media only screen and (max-width: 767px) {
   .btn {
     margin-bottom: 20px;
   }
 }
 
+/* This adds that fade-in animation to the Dashboard title page text */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -145,31 +144,26 @@ a {
   }
 }
 
+/* This adds a delay to the dashboard title text fade in animation */
 .fadeIn {
   animation: fadeIn 2s;
 }
 
-/* src/renderer/App.css */
-.content {
-  margin-left: 200px;
-  /* Adjust according to the navbar's width */
-}
-
+/* This is for those small images next to the navbar buttons' text */
 .navbar img {
 width: 20px;
-  /* Adjust the size as needed */
   margin-right: 8px;
   position: relative;
   bottom: 2px;
-  /* Space between icon and text */
   vertical-align: middle;
-  /* Align icon with text */
 }
 
+/* This is also for those small images next to the navbar buttons' text */
 .navbar .img-logo{
   right: 20px;
 }
 
+/* This is for the Quantum logo at the top of the navbar */
 .navbar .logo {
   width: 50px;
   position: relative;
@@ -180,6 +174,7 @@ width: 20px;
   margin-right: 800px;
 }
 
+/* This is for the "Quantum" text at the top of the navbar */
 .logoname{
   position: relative;
   right: 24px;
@@ -188,13 +183,13 @@ width: 20px;
   /* Blue shadow */
 }
 
+/* This adds a cool shadow to the dashboard page's title text  */
 #header {
   text-shadow: 4px 4px 4px green;
 }
+
+/* This adds some curved edges to the navbar's right edges */
 .navbar {
   border-top-right-radius: 40px;
-  /* Adjust the radius as needed */
   border-bottom-right-radius: 40px;
-  /* Adjust the radius as needed */
-  /* Keep other existing styles */
 }

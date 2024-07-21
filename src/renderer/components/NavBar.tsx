@@ -1,6 +1,4 @@
-// src/renderer/components/Navbar.tsx
-import React from 'react';
-import { NavLink } from 'react-router-dom'; // Import Link
+import { NavLink } from 'react-router-dom';
 import dashboardIcon from '../../../assets/icons/dashboard-icon.png';
 import tasksIcon from '../../../assets/icons/task-icon.png';
 import profilesIcon from '../../../assets/icons/profiles-icon.png';
@@ -11,15 +9,16 @@ import logo from '../../../assets/icons/256x256.png';
 const Navbar = () => {
   return (
     <div className="navbar">
+      {/* Here's the logo and title of the program - Quantum!*/}
       <div className="logo-container mt-3 ">
         <img className="logo" src={logo} alt="" />
         <div className="logoname">
           <span className="h1 shadow-lg shadow-cyan-500/50">
             <strong>Quantum</strong>
-          </span>{' '}
-          {/* Add your website name or any text here */}
+          </span>
         </div>
       </div>
+      {/* Here are all of the buttons on the navbar */}
       <NavLink to="/dashboard" className="btn btn-lg" activeClassName="active">
         <img src={dashboardIcon} alt="" className="img-logo" />
         Dashboard

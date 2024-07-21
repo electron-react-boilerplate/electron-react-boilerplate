@@ -96,14 +96,9 @@
     }
   },
   "dependencies": {
-<<<<<<< HEAD
     "animate.css": "^4.1.1",
     "bootstrap": "^5.3.3",
     "chart.js": "^4.4.3",
-=======
-    "@electron/notarize": "^2.3.2",
->>>>>>> 94cc0bacf71c8afae17c1689d62eb790bddbe85e
-    "electron-debug": "^3.2.0",
     "electron-extension-installer": "^1.2.0",
     "electron-log": "^4.4.8",
     "electron-updater": "^6.1.4",
