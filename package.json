@@ -96,9 +96,13 @@
     }
   },
   "dependencies": {
+<<<<<<< HEAD
     "animate.css": "^4.1.1",
     "bootstrap": "^5.3.3",
     "chart.js": "^4.4.3",
+=======
+    "@electron/notarize": "^2.3.2",
+>>>>>>> 94cc0bacf71c8afae17c1689d62eb790bddbe85e
     "electron-debug": "^3.2.0",
     "electron-extension-installer": "^1.2.0",
     "electron-log": "^4.4.8",
@@ -112,7 +116,6 @@
     "recharts": "^2.12.7"
   },
   "devDependencies": {
-    "@electron/notarize": "^2.1.0",
     "@electron/rebuild": "^3.3.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.11",
     "@svgr/webpack": "^8.1.0",
@@ -124,7 +127,6 @@
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
     "@types/react-test-renderer": "^18.0.1",
-    "@types/terser-webpack-plugin": "^5.0.4",
     "@types/webpack-bundle-analyzer": "^4.6.0",
     "@typescript-eslint/eslint-plugin": "^6.7.0",
     "@typescript-eslint/parser": "^6.7.0",
@@ -137,7 +139,7 @@
     "css-minimizer-webpack-plugin": "^5.0.1",
     "detect-port": "^1.5.1",
     "electron": "^26.2.1",
-    "electron-builder": "^24.6.4",
+    "electron-builder": "^24.13.3",
     "electron-devtools-installer": "^3.2.0",
     "electronmon": "^2.0.2",
     "eslint": "^8.49.0",
@@ -188,8 +190,9 @@
       "node_modules",
       "package.json"
     ],
-    "afterSign": ".erb/scripts/notarize.js",
     "mac": {
+      "sign": ".erb/scripts/notarize.js",
+      "notarize": false,
       "target": {
         "target": "default",
         "arch": [
