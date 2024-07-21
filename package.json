@@ -96,12 +96,20 @@
     }
   },
   "dependencies": {
+    "animate.css": "^4.1.1",
+    "bootstrap": "^5.3.3",
+    "chart.js": "^4.4.3",
     "electron-debug": "^3.2.0",
+    "electron-extension-installer": "^1.2.0",
     "electron-log": "^4.4.8",
     "electron-updater": "^6.1.4",
+    "mdb-react-ui-kit": "^8.0.0",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.10.4",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.16.0"
+    "react-router-dom": "^6.16.0",
+    "recharts": "^2.12.7"
   },
   "devDependencies": {
     "@electron/notarize": "^2.1.0",

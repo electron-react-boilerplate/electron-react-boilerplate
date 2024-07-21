@@ -2,44 +2,19 @@
  * @NOTE: Prepend a `~` to css file paths that are in your node_modules
  *        See https://github.com/webpack-contrib/sass-loader#imports
  */
+@import '~bootstrap/dist/css/bootstrap.min.css';
 body {
   position: relative;
   color: white;
   height: 100vh;
-  background: linear-gradient(
-    200.96deg,
-    #fedc2a -29.09%,
-    #dd5789 51.77%,
-    #7a2c9e 129.35%
-  );
-  font-family: sans-serif;
+  background: #141414;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 30px;
   overflow-y: hidden;
   display: flex;
   justify-content: center;
-  align-items: center;
-}
-
-button {
-  background-color: white;
-  padding: 10px 20px;
-  border-radius: 10px;
-  border: none;
-  appearance: none;
-  font-size: 1.3rem;
-  box-shadow: 0px 8px 28px -6px rgba(24, 39, 75, 0.12),
-    0px 18px 88px -4px rgba(24, 39, 75, 0.14);
-  transition: all ease-in 0.1s;
-  cursor: pointer;
-  opacity: 0.9;
-}
-
-button:hover {
-  transform: scale(1.05);
-  opacity: 1;
-}
-
-li {
-  list-style: none;
+  align-items: top;
+  margin-left: 540px;
 }
 
 a {
@@ -49,14 +24,177 @@ a {
   margin: 10px;
 }
 
-a:hover {
-  opacity: 1;
-  text-decoration: none;
+.navbar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 300px;
+  align-items: flex-start;
+  /* Adjust width as needed */
+  height: 100%;
+  background-color: #1a1a1a;
+  /* Adjust background color as needed */
 }
 
-.Hello {
+.navbar .logo-container {
   display: flex;
-  justify-content: center;
   align-items: center;
-  margin: 20px 0;
+  position: relative;
+  bottom: 310px;
+  margin-left: 55px;
+  /* Aligns the logo and text vertically */
+}
+
+.navbar .logo-text {
+  margin-left: 0px;
+  /* Adjust spacing between logo and text */
+}
+
+.btn {
+  color: #fff;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 5px 35px;
+  border-radius: 0;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  transition: all 0.5s;
+  bottom: 240px;
+  left: 10px;
+}
+
+.btn:hover {
+  color: #fff;
+  animation: swoosh 0.4s ease-out 0.2s;
+  border: 2px solid #0082d8;
+  border-radius: 10px 10px;
+}
+
+.btn:before,
+.btn:after {
+  content: "";
+  background-color: #0082d8;
+  height: 100%;
+  width: 100%;
+  opacity: 0.7;
+  position: absolute;
+  top: 0;
+  left: -100%;
+  z-index: -1;
+  transition: all 0.4s ease-out 0.1s;
+}
+
+.btn:after {
+  opacity: 0;
+  transform: scale(0.9, 0.7);
+  left: 0;
+  transition: all 0.3s ease-out 0s;
+}
+
+.btn:hover:before {
+  left: 100%;
+}
+
+.btn:hover:after {
+  opacity: 0.3;
+  transform: scale(1);
+}
+
+.btn.active{
+  border: 2px solid #0082d8;
+  border-radius: 10px 10px;
+  background-color: #0082d8;
+  /* Example background color for active state */
+  color: white;
+  /* Example text color for active state */
+}
+
+@keyframes swoosh {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+
+  50% {
+    box-shadow: 0 0 0 8px rgba(0, 214, 216, 0.3);
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .btn {
+    margin-bottom: 20px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation: fadeIn 2s;
+}
+
+/* src/renderer/App.css */
+.content {
+  margin-left: 200px;
+  /* Adjust according to the navbar's width */
+}
+
+.navbar img {
+width: 20px;
+  /* Adjust the size as needed */
+  margin-right: 8px;
+  position: relative;
+  bottom: 2px;
+  /* Space between icon and text */
+  vertical-align: middle;
+  /* Align icon with text */
+}
+
+.navbar .img-logo{
+  right: 20px;
+}
+
+.navbar .logo {
+  width: 50px;
+  position: relative;
+  right: 20px;
+}
+
+.container {
+  margin-right: 800px;
+}
+
+.logoname{
+  position: relative;
+  right: 24px;
+  top:1px;
+  text-shadow: 2px 2px 2px cyan;
+  /* Blue shadow */
+}
+
+#header {
+  text-shadow: 4px 4px 4px green;
+}
+.navbar {
+  border-top-right-radius: 40px;
+  /* Adjust the radius as needed */
+  border-bottom-right-radius: 40px;
+  /* Adjust the radius as needed */
+  /* Keep other existing styles */
 }
