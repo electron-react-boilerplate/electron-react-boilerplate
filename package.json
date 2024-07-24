@@ -242,8 +242,8 @@
     "url": "https://opencollective.com/electron-react-boilerplate-594"
   },
   "devEngines": {
-    "node": ">=16.x",
-    "npm": ">=8.x"
+    "node": ">=14.x",
+    "npm": ">=7.x"
   },
   "electronmon": {
     "patterns": [
