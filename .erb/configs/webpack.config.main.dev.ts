@@ -1,5 +1,5 @@
 /**
- * Webpack config for production electron main process
+ * Webpack config for development electron main process
  */
 
 import path from 'path';
