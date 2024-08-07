@@ -2,22 +2,47 @@
   width: 1500px;
   height: 150px;
   border-radius: 30px;
-  background: rgba( 255, 255, 255, 0.5 );
-  backdrop-filter: blur( 7.5px );
-  -webkit-backdrop-filter: blur( 50px );
-  box-shadow: 0 8px 32px 0 rgba( 0, 0, 0, 0.18 );
+  background: rgba( 255, 255, 255, 0.3 );
+  backdrop-filter: blur( 50px );
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   border: 1px solid rgba( 255, 255, 255, 0.18 );
   position: absolute;
   bottom: 25px;
   left: 50%;
   transform: translate(-50%);
+  display: flex;
+  justify-content: center;
+  text-align: center;
 }
 
 .Navbar-children{
   display: flex;
 }
 
+.Navbar-Button-Section{
+  background: rgba( 255, 255, 255, 0.01 );
+  backdrop-filter: blur( 25px );
+  border-radius: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  width: 125px;
+  height: 125px;
+  margin: 12.5px 25px 0px;
+  padding: 0px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .Navbar-Button{
-  vertical-align: middle;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  font-size: 24px;
+}
+
+.Navbar-Icons{
+  width: 75px;
+  height: 75px;
+  margin-left: auto;
+  margin-right: auto;
 }
