@@ -2,12 +2,14 @@ import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Background from './components/Background/Background';
 import Navbar from './components/Navbar/Navbar';
+import Head from './components/Head/Head';
 
 function Main() {
   return (
     <div>
       <Navbar />
       <Background />
+      <Head />
     </div>
   );
 }
