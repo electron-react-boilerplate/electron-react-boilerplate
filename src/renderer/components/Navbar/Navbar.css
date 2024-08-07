@@ -1,0 +1,23 @@
+.Navbar-main{
+  width: 1500px;
+  height: 150px;
+  border-radius: 30px;
+  background: rgba( 255, 255, 255, 0.5 );
+  backdrop-filter: blur( 7.5px );
+  -webkit-backdrop-filter: blur( 50px );
+  box-shadow: 0 8px 32px 0 rgba( 0, 0, 0, 0.18 );
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.Navbar-children{
+  display: flex;
+}
+
+.Navbar-Button{
+  vertical-align: middle;
+  text-align: center;
+}
