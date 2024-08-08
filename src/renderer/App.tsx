@@ -8,8 +8,8 @@ function Main() {
   return (
     <div>
       <Navbar />
-      <Background />
       <Head />
+      <Background />
     </div>
   );
 }
