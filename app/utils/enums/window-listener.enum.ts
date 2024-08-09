@@ -1,0 +1,38 @@
+
+ export  enum WindowEventEnum {
+    PAGE_TITLE_UPDATED = 'page-title-updated',
+    CLOSE = 'close',
+    CLOSED = 'closed',
+    SESSION_END = 'session-end',
+    UNRESPONSIVE = 'unresponsive',
+    RESPONSIVE = 'responsive',
+    BLUR = 'blur',
+    FOCUS = 'focus',
+    SHOW = 'show',
+    HIDE = 'hide',
+    READY_TO_SHOW = 'ready-to-show',
+    MAXIMIZE = 'maximize',
+    UNMAXIMIZE = 'unmaximize',
+    MINIMIZE = 'minimize',
+    RESTORE = 'restore',
+    WILL_RESIZE = 'will-resize',
+    RESIZE = 'resize',
+    WILL_MOVE = 'will-move',
+    MOVE = 'move',
+    MOVED = 'moved',
+    ENTER_FULL_SCREEN = 'enter-full-screen',
+    LEAVE_FULL_SCREEN = 'leave-full-screen',
+    ENTER_HTML_FULL_SCREEN = 'enter-html-full-screen',
+    LEAVE_HTML_FULL_SCREEN = 'leave-html-full-screen',
+    ALWAYS_ON_TOP_CHANGED = 'always-on-top-changed',
+    APP_COMMAND = 'app-command',
+    SCROLL_TOUCH_BEGIN = 'scroll-touch-begin',
+    SCROLL_TOUCH_END = 'scroll-touch-end',
+    SCROLL_TOUCH_EDGE = 'scroll-touch-edge',
+    SWIPE = 'swipe',
+    SHEET_BEGIN = 'sheet-begin',
+    SHEET_END = 'sheet-end',
+    NEW_WINDOW_FOR_TAB = 'new-window-for-tab'
+}
+
+

@@ -32,7 +32,7 @@
       "url": "https://github.com/amilajack"
     }
   ],
-  "main": "./src/main/main.ts",
+  "main": "./app/main.ts",
   "scripts": {
     "build": "concurrently \"npm run build:main\" \"npm run build:renderer\"",
     "build:dll": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.renderer.dev.dll.ts",
@@ -100,9 +100,11 @@
     "electron-debug": "^3.2.0",
     "electron-log": "^4.4.8",
     "electron-updater": "^6.1.4",
+    "inversify": "^6.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.16.0"
+    "react-router-dom": "^6.16.0",
+    "reflect-metadata": "^0.2.2"
   },
   "devDependencies": {
     "@electron/rebuild": "^3.3.0",
@@ -244,7 +246,7 @@
   "electronmon": {
     "patterns": [
       "!**/**",
-      "src/main/**"
+      "app/**"
     ],
     "logLevel": "quiet"
   }

@@ -1,0 +1,38 @@
+import {Event as ElectronEvent, Rectangle} from "electron";
+import {WindowEventEnum} from "../enums/window-listener.enum";
+
+export type WindowEventType = {
+    [WindowEventEnum.PAGE_TITLE_UPDATED]: [title: string];
+    [WindowEventEnum.CLOSE]: [];
+    [WindowEventEnum.CLOSED]: [];
+    [WindowEventEnum.SESSION_END]: [];
+    [WindowEventEnum.UNRESPONSIVE]: [];
+    [WindowEventEnum.RESPONSIVE]: [];
+    [WindowEventEnum.BLUR]: [];
+    [WindowEventEnum.FOCUS]: [];
+    [WindowEventEnum.SHOW]: [];
+    [WindowEventEnum.HIDE]: [];
+    [WindowEventEnum.READY_TO_SHOW]: [];
+    [WindowEventEnum.MAXIMIZE]: [];
+    [WindowEventEnum.UNMAXIMIZE]: [];
+    [WindowEventEnum.MINIMIZE]: [];
+    [WindowEventEnum.RESTORE]: [];
+    [WindowEventEnum.WILL_RESIZE]: [event: ElectronEvent, newBounds: Rectangle];
+    [WindowEventEnum.RESIZE]: [event: ElectronEvent, newBounds: Rectangle];
+    [WindowEventEnum.WILL_MOVE]: [event: ElectronEvent, newBounds: Rectangle];
+    [WindowEventEnum.MOVE]: [event: ElectronEvent, newBounds: Rectangle];
+    [WindowEventEnum.MOVED]: [event: ElectronEvent];
+    [WindowEventEnum.ENTER_FULL_SCREEN]: [];
+    [WindowEventEnum.LEAVE_FULL_SCREEN]: [];
+    [WindowEventEnum.ENTER_HTML_FULL_SCREEN]: [];
+    [WindowEventEnum.LEAVE_HTML_FULL_SCREEN]: [];
+    [WindowEventEnum.ALWAYS_ON_TOP_CHANGED]: [event: ElectronEvent, isAlwaysOnTop: boolean];
+    [WindowEventEnum.APP_COMMAND]: [event: ElectronEvent, command: string];
+    [WindowEventEnum.SCROLL_TOUCH_BEGIN]: [event: ElectronEvent];
+    [WindowEventEnum.SCROLL_TOUCH_END]: [event: ElectronEvent];
+    [WindowEventEnum.SCROLL_TOUCH_EDGE]: [event: ElectronEvent];
+    [WindowEventEnum.SWIPE]: [event: ElectronEvent, direction: string];
+    [WindowEventEnum.SHEET_BEGIN]: [event: ElectronEvent];
+    [WindowEventEnum.SHEET_END]: [event: ElectronEvent];
+    [WindowEventEnum.NEW_WINDOW_FOR_TAB]: [event: ElectronEvent, url: string];
+};
