@@ -1,5 +1,4 @@
-[![React Logo](https://user-images.githubusercontent.com/84442212/194379444-02e5ec69-5e6c-4100-bd7a-c31d628af29c.png)](https://react.dev/) [![Electron Logo](https://www.vectorlogo.zone/logos/electronjs/electronjs-icon.svg)](https://electronjs.org/)
-
+ 
 
 # **React with Electron**
 ### ***Coding Electron with Structure: Class-Based, Decorators, and Dependency Injection***
