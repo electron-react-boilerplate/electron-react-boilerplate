@@ -10,13 +10,13 @@ export default function App() {
   return (
     <div>
       <Router>
+        <Background />
         <Navbar />
         <Head />
         <Routes>
           <Route path="schedule/" element={<Home />} />
           <Route path="schedule/calls" element={<Calls />} />
         </Routes>
-        <Background />
       </Router>
     </div>
   );
