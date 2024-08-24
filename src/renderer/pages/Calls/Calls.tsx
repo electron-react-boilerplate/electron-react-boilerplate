@@ -5,26 +5,18 @@ function Calls() {
   return (
     <Box
       sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignContent: 'center',
+        position: 'fixed',
+        inset: '0px',
+        margin: 'auto',
+        width: '600px',
+        height: '800px',
       }}
     >
-      <Box
-        sx={{
-          marginInline: 'auto',
-          marginBlockStart: '50vh',
-          transform: 'translateY(-50%)',
-          backgroundColor: 'primary',
-          padding: '16px',
-        }}
-      >
-        <img
-          src={calls}
-          alt=" "
-          style={{ maxWidth: '100%', height: '700px', borderRadius: '16px' }}
-        />
-      </Box>
+      <img
+        src={calls}
+        alt=" "
+        style={{ maxWidth: '100%', height: '800px', borderRadius: '16px' }}
+      />
     </Box>
   );
 }
