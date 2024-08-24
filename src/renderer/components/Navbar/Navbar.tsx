@@ -17,13 +17,11 @@ function Navbar() {
   };
   return (
     <motion.div
-      className="animatable_nav"
       initial={{ opacity: 0, borderRadius: '0px' }}
       animate={{ opacity: 1, borderRadius: '16px' }}
       transition={{ type: 'spring', stiffness: 100 }}
     >
       <BottomNavigation
-        className="animatable_nav"
         sx={{
           width: 700,
           height: 75,
@@ -46,6 +44,7 @@ function Navbar() {
         <BottomNavigationAction
           label="Новости"
           value="News"
+          onClick={() => navigate('/schedule/news')}
           icon={<FeedIcon fontSize="large" />}
         />
         <BottomNavigationAction

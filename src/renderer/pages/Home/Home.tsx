@@ -23,21 +23,21 @@ import Slide16 from './Slides/Prezentatsia_obychnye_dni_2_semestr_00016.png';
 function Home() {
   const navigate = useNavigate();
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.5, y: 1500 }}
-      animate={{ opacity: 1, scale: [1, 1.5, 1], y: 450 }}
-      exit={{ opacity: 0, scale: 0 }}
-      transition={{ type: 'spring', stiffness: 50 }}
+    <Box
+      sx={{
+        width: '1500px',
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        borderRadius: '16px',
+        transform: 'translate(-50%, -50%)',
+      }}
     >
-      <Box
-        sx={{
-          width: '1500px',
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          borderRadius: '16px',
-          transform: 'translate(-50%, -50%)',
-        }}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.5, y: 500, filter: 'blur(10px)' }}
+        animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
+        exit={{ opacity: 0, scale: 0 }}
+        transition={{ type: 'spring', stiffness: 50 }}
       >
         <Carousel
           autoPlay
@@ -99,8 +99,8 @@ function Home() {
             <img src={Slide16} />
           </div>
         </Carousel>
-      </Box>
-    </motion.div>
+      </motion.div>
+    </Box>
   );
 }
 
