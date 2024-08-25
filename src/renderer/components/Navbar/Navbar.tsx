@@ -7,6 +7,7 @@ import FeedIcon from '@mui/icons-material/Feed';
 import TodayIcon from '@mui/icons-material/Today';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import { motion } from 'framer-motion';
+import { Paper } from '@mui/material';
 
 function Navbar() {
   const navigate = useNavigate();
@@ -21,7 +22,8 @@ function Navbar() {
       animate={{ opacity: 1, borderRadius: '16px' }}
       transition={{ type: 'spring', stiffness: 100 }}
     >
-      <BottomNavigation
+      <Paper
+        elevation={1}
         sx={{
           width: 700,
           height: 75,
@@ -32,33 +34,47 @@ function Navbar() {
           left: '50%',
           transform: 'translate(-50%)',
         }}
-        value={value}
-        onChange={handleChange}
       >
-        <BottomNavigationAction
-          label="Главная"
-          value="Main"
-          onClick={() => navigate('/schedule')}
-          icon={<HomeIcon fontSize="large" />}
-        />
-        <BottomNavigationAction
-          label="Новости"
-          value="News"
-          onClick={() => navigate('/schedule/news')}
-          icon={<FeedIcon fontSize="large" />}
-        />
-        <BottomNavigationAction
-          label="Расписание"
-          value="Schedule"
-          icon={<TodayIcon fontSize="large" />}
-        />
-        <BottomNavigationAction
-          label="Звонки"
-          value="Calls"
-          onClick={() => navigate('/schedule/calls')}
-          icon={<NotificationsActiveIcon fontSize="large" />}
-        />
-      </BottomNavigation>
+        <BottomNavigation
+          sx={{
+            width: 700,
+            height: 75,
+            borderRadius: '15px',
+            position: 'absolute',
+            zIndex: '0',
+            bottom: '0px',
+            left: '50%',
+            transform: 'translate(-50%)',
+          }}
+          value={value}
+          onChange={handleChange}
+        >
+          <BottomNavigationAction
+            label="Главная"
+            value="Main"
+            onClick={() => navigate('/schedule')}
+            icon={<HomeIcon fontSize="large" />}
+          />
+          <BottomNavigationAction
+            label="Новости"
+            value="News"
+            onClick={() => navigate('/schedule/news')}
+            icon={<FeedIcon fontSize="large" />}
+          />
+          <BottomNavigationAction
+            label="Расписание"
+            value="Schedule"
+            onClick={() => navigate('/schedule/schedule')}
+            icon={<TodayIcon fontSize="large" />}
+          />
+          <BottomNavigationAction
+            label="Звонки"
+            value="Calls"
+            onClick={() => navigate('/schedule/calls')}
+            icon={<NotificationsActiveIcon fontSize="large" />}
+          />
+        </BottomNavigation>
+      </Paper>
     </motion.div>
   );
 }
