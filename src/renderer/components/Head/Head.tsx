@@ -8,6 +8,8 @@ import Icon from '@mui/material/Icon';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import skoipt from './skoipt.png';
 import weather from './weather.svg';
+import axios from 'axios';
+import Weather from '../Weather/Weather';
 
 const logoStyle = {
   width: '140px',
@@ -29,14 +31,11 @@ const Months = [
   'Ноябрь',
   'Декабрь',
 ];
-const proxy = 'https://proxy.cors.sh/';
-const url = 'https://pogoda.mail.ru/prognoz/salavat/';
 const apiKey = 'temp_a591e999826f5d62a01b893c50ebc5f9';
 
 function Head() {
   const [curTime, setCurTime] = useState('00:00');
   const [curDate, setCurDate] = useState('Пн. 0 Январь');
-  const [curTemp, setCurTemp] = useState('+0');
 
   const updateTime = () => {
     const today = new Date();
@@ -47,21 +46,9 @@ function Head() {
       `${(hours.length === 1 ? '0' : '') + hours}:${(minutes.length === 1 ? '0' : '') + minutes}`,
     );
   };
-  const updateDateAndTemp = () => {
+  const updateDate = () => {
     const today = new Date();
     const parser = new DOMParser();
-    const xhr = new XMLHttpRequest();
-
-    xhr.open('GET', proxy + url, true);
-    xhr.setRequestHeader('x-cors-api-key', apiKey);
-    xhr.onload = function () {
-      const htmlDoc = parser.parseFromString(xhr.responseText, 'text/html');
-      const temp =
-        htmlDoc.querySelector('.information__content__temperature')
-          ?.textContent ?? '0';
-      setCurTemp(temp);
-    };
-    xhr.send();
 
     setCurDate(
       `${daysOfWeek[today.getDay()]}. ${today.getDate()} ${Months[today.getMonth()]}`,
@@ -77,10 +64,10 @@ function Head() {
   }, []);
 
   useEffect(() => {
-    updateDateAndTemp();
-    setInterval(updateDateAndTemp, 1000 * 60 * 60);
+    updateDate();
+    setInterval(updateDate, 1000 * 60 * 60);
     return () => {
-      clearInterval(updateDateAndTemp);
+      clearInterval(updateDate);
     };
   }, []);
 
@@ -123,7 +110,7 @@ function Head() {
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <img src={weather} alt="" />
             <Typography variant="body1" color="#000000">
-              {curTemp}
+              <Weather interval={1000*60*60}/>
             </Typography>
           </Box>
           <Box display="flex" alignItems="center">
