@@ -7,7 +7,13 @@ import {
   Typography,
 } from '@mui/material';
 import { motion } from 'framer-motion';
-import { black } from '@mui/material/colors';
+import React, { useState } from 'react';
+import {
+  CourseContent1,
+  CourseContent2,
+  CourseContent3,
+  CourseContent4,
+} from './CourseContent';
 
 const CursesButton = styled(Button)<ButtonProps>(({ theme }) => ({
   color: 'black',
@@ -16,6 +22,22 @@ const CursesButton = styled(Button)<ButtonProps>(({ theme }) => ({
 }));
 
 function Schedule() {
+  const [selectedCourse, setSelectedCourse] = useState(null);
+
+  const renderCourseContent = () => {
+    switch (selectedCourse) {
+      case 1:
+        return <CourseContent1 onBack={() => setSelectedCourse(null)} />;
+      case 2:
+        return <CourseContent2 onBack={() => setSelectedCourse(null)} />;
+      case 3:
+        return <CourseContent3 onBack={() => setSelectedCourse(null)} />;
+      case 4:
+        return <CourseContent4 onBack={() => setSelectedCourse(null)} />;
+      default:
+        return null;
+    }
+  };
   return (
     <Box
       sx={{
@@ -59,7 +81,11 @@ function Schedule() {
               elevation={3}
               sx={{ height: '70px', display: 'flex', marginTop: '50px' }}
             >
-              <CursesButton variant="text" size="large">
+              <CursesButton
+                variant="text"
+                size="large"
+                onClick={() => setSelectedCourse(1)}
+              >
                 1 курс
               </CursesButton>
             </Paper>
@@ -67,7 +93,11 @@ function Schedule() {
               elevation={3}
               sx={{ height: '70px', display: 'flex', marginTop: '20px' }}
             >
-              <CursesButton variant="text" size="large">
+              <CursesButton
+                variant="text"
+                size="large"
+                onClick={() => setSelectedCourse(2)}
+              >
                 2 курс
               </CursesButton>
             </Paper>
@@ -75,7 +105,11 @@ function Schedule() {
               elevation={3}
               sx={{ height: '70px', display: 'flex', marginTop: '20px' }}
             >
-              <CursesButton variant="text" size="large">
+              <CursesButton
+                variant="text"
+                size="large"
+                onClick={() => setSelectedCourse(3)}
+              >
                 3 курс
               </CursesButton>
             </Paper>
@@ -83,12 +117,17 @@ function Schedule() {
               elevation={3}
               sx={{ height: '70px', display: 'flex', marginTop: '20px' }}
             >
-              <CursesButton variant="text" size="large">
+              <CursesButton
+                variant="text"
+                size="large"
+                onClick={() => setSelectedCourse(4)}
+              >
                 4 курс
               </CursesButton>
             </Paper>
           </Paper>
         </Paper>
+        {renderCourseContent()}
       </motion.div>
     </Box>
   );
