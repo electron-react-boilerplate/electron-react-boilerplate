@@ -2,8 +2,11 @@ import {
   Box,
   Button,
   ButtonProps,
+  Pagination,
   Paper,
   styled,
+  Tab,
+  Tabs,
   Typography,
 } from '@mui/material';
 import { motion } from 'framer-motion';
@@ -15,29 +18,47 @@ import {
   CourseContent4,
 } from './CourseContent';
 
-const CursesButton = styled(Button)<ButtonProps>(({ theme }) => ({
-  color: 'black',
-  width: '100%',
-  fontSize: '18px',
-}));
+interface TabPanelProps {
+  children?: React.ReactNode;
+  dir?: string;
+  index: number;
+  value: number;
+}
+
+function TabPanel(props: TabPanelProps) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`full-width-tabpanel-${index}`}
+      aria-labelledby={`full-width-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+function a11yProps(index: number) {
+  return {
+    id: `full-width-tab-${index}`,
+    'aria-controls': `full-width-tabpanel-${index}`,
+  };
+}
 
 function Schedule() {
-  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [value, setValue] = React.useState( null );
 
-  const renderCourseContent = () => {
-    switch (selectedCourse) {
-      case 1:
-        return <CourseContent1 onBack={() => setSelectedCourse(null)} />;
-      case 2:
-        return <CourseContent2 onBack={() => setSelectedCourse(null)} />;
-      case 3:
-        return <CourseContent3 onBack={() => setSelectedCourse(null)} />;
-      case 4:
-        return <CourseContent4 onBack={() => setSelectedCourse(null)} />;
-      default:
-        return null;
-    }
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
   };
+
   return (
     <Box
       sx={{
@@ -62,72 +83,35 @@ function Schedule() {
             display: 'flex',
             justifyContent: 'center',
             textAlign: 'center',
+            flexWrap: 'wrap',
           }}
         >
-          <Typography sx={{ marginTop: '35px' }} variant="h4">
-            Курсы
-          </Typography>
-          <Paper
-            elevation={0}
-            sx={{
-              width: '550px',
-              height: '400px',
-              position: 'fixed',
-              inset: '0',
-              margin: 'auto',
-            }}
-          >
-            <Paper
-              elevation={3}
-              sx={{ height: '70px', display: 'flex', marginTop: '50px' }}
+          <Box sx={{ width: '600px' }}>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              variant="fullWidth"
+              sx={{ margin: '15px' }}
             >
-              <CursesButton
-                variant="text"
-                size="large"
-                onClick={() => setSelectedCourse(1)}
-              >
-                1 курс
-              </CursesButton>
-            </Paper>
-            <Paper
-              elevation={3}
-              sx={{ height: '70px', display: 'flex', marginTop: '20px' }}
-            >
-              <CursesButton
-                variant="text"
-                size="large"
-                onClick={() => setSelectedCourse(2)}
-              >
-                2 курс
-              </CursesButton>
-            </Paper>
-            <Paper
-              elevation={3}
-              sx={{ height: '70px', display: 'flex', marginTop: '20px' }}
-            >
-              <CursesButton
-                variant="text"
-                size="large"
-                onClick={() => setSelectedCourse(3)}
-              >
-                3 курс
-              </CursesButton>
-            </Paper>
-            <Paper
-              elevation={3}
-              sx={{ height: '70px', display: 'flex', marginTop: '20px' }}
-            >
-              <CursesButton
-                variant="text"
-                size="large"
-                onClick={() => setSelectedCourse(4)}
-              >
-                4 курс
-              </CursesButton>
-            </Paper>
-          </Paper>
+              <Tab label="1 курс" {...a11yProps(0)} sx={{ color: 'black' }} />
+              <Tab label="2 курс" {...a11yProps(1)} sx={{ color: 'black' }} />
+              <Tab label="3 курс" {...a11yProps(2)} sx={{ color: 'black' }} />
+              <Tab label="4 курс" {...a11yProps(3)} sx={{ color: 'black' }} />
+            </Tabs>
+          </Box>
+          <TabPanel value={value} index={0}>
+            1 курс
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            2 курс
+          </TabPanel>
+          <TabPanel value={value} index={2}>
+            3 курс
+          </TabPanel>
+          <TabPanel value={value} index={3}>
+            4 курс
+          </TabPanel>
         </Paper>
-        {renderCourseContent()}
       </motion.div>
     </Box>
   );
