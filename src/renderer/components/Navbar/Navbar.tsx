@@ -29,7 +29,7 @@ function Navbar() {
           height: 75,
           borderRadius: '15px',
           position: 'absolute',
-          zIndex: '0',
+          zIndex: '1',
           bottom: '30px',
           left: '50%',
           transform: 'translate(-50%)',

@@ -1,0 +1,14 @@
+.LastNews__img {
+    object-fit: contain;
+}
+.LastNews__text {
+    backdrop-filter: blur(1.5px);
+    overflow: scroll;
+    position: relative;
+    padding: 5px;
+    top: -20vh;
+    height: 15vh;
+}
+.LastNews__text::-webkit-scrollbar { 
+    display: none; 
+}
