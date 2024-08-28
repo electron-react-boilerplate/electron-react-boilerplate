@@ -9,6 +9,6 @@
     top: -20vh;
     height: 15vh;
 }
-.LastNews__text::-webkit-scrollbar { 
-    display: none; 
+.LastNews__text::-webkit-scrollbar {
+    display: none;
 }
