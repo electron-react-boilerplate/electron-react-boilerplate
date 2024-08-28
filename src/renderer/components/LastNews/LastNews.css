@@ -1,5 +1,8 @@
 .LastNews__img {
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
+    display: inline-grid;
 }
 .LastNews__text {
     backdrop-filter: blur(1.5px);

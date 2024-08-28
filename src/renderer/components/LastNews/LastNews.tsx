@@ -38,7 +38,7 @@ export default function LastNews({ fullText = false }) {
             ) > -1 ||
             element.classList.value.indexOf('MediaGrid__imageElement') > -1
           )
-            elements.push(<img src={element.src} />);
+            elements.push(<img className='LastNews__img' src={element.src} />);
         });
 
       newText = postTextEl?.textContent ?? '';
@@ -56,17 +56,29 @@ export default function LastNews({ fullText = false }) {
       sx={{
         position: 'fixed',
         inset: '0px',
-        margin: 'auto',
         width: '1000px',
-        height: '800px',
+        height: 'calc(90% - 186px)',
+        margin: "auto",
+        marginTop: "111px"
       }}
     >
-      <Box sx={{ margin: '15px' }}>
-        <Typography variant="h6">{text}</Typography>
-        <Box sx={{ display: 'flex', justifyContent: 'center', height: '300px' }}>
-          {images}
+        <Box 
+            sx={{ margin: '15px' }}
+        >
+            <Typography variant="h6" textAlign={"center"}>
+                {text}
+            </Typography>
+            <Box 
+                sx={{ 
+                    display: 'grid', 
+                    height: '300px',
+                    gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+                    gridTemplateRows: "repeat(auto-fit, minmax(200px, 1fr))"
+                }}
+            >
+                {images}
+            </Box>
         </Box>
-      </Box>
     </Paper>
   );
 }
