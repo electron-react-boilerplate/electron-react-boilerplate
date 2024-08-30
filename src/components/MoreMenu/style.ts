@@ -13,7 +13,7 @@ export const Menu = styled.button`
   width: 56px;
 `;
 
-export const SubMenuDown = styled.nav`
+export const DropDown = styled.nav`
   width: 150px;
   position: absolute;
   top: 100%;
@@ -30,7 +30,9 @@ export const SubMenuDown = styled.nav`
   border-bottom: none;
 `;
 
-export const SubButton = styled.button`
+// use component
+export const Button = styled.button`
+  position: relative;
   text-align: left;
   font-size: 16px;
   outline: none;
@@ -40,6 +42,23 @@ export const SubButton = styled.button`
   padding: 15px 12px;
   cursor: pointer;
   border-bottom: 1px solid ${colors.greyMedium};
+
+  &:hover {
+    opacity: 0.6;
+    background-color: ${colors.grey};
+    color: ${colors.blue};
+  }
+`;
+
+export const SubMenu = styled(DropDown)`
+  top: 0;
+  left: 100%;
+  transform: translateY(-1px);
+`;
+
+export const SubButton = styled(Button)`
+  background-color: ${colors.greyMedium};
+  border-bottom: 1px solid ${colors.greyDark};
 
   &:hover {
     opacity: 0.6;

@@ -28,10 +28,10 @@ export interface ContourItem {
 export interface Contours extends Array<ContourItem> {}
 
 export interface OperationItem {
-  // id: number;
-  // name: string;
-  // grindingWheel?: string;
-  // dAngle?: number;
+  id: number;
+  name: string;
+  grindingWheelId: number;
+  dAngle: string;
   contoursIds: number[];
 }
 

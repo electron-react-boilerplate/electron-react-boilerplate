@@ -67,6 +67,7 @@ export const RadioButton = styled.label`
   }
 `;
 
+// use component Button
 export const Button = styled.button`
   background-color: ${colors.blue};
   border: none;

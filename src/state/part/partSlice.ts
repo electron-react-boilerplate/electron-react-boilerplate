@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Part, ContourItem, ActivitiyItem } from 'types/part';
+import { Part, ContourItem, ActivitiyItem, OperationItem } from 'types/part';
 
 interface EditContourPayload {
   id: number;
@@ -47,7 +47,11 @@ export const initialState: Part = {
   ],
   operations: [
     {
+      id: 1,
+      grindingWheelId: 1,
+      name: 'Operação',
       contoursIds: [],
+      dAngle: '0',
     },
   ],
 };
@@ -67,23 +71,84 @@ const partSlice = createSlice({
         activities: [initialActivity],
       });
     },
-    // refactor after Demo
-    addContourToOperation: (state, action: PayloadAction<number>) => {
-      if (!state.operations[0].contoursIds.includes(action.payload)) {
-        state.operations[0].contoursIds.push(action.payload);
+    addOperation: (
+      state,
+      action: PayloadAction<Omit<Omit<OperationItem, 'id'>, 'contoursIds'>>,
+    ) => {
+      const maxId = Math.max(
+        ...state.operations.map((operation) => operation.id),
+        0,
+      );
+      state.operations.push({
+        ...action.payload,
+        id: maxId + 1,
+        contoursIds: [],
+      });
+    },
+    editOperation: (
+      state,
+      action: PayloadAction<{
+        id: number;
+        operation: Omit<Omit<OperationItem, 'id'>, 'contoursIds'>;
+      }>,
+    ) => {
+      const { id, operation } = action.payload;
+      const operationIndex = state.operations.findIndex((op) => op.id === id);
+      if (operationIndex !== -1) {
+        state.operations[operationIndex] = {
+          ...state.operations[operationIndex],
+          ...operation,
+        };
       }
     },
-    removeContourFromOperation: (state, action: PayloadAction<number>) => {
-      state.operations[0].contoursIds = state.operations[0].contoursIds.filter(
-        (id) => id !== action.payload,
+    deleteOperation: (state, action: PayloadAction<number>) => {
+      const id = action.payload;
+      const index = state.operations.findIndex(
+        (operation) => operation.id === id,
       );
+      if (index !== -1) {
+        state.operations.splice(index, 1);
+      }
     },
-    changeContourPositionOnOperation: (
+    addContourToOperation: (
       state,
-      action: PayloadAction<{ contourId: number; direction: 'up' | 'down' }>,
+      action: PayloadAction<{ operationId: number; contourId: number }>,
     ) => {
-      const { contourId, direction } = action.payload;
-      const operation = state.operations[0]; // assumindo que você quer modificar a primeira operação
+      const operation = state.operations.find(
+        (op) => op.id === action.payload.operationId,
+      );
+      if (
+        operation &&
+        !operation.contoursIds.includes(action.payload.contourId)
+      ) {
+        operation.contoursIds.push(action.payload.contourId);
+      }
+    },
+    removeContourFromOperation: (
+      state,
+      action: PayloadAction<{ operationId: number; contourId: number }>,
+    ) => {
+      const operation = state.operations.find(
+        (op) => op.id === action.payload.operationId,
+      );
+      if (operation) {
+        operation.contoursIds = operation.contoursIds.filter(
+          (id) => id !== action.payload.contourId,
+        );
+      }
+    },
+    changeContourPositionAtOperation: (
+      state,
+      action: PayloadAction<{
+        operationId: number;
+        contourId: number;
+        direction: 'up' | 'down';
+      }>,
+    ) => {
+      const { operationId, contourId, direction } = action.payload;
+      const operation = state.operations.find((op) => op.id === operationId); // encontrar a operação correta
+
+      if (!operation) return; // se a operação não for encontrada, retorne
 
       const index = operation.contoursIds.findIndex((id) => id === contourId);
       if (index < 0) return;
@@ -127,9 +192,12 @@ export const {
   removeContour,
   editContour,
   addContour,
+  addOperation,
+  editOperation,
+  deleteOperation,
   addContourToOperation,
   removeContourFromOperation,
-  changeContourPositionOnOperation,
+  changeContourPositionAtOperation,
 } = partSlice.actions;
 
 export default partSlice.reducer;

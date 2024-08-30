@@ -10,7 +10,7 @@ export const Label = styled.label`
   margin-bottom: 12px;
 `;
 
-export const Input = styled.input`
+export const SInput = styled.input`
   background-color: ${colors.white};
   border: 1px solid ${colors.greyMedium};
   box-sizing: border-box;

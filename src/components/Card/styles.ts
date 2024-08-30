@@ -2,7 +2,10 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { colors, shadows } from 'styles/global.styles';
 
-export const Container = styled.div<{ isActive?: boolean }>`
+export const Container = styled.div<{
+  isActive?: boolean;
+  isOperation?: string;
+}>`
   background-color: ${colors.white};
   border-bottom: 1px solid ${colors.greyMedium};
   display: flex;
@@ -10,6 +13,13 @@ export const Container = styled.div<{ isActive?: boolean }>`
   justify-content: space-between;
   opacity: ${(props) => (props.isActive ? 0.5 : 1)};
   height: 56px;
+
+  &:last-child {
+    border-bottom: ${(props) =>
+      props.isOperation === 'operation'
+        ? 'none'
+        : `1px solid ${colors.greyMedium}`};
+  }
 `;
 
 export const ContentLeft = styled.div`

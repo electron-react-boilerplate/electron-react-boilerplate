@@ -3,6 +3,12 @@ export interface SubMenuItem {
   action: () => void;
 }
 
+export interface MenuItem {
+  name: string;
+  action?: () => void;
+  subItems?: Array<SubMenuItem>;
+}
+
 export interface MoreMenuProps {
-  submenuItems: SubMenuItem[];
+  menuItems: MenuItem[];
 }
