@@ -15,4 +15,5 @@ export const StyledButton = styled.button<ButtonProps>`
   border-radius: ${measures.borderRadius};
   width: 100%;
   border: 1px solid ${(props) => props.borderColor};
+  font-size: 16px;
 `;

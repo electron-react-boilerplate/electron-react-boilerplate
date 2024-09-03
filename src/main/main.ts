@@ -119,15 +119,10 @@ const createWindow = async () => {
             programs: [...generatedCodes],
           }),
         });
-        if (!response.ok) {
-          console.error('save-gcode error: ', response);
-        }
         const data = await response.json();
-        console.log('API response:', data);
         return data;
       } catch (error) {
-        console.error('Erro ao fazer a chamada de API:', error);
-        return error;
+        throw new Error('Erro ao fazer a chamada de API');
       }
     },
   );

@@ -12,6 +12,12 @@ export const MenuContainer = styled.div`
   flex-shrink: 0;
 `;
 
+export const ModalText = styled.p`
+  color: ${colors.greyFont};
+  font-size: 16px;
+  margin-bottom: 16px;
+`;
+
 export const Menu = styled.nav`
   display: flex;
   flex-flow: column nowrap;
