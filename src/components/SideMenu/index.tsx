@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { mountGCode } from 'integration/mount-gcode';
 
 import { colors } from 'styles/global.styles';
-import { Part, ContourItem } from 'types/part';
+import { Part } from 'types/part';
 import {
   MenuContainer,
   Menu,
@@ -15,26 +15,30 @@ import {
   StyledIcon,
 } from './styles';
 
-const generateGCode = (stateValue: ContourItem) => {
-  console.log('generateGCode', stateValue);
-  window.electron.ipcRenderer.saveGCode(mountGCode(stateValue));
-};
-
 const SideMenu: React.FC = () => {
   const part = useSelector((state: { part: Part }) => state.part);
   const [loaded, setLoaded] = useState(false);
 
-  const generateGCodeForOperations = () => {
+  const generateGCodeForOperations = async () => {
+    const generatedCodes: String[] = [];
+
     part.operations.forEach((operation) => {
       operation.contoursIds.forEach((contourId) => {
         const operationContour = part.contours.find(
           (contour) => contour.id === contourId,
         );
         if (operationContour) {
-          generateGCode(operationContour);
+          // Resolver problema do ID repetido do mesmo contorno em operations diferentes
+          const gCode = mountGCode(operationContour);
+          generatedCodes.push(gCode);
         }
       });
     });
+
+    const response =
+      await window.electron.ipcRenderer.saveGCode(generatedCodes);
+
+    console.log('response', response);
   };
 
   useEffect(() => {

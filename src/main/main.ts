@@ -18,6 +18,7 @@ import {
   ipcMain,
   dialog,
   globalShortcut,
+  IpcMainInvokeEvent,
 } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
@@ -105,28 +106,31 @@ const createWindow = async () => {
     }
   });
 
-  ipcMain.handle('save-gcode', (event, data) => {
-    dialog
-      .showSaveDialog(mainWindow!, {
-        title: 'Save GCode',
-        defaultPath: path.join(app.getPath('documents'), 'gcode.dat'),
-        filters: [{ name: 'GCode', extensions: ['dat'] }],
-      })
-      .then((result) => {
-        if (!result.canceled && result.filePath) {
-          fs.writeFile(result.filePath, data, (err) => {
-            if (err) {
-              console.error(err);
-            } else {
-              event.sender.send('gcode-saved', data);
-            }
-          });
+  ipcMain.handle(
+    'save-gcode',
+    async (event: IpcMainInvokeEvent, generatedCodes: String[]) => {
+      try {
+        const response = await fetch('http://localhost:8000/save-program', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            programs: [...generatedCodes],
+          }),
+        });
+        if (!response.ok) {
+          console.error('save-gcode error: ', response);
         }
-      })
-      .catch((err) => {
-        console.error('Erro ao mostrar caixa de diálogo', err);
-      });
-  });
+        const data = await response.json();
+        console.log('API response:', data);
+        return data;
+      } catch (error) {
+        console.error('Erro ao fazer a chamada de API:', error);
+        return error;
+      }
+    },
+  );
 
   ipcMain.handle('open-file', async (): Promise<FileObject | null> => {
     const { filePaths } = await dialog.showOpenDialog({

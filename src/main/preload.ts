@@ -24,8 +24,8 @@ const electronHandler = {
     once(channel: Channels, func: (...args: unknown[]) => void) {
       ipcRenderer.once(channel, (_event, ...args) => func(...args));
     },
-    saveGCode(data: string, filePath: string) {
-      ipcRenderer.invoke('save-gcode', data, filePath);
+    saveGCode(generatedCodes: String[]) {
+      return ipcRenderer.invoke('save-gcode', generatedCodes);
     },
     openFile() {
       return ipcRenderer.invoke('open-file');

@@ -89,7 +89,6 @@ const OSMenu: React.FC = () => {
     }
   };
 
-  // change type to Part in the future
   const saveFileAs = async (data: Part) => {
     try {
       let filePath: string | undefined;

@@ -36,13 +36,14 @@ function mountGCodeLine(
 function mountGCode(contour: ContourItem) {
   let gCodeOutput: String = '';
   let gCodeTemplate: String = '';
+  const programNumber: Number = 1000 + contour.id;
 
   contour.activities.forEach((element: any, index: any) => {
     const isLastLine = contour.activities.length === index + 1;
     gCodeOutput = `${gCodeOutput}${mountGCodeLine(element, index, isLastLine)}`;
   });
   gCodeOutput = `${gCodeOutput}\n`;
-  gCodeTemplate = `%\n7000(${contour.name})\n${gCodeOutput}%`;
+  gCodeTemplate = `\nO${programNumber}(${contour.name})\n${gCodeOutput}%`;
 
   return gCodeTemplate;
 }
