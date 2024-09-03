@@ -1,17 +1,32 @@
 .LastNews__img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+    background: brown;
     display: inline-grid;
 }
-.LastNews__text {
-    backdrop-filter: blur(1.5px);
-    overflow: scroll;
-    position: relative;
-    padding: 5px;
-    top: -20vh;
-    height: 15vh;
+.LastNews__container {
+    margin: 15px;
 }
-.LastNews__text::-webkit-scrollbar {
-    display: none;
+.LastNews__images {
+    padding-top: 15px;
+    display: grid;
+    gap: 5px;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    grid-template-rows: repeat(auto-fit, minmax(200px, 1fr));
+}
+.LastNews {
+    text-align: center;
+    background-color: #fff;
+    color: rgba(0, 0, 0, 0.87);
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border-radius: 4px;
+    box-shadow: 0px 3px 3px -2px rgba(0,0,0,0.2), 0px 3px 4px 0px rgba(0,0,0,0.14), 0px 1px 8px 0px rgba(0,0,0,0.12);
+    position: fixed;
+    inset: 0px;
+    width: 1000px;
+    height: calc(90% - 186px);
+    margin: auto;
+    margin-top: 111px;
 }

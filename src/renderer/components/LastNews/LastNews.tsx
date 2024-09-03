@@ -4,15 +4,19 @@ import { ReactElement, useEffect, useState } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import './LastNews.css';
 import { Height } from '@mui/icons-material';
+import { match } from 'assert';
 
-const url = 'https://vk.com/skoipt_professionalitet';
+const URL = 'https://vk.com/skoipt_professionalitet';
+const TARGET_SIZE_BLOCK_TEXT = 200;
+const MIN_SIZE_TEXT = 12;
+const MAX_SIZE_TEXT = 40;
 
 export default function LastNews({ fullText = false }) {
   const [images, setImages] = useState(new Array<ReactElement>());
-  const [text, setText] = useState('Загрузка...');
+  const [textEl, setTextEl] = useState(<div>Загрузка...</div>);
 
   axios
-    .get(url)
+    .get(URL)
     .then((response) => {
       const parser = new DOMParser();
       const htmlDoc = parser.parseFromString(response.data, 'text/html');
@@ -42,43 +46,27 @@ export default function LastNews({ fullText = false }) {
         });
 
       newText = postTextEl?.textContent ?? '';
-
-      setText(newText);
+      
+      let size = TARGET_SIZE_BLOCK_TEXT * 60 / newText.length
+      if (size < MIN_SIZE_TEXT) size = MIN_SIZE_TEXT;
+      else if (size > MAX_SIZE_TEXT) size = MAX_SIZE_TEXT;
+      
+      setTextEl(<div style={{fontSize: size}}>{newText}</div>);
       setImages(elements);
     })
     .catch((error) => {
-      setText('не удалось загрузить');
+      setTextEl(<div>не удалось загрузить</div>);
     });
-
+    
   return (
-    <Paper
-      elevation={3}
-      sx={{
-        position: 'fixed',
-        inset: '0px',
-        width: '1000px',
-        height: 'calc(90% - 186px)',
-        margin: "auto",
-        marginTop: "111px"
-      }}
-    >
-        <Box 
-            sx={{ margin: '15px' }}
-        >
-            <Typography variant="h6" textAlign={"center"}>
-                {text}
-            </Typography>
-            <Box 
-                sx={{ 
-                    display: 'grid', 
-                    height: '300px',
-                    gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-                    gridTemplateRows: "repeat(auto-fit, minmax(200px, 1fr))"
-                }}
-            >
+    <div className='LastNews'>
+        <div className='LastNews__container'>
+            {textEl}
+
+            <div className='LastNews__images'>
                 {images}
-            </Box>
-        </Box>
-    </Paper>
+            </div>
+        </div>
+    </div>
   );
 }
