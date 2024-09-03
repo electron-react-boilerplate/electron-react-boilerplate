@@ -52,25 +52,25 @@ function Navbar() {
           <BottomNavigationAction
             label="Главная"
             value="Main"
-            onClick={() => navigate('/schedule')}
+            onClick={() => navigate('/')}
             icon={<HomeIcon fontSize="large" />}
           />
           <BottomNavigationAction
             label="Новости"
             value="News"
-            onClick={() => navigate('/schedule/news')}
+            onClick={() => navigate('/news')}
             icon={<FeedIcon fontSize="large" />}
           />
           <BottomNavigationAction
             label="Расписание"
             value="Schedule"
-            onClick={() => navigate('/schedule/schedule')}
+            onClick={() => navigate('/schedule')}
             icon={<TodayIcon fontSize="large" />}
           />
           <BottomNavigationAction
             label="Звонки"
             value="Calls"
-            onClick={() => navigate('/schedule/calls')}
+            onClick={() => navigate('/calls')}
             icon={<NotificationsActiveIcon fontSize="large" />}
           />
         </BottomNavigation>

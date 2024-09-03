@@ -16,10 +16,10 @@ export default function App() {
         <Navbar />
         <Head />
         <Routes>
-          <Route path="schedule/" element={<Home />} />
-          <Route path="schedule/calls" element={<Calls />} />
-          <Route path="schedule/news" element={<News />} />
-          <Route path="schedule/schedule" element={<Schedule />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/calls" element={<Calls />} />
+          <Route path="/news" element={<News />} />
+          <Route path="/schedule" element={<Schedule />} />
         </Routes>
       </Router>
     </div>
