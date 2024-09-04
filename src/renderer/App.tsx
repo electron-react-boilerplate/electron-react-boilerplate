@@ -7,6 +7,7 @@ import Schedule from './pages/Schedule/Schedule';
 import Background from './components/Background/Background';
 import Navbar from './components/Navbar/Navbar';
 import Head from './components/Head/Head';
+import View from './pages/View/View';
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
           <Route path="/calls" element={<Calls />} />
           <Route path="/news" element={<News />} />
           <Route path="/schedule" element={<Schedule />} />
+          <Route path="/view" element={<View />} />
         </Routes>
       </Router>
     </div>

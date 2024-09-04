@@ -32,7 +32,7 @@ export default function LastNews({ fullText = false }) {
       const postTextEl = htmlDoc.querySelector('.wall_post_text');
       const postContentEl = postTextEl?.parentElement;
 
-      postContentEls
+      postContentEl
         ?.querySelectorAll('div')[1]
         ?.querySelectorAll('img')
         .forEach((element) => {
