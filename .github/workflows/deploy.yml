@@ -30,3 +30,4 @@ jobs:
 
     - name: Deploy to staging
       run: ./deployment.sh
+      
