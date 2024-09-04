@@ -29,5 +29,4 @@ jobs:
       run: npm run package
 
     - name: Deploy to staging
-      run: ./deployment.sh
-      
+      run: pwsh ./deployment.ps1
