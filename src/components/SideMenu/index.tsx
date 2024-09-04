@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import Modal from 'components/Modal';
 import Button from 'components/Button';
 import ApiResponseList from 'components/ApiResponseList';
+import Spinner from 'components/Spinner';
 
 import { mountGCode } from 'integration/mount-gcode';
 
@@ -28,6 +29,7 @@ const SideMenu: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string | null>(null);
   const [response, setResponse] = useState<Response | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const generateGCodeForOperations = async () => {
     const hasEmptyContoursIds = part.operations.some(
@@ -53,10 +55,11 @@ const SideMenu: React.FC = () => {
         });
       });
 
+      setIsLoading(true);
+
       try {
-        setResponse(
-          await window.electron.ipcRenderer.saveGCode(generatedCodes),
-        );
+        const res = await window.electron.ipcRenderer.saveGCode(generatedCodes);
+        setResponse(res);
         if (response?.statusCode !== 200) {
           setModalMessage(
             'Um ou mais programas retornou um erro. Verifique a lista abaixo.',
@@ -64,13 +67,12 @@ const SideMenu: React.FC = () => {
         }
       } catch (error) {
         setModalMessage('Problemas de conexão com o serviço.');
-        console.error(error);
+      } finally {
+        setIsLoading(false);
       }
 
-      // o state de operação é quem vai definir o numero do arquivo
-      // adicionar borda vermelha no contorno pra feedback de erro
-      // adicionar feedback visual parecido com o de salvamento para o botão de gerar gcode
       // nome do arquivo
+      // o state de operação é quem vai definir o numero do arquivo
     }
     setIsModalOpen(true);
   };
@@ -129,11 +131,15 @@ const SideMenu: React.FC = () => {
         <List>
           <ListItem>
             <ItemBtn onClick={() => generateGCodeForOperations()}>
-              <StyledIcon
-                className="icon-double_arrow"
-                color={colors.white}
-                fontSize="28px"
-              />
+              {!isLoading ? (
+                <StyledIcon
+                  className="icon-double_arrow"
+                  color={colors.white}
+                  fontSize="28px"
+                />
+              ) : (
+                <Spinner />
+              )}
             </ItemBtn>
           </ListItem>
         </List>
