@@ -38,6 +38,17 @@ export const List = styled.ul`
 
 export const ListItem = styled.li``;
 
+export const ItemSimple = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  height: 56px;
+  text-decoration: none;
+  text-align: left;
+  color: ${colors.white};
+`;
+
 export const StyledLink = styled(Link)`
   display: flex;
   justify-content: center;

@@ -21,6 +21,7 @@ import {
   StyledLink,
   ItemBtn,
   StyledIcon,
+  ItemSimple,
 } from './styles';
 
 const SideMenu: React.FC = () => {
@@ -130,17 +131,19 @@ const SideMenu: React.FC = () => {
         </List>
         <List>
           <ListItem>
-            <ItemBtn onClick={() => generateGCodeForOperations()}>
-              {!isLoading ? (
+            {!isLoading ? (
+              <ItemBtn onClick={() => generateGCodeForOperations()}>
                 <StyledIcon
                   className="icon-double_arrow"
                   color={colors.white}
                   fontSize="28px"
                 />
-              ) : (
+              </ItemBtn>
+            ) : (
+              <ItemSimple>
                 <Spinner />
-              )}
-            </ItemBtn>
+              </ItemSimple>
+            )}
           </ListItem>
         </List>
       </Menu>
