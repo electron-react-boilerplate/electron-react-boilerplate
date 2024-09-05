@@ -20,8 +20,12 @@ export const ListItem = styled.li`
 `;
 
 export const ProgramCode = styled.p`
-  font-weight: bold;
-  margin-bottom: 4px;
+  font-size: 19px;
+  margin-bottom: 20px;
+`;
+
+export const Name = styled.span`
+  color: ${colors.blue};
 `;
 
 export const Result = styled.p`

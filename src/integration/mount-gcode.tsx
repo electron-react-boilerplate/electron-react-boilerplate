@@ -1,4 +1,4 @@
-import { ContourItem, ActivitiyItem } from 'types/part';
+import { ContourItem, ActivitiyItem, Part, OperationItem } from 'types/part';
 
 // Some string have right blank spaces that are required for CNC syntax
 const isRapidMovement = (fvalue: string | undefined): string =>
@@ -36,7 +36,23 @@ function mountGCodeLine(
 function mountGCode(contour: ContourItem) {
   let gCodeOutput: String = '';
   let gCodeTemplate: String = '';
-  const programNumber: Number = 1000 + contour.id;
+
+  contour.activities.forEach((element: any, index: any) => {
+    const isLastLine = contour.activities.length === index + 1;
+    gCodeOutput = `${gCodeOutput}${mountGCodeLine(element, index, isLastLine)}`;
+  });
+  gCodeOutput = `${gCodeOutput}\n`;
+  gCodeTemplate = `(${contour.name})\n${gCodeOutput}%`;
+
+  return gCodeTemplate;
+}
+
+function mountGCodeWithProgramNumber(
+  contour: ContourItem,
+  programNumber: number,
+): string {
+  let gCodeOutput = '';
+  let gCodeTemplate = '';
 
   contour.activities.forEach((element: any, index: any) => {
     const isLastLine = contour.activities.length === index + 1;
@@ -48,4 +64,36 @@ function mountGCode(contour: ContourItem) {
   return gCodeTemplate;
 }
 
-export { mountGCode };
+function generateGCodeForPart(part: Part): string[] {
+  let programNumber = 1000;
+  const gCodeStrings: string[] = [];
+  const usedProgramNumbers: Set<number> = new Set();
+
+  // Ordenar contoursIds em todas as operações
+  const sortedContoursIds: number[] = [];
+  part.operations.forEach((operation: OperationItem) => {
+    operation.contoursIds.forEach((contourId) => {
+      sortedContoursIds.push(contourId);
+    });
+  });
+
+  sortedContoursIds.sort((a, b) => a - b); // Ordenar numericamente
+
+  // Gerar GCode para cada contorno
+  sortedContoursIds.forEach((contourId) => {
+    const contour = part.contours.find((c) => c.id === contourId);
+    if (contour) {
+      while (usedProgramNumbers.has(programNumber)) {
+        programNumber += 1;
+      }
+      const gCode = mountGCodeWithProgramNumber(contour, programNumber);
+      gCodeStrings.push(gCode);
+      usedProgramNumbers.add(programNumber);
+      programNumber += 1;
+    }
+  });
+
+  return gCodeStrings;
+}
+
+export { mountGCode, generateGCodeForPart, mountGCodeWithProgramNumber };

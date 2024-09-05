@@ -6,7 +6,7 @@ import Button from 'components/Button';
 import ApiResponseList from 'components/ApiResponseList';
 import Spinner from 'components/Spinner';
 
-import { mountGCode } from 'integration/mount-gcode';
+import { generateGCodeForPart } from 'integration/mount-gcode';
 
 import { Part } from 'types/part';
 import { Response } from 'types/api';
@@ -41,22 +41,10 @@ const SideMenu: React.FC = () => {
         'Não é possível gerar programas sem operações ou com operações sem contornos.',
       );
     } else {
-      const generatedCodes: String[] = [];
-
-      part.operations.forEach((operation) => {
-        operation.contoursIds.forEach((contourId) => {
-          const operationContour = part.contours.find(
-            (contour) => contour.id === contourId,
-          );
-          if (operationContour) {
-            // Resolver problema do ID repetido do mesmo contorno em operations diferentes
-            const gCode = mountGCode(operationContour);
-            generatedCodes.push(gCode);
-          }
-        });
-      });
-
       setIsLoading(true);
+      const generatedCodes: String[] = generateGCodeForPart(part);
+
+      console.log(generatedCodes);
 
       try {
         const res = await window.electron.ipcRenderer.saveGCode(generatedCodes);
@@ -71,9 +59,6 @@ const SideMenu: React.FC = () => {
       } finally {
         setIsLoading(false);
       }
-
-      // nome do arquivo
-      // o state de operação é quem vai definir o numero do arquivo
     }
     setIsModalOpen(true);
   };
