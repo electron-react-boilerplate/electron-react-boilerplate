@@ -5,7 +5,7 @@ export default function View()
 {
     return (
       <div>
-        view
+        {window.location.href}
       </div>
     );
 }

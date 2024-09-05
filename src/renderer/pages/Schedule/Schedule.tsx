@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 import { delay, motion } from 'framer-motion';
-import React, { useState } from 'react';
+import React, { SyntheticEvent, useEffect, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import {
   CourseContent1,
@@ -19,6 +19,7 @@ import {
   CourseContent3,
   CourseContent4,
 } from './CourseContent';
+import "./Schedule.css"
 
 const CountCource = 4
 const CourceUrls = [
@@ -33,58 +34,6 @@ interface TabPanelProps {
   dir?: string;
   index: number;
   value: number;
-}
-
-/** return null if failed */
-function LoadGroups(handleChange : Function)
-{
-  let cources = JSON.parse(localStorage.getItem("cources") ?? "0");
-
-  if (cources == 0 || cources.time - Date.now() < 0)
-  {
-    // init
-    const parser = new DOMParser();
-    cources = {}
-    cources.time = Date.now() + 1000 * 60 * 60 * 24 * 30; // next update
-    let isSuccessfully: boolean = true;
-    cources["groups"] = []
-
-    for (let groupI = 0; groupI < 4; groupI++)
-    {
-      cources["groups"][groupI] = {}
-
-      axios
-        .get(CourceUrls[groupI])
-        .then((response) => {
-          const htmlDoc = parser.parseFromString(response.data, 'text/html');
-
-          
-          let groupsDoc = htmlDoc
-            .querySelector("[itemprop=\"articleBody\"]")
-            ?.querySelectorAll("a")
-
-            console.log(2)
-            console.log(groupsDoc)
-          groupsDoc?.forEach(element => {
-            cources["groups"][groupI][element.querySelector("img")?.alt ?? ""] = element.href;
-          });
-
-          if (groupI == CountCource)
-          {
-            // handle
-          }
-        })
-        .catch((error) => {
-          console.log("load groups failed")
-          isSuccessfully = false;
-        });
-    }
-
-    if (isSuccessfully) // if loads groups is successfully
-    {
-      localStorage.setItem("cources", JSON.stringify(cources));
-    }
-  }
 }
 
 function TabPanel(props: TabPanelProps) {
@@ -114,15 +63,94 @@ function a11yProps(index: number) {
   };
 }
 
+let isLoadGroup = false;
 function Schedule() {
   const navigate = useNavigate();
-  const [value, setValue] = React.useState( 0 );
-  const [cources, setCources] = React.useState( ["Загрузка...", "Загрузка...", "Загрузка...", "Загрузка...",] );
+  const [value, setValue] = React.useState( Number );
+  const [cources, setCources] = React.useState( [<div>Загрузка...</div>, <div>Загрузка...</div>, <div>Загрузка...</div>, <div>Загрузка...</div>,] );
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
-  //LoadGroups(setCources)
+  function CreateButtons(array: Array<Array<string>>)
+  {
+    let cources: JSX.Element[] = [];
+
+    array.forEach(cource => 
+    {
+      let elements: JSX.Element[] = [];
+      cource.forEach(element => 
+      {
+        elements.push(
+          <Button onClick={() => navigate('/view?group='+element)}>{element}</Button>
+        )
+      });
+      cources.push(<div>{elements}</div>);
+    });
+
+    setCources(cources);
+  }
+  function LoadGroups()
+  {
+    let cources = JSON.parse(localStorage.getItem("cources") ?? "0");
+
+    if (cources == 0 || cources.time - Date.now() < 0)
+    {
+      // init
+      const parser = new DOMParser();
+      cources = {}
+      cources.time = Date.now() + 1000 * 60 * 60 * 24 * 30; // next update
+      let loaded: number = 0; // count loaded cources
+      cources["groups"] = []
+
+      for (let groupI = 0; groupI < 4; groupI++)
+      {
+        cources["groups"][groupI] = []
+
+        axios.get(CourceUrls[groupI])
+          .then((response) => {
+            const htmlDoc = parser.parseFromString(response.data, 'text/html');
+    
+            
+            let groupsDoc = htmlDoc
+              .querySelector("[itemprop=\"articleBody\"]")
+              ?.querySelectorAll("a")
+    
+            groupsDoc?.forEach(element => {
+              let name = element.href
+              cources["groups"][groupI].push(
+                decodeURIComponent(name.substring(41, name.length-4))
+              );
+            });
+            console.log(cources["groups"][groupI])
+    
+            // --------------
+            loaded++;
+            if (loaded == 4)
+            {
+              localStorage.setItem("cources", JSON.stringify(cources));
+              CreateButtons(cources["groups"]);
+            }
+          })
+          .catch((error) => {
+            console.log("load groups failed" + error)
+          });
+      }
+    }
+    else if (cources != 0)
+    {
+      CreateButtons(cources["groups"]);
+    }
+  }
+
+  const handleChange = (event: SyntheticEvent, newValue: number) => setValue(newValue);
+  
+  if (!isLoadGroup)
+  {
+    isLoadGroup = true;
+    LoadGroups()
+  }
+
+  useEffect(() => {
+    isLoadGroup = false;
+  })
 
   return (
     <Box
