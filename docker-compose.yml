@@ -1,0 +1,11 @@
+version: '2' # Docker engine version < 1.13.0
+services:
+  app:
+    build: .    # Build from the current directory
+    ports:
+      - "1212:1212"
+    volumes:      # To connect the local directory with the container
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=production  # Run in deployment way
