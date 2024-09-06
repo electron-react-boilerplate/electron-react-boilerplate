@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   ButtonProps,
+  CircularProgress,
   Pagination,
   Paper,
   styled,
@@ -67,7 +68,7 @@ let isLoadGroup = false;
 function Schedule() {
   const navigate = useNavigate();
   const [value, setValue] = React.useState( Number );
-  const [cources, setCources] = React.useState( [<div>Загрузка...</div>, <div>Загрузка...</div>, <div>Загрузка...</div>, <div>Загрузка...</div>,] );
+  const [cources, setCources] = React.useState( [<CircularProgress />, <CircularProgress />, <CircularProgress />, <CircularProgress />,] );
 
   function CreateButtons(array: Array<Array<string>>)
   {
@@ -111,15 +112,11 @@ function Schedule() {
             
             let groupsDoc = htmlDoc
               .querySelector("[itemprop=\"articleBody\"]")
-              ?.querySelectorAll("a")
+              ?.querySelectorAll("img")
     
             groupsDoc?.forEach(element => {
-              let name = element.href
-              cources["groups"][groupI].push(
-                decodeURIComponent(name.substring(41, name.length-4))
-              );
+              cources["groups"][groupI].push(element.alt);
             });
-            console.log(cources["groups"][groupI])
     
             // --------------
             loaded++;
