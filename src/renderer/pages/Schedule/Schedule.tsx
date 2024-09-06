@@ -64,28 +64,34 @@ function a11yProps(index: number) {
   };
 }
 
+const CustomButton = styled(Button)<ButtonProps>(({ theme }) => ({
+  backgroundColor: 'white',
+  boxShadow: '0px 3px 5px -1px rgba(0,0,0,0.2), 0px 5px 8px 0px rgba(0,0,0,0.14), 0px 1px 14px 0px rgba(0,0,0,0.12)',
+  margin: '15px',
+  color: 'black',
+  width: '150px',
+  fontSize: '18px',
+}));
+
 let isLoadGroup = false;
 function Schedule() {
   const navigate = useNavigate();
   const [value, setValue] = React.useState( Number );
   const [cources, setCources] = React.useState( [<CircularProgress />, <CircularProgress />, <CircularProgress />, <CircularProgress />,] );
 
-  function CreateButtons(array: Array<Array<string>>)
-  {
-    let cources: JSX.Element[] = [];
-
-    array.forEach(cource => 
-    {
-      let elements: JSX.Element[] = [];
-      cource.forEach(element => 
-      {
-        elements.push(
-          <Button onClick={() => navigate('/view?group='+element)}>{element}</Button>
-        )
-      });
-      cources.push(<div>{elements}</div>);
-    });
-
+  function CreateButtons(array: Array<Array<string>>) {
+    let cources: JSX.Element[][] = array.map(group =>
+      group.map((element, index) => (
+        <motion.div
+          key={element}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: index * 0.1 }}
+        >
+          <CustomButton variant='contained' onClick={() => navigate('/view?group=' + element)}>{element}</CustomButton>
+        </motion.div>
+      ))
+    );
     setCources(cources);
   }
   function LoadGroups()
@@ -108,16 +114,16 @@ function Schedule() {
         axios.get(CourceUrls[groupI])
           .then((response) => {
             const htmlDoc = parser.parseFromString(response.data, 'text/html');
-    
-            
+
+
             let groupsDoc = htmlDoc
               .querySelector("[itemprop=\"articleBody\"]")
               ?.querySelectorAll("img")
-    
+
             groupsDoc?.forEach(element => {
               cources["groups"][groupI].push(element.alt);
             });
-    
+
             // --------------
             loaded++;
             if (loaded == 4)
@@ -138,7 +144,7 @@ function Schedule() {
   }
 
   const handleChange = (event: SyntheticEvent, newValue: number) => setValue(newValue);
-  
+
   if (!isLoadGroup)
   {
     isLoadGroup = true;
@@ -177,29 +183,83 @@ function Schedule() {
           }}
         >
           <Box sx={{ width: '600px' }}>
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              variant="fullWidth"
-              sx={{ margin: '15px' }}
-            >
-              <Tab label="1 курс" {...a11yProps(0)} sx={{ color: 'black' }} />
-              <Tab label="2 курс" {...a11yProps(1)} sx={{ color: 'black' }} />
-              <Tab label="3 курс" {...a11yProps(2)} sx={{ color: 'black' }} />
-              <Tab label="4 курс" {...a11yProps(3)} sx={{ color: 'black' }} />
-            </Tabs>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ staggerChildren: 0.1, delayChildren: 0.2 }}
+              >
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                variant="fullWidth"
+                sx={{ margin: '15px' }}
+              >
+                <Tab label="1 курс" {...a11yProps(0)} sx={{ color: 'black' }} />
+                <Tab label="2 курс" {...a11yProps(1)} sx={{ color: 'black' }} />
+                <Tab label="3 курс" {...a11yProps(2)} sx={{ color: 'black' }} />
+                <Tab label="4 курс" {...a11yProps(3)} sx={{ color: 'black' }} />
+              </Tabs>
+            </motion.div>
           </Box>
           <TabPanel value={value} index={0}>
-            {cources[0]}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ staggerChildren: 0.1 }}
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                justifyContent: 'space-around',
+              }}
+            >
+              {cources[0]}
+            </motion.div>
           </TabPanel>
           <TabPanel value={value} index={1}>
-            {cources[1]}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ staggerChildren: 0.1 }}
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                justifyContent: 'space-around',
+              }}
+            >
+              {cources[1]}
+            </motion.div>
           </TabPanel>
           <TabPanel value={value} index={2}>
-            {cources[2]}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ staggerChildren: 0.1 }}
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                justifyContent: 'space-around',
+              }}
+            >
+              {cources[2]}
+            </motion.div>
           </TabPanel>
           <TabPanel value={value} index={3}>
-            {cources[3]}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ staggerChildren: 0.1 }}
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                justifyContent: 'space-around',
+              }}
+            >
+              {cources[3]}
+            </motion.div>
           </TabPanel>
         </Paper>
       </motion.div>
