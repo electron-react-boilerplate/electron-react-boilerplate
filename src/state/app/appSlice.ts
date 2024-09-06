@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { App } from 'types/app';
 
 const initialState: App = {
+  fileName: 'Untitled',
   isSaved: true,
   lastSavedFileState: '',
   lastFilePathSaved: '',

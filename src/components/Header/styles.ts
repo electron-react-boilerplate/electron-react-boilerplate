@@ -69,10 +69,14 @@ export const MiddleItemPart = styled(Link)<{ isSaved: boolean }>`
   color: ${({ isSaved }) => (isSaved ? colors.blue : colors.orange)};
   font-size: 18px;
   padding: 8px;
-  /* margin-right: 46px; */
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+`;
+
+export const MiddleItemPartSpan = styled.span`
+  color: ${colors.red};
+  text-decoration: line-through;
 `;
 
 export const StyledIcon = styled(Icon)`

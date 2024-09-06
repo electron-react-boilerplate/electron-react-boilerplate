@@ -22,7 +22,7 @@ const initialActivity: ActivitiyItem = {
 
 export const initialState: Part = {
   id: 1,
-  name: 'Nova Peça',
+  name: 'Untitled',
   contours: [
     {
       id: 1,

@@ -50,6 +50,7 @@ const OSMenu: React.FC = () => {
               resolve({
                 data: JSON.parse(f as string),
                 path: undefined,
+                fileName: 'Untitled',
               });
             }
           };
@@ -77,6 +78,7 @@ const OSMenu: React.FC = () => {
         dispatch(replacePart((file as FileObject).data as unknown as Part));
         dispatch(
           editApp({
+            fileName: (file as FileObject).fileName,
             isSaved: true,
             lastFilePathSaved: (file as FileObject).path,
             lastSavedFileState: JSON.stringify((file as FileObject).data),
@@ -99,6 +101,7 @@ const OSMenu: React.FC = () => {
       if (filePath) {
         dispatch(
           editApp({
+            fileName: filePath.substring(filePath.lastIndexOf('\\') + 1),
             isSaved: true,
             lastFilePathSaved: filePath,
             lastSavedFileState: JSON.stringify(partState),
@@ -111,7 +114,6 @@ const OSMenu: React.FC = () => {
     }
   };
 
-  // change type to Part in the future
   const saveFile = async (data: Part) => {
     if (lastFilePath) {
       try {

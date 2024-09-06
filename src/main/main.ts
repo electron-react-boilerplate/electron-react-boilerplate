@@ -135,14 +135,29 @@ const createWindow = async () => {
 
     if (filePaths && filePaths.length > 0) {
       const data = fs.readFileSync(filePaths[0], 'utf-8');
+      const fileName = path.basename(filePaths[0]);
       return {
         data: JSON.parse(data),
         path: filePaths[0],
+        fileName,
       };
     }
 
     return null;
   });
+
+  ipcMain.handle(
+    'check-file',
+    async (_, filePath: string): Promise<boolean> => {
+      try {
+        if (fs.existsSync(filePath)) return true;
+        return false;
+      } catch (error) {
+        console.error('Erro ao verificar o arquivo', error);
+        return false;
+      }
+    },
+  );
 
   ipcMain.handle(
     'save-file-as',
