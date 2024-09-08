@@ -87,12 +87,12 @@ function LoadGroups(handleChange: Function, navigate: Function)
 {
   let cources = JSON.parse(localStorage.getItem("cources") ?? "0");
 
-  if (cources == 0 || cources.time - Date.now() < 0)
+  if (cources == 0 || cources.expires - Date.now() < 0)
   {
     // init
     const parser = new DOMParser();
     cources = {}
-    cources.time = Date.now() + 1000 * 60 * 60 * 24 * 30; // next update
+    cources.expires = Date.now() + 1000 * 60 * 60 * 24 * 30; // next update
     let loaded: number = 0; // count loaded cources
     cources["groups"] = []
 
@@ -122,7 +122,7 @@ function LoadGroups(handleChange: Function, navigate: Function)
           }
         })
         .catch((error) => {
-          console.log("load groups failed" + error)
+          console.log("load groups failed: " + error)
         });
     }
   }
