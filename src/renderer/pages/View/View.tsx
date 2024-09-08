@@ -1,45 +1,78 @@
-import { Alert, CircularProgress, Paper } from "@mui/material";
-import axios from "axios";
-import React from "react";
-import { useLocation, useParams, useSearchParams } from "react-router-dom";
-import parse from "html-react-parser";
+import { CircularProgress, Paper } from '@mui/material';
+import axios from 'axios';
+import React from 'react';
+import { useSearchParams } from 'react-router-dom';
+import parse from 'html-react-parser';
 
-
-
-export default function View()
-{
-  const [schedule, setSchedule] = React.useState( <CircularProgress sx={{marginTop: "280px"}}/> );
+export default function View() {
+  const [schedules, setSchedules] = React.useState<JSX.Element[]>([
+    <CircularProgress sx={{ marginTop: '280px' }} />,
+  ]);
   const [searchParams] = useSearchParams();
-  let url = "https://skoipt.ru/images/rs/Schedule_htm/" + searchParams.get("group") + ".htm";
+  const url = `https://skoipt.ru/images/rs/Schedule_htm/${searchParams.get('group')}.htm`;
 
-  console.log("request: " + url)
+  console.log(`request: ${url}`);
 
-  axios.get(url)
-    .then((response) => {
-      const htmlDoc = new DOMParser()
-        .parseFromString(response.data, 'text/html');
-        
-      //let tableDoc = htmlDoc.querySelector(".MsoNormalTable")?.outerHTML 
-      //let a: JSX.Element = parse(tableDoc ?? "")
-      //
-      //setSchedule(a)
-    })
-    .catch((error) => {
-      console.log("load failed" + error)
-    });
+  React.useEffect(() => {
+    axios
+      .get(url, { responseType: 'arraybuffer' })
+      .then((response) => {
+        // Create a TextDecoder instance for windows-1251
+        const decoder = new TextDecoder('windows-1251');
+        // Decode the array buffer
+        const decodedData = decoder.decode(new Uint8Array(response.data));
+
+        const htmlDoc = new DOMParser().parseFromString(
+          decodedData,
+          'text/html',
+        );
+
+        // Find all tables with the class 'MsoNormalTable'
+        const tables = Array.from(htmlDoc.querySelectorAll('.MsoNormalTable'));
+
+        // Convert all tables to JSX elements
+        const tableElements = tables.map((table) =>
+          parse(table.outerHTML)
+        );
+
+        setSchedules(tableElements);
+      })
+      .catch((error) => {
+        console.log(`load failed ${error}`);
+      });
+  }, [url]);
 
   return (
-    <Paper 
+    <Paper
       sx={{
-        width: '1030px',
-        minHeight: '600px',
-        height: 'fit-content',
-        textAlign: 'center',
+        position: 'fixed',
+        inset: '0px',
         margin: 'auto',
-        marginTop: '140px'
+        width: '1200px',  // Установите фиксированную ширину
+        height: '800px', // Установите фиксированную высоту
+        overflow: 'auto', // Добавьте прокрутку, если содержимое превышает размеры
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+        boxSizing: 'border-box', // Убедитесь, что padding и border включены в размеры
       }}
     >
-      {schedule}
+      <div
+        style={{
+          width: '100%',
+          height: '100%',
+          overflow: 'hidden',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column',
+          transform: 'scale(0.8)', // Масштабируйте содержимое
+          transformOrigin: 'top left', // Масштабируйте от верхнего левого угла
+        }}
+      >
+        {schedules}
+      </div>
     </Paper>
   );
 }
