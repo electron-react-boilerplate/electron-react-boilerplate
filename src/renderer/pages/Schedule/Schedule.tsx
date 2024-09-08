@@ -14,12 +14,6 @@ import axios from 'axios';
 import { delay, motion } from 'framer-motion';
 import React, { SyntheticEvent, useEffect, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
-import {
-  CourseContent1,
-  CourseContent2,
-  CourseContent3,
-  CourseContent4,
-} from './CourseContent';
 import "./Schedule.css"
 
 const CountCource = 4
