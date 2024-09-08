@@ -106,6 +106,7 @@
     "electron-log": "^4.4.8",
     "electron-updater": "^6.1.4",
     "framer-motion": "^11.3.30",
+    "html-react-parser": "^5.1.15",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-responsive-carousel": "^3.2.23",
