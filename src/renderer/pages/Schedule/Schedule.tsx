@@ -64,90 +64,84 @@ function a11yProps(index: number) {
   };
 }
 
-let isLoadGroup = false;
+function CreateButtons(handleChange: Function, navigate: Function, array: Array<Array<string>>)
+{
+  let cources: JSX.Element[] = [];
+
+  array.forEach(cource => 
+  {
+    let elements: JSX.Element[] = [];
+    cource.forEach(element => 
+    {
+      elements.push(
+        <Button onClick={() => navigate('/view?group='+element)}>{element}</Button>
+      )
+    });
+    cources.push(<div>{elements}</div>);
+  });
+
+  handleChange(cources);
+}
+
+function LoadGroups(handleChange: Function, navigate: Function)
+{
+  let cources = JSON.parse(localStorage.getItem("cources") ?? "0");
+
+  if (cources == 0 || cources.time - Date.now() < 0)
+  {
+    // init
+    const parser = new DOMParser();
+    cources = {}
+    cources.time = Date.now() + 1000 * 60 * 60 * 24 * 30; // next update
+    let loaded: number = 0; // count loaded cources
+    cources["groups"] = []
+
+    for (let groupI = 0; groupI < 4; groupI++)
+    {
+      cources["groups"][groupI] = []
+
+      axios.get(CourceUrls[groupI])
+        .then((response) => {
+          const htmlDoc = parser.parseFromString(response.data, 'text/html');
+  
+          
+          let groupsDoc = htmlDoc
+            .querySelector("[itemprop=\"articleBody\"]")
+            ?.querySelectorAll("img")
+  
+          groupsDoc?.forEach(element => {
+            cources["groups"][groupI].push(element.alt);
+          });
+  
+          // --------------
+          loaded++;
+          if (loaded == 4)
+          {
+            localStorage.setItem("cources", JSON.stringify(cources));
+            CreateButtons(handleChange, navigate, cources["groups"]);
+          }
+        })
+        .catch((error) => {
+          console.log("load groups failed" + error)
+        });
+    }
+  }
+  else if (cources != 0)
+  {
+    CreateButtons(handleChange, navigate, cources["groups"]);
+  }
+}
+
 function Schedule() {
   const navigate = useNavigate();
   const [value, setValue] = React.useState( Number );
   const [cources, setCources] = React.useState( [<CircularProgress />, <CircularProgress />, <CircularProgress />, <CircularProgress />,] );
 
-  function CreateButtons(array: Array<Array<string>>)
-  {
-    let cources: JSX.Element[] = [];
-
-    array.forEach(cource => 
-    {
-      let elements: JSX.Element[] = [];
-      cource.forEach(element => 
-      {
-        elements.push(
-          <Button onClick={() => navigate('/view?group='+element)}>{element}</Button>
-        )
-      });
-      cources.push(<div>{elements}</div>);
-    });
-
-    setCources(cources);
-  }
-  function LoadGroups()
-  {
-    let cources = JSON.parse(localStorage.getItem("cources") ?? "0");
-
-    if (cources == 0 || cources.time - Date.now() < 0)
-    {
-      // init
-      const parser = new DOMParser();
-      cources = {}
-      cources.time = Date.now() + 1000 * 60 * 60 * 24 * 30; // next update
-      let loaded: number = 0; // count loaded cources
-      cources["groups"] = []
-
-      for (let groupI = 0; groupI < 4; groupI++)
-      {
-        cources["groups"][groupI] = []
-
-        axios.get(CourceUrls[groupI])
-          .then((response) => {
-            const htmlDoc = parser.parseFromString(response.data, 'text/html');
-    
-            
-            let groupsDoc = htmlDoc
-              .querySelector("[itemprop=\"articleBody\"]")
-              ?.querySelectorAll("img")
-    
-            groupsDoc?.forEach(element => {
-              cources["groups"][groupI].push(element.alt);
-            });
-    
-            // --------------
-            loaded++;
-            if (loaded == 4)
-            {
-              localStorage.setItem("cources", JSON.stringify(cources));
-              CreateButtons(cources["groups"]);
-            }
-          })
-          .catch((error) => {
-            console.log("load groups failed" + error)
-          });
-      }
-    }
-    else if (cources != 0)
-    {
-      CreateButtons(cources["groups"]);
-    }
-  }
-
   const handleChange = (event: SyntheticEvent, newValue: number) => setValue(newValue);
-  
-  if (!isLoadGroup)
-  {
-    isLoadGroup = true;
-    LoadGroups()
-  }
 
   useEffect(() => {
-    isLoadGroup = false;
-  })
+    LoadGroups(setCources, navigate)
+  }, [])
 
   return (
     <Box
