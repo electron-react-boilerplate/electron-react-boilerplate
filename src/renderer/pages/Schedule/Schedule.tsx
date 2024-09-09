@@ -119,10 +119,10 @@ function LoadGroups(HandleChange: Function)
 
 export default function Schedule() {
   const navigate = useNavigate();
-  const [value, setValue] = React.useState( Number );
+  const [value, setValue] = React.useState(0);
   const [cources, setCources] = React.useState( [[<CircularProgress />,], [<CircularProgress />,], [<CircularProgress />,], [<CircularProgress />,], ]);
 
-  function HandleChangeCources(array: Array<Array<string>>) 
+  function HandleChangeCources(array: Array<Array<string>>)
   {
     let cources: JSX.Element[][] = array.map(group =>
       group.map((element, index) => (
@@ -133,7 +133,7 @@ export default function Schedule() {
           transition={{ delay: index * 0.1 }}
         >
           <CustomButton variant='contained' onClick={() => navigate('/view?group=' + element)}>{element}</CustomButton>
-        </motion.div> 
+        </motion.div>
       ))
     );
     setCources(cources);
