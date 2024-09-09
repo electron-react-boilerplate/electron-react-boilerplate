@@ -3,7 +3,10 @@ import { useSelector } from 'react-redux';
 
 import { getContourNameByProgramCode } from 'integration/getContourNameByProgramCode';
 
-import { ResponseData, ResponseDataItem } from 'types/api';
+import mock from 'mockdata/pt-br/apiResponse.json';
+
+import { ResponseDataItem } from 'types/api';
+import { ApiResponseListProps, ResultItem, Results } from './interface';
 
 import {
   Container,
@@ -15,8 +18,16 @@ import {
   ResultDescription,
 } from './style';
 
-interface ApiResponseListProps {
-  data: ResponseData;
+function getResultDescription(
+  responses: Results,
+  result: string,
+  resultDescription: string,
+): any {
+  const foundItem = responses.find(
+    (item: ResultItem) => item.result === result,
+  );
+  if (foundItem) return foundItem.resultDescription;
+  return resultDescription;
 }
 
 const ApiResponseList: React.FC<ApiResponseListProps> = ({ data }) => {
@@ -40,7 +51,13 @@ const ApiResponseList: React.FC<ApiResponseListProps> = ({ data }) => {
               </Name>
             </ProgramCode>
             <Result>{item.result}</Result>
-            <ResultDescription>{item.resultDescription}</ResultDescription>
+            <ResultDescription>
+              {getResultDescription(
+                mock.responses,
+                item.result,
+                item.resultDescription,
+              )}
+            </ResultDescription>
           </ListItem>
         ))}
       </List>

@@ -6,8 +6,9 @@ function getContourNameByProgramCode(
     c.startsWith(`\n${programCode}`),
   );
   if (codeFound) {
-    const match = codeFound.match(/\(([^)]+)\)/);
-    return match ? match[1] : null;
+    const getNameRegEx = /\((?:[^()]*|\((?:[^()]*|\([^()]*\))*\))*\)/;
+    const match = codeFound.match(getNameRegEx);
+    if (match) return match[0].slice(1, -1);
   }
   return null;
 }
