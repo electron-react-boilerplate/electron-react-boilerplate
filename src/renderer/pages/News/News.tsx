@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import useInactivityRedirect from '../../components/Scripts/useInactivityRedirect';
 import LastNews from '../../components/LastNews/LastNews';
 
-function News() 
-{
+function News() {
+  useInactivityRedirect();
   return (
     <div>
       <LastNews />

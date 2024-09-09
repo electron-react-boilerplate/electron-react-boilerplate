@@ -1,18 +1,12 @@
-import { Box, CircularProgress, Paper, Typography } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 import axios from 'axios';
-import { ReactElement, useEffect, useMemo, useState } from 'react';
-import { Carousel } from 'react-responsive-carousel';
+import { useEffect, useMemo, useState } from 'react';
 import './LastNews.css';
-import { Height } from '@mui/icons-material';
-import { match } from 'assert';
 import { motion } from 'framer-motion';
 
 const URL = 'https://vk.com/skoipt_professionalitet';
-const TARGET_SIZE_BLOCK_TEXT = 200;
-const MIN_SIZE_TEXT = 12;
-const MAX_SIZE_TEXT = 40;
 
-export default function LastNews({ fullText = false }) {
+export default function LastNews() {
   const [images, setImages] = useState(new Array<React.ReactElement>());
   const [text, setText] = useState('');
   const [isLoaded, setIsLoaded] = useState(false);
@@ -57,7 +51,7 @@ export default function LastNews({ fullText = false }) {
         setImages(elements);
         setIsLoaded(true);
       })
-      .catch((error) => {
+      .catch(() => {
         setText('Не удалось загрузить');
         setIsLoaded(true);
       });

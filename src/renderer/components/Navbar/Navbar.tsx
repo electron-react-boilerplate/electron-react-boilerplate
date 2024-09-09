@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import HomeIcon from '@mui/icons-material/Home';
@@ -11,11 +11,27 @@ import { Paper } from '@mui/material';
 
 function Navbar() {
   const navigate = useNavigate();
-  const [value, setValue] = React.useState('Main');
+  const location = useLocation();
+
+  const [value, setValue] = React.useState(location.pathname);
+
+  // Update value when location changes
+  React.useEffect(() => {
+    if (location.pathname === '/') {
+      setValue('Main');
+    } else if (location.pathname === '/news') {
+      setValue('News');
+    } else if (location.pathname === '/schedule') {
+      setValue('Schedule');
+    } else if (location.pathname === '/calls') {
+      setValue('Calls');
+    }
+  }, [location.pathname]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
+
   return (
     <motion.div
       initial={{ opacity: 0, borderRadius: '0px' }}

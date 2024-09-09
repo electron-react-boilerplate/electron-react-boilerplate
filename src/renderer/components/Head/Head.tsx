@@ -1,14 +1,11 @@
-import * as React from 'react';
 import { useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Icon from '@mui/material/Icon';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import skoipt from './skoipt.png';
 import weather from './weather.svg';
-import axios from 'axios';
 import Weather from '../Weather/Weather';
 
 const logoStyle = {

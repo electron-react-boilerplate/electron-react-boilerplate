@@ -1,8 +1,10 @@
 import { Box, Paper } from '@mui/material';
 import { motion } from 'framer-motion';
+import useInactivityRedirect from '../../components/Scripts/useInactivityRedirect';
 import calls from './calls.png';
 
 function Calls() {
+  useInactivityRedirect();
   return (
     <Box
       sx={{

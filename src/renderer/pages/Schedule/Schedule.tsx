@@ -3,7 +3,6 @@ import {
   Button,
   ButtonProps,
   CircularProgress,
-  Pagination,
   Paper,
   styled,
   Tab,
@@ -11,18 +10,18 @@ import {
   Typography,
 } from '@mui/material';
 import axios from 'axios';
-import { delay, motion } from 'framer-motion';
-import React, { SyntheticEvent, useEffect, useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
-import "./Schedule.css"
+import { motion } from 'framer-motion';
+import React, { SyntheticEvent, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import useInactivityRedirect from '../../components/Scripts/useInactivityRedirect';
+import './Schedule.css';
 
-const CountCource = 4
 const CourceUrls = [
-  "https://skoipt.ru/en/112-statichnye-stranitsy/studentu/raspisanie/raspisanie-zanyatij/340-1-kurs",
-  "https://skoipt.ru/en/112-statichnye-stranitsy/studentu/raspisanie/raspisanie-zanyatij/341-2-kurs",
-  "https://skoipt.ru/en/112-statichnye-stranitsy/studentu/raspisanie/raspisanie-zanyatij/342-3-kurs",
-  "https://skoipt.ru/en/112-statichnye-stranitsy/studentu/raspisanie/raspisanie-zanyatij/343-4-kurs"
-]
+  'https://skoipt.ru/en/112-statichnye-stranitsy/studentu/raspisanie/raspisanie-zanyatij/340-1-kurs',
+  'https://skoipt.ru/en/112-statichnye-stranitsy/studentu/raspisanie/raspisanie-zanyatij/341-2-kurs',
+  'https://skoipt.ru/en/112-statichnye-stranitsy/studentu/raspisanie/raspisanie-zanyatij/342-3-kurs',
+  'https://skoipt.ru/en/112-statichnye-stranitsy/studentu/raspisanie/raspisanie-zanyatij/343-4-kurs',
+];
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -58,73 +57,72 @@ function a11yProps(index: number) {
   };
 }
 
-const CustomButton = styled(Button)<ButtonProps>(({ theme }) => ({
+const CustomButton = styled(Button)<ButtonProps>(() => ({
   backgroundColor: 'white',
-  boxShadow: '0px 3px 5px -1px rgba(0,0,0,0.2), 0px 5px 8px 0px rgba(0,0,0,0.14), 0px 1px 14px 0px rgba(0,0,0,0.12)',
+  boxShadow:
+    '0px 3px 5px -1px rgba(0,0,0,0.2), 0px 5px 8px 0px rgba(0,0,0,0.14), 0px 1px 14px 0px rgba(0,0,0,0.12)',
   margin: '15px',
   color: 'black',
   width: '150px',
   fontSize: '18px',
 }));
 
+function LoadGroups(HandleChange: Function) {
+  let cources = JSON.parse(localStorage.getItem('cources') ?? '0');
 
-function LoadGroups(HandleChange: Function)
-{
-  let cources = JSON.parse(localStorage.getItem("cources") ?? "0");
-
-  if (cources == 0 || cources.expires - Date.now() < 0)
-  {
+  if (cources == 0 || cources.expires - Date.now() < 0) {
     // init
     const parser = new DOMParser();
-    cources = {}
+    cources = {};
     cources.expires = Date.now() + 1000 * 60 * 60 * 24 * 30; // next update
     let loaded: number = 0; // count loaded cources
-    cources["groups"] = []
+    cources.groups = [];
 
-    for (let groupI = 0; groupI < 4; groupI++)
-    {
-      cources["groups"][groupI] = []
+    for (let groupI = 0; groupI < 4; groupI++) {
+      cources.groups[groupI] = [];
 
-      axios.get(CourceUrls[groupI])
+      axios
+        .get(CourceUrls[groupI])
         .then((response) => {
           const htmlDoc = parser.parseFromString(response.data, 'text/html');
 
+          const groupsDoc = htmlDoc
+            .querySelector('[itemprop="articleBody"]')
+            ?.querySelectorAll('img');
 
-          let groupsDoc = htmlDoc
-            .querySelector("[itemprop=\"articleBody\"]")
-            ?.querySelectorAll("img")
-
-          groupsDoc?.forEach(element => {
-            cources["groups"][groupI].push(element.alt);
+          groupsDoc?.forEach((element) => {
+            cources.groups[groupI].push(element.alt);
           });
 
           // --------------
           loaded++;
-          if (loaded == 4)
-          {
-            localStorage.setItem("cources", JSON.stringify(cources));
-            HandleChange(cources["groups"]);
+          if (loaded == 4) {
+            localStorage.setItem('cources', JSON.stringify(cources));
+            HandleChange(cources.groups);
           }
         })
         .catch((error) => {
-          console.log("load groups failed: " + error)
+          console.log(`load groups failed: ${error}`);
         });
     }
-  }
-  else if (cources != 0)
-  {
-    HandleChange(cources["groups"]);
+  } else if (cources != 0) {
+    HandleChange(cources.groups);
   }
 }
 
 export default function Schedule() {
+  useInactivityRedirect();
   const navigate = useNavigate();
   const [value, setValue] = React.useState(0);
-  const [cources, setCources] = React.useState( [[<CircularProgress />,], [<CircularProgress />,], [<CircularProgress />,], [<CircularProgress />,], ]);
+  const [cources, setCources] = React.useState([
+    [<CircularProgress />],
+    [<CircularProgress />],
+    [<CircularProgress />],
+    [<CircularProgress />],
+  ]);
 
-  function HandleChangeCources(array: Array<Array<string>>)
-  {
-    let cources: JSX.Element[][] = array.map(group =>
+  function HandleChangeCources(array: Array<Array<string>>) {
+    const cources: JSX.Element[][] = array.map((group) =>
       group.map((element, index) => (
         <motion.div
           key={element}
@@ -132,18 +130,24 @@ export default function Schedule() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: index * 0.1 }}
         >
-          <CustomButton variant='contained' onClick={() => navigate('/view?group=' + element)}>{element}</CustomButton>
+          <CustomButton
+            variant="contained"
+            onClick={() => navigate(`/view?group=${element}`)}
+          >
+            {element}
+          </CustomButton>
         </motion.div>
-      ))
+      )),
     );
     setCources(cources);
   }
 
-  const handleChange = (event: SyntheticEvent, newValue: number) => setValue(newValue);
+  const handleChange = (event: SyntheticEvent, newValue: number) =>
+    setValue(newValue);
 
   useEffect(() => {
-    LoadGroups(HandleChangeCources)
-  })
+    LoadGroups(HandleChangeCources);
+  });
 
   return (
     <Box
@@ -177,7 +181,7 @@ export default function Schedule() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ staggerChildren: 0.1, delayChildren: 0.2 }}
-              >
+            >
               <Tabs
                 value={value}
                 onChange={handleChange}
