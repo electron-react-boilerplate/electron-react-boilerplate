@@ -1,16 +1,15 @@
-import { mountGCodeWithProgramNumber } from 'integration/mount-gcode';
-import { Part, ContourItem } from 'types/part';
-
 function getContourNameByProgramCode(
-  part: Part,
-  programCode: number,
+  lastGeneratedCodes: string[],
+  programCode: string,
 ): string | null {
-  const contour = part.contours.find((contourItem: ContourItem) => {
-    const generatedCode = mountGCodeWithProgramNumber(contourItem, programCode);
-    return generatedCode.includes(`O${programCode}`);
-  });
-
-  return contour ? contour.name : null;
+  const codeFound = lastGeneratedCodes.find((c) =>
+    c.startsWith(`\n${programCode}`),
+  );
+  if (codeFound) {
+    const match = codeFound.match(/\(([^)]+)\)/);
+    return match ? match[1] : null;
+  }
+  return null;
 }
 
 export { getContourNameByProgramCode };

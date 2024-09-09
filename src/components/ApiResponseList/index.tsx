@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 
 import { getContourNameByProgramCode } from 'integration/getContourNameByProgramCode';
 
-import { Part } from 'types/part';
 import { ResponseData, ResponseDataItem } from 'types/api';
 
 import {
@@ -21,7 +20,10 @@ interface ApiResponseListProps {
 }
 
 const ApiResponseList: React.FC<ApiResponseListProps> = ({ data }) => {
-  const part = useSelector((state: { part: Part }) => state.part);
+  const lastGeneratedCodes = useSelector(
+    (state: { app: { lastGeneratedCodes: string[] } }) =>
+      state.app.lastGeneratedCodes,
+  );
 
   return (
     <Container>
@@ -32,8 +34,8 @@ const ApiResponseList: React.FC<ApiResponseListProps> = ({ data }) => {
               {item.programCode}:{' '}
               <Name>
                 {getContourNameByProgramCode(
-                  part,
-                  Number(item.programCode.replace('O', '')),
+                  lastGeneratedCodes,
+                  item.programCode,
                 )}
               </Name>
             </ProgramCode>

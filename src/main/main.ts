@@ -108,7 +108,7 @@ const createWindow = async () => {
 
   ipcMain.handle(
     'save-gcode',
-    async (event: IpcMainInvokeEvent, generatedCodes: String[]) => {
+    async (event: IpcMainInvokeEvent, generatedCodes: string[]) => {
       try {
         const response = await fetch('http://localhost:8000/save-program', {
           method: 'POST',

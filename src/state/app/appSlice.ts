@@ -6,6 +6,7 @@ const initialState: App = {
   isSaved: true,
   lastSavedFileState: '',
   lastFilePathSaved: '',
+  lastGeneratedCodes: [],
 };
 
 const appSlice = createSlice({

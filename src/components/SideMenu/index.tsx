@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Modal from 'components/Modal';
 import Button from 'components/Button';
@@ -7,6 +7,8 @@ import ApiResponseList from 'components/ApiResponseList';
 import Spinner from 'components/Spinner';
 
 import { generateGCodeForPart } from 'integration/mount-gcode';
+
+import { editApp } from 'state/app/appSlice';
 
 import { Part } from 'types/part';
 import { Response } from 'types/api';
@@ -26,6 +28,7 @@ import {
 
 const SideMenu: React.FC = () => {
   const part = useSelector((state: { part: Part }) => state.part);
+  const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string | null>(null);
@@ -42,9 +45,10 @@ const SideMenu: React.FC = () => {
       );
     } else {
       setIsLoading(true);
-      const generatedCodes: String[] = generateGCodeForPart(part);
+      const generatedCodes: string[] = generateGCodeForPart(part);
 
-      console.log(generatedCodes);
+      console.log('generatedCodes', generatedCodes);
+      dispatch(editApp({ lastGeneratedCodes: generatedCodes }));
 
       try {
         const res = await window.electron.ipcRenderer.saveGCode(generatedCodes);
