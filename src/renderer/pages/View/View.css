@@ -1,0 +1,9 @@
+.View__table {
+    clip-path: inset(1px 1px 5px 1px);
+}
+.View__table td {
+    text-align: center;
+    vertical-align: middle;
+    border-bottom: solid 1px gray;
+    border-right: solid 1px gray;
+}

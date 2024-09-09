@@ -1,8 +1,8 @@
-import { CircularProgress, Paper } from "@mui/material";
+import { Alert, CircularProgress, Paper } from "@mui/material";
 import axios from "axios";
 import React, { useEffect } from "react";
-import useInactivityRedirect from '../../components/Scripts/useInactivityRedirect';
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useParams, useSearchParams } from "react-router-dom";
+import "./View.css"
 
 function getNextMondayTimestamp() {
   const now = new Date();
@@ -25,7 +25,7 @@ function Parse(group: string, handleChange: Function)
      * schedule - matrix
      * [i] - rows
      * [j] - cells
-     *
+     * 
      * [i][j] -> [
      *  text, width, height, colspan, rowspan
      * ]
@@ -36,7 +36,7 @@ function Parse(group: string, handleChange: Function)
     const htmlDoc = new DOMParser().parseFromString(decodedData, 'text/html');
     console.log(htmlDoc)
     let table = htmlDoc.querySelectorAll(".MsoNormalTable")[1];
-
+    
     let rows = table.querySelectorAll("tr");
     for (let i = 0; i < rows.length; i++)
     {
@@ -55,7 +55,7 @@ function Parse(group: string, handleChange: Function)
         schedule[i][j] = style;
       }
     }
-
+    
     handleChange(schedule)
 
     let schedules = JSON.parse(localStorage.getItem("schedules") ?? "{}");
@@ -74,8 +74,8 @@ function Parse(group: string, handleChange: Function)
 function Load(group: string, handleChange: Function)
 {
   let schedules = JSON.parse(localStorage.getItem("schedules") ?? "0");
-
-  if (schedules == null ||
+  
+  if (schedules == null || 
     schedules[group] == null ||
     schedules[group].expires < Date.now())
   {
@@ -89,7 +89,6 @@ function Load(group: string, handleChange: Function)
 
 export default function View()
 {
-  useInactivityRedirect();
   const [schedule, setSchedule] = React.useState( <CircularProgress sx={{marginTop: "280px"}}/> );
   const [searchParams] = useSearchParams();
 
@@ -98,15 +97,15 @@ export default function View()
     console.log(newSchedule)
     let rows: JSX.Element[] = []
 
-    newSchedule.forEach((trs: any[]) =>
+    newSchedule.forEach((trs: any[]) => 
     {
       let tr: JSX.Element[] = []
 
-      trs.forEach((td: any[]) =>
+      trs.forEach((td: any[]) => 
       {
         tr.push(
-          <td
-            colSpan={td[3]}
+          <td 
+            colSpan={td[3]} 
             rowSpan={td[4]}
             style={{
               width: td[1],
@@ -121,22 +120,28 @@ export default function View()
       rows.push(<tr>{tr}</tr>)
     });
 
-    setSchedule(<tbody>{rows}</tbody>);
+    setSchedule(
+      <tbody className="View__table">
+        {rows}
+      </tbody>
+    );
   }
 
   useEffect(() => {
-    Load(searchParams.get("group") ?? "", changeSchedule)
+    Load(searchParams.get("group") ?? "", changeSchedule) 
   }, [])
-
+  
   return (
-    <Paper
+    <Paper 
       sx={{
         width: '1030px',
-        minHeight: '600px',
+        minHeight: '200px',
         height: 'fit-content',
         textAlign: 'center',
-        margin: 'auto',
-        marginTop: '140px'
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
       }}
     >
       {schedule}
