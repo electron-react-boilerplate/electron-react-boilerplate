@@ -1,7 +1,8 @@
-import { Alert, CircularProgress, Paper } from "@mui/material";
+import { Alert, Button, ButtonBase, CircularProgress, Paper } from "@mui/material";
 import axios from "axios";
 import React, { useEffect } from "react";
-import { useLocation, useParams, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { motion } from 'framer-motion';
 import "./View.css"
 
 function getNextMondayTimestamp() {
@@ -91,6 +92,7 @@ export default function View()
 {
   const [schedule, setSchedule] = React.useState( <CircularProgress sx={{marginTop: "280px"}}/> );
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   function changeSchedule(newSchedule: any[])
   {
@@ -132,19 +134,40 @@ export default function View()
   }, [])
   
   return (
-    <Paper 
-      sx={{
-        minWidth: '1030px',
-        minHeight: '200px',
-        height: 'fit-content',
-        textAlign: 'center',
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%) scale(1.5)'
-      }}
-    >
-      {schedule}
-    </Paper>
+    <div>
+      <Paper 
+        sx={{
+          minWidth: '1030px',
+          minHeight: '200px',
+          height: 'fit-content',
+          textAlign: 'center',
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%) scale(1.5)'
+        }}
+      >
+        {schedule}
+      </Paper>
+      <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.1 }}
+        >
+        <Button 
+          onClick={() => navigate('/schedule')}
+          variant="contained"
+          sx = {{
+            position: 'absolute',
+            width: 240,
+            height: 75,
+            borderRadius: '15px',
+            left: "calc(50% - 700px)",
+            bottom: '30px',
+          }}>
+          Назад
+        </Button>
+      </motion.div>
+    </div>
   );
 }
