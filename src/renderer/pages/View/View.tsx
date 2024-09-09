@@ -1,9 +1,18 @@
-import { Button, CircularProgress, Paper } from '@mui/material';
+import { Button, ButtonProps, CircularProgress, Paper, styled } from '@mui/material';
 import axios from 'axios';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import './View.css';
+
+const CustomButton = styled(Button)<ButtonProps>(() => ({
+  backgroundColor: 'white',
+  boxShadow:
+    '0px 3px 5px -1px rgba(0,0,0,0.2), 0px 5px 8px 0px rgba(0,0,0,0.14), 0px 1px 14px 0px rgba(0,0,0,0.12)',
+  color: 'black',
+  width: '150px',
+  fontSize: '18px',
+}));
 
 function getNextMondayTimestamp() {
   const now = new Date();
@@ -90,6 +99,8 @@ export default function View() {
   const [schedule, setSchedule] = React.useState(
     <CircularProgress sx={{ marginTop: '280px' }} />
   );
+  const ref = useRef(null);
+  const [scale, setScale] = useState(1);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
@@ -132,9 +143,27 @@ export default function View() {
     Load(searchParams.get('group') ?? '', changeSchedule);
   }, []);
 
+  useEffect(() => {
+    if (ref.current) {
+      const elementHeight = ref.current.offsetHeight;  // Получение высоты элемента
+
+      // Проверка высоты и изменение scale
+      if (elementHeight > 500) {
+        setScale(1.2);
+      } else {
+        setScale(1.5);
+      }
+    }
+  }, [schedule]);
+
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: '0' }}
+      animate={{ opacity: '1' }}
+      transition={{ type: 'spring', stiffness: 50, delay: '0.1' }}
+    >
       <Paper
+        ref={ref}
         sx={{
           minWidth: '1030px',
           minHeight: '200px',
@@ -144,7 +173,7 @@ export default function View() {
           top: '50%',
           left: '50%',
           padding: '15px',
-          transform: 'translate(-50%, -50%) scale(1.5)',
+          transform: `translate(-50%, -50%) scale(${scale})`,
         }}
       >
         {schedule}
@@ -154,7 +183,7 @@ export default function View() {
         animate={{ opacity: '1' }}
         transition={{ type: 'spring', stiffness: 50, delay: '0.1' }}
       >
-        <Button
+        <CustomButton
           onClick={() => navigate('/schedule')}
           variant="contained"
           sx={{
@@ -167,8 +196,8 @@ export default function View() {
           }}
         >
           Назад
-        </Button>
+        </CustomButton>
       </motion.div>
-    </div>
+    </motion.div>
   );
 }
