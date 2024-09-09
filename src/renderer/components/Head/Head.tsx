@@ -51,7 +51,7 @@ function Head() {
     const parser = new DOMParser();
 
     setCurDate(
-      `${daysOfWeek[today.getDay()]}. ${today.getDate()} ${Months[today.getMonth()]}`,
+      `${daysOfWeek[today.getDay() - 1]}. ${today.getDate()} ${Months[today.getMonth()]}`,
     );
   };
 
