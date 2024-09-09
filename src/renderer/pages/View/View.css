@@ -1,9 +1,15 @@
+td{
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
 .View__table {
     clip-path: inset(1px 1px 5px 1px);
 }
 .View__table td {
     text-align: center;
     vertical-align: middle;
-    border-bottom: solid 1px gray;
-    border-right: solid 1px gray;
+    border-bottom: solid 1px rgba(128, 128, 128, 0.7);
+    border-right: solid 1px rgba(128, 128, 128, 0.7);
+    letter-spacing: 0.01071em;
+    font-size: 0.875rem;
 }
