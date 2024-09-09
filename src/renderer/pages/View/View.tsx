@@ -134,14 +134,14 @@ export default function View()
   return (
     <Paper 
       sx={{
-        width: '1030px',
+        minWidth: '1030px',
         minHeight: '200px',
         height: 'fit-content',
         textAlign: 'center',
         position: 'absolute',
         top: '50%',
         left: '50%',
-        transform: 'translate(-50%, -50%)',
+        transform: 'translate(-50%, -50%) scale(1.5)'
       }}
     >
       {schedule}
