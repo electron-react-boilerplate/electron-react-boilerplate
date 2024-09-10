@@ -51,9 +51,6 @@ function Home() {
             emulateTouch
           >
             <div>
-              Тест
-            </div>
-            <div>
               <img src={Slide1} />
             </div>
             <div>
