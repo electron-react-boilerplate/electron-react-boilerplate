@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import './View.css';
+import "../../App.css"
 
 const CustomButton = styled(Button)<ButtonProps>(() => ({
   backgroundColor: 'white',
@@ -163,15 +164,13 @@ export default function View() {
       transition={{ type: 'spring', stiffness: 50, delay: '0.1' }}
     >
       <Paper
+        className='absolute-center'
         ref={ref}
         sx={{
           minWidth: '1030px',
           minHeight: '200px',
           height: 'fit-content',
           textAlign: 'center',
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
           padding: '15px',
           transform: `translate(-50%, -50%) scale(${scale})`,
         }}

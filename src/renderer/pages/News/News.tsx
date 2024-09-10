@@ -31,10 +31,8 @@ function News() {
     //   <LastNews />
     // </div>
     <Box
+      className="absolute-center"
       sx={{
-        position: 'fixed',
-        inset: '0px',
-        margin: 'auto',
         width: '800px',
         height: '600px',
       }}

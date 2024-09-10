@@ -1,12 +1,16 @@
 html {
   height:100%;
 }
-
 #root {
   height: 100%;
 }
-
 body {
   margin:0;
   overflow:hidden;
+}
+.absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

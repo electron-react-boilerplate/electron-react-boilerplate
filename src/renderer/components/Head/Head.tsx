@@ -86,15 +86,14 @@ function Head() {
             alignItems: 'center',
             justifyContent: 'space-between',
             flexShrink: 0,
-            borderRadius: '999px',
+            borderRadius: '100vh',
             bgcolor:
               theme.palette.mode === 'light'
                 ? 'rgba(255, 255, 255, 0.4)'
                 : 'rgba(0, 0, 0, 0.4)',
             backdropFilter: 'blur(24px)',
             width: '1500px',
-            marginLeft: 'auto',
-            marginRight: 'auto',
+            margin: 'auto',
             border: '1px solid',
             borderColor: 'divider',
             boxShadow:

@@ -15,6 +15,7 @@ import React, { SyntheticEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useInactivityRedirect from '../../components/Scripts/useInactivityRedirect';
 import './Schedule.css';
+import "../../App.css";
 
 const CourceUrls = [
   'https://skoipt.ru/en/112-statichnye-stranitsy/studentu/raspisanie/raspisanie-zanyatij/340-1-kurs',
@@ -151,10 +152,8 @@ export default function Schedule() {
 
   return (
     <Box
+      className="absolute-center"
       sx={{
-        position: 'fixed',
-        inset: '0px',
-        margin: 'auto',
         width: '600px',
         height: '550px',
       }}
