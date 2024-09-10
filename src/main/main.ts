@@ -1,3 +1,4 @@
+/* eslint-disable promise/catch-or-return */
 /* eslint global-require: off, no-console: off, promise/always-return: off */
 
 /**
@@ -9,7 +10,7 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow, shell, ipcMain } from 'electron';
+import { app, BrowserWindow, shell, ipcMain, dialog } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
@@ -19,7 +20,72 @@ class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
     autoUpdater.logger = log;
-    autoUpdater.checkForUpdatesAndNotify();
+
+    // Начальная проверка обновлений
+    this.checkForUpdates();
+
+    // Проверка обновлений каждые 10 минут (600,000 мс)
+    setInterval(() => {
+      this.checkForUpdates();
+    }, 600000); // 600,000 мс = 10 минут
+
+    autoUpdater.on('update-available', () => {
+      console.log('Update available');
+      this.showUpdateAvailableDialog();
+    });
+
+    autoUpdater.on('update-downloaded', () => {
+      console.log('Update downloaded');
+      this.showUpdateDownloadedDialog();
+    });
+
+    autoUpdater.on('update-not-available', () => {
+      console.log('No update available');
+    });
+  }
+
+  checkForUpdates() {
+    autoUpdater.checkForUpdates();
+  }
+
+  showUpdateAvailableDialog() {
+    if (mainWindow) {
+      dialog
+        .showMessageBox(mainWindow, {
+          type: 'info',
+          title: 'Доступно обновление',
+          message:
+            'Доступно обновление. Хотите установить его сейчас или позже?',
+          buttons: ['Установить сейчас', 'Позже'],
+          defaultId: 0,
+        })
+        .then((result) => {
+          if (result.response === 0) {
+            // 'Install Now'
+            autoUpdater.quitAndInstall();
+          }
+        });
+    }
+  }
+
+  showUpdateDownloadedDialog() {
+    if (mainWindow) {
+      dialog
+        .showMessageBox(mainWindow, {
+          type: 'info',
+          title: 'Обновление загружено',
+          message:
+            'Обновление скачано. Перезапустите приложение, чтобы применить обновления.',
+          buttons: ['Перезагрузить сейчас', 'Позже'],
+          defaultId: 0,
+        })
+        .then((result) => {
+          if (result.response === 0) {
+            // 'Restart Now'
+            autoUpdater.quitAndInstall();
+          }
+        });
+    }
   }
 }
 
@@ -72,7 +138,7 @@ const createWindow = async () => {
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
-    height: 728, 
+    height: 728,
     fullscreen: true,
     autoHideMenuBar: true,
     icon: getAssetPath('icon.png'),
