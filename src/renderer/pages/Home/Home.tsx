@@ -39,6 +39,7 @@ function Home() {
       >
         <Paper elevation={5}>
           <Carousel
+            interval={5000}
             autoPlay
             showArrows={false}
             showStatus={false}

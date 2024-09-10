@@ -1,0 +1,40 @@
+:root {
+    --bg-color-1: #f43b47;
+    --bg-color-2: #453a94;
+}
+.background {
+    z-index: -1;
+    position: fixed;
+}
+.background__bg {
+    opacity: .5;
+    animation-name: background-slide;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    background: linear-gradient(-40deg, var(--bg-color-1) 50%, var(--bg-color-2) 50%);
+    position: inherit;
+    bottom: 0;
+    top: 0;
+    right: -50%;
+    left: -50%;
+}
+.background__bg--1 {
+    animation-direction: alternate;
+    animation-duration: 3s;
+}
+.background__bg--2 {
+    animation-direction: alternate-reverse;
+    animation-duration: 4s;
+}
+.background__bg--3 {
+    animation-direction: alternate;
+    animation-duration: 5s;
+}
+@keyframes background-slide {
+    from {
+        transform: translateX(-25%);
+    }
+    to {
+        transform: translateX(25%);
+    }
+}
