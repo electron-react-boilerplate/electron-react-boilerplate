@@ -13,7 +13,7 @@ const ConfirmAction: React.FC<ConfirmActionProps> = ({
 }) => (
   <Container>
     <Button onClick={onConfirm} color={colors.white} bgColor={colors.red}>
-      <Text>Excluir</Text>
+      <Text>Confirmar</Text>
     </Button>
     <Button
       onClick={onCancel}

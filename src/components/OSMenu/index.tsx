@@ -3,8 +3,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { replacePart } from 'state/part/partSlice';
-import { editApp } from 'state/app/appSlice';
+import Modal from 'components/Modal';
+import ConfirmAction from 'components/ConfirmAction';
+
+import {
+  replacePart,
+  initialState as partInitialState,
+} from 'state/part/partSlice';
+import { editApp, initialState as appInitialState } from 'state/app/appSlice';
 import { Part } from 'types/part';
 import { FileObject, SaveObject } from 'types/general';
 import { App } from 'types/app';
@@ -22,16 +28,40 @@ import {
 
 const OSMenu: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isModalConfirmNewOpen, setIsModalConfirmNewOpen] = useState(false);
   const menuRef = useRef<HTMLElement | null>(null);
 
   const lastFilePath = useSelector(
     (state: { app: App }) => state.app.lastFilePathSaved,
   );
+  const isSaved = useSelector((state: { app: App }) => state.app.isSaved);
   const partState = useSelector((state: { part: Part }) => state.part);
   const dispatch = useDispatch();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+  const newFile = () => {
+    dispatch(
+      replacePart({
+        ...partInitialState,
+      }),
+    );
+    // colocar estados iniciais aqui, utilizar arquivo separado para não repetir código
+    dispatch(
+      editApp({
+        ...appInitialState,
+      }),
+    );
+  };
+
+  const handleNewFile = () => {
+    if (!isSaved) {
+      setIsModalConfirmNewOpen(true);
+    } else {
+      newFile();
+    }
   };
 
   const openFile = async () => {
@@ -197,11 +227,31 @@ const OSMenu: React.FC = () => {
 
   return (
     <Container>
+      <Modal
+        isOpen={isModalConfirmNewOpen}
+        onClose={() => {
+          setIsModalConfirmNewOpen(false);
+        }}
+        title="Mudanças não salvas serão perdidas. Deseja continuar?"
+      >
+        <ConfirmAction
+          onConfirm={() => {
+            newFile();
+            setIsModalConfirmNewOpen(false);
+          }}
+          onCancel={() => {
+            setIsModalConfirmNewOpen(false);
+          }}
+        />
+      </Modal>
       <Menu ref={menuRef}>
         <li>
           <Button onClick={toggleMenu}>Arquivo</Button>
           {isOpen && (
             <SubMenu>
+              <SubButton onClick={() => handleNewFile()}>
+                Novo<SubButtonLabel>Ctrl + N</SubButtonLabel>
+              </SubButton>
               <SubButton onClick={() => openFile()}>
                 Abrir<SubButtonLabel>Ctrl + O</SubButtonLabel>
               </SubButton>
@@ -209,7 +259,7 @@ const OSMenu: React.FC = () => {
                 Salvar<SubButtonLabel>Ctrl + S</SubButtonLabel>
               </SubButton>
               <SubButton onClick={() => saveFileAs(partState)}>
-                Salvar como...<SubButtonLabel>Ctrl + Shift + N</SubButtonLabel>
+                Salvar como...<SubButtonLabel>Ctrl + Shift + S</SubButtonLabel>
               </SubButton>
               <Hr />
               <SubButton onClick={() => window.electron.ipcRenderer.quitApp()}>
