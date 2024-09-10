@@ -150,7 +150,7 @@ export default function View() {
 
       // Проверка высоты и изменение scale
       if (elementHeight > 500) {
-        setScale(1.20);
+        setScale(1.2);
       } else {
         setScale(1.5);
       }
