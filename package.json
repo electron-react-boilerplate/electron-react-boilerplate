@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/electron-react-boilerplate/electron-react-boilerplate.git"
+    "url": "git+https://github.com/DIKER0K/electron-react-boilerplate"
   },
   "license": "MIT",
   "author": {
@@ -179,7 +179,7 @@
     "webpack-merge": "^5.9.0"
   },
   "build": {
-    "productName": "ElectronReact",
+    "productName": "SKOIPT DISPLAY",
     "appId": "org.erb.ElectronReact",
     "asar": true,
     "asarUnpack": "**\\*.{node,dll}",
@@ -240,8 +240,7 @@
     "publish": {
       "provider": "github",
       "owner": "DIKER0K",
-      "repo": "electron-react-boilerplate",
-      "token": "SHA256:mUEGUs7Pr66TId6wpCX6ogITk5nbNsiwg3FGbELbwE8"
+      "repo": "electron-react-boilerplate"
     }
   },
   "collective": {
