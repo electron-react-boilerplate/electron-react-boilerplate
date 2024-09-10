@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable no-alert */
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Modal from 'components/Modal';
@@ -42,29 +42,28 @@ const OSMenu: React.FC = () => {
     setIsOpen(!isOpen);
   };
 
-  const newFile = () => {
+  const newFile = useCallback(() => {
     dispatch(
       replacePart({
         ...partInitialState,
       }),
     );
-    // colocar estados iniciais aqui, utilizar arquivo separado para não repetir código
     dispatch(
       editApp({
         ...appInitialState,
       }),
     );
-  };
+  }, [dispatch]);
 
-  const handleNewFile = () => {
+  const handleNewFile = useCallback(() => {
     if (!isSaved) {
       setIsModalConfirmNewOpen(true);
     } else {
       newFile();
     }
-  };
+  }, [isSaved, newFile]);
 
-  const openFile = async () => {
+  const openFile = useCallback(async () => {
     try {
       let file: FileObject | undefined;
 
@@ -119,58 +118,66 @@ const OSMenu: React.FC = () => {
       alert(`Erro ao abrir o arquivo ${error}`);
       console.error(error);
     }
-  };
+  }, [dispatch]);
 
-  const saveFileAs = async (data: Part) => {
-    try {
-      let filePath: string | undefined;
-      if (isElectron())
-        filePath = await window.electron.ipcRenderer.saveFileAs(
-          JSON.stringify(data),
-        );
-      if (filePath) {
-        dispatch(
-          editApp({
-            fileName: filePath.substring(filePath.lastIndexOf('\\') + 1),
-            isSaved: true,
-            lastFilePathSaved: filePath,
-            lastSavedFileState: JSON.stringify(partState),
-          }),
-        );
-      }
-    } catch (error: unknown) {
-      alert(`Erro ao salvar o arquivo ${error}`);
-      console.error(error);
-    }
-  };
-
-  const saveFile = async (data: Part) => {
-    if (lastFilePath) {
+  const saveFileAs = useCallback(
+    async (data: Part) => {
       try {
-        let saveObj: SaveObject = {
-          success: false,
-          message: 'Operação de salvamento não executada',
-        };
+        let filePath: string | undefined;
         if (isElectron())
-          saveObj = await window.electron.ipcRenderer.saveFile(
+          filePath = await window.electron.ipcRenderer.saveFileAs(
             JSON.stringify(data),
-            lastFilePath,
           );
-        if (saveObj && saveObj.success) {
-          dispatch(dispatch(editApp({ isSaved: true })));
-        } else {
-          alert(`Erro ao ler arquivo ${saveObj.message}`);
-          console.error(saveObj.message, `lasfilepath: ${lastFilePath}`);
+        if (filePath) {
+          dispatch(
+            editApp({
+              fileName: filePath.substring(filePath.lastIndexOf('\\') + 1),
+              isSaved: true,
+              lastFilePathSaved: filePath,
+              lastSavedFileState: JSON.stringify(partState),
+            }),
+          );
         }
       } catch (error: unknown) {
         alert(`Erro ao salvar o arquivo ${error}`);
         console.error(error);
       }
-    } else {
-      saveFileAs(data);
-    }
-  };
+    },
+    [dispatch, partState],
+  );
 
+  const saveFile = useCallback(
+    async (data: Part) => {
+      if (lastFilePath) {
+        try {
+          let saveObj: SaveObject = {
+            success: false,
+            message: 'Operação de salvamento não executada',
+          };
+          if (isElectron())
+            saveObj = await window.electron.ipcRenderer.saveFile(
+              JSON.stringify(data),
+              lastFilePath,
+            );
+          if (saveObj && saveObj.success) {
+            dispatch(dispatch(editApp({ isSaved: true })));
+          } else {
+            alert(`Erro ao ler arquivo ${saveObj.message}`);
+            console.error(saveObj.message, `lasfilepath: ${lastFilePath}`);
+          }
+        } catch (error: unknown) {
+          alert(`Erro ao salvar o arquivo ${error}`);
+          console.error(error);
+        }
+      } else {
+        saveFileAs(data);
+      }
+    },
+    [dispatch, lastFilePath, saveFileAs],
+  );
+
+  /* incluir em outro lugar aonde ele não fique remapeando os atalhos,
+  corrigir também o problema de ele ficar impedindo atalho em outros softwares */
   // eslint-disable-next-line consistent-return
   useEffect(() => {
     const handleShortcutN = () => handleNewFile();
@@ -206,8 +213,7 @@ const OSMenu: React.FC = () => {
         );
       };
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [handleNewFile, openFile, partState, saveFile, saveFileAs]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
