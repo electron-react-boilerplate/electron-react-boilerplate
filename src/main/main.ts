@@ -242,6 +242,13 @@ app
 
     const shortcuts = [
       {
+        key: 'CommandOrControl+N',
+        callback: () => {
+          if (mainWindow) mainWindow.webContents.send('shortcut-pressed-n');
+          else console.error('mainWindow not defined');
+        },
+      },
+      {
         key: 'CommandOrControl+O',
         callback: () => {
           if (mainWindow) mainWindow.webContents.send('shortcut-pressed-o');

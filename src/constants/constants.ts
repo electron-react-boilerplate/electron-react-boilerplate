@@ -1,3 +1,5 @@
+export const appFileExtension = 'gzm';
+
 export const isElectron = () => {
   // Renderer process
   if (
@@ -29,6 +31,7 @@ export const isElectron = () => {
   return false;
 };
 
+// Integration RegExp
 export const XZ_REGEX: RegExp = /^\d{0,4}(\.\d{0,4})?$/;
 export const MCODE_REGEX: RegExp =
   /^M([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-9]{2}|300|30[1-5])$/;
@@ -43,3 +46,7 @@ export const FROM_0001_TO_100_REGEX: RegExp =
   /^(100(\.0{1,3})?|([0-9]{1,2})(\.[0-9]{1,3})?|(0\.[0-9]{2,3}))$/;
 export const FROM_1_TO_10_REGEX: RegExp = /^(10|[1-9])$/;
 export const FROM_1_TO_9999_REGEX: RegExp = /^(9999|[1-9][0-9]{0,3})$/;
+
+// Other Regex
+export const getProgramNameFromGeratedCode =
+  /\((?:[^()]*|\((?:[^()]*|\([^()]*\))*\))*\)/;

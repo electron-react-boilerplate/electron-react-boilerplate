@@ -1,3 +1,5 @@
+import { getProgramNameFromGeratedCode } from 'constants/constants';
+
 function getContourNameByProgramCode(
   lastGeneratedCodes: string[],
   programCode: string,
@@ -6,8 +8,7 @@ function getContourNameByProgramCode(
     c.startsWith(`\n${programCode}`),
   );
   if (codeFound) {
-    const getNameRegEx = /\((?:[^()]*|\((?:[^()]*|\([^()]*\))*\))*\)/;
-    const match = codeFound.match(getNameRegEx);
+    const match = codeFound.match(getProgramNameFromGeratedCode);
     if (match) return match[0].slice(1, -1);
   }
   return null;

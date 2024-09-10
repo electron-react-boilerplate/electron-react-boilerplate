@@ -14,7 +14,7 @@ import { editApp, initialState as appInitialState } from 'state/app/appSlice';
 import { Part } from 'types/part';
 import { FileObject, SaveObject } from 'types/general';
 import { App } from 'types/app';
-import { isElectron } from 'constants/constants';
+import { isElectron, appFileExtension } from 'constants/constants';
 
 import {
   Button,
@@ -89,7 +89,7 @@ const OSMenu: React.FC = () => {
 
           const input = document.createElement('input');
           input.type = 'file';
-          input.accept = '.gzm';
+          input.accept = `.${appFileExtension}`;
           input.onchange = (event) => {
             const files = (event.target as HTMLInputElement)?.files;
             if (files && files.length > 0) {
@@ -173,11 +173,13 @@ const OSMenu: React.FC = () => {
 
   // eslint-disable-next-line consistent-return
   useEffect(() => {
+    const handleShortcutN = () => handleNewFile();
     const handleShortcutO = () => openFile();
     const handleShortcutS = () => saveFile(partState);
     const handleShortcutShiftS = () => saveFileAs(partState);
 
     if (isElectron()) {
+      window.electron.ipcRenderer.on('shortcut-pressed-n', handleShortcutN);
       window.electron.ipcRenderer.on('shortcut-pressed-o', handleShortcutO);
       window.electron.ipcRenderer.on('shortcut-pressed-s', handleShortcutS);
       window.electron.ipcRenderer.on(
@@ -186,6 +188,10 @@ const OSMenu: React.FC = () => {
       );
 
       return () => {
+        window.electron.ipcRenderer.removeListener(
+          'shortcut-pressed-n',
+          handleShortcutN,
+        );
         window.electron.ipcRenderer.removeListener(
           'shortcut-pressed-o',
           handleShortcutO,
