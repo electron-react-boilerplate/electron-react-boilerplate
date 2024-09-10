@@ -10,6 +10,15 @@ import Head from './components/Head/Head';
 import View from './pages/View/View';
 
 export default function App() {
+  document.addEventListener("keydown", (event) => 
+    {
+      if (event.key.toLowerCase() == 'r') 
+      {
+        window.location.reload();
+      }
+    }
+  );
+
   return (
     <div>
       <Router>
