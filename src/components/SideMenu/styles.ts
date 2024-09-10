@@ -18,6 +18,14 @@ export const ModalText = styled.p`
   margin-bottom: 16px;
 `;
 
+export const ModalDetail = styled.p`
+  color: ${colors.blackLight};
+  font-weight: bold;
+  font-style: italic;
+  font-size: 16px;
+  margin-bottom: 16px;
+`;
+
 export const Menu = styled.nav`
   display: flex;
   flex-flow: column nowrap;

@@ -13,7 +13,13 @@ import {
   Content,
 } from './style';
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title }) => {
+const Modal: React.FC<ModalProps> = ({
+  isOpen,
+  onClose,
+  children,
+  title,
+  variation,
+}) => {
   if (!isOpen) {
     return null;
   }
@@ -22,7 +28,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title }) => {
     <Overlay>
       <ModalContainer>
         <Header>
-          <Title>{title}</Title>
+          <Title variation={variation}>{title}</Title>
           <CloseButton onClick={onClose}>
             <Icon className="icon-x" color={colors.greyFont} fontSize="30px" />
           </CloseButton>

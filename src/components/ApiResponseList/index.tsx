@@ -19,11 +19,11 @@ import {
 } from './style';
 
 function getResultDescription(
-  responses: Results,
+  mockResponses: Results,
   result: string,
   resultDescription: string,
 ): any {
-  const foundItem = responses.find(
+  const foundItem = mockResponses.find(
     (item: ResultItem) => item.result === result,
   );
   if (foundItem) return foundItem.resultDescription;

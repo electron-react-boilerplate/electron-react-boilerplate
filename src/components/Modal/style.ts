@@ -30,10 +30,11 @@ export const Header = styled.div`
   align-items: center;
 `;
 
-export const Title = styled.h2`
+export const Title = styled.h2<{ variation?: string }>`
   font-size: 30px;
   font-weight: bold;
-  color: ${colors.greyFont};
+  color: ${(props) =>
+    props.variation === 'danger' ? colors.red : colors.greyFont};
 `;
 
 export const IconClose = styled.span`

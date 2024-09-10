@@ -245,6 +245,7 @@ const OSMenu: React.FC = () => {
           setIsModalConfirmNewOpen(false);
         }}
         title="Mudanças não salvas serão perdidas. Deseja continuar?"
+        variation="danger"
       >
         <ConfirmAction
           onConfirm={() => {

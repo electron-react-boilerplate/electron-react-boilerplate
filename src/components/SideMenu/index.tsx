@@ -24,6 +24,7 @@ import {
   ItemBtn,
   StyledIcon,
   ItemSimple,
+  ModalDetail,
 } from './styles';
 
 const SideMenu: React.FC = () => {
@@ -47,17 +48,12 @@ const SideMenu: React.FC = () => {
       setIsLoading(true);
       const generatedCodes: string[] = generateGCodeForPart(part);
 
-      console.log('generatedCodes', generatedCodes);
       dispatch(editApp({ lastGeneratedCodes: generatedCodes }));
 
       try {
         const res = await window.electron.ipcRenderer.saveGCode(generatedCodes);
         setResponse(res);
-        if (response?.statusCode !== 200) {
-          setModalMessage(
-            'Um ou mais programas retornou um erro. Verifique a lista abaixo.',
-          );
-        }
+        console.log('res', res);
       } catch (error) {
         setModalMessage('Problemas de conexão com o serviço.');
       } finally {
@@ -73,6 +69,16 @@ const SideMenu: React.FC = () => {
   }, [part]);
 
   useEffect(() => {
+    if (response?.statusCode !== 200) {
+      setModalMessage(
+        'Um ou mais programas retornou um erro. Verifique os detalhes abaixo:',
+      );
+    } else {
+      setModalMessage(null);
+    }
+  }, [response]);
+
+  useEffect(() => {
     setLoaded(true);
   }, []);
   return (
@@ -83,16 +89,24 @@ const SideMenu: React.FC = () => {
             ? 'Programas enviados!'
             : 'Erro ao enviar programas'
         }
+        variation={response?.statusCode === 200 ? 'default' : 'danger'}
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       >
         {modalMessage && <ModalText>{modalMessage}</ModalText>}
+        {response?.message &&
+          response?.statusCode !== 200 &&
+          !response.data && (
+            <ModalDetail>
+              {response.statusCode}. {response.message}
+            </ModalDetail>
+          )}
         {response?.data && <ApiResponseList data={response.data} />}
         <Button
           onClick={() => setIsModalOpen(false)}
-          color={colors.red}
+          color={response?.statusCode === 200 ? colors.blue : colors.red}
           bgColor={colors.white}
-          borderColor={colors.red}
+          borderColor={response?.statusCode === 200 ? colors.blue : colors.red}
         >
           OK
         </Button>
