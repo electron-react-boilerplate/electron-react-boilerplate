@@ -3,6 +3,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a lo
 import { Carousel } from 'react-responsive-carousel';
 import { Box, Paper } from '@mui/material';
 import { motion } from 'framer-motion';
+import "../../App.css"
 import Slide1 from './Slides/Prezentatsia_obychnye_dni_2_semestr_00001.png';
 import Slide2 from './Slides/Prezentatsia_obychnye_dni_2_semestr_00002.png';
 import Slide3 from './Slides/Prezentatsia_obychnye_dni_2_semestr_00003.png';
@@ -24,13 +25,10 @@ function Home() {
   const navigate = useNavigate();
   return (
     <Box
+      className="absolute-center"
       sx={{
         width: '1500px',
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
         borderRadius: '16px',
-        transform: 'translate(-50%, -50%)',
       }}
     >
       <motion.div
