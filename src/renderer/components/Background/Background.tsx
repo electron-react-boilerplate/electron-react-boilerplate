@@ -4,9 +4,11 @@ import { useState } from 'react';
 import ContrastIcon from '@mui/icons-material/Contrast';
 import BackgroundCircle from './Backgrounds/Background-circle';
 import BackgroundGradient from './Backgrounds/Background-gradient';
+import BackGroundWave from './Backgrounds/Background_wave';
 
 const Backgrounds: JSX.Element[] = [
   <BackgroundCircle />,
+  <BackGroundWave />,
   <BackgroundGradient />,
 ];
 
