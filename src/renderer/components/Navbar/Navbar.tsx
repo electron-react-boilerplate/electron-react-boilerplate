@@ -6,6 +6,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import FeedIcon from '@mui/icons-material/Feed';
 import TodayIcon from '@mui/icons-material/Today';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { motion } from 'framer-motion';
 import { Paper } from '@mui/material';
 
@@ -25,6 +26,8 @@ function Navbar() {
       setValue('Schedule');
     } else if (location.pathname === '/calls') {
       setValue('Calls');
+    } else if (location.pathname === '/other') {
+      setValue('Other');
     }
   }, [location.pathname]);
 
@@ -88,6 +91,12 @@ function Navbar() {
             value="Calls"
             onClick={() => navigate('/calls')}
             icon={<NotificationsActiveIcon fontSize="large" />}
+          />
+          <BottomNavigationAction
+            label="Другое"
+            value="Other"
+            onClick={() => navigate('/other')}
+            icon={<MoreHorizIcon fontSize="large" />}
           />
         </BottomNavigation>
       </Paper>

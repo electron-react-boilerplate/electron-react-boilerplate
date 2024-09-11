@@ -8,6 +8,8 @@ import Background from './components/Background/Background';
 import Navbar from './components/Navbar/Navbar';
 import Head from './components/Head/Head';
 import View from './pages/View/View';
+import Other from './pages/Other/Other';
+import Exit from './pages/Exit/Exit';
 import { AnimatePresence } from 'framer-motion';
 
 export default function App() {
@@ -39,6 +41,8 @@ function AppContent() {
           <Route path="/news" element={<News />} />
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/view" element={<View />} />
+          <Route path="/other" element={<Other />} />
+          <Route path="/exit" element={<Exit />} />
         </Routes>
       </AnimatePresence>
     </div>
