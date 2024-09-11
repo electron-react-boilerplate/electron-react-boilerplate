@@ -24,7 +24,7 @@ function Other() {
       className="absolute-center"
       sx={{
         width: '500px',
-        height: '600px',
+        height: '300px',
       }}
     >
       <motion.div
@@ -37,7 +37,7 @@ function Other() {
           elevation={5}
           sx={{
             width: '500px',
-            height: '600px',
+            height: '300px',
             display: 'flex',
             justifyContent: 'center',
             textAlign: 'center',
@@ -48,6 +48,7 @@ function Other() {
             sx={{
               margin: '15px',
               display: 'flex',
+              justifyContent: 'center',
               flexDirection: 'column',
             }}
           >
