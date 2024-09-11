@@ -128,7 +128,7 @@ const WorkGroup: React.FC = () => {
       <Breadcrumbs items={breadcrumbsItems} />
       <Content>
         <Block>
-          <Title>Contornos/Elementos</Title>
+          <Title>Contornos</Title>
           <AddBtn>
             <Button
               onClick={() => setIsModalContourOpen(true)}

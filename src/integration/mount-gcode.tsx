@@ -1,5 +1,9 @@
 import { ContourItem, ActivitiyItem, Part, OperationItem } from 'types/part';
 
+function removeAccents(str: string): string {
+  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
 // Some string have right blank spaces that are required for CNC syntax
 const isRapidMovement = (fvalue: string | undefined): string =>
   fvalue ? 'G01 ' : 'G00 ';
@@ -42,7 +46,7 @@ function mountGCode(contour: ContourItem) {
     gCodeOutput = `${gCodeOutput}${mountGCodeLine(element, index, isLastLine)}`;
   });
   gCodeOutput = `${gCodeOutput}\n`;
-  gCodeTemplate = `(${contour.name})\n${gCodeOutput}%`;
+  gCodeTemplate = `(${removeAccents(contour.name)})\n${gCodeOutput}%`;
 
   return gCodeTemplate;
 }
@@ -59,7 +63,9 @@ function mountGCodeWithProgramNumber(
     gCodeOutput = `${gCodeOutput}${mountGCodeLine(element, index, isLastLine)}`;
   });
   gCodeOutput = `${gCodeOutput}\n`;
-  gCodeTemplate = `\nO${programNumber}(${contour.name})\n${gCodeOutput}%`;
+  gCodeTemplate = `\nO${programNumber}(${removeAccents(
+    contour.name,
+  )})\n${gCodeOutput}%`;
 
   return gCodeTemplate;
 }
