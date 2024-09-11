@@ -1,0 +1,17 @@
+.carousel .control-next.control-arrow:before {
+  border-left: 8px solid #000;
+}
+
+.carousel .control-prev.control-arrow:before {
+  border-right: 8px solid #000;
+}
+
+.carousel .control-next.control-arrow {
+  border-radius: 999px 0px 0px 999px;
+  right: 0;
+}
+
+.carousel .control-prev.control-arrow {
+  border-radius: 0px 999px 999px 0px;
+  left: 0;
+}

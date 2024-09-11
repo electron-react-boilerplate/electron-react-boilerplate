@@ -10,12 +10,12 @@ import {
   Typography,
 } from '@mui/material';
 import axios from 'axios';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import React, { SyntheticEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useInactivityRedirect from '../../components/Scripts/useInactivityRedirect';
 import './Schedule.css';
-import "../../App.css";
+import '../../App.css';
 
 const CourceUrls = [
   'https://skoipt.ru/en/112-statichnye-stranitsy/studentu/raspisanie/raspisanie-zanyatij/340-1-kurs',
@@ -159,9 +159,10 @@ export default function Schedule() {
       }}
     >
       <motion.div
+        key="schedule"
         initial={{ opacity: 0, scale: 0, y: 500 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0 }}
+        exit={{ opacity: 0, scale: 0, y: -500 }}
         transition={{ type: 'spring', stiffness: 50 }}
       >
         <Paper
@@ -179,6 +180,7 @@ export default function Schedule() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               transition={{ staggerChildren: 0.1, delayChildren: 0.2 }}
             >
               <Tabs
