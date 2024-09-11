@@ -112,9 +112,10 @@ const WorkGroup: React.FC = () => {
         />
       </Modal>
       <Modal
-        title="Deseja excluir Operação?"
+        title="Deseja excluir operação?"
         isOpen={isModalCofirmDeleteOpOpen}
         onClose={() => setIsModalCofirmDeleteOpOpen(false)}
+        variation="danger"
       >
         <ConfirmAction
           onConfirm={() => {

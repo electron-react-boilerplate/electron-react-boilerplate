@@ -110,9 +110,10 @@ const Card: React.FC<CardProps> = ({
   return (
     <Container isActive={isCardActive} isOperation={variation}>
       <Modal
-        title="Deseja excluir Contorno?"
+        title="Deseja excluir contorno?"
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        variation="danger"
       >
         <ConfirmAction
           onConfirm={() => excludeContour()}

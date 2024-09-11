@@ -1,3 +1,4 @@
+import Icon from 'components/Icon';
 import styled from 'styled-components';
 import { colors } from 'styles/global.styles';
 
@@ -28,6 +29,16 @@ export const Header = styled.div`
   justify-content: space-between;
   margin-bottom: 18px;
   align-items: center;
+`;
+
+export const TitleIconWrapper = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+`;
+
+export const StyledIcon = styled(Icon)`
+  margin-right: 10px;
 `;
 
 export const Title = styled.h2<{ variation?: string }>`

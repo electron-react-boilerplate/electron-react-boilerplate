@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { colors } from 'styles/global.styles';
 
 export const Container = styled.div`
-  padding: 16px;
+  padding: 8px 16px 16px 16px;
 `;
 
 export const List = styled.ul`
@@ -30,7 +30,6 @@ export const Name = styled.span`
 
 export const Result = styled.p`
   color: ${colors.red};
-  font-weight: bold;
   margin-bottom: 10px;
 `;
 

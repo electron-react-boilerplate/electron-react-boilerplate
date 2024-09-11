@@ -17,6 +17,7 @@ import { App } from 'types/app';
 import { isElectron, appFileExtension } from 'constants/constants';
 
 import {
+  ModalText,
   Button,
   SubButton,
   Container,
@@ -29,8 +30,8 @@ import {
 const OSMenu: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isModalConfirmNewOpen, setIsModalConfirmNewOpen] = useState(false);
+  const [isModalConfirmOpenOpen, setIsModalConfirmOpenOpen] = useState(false);
   const menuRef = useRef<HTMLElement | null>(null);
-
   const lastFilePath = useSelector(
     (state: { app: App }) => state.app.lastFilePathSaved,
   );
@@ -120,6 +121,14 @@ const OSMenu: React.FC = () => {
     }
   }, [dispatch]);
 
+  const handleOpenFile = useCallback(() => {
+    if (!isSaved) {
+      setIsModalConfirmOpenOpen(true);
+    } else {
+      openFile();
+    }
+  }, [isSaved, openFile]);
+
   const saveFileAs = useCallback(
     async (data: Part) => {
       try {
@@ -181,7 +190,7 @@ const OSMenu: React.FC = () => {
   // eslint-disable-next-line consistent-return
   useEffect(() => {
     const handleShortcutN = () => handleNewFile();
-    const handleShortcutO = () => openFile();
+    const handleShortcutO = () => handleOpenFile();
     const handleShortcutS = () => saveFile(partState);
     const handleShortcutShiftS = () => saveFileAs(partState);
 
@@ -213,7 +222,7 @@ const OSMenu: React.FC = () => {
         );
       };
     }
-  }, [handleNewFile, openFile, partState, saveFile, saveFileAs]);
+  }, [handleNewFile, handleOpenFile, partState, saveFile, saveFileAs]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -244,9 +253,12 @@ const OSMenu: React.FC = () => {
         onClose={() => {
           setIsModalConfirmNewOpen(false);
         }}
-        title="Mudanças não salvas serão perdidas. Deseja continuar?"
+        title="Alerta"
         variation="danger"
       >
+        <ModalText>
+          Mudanças não salvas serão perdidas. Deseja continuar?
+        </ModalText>
         <ConfirmAction
           onConfirm={() => {
             newFile();
@@ -254,6 +266,27 @@ const OSMenu: React.FC = () => {
           }}
           onCancel={() => {
             setIsModalConfirmNewOpen(false);
+          }}
+        />
+      </Modal>
+      <Modal
+        isOpen={isModalConfirmOpenOpen}
+        onClose={() => {
+          setIsModalConfirmOpenOpen(false);
+        }}
+        title="Alerta"
+        variation="danger"
+      >
+        <ModalText>
+          Mudanças não salvas serão perdidas. Deseja continuar?
+        </ModalText>
+        <ConfirmAction
+          onConfirm={() => {
+            openFile();
+            setIsModalConfirmOpenOpen(false);
+          }}
+          onCancel={() => {
+            setIsModalConfirmOpenOpen(false);
           }}
         />
       </Modal>
@@ -265,7 +298,7 @@ const OSMenu: React.FC = () => {
               <SubButton onClick={() => handleNewFile()}>
                 Novo<SubButtonLabel>Ctrl + N</SubButtonLabel>
               </SubButton>
-              <SubButton onClick={() => openFile()}>
+              <SubButton onClick={() => handleOpenFile()}>
                 Abrir<SubButtonLabel>Ctrl + O</SubButtonLabel>
               </SubButton>
               <SubButton onClick={() => saveFile(partState)}>
