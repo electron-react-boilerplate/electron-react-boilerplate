@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import React, { Component, useState } from 'react';
 import Keyboard from 'react-simple-keyboard';
 import 'react-simple-keyboard/build/css/index.css';
+import useInactivityRedirect from '../../components/Scripts/useInactivityRedirect';
 
 function onKeyPress(button: string, setInput: (value: string) => void, input: string) {
   console.log("Button pressed", button);
@@ -22,6 +23,7 @@ function onKeyPress(button: string, setInput: (value: string) => void, input: st
 }
 
 function Exit() {
+  useInactivityRedirect();
   const [input, setInput] = useState<string>("");
   return (
     <Box
