@@ -4,6 +4,7 @@ import { Carousel } from 'react-responsive-carousel';
 import { Box, Paper } from '@mui/material';
 import { motion } from 'framer-motion';
 import '../../App.css';
+import './Home.css'
 import React, { useMemo } from 'react';
 import Slide1 from './Slides/Prezentatsia_obychnye_dni_2_semestr_00001.png';
 import Slide2 from './Slides/Prezentatsia_obychnye_dni_2_semestr_00002.png';
@@ -63,8 +64,7 @@ function Home() {
     <Box
       className="absolute-center"
       sx={{
-        width: '1500px',
-        borderRadius: '16px',
+        width: '1400px',
       }}
     >
       <motion.div
@@ -73,7 +73,7 @@ function Home() {
         exit={motionVariants.exit}
         transition={motionVariants.transition}
       >
-        <Paper elevation={5}>
+        <Paper elevation={5} sx={{ borderRadius: '16px' }}>
           <Carousel
             interval={5000}
             autoPlay

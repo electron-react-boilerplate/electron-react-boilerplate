@@ -16,7 +16,7 @@ function Calls() {
       >
         <Paper
           elevation={5}
-          sx={{ width: '600px', height: '800px', borderRadius: '16px' }}
+          sx={{ width: '560px', height: '800px', borderRadius: '16px' }}
         >
           <img
             src={calls}
