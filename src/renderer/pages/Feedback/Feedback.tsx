@@ -16,24 +16,29 @@ function onKeyPress(
   lastSendTime: number,
   setLastSendTime: (time: number) => void,
   setSnackbar: (message: string) => void,
+  setSnackbarSeverity: (
+    severity: 'success' | 'info' | 'warning' | 'error',
+  ) => void,
 ) {
   console.log('Button pressed', button);
 
   if (button === '{bksp}') {
     setInput(input.slice(0, -1)); // Удаление последнего символа
   } else if (button === '{space}') {
-    setInput(input + ' ');
+    setInput(`${input} `);
   } else if (button === '{enter}') {
     const currentTime = Date.now();
     const timeSinceLastSend = currentTime - lastSendTime;
 
     if (timeSinceLastSend < 60000) {
       setSnackbar('Сообщение можно отправить только раз в минуту.');
+      setSnackbarSeverity('warning');
       return;
     }
 
     if (!input.trim()) {
       setSnackbar('Сообщение не может быть пустым');
+      setSnackbarSeverity('warning');
       return;
     }
 
@@ -58,6 +63,7 @@ function onKeyPress(
 
     setInput('');
     setSnackbar('Сообщение отправлено');
+    setSnackbarSeverity('success');
     setLastSendTime(currentTime); // Обновляем время последней отправки
   } else if (button !== '{shift}' && button !== '{lock}') {
     setInput(input + button); // Добавление символа в строку
@@ -67,6 +73,9 @@ function onKeyPress(
 function Feedback() {
   const [input, setInput] = useState<string>('');
   const [lastSendTime, setLastSendTime] = useState<number>(0); // Время последней отправки
+  const [snackbarSeverity, setSnackbarSeverity] = useState<
+    'success' | 'info' | 'warning' | 'error'
+  >('info');
   const [snackbarMessage, setSnackbarMessage] = useState<string | null>(null); // Для сообщений в Snackbar
 
   return (
@@ -121,6 +130,7 @@ function Feedback() {
                 lastSendTime,
                 setLastSendTime,
                 setSnackbarMessage,
+                setSnackbarSeverity,
               )
             }
             layout={{
@@ -138,14 +148,18 @@ function Feedback() {
 
       {/* Snackbar для отображения сообщений */}
       <Snackbar
-        sx={{ width: '100%' }}
+        sx={{ width: '100%', position: 'absolute', marginBottom: '-180px' }}
         open={!!snackbarMessage}
         autoHideDuration={4000}
         onClose={() => setSnackbarMessage(null)}
         TransitionComponent={GrowTransition}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       >
-        <Alert onClose={() => setSnackbarMessage(null)} severity="info" variant="filled">
+        <Alert
+          onClose={() => setSnackbarMessage(null)}
+          severity={snackbarSeverity}
+          variant="filled"
+        >
           {snackbarMessage}
         </Alert>
       </Snackbar>

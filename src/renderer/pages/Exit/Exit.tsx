@@ -1,4 +1,4 @@
-import { Box, Paper, TextField } from '@mui/material';
+import { Alert, Box, Paper, Snackbar, TextField } from '@mui/material';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import Keyboard from 'react-simple-keyboard';
@@ -10,6 +10,7 @@ function onKeyPress(
   button: string,
   setInput: (value: string) => void,
   input: string,
+  setSnackbar: (message: string) => void,
 ) {
   console.log('Button pressed', button);
 
@@ -20,15 +21,20 @@ function onKeyPress(
       console.log('Ok');
       window.close();
     } else {
-      console.log('Неверное значение');
+      setSnackbar('Неверный пароль');
     }
   } else if (button !== '{shift}' && button !== '{lock}') {
     setInput(input + button); // Добавление символа в строку
+  }
+
+  if (!input.trim()) {
+    setSnackbar('Поле ввода пустое');
   }
 }
 
 function Exit() {
   useInactivityRedirect();
+  const [snackbarMessage, setSnackbarMessage] = useState<string | null>(null); // Для сообщений в Snackbar
   const [input, setInput] = useState<string>('');
   return (
     <Box
@@ -79,7 +85,9 @@ function Exit() {
                 '{bksp}': 'Стереть',
                 '{enter}': 'Готово',
               }}
-              onKeyPress={(button) => onKeyPress(button, setInput, input)}
+              onKeyReleased={(button) =>
+                onKeyPress(button, setInput, input, setSnackbarMessage)
+              }
               layout={{
                 default: ['1 2 3', '4 5 6', '7 8 9', '{bksp} 0 {enter}'],
               }}
@@ -87,6 +95,21 @@ function Exit() {
           </Box>
         </Paper>
       </motion.div>
+      <Snackbar
+        sx={{ width: '100%', position: 'absolute', marginBottom: '-180px' }}
+        open={!!snackbarMessage}
+        autoHideDuration={4000}
+        onClose={() => setSnackbarMessage(null)}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert
+          onClose={() => setSnackbarMessage(null)}
+          severity={'warning'}
+          variant="filled"
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }
