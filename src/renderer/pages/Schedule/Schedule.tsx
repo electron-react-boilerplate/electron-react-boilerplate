@@ -58,15 +58,17 @@ function a11yProps(index: number) {
   };
 }
 
-const CustomButton = styled(Button)<ButtonProps>(() => ({
-  backgroundColor: 'white',
-  boxShadow:
-    '0px 3px 5px -1px rgba(0,0,0,0.2), 0px 5px 8px 0px rgba(0,0,0,0.14), 0px 1px 14px 0px rgba(0,0,0,0.12)',
-  margin: '15px',
-  color: 'black',
-  width: '150px',
-  fontSize: '18px',
-}));
+const CustomButton = React.memo(
+  styled(Button)<ButtonProps>(() => ({
+    backgroundColor: 'white',
+    boxShadow:
+      '0px 3px 5px -1px rgba(0,0,0,0.2), 0px 5px 8px 0px rgba(0,0,0,0.14), 0px 1px 14px 0px rgba(0,0,0,0.12)',
+    margin: '15px',
+    color: 'black',
+    width: '150px',
+    fontSize: '18px',
+  })),
+);
 
 function LoadGroups(HandleChange: Function) {
   let cources = JSON.parse(localStorage.getItem('cources') ?? '0');
@@ -122,33 +124,36 @@ export default function Schedule() {
     [<CircularProgress />],
   ]);
 
-  function HandleChangeCources(array: Array<Array<string>>) {
-    const cources: JSX.Element[][] = array.map((group) =>
-      group.map((element, index) => (
-        <motion.div
-          key={element}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.1 }}
-        >
-          <CustomButton
-            variant="contained"
-            onClick={() => navigate(`/view?group=${element}`)}
+  const HandleChangeCources = React.useCallback(
+    (array: Array<Array<string>>) => {
+      const cources: JSX.Element[][] = array.map((group) =>
+        group.map((element, index) => (
+          <motion.div
+            key={element}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.1 }}
           >
-            {element}
-          </CustomButton>
-        </motion.div>
-      )),
-    );
-    setCources(cources);
-  }
+            <CustomButton
+              variant="contained"
+              onClick={() => navigate(`/view?group=${element}`)}
+            >
+              {element}
+            </CustomButton>
+          </motion.div>
+        )),
+      );
+      setCources(cources);
+    },
+    [navigate],
+  );
 
   const handleChange = (event: SyntheticEvent, newValue: number) =>
     setValue(newValue);
 
-  useEffect(() => {
+  React.useEffect(() => {
     LoadGroups(HandleChangeCources);
-  });
+  }, [HandleChangeCources]);
 
   return (
     <Box
