@@ -7,7 +7,6 @@ import FeedIcon from '@mui/icons-material/Feed';
 import TodayIcon from '@mui/icons-material/Today';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import { motion } from 'framer-motion';
 import { Paper } from '@mui/material';
 
 function Navbar() {
@@ -36,71 +35,63 @@ function Navbar() {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, borderRadius: '0px' }}
-      animate={{ opacity: 1, borderRadius: '16px' }}
-      transition={{ type: 'spring', stiffness: 100 }}
+    <Paper
+      elevation={1}
+      sx={{
+        borderRadius: '15px',
+        position: 'absolute',
+        zIndex: '1',
+        bottom: '20px',
+        left: '50%',
+        transform: 'translate(-50%)',
+      }}
     >
-      <Paper
-        elevation={1}
+      <BottomNavigation
         sx={{
           width: 700,
-          height: 75,
+          height: 80,
           borderRadius: '15px',
           position: 'absolute',
-          zIndex: '1',
-          bottom: '30px',
+          bottom: '0px',
           left: '50%',
           transform: 'translate(-50%)',
         }}
+        showLabels
+        value={value}
+        onChange={handleChange}
       >
-        <BottomNavigation
-          sx={{
-            width: 700,
-            height: 75,
-            borderRadius: '15px',
-            position: 'absolute',
-            zIndex: '0',
-            bottom: '0px',
-            left: '50%',
-            transform: 'translate(-50%)',
-          }}
-          value={value}
-          onChange={handleChange}
-        >
-          <BottomNavigationAction
-            label="Главная"
-            value="Main"
-            onClick={() => navigate('/')}
-            icon={<HomeIcon fontSize="large" />}
-          />
-          <BottomNavigationAction
-            label="Новости"
-            value="News"
-            onClick={() => navigate('/news')}
-            icon={<FeedIcon fontSize="large" />}
-          />
-          <BottomNavigationAction
-            label="Расписание"
-            value="Schedule"
-            onClick={() => navigate('/schedule')}
-            icon={<TodayIcon fontSize="large" />}
-          />
-          <BottomNavigationAction
-            label="Звонки"
-            value="Calls"
-            onClick={() => navigate('/calls')}
-            icon={<NotificationsActiveIcon fontSize="large" />}
-          />
-          <BottomNavigationAction
-            label="Другое"
-            value="Other"
-            onClick={() => navigate('/other')}
-            icon={<MoreHorizIcon fontSize="large" />}
-          />
-        </BottomNavigation>
-      </Paper>
-    </motion.div>
+        <BottomNavigationAction
+          label="Главная"
+          value="Main"
+          onClick={() => navigate('/')}
+          icon={<HomeIcon fontSize="large" />}
+        />
+        <BottomNavigationAction
+          label="Новости"
+          value="News"
+          onClick={() => navigate('/news')}
+          icon={<FeedIcon fontSize="large" />}
+        />
+        <BottomNavigationAction
+          label="Расписание"
+          value="Schedule"
+          onClick={() => navigate('/schedule')}
+          icon={<TodayIcon fontSize="large" />}
+        />
+        <BottomNavigationAction
+          label="Звонки"
+          value="Calls"
+          onClick={() => navigate('/calls')}
+          icon={<NotificationsActiveIcon fontSize="large" />}
+        />
+        <BottomNavigationAction
+          label="Прочее"
+          value="Other"
+          onClick={() => navigate('/other')}
+          icon={<MoreHorizIcon fontSize="large" />}
+        />
+      </BottomNavigation>
+    </Paper>
   );
 }
 

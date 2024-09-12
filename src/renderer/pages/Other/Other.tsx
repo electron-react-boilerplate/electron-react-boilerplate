@@ -50,6 +50,7 @@ function Other() {
               display: 'flex',
               justifyContent: 'center',
               flexDirection: 'column',
+              alignItems: 'center',
             }}
           >
             <CustomButton
