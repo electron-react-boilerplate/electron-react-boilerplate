@@ -105,7 +105,7 @@ function Feedback() {
           }}
         >
           <TextField
-            label="Опишите вашу проблему"
+            label="Опишите проблему с приложением"
             inputProps={{ style: { fontSize: '1.5rem' } }}
             InputLabelProps={{ style: { fontSize: '1.5rem' } }}
             variant="outlined"

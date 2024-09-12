@@ -12,6 +12,10 @@ import after1 from './Temp/after_1.png';
 import before2 from './Temp/before_2.png';
 import after2 from './Temp/after_2.png';
 import after_new_1 from './Temp/after_new_1.png';
+import after_new_2 from './Temp/after_new_2.png';
+import new_backround_1 from './Temp/Background_1.png';
+import new_backround_2 from './Temp/Background_2.png';
+import new_backround_3 from './Temp/Background_3.png';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 import LastNews from '../../components/LastNews/LastNews';
 
@@ -33,7 +37,7 @@ function News() {
     <Box
       className="absolute-center"
       sx={{
-        width: '800px',
+        width: '900px',
         height: '600px',
       }}
     >
@@ -46,7 +50,7 @@ function News() {
         <Paper
           elevation={5}
           sx={{
-            width: '800px',
+            width: '900px',
             height: '600px',
             display: 'flex',
             justifyContent: 'center',
@@ -87,13 +91,23 @@ function News() {
                   }
                 />
                 <Typography variant="body1" sx={{ marginBottom: '15px' }}>
-                  Новый интерфейс
+                  Новый интерфейс.
+                </Typography>
+              </div>
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
+                  <img src={new_backround_1} alt="" style={{width: '350px'}} />
+                  <img src={new_backround_2} alt="" style={{width: '350px'}} />
+                  <img src={new_backround_3} alt="" style={{width: '350px'}} />
+                </div>
+                <Typography variant="body1" sx={{ marginBottom: '15px' }}>
+                  Функция смены заднего фона.🤷‍♂️
                 </Typography>
               </div>
               <div>
                 <img src={after_new_1} alt="" />
                 <Typography variant="body1" sx={{ marginBottom: '15px' }}>
-                  Новая кнопка "Новости"
+                  Новая кнопка "Новости".
                 </Typography>
               </div>
               <div>
@@ -106,7 +120,13 @@ function News() {
                   }
                 />
                 <Typography variant="body1" sx={{ marginBottom: '15px' }}>
-                  Новый интерфейс выбора группы
+                  Новый интерфейс выбора группы.
+                </Typography>
+              </div>
+              <div>
+                <img src={after_new_2} alt="" />
+                <Typography variant="body1" sx={{ marginBottom: '15px' }}>
+                  Если нашли баг, нажмите на "Другое" и "сообщить о проблеме".
                 </Typography>
               </div>
             </Carousel>
