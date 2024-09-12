@@ -3,8 +3,8 @@ import { Box, Paper, styled } from '@mui/material';
 import { motion } from 'framer-motion';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import useInactivityRedirect from '../../components/Scripts/useInactivityRedirect';
 import { useNavigate } from 'react-router-dom';
+import useInactivityRedirect from '../../components/Scripts/useInactivityRedirect';
 
 const CustomButton = styled(Button)<ButtonProps>(() => ({
   backgroundColor: 'white',
@@ -54,13 +54,14 @@ function Other() {
           >
             <CustomButton
               startIcon={<ErrorOutlineIcon />}
+              onClick={() => navigate('/feedback')}
               sx={{ marginBottom: '15px' }}
             >
               Сообщить о проблеме
             </CustomButton>
             <CustomButton
               startIcon={<ExitToAppIcon />}
-              onClick={() => navigate('/Exit')}
+              onClick={() => navigate('/exit')}
             >
               Выход
             </CustomButton>

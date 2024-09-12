@@ -1,30 +1,35 @@
 import { Box, Paper, TextField } from '@mui/material';
 import { motion } from 'framer-motion';
-import React, { Component, useState } from 'react';
+import { useState } from 'react';
 import Keyboard from 'react-simple-keyboard';
 import 'react-simple-keyboard/build/css/index.css';
 import useInactivityRedirect from '../../components/Scripts/useInactivityRedirect';
+import './Exit.css';
 
-function onKeyPress(button: string, setInput: (value: string) => void, input: string) {
-  console.log("Button pressed", button);
+function onKeyPress(
+  button: string,
+  setInput: (value: string) => void,
+  input: string,
+) {
+  console.log('Button pressed', button);
 
-  if (button === "{bksp}") {
+  if (button === '{bksp}') {
     setInput(input.slice(0, -1)); // Удаление последнего символа
-  } else if (button === "{enter}") {
-    if (input === "15128981") {
-      console.log("Ok");
+  } else if (button === '{enter}') {
+    if (input === '15128981') {
+      console.log('Ok');
       window.close();
     } else {
-      console.log("Неверное значение");
+      console.log('Неверное значение');
     }
-  } else if (button !== "{shift}" && button !== "{lock}") {
+  } else if (button !== '{shift}' && button !== '{lock}') {
     setInput(input + button); // Добавление символа в строку
   }
 }
 
 function Exit() {
   useInactivityRedirect();
-  const [input, setInput] = useState<string>("");
+  const [input, setInput] = useState<string>('');
   return (
     <Box
       className="absolute-center"
@@ -62,8 +67,10 @@ function Exit() {
             <TextField
               id="outlined-textarea"
               label="Пароль"
+              inputProps={{ style: { fontSize: '1rem' } }}
+              InputLabelProps={{ style: { fontSize: '1rem' } }}
               placeholder=""
-              value={input} // Значение текстового поля привязано к состоянию
+              value={input}
               onChange={(e) => setInput(e.target.value)}
               type="password"
             />
@@ -74,12 +81,7 @@ function Exit() {
               }}
               onKeyPress={(button) => onKeyPress(button, setInput, input)}
               layout={{
-                default: [
-                  '1 2 3',
-                  '4 5 6',
-                  "7 8 9",
-                  "{bksp} 0 {enter}",
-                ],
+                default: ['1 2 3', '4 5 6', '7 8 9', '{bksp} 0 {enter}'],
               }}
             />
           </Box>

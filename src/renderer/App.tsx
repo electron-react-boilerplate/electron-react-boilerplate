@@ -1,5 +1,6 @@
 import { MemoryRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import './App.css';
+import { AnimatePresence } from 'framer-motion';
 import Home from './pages/Home/Home';
 import Calls from './pages/Calls/Calls';
 import News from './pages/News/News';
@@ -10,7 +11,7 @@ import Head from './components/Head/Head';
 import View from './pages/View/View';
 import Other from './pages/Other/Other';
 import Exit from './pages/Exit/Exit';
-import { AnimatePresence } from 'framer-motion';
+import Feedback from './pages/Feedback/Feedback';
 
 export default function App() {
   document.addEventListener("keydown", (event) => {
@@ -21,10 +22,10 @@ export default function App() {
 
   return (
     <Router>
-        <Background />
-        <Navbar />
-        <Head />
-        <AppContent />
+      <Background />
+      <Navbar />
+      <Head />
+      <AppContent />
     </Router>
   );
 }
@@ -43,6 +44,7 @@ function AppContent() {
           <Route path="/view" element={<View />} />
           <Route path="/other" element={<Other />} />
           <Route path="/exit" element={<Exit />} />
+          <Route path="/feedback" element={<Feedback />} />
         </Routes>
       </AnimatePresence>
     </div>
