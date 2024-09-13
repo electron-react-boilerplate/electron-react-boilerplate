@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Modal from 'components/Modal';
 import Button from 'components/Button';
 import ApiResponseList from 'components/ApiResponseList';
+import ProgramsToSendList from 'components/ProgramsToSendList';
 import Spinner from 'components/Spinner';
 
 import { generateGCodeForPart } from 'integration/mount-gcode';
@@ -26,12 +27,14 @@ import {
   ItemSimple,
   ModalDetail,
   ModalContent,
+  ModalContentMax,
 } from './styles';
 
 const SideMenu: React.FC = () => {
   const part = useSelector((state: { part: Part }) => state.part);
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
+  const [isModalResumeOpen, setIsModalResumeOpen] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string | null>(null);
   const [response, setResponse] = useState<Response | null>(null);
@@ -54,7 +57,6 @@ const SideMenu: React.FC = () => {
       try {
         const res = await window.electron.ipcRenderer.saveGCode(generatedCodes);
         setResponse(res);
-        console.log('res', res);
       } catch (error) {
         setModalMessage('Problemas de conexão com o serviço.');
       } finally {
@@ -114,6 +116,23 @@ const SideMenu: React.FC = () => {
           OK
         </Button>
       </Modal>
+      <Modal
+        title="Resumo"
+        isOpen={isModalResumeOpen}
+        onClose={() => setIsModalResumeOpen(false)}
+      >
+        <ModalContentMax>
+          <ProgramsToSendList />
+        </ModalContentMax>
+        <Button
+          onClick={() => setIsModalResumeOpen(false)}
+          color={colors.blue}
+          bgColor={colors.white}
+          borderColor={colors.blue}
+        >
+          OK
+        </Button>
+      </Modal>
       <Menu className={loaded ? 'loaded' : ''}>
         <List>
           <ListItem>
@@ -136,6 +155,15 @@ const SideMenu: React.FC = () => {
           </ListItem>
         </List>
         <List>
+          <ListItem>
+            <ItemBtn onClick={() => setIsModalResumeOpen(true)}>
+              <StyledIcon
+                className="icon-code"
+                color={colors.white}
+                fontSize="28px"
+              />
+            </ItemBtn>
+          </ListItem>
           <ListItem>
             {!isLoading ? (
               <ItemBtn onClick={() => generateGCodeForOperations()}>

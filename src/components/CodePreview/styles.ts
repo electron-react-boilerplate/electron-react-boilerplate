@@ -6,7 +6,7 @@ export const CodeBlock = styled.pre`
   background-color: ${colors.greyCodeBg};
   color: ${colors.blueCodeFont};
   width: 100%;
-  height: calc(100vh - ${measures.contentToHeader});
+  max-height: calc(100vh - ${measures.contentToHeader});
   padding: 15px 10px;
   box-sizing: border-box;
   box-shadow: ${shadows.std};

@@ -18,6 +18,11 @@ export const ModalContent = styled.div`
   margin-bottom: 16px;
 `;
 
+export const ModalContentMax = styled(ModalContent)`
+  height: calc(100vh - ${measures.contentToHeader});
+  max-height: auto;
+`;
+
 export const ModalText = styled.p`
   color: ${colors.greyFont};
   font-size: 16px;
