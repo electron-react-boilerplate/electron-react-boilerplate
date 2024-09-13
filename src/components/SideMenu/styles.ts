@@ -3,13 +3,19 @@ import { Link } from 'react-router-dom';
 
 import Icon from 'components/Icon';
 
-import { colors } from 'styles/global.styles';
+import { colors, measures } from 'styles/global.styles';
 
 export const MenuContainer = styled.div`
   background-color: ${colors.blue};
   width: 56px;
   min-height: calc(100vh - 124px);
   flex-shrink: 0;
+`;
+
+export const ModalContent = styled.div`
+  max-height: calc(100vh - ${measures.contentToHeader});
+  overflow-y: auto;
+  margin-bottom: 16px;
 `;
 
 export const ModalText = styled.p`

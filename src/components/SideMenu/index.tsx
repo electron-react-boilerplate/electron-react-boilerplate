@@ -25,6 +25,7 @@ import {
   StyledIcon,
   ItemSimple,
   ModalDetail,
+  ModalContent,
 } from './styles';
 
 const SideMenu: React.FC = () => {
@@ -93,15 +94,17 @@ const SideMenu: React.FC = () => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       >
-        {modalMessage && <ModalText>{modalMessage}</ModalText>}
-        {response?.message &&
-          response?.statusCode !== 200 &&
-          !response.data && (
-            <ModalDetail>
-              {response.statusCode}. {response.message}
-            </ModalDetail>
-          )}
-        {response?.data && <ApiResponseList data={response.data} />}
+        <ModalContent>
+          {modalMessage && <ModalText>{modalMessage}</ModalText>}
+          {response?.message &&
+            response?.statusCode !== 200 &&
+            !response.data && (
+              <ModalDetail>
+                {response.statusCode}. {response.message}
+              </ModalDetail>
+            )}
+          {response?.data && <ApiResponseList data={response.data} />}
+        </ModalContent>
         <Button
           onClick={() => setIsModalOpen(false)}
           color={response?.statusCode === 200 ? colors.blue : colors.red}

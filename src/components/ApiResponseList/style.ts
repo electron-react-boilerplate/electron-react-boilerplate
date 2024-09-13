@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { colors } from 'styles/global.styles';
 
 export const Container = styled.div`
-  padding: 8px 16px 16px 16px;
+  padding: 8px 16px 0 16px;
 `;
 
 export const List = styled.ul`
