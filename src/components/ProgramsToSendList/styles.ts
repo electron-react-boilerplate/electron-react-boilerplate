@@ -14,7 +14,7 @@ export const List = styled.ul`
 `;
 
 export const ListItem = styled.li`
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   border-bottom: 1px solid ${colors.greyMedium};
 `;
 
@@ -24,11 +24,15 @@ export const DropdownButton = styled.button`
   color: ${colors.blue};
   width: 100%;
   border: 0;
-  padding: 16px 0;
+  padding: 20px 0;
   cursor: pointer;
   text-align: left;
   display: flex;
   flex-flow: row nowrap;
+`;
+
+export const DropdownButtonText = styled.span`
+  margin-left: 5px;
 `;
 
 export const DropdownContent = styled.div``;
@@ -38,6 +42,10 @@ export const IconWrapper = styled.div<{ isOpen: boolean }>`
   transform: ${({ isOpen }) => (isOpen ? 'rotate(90deg)' : 'rotate(0deg)')};
 `;
 
-export const StyledIcon = styled(Icon)`
-  transform: rotate(90deg);
+export const IconExpand = styled(Icon)`
+  transform: rotate(90deg) scale(1.2);
+`;
+
+export const ProgramNumber = styled.span`
+  color: ${colors.black};
 `;

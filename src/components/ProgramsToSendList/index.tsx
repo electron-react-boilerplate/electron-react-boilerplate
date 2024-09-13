@@ -15,7 +15,9 @@ import {
   DropdownButton,
   DropdownContent,
   IconWrapper,
-  StyledIcon,
+  ProgramNumber,
+  IconExpand,
+  DropdownButtonText,
 } from './styles';
 
 const ProgramsToSendList: React.FC = () => {
@@ -46,13 +48,17 @@ const ProgramsToSendList: React.FC = () => {
           <ListItem key={contour.id}>
             <DropdownButton onClick={() => handleContourClick(contour.id)}>
               <IconWrapper isOpen={selectedContourId === contour.id}>
-                <StyledIcon
+                <IconExpand
                   className="icon-expand_less"
-                  color={colors.greyFont}
-                  fontSize="22px"
+                  color={colors.black}
+                  fontSize="18px"
                 />
               </IconWrapper>
-              {contour.name}
+              <DropdownButtonText>
+                <ProgramNumber>O{1000 + index}</ProgramNumber>
+                {': '}
+                {contour.name}
+              </DropdownButtonText>
             </DropdownButton>
             {selectedContourId === contour.id && (
               <DropdownContent>
