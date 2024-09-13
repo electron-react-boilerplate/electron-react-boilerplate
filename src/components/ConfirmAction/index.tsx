@@ -8,12 +8,19 @@ import { ConfirmActionProps } from './interface';
 import { Container, Text } from './style';
 
 const ConfirmAction: React.FC<ConfirmActionProps> = ({
+  confirmText = 'Confirmar',
+  cancelText = 'Cancelar',
   onConfirm,
   onCancel,
+  variation = 'negative',
 }) => (
   <Container>
-    <Button onClick={onConfirm} color={colors.white} bgColor={colors.red}>
-      <Text>Confirmar</Text>
+    <Button
+      onClick={onConfirm}
+      color={colors.white}
+      bgColor={variation === 'positive' ? colors.blue : colors.red}
+    >
+      <Text>{confirmText}</Text>
     </Button>
     <Button
       onClick={onCancel}
@@ -21,7 +28,7 @@ const ConfirmAction: React.FC<ConfirmActionProps> = ({
       bgColor={colors.white}
       borderColor={colors.blue}
     >
-      <Text>Cancelar</Text>
+      <Text>{cancelText}</Text>
     </Button>
   </Container>
 );

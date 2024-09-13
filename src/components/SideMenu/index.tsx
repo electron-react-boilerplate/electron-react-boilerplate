@@ -6,6 +6,7 @@ import Button from 'components/Button';
 import ApiResponseList from 'components/ApiResponseList';
 import ProgramsToSendList from 'components/ProgramsToSendList';
 import Spinner from 'components/Spinner';
+import ConfirmAction from 'components/ConfirmAction';
 
 import { generateGCodeForPart } from 'integration/mount-gcode';
 
@@ -34,8 +35,9 @@ const SideMenu: React.FC = () => {
   const part = useSelector((state: { part: Part }) => state.part);
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
-  const [isModalResumeOpen, setIsModalResumeOpen] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isModalResumeOpen, setIsModalResumeOpen] = useState<boolean>(false);
+  const [isModalConfirmOpen, setIsModalConfirmOpen] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string | null>(null);
   const [response, setResponse] = useState<Response | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -124,14 +126,33 @@ const SideMenu: React.FC = () => {
         <ModalContentMax>
           <ProgramsToSendList />
         </ModalContentMax>
-        <Button
-          onClick={() => setIsModalResumeOpen(false)}
-          color={colors.blue}
-          bgColor={colors.white}
-          borderColor={colors.blue}
-        >
-          OK
-        </Button>
+        <ConfirmAction
+          confirmText="Salvar e enviar"
+          cancelText="Cancelar"
+          onConfirm={() => {
+            setIsModalResumeOpen(false);
+            setIsModalConfirmOpen(true);
+          }}
+          onCancel={() => setIsModalResumeOpen(false)}
+          variation="positive"
+        />
+      </Modal>
+      <Modal
+        title="Enviar programas"
+        isOpen={isModalConfirmOpen}
+        onClose={() => setIsModalConfirmOpen(false)}
+      >
+        <ModalText>Deseja enviar programas para o CNC?</ModalText>
+        <ConfirmAction
+          onConfirm={() => {
+            setIsModalConfirmOpen(false);
+            generateGCodeForOperations();
+          }}
+          onCancel={() => {
+            setIsModalConfirmOpen(false);
+          }}
+          variation="positive"
+        />
       </Modal>
       <Menu className={loaded ? 'loaded' : ''}>
         <List>
