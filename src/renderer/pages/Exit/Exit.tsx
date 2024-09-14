@@ -6,6 +6,11 @@ import 'react-simple-keyboard/build/css/index.css';
 import useInactivityRedirect from '../../components/Scripts/useInactivityRedirect';
 import './Exit.css';
 
+function openDevTools() {
+  window.electron.openDevTools();
+  console.log('Ok');
+}
+
 function onKeyPress(
   button: string,
   setInput: (value: string) => void,
@@ -20,6 +25,12 @@ function onKeyPress(
     if (input === '15128981') {
       console.log('Ok');
       window.close();
+    }
+    if (input === '15128982') {
+      openDevTools();
+    }
+    if (input === '15128983') {
+      window.location.reload();
     } else {
       setSnackbar('Неверный пароль');
     }
@@ -104,7 +115,7 @@ function Exit() {
       >
         <Alert
           onClose={() => setSnackbarMessage(null)}
-          severity={'warning'}
+          severity="warning"
           variant="filled"
         >
           {snackbarMessage}

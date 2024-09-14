@@ -22,6 +22,9 @@ const electronHandler = {
       ipcRenderer.once(channel, (_event, ...args) => func(...args));
     },
   },
+  openDevTools: () => {
+    ipcRenderer.send('open-dev-tools');
+  },
 };
 
 contextBridge.exposeInMainWorld('electron', electronHandler);
