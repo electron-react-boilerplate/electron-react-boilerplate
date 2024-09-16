@@ -6,40 +6,60 @@ import 'react-simple-keyboard/build/css/index.css';
 import useInactivityRedirect from '../../components/Scripts/useInactivityRedirect';
 import './Exit.css';
 
-function openDevTools() {
-  window.electron.openDevTools();
-  console.log('Ok');
-}
+
+const PASSWORD_EXIT = '15128981';
+const PASSWORD_DEVTOOL = '15128982';
+const PASSWORD_RELOAD = '15128983';
+
 
 function onKeyPress(
-  button: string,
-  setInput: (value: string) => void,
-  input: string,
-  setSnackbar: (message: string) => void,
-) {
+    button: string,
+    setInput: (value: string) => void,
+    input: string,
+    setSnackbar: (message: string) => void) 
+  {
   console.log('Button pressed', button);
 
-  if (button === '{bksp}') {
-    setInput(input.slice(0, -1)); // Удаление последнего символа
-  } else if (button === '{enter}') {
-    if (input === '15128981') {
-      console.log('Ok');
-      window.close();
+  function handlerPassword(password: String)
+  {
+    switch (input)
+    {
+      case PASSWORD_EXIT:
+        window.close();
+        break;
+      case PASSWORD_DEVTOOL:
+        window.electron.openDevTools();
+        break;
+      case PASSWORD_RELOAD:
+        window.location.reload();
+        break;
+      default:
+        setSnackbar('Неверный пароль');
+        break;
     }
-    if (input === '15128982') {
-      openDevTools();
-    }
-    if (input === '15128983') {
-      window.location.reload();
-    } else {
-      setSnackbar('Неверный пароль');
-    }
-  } else if (button !== '{shift}' && button !== '{lock}') {
-    setInput(input + button); // Добавление символа в строку
   }
 
-  if (!input.trim()) {
-    setSnackbar('Поле ввода пустое');
+  // handle
+  switch (button.trim())
+  {
+    case '{bksp}':
+      
+      setInput(input.slice(0, -1));
+      break;
+      
+    case '{enter}':
+      
+      handlerPassword(input)
+      break;
+    
+    case '{shift}' || '{lock}':
+      
+      break;
+    
+    default:
+
+      setInput(input + button);
+      break;
   }
 }
 
