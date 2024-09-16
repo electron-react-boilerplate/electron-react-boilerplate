@@ -102,6 +102,7 @@ function Exit() {
             }}
           >
             <TextField
+              disabled
               id="outlined-textarea"
               label="Пароль"
               inputProps={{ style: { fontSize: '1rem' } }}
