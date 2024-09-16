@@ -35,10 +35,13 @@ const SideMenu: React.FC = () => {
   const part = useSelector((state: { part: Part }) => state.part);
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isModalFeedbackOpen, setIsModalFeedbackOpen] =
+    useState<boolean>(false);
   const [isModalResumeOpen, setIsModalResumeOpen] = useState<boolean>(false);
   const [isModalConfirmOpen, setIsModalConfirmOpen] = useState<boolean>(false);
-  const [modalMessage, setModalMessage] = useState<string | null>(null);
+  const [modalFeedbackMessage, setModalFeedbackMessage] = useState<
+    string | null
+  >(null);
   const [response, setResponse] = useState<Response | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -47,10 +50,10 @@ const SideMenu: React.FC = () => {
       (operation) => operation.contoursIds.length === 0,
     );
     if (part.operations.length === 0 || hasEmptyContoursIds) {
-      setModalMessage(
+      setModalFeedbackMessage(
         'Não é possível gerar programas sem operações ou com operações sem contornos.',
       );
-      setIsModalOpen(true);
+      setIsModalFeedbackOpen(true);
     } else {
       setIsModalResumeOpen(true);
     }
@@ -64,10 +67,10 @@ const SideMenu: React.FC = () => {
     try {
       const res = await window.electron.ipcRenderer.saveGCode(generatedCodes);
       setResponse(res);
-      setIsModalOpen(true);
+      setIsModalFeedbackOpen(true);
     } catch (error) {
-      setModalMessage('Problemas de conexão com o serviço.');
-      setIsModalOpen(true);
+      setModalFeedbackMessage('Problemas de conexão com o serviço.');
+      setIsModalFeedbackOpen(true);
     } finally {
       setIsLoading(false);
     }
@@ -75,16 +78,16 @@ const SideMenu: React.FC = () => {
 
   useEffect(() => {
     setResponse(null);
-    setModalMessage(null);
+    setModalFeedbackMessage(null);
   }, [part]);
 
   useEffect(() => {
     if (response?.statusCode !== 200) {
-      setModalMessage(
+      setModalFeedbackMessage(
         'Um ou mais programas retornou um erro. Verifique os detalhes abaixo:',
       );
     } else {
-      setModalMessage(null);
+      setModalFeedbackMessage(null);
     }
   }, [response]);
 
@@ -100,11 +103,13 @@ const SideMenu: React.FC = () => {
             : 'Erro ao enviar programas'
         }
         variation={response?.statusCode === 200 ? 'default' : 'danger'}
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        isOpen={isModalFeedbackOpen}
+        onClose={() => setIsModalFeedbackOpen(false)}
       >
         <ModalContent>
-          {modalMessage && <ModalText>{modalMessage}</ModalText>}
+          {modalFeedbackMessage && (
+            <ModalText>{modalFeedbackMessage}</ModalText>
+          )}
           {response?.message &&
             response?.statusCode !== 200 &&
             !response.data && (
@@ -115,7 +120,7 @@ const SideMenu: React.FC = () => {
           {response?.data && <ApiResponseList data={response.data} />}
         </ModalContent>
         <Button
-          onClick={() => setIsModalOpen(false)}
+          onClick={() => setIsModalFeedbackOpen(false)}
           color={response?.statusCode === 200 ? colors.blue : colors.red}
           bgColor={colors.white}
           borderColor={response?.statusCode === 200 ? colors.blue : colors.red}
