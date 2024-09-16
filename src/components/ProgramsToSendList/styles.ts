@@ -14,7 +14,6 @@ export const List = styled.ul`
 `;
 
 export const ListItem = styled.li`
-  /* margin-bottom: 10px; */
   border-bottom: 1px solid ${colors.greyMedium};
 `;
 

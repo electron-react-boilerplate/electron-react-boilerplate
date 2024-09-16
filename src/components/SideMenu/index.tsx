@@ -50,22 +50,27 @@ const SideMenu: React.FC = () => {
       setModalMessage(
         'Não é possível gerar programas sem operações ou com operações sem contornos.',
       );
+      setIsModalOpen(true);
     } else {
-      setIsLoading(true);
-      const generatedCodes: string[] = generateGCodeForPart(part);
-
-      dispatch(editApp({ lastGeneratedCodes: generatedCodes }));
-
-      try {
-        const res = await window.electron.ipcRenderer.saveGCode(generatedCodes);
-        setResponse(res);
-      } catch (error) {
-        setModalMessage('Problemas de conexão com o serviço.');
-      } finally {
-        setIsLoading(false);
-      }
+      setIsModalResumeOpen(true);
     }
-    setIsModalOpen(true);
+  };
+
+  const sendPrograms = async () => {
+    const generatedCodes: string[] = generateGCodeForPart(part);
+    dispatch(editApp({ lastGeneratedCodes: generatedCodes }));
+    setIsLoading(true);
+
+    try {
+      const res = await window.electron.ipcRenderer.saveGCode(generatedCodes);
+      setResponse(res);
+      setIsModalOpen(true);
+    } catch (error) {
+      setModalMessage('Problemas de conexão com o serviço.');
+      setIsModalOpen(true);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -146,7 +151,7 @@ const SideMenu: React.FC = () => {
         <ConfirmAction
           onConfirm={() => {
             setIsModalConfirmOpen(false);
-            generateGCodeForOperations();
+            sendPrograms();
           }}
           onCancel={() => {
             setIsModalConfirmOpen(false);
@@ -176,15 +181,6 @@ const SideMenu: React.FC = () => {
           </ListItem>
         </List>
         <List>
-          <ListItem>
-            <ItemBtn onClick={() => setIsModalResumeOpen(true)}>
-              <StyledIcon
-                className="icon-code"
-                color={colors.white}
-                fontSize="28px"
-              />
-            </ItemBtn>
-          </ListItem>
           <ListItem>
             {!isLoading ? (
               <ItemBtn onClick={() => generateGCodeForOperations()}>

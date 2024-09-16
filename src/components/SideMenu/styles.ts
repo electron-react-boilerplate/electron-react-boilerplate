@@ -15,7 +15,6 @@ export const MenuContainer = styled.div`
 export const ModalContent = styled.div`
   max-height: calc(100vh - ${measures.contentToHeader});
   overflow-y: auto;
-  margin-bottom: 16px;
 `;
 
 export const ModalContentMax = styled(ModalContent)`
