@@ -117,12 +117,8 @@ export default function Schedule() {
   useInactivityRedirect();
   const navigate = useNavigate();
   const [value, setValue] = React.useState(0);
-  const [cources, setCources] = React.useState([
-    [<CircularProgress />],
-    [<CircularProgress />],
-    [<CircularProgress />],
-    [<CircularProgress />],
-  ]);
+  const [cources, setCources] = React.useState<JSX.Element[][] | null>(null); // Изначально null, так как данные еще не загружены
+  const [loading, setLoading] = React.useState(true); // Флаг загрузки
 
   const HandleChangeCources = React.useCallback(
     (array: Array<Array<string>>) => {
@@ -144,6 +140,7 @@ export default function Schedule() {
         )),
       );
       setCources(cources);
+      setLoading(false); // Снимаем флаг загрузки после загрузки данных
     },
     [navigate],
   );
@@ -201,66 +198,73 @@ export default function Schedule() {
               </Tabs>
             </motion.div>
           </Box>
-          <TabPanel value={value} index={0}>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ staggerChildren: 0.1 }}
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                justifyContent: 'space-around',
-              }}
-            >
-              {cources[0]}
-            </motion.div>
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ staggerChildren: 0.1 }}
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                justifyContent: 'space-around',
-              }}
-            >
-              {cources[1]}
-            </motion.div>
-          </TabPanel>
-          <TabPanel value={value} index={2}>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ staggerChildren: 0.1 }}
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                justifyContent: 'space-around',
-              }}
-            >
-              {cources[2]}
-            </motion.div>
-          </TabPanel>
-          <TabPanel value={value} index={3}>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ staggerChildren: 0.1 }}
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                justifyContent: 'space-around',
-              }}
-            >
-              {cources[3]}
-            </motion.div>
-          </TabPanel>
+
+          {loading ? (
+            <CircularProgress /> // Показываем индикатор загрузки, пока cources еще null
+          ) : (
+            <>
+              <TabPanel value={value} index={0}>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ staggerChildren: 0.1 }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                    justifyContent: 'space-around',
+                  }}
+                >
+                  {cources[0]}
+                </motion.div>
+              </TabPanel>
+              <TabPanel value={value} index={1}>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ staggerChildren: 0.1 }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                    justifyContent: 'space-around',
+                  }}
+                >
+                  {cources[1]}
+                </motion.div>
+              </TabPanel>
+              <TabPanel value={value} index={2}>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ staggerChildren: 0.1 }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                    justifyContent: 'space-around',
+                  }}
+                >
+                  {cources[2]}
+                </motion.div>
+              </TabPanel>
+              <TabPanel value={value} index={3}>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ staggerChildren: 0.1 }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                    justifyContent: 'space-around',
+                  }}
+                >
+                  {cources[3]}
+                </motion.div>
+              </TabPanel>
+            </>
+          )}
         </Paper>
       </motion.div>
     </Box>
