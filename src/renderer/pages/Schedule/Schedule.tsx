@@ -125,7 +125,7 @@ export default function Schedule() {
       const cources: JSX.Element[][] = array.map((group) =>
         group.map((element, index) => (
           <motion.div
-            key={element}
+            key={`${element}-${index}`} // Уникальный ключ
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
