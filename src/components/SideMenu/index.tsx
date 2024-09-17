@@ -8,11 +8,13 @@ import ProgramsToSendList from 'components/ProgramsToSendList';
 import Spinner from 'components/Spinner';
 import ConfirmAction from 'components/ConfirmAction';
 
+import { saveFile } from 'main/utils';
 import { generateGCodeForPart } from 'integration/mount-gcode';
 
 import { editApp } from 'state/app/appSlice';
 
 import { Part } from 'types/part';
+import { App } from 'types/app';
 import { Response } from 'types/api';
 
 import { colors } from 'styles/global.styles';
@@ -32,8 +34,11 @@ import {
 } from './styles';
 
 const SideMenu: React.FC = () => {
-  const part = useSelector((state: { part: Part }) => state.part);
   const dispatch = useDispatch();
+  const part = useSelector((state: { part: Part }) => state.part);
+  const lastFilePath = useSelector(
+    (state: { app: App }) => state.app.lastFilePathSaved,
+  );
   const [loaded, setLoaded] = useState(false);
   const [isModalFeedbackOpen, setIsModalFeedbackOpen] =
     useState<boolean>(false);
@@ -44,6 +49,11 @@ const SideMenu: React.FC = () => {
   >(null);
   const [response, setResponse] = useState<Response | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const handleSaveFile = async () => {
+    await saveFile(part, lastFilePath, dispatch);
+    setIsModalConfirmOpen(true);
+  };
 
   const generateGCodeForOperations = async () => {
     const hasEmptyContoursIds = part.operations.some(
@@ -141,7 +151,7 @@ const SideMenu: React.FC = () => {
           cancelText="Cancelar"
           onConfirm={() => {
             setIsModalResumeOpen(false);
-            setIsModalConfirmOpen(true);
+            handleSaveFile();
           }}
           onCancel={() => setIsModalResumeOpen(false)}
           variation="positive"
