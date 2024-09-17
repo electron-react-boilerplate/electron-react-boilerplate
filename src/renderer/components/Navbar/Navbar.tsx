@@ -17,16 +17,23 @@ function Navbar() {
 
   // Update value when location changes
   React.useEffect(() => {
-    if (location.pathname === '/') {
-      setValue('Main');
-    } else if (location.pathname === '/news') {
-      setValue('News');
-    } else if (location.pathname === '/schedule') {
-      setValue('Schedule');
-    } else if (location.pathname === '/calls') {
-      setValue('Calls');
-    } else if (location.pathname === '/other') {
-      setValue('Other');
+    switch (location.pathname)
+    {
+      case '/':
+        setValue('Main');
+        break;
+      case '/news':
+        setValue('News');
+        break;
+      case '/schedule':
+        setValue('Schedule');
+        break;
+      case '/calls':
+        setValue('Calls');
+        break;
+      case '/other':
+        setValue('Other');
+        break;
     }
   }, [location.pathname]);
 
