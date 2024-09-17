@@ -1,4 +1,9 @@
-import { MemoryRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import {
+  MemoryRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from 'react-router-dom';
 import './App.css';
 import { AnimatePresence } from 'framer-motion';
 import Home from './pages/Home/Home';
@@ -12,9 +17,10 @@ import View from './pages/View/View';
 import Other from './pages/Other/Other';
 import Exit from './pages/Exit/Exit';
 import Feedback from './pages/Feedback/Feedback';
+import UpdateNotification from './components/UpdateNotification/UpdateNotification';
 
 export default function App() {
-  document.addEventListener("keydown", (event) => {
+  document.addEventListener('keydown', (event) => {
     if (event.key.toLowerCase() === 'r') {
       window.location.reload();
     }
@@ -22,6 +28,7 @@ export default function App() {
 
   return (
     <Router>
+      <UpdateNotification />
       <Background />
       <Navbar />
       <Head />

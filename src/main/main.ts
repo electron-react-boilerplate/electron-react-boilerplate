@@ -24,18 +24,14 @@ class AppUpdater {
     // Начальная проверка обновлений
     this.checkForUpdates();
 
-    // Проверка обновлений каждые 10 минут (600,000 мс)
+    // Проверка обновлений каждые 10 минут
     setInterval(() => {
       this.checkForUpdates();
-    }, 600000); // 600,000 мс = 10 минут
-
-    autoUpdater.on('update-available', () => {
-      console.log('Update available');
-    });
+    }, 600000);
 
     autoUpdater.on('update-downloaded', () => {
       console.log('Update downloaded');
-      this.showUpdateDownloadedDialog();
+      this.notifyRendererAboutUpdate();
     });
 
     autoUpdater.on('update-not-available', () => {
@@ -47,23 +43,9 @@ class AppUpdater {
     autoUpdater.checkForUpdates();
   }
 
-  showUpdateDownloadedDialog() {
+  notifyRendererAboutUpdate() {
     if (mainWindow) {
-      dialog
-        .showMessageBox(mainWindow, {
-          type: 'info',
-          title: 'Обновление загружено',
-          message:
-            'Обновление скачано. Перезапустите приложение, чтобы применить обновления.',
-          buttons: ['Перезагрузить сейчас', 'Позже'],
-          defaultId: 0,
-        })
-        .then((result) => {
-          if (result.response === 0) {
-            // 'Restart Now'
-            autoUpdater.quitAndInstall();
-          }
-        });
+      mainWindow.webContents.send('update-downloaded');
     }
   }
 }
@@ -81,6 +63,10 @@ ipcMain.on('open-dev-tools', () => {
   if (win) {
     win.webContents.openDevTools();
   }
+});
+
+ipcMain.on('restart-app', () => {
+  autoUpdater.quitAndInstall();
 });
 
 if (process.env.NODE_ENV === 'production') {
