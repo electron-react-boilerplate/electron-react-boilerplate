@@ -50,11 +50,16 @@ const SideMenu: React.FC = () => {
       (operation) => operation.contoursIds.length === 0,
     );
     if (part.operations.length === 0 || hasEmptyContoursIds) {
+      console.log('here if');
       setModalFeedbackMessage(
         'Não é possível gerar programas sem operações ou com operações sem contornos.',
       );
       setIsModalFeedbackOpen(true);
     } else {
+      console.log('here else');
+      console.log('part.operations.length', part.operations.length);
+      console.log('hasEmptyContoursIds', hasEmptyContoursIds);
+      console.log('part.operations', part.operations);
       setIsModalResumeOpen(true);
     }
   };

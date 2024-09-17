@@ -170,9 +170,18 @@ const partSlice = createSlice({
       return action.payload;
     },
     removeContour: (state, action: PayloadAction<number>) => {
+      const contourIdToRemove = action.payload;
+
       state.contours = state.contours.filter(
-        (contour) => contour.id !== action.payload,
+        (contour) => contour.id !== contourIdToRemove,
       );
+
+      state.operations = state.operations.map((operation) => ({
+        ...operation,
+        contoursIds: operation.contoursIds.filter(
+          (id) => id !== contourIdToRemove,
+        ),
+      }));
     },
     editContour: (state, action: PayloadAction<EditContourPayload>) => {
       const { id, changes } = action.payload;

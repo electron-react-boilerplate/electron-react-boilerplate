@@ -7,13 +7,14 @@ import { editApp } from 'state/app/appSlice';
 import { initialState } from 'state/part/partSlice';
 
 import Layout from 'components/Layout';
+import ModalCloseApp from 'components/ModalCloseApp';
+
 // Pages
 import WorkGroup from 'pages/WorkGroup';
 import Contour from 'pages/Contour';
 import OffPage from 'pages/OffPage';
 
 import './App.css';
-import ModalCloseApp from 'components/ModalCloseApp';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
