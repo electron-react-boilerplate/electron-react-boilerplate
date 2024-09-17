@@ -1,13 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { v4 as uuidv4 } from 'uuid';
 import { Part, ContourItem, ActivitiyItem, OperationItem } from 'types/part';
 
 interface EditContourPayload {
   id: number;
-  changes: Partial<Part>;
+  changes: Partial<ContourItem>;
 }
 
 const initialActivity: ActivitiyItem = {
-  id: 1,
+  id: 0,
   xaxis: '',
   zaxis: '',
   fvalue: '',
@@ -21,33 +22,18 @@ const initialActivity: ActivitiyItem = {
 };
 
 export const initialState: Part = {
-  id: 1,
-  name: 'Untitled',
+  id: uuidv4(),
   contours: [
     {
-      id: 1,
+      id: 0,
       name: 'Contorno',
       type: 'Internal',
-      activities: [
-        {
-          id: 1,
-          xaxis: '',
-          zaxis: '',
-          fvalue: '',
-          actionCode: '',
-          aParamId: '',
-          aParamValue: null,
-          bParamId: '',
-          bParamValue: null,
-          cParamId: '',
-          cParamValue: null,
-        },
-      ],
+      activities: [initialActivity],
     },
   ],
   operations: [
     {
-      id: 1,
+      id: 0,
       grindingWheelId: 1,
       name: 'Operação',
       contoursIds: [],
