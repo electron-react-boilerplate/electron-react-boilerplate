@@ -31,7 +31,6 @@ class AppUpdater {
 
     autoUpdater.on('update-available', () => {
       console.log('Update available');
-      this.showUpdateAvailableDialog();
     });
 
     autoUpdater.on('update-downloaded', () => {
@@ -46,26 +45,6 @@ class AppUpdater {
 
   checkForUpdates() {
     autoUpdater.checkForUpdates();
-  }
-
-  showUpdateAvailableDialog() {
-    if (mainWindow) {
-      dialog
-        .showMessageBox(mainWindow, {
-          type: 'info',
-          title: 'Доступно обновление',
-          message:
-            'Доступно обновление. Хотите установить его сейчас или позже?',
-          buttons: ['Установить сейчас', 'Позже'],
-          defaultId: 0,
-        })
-        .then((result) => {
-          if (result.response === 0) {
-            // 'Install Now'
-            autoUpdater.quitAndInstall();
-          }
-        });
-    }
   }
 
   showUpdateDownloadedDialog() {
