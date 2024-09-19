@@ -15,6 +15,7 @@ import { editApp } from 'state/app/appSlice';
 
 import { Part } from 'types/part';
 import { App } from 'types/app';
+import { SaveObject } from 'types/general';
 import { Response } from 'types/api';
 
 import { colors } from 'styles/global.styles';
@@ -51,7 +52,23 @@ const SideMenu: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSaveFile = async () => {
-    await saveFile(part, lastFilePath, dispatch);
+    const saveObj: SaveObject = await saveFile(part, lastFilePath);
+    if (saveObj.success) {
+      if (saveObj.saveType === 'saveFile') dispatch(editApp({ isSaved: true }));
+      else if (saveObj.filePath)
+        dispatch(
+          editApp({
+            fileName: saveObj.filePath.substring(
+              saveObj.filePath.lastIndexOf('\\') + 1,
+            ),
+            isSaved: true,
+            lastFilePathSaved: saveObj.filePath,
+            lastSavedFileState: JSON.stringify(part),
+          }),
+        );
+    } else {
+      console.error('Error reading file', `lasfilepath: ${lastFilePath}`);
+    }
     setIsModalConfirmOpen(true);
   };
 

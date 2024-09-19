@@ -8,7 +8,7 @@ interface EditContourPayload {
 }
 
 const initialActivity: ActivitiyItem = {
-  id: 0,
+  id: 1,
   xaxis: '',
   zaxis: '',
   fvalue: '',

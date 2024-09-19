@@ -14,7 +14,9 @@ import { editApp, initialState as appInitialState } from 'state/app/appSlice';
 import { Part } from 'types/part';
 import { FileObject, SaveObject } from 'types/general';
 import { App } from 'types/app';
+
 import { isElectron, appFileExtension } from 'constants/constants';
+import { saveFile, saveFileAs } from 'main/utils';
 
 import {
   ModalText,
@@ -129,61 +131,42 @@ const OSMenu: React.FC = () => {
     }
   }, [isSaved, openFile]);
 
-  const saveFileAs = useCallback(
-    async (data: Part) => {
-      try {
-        let filePath: string | undefined;
-        if (isElectron())
-          filePath = await window.electron.ipcRenderer.saveFileAs(
-            JSON.stringify(data),
-          );
-        if (filePath) {
+  const saveFileChangeAppState = useCallback(
+    async (saveObj: SaveObject) => {
+      if (saveObj.success) {
+        if (saveObj.saveType === 'saveFile')
+          dispatch(editApp({ isSaved: true }));
+        else if (saveObj.filePath)
           dispatch(
             editApp({
-              fileName: filePath.substring(filePath.lastIndexOf('\\') + 1),
+              fileName: saveObj.filePath.substring(
+                saveObj.filePath.lastIndexOf('\\') + 1,
+              ),
               isSaved: true,
-              lastFilePathSaved: filePath,
+              lastFilePathSaved: saveObj.filePath,
               lastSavedFileState: JSON.stringify(partState),
             }),
           );
-        }
-      } catch (error: unknown) {
-        alert(`Erro ao salvar o arquivo ${error}`);
-        console.error(error);
+      } else {
+        console.error('Error reading file', `lasfilepath: ${lastFilePath}`);
       }
     },
-    [dispatch, partState],
+    [dispatch, partState, lastFilePath],
   );
 
-  const saveFile = useCallback(
-    async (data: Part) => {
-      if (lastFilePath) {
-        try {
-          let saveObj: SaveObject = {
-            success: false,
-            message: 'Operação de salvamento não executada',
-          };
-          if (isElectron())
-            saveObj = await window.electron.ipcRenderer.saveFile(
-              JSON.stringify(data),
-              lastFilePath,
-            );
-          if (saveObj && saveObj.success) {
-            dispatch(dispatch(editApp({ isSaved: true })));
-          } else {
-            alert(`Erro ao ler arquivo ${saveObj.message}`);
-            console.error(saveObj.message, `lasfilepath: ${lastFilePath}`);
-          }
-        } catch (error: unknown) {
-          alert(`Erro ao salvar o arquivo ${error}`);
-          console.error(error);
-        }
-      } else {
-        saveFileAs(data);
-      }
-    },
-    [dispatch, lastFilePath, saveFileAs],
-  );
+  const handleSaveFileAs = useCallback(async () => {
+    const saveObj: SaveObject = await saveFileAs(partState);
+    saveFileChangeAppState(saveObj);
+  }, [saveFileChangeAppState, partState]);
+
+  const handleSaveFile = useCallback(async () => {
+    if (lastFilePath) {
+      const saveObj: SaveObject = await saveFile(partState, lastFilePath);
+      saveFileChangeAppState(saveObj);
+    } else {
+      handleSaveFileAs();
+    }
+  }, [lastFilePath, partState, saveFileChangeAppState, handleSaveFileAs]);
 
   /* incluir em outro lugar aonde ele não fique remapeando os atalhos,
   corrigir também o problema de ele ficar impedindo atalho em outros softwares */
@@ -191,8 +174,8 @@ const OSMenu: React.FC = () => {
   useEffect(() => {
     const handleShortcutN = () => handleNewFile();
     const handleShortcutO = () => handleOpenFile();
-    const handleShortcutS = () => saveFile(partState);
-    const handleShortcutShiftS = () => saveFileAs(partState);
+    const handleShortcutS = () => handleSaveFile();
+    const handleShortcutShiftS = () => handleSaveFileAs();
 
     if (isElectron()) {
       window.electron.ipcRenderer.on('shortcut-pressed-n', handleShortcutN);
@@ -222,7 +205,13 @@ const OSMenu: React.FC = () => {
         );
       };
     }
-  }, [handleNewFile, handleOpenFile, partState, saveFile, saveFileAs]);
+  }, [
+    handleNewFile,
+    handleOpenFile,
+    handleSaveFile,
+    handleSaveFileAs,
+    partState,
+  ]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -301,10 +290,10 @@ const OSMenu: React.FC = () => {
               <SubButton onClick={() => handleOpenFile()}>
                 Abrir<SubButtonLabel>Ctrl + O</SubButtonLabel>
               </SubButton>
-              <SubButton onClick={() => saveFile(partState)}>
+              <SubButton onClick={() => handleSaveFile()}>
                 Salvar<SubButtonLabel>Ctrl + S</SubButtonLabel>
               </SubButton>
-              <SubButton onClick={() => saveFileAs(partState)}>
+              <SubButton onClick={() => handleSaveFileAs()}>
                 Salvar como...<SubButtonLabel>Ctrl + Shift + S</SubButtonLabel>
               </SubButton>
               <Hr />

@@ -8,5 +8,6 @@ export interface FileObject {
 
 export interface SaveObject {
   success: boolean;
-  message: string;
+  saveType: 'saveFile' | 'saveFileAs';
+  filePath?: string;
 }

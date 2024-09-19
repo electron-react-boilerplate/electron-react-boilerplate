@@ -159,32 +159,34 @@ const createWindow = async () => {
     },
   );
 
-  ipcMain.handle(
-    'save-file-as',
-    async (_, content): Promise<string | undefined> => {
-      const { filePath } = await dialog.showSaveDialog({
-        title: 'Salvar como...',
-        filters: [{ name: 'Arquivos Personalizados', extensions: ['gzm'] }],
-        defaultPath: path.join(app.getPath('documents'), '.gzm'),
-      });
-
-      if (filePath) {
+  ipcMain.handle('save-file-as', async (_, content): Promise<SaveObject> => {
+    const { filePath } = await dialog.showSaveDialog({
+      title: 'Salvar como...',
+      filters: [{ name: 'Arquivos Personalizados', extensions: ['gzm'] }],
+      defaultPath: path.join(app.getPath('documents'), '.gzm'),
+    });
+    if (filePath) {
+      try {
         fs.writeFileSync(filePath, content);
+        return { success: true, saveType: 'saveFileAs', filePath };
+      } catch (error) {
+        console.error('Erro ao salvar o arquivo', error);
+        return { success: false, saveType: 'saveFileAs', filePath };
       }
-
-      return filePath;
-    },
-  );
+    } else {
+      return { success: false, saveType: 'saveFileAs' };
+    }
+  });
 
   ipcMain.handle(
     'save-file',
     async (_, content, filePath: string): Promise<SaveObject> => {
       try {
         fs.writeFileSync(filePath, content);
-        return { success: true, message: 'Arquivo salvo com sucesso' };
+        return { success: true, saveType: 'saveFile' };
       } catch (error) {
         console.error('Erro ao salvar o arquivo', error);
-        return { success: false, message: 'Erro ao salvar o arquivo' };
+        return { success: false, saveType: 'saveFile' };
       }
     },
   );
