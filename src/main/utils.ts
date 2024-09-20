@@ -14,10 +14,8 @@ export const saveFileAs = async (data: Part) => {
       );
     }
   } catch (error: unknown) {
-    alert(`Error saving file (1) ${error}`);
-    console.error(error);
+    console.error(`Error saving file as ${error}`);
   }
-  console.log('saveFileAs saveObj', saveObj);
   return saveObj;
 };
 
@@ -37,9 +35,7 @@ export const saveFile = async (
       );
     }
   } catch (error: unknown) {
-    alert(`Erro ao salvar o arquivo ${error}`);
-    console.error(error);
+    console.error(`Error saving file ${error}`);
   }
-  console.log('saveFile saveObj', saveObj);
   return saveObj;
 };

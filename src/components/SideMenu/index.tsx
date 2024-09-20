@@ -8,7 +8,7 @@ import ProgramsToSendList from 'components/ProgramsToSendList';
 import Spinner from 'components/Spinner';
 import ConfirmAction from 'components/ConfirmAction';
 
-import { saveFile } from 'main/utils';
+import { saveFile, saveFileAs } from 'main/utils';
 import { generateGCodeForPart } from 'integration/mount-gcode';
 
 import { editApp } from 'state/app/appSlice';
@@ -52,8 +52,11 @@ const SideMenu: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSaveFile = async () => {
-    const saveObj: SaveObject = await saveFile(part, lastFilePath);
-    if (saveObj.success) {
+    let saveObj: SaveObject | undefined;
+    if (lastFilePath) saveObj = await saveFile(part, lastFilePath);
+    else saveObj = await saveFileAs(part);
+
+    if (saveObj && saveObj.success) {
       if (saveObj.saveType === 'saveFile') dispatch(editApp({ isSaved: true }));
       else if (saveObj.filePath)
         dispatch(
