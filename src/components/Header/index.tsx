@@ -51,6 +51,7 @@ const Header: React.FC = () => {
 
       const intervalId = setInterval(async () => {
         const result = await window.electron.ipcRenderer.checkFile(filePath);
+        // refatorar essa parte para o fileStatus ser um state do redux e não do componente
         setFileStatus(result);
 
         if (!result) {
@@ -75,11 +76,6 @@ const Header: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    // console.log('fileStatus:', fileStatus);
-  }, [fileStatus]);
-
-  useEffect(() => {
-    // console.log('lastFilePath:', lastFilePath);
     if (lastFilePath) {
       startFileExistenceCheck(lastFilePath);
     }
