@@ -43,11 +43,16 @@ const App: React.FC = () => {
     };
   }, [isAttemptingToClose]);
 
+  useEffect(() => {
+    if (isAttemptingToClose) {
+      window.removeEventListener('beforeunload', () => {});
+      window.close();
+    }
+  }, [isAttemptingToClose]);
+
   const handleConfirmClose = () => {
     setIsAttemptingToClose(true);
     setIsConfirmCloseModalOpen(false);
-    window.removeEventListener('beforeunload', () => {});
-    window.close();
   };
 
   useEffect(() => {
@@ -71,8 +76,13 @@ const App: React.FC = () => {
           </Routes>
           <ModalCloseApp
             isOpen={isConfirmCloseModalOpen}
-            onClose={() => setIsConfirmCloseModalOpen(false)}
-            onConfirm={handleConfirmClose}
+            onClose={() => {
+              setIsAttemptingToClose(false);
+              setIsConfirmCloseModalOpen(false);
+            }}
+            onConfirm={() => {
+              handleConfirmClose();
+            }}
           />
         </>
       </Layout>
