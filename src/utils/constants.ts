@@ -1,5 +1,3 @@
-export const appFileExtension = 'gzm';
-
 export const isElectron = () => {
   // Renderer process
   if (

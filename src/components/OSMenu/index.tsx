@@ -15,8 +15,9 @@ import { Part } from 'types/part';
 import { FileObject, SaveObject } from 'types/general';
 import { App } from 'types/app';
 
-import { isElectron, appFileExtension } from 'constants/constants';
-import { saveFile, saveFileAs } from 'main/utils';
+import { isElectron } from 'utils/constants';
+import { saveFile, saveFileAs } from 'utils/saveFile';
+import { appFileExtension } from 'main/appConstants';
 
 import {
   ModalText,

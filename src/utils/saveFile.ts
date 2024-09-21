@@ -1,6 +1,6 @@
 import { Part } from 'types/part';
 import { SaveObject } from 'types/general';
-import { isElectron } from 'constants/constants';
+import { isElectron } from 'utils/constants';
 
 export const saveFileAs = async (data: Part) => {
   let saveObj: SaveObject = {

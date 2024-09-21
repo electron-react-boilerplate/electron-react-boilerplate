@@ -8,7 +8,7 @@ import ProgramsToSendList from 'components/ProgramsToSendList';
 import Spinner from 'components/Spinner';
 import ConfirmAction from 'components/ConfirmAction';
 
-import { saveFile, saveFileAs } from 'main/utils';
+import { saveFile, saveFileAs } from 'utils/saveFile';
 import { generateGCodeForPart } from 'integration/mount-gcode';
 
 import { editApp } from 'state/app/appSlice';
@@ -174,7 +174,7 @@ const SideMenu: React.FC = () => {
             handleSaveFile();
           }}
           onCancel={() => setIsModalResumeOpen(false)}
-          variation="positive"
+          variation="standard"
         />
       </Modal>
       <Modal
@@ -191,7 +191,7 @@ const SideMenu: React.FC = () => {
           onCancel={() => {
             setIsModalConfirmOpen(false);
           }}
-          variation="positive"
+          variation="standard"
         />
       </Modal>
       <Menu className={loaded ? 'loaded' : ''}>

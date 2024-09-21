@@ -24,7 +24,8 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import { FileObject, SaveObject } from 'types/general';
 import MenuBuilder from './menu';
-import { resolveHtmlPath } from './util';
+import { resolveHtmlPath } from './resolveHtmlPath';
+import { appFileExtension } from './appConstants';
 
 class AppUpdater {
   constructor() {
@@ -119,8 +120,7 @@ const createWindow = async () => {
             programs: [...generatedCodes],
           }),
         });
-        const data = await response.json();
-        return data;
+        return await response.json();
       } catch (error) {
         throw new Error('Erro ao fazer a chamada de API');
       }
@@ -130,7 +130,9 @@ const createWindow = async () => {
   ipcMain.handle('open-file', async (): Promise<FileObject | null> => {
     const { filePaths } = await dialog.showOpenDialog({
       properties: ['openFile'],
-      filters: [{ name: 'Arquivos Personalizados', extensions: ['gzm'] }],
+      filters: [
+        { name: 'Arquivos Personalizados', extensions: [appFileExtension] },
+      ],
     });
 
     if (filePaths && filePaths.length > 0) {
@@ -162,8 +164,10 @@ const createWindow = async () => {
   ipcMain.handle('save-file-as', async (_, content): Promise<SaveObject> => {
     const { filePath } = await dialog.showSaveDialog({
       title: 'Salvar como...',
-      filters: [{ name: 'Arquivos Personalizados', extensions: ['gzm'] }],
-      defaultPath: path.join(app.getPath('documents'), '.gzm'),
+      filters: [
+        { name: 'Arquivos Personalizados', extensions: [appFileExtension] },
+      ],
+      defaultPath: path.join(app.getPath('documents'), `.${appFileExtension}`),
     });
     if (filePath) {
       try {

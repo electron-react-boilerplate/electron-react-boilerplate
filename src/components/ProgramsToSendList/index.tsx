@@ -33,7 +33,6 @@ const ProgramsToSendList: React.FC = () => {
   };
 
   // Usar mesma função usada em mountGCode pra facilitar a manutenção pls
-  // Ordenar os contornos com base na ordem das operações e contoursIds
   const orderedContours = part.operations
     .flatMap((operation) => operation.contoursIds)
     .map((contourId) =>

@@ -1,4 +1,4 @@
-import { getProgramNameFromGeratedCode } from 'constants/constants';
+import { getProgramNameFromGeratedCode } from 'utils/constants';
 
 function getContourNameByProgramCode(
   lastGeneratedCodes: string[],

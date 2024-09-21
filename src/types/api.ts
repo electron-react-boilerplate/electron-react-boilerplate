@@ -1,6 +1,6 @@
 export interface ResponseDataItem {
   programCode: string;
-  result: string; // specify string results
+  result: string;
   resultDescription: string;
 }
 

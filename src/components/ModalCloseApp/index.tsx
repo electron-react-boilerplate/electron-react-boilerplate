@@ -25,7 +25,7 @@ const ModalCloseApp: React.FC<ModalCloseAppProps> = ({
       cancelText="Cancelar"
       onConfirm={onConfirm}
       onCancel={onClose}
-      variation="negative"
+      variation="danger"
     />
   </Modal>
 );

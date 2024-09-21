@@ -3,5 +3,5 @@ export interface ConfirmActionProps {
   cancelText?: string;
   onConfirm: () => void;
   onCancel: () => void;
-  variation?: 'positive' | 'negative';
+  variation?: 'standard' | 'danger';
 }
