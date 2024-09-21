@@ -238,6 +238,32 @@ const OSMenu: React.FC = () => {
 
   return (
     <Container>
+      <Menu ref={menuRef}>
+        <li>
+          <Button onClick={toggleMenu}>Arquivo</Button>
+          {isOpen && (
+            <SubMenu>
+              <SubButton onClick={() => handleNewFile()}>
+                Novo<SubButtonLabel>Ctrl + N</SubButtonLabel>
+              </SubButton>
+              <SubButton onClick={() => handleOpenFile()}>
+                Abrir<SubButtonLabel>Ctrl + O</SubButtonLabel>
+              </SubButton>
+              <SubButton onClick={() => handleSaveFile()}>
+                Salvar<SubButtonLabel>Ctrl + S</SubButtonLabel>
+              </SubButton>
+              <SubButton onClick={() => handleSaveFileAs()}>
+                Salvar como...<SubButtonLabel>Ctrl + Shift + S</SubButtonLabel>
+              </SubButton>
+              <Hr />
+              <SubButton onClick={() => window.electron.ipcRenderer.quitApp()}>
+                Sair<SubButtonLabel>Ctrl + Q</SubButtonLabel>
+              </SubButton>
+            </SubMenu>
+          )}
+        </li>
+      </Menu>
+      {/* Modals */}
       <Modal
         isOpen={isModalConfirmNewOpen}
         onClose={() => {
@@ -280,31 +306,6 @@ const OSMenu: React.FC = () => {
           }}
         />
       </Modal>
-      <Menu ref={menuRef}>
-        <li>
-          <Button onClick={toggleMenu}>Arquivo</Button>
-          {isOpen && (
-            <SubMenu>
-              <SubButton onClick={() => handleNewFile()}>
-                Novo<SubButtonLabel>Ctrl + N</SubButtonLabel>
-              </SubButton>
-              <SubButton onClick={() => handleOpenFile()}>
-                Abrir<SubButtonLabel>Ctrl + O</SubButtonLabel>
-              </SubButton>
-              <SubButton onClick={() => handleSaveFile()}>
-                Salvar<SubButtonLabel>Ctrl + S</SubButtonLabel>
-              </SubButton>
-              <SubButton onClick={() => handleSaveFileAs()}>
-                Salvar como...<SubButtonLabel>Ctrl + Shift + S</SubButtonLabel>
-              </SubButton>
-              <Hr />
-              <SubButton onClick={() => window.electron.ipcRenderer.quitApp()}>
-                Sair<SubButtonLabel>Ctrl + Q</SubButtonLabel>
-              </SubButton>
-            </SubMenu>
-          )}
-        </li>
-      </Menu>
     </Container>
   );
 };

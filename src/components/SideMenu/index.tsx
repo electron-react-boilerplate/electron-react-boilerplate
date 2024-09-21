@@ -126,6 +126,46 @@ const SideMenu: React.FC = () => {
   }, []);
   return (
     <MenuContainer>
+      <Menu className={loaded ? 'loaded' : ''}>
+        <List>
+          <ListItem>
+            <StyledLink to="/workgroup">
+              <StyledIcon
+                className="icon-make-group"
+                color={colors.white}
+                fontSize="28px"
+              />
+            </StyledLink>
+          </ListItem>
+          <ListItem>
+            <StyledLink to="/">
+              <StyledIcon
+                className="icon-remove_red_eye"
+                color={colors.white}
+                fontSize="28px"
+              />
+            </StyledLink>
+          </ListItem>
+        </List>
+        <List>
+          <ListItem>
+            {!isLoading ? (
+              <ItemBtn onClick={() => generateGCodeForOperations()}>
+                <StyledIcon
+                  className="icon-double_arrow"
+                  color={colors.white}
+                  fontSize="28px"
+                />
+              </ItemBtn>
+            ) : (
+              <ItemSimple>
+                <Spinner />
+              </ItemSimple>
+            )}
+          </ListItem>
+        </List>
+      </Menu>
+      {/* Modals */}
       <Modal
         title={
           response?.statusCode === 200
@@ -194,45 +234,6 @@ const SideMenu: React.FC = () => {
           variation="standard"
         />
       </Modal>
-      <Menu className={loaded ? 'loaded' : ''}>
-        <List>
-          <ListItem>
-            <StyledLink to="/workgroup">
-              <StyledIcon
-                className="icon-make-group"
-                color={colors.white}
-                fontSize="28px"
-              />
-            </StyledLink>
-          </ListItem>
-          <ListItem>
-            <StyledLink to="/">
-              <StyledIcon
-                className="icon-remove_red_eye"
-                color={colors.white}
-                fontSize="28px"
-              />
-            </StyledLink>
-          </ListItem>
-        </List>
-        <List>
-          <ListItem>
-            {!isLoading ? (
-              <ItemBtn onClick={() => generateGCodeForOperations()}>
-                <StyledIcon
-                  className="icon-double_arrow"
-                  color={colors.white}
-                  fontSize="28px"
-                />
-              </ItemBtn>
-            ) : (
-              <ItemSimple>
-                <Spinner />
-              </ItemSimple>
-            )}
-          </ListItem>
-        </List>
-      </Menu>
     </MenuContainer>
   );
 };
