@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { v4 as uuidv4 } from 'uuid';
 import { Part, ContourItem, ActivitiyItem, OperationItem } from 'types/part';
 
 interface EditContourPayload {
   id: number;
-  changes: Partial<Part>;
+  changes: Partial<ContourItem>;
 }
 
 const initialActivity: ActivitiyItem = {
@@ -21,33 +22,18 @@ const initialActivity: ActivitiyItem = {
 };
 
 export const initialState: Part = {
-  id: 1,
-  name: 'Nova Peça',
+  id: uuidv4(),
   contours: [
     {
-      id: 1,
+      id: 0,
       name: 'Contorno',
       type: 'Internal',
-      activities: [
-        {
-          id: 1,
-          xaxis: '',
-          zaxis: '',
-          fvalue: '',
-          actionCode: '',
-          aParamId: '',
-          aParamValue: null,
-          bParamId: '',
-          bParamValue: null,
-          cParamId: '',
-          cParamValue: null,
-        },
-      ],
+      activities: [initialActivity],
     },
   ],
   operations: [
     {
-      id: 1,
+      id: 0,
       grindingWheelId: 1,
       name: 'Operação',
       contoursIds: [],
@@ -170,9 +156,18 @@ const partSlice = createSlice({
       return action.payload;
     },
     removeContour: (state, action: PayloadAction<number>) => {
+      const contourIdToRemove = action.payload;
+
       state.contours = state.contours.filter(
-        (contour) => contour.id !== action.payload,
+        (contour) => contour.id !== contourIdToRemove,
       );
+
+      state.operations = state.operations.map((operation) => ({
+        ...operation,
+        contoursIds: operation.contoursIds.filter(
+          (id) => id !== contourIdToRemove,
+        ),
+      }));
     },
     editContour: (state, action: PayloadAction<EditContourPayload>) => {
       const { id, changes } = action.payload;

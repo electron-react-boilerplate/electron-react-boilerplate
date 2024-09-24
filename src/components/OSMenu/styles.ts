@@ -5,6 +5,12 @@ export const Container = styled.div`
   background-color: ${colors.black};
 `;
 
+export const ModalText = styled.p`
+  color: ${colors.greyFont};
+  font-size: 16px;
+  margin-bottom: 16px;
+`;
+
 export const Menu = styled.nav`
   position: relative;
   display: flex;

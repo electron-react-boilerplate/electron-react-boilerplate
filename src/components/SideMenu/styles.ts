@@ -3,13 +3,37 @@ import { Link } from 'react-router-dom';
 
 import Icon from 'components/Icon';
 
-import { colors } from 'styles/global.styles';
+import { colors, measures } from 'styles/global.styles';
 
 export const MenuContainer = styled.div`
   background-color: ${colors.blue};
   width: 56px;
   min-height: calc(100vh - 124px);
   flex-shrink: 0;
+`;
+
+export const ModalContent = styled.div`
+  max-height: calc(100vh - ${measures.contentToHeader});
+  overflow-y: auto;
+`;
+
+export const ModalContentMax = styled(ModalContent)`
+  height: calc(100vh - ${measures.contentToHeader});
+  max-height: auto;
+`;
+
+export const ModalText = styled.p`
+  color: ${colors.greyFont};
+  font-size: 16px;
+  margin-bottom: 16px;
+`;
+
+export const ModalDetail = styled.p`
+  color: ${colors.blackLight};
+  font-weight: bold;
+  font-style: italic;
+  font-size: 16px;
+  margin-bottom: 16px;
 `;
 
 export const Menu = styled.nav`
@@ -31,6 +55,17 @@ export const List = styled.ul`
 `;
 
 export const ListItem = styled.li``;
+
+export const ItemSimple = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  height: 56px;
+  text-decoration: none;
+  text-align: left;
+  color: ${colors.white};
+`;
 
 export const StyledLink = styled(Link)`
   display: flex;

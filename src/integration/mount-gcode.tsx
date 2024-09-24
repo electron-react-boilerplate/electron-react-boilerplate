@@ -1,4 +1,8 @@
-import { ContourItem, ActivitiyItem } from 'types/part';
+import { ContourItem, ActivitiyItem, Part } from 'types/part';
+
+function removeAccents(str: string): string {
+  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
 
 // Some string have right blank spaces that are required for CNC syntax
 const isRapidMovement = (fvalue: string | undefined): string =>
@@ -42,9 +46,54 @@ function mountGCode(contour: ContourItem) {
     gCodeOutput = `${gCodeOutput}${mountGCodeLine(element, index, isLastLine)}`;
   });
   gCodeOutput = `${gCodeOutput}\n`;
-  gCodeTemplate = `%\n7000(${contour.name})\n${gCodeOutput}%`;
+  gCodeTemplate = `(${removeAccents(contour.name)})\n${gCodeOutput}%`;
 
   return gCodeTemplate;
 }
 
-export { mountGCode };
+function mountGCodeWithProgramNumber(
+  contour: ContourItem,
+  programNumber: number,
+): string {
+  let gCodeOutput = '';
+  let gCodeTemplate = '';
+
+  contour.activities.forEach((element: any, index: any) => {
+    const isLastLine = contour.activities.length === index + 1;
+    gCodeOutput = `${gCodeOutput}${mountGCodeLine(element, index, isLastLine)}`;
+  });
+  gCodeOutput = `${gCodeOutput}\n`;
+  gCodeTemplate = `\nO${programNumber}(${removeAccents(
+    contour.name,
+  )})\n${gCodeOutput}%`;
+
+  return gCodeTemplate;
+}
+
+const orderedContours = (part: Part): ContourItem[] => {
+  return part.operations
+    .flatMap((operation) => operation.contoursIds)
+    .map((contourId) =>
+      part.contours.find((contour) => contour.id === contourId),
+    )
+    .filter((contour) => contour !== undefined) as ContourItem[];
+};
+
+function generateGCodeForPart(part: Part): string[] {
+  const programNumber = 1000;
+  const gCodeStrings: string[] = [];
+
+  orderedContours(part).forEach((contour: ContourItem, index: number) => {
+    const gCode = mountGCodeWithProgramNumber(contour, programNumber + index);
+    gCodeStrings.push(gCode);
+  });
+
+  return gCodeStrings;
+}
+
+export {
+  mountGCode,
+  generateGCodeForPart,
+  orderedContours,
+  mountGCodeWithProgramNumber,
+};

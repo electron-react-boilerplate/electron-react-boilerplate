@@ -8,12 +8,20 @@ import {
   Overlay,
   ModalContainer,
   CloseButton,
-  Title,
   Header,
+  TitleIconWrapper,
+  StyledIcon,
+  Title,
   Content,
 } from './style';
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title }) => {
+const Modal: React.FC<ModalProps> = ({
+  isOpen,
+  onClose,
+  children,
+  title,
+  variation,
+}) => {
   if (!isOpen) {
     return null;
   }
@@ -22,7 +30,16 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title }) => {
     <Overlay>
       <ModalContainer>
         <Header>
-          <Title>{title}</Title>
+          <TitleIconWrapper>
+            {variation === 'danger' && (
+              <StyledIcon
+                className="icon-warning2"
+                color={colors.red}
+                fontSize="32px"
+              />
+            )}
+            <Title variation={variation}>{title}</Title>
+          </TitleIconWrapper>
           <CloseButton onClick={onClose}>
             <Icon className="icon-x" color={colors.greyFont} fontSize="30px" />
           </CloseButton>

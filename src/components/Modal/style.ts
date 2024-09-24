@@ -1,3 +1,4 @@
+import Icon from 'components/Icon';
 import styled from 'styled-components';
 import { colors } from 'styles/global.styles';
 
@@ -30,10 +31,21 @@ export const Header = styled.div`
   align-items: center;
 `;
 
-export const Title = styled.h2`
+export const TitleIconWrapper = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+`;
+
+export const StyledIcon = styled(Icon)`
+  margin-right: 10px;
+`;
+
+export const Title = styled.h2<{ variation?: string }>`
   font-size: 30px;
   font-weight: bold;
-  color: ${colors.greyFont};
+  color: ${(props) =>
+    props.variation === 'danger' ? colors.red : colors.greyFont};
 `;
 
 export const IconClose = styled.span`

@@ -112,9 +112,10 @@ const WorkGroup: React.FC = () => {
         />
       </Modal>
       <Modal
-        title="Deseja excluir Operação?"
+        title="Deseja excluir operação?"
         isOpen={isModalCofirmDeleteOpOpen}
         onClose={() => setIsModalCofirmDeleteOpOpen(false)}
+        variation="danger"
       >
         <ConfirmAction
           onConfirm={() => {
@@ -127,7 +128,7 @@ const WorkGroup: React.FC = () => {
       <Breadcrumbs items={breadcrumbsItems} />
       <Content>
         <Block>
-          <Title>Contornos/Elementos</Title>
+          <Title>Contornos</Title>
           <AddBtn>
             <Button
               onClick={() => setIsModalContourOpen(true)}

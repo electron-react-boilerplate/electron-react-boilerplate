@@ -38,8 +38,7 @@ export interface OperationItem {
 export interface Operations extends Array<OperationItem> {}
 
 export interface Part {
-  id: number;
-  name: string;
+  id: string;
   contours: Contours;
   operations: Operations;
 }

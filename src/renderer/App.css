@@ -157,6 +157,12 @@ table {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-warning2:before {
+  content: '\e918';
+}
+.icon-warning3:before {
+  content: '\e919';
+}
 .icon-cube:before {
   content: '\e909';
 }
@@ -165,6 +171,9 @@ table {
 }
 .icon-box:before {
   content: '\e909';
+}
+.icon-notification:before {
+  content: '\e916';
 }
 .icon-make-group:before {
   content: '\e90f';

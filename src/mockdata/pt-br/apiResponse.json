@@ -1,0 +1,12 @@
+{
+  "responses": [
+    {
+      "result": "OperationNotAllowed",
+      "resultDescription": "Operação impedida pelo CNC. Aguarde até a operação ser liberada."
+    },
+    {
+      "result": "DeleteFailed",
+      "resultDescription": "Não foi possível sobrescrever o programa. Cheque se o programa está aberto."
+    }
+  ]
+}

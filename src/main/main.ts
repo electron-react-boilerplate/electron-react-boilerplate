@@ -18,12 +18,14 @@ import {
   ipcMain,
   dialog,
   globalShortcut,
+  IpcMainInvokeEvent,
 } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import { FileObject, SaveObject } from 'types/general';
 import MenuBuilder from './menu';
-import { resolveHtmlPath } from './util';
+import { resolveHtmlPath } from './resolveHtmlPath';
+import { appFileExtension } from './appConstants';
 
 class AppUpdater {
   constructor() {
@@ -105,40 +107,42 @@ const createWindow = async () => {
     }
   });
 
-  ipcMain.handle('save-gcode', (event, data) => {
-    dialog
-      .showSaveDialog(mainWindow!, {
-        title: 'Save GCode',
-        defaultPath: path.join(app.getPath('documents'), 'gcode.dat'),
-        filters: [{ name: 'GCode', extensions: ['dat'] }],
-      })
-      .then((result) => {
-        if (!result.canceled && result.filePath) {
-          fs.writeFile(result.filePath, data, (err) => {
-            if (err) {
-              console.error(err);
-            } else {
-              event.sender.send('gcode-saved', data);
-            }
-          });
-        }
-      })
-      .catch((err) => {
-        console.error('Erro ao mostrar caixa de diálogo', err);
-      });
-  });
+  ipcMain.handle(
+    'save-gcode',
+    async (event: IpcMainInvokeEvent, generatedCodes: string[]) => {
+      try {
+        const response = await fetch('http://localhost:8000/save-program', {
+          method: 'POST',
+          cache: 'no-store',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            programs: [...generatedCodes],
+          }),
+        });
+        return await response.json();
+      } catch (error) {
+        throw new Error('Erro ao fazer a chamada de API');
+      }
+    },
+  );
 
   ipcMain.handle('open-file', async (): Promise<FileObject | null> => {
     const { filePaths } = await dialog.showOpenDialog({
       properties: ['openFile'],
-      filters: [{ name: 'Arquivos Personalizados', extensions: ['gzm'] }],
+      filters: [
+        { name: 'Arquivos Personalizados', extensions: [appFileExtension] },
+      ],
     });
 
     if (filePaths && filePaths.length > 0) {
       const data = fs.readFileSync(filePaths[0], 'utf-8');
+      const fileName = path.basename(filePaths[0]);
       return {
         data: JSON.parse(data),
         path: filePaths[0],
+        fileName,
       };
     }
 
@@ -146,31 +150,48 @@ const createWindow = async () => {
   });
 
   ipcMain.handle(
-    'save-file-as',
-    async (_, content): Promise<string | undefined> => {
-      const { filePath } = await dialog.showSaveDialog({
-        title: 'Salvar como...',
-        filters: [{ name: 'Arquivos Personalizados', extensions: ['gzm'] }],
-        defaultPath: path.join(app.getPath('documents'), '.gzm'),
-      });
-
-      if (filePath) {
-        fs.writeFileSync(filePath, content);
+    'check-file',
+    async (_, filePath: string): Promise<boolean> => {
+      try {
+        if (fs.existsSync(filePath)) return true;
+        return false;
+      } catch (error) {
+        console.error('Erro ao verificar o arquivo', error);
+        return false;
       }
-
-      return filePath;
     },
   );
+
+  ipcMain.handle('save-file-as', async (_, content): Promise<SaveObject> => {
+    const { filePath } = await dialog.showSaveDialog({
+      title: 'Salvar como...',
+      filters: [
+        { name: 'Arquivos Personalizados', extensions: [appFileExtension] },
+      ],
+      defaultPath: path.join(app.getPath('documents'), `.${appFileExtension}`),
+    });
+    if (filePath) {
+      try {
+        fs.writeFileSync(filePath, content);
+        return { success: true, saveType: 'saveFileAs', filePath };
+      } catch (error) {
+        console.error('Erro ao salvar o arquivo', error);
+        return { success: false, saveType: 'saveFileAs', filePath };
+      }
+    } else {
+      return { success: false, saveType: 'saveFileAs' };
+    }
+  });
 
   ipcMain.handle(
     'save-file',
     async (_, content, filePath: string): Promise<SaveObject> => {
       try {
         fs.writeFileSync(filePath, content);
-        return { success: true, message: 'Arquivo salvo com sucesso' };
+        return { success: true, saveType: 'saveFile' };
       } catch (error) {
         console.error('Erro ao salvar o arquivo', error);
-        return { success: false, message: 'Erro ao salvar o arquivo' };
+        return { success: false, saveType: 'saveFile' };
       }
     },
   );
@@ -227,6 +248,13 @@ app
     }
 
     const shortcuts = [
+      {
+        key: 'CommandOrControl+N',
+        callback: () => {
+          if (mainWindow) mainWindow.webContents.send('shortcut-pressed-n');
+          else console.error('mainWindow not defined');
+        },
+      },
       {
         key: 'CommandOrControl+O',
         callback: () => {

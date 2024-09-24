@@ -12,7 +12,7 @@ import CodePreview from 'components/CodePreview';
 
 import { StyledIcon } from 'components/SideMenu/styles';
 
-import { XZ_REGEX } from 'constants/constants';
+import { XZ_REGEX } from 'utils/constants';
 import { ContourItem, Part } from 'types/part';
 import { colors } from 'styles/global.styles';
 import { actionParams as actionParamsAux } from 'integration/functions-code';

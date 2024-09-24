@@ -1,11 +1,13 @@
-import { Contours } from 'types/part';
+import { Part } from 'types/part';
 
 export interface FileObject {
-  data: Contours;
+  data: Part;
   path: string | undefined;
+  fileName: string;
 }
 
 export interface SaveObject {
   success: boolean;
-  message: string;
+  saveType: 'saveFile' | 'saveFileAs';
+  filePath?: string;
 }
