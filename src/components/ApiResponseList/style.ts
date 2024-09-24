@@ -12,9 +12,10 @@ export const List = styled.ul`
 
 export const ListItem = styled.li`
   padding: 16px 0;
-  border-bottom: 1px solid ${colors.greyDark};
+  border-top: 1px solid ${colors.greyDark};
 
   &:first-child {
+    border-top: 0;
     padding-top: 0;
   }
 `;

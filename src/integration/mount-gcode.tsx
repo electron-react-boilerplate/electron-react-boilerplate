@@ -1,4 +1,4 @@
-import { ContourItem, ActivitiyItem, Part, OperationItem } from 'types/part';
+import { ContourItem, ActivitiyItem, Part } from 'types/part';
 
 function removeAccents(str: string): string {
   return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
@@ -70,36 +70,30 @@ function mountGCodeWithProgramNumber(
   return gCodeTemplate;
 }
 
+const orderedContours = (part: Part): ContourItem[] => {
+  return part.operations
+    .flatMap((operation) => operation.contoursIds)
+    .map((contourId) =>
+      part.contours.find((contour) => contour.id === contourId),
+    )
+    .filter((contour) => contour !== undefined) as ContourItem[];
+};
+
 function generateGCodeForPart(part: Part): string[] {
-  let programNumber = 1000;
+  const programNumber = 1000;
   const gCodeStrings: string[] = [];
-  const usedProgramNumbers: Set<number> = new Set();
 
-  // Ordenar contoursIds em todas as operações
-  const sortedContoursIds: number[] = [];
-  part.operations.forEach((operation: OperationItem) => {
-    operation.contoursIds.forEach((contourId) => {
-      sortedContoursIds.push(contourId);
-    });
-  });
-
-  sortedContoursIds.sort((a, b) => a - b); // Ordenar numericamente
-
-  // Gerar GCode para cada contorno
-  sortedContoursIds.forEach((contourId) => {
-    const contour = part.contours.find((c) => c.id === contourId);
-    if (contour) {
-      while (usedProgramNumbers.has(programNumber)) {
-        programNumber += 1;
-      }
-      const gCode = mountGCodeWithProgramNumber(contour, programNumber);
-      gCodeStrings.push(gCode);
-      usedProgramNumbers.add(programNumber);
-      programNumber += 1;
-    }
+  orderedContours(part).forEach((contour: ContourItem, index: number) => {
+    const gCode = mountGCodeWithProgramNumber(contour, programNumber + index);
+    gCodeStrings.push(gCode);
   });
 
   return gCodeStrings;
 }
 
-export { mountGCode, generateGCodeForPart, mountGCodeWithProgramNumber };
+export {
+  mountGCode,
+  generateGCodeForPart,
+  orderedContours,
+  mountGCodeWithProgramNumber,
+};

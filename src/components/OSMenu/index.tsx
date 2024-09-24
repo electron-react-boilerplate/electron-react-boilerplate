@@ -147,11 +147,9 @@ const OSMenu: React.FC = () => {
               lastSavedFileState: JSON.stringify(partState),
             }),
           );
-      } else {
-        alert(`Error reading file: ${lastFilePath}`);
       }
     },
-    [dispatch, partState, lastFilePath],
+    [dispatch, partState],
   );
 
   const handleSaveFileAs = useCallback(async () => {

@@ -6,7 +6,7 @@
     },
     {
       "result": "DeleteFailed",
-      "resultDescription": "Não foi possível sobresrever o programa. Cheque se o programa está aberto."
+      "resultDescription": "Não foi possível sobrescrever o programa. Cheque se o programa está aberto."
     }
   ]
 }

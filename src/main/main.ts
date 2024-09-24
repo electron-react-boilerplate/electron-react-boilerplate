@@ -113,6 +113,7 @@ const createWindow = async () => {
       try {
         const response = await fetch('http://localhost:8000/save-program', {
           method: 'POST',
+          cache: 'no-store',
           headers: {
             'Content-Type': 'application/json',
           },

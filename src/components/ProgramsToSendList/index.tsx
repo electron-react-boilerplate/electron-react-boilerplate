@@ -3,7 +3,10 @@ import { useSelector } from 'react-redux';
 
 import { CodeBlock } from 'components/CodePreview/styles';
 
-import { generateGCodeForPart } from 'integration/mount-gcode';
+import {
+  mountGCodeWithProgramNumber,
+  orderedContours,
+} from 'integration/mount-gcode';
 
 import { Part, ContourItem } from 'types/part';
 
@@ -26,24 +29,14 @@ const ProgramsToSendList: React.FC = () => {
   );
   const part = useSelector((state: { part: Part }) => state.part);
 
-  const gCodeList = generateGCodeForPart(part);
-
   const handleContourClick = (contourId: number) => {
     setSelectedContourId(contourId === selectedContourId ? null : contourId);
   };
 
-  // Usar mesma função usada em mountGCode pra facilitar a manutenção pls
-  const orderedContours = part.operations
-    .flatMap((operation) => operation.contoursIds)
-    .map((contourId) =>
-      part.contours.find((contour) => contour.id === contourId),
-    )
-    .filter((contour) => contour !== undefined) as ContourItem[];
-
   return (
     <Container>
       <List>
-        {orderedContours.map((contour: ContourItem, index: number) => (
+        {orderedContours(part).map((contour: ContourItem, index: number) => (
           <ListItem key={contour.id}>
             <DropdownButton onClick={() => handleContourClick(contour.id)}>
               <IconWrapper isOpen={selectedContourId === contour.id}>
@@ -61,7 +54,9 @@ const ProgramsToSendList: React.FC = () => {
             </DropdownButton>
             {selectedContourId === contour.id && (
               <DropdownContent>
-                <CodeBlock>{gCodeList[index]}</CodeBlock>
+                <CodeBlock>
+                  {mountGCodeWithProgramNumber(contour, 1000 + index)}
+                </CodeBlock>
               </DropdownContent>
             )}
           </ListItem>

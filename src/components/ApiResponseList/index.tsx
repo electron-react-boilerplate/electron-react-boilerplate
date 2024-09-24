@@ -40,25 +40,29 @@ const ApiResponseList: React.FC<ApiResponseListProps> = ({ data }) => {
     <Container>
       <List>
         {data.map((item: ResponseDataItem) => (
-          <ListItem key={item.programCode}>
-            <ProgramCode>
-              {item.programCode}:{' '}
-              <Name>
-                {getContourNameByProgramCode(
-                  lastGeneratedCodes,
-                  item.programCode,
-                )}
-              </Name>
-            </ProgramCode>
-            <Result>{item.result}</Result>
-            <ResultDescription>
-              {getResultDescription(
-                mock.responses,
-                item.result,
-                item.resultDescription,
-              )}
-            </ResultDescription>
-          </ListItem>
+          <React.Fragment key={item.programCode}>
+            {item.result !== 'DownloadSuccess' && (
+              <ListItem>
+                <ProgramCode>
+                  {item.programCode}:{' '}
+                  <Name>
+                    {getContourNameByProgramCode(
+                      lastGeneratedCodes,
+                      item.programCode,
+                    )}
+                  </Name>
+                </ProgramCode>
+                <Result>{item.result}</Result>
+                <ResultDescription>
+                  {getResultDescription(
+                    mock.responses,
+                    item.result,
+                    item.resultDescription,
+                  )}
+                </ResultDescription>
+              </ListItem>
+            )}
+          </React.Fragment>
         ))}
       </List>
     </Container>
