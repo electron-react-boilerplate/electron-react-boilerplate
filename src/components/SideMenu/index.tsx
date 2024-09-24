@@ -53,24 +53,28 @@ const SideMenu: React.FC = () => {
 
   const handleSaveFile = async () => {
     let saveObj: SaveObject | undefined;
-    if (lastFilePath) saveObj = await saveFile(part, lastFilePath);
-    else saveObj = await saveFileAs(part);
 
-    if (saveObj && saveObj.success) {
-      if (saveObj.saveType === 'saveFile') dispatch(editApp({ isSaved: true }));
-      else if (saveObj.filePath)
-        dispatch(
-          editApp({
-            fileName: saveObj.filePath.substring(
-              saveObj.filePath.lastIndexOf('\\') + 1,
-            ),
-            isSaved: true,
-            lastFilePathSaved: saveObj.filePath,
-            lastSavedFileState: JSON.stringify(part),
-          }),
-        );
-    } else {
-      console.error('Error reading file', `lasfilepath: ${lastFilePath}`);
+    try {
+      if (lastFilePath) saveObj = await saveFile(part, lastFilePath);
+      else saveObj = await saveFileAs(part);
+
+      if (saveObj && saveObj.success) {
+        if (saveObj.saveType === 'saveFile')
+          dispatch(editApp({ isSaved: true }));
+        else if (saveObj.filePath)
+          dispatch(
+            editApp({
+              fileName: saveObj.filePath.substring(
+                saveObj.filePath.lastIndexOf('\\') + 1,
+              ),
+              isSaved: true,
+              lastFilePathSaved: saveObj.filePath,
+              lastSavedFileState: JSON.stringify(part),
+            }),
+          );
+      }
+    } catch (error: unknown) {
+      alert(`Error saving file: ${lastFilePath}`);
     }
     setIsModalConfirmOpen(true);
   };

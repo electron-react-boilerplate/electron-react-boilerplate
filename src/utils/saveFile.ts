@@ -14,7 +14,7 @@ export const saveFileAs = async (data: Part) => {
       );
     }
   } catch (error: unknown) {
-    console.error(`Error saving file as ${error}`);
+    throw new Error(`Error saving file as`);
   }
   return saveObj;
 };
@@ -35,7 +35,7 @@ export const saveFile = async (
       );
     }
   } catch (error: unknown) {
-    console.error(`Error saving file ${error}`);
+    throw new Error(`Error saving file`);
   }
   return saveObj;
 };

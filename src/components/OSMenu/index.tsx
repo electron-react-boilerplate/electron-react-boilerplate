@@ -27,7 +27,7 @@ import {
   Menu,
   SubMenu,
   Hr,
-  SubButtonLabel,
+  // SubButtonLabel,
 } from './styles';
 
 const OSMenu: React.FC = () => {
@@ -119,8 +119,7 @@ const OSMenu: React.FC = () => {
         );
       }
     } catch (error: unknown) {
-      alert(`Erro ao abrir o arquivo ${error}`);
-      console.error(error);
+      alert(`Error opening file`);
     }
   }, [dispatch]);
 
@@ -149,21 +148,31 @@ const OSMenu: React.FC = () => {
             }),
           );
       } else {
-        console.error('Error reading file', `lasfilepath: ${lastFilePath}`);
+        alert(`Error reading file: ${lastFilePath}`);
       }
     },
     [dispatch, partState, lastFilePath],
   );
 
   const handleSaveFileAs = useCallback(async () => {
-    const saveObj: SaveObject = await saveFileAs(partState);
-    saveFileChangeAppState(saveObj);
+    let saveObj: SaveObject | undefined;
+    try {
+      saveObj = await saveFileAs(partState);
+      saveFileChangeAppState(saveObj);
+    } catch (error: unknown) {
+      alert(error);
+    }
   }, [saveFileChangeAppState, partState]);
 
   const handleSaveFile = useCallback(async () => {
     if (lastFilePath) {
-      const saveObj: SaveObject = await saveFile(partState, lastFilePath);
-      saveFileChangeAppState(saveObj);
+      let saveObj: SaveObject | undefined;
+      try {
+        saveObj = await saveFile(partState, lastFilePath);
+        saveFileChangeAppState(saveObj);
+      } catch (error: unknown) {
+        alert(error);
+      }
     } else {
       handleSaveFileAs();
     }
@@ -172,47 +181,47 @@ const OSMenu: React.FC = () => {
   /* incluir em outro lugar aonde ele não fique remapeando os atalhos,
   corrigir também o problema de ele ficar impedindo atalho em outros softwares */
   // eslint-disable-next-line consistent-return
-  useEffect(() => {
-    const handleShortcutN = () => handleNewFile();
-    const handleShortcutO = () => handleOpenFile();
-    const handleShortcutS = () => handleSaveFile();
-    const handleShortcutShiftS = () => handleSaveFileAs();
+  // useEffect(() => {
+  //   const handleShortcutN = () => handleNewFile();
+  //   const handleShortcutO = () => handleOpenFile();
+  //   const handleShortcutS = () => handleSaveFile();
+  //   const handleShortcutShiftS = () => handleSaveFileAs();
 
-    if (isElectron()) {
-      window.electron.ipcRenderer.on('shortcut-pressed-n', handleShortcutN);
-      window.electron.ipcRenderer.on('shortcut-pressed-o', handleShortcutO);
-      window.electron.ipcRenderer.on('shortcut-pressed-s', handleShortcutS);
-      window.electron.ipcRenderer.on(
-        'shortcut-pressed-shift-s',
-        handleShortcutShiftS,
-      );
+  //   if (isElectron()) {
+  //     window.electron.ipcRenderer.on('shortcut-pressed-n', handleShortcutN);
+  //     window.electron.ipcRenderer.on('shortcut-pressed-o', handleShortcutO);
+  //     window.electron.ipcRenderer.on('shortcut-pressed-s', handleShortcutS);
+  //     window.electron.ipcRenderer.on(
+  //       'shortcut-pressed-shift-s',
+  //       handleShortcutShiftS,
+  //     );
 
-      return () => {
-        window.electron.ipcRenderer.removeListener(
-          'shortcut-pressed-n',
-          handleShortcutN,
-        );
-        window.electron.ipcRenderer.removeListener(
-          'shortcut-pressed-o',
-          handleShortcutO,
-        );
-        window.electron.ipcRenderer.removeListener(
-          'shortcut-pressed-s',
-          handleShortcutS,
-        );
-        window.electron.ipcRenderer.removeListener(
-          'shortcut-pressed-shift-s',
-          handleShortcutShiftS,
-        );
-      };
-    }
-  }, [
-    handleNewFile,
-    handleOpenFile,
-    handleSaveFile,
-    handleSaveFileAs,
-    partState,
-  ]);
+  //     return () => {
+  //       window.electron.ipcRenderer.removeListener(
+  //         'shortcut-pressed-n',
+  //         handleShortcutN,
+  //       );
+  //       window.electron.ipcRenderer.removeListener(
+  //         'shortcut-pressed-o',
+  //         handleShortcutO,
+  //       );
+  //       window.electron.ipcRenderer.removeListener(
+  //         'shortcut-pressed-s',
+  //         handleShortcutS,
+  //       );
+  //       window.electron.ipcRenderer.removeListener(
+  //         'shortcut-pressed-shift-s',
+  //         handleShortcutShiftS,
+  //       );
+  //     };
+  //   }
+  // }, [
+  //   handleNewFile,
+  //   handleOpenFile,
+  //   handleSaveFile,
+  //   handleSaveFileAs,
+  //   partState,
+  // ]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -244,20 +253,25 @@ const OSMenu: React.FC = () => {
           {isOpen && (
             <SubMenu>
               <SubButton onClick={() => handleNewFile()}>
-                Novo<SubButtonLabel>Ctrl + N</SubButtonLabel>
+                Novo
+                {/* <SubButtonLabel>Ctrl + N</SubButtonLabel> */}
               </SubButton>
               <SubButton onClick={() => handleOpenFile()}>
-                Abrir<SubButtonLabel>Ctrl + O</SubButtonLabel>
+                Abrir
+                {/* <SubButtonLabel>Ctrl + O</SubButtonLabel> */}
               </SubButton>
               <SubButton onClick={() => handleSaveFile()}>
-                Salvar<SubButtonLabel>Ctrl + S</SubButtonLabel>
+                Salvar
+                {/* <SubButtonLabel>Ctrl + S</SubButtonLabel> */}
               </SubButton>
               <SubButton onClick={() => handleSaveFileAs()}>
-                Salvar como...<SubButtonLabel>Ctrl + Shift + S</SubButtonLabel>
+                Salvar como...
+                {/* <SubButtonLabel>Ctrl + Shift + S</SubButtonLabel> */}
               </SubButton>
               <Hr />
               <SubButton onClick={() => window.electron.ipcRenderer.quitApp()}>
-                Sair<SubButtonLabel>Ctrl + Q</SubButtonLabel>
+                Sair
+                {/* <SubButtonLabel>Ctrl + Q</SubButtonLabel> */}
               </SubButton>
             </SubMenu>
           )}
