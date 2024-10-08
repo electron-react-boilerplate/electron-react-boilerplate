@@ -22,6 +22,8 @@ export interface Network {
 export interface Cnc {
   delRangeStart: number;
   delRangeEnd: number;
+  pmcAddress: number;
+  pmcAddressBit: number;
 }
 
 export interface Config {

@@ -4,40 +4,43 @@ import Button from 'components/Button';
 
 import { Config as ConfigType } from 'types/api';
 
+import { loadConfig, defaultConfig } from 'utils/loadConfig';
+
 import { colors } from 'styles/global.styles';
-import { Container, Content, SContentBlock, Title, SInput } from './styles';
+import {
+  Container,
+  Content,
+  SContentBlock,
+  Title,
+  SInput,
+  SSubTitle,
+} from './styles';
 
 const Config: React.FC = () => {
   const [loaded, setLoaded] = useState(false);
   const [formData, setFormData] = useState({
-    ip: '',
-    port: '',
-    delRangeStart: '',
-    delRangeEnd: '',
+    ip: defaultConfig.network.ip,
+    port: defaultConfig.network.port,
+    delRangeStart: defaultConfig.cnc.delRangeStart,
+    delRangeEnd: defaultConfig.cnc.delRangeEnd,
+    pmcAddress: defaultConfig.cnc.pmcAddress,
+    pmcAddressBit: defaultConfig.cnc.pmcAddressBit,
   });
 
   useEffect(() => {
-    const loadConfig = async () => {
-      const savedConfig: ConfigType = await window.electron.store.get('config');
-
-      // AJUSTAR para usar configs default caso nao achar nada
-      if (savedConfig) {
-        setFormData({
-          ip: savedConfig.network.ip ? savedConfig.network.ip : '',
-          port: savedConfig.network.port
-            ? savedConfig.network.port.toString()
-            : '',
-          delRangeStart: savedConfig.cnc.delRangeStart
-            ? savedConfig.cnc.delRangeStart.toString()
-            : '',
-          delRangeEnd: savedConfig.cnc.delRangeEnd
-            ? savedConfig.cnc.delRangeEnd.toString()
-            : '',
-        });
-      }
-      setLoaded(true);
+    const fetchData = async () => {
+      const loadedConfig: ConfigType = await loadConfig();
+      setFormData({
+        ip: loadedConfig.network.ip,
+        port: loadedConfig.network.port,
+        delRangeStart: loadedConfig.cnc.delRangeStart,
+        delRangeEnd: loadedConfig.cnc.delRangeEnd,
+        pmcAddress: defaultConfig.cnc.pmcAddress,
+        pmcAddressBit: defaultConfig.cnc.pmcAddressBit,
+      });
     };
-    loadConfig();
+    setLoaded(true);
+    fetchData();
   }, []);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -54,16 +57,17 @@ const Config: React.FC = () => {
     const configData: ConfigType = {
       network: {
         ip: formData.ip,
-        port: parseInt(formData.port, 10),
+        port: formData.port,
       },
       cnc: {
-        delRangeStart: parseInt(formData.delRangeStart, 10),
-        delRangeEnd: parseInt(formData.delRangeEnd, 10),
+        delRangeStart: formData.delRangeStart,
+        delRangeEnd: formData.delRangeEnd,
+        pmcAddress: formData.pmcAddress,
+        pmcAddressBit: formData.pmcAddressBit,
       },
     };
 
     await window.electron.store.set('config', configData);
-    console.log('configData:', configData);
   };
 
   return (
@@ -72,6 +76,7 @@ const Config: React.FC = () => {
         <Title>Configurações</Title>
         <form onSubmit={handleSubmit}>
           <SContentBlock>
+            <SSubTitle>Rede</SSubTitle>
             <SInput
               label="IP:"
               type="text"
@@ -82,29 +87,46 @@ const Config: React.FC = () => {
             />
             <SInput
               label="Porta:"
-              type="text"
+              type="number"
               name="port"
-              value={formData.port}
+              value={formData.port.toString()}
               onChange={handleInputChange}
               placeholder="8193"
             />
           </SContentBlock>
           <SContentBlock>
+            <SSubTitle>CNC</SSubTitle>
             <SInput
               label="ID do programa inicial:"
-              type="text"
+              type="number"
               name="delRangeStart"
-              value={formData.delRangeStart}
+              value={formData.delRangeStart.toString()}
               onChange={handleInputChange}
               placeholder="1000"
             />
             <SInput
               label="ID do programa final:"
-              type="text"
+              type="number"
               name="delRangeEnd"
-              value={formData.delRangeEnd}
+              value={formData.delRangeEnd.toString()}
               onChange={handleInputChange}
               placeholder="1030"
+            />
+            <SInput
+              label="Endereço PMC:"
+              type="number"
+              name="pmcAddress"
+              value={formData.pmcAddress.toString()}
+              onChange={handleInputChange}
+              placeholder="2850"
+            />
+            <SInput
+              label="Bit do endereço PMC:"
+              type="number"
+              name="pmcAddressBit"
+              value={formData.pmcAddressBit.toString()}
+              onChange={handleInputChange}
+              placeholder="0"
             />
           </SContentBlock>
           <Button type="submit" color={colors.white} bgColor={colors.blue}>

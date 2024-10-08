@@ -9,6 +9,7 @@ import Spinner from 'components/Spinner';
 import ConfirmAction from 'components/ConfirmAction';
 
 import { saveFile, saveFileAs } from 'utils/saveFile';
+import { loadConfig } from 'utils/loadConfig';
 import { generateGCodeForPart } from 'integration/mount-gcode';
 
 import { editApp } from 'state/app/appSlice';
@@ -16,7 +17,7 @@ import { editApp } from 'state/app/appSlice';
 import { Part } from 'types/part';
 import { App } from 'types/app';
 import { SaveObject } from 'types/general';
-import { Response } from 'types/api';
+import { Response, Request } from 'types/api';
 
 import { colors } from 'styles/global.styles';
 import {
@@ -95,11 +96,18 @@ const SideMenu: React.FC = () => {
 
   const sendPrograms = async () => {
     const generatedCodes: string[] = generateGCodeForPart(part);
+    const loadedConfig = await loadConfig();
+    const request: Request = {
+      ...loadedConfig,
+      programs: generatedCodes,
+    };
+    console.log('request', request);
+
     dispatch(editApp({ lastGeneratedCodes: generatedCodes }));
     setIsLoading(true);
 
     try {
-      const res = await window.electron.ipcRenderer.saveGCode(generatedCodes);
+      const res = await window.electron.ipcRenderer.saveGCode(request);
       setResponse(res);
       setIsModalFeedbackOpen(true);
     } catch (error) {

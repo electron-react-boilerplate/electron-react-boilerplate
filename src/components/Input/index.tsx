@@ -3,6 +3,7 @@ import { InputProps } from './interface';
 import { Container, Label, SInput } from './style';
 
 const Input: React.FC<InputProps> = ({
+  className,
   type = 'text',
   label,
   name,
@@ -15,7 +16,7 @@ const Input: React.FC<InputProps> = ({
   };
 
   return (
-    <Container>
+    <Container className={className}>
       {label && <Label>{label}</Label>}
       <SInput
         type={type}

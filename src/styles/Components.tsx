@@ -20,6 +20,13 @@ export const PageTitle = styled.h1`
   color: ${colors.greyFont};
 `;
 
+export const SubTitle = styled.h2`
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 24px;
+  color: ${colors.greyFont};
+`;
+
 export const PageContent = styled.div`
   padding: 15px 24px;
 `;
