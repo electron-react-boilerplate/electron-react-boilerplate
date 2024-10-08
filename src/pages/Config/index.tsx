@@ -64,6 +64,55 @@ const Config: React.FC = () => {
     },
   });
 
+  type EditStateKeys = keyof typeof editState;
+
+  const fieldsNetwork: {
+    label: string;
+    name: EditStateKeys;
+    type: string;
+    placeholder: string;
+  }[] = [
+    {
+      label: 'Endereço de IP',
+      name: 'ip',
+      type: 'text',
+      placeholder: '192.168.0.1',
+    },
+    { label: 'Porta', name: 'port', type: 'number', placeholder: '8193' },
+  ];
+
+  const fieldsCnc: {
+    label: string;
+    name: EditStateKeys;
+    type: string;
+    placeholder: string;
+  }[] = [
+    {
+      label: 'ID do programa inicial',
+      name: 'delRangeStart',
+      type: 'number',
+      placeholder: '1000',
+    },
+    {
+      label: 'ID do programa final',
+      name: 'delRangeEnd',
+      type: 'number',
+      placeholder: '1010',
+    },
+    {
+      label: 'Endereço PMC de segurança',
+      name: 'pmcAddress',
+      type: 'number',
+      placeholder: '2850',
+    },
+    {
+      label: 'Bit do endereço PMC de segurança',
+      name: 'pmcAddressBit',
+      type: 'number',
+      placeholder: '0',
+    },
+  ];
+
   useEffect(() => {
     const fetchData = async () => {
       const loadedConfig: ConfigType = await loadConfig();
@@ -139,7 +188,6 @@ const Config: React.FC = () => {
     }));
   };
 
-  type EditStateKeys = keyof typeof editState;
   const toggleEdit = (field: EditStateKeys) => {
     if (editState[field].edit && !validateField(field, formData[field])) {
       setEditState((prevState) => ({
@@ -162,6 +210,7 @@ const Config: React.FC = () => {
     }
   };
 
+  // Render functions
   const renderEditIcon = (field: EditStateKeys) => {
     return editState[field].edit ? (
       <Icon
@@ -174,6 +223,36 @@ const Config: React.FC = () => {
     );
   };
 
+  const renderField = ({
+    label,
+    name,
+    type,
+    placeholder,
+  }: {
+    label: string;
+    name: EditStateKeys;
+    type: string;
+    placeholder: string;
+  }) => (
+    <React.Fragment key={name}>
+      <Label>{label}:</Label>
+      <Field>
+        <SInput
+          type={type}
+          name={name}
+          value={formData[name]}
+          onChange={handleInputChange}
+          placeholder={placeholder}
+          disabled={!editState[name].edit}
+          error={editState[name].error}
+        />
+        <EditButton type="button" onClick={() => toggleEdit(name)}>
+          {renderEditIcon(name)}
+        </EditButton>
+      </Field>
+    </React.Fragment>
+  );
+
   return (
     <Container className={loaded ? 'loaded' : ''}>
       <Breadcrumbs items={breadcrumbsItems} />
@@ -181,107 +260,12 @@ const Config: React.FC = () => {
       <Content>
         <SContentBlock>
           <SSubTitle>Rede</SSubTitle>
-          <Label>IP:</Label>
-          <Field>
-            <SInput
-              type="text"
-              name="ip"
-              value={formData.ip}
-              onChange={handleInputChange}
-              placeholder="192.168.0.1"
-              disabled={!editState.ip.edit}
-              error={editState.ip.error}
-            />
-            <EditButton type="button" onClick={() => toggleEdit('ip')}>
-              {renderEditIcon('ip')}
-            </EditButton>
-          </Field>
-          <Label>Porta:</Label>
-          <Field>
-            <SInput
-              type="number"
-              name="port"
-              value={formData.port}
-              onChange={handleInputChange}
-              placeholder="8193"
-              disabled={!editState.port.edit}
-              error={editState.port.error}
-            />
-            <EditButton type="button" onClick={() => toggleEdit('port')}>
-              {renderEditIcon('port')}
-            </EditButton>
-          </Field>
+          {fieldsNetwork.map((field) => renderField(field))}
         </SContentBlock>
         <SContentBlock>
           <SSubTitle>CNC</SSubTitle>
-          <Label>ID do programa inicial:</Label>
-          <Field>
-            <SInput
-              type="number"
-              name="delRangeStart"
-              value={formData.delRangeStart}
-              onChange={handleInputChange}
-              placeholder="1000"
-              disabled={!editState.delRangeStart.edit}
-              error={editState.delRangeStart.error}
-            />
-            <EditButton
-              type="button"
-              onClick={() => toggleEdit('delRangeStart')}
-            >
-              {renderEditIcon('delRangeStart')}
-            </EditButton>
-          </Field>
-          <Label>ID do programa final:</Label>
-          <Field>
-            <SInput
-              type="number"
-              name="delRangeEnd"
-              value={formData.delRangeEnd}
-              onChange={handleInputChange}
-              placeholder="1030"
-              disabled={!editState.delRangeEnd.edit}
-              error={editState.delRangeEnd.error}
-            />
-            <EditButton type="button" onClick={() => toggleEdit('delRangeEnd')}>
-              {renderEditIcon('delRangeEnd')}
-            </EditButton>
-          </Field>
-          <Label>Endereço PMC de segurança (R):</Label>
-          <Field>
-            <SInput
-              type="number"
-              name="pmcAddress"
-              value={formData.pmcAddress}
-              onChange={handleInputChange}
-              placeholder="2850"
-              disabled={!editState.pmcAddress.edit}
-              error={editState.pmcAddress.error}
-            />
-            <EditButton type="button" onClick={() => toggleEdit('pmcAddress')}>
-              {renderEditIcon('pmcAddress')}
-            </EditButton>
-          </Field>
-          <Label>Bit do endereço PMC de segurança:</Label>
-          <Field>
-            <SInput
-              type="number"
-              name="pmcAddressBit"
-              value={formData.pmcAddressBit}
-              onChange={handleInputChange}
-              placeholder="0"
-              disabled={!editState.pmcAddressBit.edit}
-              error={editState.pmcAddressBit.error}
-            />
-            <EditButton
-              type="button"
-              onClick={() => toggleEdit('pmcAddressBit')}
-            >
-              {renderEditIcon('pmcAddressBit')}
-            </EditButton>
-          </Field>
+          {fieldsCnc.map((field) => renderField(field))}
         </SContentBlock>
-        {/* {error && <p style={{ color: 'red' }}>{error}</p>} */}
       </Content>
     </Container>
   );
