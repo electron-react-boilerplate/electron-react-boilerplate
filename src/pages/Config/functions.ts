@@ -83,6 +83,7 @@ export const validateField = (
       return ipRegex.test(value.toString());
     }
     case 'port':
+      return true;
     case 'delRangeStart': {
       if (value > formState.delRangeEnd.value) return false;
       return true;
@@ -92,6 +93,7 @@ export const validateField = (
       return true;
     }
     case 'pmcAddress':
+      return true;
     case 'pmcAddressBit': {
       const numValue = parseInt(value.toString(), 10);
       return !Number.isNaN(numValue) && numValue >= 0 && numValue <= 7;
