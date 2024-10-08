@@ -29,10 +29,6 @@ export const Title = styled(PageTitle)`
 
 export const SContentBlock = styled(ContentBlock)`
   margin-bottom: 20px;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
 `;
 
 export const SSubTitle = styled(SubTitle)`
@@ -40,8 +36,15 @@ export const SSubTitle = styled(SubTitle)`
   padding: 0;
 `;
 
-export const SInput = styled(Input)`
+export const Field = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
   margin-bottom: 12px;
+`;
+
+export const SInput = styled(Input)`
+  flex-grow: 1;
 
   & input {
     &::placeholder {
@@ -53,4 +56,10 @@ export const SInput = styled(Input)`
   &:last-child {
     margin-bottom: 0;
   }
+`;
+
+export const EditButton = styled.button`
+  flex-shrink: 0;
+  background: none;
+  border: none;
 `;
