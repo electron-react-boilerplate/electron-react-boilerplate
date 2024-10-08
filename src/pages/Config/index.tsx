@@ -5,9 +5,16 @@ import Icon from 'components/Icon';
 import { Label } from 'components/Input/style';
 
 import { Config as ConfigType } from 'types/api';
-import { loadConfig, defaultConfig } from 'utils/loadConfig';
+import { loadConfig } from 'utils/loadConfig';
 
 import { colors } from 'styles/global.styles';
+import { FieldKeys, FormState } from './interface';
+import {
+  fieldsCNCProps,
+  fieldsNetworkProps,
+  initialState,
+  validateField,
+} from './functions';
 import {
   Container,
   Content,
@@ -29,100 +36,42 @@ const breadcrumbsItems = [
 
 const Config: React.FC = () => {
   const [loaded, setLoaded] = useState(false);
-  const [formData, setFormData] = useState({
-    ip: defaultConfig.network.ip,
-    port: defaultConfig.network.port,
-    delRangeStart: defaultConfig.cnc.delRangeStart,
-    delRangeEnd: defaultConfig.cnc.delRangeEnd,
-    pmcAddress: defaultConfig.cnc.pmcAddress,
-    pmcAddressBit: defaultConfig.cnc.pmcAddressBit,
-  });
-  const [editState, setEditState] = useState({
-    ip: {
-      edit: false,
-      error: false,
-    },
-    port: {
-      edit: false,
-      error: false,
-    },
-    delRangeStart: {
-      edit: false,
-      error: false,
-    },
-    delRangeEnd: {
-      edit: false,
-      error: false,
-    },
-    pmcAddress: {
-      edit: false,
-      error: false,
-    },
-    pmcAddressBit: {
-      edit: false,
-      error: false,
-    },
-  });
-
-  type EditStateKeys = keyof typeof editState;
-
-  const fieldsNetwork: {
-    label: string;
-    name: EditStateKeys;
-    type: string;
-    placeholder: string;
-  }[] = [
-    {
-      label: 'Endereço de IP',
-      name: 'ip',
-      type: 'text',
-      placeholder: '192.168.0.1',
-    },
-    { label: 'Porta', name: 'port', type: 'number', placeholder: '8193' },
-  ];
-
-  const fieldsCnc: {
-    label: string;
-    name: EditStateKeys;
-    type: string;
-    placeholder: string;
-  }[] = [
-    {
-      label: 'ID do programa inicial',
-      name: 'delRangeStart',
-      type: 'number',
-      placeholder: '1000',
-    },
-    {
-      label: 'ID do programa final',
-      name: 'delRangeEnd',
-      type: 'number',
-      placeholder: '1010',
-    },
-    {
-      label: 'Endereço PMC de segurança',
-      name: 'pmcAddress',
-      type: 'number',
-      placeholder: '2850',
-    },
-    {
-      label: 'Bit do endereço PMC de segurança',
-      name: 'pmcAddressBit',
-      type: 'number',
-      placeholder: '0',
-    },
-  ];
+  const [formState, setFormState] = useState<FormState>(initialState);
 
   useEffect(() => {
     const fetchData = async () => {
       const loadedConfig: ConfigType = await loadConfig();
-      setFormData({
-        ip: loadedConfig.network.ip,
-        port: loadedConfig.network.port,
-        delRangeStart: loadedConfig.cnc.delRangeStart,
-        delRangeEnd: loadedConfig.cnc.delRangeEnd,
-        pmcAddress: loadedConfig.cnc.pmcAddress,
-        pmcAddressBit: loadedConfig.cnc.pmcAddressBit,
+      setFormState({
+        ip: {
+          value: loadedConfig.network.ip,
+          edit: false,
+          error: false,
+        },
+        port: {
+          value: loadedConfig.network.port,
+          edit: false,
+          error: false,
+        },
+        delRangeStart: {
+          value: loadedConfig.cnc.delRangeStart,
+          edit: false,
+          error: false,
+        },
+        delRangeEnd: {
+          value: loadedConfig.cnc.delRangeEnd,
+          edit: false,
+          error: false,
+        },
+        pmcAddress: {
+          value: loadedConfig.cnc.pmcAddress,
+          edit: false,
+          error: false,
+        },
+        pmcAddressBit: {
+          value: loadedConfig.cnc.pmcAddressBit,
+          edit: false,
+          error: false,
+        },
       });
       setLoaded(true);
     };
@@ -134,63 +83,41 @@ const Config: React.FC = () => {
 
     const configData: ConfigType = {
       network: {
-        ip: formData.ip,
-        port: formData.port,
+        ip: formState.ip.value as string,
+        port: formState.port.value as number,
       },
       cnc: {
-        delRangeStart: formData.delRangeStart,
-        delRangeEnd: formData.delRangeEnd,
-        pmcAddress: formData.pmcAddress,
-        pmcAddressBit: formData.pmcAddressBit,
+        delRangeStart: formState.delRangeStart.value as number,
+        delRangeEnd: formState.delRangeEnd.value as number,
+        pmcAddress: formState.pmcAddress.value as number,
+        pmcAddressBit: formState.pmcAddressBit.value as number,
       },
     };
 
     await window.electron.store.set('config', configData);
   };
 
-  const validateField = (fieldId: string, value: string | number): boolean => {
-    switch (fieldId) {
-      case 'ip': {
-        const ipRegex =
-          /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
-        return ipRegex.test(value.toString());
-      }
-      case 'port': {
-        const port = typeof value === 'string' ? parseInt(value, 10) : value;
-        return port > 0 && port <= 65535;
-      }
-      case 'delRangeStart': {
-        const numValue =
-          typeof value === 'string' ? parseInt(value, 10) : value;
-        if (numValue > formData.delRangeEnd) return false;
-        return true;
-      }
-      case 'delRangeEnd': {
-        const numValue =
-          typeof value === 'string' ? parseInt(value, 10) : value;
-        if (numValue < formData.delRangeStart) return false;
-        return true;
-      }
-      case 'pmcAddress':
-      case 'pmcAddressBit':
-        return !Number.isNaN(parseInt(value.toString(), 10));
-      default:
-        return false;
-    }
-  };
-
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+    const { name, value } = event.target as {
+      name: keyof FormState;
+      value: string;
+    };
 
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
+    setFormState((prevState) => ({
+      ...prevState,
+      [name]: {
+        ...prevState[name],
+        value,
+      },
     }));
   };
 
-  const toggleEdit = (field: EditStateKeys) => {
-    if (editState[field].edit && !validateField(field, formData[field])) {
-      setEditState((prevState) => ({
+  const toggleEdit = (field: FieldKeys) => {
+    if (
+      formState[field].edit &&
+      !validateField(field, formState[field].value, formState)
+    ) {
+      setFormState((prevState) => ({
         ...prevState,
         [field]: {
           ...prevState[field],
@@ -198,7 +125,7 @@ const Config: React.FC = () => {
         },
       }));
     } else {
-      setEditState((prevState) => ({
+      setFormState((prevState) => ({
         ...prevState,
         [field]: {
           ...prevState[field],
@@ -211,8 +138,8 @@ const Config: React.FC = () => {
   };
 
   // Render functions
-  const renderEditIcon = (field: EditStateKeys) => {
-    return editState[field].edit ? (
+  const renderEditIcon = (field: FieldKeys) => {
+    return formState[field].edit ? (
       <Icon
         className="icon-check_circle"
         color={colors.greyFont}
@@ -230,7 +157,7 @@ const Config: React.FC = () => {
     placeholder,
   }: {
     label: string;
-    name: EditStateKeys;
+    name: FieldKeys;
     type: string;
     placeholder: string;
   }) => (
@@ -240,11 +167,11 @@ const Config: React.FC = () => {
         <SInput
           type={type}
           name={name}
-          value={formData[name]}
+          value={formState[name].value.toString()}
           onChange={handleInputChange}
           placeholder={placeholder}
-          disabled={!editState[name].edit}
-          error={editState[name].error}
+          disabled={!formState[name].edit}
+          error={formState[name].error}
         />
         <EditButton type="button" onClick={() => toggleEdit(name)}>
           {renderEditIcon(name)}
@@ -260,11 +187,11 @@ const Config: React.FC = () => {
       <Content>
         <SContentBlock>
           <SSubTitle>Rede</SSubTitle>
-          {fieldsNetwork.map((field) => renderField(field))}
+          {fieldsNetworkProps.map((field) => renderField(field))}
         </SContentBlock>
         <SContentBlock>
           <SSubTitle>CNC</SSubTitle>
-          {fieldsCnc.map((field) => renderField(field))}
+          {fieldsCNCProps.map((field) => renderField(field))}
         </SContentBlock>
       </Content>
     </Container>
