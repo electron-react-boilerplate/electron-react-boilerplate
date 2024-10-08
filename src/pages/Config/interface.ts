@@ -1,5 +1,6 @@
 import { Config } from 'types/api';
 
+// Need to adjust if interface Config changes
 export type FieldKeys = keyof Config['network'] | keyof Config['cnc'];
 
 export type FieldState = {

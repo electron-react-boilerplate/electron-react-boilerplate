@@ -101,7 +101,6 @@ const SideMenu: React.FC = () => {
       ...loadedConfig,
       programs: generatedCodes,
     };
-    console.log('request', request);
 
     dispatch(editApp({ lastGeneratedCodes: generatedCodes }));
     setIsLoading(true);
