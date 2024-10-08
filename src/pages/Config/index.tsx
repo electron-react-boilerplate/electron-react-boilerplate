@@ -1,12 +1,11 @@
 import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react';
 
-import Button from 'components/Button';
+import Breadcrumbs from 'components/Breadcrumbs';
 
 import { Config as ConfigType } from 'types/api';
 
 import { loadConfig, defaultConfig } from 'utils/loadConfig';
 
-import { colors } from 'styles/global.styles';
 import {
   Container,
   Content,
@@ -15,6 +14,14 @@ import {
   SInput,
   SSubTitle,
 } from './styles';
+
+const breadcrumbsItems = [
+  {
+    label: 'Configurações',
+    url: '/config',
+    isActive: true,
+  },
+];
 
 const Config: React.FC = () => {
   const [loaded, setLoaded] = useState(false);
@@ -43,16 +50,8 @@ const Config: React.FC = () => {
     fetchData();
   }, []);
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (event: FormEvent) => {
-    event.preventDefault();
+  const handleSubmit = async (event?: FormEvent) => {
+    event?.preventDefault();
 
     const configData: ConfigType = {
       network: {
@@ -70,69 +69,74 @@ const Config: React.FC = () => {
     await window.electron.store.set('config', configData);
   };
 
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+    handleSubmit();
+  };
+
   return (
     <Container className={loaded ? 'loaded' : ''}>
+      <Breadcrumbs items={breadcrumbsItems} />
+      <Title>Configurações</Title>
       <Content>
-        <Title>Configurações</Title>
-        <form onSubmit={handleSubmit}>
-          <SContentBlock>
-            <SSubTitle>Rede</SSubTitle>
-            <SInput
-              label="IP:"
-              type="text"
-              name="ip"
-              value={formData.ip}
-              onChange={handleInputChange}
-              placeholder="192.168.0.1"
-            />
-            <SInput
-              label="Porta:"
-              type="number"
-              name="port"
-              value={formData.port.toString()}
-              onChange={handleInputChange}
-              placeholder="8193"
-            />
-          </SContentBlock>
-          <SContentBlock>
-            <SSubTitle>CNC</SSubTitle>
-            <SInput
-              label="ID do programa inicial:"
-              type="number"
-              name="delRangeStart"
-              value={formData.delRangeStart.toString()}
-              onChange={handleInputChange}
-              placeholder="1000"
-            />
-            <SInput
-              label="ID do programa final:"
-              type="number"
-              name="delRangeEnd"
-              value={formData.delRangeEnd.toString()}
-              onChange={handleInputChange}
-              placeholder="1030"
-            />
-            <SInput
-              label="Endereço PMC:"
-              type="number"
-              name="pmcAddress"
-              value={formData.pmcAddress.toString()}
-              onChange={handleInputChange}
-              placeholder="2850"
-            />
-            <SInput
-              label="Bit do endereço PMC:"
-              type="number"
-              name="pmcAddressBit"
-              value={formData.pmcAddressBit.toString()}
-              onChange={handleInputChange}
-              placeholder="0"
-            />
-          </SContentBlock>
-          <Button type="submit" color={colors.white} bgColor={colors.blue}>
-            Salvar
-          </Button>
-        </form>
+        <SContentBlock>
+          <SSubTitle>Rede</SSubTitle>
+          <SInput
+            label="IP:"
+            type="text"
+            name="ip"
+            value={formData.ip}
+            onChange={handleInputChange}
+            placeholder="192.168.0.1"
+          />
+          <SInput
+            label="Porta:"
+            type="number"
+            name="port"
+            value={formData.port.toString()}
+            onChange={handleInputChange}
+            placeholder="8193"
+          />
+        </SContentBlock>
+        <SContentBlock>
+          <SSubTitle>CNC</SSubTitle>
+          <SInput
+            label="ID do programa inicial:"
+            type="number"
+            name="delRangeStart"
+            value={formData.delRangeStart.toString()}
+            onChange={handleInputChange}
+            placeholder="1000"
+          />
+          <SInput
+            label="ID do programa final:"
+            type="number"
+            name="delRangeEnd"
+            value={formData.delRangeEnd.toString()}
+            onChange={handleInputChange}
+            placeholder="1030"
+          />
+          <SInput
+            label="Endereço PMC:"
+            type="number"
+            name="pmcAddress"
+            value={formData.pmcAddress.toString()}
+            onChange={handleInputChange}
+            placeholder="2850"
+          />
+          <SInput
+            label="Bit do endereço PMC:"
+            type="number"
+            name="pmcAddressBit"
+            value={formData.pmcAddressBit.toString()}
+            onChange={handleInputChange}
+            placeholder="0"
+          />
+        </SContentBlock>
       </Content>
     </Container>
   );

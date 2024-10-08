@@ -16,17 +16,23 @@ export const Container = styled.div`
 `;
 
 export const Content = styled(PageContent)`
-  max-height: calc(100vh - 155px);
+  max-height: calc(100vh - 242px);
   overflow-y: auto;
+  padding-top: 9px;
 `;
 
 export const Title = styled(PageTitle)`
   display: block;
   padding: 0;
+  margin: 15px 24px 15px;
 `;
 
 export const SContentBlock = styled(ContentBlock)`
   margin-bottom: 20px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 `;
 
 export const SSubTitle = styled(SubTitle)`
