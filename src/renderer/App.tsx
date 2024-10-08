@@ -6,7 +6,7 @@ import { Part } from 'types/part';
 import { editApp } from 'state/app/appSlice';
 import { initialState } from 'state/part/partSlice';
 
-import Layout from 'components/Layout';
+import BaseLayout from 'layouts/Base';
 import ModalCloseApp from 'components/ModalCloseApp';
 
 // Pages
@@ -15,6 +15,7 @@ import Contour from 'pages/Contour';
 import OffPage from 'pages/OffPage';
 
 import './App.css';
+import Config from 'pages/Config';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -67,12 +68,13 @@ const App: React.FC = () => {
   }, [dispatch, lastSavedFileState, part]);
   return (
     <Router>
-      <Layout>
+      <BaseLayout>
         <>
           <Routes>
             <Route path="/" element={<OffPage />} />
             <Route path="/workgroup" element={<WorkGroup />} />
             <Route path="/contour/:id" element={<Contour />} />
+            <Route path="/config" element={<Config />} />
           </Routes>
           <ModalCloseApp
             isOpen={isConfirmCloseModalOpen}
@@ -85,7 +87,7 @@ const App: React.FC = () => {
             }}
           />
         </>
-      </Layout>
+      </BaseLayout>
     </Router>
   );
 };

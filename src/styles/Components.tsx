@@ -21,7 +21,7 @@ export const PageTitle = styled.h1`
 `;
 
 export const PageContent = styled.div`
-  margin: 15px 24px;
+  padding: 15px 24px;
 `;
 
 export const ContentBlock = styled.div`
