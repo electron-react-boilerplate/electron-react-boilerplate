@@ -58,8 +58,14 @@ export const SInput = styled(Input)`
   }
 `;
 
+export const Message = styled.label`
+  font-size: 14px;
+  color: ${colors.red};
+`;
+
 export const EditButton = styled.button`
   flex-shrink: 0;
   background: none;
   border: none;
+  cursor: pointer;
 `;

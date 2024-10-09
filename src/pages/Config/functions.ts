@@ -6,31 +6,37 @@ export const initialState = {
     value: defaultConfig.network.ip,
     edit: false,
     error: false,
+    message: undefined,
   },
   port: {
     value: defaultConfig.network.port,
     edit: false,
     error: false,
+    message: undefined,
   },
   delRangeStart: {
     value: defaultConfig.cnc.delRangeStart,
     edit: false,
     error: false,
+    message: undefined,
   },
   delRangeEnd: {
     value: defaultConfig.cnc.delRangeEnd,
     edit: false,
     error: false,
+    message: undefined,
   },
   pmcAddress: {
     value: defaultConfig.cnc.pmcAddress,
     edit: false,
     error: false,
+    message: undefined,
   },
   pmcAddressBit: {
     value: defaultConfig.cnc.pmcAddressBit,
     edit: false,
     error: false,
+    message: undefined,
   },
 };
 
@@ -71,34 +77,79 @@ export const fieldsCNCProps: RenderFieldProps = [
   },
 ];
 
+export interface validateFieldObj {
+  isValid: boolean;
+  message: string | undefined;
+}
+
 export const validateField = (
   fieldId: FieldKeys,
   value: string | number,
   formState: FormState,
-): boolean => {
+): validateFieldObj => {
   switch (fieldId) {
     case 'ip': {
       const ipRegex =
         /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
-      return ipRegex.test(value.toString());
+      return {
+        isValid: ipRegex.test(value.toString()),
+        message: 'Endereço de IP inválido',
+      };
     }
-    case 'port':
-      return true;
+    case 'port': {
+      const numValue = Number(value);
+      return {
+        isValid: numValue > 0 && numValue <= 65535,
+        message: 'Porta inválida',
+      };
+    }
     case 'delRangeStart': {
-      if (value > formState.delRangeEnd.value) return false;
-      return true;
+      const numValue = Number(value);
+      if (numValue < 0) {
+        return {
+          isValid: false,
+          message: 'ID do programa inicial não pode ser negativo',
+        };
+      }
+      if (numValue > Number(formState.delRangeEnd.value)) {
+        return {
+          isValid: false,
+          message: 'ID do programa inicial maior que o ID do programa final',
+        };
+      }
+      return { isValid: true, message: undefined };
     }
     case 'delRangeEnd': {
-      if (value < formState.delRangeStart.value) return false;
-      return true;
+      const numValue = Number(value);
+      if (numValue < 0) {
+        return {
+          isValid: false,
+          message: 'ID do programa final não pode ser negativo',
+        };
+      }
+      if (numValue < Number(formState.delRangeStart.value)) {
+        return {
+          isValid: false,
+          message: 'ID do programa final menor que o ID do programa inicial',
+        };
+      }
+      return { isValid: true, message: undefined };
     }
-    case 'pmcAddress':
-      return true;
+    case 'pmcAddress': {
+      const numValue = Number(value);
+      return {
+        isValid: numValue >= 0 && numValue <= 9999,
+        message: 'Endereço PMC inválido',
+      };
+    }
     case 'pmcAddressBit': {
       const numValue = parseInt(value.toString(), 10);
-      return !Number.isNaN(numValue) && numValue >= 0 && numValue <= 7;
+      return {
+        isValid: !Number.isNaN(numValue) && numValue >= 0 && numValue <= 7,
+        message: 'Bit inválido',
+      };
     }
     default:
-      return false;
+      return { isValid: false, message: 'Campo inválido' };
   }
 };

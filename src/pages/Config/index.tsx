@@ -14,6 +14,7 @@ import {
   fieldsNetworkProps,
   initialState,
   validateField,
+  validateFieldObj,
 } from './functions';
 import {
   Container,
@@ -23,6 +24,7 @@ import {
   SInput,
   SSubTitle,
   Field,
+  Message,
   EditButton,
 } from './styles';
 
@@ -46,31 +48,37 @@ const Config: React.FC = () => {
           value: loadedConfig.network.ip,
           edit: false,
           error: false,
+          message: undefined,
         },
         port: {
           value: loadedConfig.network.port,
           edit: false,
           error: false,
+          message: undefined,
         },
         delRangeStart: {
           value: loadedConfig.cnc.delRangeStart,
           edit: false,
           error: false,
+          message: undefined,
         },
         delRangeEnd: {
           value: loadedConfig.cnc.delRangeEnd,
           edit: false,
           error: false,
+          message: undefined,
         },
         pmcAddress: {
           value: loadedConfig.cnc.pmcAddress,
           edit: false,
           error: false,
+          message: undefined,
         },
         pmcAddressBit: {
           value: loadedConfig.cnc.pmcAddressBit,
           edit: false,
           error: false,
+          message: undefined,
         },
       });
       setLoaded(true);
@@ -113,15 +121,18 @@ const Config: React.FC = () => {
   };
 
   const toggleEdit = (field: FieldKeys) => {
-    if (
-      formState[field].edit &&
-      !validateField(field, formState[field].value, formState)
-    ) {
+    const validateObj: validateFieldObj = validateField(
+      field,
+      formState[field].value,
+      formState,
+    );
+    if (formState[field].edit && !validateObj.isValid) {
       setFormState((prevState) => ({
         ...prevState,
         [field]: {
           ...prevState[field],
           error: true,
+          message: validateObj.message,
         },
       }));
     } else {
@@ -131,6 +142,7 @@ const Config: React.FC = () => {
           ...prevState[field],
           edit: !prevState[field].edit,
           error: false,
+          message: undefined,
         },
       }));
       handleSubmit();
@@ -163,11 +175,12 @@ const Config: React.FC = () => {
   }) => (
     <React.Fragment key={name}>
       <Label>{label}:</Label>
+      {formState[name].error && <Message>{formState[name].message}</Message>}
       <Field>
         <SInput
           type={type}
           name={name}
-          value={formState[name].value.toString()}
+          value={formState[name].value}
           onChange={handleInputChange}
           placeholder={placeholder}
           disabled={!formState[name].edit}
