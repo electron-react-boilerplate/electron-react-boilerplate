@@ -94,6 +94,29 @@ const SideMenu: React.FC = () => {
     }
   };
 
+  const saveGCodeWithTimeout = (
+    request: Request,
+    timeout: number,
+  ): Promise<Response> => {
+    return new Promise((resolve, reject) => {
+      const timer = setTimeout(() => {
+        reject(new Error('Request timed out'));
+      }, timeout);
+
+      window.electron.ipcRenderer
+        .saveGCode(request)
+        .then((res: Response) => {
+          clearTimeout(timer);
+          resolve(res);
+          return res;
+        })
+        .catch((error: Response) => {
+          clearTimeout(timer);
+          reject(error);
+        });
+    });
+  };
+
   const sendPrograms = async () => {
     const generatedCodes: string[] = generateGCodeForPart(part);
     const loadedConfig = await loadConfig();
@@ -106,10 +129,11 @@ const SideMenu: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const res = await window.electron.ipcRenderer.saveGCode(request);
+      const res: Response = await saveGCodeWithTimeout(request, 10000);
       setResponse(res);
       setIsModalFeedbackOpen(true);
     } catch (error) {
+      setResponse(null);
       setModalFeedbackMessage('Problemas de conexão com o serviço.');
       setIsModalFeedbackOpen(true);
     } finally {
