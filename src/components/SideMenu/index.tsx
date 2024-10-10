@@ -17,7 +17,7 @@ import { editApp } from 'state/app/appSlice';
 import { Part } from 'types/part';
 import { App } from 'types/app';
 import { SaveObject } from 'types/general';
-import { Response, Request } from 'types/api';
+import { Response, Request, Config } from 'types/api';
 
 import { colors } from 'styles/global.styles';
 import {
@@ -118,8 +118,11 @@ const SideMenu: React.FC = () => {
   };
 
   const sendPrograms = async () => {
-    const generatedCodes: string[] = generateGCodeForPart(part);
-    const loadedConfig = await loadConfig();
+    const loadedConfig: Config = await loadConfig();
+    const generatedCodes: string[] = generateGCodeForPart(
+      part,
+      loadedConfig.cnc.delRangeStart,
+    );
     const request: Request = {
       ...loadedConfig,
       programs: generatedCodes,

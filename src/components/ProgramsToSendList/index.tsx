@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { CodeBlock } from 'components/CodePreview/styles';
@@ -7,8 +7,10 @@ import {
   mountGCodeWithProgramNumber,
   orderedContours,
 } from 'integration/mount-gcode';
+import { loadConfig } from 'utils/loadConfig';
 
 import { Part, ContourItem } from 'types/part';
+import { Config } from 'types/api';
 
 import { colors } from 'styles/global.styles';
 import {
@@ -27,11 +29,20 @@ const ProgramsToSendList: React.FC = () => {
   const [selectedContourId, setSelectedContourId] = useState<number | null>(
     null,
   );
+  const [rangeStart, setRangeStart] = useState<number>(0);
   const part = useSelector((state: { part: Part }) => state.part);
 
   const handleContourClick = (contourId: number) => {
     setSelectedContourId(contourId === selectedContourId ? null : contourId);
   };
+
+  useEffect(() => {
+    async function fetchData() {
+      const loadedConfig: Config = await loadConfig();
+      setRangeStart(loadedConfig.cnc.delRangeStart);
+    }
+    fetchData();
+  }, []);
 
   return (
     <Container>
@@ -47,7 +58,9 @@ const ProgramsToSendList: React.FC = () => {
                 />
               </IconWrapper>
               <DropdownButtonText>
-                <ProgramNumber>O{1000 + index}</ProgramNumber>
+                <ProgramNumber>
+                  O{Number(rangeStart) + Number(index)}
+                </ProgramNumber>
                 {': '}
                 {contour.name}
               </DropdownButtonText>
@@ -55,7 +68,10 @@ const ProgramsToSendList: React.FC = () => {
             {selectedContourId === contour.id && (
               <DropdownContent>
                 <CodeBlock>
-                  {mountGCodeWithProgramNumber(contour, 1000 + index)}
+                  {mountGCodeWithProgramNumber(
+                    contour,
+                    Number(rangeStart) + Number(index),
+                  )}
                 </CodeBlock>
               </DropdownContent>
             )}
