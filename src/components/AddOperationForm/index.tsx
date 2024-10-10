@@ -28,7 +28,7 @@ const AddOperationForm: React.FC<FormProps> = ({
   const operations = useSelector(
     (state: { part: { operations: Operations } }) => state.part.operations,
   );
-  let formValues = { name: '', grindingWheelId: 1, dAngle: '' };
+  let formValues = { name: '', grindingWheelId: 1, dAngle: 0 };
   if (variation === 'edit') {
     const operation = operations.find((op) => op.id === operationId);
     if (operation) {
@@ -60,7 +60,7 @@ const AddOperationForm: React.FC<FormProps> = ({
     if (!formData.name) alert('Os campos nome e tipo são obrigatórios');
 
     if (variation === 'add') dispatch(addOperation({ ...formData }));
-    else if (operationId)
+    else if (operationId !== undefined)
       dispatch(editOperation({ id: operationId, operation: formData }));
   };
 
@@ -95,7 +95,7 @@ const AddOperationForm: React.FC<FormProps> = ({
           type="number"
           name="dAngle"
           label="Ângulo D:"
-          value={formData.dAngle.toString()}
+          value={formData.dAngle}
           onChange={handleChange}
           placeholder="Valor do ângulo..."
         />
