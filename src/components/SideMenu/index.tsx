@@ -9,6 +9,7 @@ import Spinner from 'components/Spinner';
 import ConfirmAction from 'components/ConfirmAction';
 
 import { saveFile, saveFileAs } from 'utils/saveFile';
+import { loadConfig } from 'utils/loadConfig';
 import { generateGCodeForPart } from 'integration/mount-gcode';
 
 import { editApp } from 'state/app/appSlice';
@@ -16,7 +17,7 @@ import { editApp } from 'state/app/appSlice';
 import { Part } from 'types/part';
 import { App } from 'types/app';
 import { SaveObject } from 'types/general';
-import { Response } from 'types/api';
+import { Response, Request } from 'types/api';
 
 import { colors } from 'styles/global.styles';
 import {
@@ -93,16 +94,46 @@ const SideMenu: React.FC = () => {
     }
   };
 
+  const saveGCodeWithTimeout = (
+    request: Request,
+    timeout: number,
+  ): Promise<Response> => {
+    return new Promise((resolve, reject) => {
+      const timer = setTimeout(() => {
+        reject(new Error('Request timed out'));
+      }, timeout);
+
+      window.electron.ipcRenderer
+        .saveGCode(request)
+        .then((res: Response) => {
+          clearTimeout(timer);
+          resolve(res);
+          return res;
+        })
+        .catch((error: Response) => {
+          clearTimeout(timer);
+          reject(error);
+        });
+    });
+  };
+
   const sendPrograms = async () => {
     const generatedCodes: string[] = generateGCodeForPart(part);
+    const loadedConfig = await loadConfig();
+    const request: Request = {
+      ...loadedConfig,
+      programs: generatedCodes,
+    };
+
     dispatch(editApp({ lastGeneratedCodes: generatedCodes }));
     setIsLoading(true);
 
     try {
-      const res = await window.electron.ipcRenderer.saveGCode(generatedCodes);
+      const res: Response = await saveGCodeWithTimeout(request, 10000);
       setResponse(res);
       setIsModalFeedbackOpen(true);
     } catch (error) {
+      setResponse(null);
       setModalFeedbackMessage('Problemas de conexão com o serviço.');
       setIsModalFeedbackOpen(true);
     } finally {

@@ -1,12 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import OSMenu from 'components/OSMenu';
+import MoreMenu from 'components/MoreMenu';
+
+import { MenuItem } from 'components/MoreMenu/interface';
 
 import { editApp } from 'state/app/appSlice';
-
-import { Link } from 'styles/Components';
-import { colors } from 'styles/global.styles';
 
 import logo from '../../../assets/images/zema-logo.png';
 
@@ -19,11 +20,11 @@ import {
   MiddleItemHomeLink,
   MiddleItemPart,
   MiddleItemPartSpan,
-  StyledIcon,
 } from './styles';
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isSaved = useSelector(
     (state: { app: { isSaved: boolean } }) => state.app.isSaved,
   );
@@ -71,6 +72,15 @@ const Header: React.FC = () => {
     [dispatch],
   );
 
+  const moreMenuItems: MenuItem[] = [
+    {
+      name: 'Configurações',
+      action: () => {
+        navigate('/config');
+      },
+    },
+  ];
+
   useEffect(() => {
     setLoaded(true);
   }, []);
@@ -106,13 +116,7 @@ const Header: React.FC = () => {
             </MiddleItemPart>
           </Middle>
         </Menu>
-        <Link to="/">
-          <StyledIcon
-            className="icon-more_vert"
-            color={colors.greyFont}
-            fontSize="28px"
-          />
-        </Link>
+        <MoreMenu menuItems={moreMenuItems} />
       </AppMenu>
     </div>
   );

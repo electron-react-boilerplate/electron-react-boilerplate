@@ -23,6 +23,7 @@ import {
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import { FileObject, SaveObject } from 'types/general';
+import { Request } from 'types/api';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './resolveHtmlPath';
 import { appFileExtension } from './appConstants';
@@ -109,7 +110,7 @@ const createWindow = async () => {
 
   ipcMain.handle(
     'save-gcode',
-    async (event: IpcMainInvokeEvent, generatedCodes: string[]) => {
+    async (event: IpcMainInvokeEvent, request: Request) => {
       try {
         const response = await fetch('http://localhost:8000/save-program', {
           method: 'POST',
@@ -118,7 +119,7 @@ const createWindow = async () => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            programs: [...generatedCodes],
+            ...request,
           }),
         });
         return await response.json();

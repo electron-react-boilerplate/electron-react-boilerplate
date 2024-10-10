@@ -5,7 +5,10 @@ export interface InputProps {
   name: string;
   label?: string;
   placeholder?: string;
-  value: string;
+  value: string | number;
   onChange: (value: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
+  className?: string;
+  error?: boolean;
+  disabled?: boolean;
 }

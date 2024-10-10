@@ -8,7 +8,7 @@ interface LayoutProps {
   children: React.ReactChild;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const BaseLayout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <LayoutContainer>
       <Header />
@@ -20,4 +20,4 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   );
 };
 
-export default Layout;
+export default BaseLayout;

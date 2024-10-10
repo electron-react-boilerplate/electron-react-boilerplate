@@ -4,6 +4,7 @@ import { ButtonProps } from './interface';
 import { StyledButton } from './style';
 
 const Button: React.FC<ButtonProps> = ({
+  type = 'button',
   onClick,
   children,
   color,
@@ -11,6 +12,7 @@ const Button: React.FC<ButtonProps> = ({
   borderColor = 'transparent',
 }) => (
   <StyledButton
+    type={type}
     color={color}
     bgColor={bgColor}
     borderColor={borderColor}
