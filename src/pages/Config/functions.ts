@@ -1,4 +1,5 @@
 import { defaultConfig } from 'utils/loadConfig';
+import { validateIp } from 'utils/constants';
 import { FieldKeys, FormState, RenderFieldProps } from './interface';
 
 export const initialState = {
@@ -89,10 +90,8 @@ export const validateField = (
 ): validateFieldObj => {
   switch (fieldId) {
     case 'ip': {
-      const ipRegex =
-        /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
       return {
-        isValid: ipRegex.test(value.toString()),
+        isValid: validateIp.test(value.toString()),
         message: 'Endereço de IP inválido',
       };
     }
