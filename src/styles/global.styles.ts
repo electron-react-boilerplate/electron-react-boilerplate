@@ -28,6 +28,7 @@ export const colors = {
 export const measures = {
   gutter: '15px',
   contentToHeader: '255px',
+  contentBellowBtnToHeader: '308px',
   borderRadius: '4px',
 };
 

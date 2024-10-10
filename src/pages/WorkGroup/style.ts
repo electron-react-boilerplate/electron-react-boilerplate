@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { PageTitle, PageContent, ContentBlock } from 'styles/Components';
-import { colors } from 'styles/global.styles';
+import { colors, measures } from 'styles/global.styles';
 
 export const Container = styled.div`
   height: 100%;
@@ -16,11 +16,11 @@ export const Content = styled(PageContent)`
   flex-flow: row nowrap;
   gap: 18px;
   height: 100%;
-  max-height: calc(100vh - 308px);
+  max-height: calc(100vh - ${measures.contentBellowBtnToHeader});
 `;
 
 export const OpWrapper = styled.div`
-  max-height: calc(100vh - 308px);
+  max-height: calc(100vh - ${measures.contentBellowBtnToHeader});
   overflow-y: auto;
 `;
 
@@ -68,7 +68,7 @@ export const OpItemCards = styled.div`
 `;
 
 export const CContentBlock = styled(ContentBlock)`
-  height: calc(100vh - 308px);
+  height: calc(100vh - ${measures.contentBellowBtnToHeader});
   overflow: visible;
 `;
 
