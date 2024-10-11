@@ -57,7 +57,8 @@ const AddOperationForm: React.FC<FormProps> = ({
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    if (!formData.name) alert('Os campos nome e tipo são obrigatórios');
+    if (!formData.name || !formData.grindingWheelId || !formData.dAngle)
+      alert('Os campos nome, Rebolo e Ângulo D são obrigatórios');
 
     if (variation === 'add') dispatch(addOperation({ ...formData }));
     else if (operationId !== undefined)
