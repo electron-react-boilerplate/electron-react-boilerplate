@@ -4,6 +4,7 @@ import { ContourType } from 'types/part';
 
 import FormField from 'components/FormField';
 import { FieldState } from 'components/FormField/interface';
+import { Message } from 'components/FormField/style';
 
 import { addContour } from 'state/part/partSlice';
 import { addContourPayload, FormProps, CustomFieldState } from './interface';
@@ -33,18 +34,27 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick }) => {
 
   const validateFormData = () => {
     let isValid = true;
-    const updatedFormData = { ...formData };
 
-    Object.entries(updatedFormData).forEach(([, field]) => {
-      if (!field.value) {
-        field.error = true;
-        field.message = 'Campo obrigatório';
-        isValid = false;
-      } else {
-        field.error = false;
-        field.message = undefined;
-      }
-    });
+    const updatedFormData = Object.entries(formData).reduce(
+      (acc, [key, field]) => {
+        if (!field.value) {
+          (acc as any)[key] = {
+            ...field,
+            error: true,
+            message: 'Campo obrigatório',
+          };
+          isValid = false;
+        } else {
+          (acc as any)[key] = {
+            ...field,
+            error: false,
+            message: undefined,
+          };
+        }
+        return acc;
+      },
+      {} as typeof formData,
+    );
 
     setFormData(updatedFormData);
     return isValid;
@@ -90,6 +100,7 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick }) => {
       </Field>
       <Field>
         <Label>Tipo:</Label>
+        {formData.type.error && <Message>{formData.type.message}</Message>}
         <RadioButton>
           <input
             type="radio"
