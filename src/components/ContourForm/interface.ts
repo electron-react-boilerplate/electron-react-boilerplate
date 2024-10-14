@@ -17,3 +17,8 @@ export interface FormProps {
 export interface CustomFieldState extends Omit<FieldState, 'value'> {
   value: ContourType | string;
 }
+
+export interface IFormData {
+  name: FieldState;
+  type: CustomFieldState;
+}

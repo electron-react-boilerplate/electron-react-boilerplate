@@ -3,14 +3,13 @@ import { useDispatch } from 'react-redux';
 import { ContourType } from 'types/part';
 
 import FormField from 'components/FormField';
-import { FieldState } from 'components/FormField/interface';
 import { Message } from 'components/FormField/style';
 
 import { addContour } from 'state/part/partSlice';
-import { addContourPayload, FormProps, CustomFieldState } from './interface';
+import { addContourPayload, FormProps, IFormData } from './interface';
 import { Container, Field, Label, RadioButton, Button } from './style';
 
-const initialFormData: { name: FieldState; type: CustomFieldState } = {
+const initialFormData: IFormData = {
   name: { value: '', error: false, message: undefined },
   type: { value: '', error: false, message: undefined },
 };

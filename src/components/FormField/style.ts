@@ -8,7 +8,6 @@ export const Field = styled.div`
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-  margin-bottom: 12px;
 `;
 
 export const SInput = styled(Input)`
