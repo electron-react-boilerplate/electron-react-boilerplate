@@ -79,12 +79,11 @@ const orderedContours = (part: Part): ContourItem[] => {
     .filter((contour) => contour !== undefined) as ContourItem[];
 };
 
-function generateGCodeForPart(part: Part): string[] {
-  const programNumber = 1000;
+function generateGCodeForPart(part: Part, rangeStart: number): string[] {
   const gCodeStrings: string[] = [];
 
   orderedContours(part).forEach((contour: ContourItem, index: number) => {
-    const gCode = mountGCodeWithProgramNumber(contour, programNumber + index);
+    const gCode = mountGCodeWithProgramNumber(contour, rangeStart + index);
     gCodeStrings.push(gCode);
   });
 

@@ -37,7 +37,7 @@ export const initialState: Part = {
       grindingWheelId: 1,
       name: 'Operação',
       contoursIds: [],
-      dAngle: '0',
+      dAngle: 0,
     },
   ],
 };

@@ -1,63 +1,105 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-
-import Input from 'components/Input';
-import { addContour } from 'state/part/partSlice';
 import { ContourType } from 'types/part';
 
-import { addContourPayload, FormProps } from './interface';
+import FormField from 'components/FormField';
+import { Message } from 'components/FormField/style';
+
+import { addContour } from 'state/part/partSlice';
+import { addContourPayload, FormProps, IFormData } from './interface';
 import { Container, Field, Label, RadioButton, Button } from './style';
 
-const initialFormData: addContourPayload = { name: '', type: '' };
+const initialFormData: IFormData = {
+  name: { value: '', error: false, message: undefined },
+  type: { value: '', error: false, message: undefined },
+};
 
 const ContourForm: React.FC<FormProps> = ({ onButtonClick }) => {
   const dispatch = useDispatch();
-  const [formData, setFormData] = useState<addContourPayload>({
-    ...initialFormData,
-  });
+  const [formData, setFormData] = useState(initialFormData);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: {
+        ...prevData[name as keyof typeof initialFormData],
+        value,
+      },
+    }));
+  };
+
+  const validateFormData = () => {
+    let isValid = true;
+
+    const updatedFormData = Object.entries(formData).reduce(
+      (acc, [key, field]) => {
+        if (!field.value) {
+          (acc as any)[key] = {
+            ...field,
+            error: true,
+            message: 'Campo obrigatório',
+          };
+          isValid = false;
+        } else {
+          (acc as any)[key] = {
+            ...field,
+            error: false,
+            message: undefined,
+          };
+        }
+        return acc;
+      },
+      {} as typeof formData,
+    );
+
+    setFormData(updatedFormData);
+    return isValid;
   };
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    if (!formData.name || !formData.type) {
-      alert('Os campos nome e tipo são obrigatórios');
+    if (!validateFormData()) {
       return;
     }
 
+    const contour: addContourPayload = {
+      name: formData.name.value as string,
+      type: formData.type.value as ContourType,
+    };
     dispatch(
       addContour({
-        ...formData,
-        type: formData.type as ContourType,
+        ...contour,
+        type: formData.type.value as ContourType,
       }),
     );
+
+    onButtonClick();
   };
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     handleSubmit(e);
-    onButtonClick();
   };
 
   return (
     <Container>
       <Field>
-        <Input
+        <FormField
           name="name"
-          label="Nome:"
+          label="Nome"
+          type="text"
           placeholder="Peça PC01..."
-          value={formData.name}
-          onChange={handleChange}
-          required
+          fieldState={formData.name}
+          handleInputChange={handleChange}
         />
       </Field>
       <Field>
         <Label>Tipo:</Label>
+        {formData.type.error && <Message>{formData.type.message}</Message>}
         <RadioButton>
           <input
             type="radio"

@@ -7,7 +7,7 @@ import Modal from 'components/Modal';
 import ContourForm from 'components/ContourForm';
 import Icon from 'components/Icon';
 import Button from 'components/Button';
-import AddOperationForm from 'components/AddOperationForm';
+import AddOperationForm from 'components/OperationForm';
 import ConfirmAction from 'components/ConfirmAction';
 
 import { grindingWheels } from 'integration/grindingWheels';
