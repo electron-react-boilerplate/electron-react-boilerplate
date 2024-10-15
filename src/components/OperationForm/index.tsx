@@ -35,16 +35,24 @@ const OperationForm: React.FC<FormProps> = ({
     (state: { part: { operations: Operations } }) => state.part.operations,
   );
 
+  let formValues: IFormData = initialFormData;
+
   if (variation === 'edit') {
     const operation = operations.find((op) => op.id === operationId);
     if (operation) {
-      initialFormData.name.value = operation.name;
-      initialFormData.grindingWheelId.value = operation.grindingWheelId;
-      initialFormData.dAngle.value = operation.dAngle;
+      formValues = {
+        name: { value: operation.name, error: false, message: undefined },
+        grindingWheelId: {
+          value: operation.grindingWheelId,
+          error: false,
+          message: undefined,
+        },
+        dAngle: { value: operation.dAngle, error: false, message: undefined },
+      };
     }
   }
 
-  const [formData, setFormData] = useState(initialFormData);
+  const [formData, setFormData] = useState(formValues);
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -68,7 +76,6 @@ const OperationForm: React.FC<FormProps> = ({
           field.value === '' ||
           field.value === null ||
           field.value === undefined ||
-          // verificar com pessoal se pode ser menor que 0
           field.value < 0
         ) {
           (acc as any)[key] = {
