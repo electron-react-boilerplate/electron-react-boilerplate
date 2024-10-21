@@ -132,7 +132,7 @@ const SideMenu: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const res: Response = await saveGCodeWithTimeout(request, 10000);
+      const res: Response = await saveGCodeWithTimeout(request, 100000);
       setResponse(res);
       setIsModalFeedbackOpen(true);
     } catch (error) {

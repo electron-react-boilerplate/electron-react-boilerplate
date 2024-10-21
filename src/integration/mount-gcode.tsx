@@ -83,7 +83,10 @@ function generateGCodeForPart(part: Part, rangeStart: number): string[] {
   const gCodeStrings: string[] = [];
 
   orderedContours(part).forEach((contour: ContourItem, index: number) => {
-    const gCode = mountGCodeWithProgramNumber(contour, rangeStart + index);
+    const gCode = mountGCodeWithProgramNumber(
+      contour,
+      Number(rangeStart) + index,
+    );
     gCodeStrings.push(gCode);
   });
 
