@@ -72,7 +72,11 @@ function mountGCodeWithProgramNumber(
 
 const orderedContours = (part: Part): ContourItem[] => {
   return part.operations
-    .flatMap((operation) => operation.contoursIds)
+    .flatMap((operation) =>
+      operation.contoursIds.filter(
+        (contourId) => !operation.contoursIdsExcluded?.includes(contourId),
+      ),
+    )
     .map((contourId) =>
       part.contours.find((contour) => contour.id === contourId),
     )

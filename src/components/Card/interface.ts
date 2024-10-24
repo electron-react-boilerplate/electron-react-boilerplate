@@ -11,4 +11,5 @@ export interface CardProps {
   content: CardData;
   variation: Variations;
   removeFromOperation?: () => void;
+  onToggle?: (isActive: boolean) => void;
 }

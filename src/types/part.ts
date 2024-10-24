@@ -33,6 +33,7 @@ export interface OperationItem {
   grindingWheelId: number;
   dAngle: number;
   contoursIds: number[];
+  contoursIdsExcluded?: number[];
 }
 
 export interface Operations extends Array<OperationItem> {}

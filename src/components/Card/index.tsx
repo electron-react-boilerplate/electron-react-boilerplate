@@ -39,6 +39,7 @@ const Card: React.FC<CardProps> = ({
   content,
   variation,
   removeFromOperation,
+  onToggle,
 }) => {
   const dispatch = useDispatch();
   const operations = useSelector(
@@ -48,7 +49,9 @@ const Card: React.FC<CardProps> = ({
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const toggleCard = () => {
-    setIsCardActive(!isCardActive);
+    const newIsActive = !isCardActive;
+    setIsCardActive(newIsActive);
+    if (onToggle) onToggle(newIsActive);
   };
 
   const excludeContour = () => {
@@ -84,7 +87,7 @@ const Card: React.FC<CardProps> = ({
   ];
 
   const handleMoveUp = () => {
-    if (content.operationId) {
+    if (content.operationId !== null && content.operationId !== undefined) {
       dispatch(
         changeContourPositionAtOperation({
           contourId: content.id,
@@ -96,7 +99,7 @@ const Card: React.FC<CardProps> = ({
   };
 
   const handleMoveDown = () => {
-    if (content.operationId) {
+    if (content.operationId !== null && content.operationId !== undefined) {
       dispatch(
         changeContourPositionAtOperation({
           contourId: content.id,

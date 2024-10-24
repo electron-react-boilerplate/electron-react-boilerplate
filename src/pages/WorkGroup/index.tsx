@@ -15,6 +15,7 @@ import { grindingWheels } from 'integration/grindingWheels';
 import {
   removeContourFromOperation,
   deleteOperation,
+  editOperation,
 } from 'state/part/partSlice';
 
 import { Contours, Operations } from 'types/part';
@@ -73,6 +74,40 @@ const WorkGroup: React.FC = () => {
         contourId,
       }),
     );
+  };
+
+  const handleToggleCard = (
+    isActive: boolean,
+    operationId: number,
+    contourId: number,
+  ) => {
+    const currentOperation = operations.find((op) => op.id === operationId);
+
+    if (currentOperation) {
+      let updatedContoursIdsExcluded: number[];
+
+      if (isActive) {
+        updatedContoursIdsExcluded = [
+          ...(currentOperation.contoursIdsExcluded ?? []),
+          contourId,
+        ];
+      } else {
+        updatedContoursIdsExcluded =
+          currentOperation.contoursIdsExcluded?.filter(
+            (id) => id !== contourId,
+          ) ?? [];
+      }
+
+      dispatch(
+        editOperation({
+          id: operationId,
+          operation: {
+            ...currentOperation,
+            contoursIdsExcluded: updatedContoursIdsExcluded,
+          },
+        }),
+      );
+    }
   };
 
   const handleDeleteOperation = () => {
@@ -230,6 +265,13 @@ const WorkGroup: React.FC = () => {
                           removeFromOperation={() =>
                             removeFromOperation(operation.id, contour.id)
                           }
+                          onToggle={(isActive: boolean) => {
+                            handleToggleCard(
+                              isActive,
+                              operation.id,
+                              contour.id,
+                            );
+                          }}
                         />
                       );
                     })}
