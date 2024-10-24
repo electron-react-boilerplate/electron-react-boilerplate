@@ -84,7 +84,19 @@ const SideMenu: React.FC = () => {
     const hasEmptyContoursIds = part.operations.some(
       (operation) => operation.contoursIds.length === 0,
     );
-    if (part.operations.length === 0 || hasEmptyContoursIds) {
+    const hasAllContoursExcluded = part.operations.some((operation) => {
+      const { contoursIds, contoursIdsExcluded } = operation;
+      return (
+        contoursIds.length > 0 &&
+        contoursIdsExcluded?.length === contoursIds.length &&
+        contoursIds.every((id) => contoursIdsExcluded.includes(id))
+      );
+    });
+    if (
+      part.operations.length === 0 ||
+      hasEmptyContoursIds ||
+      hasAllContoursExcluded
+    ) {
       setModalFeedbackMessage(
         'Não é possível gerar programas sem operações ou com operações sem contornos.',
       );
