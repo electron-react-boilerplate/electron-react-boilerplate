@@ -21,7 +21,7 @@ const formattedGrindingWheels: OptionType[] = grindingWheels.map((wheel) => ({
 
 const initialFormData: IFormData = {
   name: { value: '', error: false, message: undefined },
-  grindingWheelId: { value: 1, error: false, message: undefined },
+  toolId: { value: 1, error: false, message: undefined },
   dAngle: { value: 0, error: false, message: undefined },
 };
 
@@ -42,8 +42,8 @@ const OperationForm: React.FC<FormProps> = ({
     if (operation) {
       formValues = {
         name: { value: operation.name, error: false, message: undefined },
-        grindingWheelId: {
-          value: operation.grindingWheelId,
+        toolId: {
+          value: operation.toolId,
           error: false,
           message: undefined,
         },
@@ -62,7 +62,7 @@ const OperationForm: React.FC<FormProps> = ({
       ...prevData,
       [name]: {
         ...prevData[name as keyof typeof initialFormData],
-        value: name === 'grindingWheelId' ? parseInt(value, 10) : value,
+        value: name === 'toolId' ? parseInt(value, 10) : value,
       },
     }));
   };
@@ -109,7 +109,7 @@ const OperationForm: React.FC<FormProps> = ({
 
     const operation = {
       name: String(formData.name.value),
-      grindingWheelId: Number(formData.grindingWheelId.value),
+      toolId: Number(formData.toolId.value),
       dAngle: Number(formData.dAngle.value),
     };
 
@@ -140,9 +140,9 @@ const OperationForm: React.FC<FormProps> = ({
       <Field>
         <Select
           label="Rebolo:"
-          name="grindingWheelId"
+          name="toolId"
           onChange={handleChange}
-          value={formData.grindingWheelId.value}
+          value={formData.toolId.value}
           options={formattedGrindingWheels}
         />
       </Field>

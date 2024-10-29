@@ -34,7 +34,7 @@ export const initialState: Part = {
   operations: [
     {
       id: 0,
-      grindingWheelId: 1,
+      toolId: 1,
       name: 'Operação',
       contoursIds: [],
       dAngle: 0,

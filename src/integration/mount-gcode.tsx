@@ -1,4 +1,6 @@
-import { ContourItem, ActivitiyItem, Part } from 'types/part';
+import { ContourItem, ActivitiyItem, Part, OperationItem } from 'types/part';
+
+const macroRef = 'G65 P7001';
 
 function removeAccents(str: string): string {
   return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
@@ -29,24 +31,31 @@ function mountGCodeLine(
     ? `${activity.cParamId}${activity.cParamValue} `
     : '';
   let gCodeLine = `N00${
-    n * 10
+    (n + 2) * 10
   } G90 ${rm}${x}${z}${f}${a}${aParam}${bParam}${cParam}\n`;
 
-  if (isLastLine) gCodeLine = `${gCodeLine}N00${(n + 1) * 10} M99`;
+  if (isLastLine) gCodeLine = `${gCodeLine}N00${(n + 3) * 10} M99`;
 
   return gCodeLine;
 }
 
-function mountGCode(contour: ContourItem) {
-  let gCodeOutput: String = '';
-  let gCodeTemplate: String = '';
+function generateLines(contour: ContourItem, toolId?: number): string {
+  let gCodeOutput = '';
+  const macroRefLine = `N0020 ${macroRef}\n`;
+  const toolLine = `N0010 #50001=${toolId}\n`;
 
   contour.activities.forEach((element: any, index: any) => {
     const isLastLine = contour.activities.length === index + 1;
     gCodeOutput = `${gCodeOutput}${mountGCodeLine(element, index, isLastLine)}`;
   });
-  gCodeOutput = `${gCodeOutput}\n`;
-  gCodeTemplate = `(${removeAccents(contour.name)})\n${gCodeOutput}%`;
+  gCodeOutput = `${toolLine}${macroRefLine}${gCodeOutput}\n`;
+
+  return gCodeOutput;
+}
+
+function mountGCode(contour: ContourItem): string {
+  const gCodeOutput = generateLines(contour);
+  const gCodeTemplate = `(${removeAccents(contour.name)})\n${gCodeOutput}%`;
 
   return gCodeTemplate;
 }
@@ -54,16 +63,10 @@ function mountGCode(contour: ContourItem) {
 function mountGCodeWithProgramNumber(
   contour: ContourItem,
   programNumber: number,
+  toolId: number,
 ): string {
-  let gCodeOutput = '';
-  let gCodeTemplate = '';
-
-  contour.activities.forEach((element: any, index: any) => {
-    const isLastLine = contour.activities.length === index + 1;
-    gCodeOutput = `${gCodeOutput}${mountGCodeLine(element, index, isLastLine)}`;
-  });
-  gCodeOutput = `${gCodeOutput}\n`;
-  gCodeTemplate = `\nO${programNumber}(${removeAccents(
+  const gCodeOutput = generateLines(contour, toolId);
+  const gCodeTemplate = `\nO${programNumber}(${removeAccents(
     contour.name,
   )})\n${gCodeOutput}%`;
 
@@ -83,6 +86,18 @@ const orderedContours = (part: Part): ContourItem[] => {
     .filter((contour) => contour !== undefined) as ContourItem[];
 };
 
+/* This function will return an error in case contourId is not found at operations,
+since it will only happen if used in wrong context, it will be thrown so the developer can fix it. */
+function getToolId(part: Part, contourId: number): number {
+  const operation: OperationItem | undefined = part.operations.find((op) =>
+    op.contoursIds.includes(contourId),
+  );
+  if (!operation) {
+    throw new Error(`Operation not found for contourId: ${contourId}`);
+  }
+  return operation.toolId;
+}
+
 function generateGCodeForPart(part: Part, rangeStart: number): string[] {
   const gCodeStrings: string[] = [];
 
@@ -90,6 +105,7 @@ function generateGCodeForPart(part: Part, rangeStart: number): string[] {
     const gCode = mountGCodeWithProgramNumber(
       contour,
       Number(rangeStart) + index,
+      getToolId(part, contour.id),
     );
     gCodeStrings.push(gCode);
   });
@@ -99,6 +115,7 @@ function generateGCodeForPart(part: Part, rangeStart: number): string[] {
 
 export {
   mountGCode,
+  getToolId,
   generateGCodeForPart,
   orderedContours,
   mountGCodeWithProgramNumber,

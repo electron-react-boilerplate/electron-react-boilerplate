@@ -209,7 +209,7 @@ const WorkGroup: React.FC = () => {
           <OpWrapper>
             {operations.map((operation) => {
               const matchedGrindingWheel = grindingWheels.find(
-                (wheel) => wheel.id === operation.grindingWheelId,
+                (wheel) => wheel.id === operation.toolId,
               );
               return (
                 <SContentBlock key={operation.id}>

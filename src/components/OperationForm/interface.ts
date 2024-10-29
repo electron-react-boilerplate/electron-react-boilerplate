@@ -8,7 +8,7 @@ export interface addOperationPayload {
 
 export interface IFormData {
   name: FieldState;
-  grindingWheelId: FieldState;
+  toolId: FieldState;
   dAngle: FieldState;
 }
 
