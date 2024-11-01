@@ -37,7 +37,7 @@ import {
   OpItemHeaderTitle,
   OpItemHeaderSubTitle,
   SButton,
-  DAngleText,
+  BAxisAngleText,
   WheelText,
   OpItemHeaderContent,
 } from './style';
@@ -247,7 +247,9 @@ const WorkGroup: React.FC = () => {
                       <WheelText>
                         {matchedGrindingWheel && matchedGrindingWheel.name}
                       </WheelText>
-                      <DAngleText>Ângulo D: {operation.dAngle}</DAngleText>
+                      <BAxisAngleText>
+                        Ângulo Eixo B: {operation.bAxisAngle}
+                      </BAxisAngleText>
                     </OpItemHeaderSubTitle>
                   </OpItemHeaderContent>
                   <OpItemCards>

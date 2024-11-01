@@ -37,7 +37,7 @@ export const initialState: Part = {
       toolId: 1,
       name: 'Operação',
       contoursIds: [],
-      dAngle: 0,
+      bAxisAngle: 0,
     },
   ],
 };

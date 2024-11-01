@@ -3,13 +3,13 @@ import { FieldState } from 'components/FormField/interface';
 export interface addOperationPayload {
   name: string;
   grindingWheel: string;
-  dAngle?: number;
+  bAxisAngle?: number;
 }
 
 export interface IFormData {
   name: FieldState;
   toolId: FieldState;
-  dAngle: FieldState;
+  bAxisAngle: FieldState;
 }
 
 export interface FormProps {

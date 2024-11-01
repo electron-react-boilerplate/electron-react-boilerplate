@@ -22,7 +22,7 @@ const formattedGrindingWheels: OptionType[] = grindingWheels.map((wheel) => ({
 const initialFormData: IFormData = {
   name: { value: '', error: false, message: undefined },
   toolId: { value: 1, error: false, message: undefined },
-  dAngle: { value: 0, error: false, message: undefined },
+  bAxisAngle: { value: 0, error: false, message: undefined },
 };
 
 const OperationForm: React.FC<FormProps> = ({
@@ -47,7 +47,11 @@ const OperationForm: React.FC<FormProps> = ({
           error: false,
           message: undefined,
         },
-        dAngle: { value: operation.dAngle, error: false, message: undefined },
+        bAxisAngle: {
+          value: operation.bAxisAngle,
+          error: false,
+          message: undefined,
+        },
       };
     }
   }
@@ -110,7 +114,7 @@ const OperationForm: React.FC<FormProps> = ({
     const operation = {
       name: String(formData.name.value),
       toolId: Number(formData.toolId.value),
-      dAngle: Number(formData.dAngle.value),
+      bAxisAngle: Number(formData.bAxisAngle.value),
     };
 
     if (variation === 'add') dispatch(addOperation(operation));
@@ -148,11 +152,11 @@ const OperationForm: React.FC<FormProps> = ({
       </Field>
       <Field>
         <FormField
-          name="dAngle"
+          name="bAxisAngle"
           label="Ângulo D"
           type="number"
           placeholder="Valor do ângulo..."
-          fieldState={formData.dAngle}
+          fieldState={formData.bAxisAngle}
           handleInputChange={handleChange}
         />
       </Field>

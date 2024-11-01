@@ -31,7 +31,7 @@ export interface OperationItem {
   id: number;
   name: string;
   toolId: number;
-  dAngle: number;
+  bAxisAngle: number;
   contoursIds: number[];
   contoursIdsExcluded?: number[];
 }

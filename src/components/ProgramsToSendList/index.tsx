@@ -6,7 +6,7 @@ import { CodeBlock } from 'components/CodePreview/styles';
 import {
   mountGCodeWithProgramNumber,
   orderedContours,
-  getToolId,
+  getOperationData,
 } from 'integration/mount-gcode';
 import { loadConfig } from 'utils/loadConfig';
 
@@ -72,7 +72,8 @@ const ProgramsToSendList: React.FC = () => {
                   {mountGCodeWithProgramNumber(
                     contour,
                     Number(rangeStart) + Number(index),
-                    getToolId(part, contour.id),
+                    getOperationData(part, contour.id, (op) => op.toolId),
+                    getOperationData(part, contour.id, (op) => op.bAxisAngle),
                   )}
                 </CodeBlock>
               </DropdownContent>

@@ -56,7 +56,7 @@ export const WheelText = styled.p`
   color: ${colors.black};
 `;
 
-export const DAngleText = styled.p`
+export const BAxisAngleText = styled.p`
   font-size: 14px;
   color: ${colors.black};
 `;

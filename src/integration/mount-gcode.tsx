@@ -31,24 +31,29 @@ function mountGCodeLine(
     ? `${activity.cParamId}${activity.cParamValue} `
     : '';
   let gCodeLine = `N00${
-    (n + 2) * 10
+    (n + 3) * 10
   } G90 ${rm}${x}${z}${f}${a}${aParam}${bParam}${cParam}\n`;
 
-  if (isLastLine) gCodeLine = `${gCodeLine}N00${(n + 3) * 10} M99`;
+  if (isLastLine) gCodeLine = `${gCodeLine}N00${(n + 4) * 10} M99`;
 
   return gCodeLine;
 }
 
-function generateLines(contour: ContourItem, toolId?: number): string {
+function generateLines(
+  contour: ContourItem,
+  toolId?: number,
+  bAxisAngleValue?: number,
+): string {
   let gCodeOutput = '';
-  const macroRefLine = `N0020 ${macroRef}\n`;
   const toolLine = `N0010 #50001=${toolId}\n`;
+  const bAxisAngleLine = `N0020 #50002=${bAxisAngleValue}\n`;
+  const macroRefLine = `N0030 ${macroRef}\n`;
 
   contour.activities.forEach((element: any, index: any) => {
     const isLastLine = contour.activities.length === index + 1;
     gCodeOutput = `${gCodeOutput}${mountGCodeLine(element, index, isLastLine)}`;
   });
-  gCodeOutput = `${toolLine}${macroRefLine}${gCodeOutput}\n`;
+  gCodeOutput = `${toolLine}${bAxisAngleLine}${macroRefLine}${gCodeOutput}\n`;
 
   return gCodeOutput;
 }
@@ -64,8 +69,9 @@ function mountGCodeWithProgramNumber(
   contour: ContourItem,
   programNumber: number,
   toolId: number,
+  bAxisAngleValue: number,
 ): string {
-  const gCodeOutput = generateLines(contour, toolId);
+  const gCodeOutput = generateLines(contour, toolId, bAxisAngleValue);
   const gCodeTemplate = `\nO${programNumber}(${removeAccents(
     contour.name,
   )})\n${gCodeOutput}%`;
@@ -88,14 +94,18 @@ const orderedContours = (part: Part): ContourItem[] => {
 
 /* This function will return an error in case contourId is not found at operations,
 since it will only happen if used in wrong context, it will be thrown so the developer can fix it. */
-function getToolId(part: Part, contourId: number): number {
+function getOperationData<T>(
+  part: Part,
+  contourId: number,
+  callback: (operation: OperationItem) => T,
+): T {
   const operation: OperationItem | undefined = part.operations.find((op) =>
     op.contoursIds.includes(contourId),
   );
   if (!operation) {
     throw new Error(`Operation not found for contourId: ${contourId}`);
   }
-  return operation.toolId;
+  return callback(operation);
 }
 
 function generateGCodeForPart(part: Part, rangeStart: number): string[] {
@@ -105,7 +115,8 @@ function generateGCodeForPart(part: Part, rangeStart: number): string[] {
     const gCode = mountGCodeWithProgramNumber(
       contour,
       Number(rangeStart) + index,
-      getToolId(part, contour.id),
+      getOperationData(part, contour.id, (operation) => operation.toolId),
+      getOperationData(part, contour.id, (operation) => operation.bAxisAngle),
     );
     gCodeStrings.push(gCode);
   });
@@ -115,7 +126,7 @@ function generateGCodeForPart(part: Part, rangeStart: number): string[] {
 
 export {
   mountGCode,
-  getToolId,
+  getOperationData,
   generateGCodeForPart,
   orderedContours,
   mountGCodeWithProgramNumber,

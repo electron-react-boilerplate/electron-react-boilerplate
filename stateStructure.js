@@ -42,7 +42,7 @@
         id: 1,
         name: 'Operação 1',
         gridingWheelId: 3,
-        dAngle: -20.0000,
+        bAxisAngle: -20.0000,
         diametersIds: [1, 2],
       }
     ],
