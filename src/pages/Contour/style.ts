@@ -24,8 +24,7 @@ export const TitleContainer = styled.div`
 
 export const Title = styled(PageTitle)`
   display: block;
-  margin-bottom: 0;
-  margin-right: 8px;
+  margin: 0;
 `;
 
 export const TitleEdit = styled.input`

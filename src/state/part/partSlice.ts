@@ -46,15 +46,12 @@ const partSlice = createSlice({
   name: 'parts',
   initialState,
   reducers: {
-    addContour: (
-      state,
-      action: PayloadAction<Omit<Omit<ContourItem, 'id'>, 'activities'>>,
-    ) => {
+    addContour: (state, action: PayloadAction<Omit<ContourItem, 'id'>>) => {
       const maxId = Math.max(...state.contours.map((contour) => contour.id), 0);
       state.contours.push({
         ...action.payload,
         id: maxId + 1,
-        activities: [initialActivity],
+        activities: action.payload.activities ?? [initialActivity],
       });
     },
     addOperation: (

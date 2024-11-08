@@ -58,11 +58,16 @@ const defaultValue: ContourItem = {
 const Contour: React.FC = () => {
   const dispatch = useDispatch();
   const { id } = useParams<{ id: string }>();
-  const initialState: ContourItem = useSelector(
-    (state: { part: Part }) =>
-      state.part.contours.find((contour) => contour.id === Number(id)) ||
-      defaultValue,
-  );
+  // const initialState: ContourItem = useSelector(
+  //   (state: { part: Part }) =>
+  //     state.part.contours.find((contour) => contour.id === Number(id)) ||
+  //     defaultValue,
+  // );
+  const initialState: ContourItem = useSelector((state: { part: Part }) => {
+    const contour = state.part.contours.find((c) => c.id === Number(id));
+    console.log('contour encontrado:', contour);
+    return contour || defaultValue;
+  });
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [formData, setFormData] = useState<ContourItem>({
     ...initialState,

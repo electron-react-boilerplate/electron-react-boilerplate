@@ -76,7 +76,10 @@ export const SContentBlock = styled(ContentBlock)`
   margin-bottom: 15px;
 `;
 
-export const Title = styled(PageTitle)``;
+export const Title = styled(PageTitle)`
+  margin: 0;
+  margin-bottom: 24px;
+`;
 
 export const AddBtn = styled.div`
   height: 48px;
