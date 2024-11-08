@@ -153,7 +153,7 @@ const OperationForm: React.FC<FormProps> = ({
       <Field>
         <FormField
           name="bAxisAngle"
-          label="Ângulo D"
+          label="Ângulo Eixo B"
           type="number"
           placeholder="Valor do ângulo..."
           fieldState={formData.bAxisAngle}
