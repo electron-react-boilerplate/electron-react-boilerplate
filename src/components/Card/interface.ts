@@ -1,3 +1,5 @@
+import { Activities } from 'types/part';
+
 type Variations = 'contour' | 'operation';
 
 export interface CardData {
@@ -5,6 +7,7 @@ export interface CardData {
   id: number;
   name: string;
   type: string;
+  activities: Activities;
 }
 
 export interface CardProps {

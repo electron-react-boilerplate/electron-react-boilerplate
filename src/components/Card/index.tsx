@@ -59,12 +59,12 @@ const Card: React.FC<CardProps> = ({
   };
 
   const duplicateContour = () => {
-    console.log('content (Cópia)', content);
     dispatch(
       addContour({
         ...content,
         name: `${content.name} (Cópia)`,
         type: content.type as ContourType,
+        activities: content.activities,
       }),
     );
   };
