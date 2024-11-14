@@ -12,6 +12,7 @@ import { FieldKeys, FormState } from './interface';
 import {
   fieldsCNCProps,
   fieldsNetworkProps,
+  fieldsToolsProps,
   initialState,
   validateField,
   validateFieldObj,
@@ -80,6 +81,30 @@ const Config: React.FC = () => {
           error: false,
           message: undefined,
         },
+        tool1Var: {
+          value: loadedConfig.tools.tool1Var,
+          edit: false,
+          error: false,
+          message: undefined,
+        },
+        tool2Var: {
+          value: loadedConfig.tools.tool2Var,
+          edit: false,
+          error: false,
+          message: undefined,
+        },
+        tool3Var: {
+          value: loadedConfig.tools.tool3Var,
+          edit: false,
+          error: false,
+          message: undefined,
+        },
+        tool4Var: {
+          value: loadedConfig.tools.tool4Var,
+          edit: false,
+          error: false,
+          message: undefined,
+        },
       });
       setLoaded(true);
     };
@@ -99,6 +124,12 @@ const Config: React.FC = () => {
         delRangeEnd: formState.delRangeEnd.value as number,
         pmcAddress: formState.pmcAddress.value as number,
         pmcAddressBit: formState.pmcAddressBit.value as number,
+      },
+      tools: {
+        tool1Var: formState.tool1Var.value as number,
+        tool2Var: formState.tool2Var.value as number,
+        tool3Var: formState.tool3Var.value as number,
+        tool4Var: formState.tool4Var.value as number,
       },
     };
 
@@ -205,6 +236,10 @@ const Config: React.FC = () => {
         <SContentBlock>
           <SSubTitle>CNC</SSubTitle>
           {fieldsCNCProps.map((field) => renderField(field))}
+        </SContentBlock>
+        <SContentBlock>
+          <SSubTitle>Ferramentas</SSubTitle>
+          {fieldsToolsProps.map((field) => renderField(field))}
         </SContentBlock>
       </Content>
     </Container>

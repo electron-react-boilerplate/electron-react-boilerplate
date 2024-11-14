@@ -26,9 +26,17 @@ export interface Cnc {
   pmcAddressBit: number;
 }
 
+export interface Tools {
+  tool1Var: number;
+  tool2Var: number;
+  tool3Var: number;
+  tool4Var: number;
+}
+
 export interface Config {
   network: Network;
   cnc: Cnc;
+  tools: Tools;
 }
 
 export interface Request {

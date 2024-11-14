@@ -39,6 +39,30 @@ export const initialState = {
     error: false,
     message: undefined,
   },
+  tool1Var: {
+    value: defaultConfig.tools.tool1Var,
+    edit: false,
+    error: false,
+    message: undefined,
+  },
+  tool2Var: {
+    value: defaultConfig.tools.tool2Var,
+    edit: false,
+    error: false,
+    message: undefined,
+  },
+  tool3Var: {
+    value: defaultConfig.tools.tool3Var,
+    edit: false,
+    error: false,
+    message: undefined,
+  },
+  tool4Var: {
+    value: defaultConfig.tools.tool4Var,
+    edit: false,
+    error: false,
+    message: undefined,
+  },
 };
 
 export const fieldsNetworkProps: RenderFieldProps = [
@@ -75,6 +99,33 @@ export const fieldsCNCProps: RenderFieldProps = [
     name: 'pmcAddressBit',
     type: 'number',
     placeholder: '0',
+  },
+];
+
+export const fieldsToolsProps: RenderFieldProps = [
+  {
+    label: 'Variável PCode do Rebolo 1',
+    name: 'tool1Var',
+    type: 'number',
+    placeholder: '50010',
+  },
+  {
+    label: 'Variável PCode do Rebolo 2',
+    name: 'tool2Var',
+    type: 'number',
+    placeholder: '50020',
+  },
+  {
+    label: 'Variável PCode do Rebolo 3',
+    name: 'tool3Var',
+    type: 'number',
+    placeholder: '50030',
+  },
+  {
+    label: 'Variável PCode do Rebolo 4',
+    name: 'tool4Var',
+    type: 'number',
+    placeholder: '50040',
   },
 ];
 
@@ -146,6 +197,34 @@ export const validateField = (
       return {
         isValid: !Number.isNaN(numValue) && numValue >= 0 && numValue <= 7,
         message: 'Bit inválido',
+      };
+    }
+    case 'tool1Var': {
+      const numValue = Number(value);
+      return {
+        isValid: numValue >= 0,
+        message: 'Variável PCode inválida',
+      };
+    }
+    case 'tool2Var': {
+      const numValue = Number(value);
+      return {
+        isValid: numValue >= 0,
+        message: 'Variável PCode inválida',
+      };
+    }
+    case 'tool3Var': {
+      const numValue = Number(value);
+      return {
+        isValid: numValue >= 0,
+        message: 'Variável PCode inválida',
+      };
+    }
+    case 'tool4Var': {
+      const numValue = Number(value);
+      return {
+        isValid: numValue >= 0,
+        message: 'Variável PCode inválida',
       };
     }
     default:
