@@ -23,7 +23,7 @@ import {
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import { FileObject, SaveObject } from 'types/general';
-import { Request } from 'types/api';
+import { GetToolsRequest, Request } from 'types/api';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './resolveHtmlPath';
 import { appFileExtension } from './appConstants';
@@ -113,6 +113,27 @@ const createWindow = async () => {
     async (event: IpcMainInvokeEvent, request: Request) => {
       try {
         const response = await fetch('http://localhost:8000/save-program', {
+          method: 'POST',
+          cache: 'no-store',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            ...request,
+          }),
+        });
+        return await response.json();
+      } catch (error) {
+        throw new Error('Erro ao fazer a chamada de API');
+      }
+    },
+  );
+
+  ipcMain.handle(
+    'get-tools',
+    async (event: IpcMainInvokeEvent, request: GetToolsRequest) => {
+      try {
+        const response = await fetch('http://localhost:8000/get-tools', {
           method: 'POST',
           cache: 'no-store',
           headers: {

@@ -2,9 +2,10 @@ import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react';
 
 import Breadcrumbs from 'components/Breadcrumbs';
 import Icon from 'components/Icon';
+import Spinner from 'components/Spinner';
 import { Label } from 'components/Input/style';
 
-import { Config as ConfigType } from 'types/api';
+import { Config as ConfigType, GetToolsRequest, Response } from 'types/api';
 import { loadConfig } from 'utils/loadConfig';
 
 import { colors } from 'styles/global.styles';
@@ -27,6 +28,8 @@ import {
   Field,
   Message,
   EditButton,
+  ContentText,
+  SButton,
 } from './styles';
 
 const breadcrumbsItems = [
@@ -40,6 +43,7 @@ const breadcrumbsItems = [
 const Config: React.FC = () => {
   const [loaded, setLoaded] = useState(false);
   const [formState, setFormState] = useState<FormState>(initialState);
+  const [isGetToolsLoading, setIsGetToolsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -126,6 +130,7 @@ const Config: React.FC = () => {
         pmcAddressBit: formState.pmcAddressBit.value as number,
       },
       tools: {
+        // por algum motivo não ta entrando como number
         tool1Var: formState.tool1Var.value as number,
         tool2Var: formState.tool2Var.value as number,
         tool3Var: formState.tool3Var.value as number,
@@ -217,12 +222,74 @@ const Config: React.FC = () => {
           disabled={!formState[name].edit}
           error={formState[name].error}
         />
+        {(name === 'tool1Var' ||
+          name === 'tool2Var' ||
+          name === 'tool3Var' ||
+          name === 'tool4Var') && (
+          <ContentText>
+            {/* Mudar aqui para descrição dos tipos de rebolo */}
+            Inexistente
+          </ContentText>
+        )}
         <EditButton type="button" onClick={() => toggleEdit(name)}>
           {renderEditIcon(name)}
         </EditButton>
       </Field>
     </React.Fragment>
   );
+
+  const getTools = (
+    request: GetToolsRequest,
+    timeout: number,
+  ): Promise<Response> => {
+    return new Promise((resolve, reject) => {
+      const timer = setTimeout(() => {
+        reject(new Error('Request timed out'));
+      }, timeout);
+
+      window.electron.ipcRenderer
+        .getTools(request)
+        .then((res: Response) => {
+          clearTimeout(timer);
+          resolve(res);
+          return res;
+        })
+        .catch((error: Response) => {
+          clearTimeout(timer);
+          reject(error);
+        });
+    });
+  };
+
+  const handleGetTools = async () => {
+    // mount request
+    const request: GetToolsRequest = {
+      network: {
+        ip: formState.ip.value as string,
+        port: formState.port.value as number,
+      },
+      pCodeAddresses: [
+        formState.tool1Var.value as number,
+        formState.tool2Var.value as number,
+        formState.tool3Var.value as number,
+        formState.tool4Var.value as number,
+      ],
+    };
+
+    console.log('handleGetTools request', request);
+    setIsGetToolsLoading(true);
+
+    try {
+      const res: Response = await getTools(request, 100000);
+      console.log(res);
+    } catch (error) {
+      // setResponse(null);
+      // setModalFeedbackMessage('Problemas de conexão com o serviço.');
+      // setIsModalFeedbackOpen(true);
+    } finally {
+      setIsGetToolsLoading(false);
+    }
+  };
 
   return (
     <Container className={loaded ? 'loaded' : ''}>
@@ -240,6 +307,17 @@ const Config: React.FC = () => {
         <SContentBlock>
           <SSubTitle>Ferramentas</SSubTitle>
           {fieldsToolsProps.map((field) => renderField(field))}
+          {!isGetToolsLoading ? (
+            <SButton
+              onClick={() => handleGetTools()}
+              color={colors.white}
+              bgColor={colors.blue}
+            >
+              Buscar rebolos
+            </SButton>
+          ) : (
+            <Spinner />
+          )}
         </SContentBlock>
       </Content>
     </Container>

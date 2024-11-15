@@ -44,3 +44,8 @@ export interface Request {
   cnc: Cnc;
   programs: string[];
 }
+
+export interface GetToolsRequest {
+  network: Network;
+  pCodeAddresses: number[];
+}
