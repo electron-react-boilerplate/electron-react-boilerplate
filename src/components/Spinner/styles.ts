@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { colors } from 'styles/global.styles';
 
 export const Container = styled.div`
   display: flex;
@@ -7,11 +6,11 @@ export const Container = styled.div`
   justify-content: center;
 `;
 
-export const Spinner = styled.div`
+export const Spinner = styled.div<{ color?: string }>`
   border: 4px solid transparent;
   box-sizing: border-box;
-  border-left-color: ${colors.white};
-  border-right-color: ${colors.white};
+  border-left-color: ${({ color }) => color};
+  border-right-color: ${({ color }) => color};
   border-radius: 50%;
   width: 26px;
   height: 26px;

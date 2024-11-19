@@ -9,7 +9,7 @@ import { Config as ConfigType, GetToolsRequest, Response } from 'types/api';
 import { loadConfig } from 'utils/loadConfig';
 
 import { colors } from 'styles/global.styles';
-import { FieldKeys, FormState } from './interface';
+import { FieldKeys, FormState, ToolData } from './interface';
 import {
   fieldsCNCProps,
   fieldsNetworkProps,
@@ -43,7 +43,8 @@ const breadcrumbsItems = [
 const Config: React.FC = () => {
   const [loaded, setLoaded] = useState(false);
   const [formState, setFormState] = useState<FormState>(initialState);
-  const [isGetToolsLoading, setIsGetToolsLoading] = useState(false);
+  const [isGetToolsLoading, setIsGetToolsLoading] = useState<boolean>(false);
+  const [toolsData, setToolsData] = useState<ToolData[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -141,17 +142,17 @@ const Config: React.FC = () => {
     await window.electron.store.set('config', configData);
   };
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target as {
       name: keyof FormState;
-      value: string;
+      value: string | number;
     };
 
     setFormState((prevState) => ({
       ...prevState,
       [name]: {
         ...prevState[name],
-        value,
+        value: Number.isNaN(Number(value)) ? value : Number(value),
       },
     }));
   };
@@ -208,35 +209,49 @@ const Config: React.FC = () => {
     name: FieldKeys;
     type: string;
     placeholder: string;
-  }) => (
-    <React.Fragment key={name}>
-      <Label>{label}:</Label>
-      {formState[name].error && <Message>{formState[name].message}</Message>}
-      <Field>
-        <SInput
-          type={type}
-          name={name}
-          value={formState[name].value}
-          onChange={handleInputChange}
-          placeholder={placeholder}
-          disabled={!formState[name].edit}
-          error={formState[name].error}
-        />
-        {(name === 'tool1Var' ||
-          name === 'tool2Var' ||
-          name === 'tool3Var' ||
-          name === 'tool4Var') && (
-          <ContentText>
-            {/* Mudar aqui para descrição dos tipos de rebolo */}
-            Inexistente
-          </ContentText>
-        )}
-        <EditButton type="button" onClick={() => toggleEdit(name)}>
-          {renderEditIcon(name)}
-        </EditButton>
-      </Field>
-    </React.Fragment>
-  );
+  }) => {
+    const toolData = toolsData.find(
+      (tool) => tool.code === formState[name].value,
+    );
+
+    let displayValue;
+    if (toolData) {
+      if (toolData.value === 1) {
+        displayValue = 'Externo';
+      } else if (toolData.value === 2) {
+        displayValue = 'Interno';
+      } else {
+        displayValue = 'Inexistente';
+      }
+    } else {
+      displayValue = 'Inexistente';
+    }
+
+    return (
+      <React.Fragment key={name}>
+        <Label>{label}:</Label>
+        {formState[name].error && <Message>{formState[name].message}</Message>}
+        <Field>
+          <SInput
+            type={type}
+            name={name}
+            value={formState[name].value}
+            onChange={handleInputChange}
+            placeholder={placeholder}
+            disabled={!formState[name].edit}
+            error={formState[name].error}
+          />
+          {(name === 'tool1Var' ||
+            name === 'tool2Var' ||
+            name === 'tool3Var' ||
+            name === 'tool4Var') && <ContentText>{displayValue}</ContentText>}
+          <EditButton type="button" onClick={() => toggleEdit(name)}>
+            {renderEditIcon(name)}
+          </EditButton>
+        </Field>
+      </React.Fragment>
+    );
+  };
 
   const getTools = (
     request: GetToolsRequest,
@@ -280,8 +295,15 @@ const Config: React.FC = () => {
     setIsGetToolsLoading(true);
 
     try {
-      const res: Response = await getTools(request, 100000);
+      const res: any = await getTools(request, 100000);
       console.log(res);
+
+      if (res.statusCode === 200) {
+        setToolsData(res.data);
+      } else {
+        // Tratar outros status codes se necessário
+        console.error('Erro ao obter ferramentas:', res.message);
+      }
     } catch (error) {
       // setResponse(null);
       // setModalFeedbackMessage('Problemas de conexão com o serviço.');
@@ -316,7 +338,7 @@ const Config: React.FC = () => {
               Buscar rebolos
             </SButton>
           ) : (
-            <Spinner />
+            <Spinner color={colors.blue} />
           )}
         </SContentBlock>
       </Content>

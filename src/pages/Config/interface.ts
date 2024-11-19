@@ -14,16 +14,7 @@ export type FieldState = {
 };
 
 export type FormState = {
-  ip: FieldState;
-  port: FieldState;
-  delRangeStart: FieldState;
-  delRangeEnd: FieldState;
-  pmcAddress: FieldState;
-  pmcAddressBit: FieldState;
-  tool1Var: FieldState;
-  tool2Var: FieldState;
-  tool3Var: FieldState;
-  tool4Var: FieldState;
+  [key in FieldKeys]: FieldState;
 };
 
 export type RenderFieldProps = {
@@ -32,3 +23,8 @@ export type RenderFieldProps = {
   type: string;
   placeholder: string;
 }[];
+
+export type ToolData = {
+  code: number;
+  value: number;
+};
