@@ -30,6 +30,7 @@ export const Title = styled(PageTitle)`
 
 export const SContentBlock = styled(ContentBlock)`
   margin-bottom: 20px;
+  max-height: 100%;
 `;
 
 export const SideBySideContainer = styled.div`
@@ -41,14 +42,14 @@ export const Side = styled.div`
   width: 50%;
 `;
 
-export const ContentText = styled.div`
+export const ContentText = styled.div<{ color: string }>`
   padding: 15px;
   font-size: 18px;
   box-sizing: border-box;
   height: 53px;
   background-color: ${colors.white};
-  border: 1px solid ${colors.blue};
-  color: ${colors.blue};
+  border: 1px solid ${(props) => props.color};
+  color: ${(props) => props.color};
 `;
 
 export const SButton = styled(Button)`

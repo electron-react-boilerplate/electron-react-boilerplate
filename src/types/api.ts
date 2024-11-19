@@ -5,12 +5,25 @@ export interface ResponseDataItem {
   resultDescription: string;
 }
 
+export interface GetToolsResponseDataItem {
+  code: number;
+  value: number;
+}
+
 export interface ResponseData extends Array<ResponseDataItem> {}
+
+export interface GetToolsResponseData extends Array<GetToolsResponseDataItem> {}
 
 export interface Response {
   statusCode: number;
   message: string;
   data?: ResponseData;
+}
+
+export interface GetToolsResponse {
+  statusCode: number;
+  message: string;
+  data?: GetToolsResponseData;
 }
 
 //  Request data types for the API
@@ -39,6 +52,7 @@ export interface Config {
   tools: Tools;
 }
 
+// Requests
 export interface Request {
   network: Network;
   cnc: Cnc;

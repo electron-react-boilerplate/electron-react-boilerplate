@@ -1,15 +1,24 @@
-import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react';
+import React, { useEffect, useState, FormEvent } from 'react';
 
 import Breadcrumbs from 'components/Breadcrumbs';
 import Icon from 'components/Icon';
 import Spinner from 'components/Spinner';
 import { Label } from 'components/Input/style';
+import Modal from 'components/Modal';
 
-import { Config as ConfigType, GetToolsRequest, Response } from 'types/api';
+import {
+  Config as ConfigType,
+  GetToolsRequest,
+  GetToolsResponse,
+  GetToolsResponseDataItem,
+} from 'types/api';
+import Button from 'components/Button';
+import { ModalContent, ModalText } from 'components/SideMenu/styles';
+
 import { loadConfig } from 'utils/loadConfig';
 
 import { colors } from 'styles/global.styles';
-import { FieldKeys, FormState, ToolData } from './interface';
+import { FieldKeys, FormState } from './interface';
 import {
   fieldsCNCProps,
   fieldsNetworkProps,
@@ -44,7 +53,9 @@ const Config: React.FC = () => {
   const [loaded, setLoaded] = useState(false);
   const [formState, setFormState] = useState<FormState>(initialState);
   const [isGetToolsLoading, setIsGetToolsLoading] = useState<boolean>(false);
-  const [toolsData, setToolsData] = useState<ToolData[]>([]);
+  const [toolsData, setToolsData] = useState<GetToolsResponseDataItem[]>([]);
+  const [isModalFeedbackOpen, setIsModalFeedbackOpen] =
+    useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -215,11 +226,14 @@ const Config: React.FC = () => {
     );
 
     let displayValue;
+    let color = colors.greyDark;
     if (toolData) {
       if (toolData.value === 1) {
         displayValue = 'Externo';
+        color = colors.blue;
       } else if (toolData.value === 2) {
         displayValue = 'Interno';
+        color = colors.blue;
       } else {
         displayValue = 'Inexistente';
       }
@@ -244,7 +258,9 @@ const Config: React.FC = () => {
           {(name === 'tool1Var' ||
             name === 'tool2Var' ||
             name === 'tool3Var' ||
-            name === 'tool4Var') && <ContentText>{displayValue}</ContentText>}
+            name === 'tool4Var') && (
+            <ContentText color={color}>{displayValue}</ContentText>
+          )}
           <EditButton type="button" onClick={() => toggleEdit(name)}>
             {renderEditIcon(name)}
           </EditButton>
@@ -256,7 +272,7 @@ const Config: React.FC = () => {
   const getTools = (
     request: GetToolsRequest,
     timeout: number,
-  ): Promise<Response> => {
+  ): Promise<GetToolsResponse> => {
     return new Promise((resolve, reject) => {
       const timer = setTimeout(() => {
         reject(new Error('Request timed out'));
@@ -264,12 +280,12 @@ const Config: React.FC = () => {
 
       window.electron.ipcRenderer
         .getTools(request)
-        .then((res: Response) => {
+        .then((res: GetToolsResponse) => {
           clearTimeout(timer);
           resolve(res);
           return res;
         })
-        .catch((error: Response) => {
+        .catch((error: GetToolsResponse) => {
           clearTimeout(timer);
           reject(error);
         });
@@ -295,19 +311,14 @@ const Config: React.FC = () => {
     setIsGetToolsLoading(true);
 
     try {
-      const res: any = await getTools(request, 100000);
+      const res: GetToolsResponse = await getTools(request, 100000);
       console.log(res);
 
       if (res.statusCode === 200) {
-        setToolsData(res.data);
-      } else {
-        // Tratar outros status codes se necessário
-        console.error('Erro ao obter ferramentas:', res.message);
-      }
+        if (res.data) setToolsData(res.data);
+      } else setIsModalFeedbackOpen(true);
     } catch (error) {
-      // setResponse(null);
-      // setModalFeedbackMessage('Problemas de conexão com o serviço.');
-      // setIsModalFeedbackOpen(true);
+      setIsModalFeedbackOpen(true);
     } finally {
       setIsGetToolsLoading(false);
     }
@@ -342,6 +353,27 @@ const Config: React.FC = () => {
           )}
         </SContentBlock>
       </Content>
+      <Modal
+        title="Erro ao buscar rebolos"
+        variation="danger"
+        isOpen={isModalFeedbackOpen}
+        onClose={() => setIsModalFeedbackOpen(false)}
+      >
+        <ModalContent>
+          <ModalText>
+            Houve um erro ao buscar rebolos, verifique a conexão com o serviço
+            ou o CNC e tente novamente.
+          </ModalText>
+        </ModalContent>
+        <Button
+          onClick={() => setIsModalFeedbackOpen(false)}
+          color={colors.red}
+          bgColor={colors.white}
+          borderColor={colors.red}
+        >
+          OK
+        </Button>
+      </Modal>
     </Container>
   );
 };
