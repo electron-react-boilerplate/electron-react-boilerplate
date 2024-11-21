@@ -27,7 +27,7 @@ export const initialState: Part = {
     {
       id: 0,
       name: 'Contorno',
-      type: 'Internal',
+      type: 2,
       activities: [initialActivity],
     },
   ],

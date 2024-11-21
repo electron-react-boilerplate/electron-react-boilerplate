@@ -1,5 +1,9 @@
 import { FieldState } from 'components/FormField/interface';
 
+interface ToolIdFieldState extends Omit<FieldState, 'value'> {
+  value: number;
+}
+
 export interface addOperationPayload {
   name: string;
   grindingWheel: string;
@@ -8,7 +12,7 @@ export interface addOperationPayload {
 
 export interface IFormData {
   name: FieldState;
-  toolId: FieldState;
+  toolId: ToolIdFieldState;
   bAxisAngle: FieldState;
 }
 

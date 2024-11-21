@@ -74,6 +74,7 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick }) => {
       addContour({
         ...contour,
         type: formData.type.value as ContourType,
+        activities: [],
       }),
     );
 
@@ -103,7 +104,7 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick }) => {
         <RadioButton>
           <input
             type="radio"
-            value="Internal"
+            value={2}
             name="type"
             onChange={(e) => handleChange(e)}
             required
@@ -114,7 +115,7 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick }) => {
         <RadioButton>
           <input
             type="radio"
-            value="External"
+            value={1}
             name="type"
             onChange={(e) => handleChange(e)}
             required

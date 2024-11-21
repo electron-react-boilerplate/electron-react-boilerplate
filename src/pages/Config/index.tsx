@@ -147,7 +147,6 @@ const Config: React.FC = () => {
         pmcAddressBit: formState.pmcAddressBit.value as number,
       },
       tools: {
-        // por algum motivo não ta entrando como number
         tool1Var: formState.tool1Var.value as number,
         tool2Var: formState.tool2Var.value as number,
         tool3Var: formState.tool3Var.value as number,
@@ -319,8 +318,6 @@ const Config: React.FC = () => {
       if (res.statusCode === 200) {
         if (res.data) {
           await window.electron.store.set('tools', res.data);
-
-          console.log('res.data', res.data);
         }
       } else setIsModalFeedbackOpen(true);
     } catch (error) {
