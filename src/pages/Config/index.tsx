@@ -10,12 +10,14 @@ import {
   Config as ConfigType,
   GetToolsRequest,
   GetToolsResponse,
+  GetToolsResponseData,
   GetToolsResponseDataItem,
 } from 'types/api';
 import Button from 'components/Button';
 import { ModalContent, ModalText } from 'components/SideMenu/styles';
 
 import { loadConfig } from 'utils/loadConfig';
+import { loadTools } from 'utils/loadTools';
 
 import { colors } from 'styles/global.styles';
 import { FieldKeys, FormState } from './interface';
@@ -52,14 +54,16 @@ const breadcrumbsItems = [
 const Config: React.FC = () => {
   const [loaded, setLoaded] = useState(false);
   const [formState, setFormState] = useState<FormState>(initialState);
+  const [toolsData, setToolsData] = useState<GetToolsResponseData>([]);
   const [isGetToolsLoading, setIsGetToolsLoading] = useState<boolean>(false);
-  const [toolsData, setToolsData] = useState<GetToolsResponseDataItem[]>([]);
   const [isModalFeedbackOpen, setIsModalFeedbackOpen] =
     useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
       const loadedConfig: ConfigType = await loadConfig();
+      const loadedTools: GetToolsResponseData = await loadTools();
+
       setFormState({
         ip: {
           value: loadedConfig.network.ip,
@@ -122,6 +126,7 @@ const Config: React.FC = () => {
           message: undefined,
         },
       });
+      setToolsData(loadedTools);
       setLoaded(true);
     };
     fetchData();
@@ -222,7 +227,7 @@ const Config: React.FC = () => {
     placeholder: string;
   }) => {
     const toolData = toolsData.find(
-      (tool) => tool.code === formState[name].value,
+      (tool: GetToolsResponseDataItem) => tool.code === formState[name].value,
     );
 
     let displayValue;
@@ -293,7 +298,6 @@ const Config: React.FC = () => {
   };
 
   const handleGetTools = async () => {
-    // mount request
     const request: GetToolsRequest = {
       network: {
         ip: formState.ip.value as string,
@@ -307,15 +311,17 @@ const Config: React.FC = () => {
       ],
     };
 
-    console.log('handleGetTools request', request);
     setIsGetToolsLoading(true);
 
     try {
       const res: GetToolsResponse = await getTools(request, 100000);
-      console.log(res);
 
       if (res.statusCode === 200) {
-        if (res.data) setToolsData(res.data);
+        if (res.data) {
+          await window.electron.store.set('tools', res.data);
+
+          console.log('res.data', res.data);
+        }
       } else setIsModalFeedbackOpen(true);
     } catch (error) {
       setIsModalFeedbackOpen(true);
