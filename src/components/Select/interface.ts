@@ -4,6 +4,7 @@ export interface ToolOptionItem {
   id: number;
   label: string;
   type: number;
+  value: number;
 }
 
 export interface ToolOptions extends Array<ToolOptionItem> {}

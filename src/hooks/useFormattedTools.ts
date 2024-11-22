@@ -24,6 +24,7 @@ const useFormattedTools = () => {
               id,
               label,
               type: tool.value,
+              value: id,
             };
           });
         setFormattedTools(fTools);

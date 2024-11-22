@@ -5,8 +5,12 @@ import { ContourType } from 'types/part';
 import FormField from 'components/FormField';
 import { Message } from 'components/FormField/style';
 
+import useFormattedTools from 'hooks/useFormattedTools';
 import { addContour } from 'state/part/partSlice';
+
+import { ToolOptionItem } from 'components/Select/interface';
 import { addContourPayload, FormProps, IFormData } from './interface';
+
 import { Container, Field, Label, RadioButton, Button } from './style';
 
 const initialFormData: IFormData = {
@@ -17,6 +21,11 @@ const initialFormData: IFormData = {
 
 const ContourForm: React.FC<FormProps> = ({ onButtonClick }) => {
   const dispatch = useDispatch();
+  const formattedTools = useFormattedTools();
+  const availableTypes = Array.from(
+    new Set(formattedTools.map((tool: ToolOptionItem) => tool.type)),
+  );
+
   const [formData, setFormData] = useState(initialFormData);
 
   const handleChange = (
@@ -101,28 +110,32 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick }) => {
       <Field>
         <Label>Tipo:</Label>
         {formData.type.error && <Message>{formData.type.message}</Message>}
-        <RadioButton>
-          <input
-            type="radio"
-            value={1}
-            name="type"
-            onChange={(e) => handleChange(e)}
-            required
-          />
-          <span />
-          Externo
-        </RadioButton>
-        <RadioButton>
-          <input
-            type="radio"
-            value={2}
-            name="type"
-            onChange={(e) => handleChange(e)}
-            required
-          />
-          <span />
-          Interno
-        </RadioButton>
+        {availableTypes.includes(1) && (
+          <RadioButton>
+            <input
+              type="radio"
+              value={1}
+              name="type"
+              onChange={(e) => handleChange(e)}
+              required
+            />
+            <span />
+            Externo
+          </RadioButton>
+        )}
+        {availableTypes.includes(2) && (
+          <RadioButton>
+            <input
+              type="radio"
+              value={2}
+              name="type"
+              onChange={(e) => handleChange(e)}
+              required
+            />
+            <span />
+            Interno
+          </RadioButton>
+        )}
       </Field>
       <Button onClick={handleClick}>Cadastrar</Button>
     </Container>

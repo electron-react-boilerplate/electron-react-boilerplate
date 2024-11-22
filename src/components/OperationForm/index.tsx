@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Select from 'components/Select';
@@ -61,7 +61,7 @@ const OperationForm: React.FC<FormProps> = ({
       ...prevData,
       [name]: {
         ...prevData[name as keyof typeof initialFormData],
-        value: name === 'toolId' ? parseInt(value, 10) : value,
+        value,
       },
     }));
   };
