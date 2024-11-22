@@ -9,13 +9,13 @@ import { addOperation, editOperation } from 'state/part/partSlice';
 import useFormattedTools from 'hooks/useFormattedTools';
 
 // Types
-import { ContourType, Operations } from 'types/part';
+import { Operations } from 'types/part';
 import { FormProps, IFormData } from './interface';
 import { Container, Field, SButton } from './style';
 
 const initialFormData: IFormData = {
   name: { value: '', error: false, message: undefined },
-  // toolId value 1 represents first tool fetched from API
+  // toolId value 1 represents first tool fetched from API, wich has id 1
   toolId: { value: 1, error: false, message: undefined },
   bAxisAngle: { value: 0, error: false, message: undefined },
 };
@@ -108,7 +108,7 @@ const OperationForm: React.FC<FormProps> = ({
 
     const operation = {
       name: String(formData.name.value),
-      toolId: Number(formData.toolId.value) as ContourType,
+      toolId: Number(formData.toolId.value),
       bAxisAngle: Number(formData.bAxisAngle.value),
     };
 

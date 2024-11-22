@@ -7,17 +7,20 @@ import ConfirmAction from 'components/ConfirmAction';
 import Icon from 'components/Icon';
 import MoreMenu from 'components/MoreMenu';
 import GrindingTypeLabel from 'components/GrindingTypeLabel';
+import { MenuItem } from 'components/MoreMenu/interface';
 
-import { colors } from 'styles/global.styles';
-
+import useFormattedTools from 'hooks/useFormattedTools';
 import {
   addContour,
   addContourToOperation,
   changeContourPositionAtOperation,
   removeContour,
 } from 'state/part/partSlice';
-import { ContourType, Operations } from 'types/part';
-import { MenuItem } from 'components/MoreMenu/interface';
+
+import { Contours, ContourType, OperationItem, Operations } from 'types/part';
+import { ToolOptionItem } from 'components/Select/interface';
+
+import { colors } from 'styles/global.styles';
 import { CardProps } from './interface';
 
 import {
@@ -42,8 +45,12 @@ const Card: React.FC<CardProps> = ({
   onToggle,
 }) => {
   const dispatch = useDispatch();
+  const formattedTools = useFormattedTools();
   const operations = useSelector(
     (state: { part: { operations: Operations } }) => state.part.operations,
+  );
+  const contours = useSelector(
+    (state: { part: { contours: Contours } }) => state.part.contours,
   );
   const [isCardActive, setIsCardActive] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -72,16 +79,25 @@ const Card: React.FC<CardProps> = ({
   const moreMenuItems: MenuItem[] = [
     {
       name: 'Adicionar à Sequência',
-      subItems: operations.map((operation) => ({
-        name: operation.name,
-        action: () =>
-          dispatch(
-            addContourToOperation({
-              operationId: operation.id,
-              contourId: content.id,
-            }),
-          ),
-      })),
+      subItems: operations
+        .filter((operation: OperationItem) => {
+          const tool: ToolOptionItem | undefined = formattedTools.find(
+            (t: ToolOptionItem) => t.id === operation.toolId,
+          );
+          if (!tool) return false;
+
+          return contours.some((contour) => contour.type === tool.type);
+        })
+        .map((operation: OperationItem) => ({
+          name: operation.name,
+          action: () =>
+            dispatch(
+              addContourToOperation({
+                operationId: operation.id,
+                contourId: content.id,
+              }),
+            ),
+        })),
     },
     { name: 'Duplicar', action: duplicateContour },
     { name: 'Excluir', action: () => setIsModalOpen(true) },

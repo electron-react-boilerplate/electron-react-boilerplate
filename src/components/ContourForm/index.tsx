@@ -11,7 +11,8 @@ import { Container, Field, Label, RadioButton, Button } from './style';
 
 const initialFormData: IFormData = {
   name: { value: '', error: false, message: undefined },
-  type: { value: '', error: false, message: undefined },
+  // toolId value 1 represents first tool fetched from API, wich has id 1
+  type: { value: 1, error: false, message: undefined },
 };
 
 const ContourForm: React.FC<FormProps> = ({ onButtonClick }) => {
@@ -68,12 +69,12 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick }) => {
 
     const contour: addContourPayload = {
       name: formData.name.value as string,
-      type: formData.type.value as ContourType,
+      type: Number(formData.type.value) as ContourType,
     };
     dispatch(
       addContour({
         ...contour,
-        type: formData.type.value as ContourType,
+        type: Number(formData.type.value) as ContourType,
       }),
     );
 
