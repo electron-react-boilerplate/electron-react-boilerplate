@@ -59,6 +59,11 @@ const Config: React.FC = () => {
   const [isModalFeedbackOpen, setIsModalFeedbackOpen] =
     useState<boolean>(false);
 
+  const [displayValues, setDisplayValues] = useState<{ [key: string]: string }>(
+    {},
+  );
+  const [colorsState, setColorsState] = useState<{ [key: string]: string }>({});
+
   useEffect(() => {
     const fetchData = async () => {
       const loadedConfig: ConfigType = await loadConfig();
@@ -214,6 +219,41 @@ const Config: React.FC = () => {
     );
   };
 
+  const arrangeToolTypes = React.useCallback(() => {
+    const newDisplayValues: { [key: string]: string } = {};
+    const newColorsState: { [key: string]: string } = {};
+
+    ['tool1Var', 'tool2Var', 'tool3Var', 'tool4Var'].forEach((toolVar) => {
+      const toolData = toolsData.find(
+        (tool: GetToolsResponseDataItem) =>
+          tool.code === formState[toolVar as keyof FormState].value,
+      );
+
+      if (toolData) {
+        if (toolData.value === 1) {
+          newDisplayValues[toolVar] = 'Externo';
+          newColorsState[toolVar] = colors.blue;
+        } else if (toolData.value === 2) {
+          newDisplayValues[toolVar] = 'Interno';
+          newColorsState[toolVar] = colors.blue;
+        } else {
+          newDisplayValues[toolVar] = 'Inexistente';
+          newColorsState[toolVar] = colors.greyDark;
+        }
+      } else {
+        newDisplayValues[toolVar] = 'Inexistente';
+        newColorsState[toolVar] = colors.greyDark;
+      }
+    });
+
+    setDisplayValues(newDisplayValues);
+    setColorsState(newColorsState);
+  }, [toolsData, formState]);
+
+  useEffect(() => {
+    arrangeToolTypes();
+  }, [arrangeToolTypes]);
+
   const renderField = ({
     label,
     name,
@@ -225,25 +265,8 @@ const Config: React.FC = () => {
     type: string;
     placeholder: string;
   }) => {
-    const toolData = toolsData.find(
-      (tool: GetToolsResponseDataItem) => tool.code === formState[name].value,
-    );
-
-    let displayValue;
-    let color = colors.greyDark;
-    if (toolData) {
-      if (toolData.value === 1) {
-        displayValue = 'Externo';
-        color = colors.blue;
-      } else if (toolData.value === 2) {
-        displayValue = 'Interno';
-        color = colors.blue;
-      } else {
-        displayValue = 'Inexistente';
-      }
-    } else {
-      displayValue = 'Inexistente';
-    }
+    const displayValue = displayValues[name] || 'Inexistente';
+    const color = colorsState[name] || colors.greyDark;
 
     return (
       <React.Fragment key={name}>
@@ -318,6 +341,7 @@ const Config: React.FC = () => {
       if (res.statusCode === 200) {
         if (res.data) {
           await window.electron.store.set('tools', res.data);
+          arrangeToolTypes();
         }
       } else setIsModalFeedbackOpen(true);
     } catch (error) {
