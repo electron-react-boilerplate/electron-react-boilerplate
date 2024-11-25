@@ -223,26 +223,26 @@ const Config: React.FC = () => {
     const newDisplayValues: { [key: string]: string } = {};
     const newColorsState: { [key: string]: string } = {};
 
-    ['tool1Var', 'tool2Var', 'tool3Var', 'tool4Var'].forEach((toolVar) => {
+    fieldsToolsProps.forEach((toolVar) => {
       const toolData = toolsData.find(
         (tool: GetToolsResponseDataItem) =>
-          tool.code === formState[toolVar as keyof FormState].value,
+          tool.code === formState[toolVar.name].value,
       );
 
       if (toolData) {
         if (toolData.value === 1) {
-          newDisplayValues[toolVar] = 'Externo';
-          newColorsState[toolVar] = colors.blue;
+          newDisplayValues[toolVar.name] = 'Externo';
+          newColorsState[toolVar.name] = colors.blue;
         } else if (toolData.value === 2) {
-          newDisplayValues[toolVar] = 'Interno';
-          newColorsState[toolVar] = colors.blue;
+          newDisplayValues[toolVar.name] = 'Interno';
+          newColorsState[toolVar.name] = colors.blue;
         } else {
-          newDisplayValues[toolVar] = 'Inexistente';
-          newColorsState[toolVar] = colors.greyDark;
+          newDisplayValues[toolVar.name] = 'Inexistente';
+          newColorsState[toolVar.name] = colors.greyDark;
         }
       } else {
-        newDisplayValues[toolVar] = 'Inexistente';
-        newColorsState[toolVar] = colors.greyDark;
+        newDisplayValues[toolVar.name] = 'Inexistente';
+        newColorsState[toolVar.name] = colors.greyDark;
       }
     });
 
@@ -341,6 +341,8 @@ const Config: React.FC = () => {
       if (res.statusCode === 200) {
         if (res.data) {
           await window.electron.store.set('tools', res.data);
+
+          setToolsData(res.data);
           arrangeToolTypes();
         }
       } else setIsModalFeedbackOpen(true);
