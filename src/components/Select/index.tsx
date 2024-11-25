@@ -16,7 +16,7 @@ const SelectComponent: React.FC<SelectComponentProps> = ({
 
   return (
     <Container>
-      {label && <Label>{label}</Label>}
+      {label && <Label>{label}:</Label>}
       <SSelect name={name} value={value} onChange={handleChange}>
         {options.map((option) => {
           return (

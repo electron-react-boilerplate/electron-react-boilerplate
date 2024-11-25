@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Select from 'components/Select';
@@ -6,21 +6,16 @@ import FormField from 'components/FormField';
 
 import { addOperation, editOperation } from 'state/part/partSlice';
 
-import { grindingWheels } from 'integration/grindingWheels';
+import useFormattedTools from 'hooks/useFormattedTools';
 
 // Types
-import { OptionType } from 'components/Select/interface';
 import { Operations } from 'types/part';
 import { FormProps, IFormData } from './interface';
 import { Container, Field, SButton } from './style';
 
-const formattedGrindingWheels: OptionType[] = grindingWheels.map((wheel) => ({
-  value: wheel.id,
-  label: wheel.name,
-}));
-
 const initialFormData: IFormData = {
   name: { value: '', error: false, message: undefined },
+  // toolId value 1 represents first tool fetched from API, wich has id 1
   toolId: { value: 1, error: false, message: undefined },
   bAxisAngle: { value: 0, error: false, message: undefined },
 };
@@ -31,10 +26,10 @@ const OperationForm: React.FC<FormProps> = ({
   operationId,
 }) => {
   const dispatch = useDispatch();
+  const formattedTools = useFormattedTools();
   const operations = useSelector(
     (state: { part: { operations: Operations } }) => state.part.operations,
   );
-
   let formValues: IFormData = initialFormData;
 
   if (variation === 'edit') {
@@ -66,7 +61,7 @@ const OperationForm: React.FC<FormProps> = ({
       ...prevData,
       [name]: {
         ...prevData[name as keyof typeof initialFormData],
-        value: name === 'toolId' ? parseInt(value, 10) : value,
+        value,
       },
     }));
   };
@@ -143,11 +138,11 @@ const OperationForm: React.FC<FormProps> = ({
       </Field>
       <Field>
         <Select
-          label="Rebolo:"
+          label="Rebolo"
           name="toolId"
           onChange={handleChange}
           value={formData.toolId.value}
-          options={formattedGrindingWheels}
+          options={formattedTools}
         />
       </Field>
       <Field>

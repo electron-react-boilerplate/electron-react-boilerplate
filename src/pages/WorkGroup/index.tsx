@@ -10,7 +10,7 @@ import Button from 'components/Button';
 import AddOperationForm from 'components/OperationForm';
 import ConfirmAction from 'components/ConfirmAction';
 
-import { grindingWheels } from 'integration/grindingWheels';
+import useFormattedTools from 'hooks/useFormattedTools';
 
 import {
   removeContourFromOperation,
@@ -18,7 +18,8 @@ import {
   editOperation,
 } from 'state/part/partSlice';
 
-import { Contours, Operations } from 'types/part';
+import { ToolOptionItem } from 'components/Select/interface';
+import { Contours, OperationItem, Operations } from 'types/part';
 
 import { colors } from 'styles/global.styles';
 import {
@@ -52,6 +53,7 @@ const breadcrumbsItems = [
 
 const WorkGroup: React.FC = () => {
   const dispatch = useDispatch();
+  const formattedTools = useFormattedTools();
   const contours = useSelector(
     (state: { part: { contours: Contours } }) => state.part.contours,
   );
@@ -207,9 +209,9 @@ const WorkGroup: React.FC = () => {
             </Button>
           </AddBtn>
           <OpWrapper>
-            {operations.map((operation) => {
-              const matchedGrindingWheel = grindingWheels.find(
-                (wheel) => wheel.id === operation.toolId,
+            {operations.map((operation: OperationItem) => {
+              const matchedTool = formattedTools.find(
+                (tool: ToolOptionItem) => tool.id === operation.toolId,
               );
               return (
                 <SContentBlock key={operation.id}>
@@ -244,9 +246,7 @@ const WorkGroup: React.FC = () => {
                   </OpItemHeader>
                   <OpItemHeaderContent>
                     <OpItemHeaderSubTitle>
-                      <WheelText>
-                        {matchedGrindingWheel && matchedGrindingWheel.name}
-                      </WheelText>
+                      <WheelText>{matchedTool && matchedTool.label}</WheelText>
                       <BAxisAngleText>
                         Ângulo Eixo B: {operation.bAxisAngle}
                       </BAxisAngleText>

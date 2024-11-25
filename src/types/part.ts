@@ -1,5 +1,5 @@
 // Types
-export type ContourType = 'Internal' | 'External';
+export type ContourType = 1 | 2;
 
 // Interfaces
 export interface ActivitiyItem {

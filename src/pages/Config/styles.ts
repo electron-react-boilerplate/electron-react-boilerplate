@@ -9,6 +9,7 @@ import {
   ContentBlock,
   SubTitle,
 } from 'styles/Components';
+import Button from 'components/Button';
 
 export const Container = styled.div`
   width: 100%;
@@ -29,6 +30,31 @@ export const Title = styled(PageTitle)`
 
 export const SContentBlock = styled(ContentBlock)`
   margin-bottom: 20px;
+  max-height: 100%;
+`;
+
+export const SideBySideContainer = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+`;
+
+export const Side = styled.div`
+  width: 50%;
+`;
+
+export const ContentText = styled.div<{ color: string }>`
+  padding: 15px;
+  font-size: 18px;
+  box-sizing: border-box;
+  height: 53px;
+  background-color: ${colors.white};
+  border: 1px solid ${(props) => props.color};
+  color: ${(props) => props.color};
+`;
+
+export const SButton = styled(Button)`
+  width: auto;
+  align-self: flex-start;
 `;
 
 export const SSubTitle = styled(SubTitle)`

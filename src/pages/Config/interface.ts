@@ -1,7 +1,10 @@
 import { Config } from 'types/api';
 
 // Need to adjust if interface Config changes
-export type FieldKeys = keyof Config['network'] | keyof Config['cnc'];
+export type FieldKeys =
+  | keyof Config['network']
+  | keyof Config['cnc']
+  | keyof Config['tools'];
 
 export type FieldState = {
   value: string | number;
@@ -11,12 +14,7 @@ export type FieldState = {
 };
 
 export type FormState = {
-  ip: FieldState;
-  port: FieldState;
-  delRangeStart: FieldState;
-  delRangeEnd: FieldState;
-  pmcAddress: FieldState;
-  pmcAddressBit: FieldState;
+  [key in FieldKeys]: FieldState;
 };
 
 export type RenderFieldProps = {
@@ -25,3 +23,8 @@ export type RenderFieldProps = {
   type: string;
   placeholder: string;
 }[];
+
+export type ToolData = {
+  code: number;
+  value: number;
+};
