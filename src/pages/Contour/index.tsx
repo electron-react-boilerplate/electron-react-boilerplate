@@ -74,32 +74,32 @@ const Contour: React.FC = () => {
 
   const [visibleFields, setVisibleFields] = useState(
     formData.activities.map(() => [0, 1]),
-  ); // Inicialmente mostrando os dois primeiros campos para cada item
+  );
 
-  const handleNext = (index) => {
+  const handleNext = (index: number) => {
     setVisibleFields((prev) => {
       const newVisibleFields = [...prev];
       if (newVisibleFields[index][1] === 2) {
-        return prev; // Se já estiver mostrando "B, C", não faz nada
+        return prev;
       }
       newVisibleFields[index] = [
         newVisibleFields[index][0] + 1,
         newVisibleFields[index][1] + 1,
-      ]; // Avança para o próximo par
+      ];
       return newVisibleFields;
     });
   };
 
-  const handlePrev = (index) => {
+  const handlePrev = (index: number) => {
     setVisibleFields((prev) => {
       const newVisibleFields = [...prev];
       if (newVisibleFields[index][0] === 0) {
-        return prev; // Se já estiver mostrando "A, B", não faz nada
+        return prev;
       }
       newVisibleFields[index] = [
         newVisibleFields[index][0] - 1,
         newVisibleFields[index][1] - 1,
-      ]; // Volta para o par anterior
+      ];
       return newVisibleFields;
     });
   };
@@ -206,9 +206,7 @@ const Contour: React.FC = () => {
       ...formData.activities[index],
       id: index + 2,
     };
-    // função splice adiciona o novo item na posição index + 1
     newActivities.splice(index + 1, 0, newActivity);
-    // função map atualiza os ids dos itens seguintes
     newActivities = newActivities.map((activity, i) => {
       if (i >= index + 2) {
         return { ...activity, id: activity.id + 1 };
