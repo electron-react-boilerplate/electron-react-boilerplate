@@ -46,12 +46,15 @@ import {
   CodePreviewBtn,
   PageHead,
   BtnText,
+  TableScroll,
+  ScrollBtn,
+  RotatedIcon,
 } from './style';
 
 const defaultValue: ContourItem = {
   id: 0,
   name: '',
-  type: 'Internal',
+  type: 1,
   activities: [],
 };
 
@@ -60,7 +63,6 @@ const Contour: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const initialState: ContourItem = useSelector((state: { part: Part }) => {
     const contour = state.part.contours.find((c) => c.id === Number(id));
-    console.log('contour encontrado:', contour);
     return contour || defaultValue;
   });
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -70,6 +72,26 @@ const Contour: React.FC = () => {
   const [isEditingName, setIsEditingName] = useState<boolean>(false);
   const prevFormDataRef = useRef<ContourItem>(formData);
   const nameInputRef = useRef<HTMLInputElement | null>(null);
+
+  const [visibleFields, setVisibleFields] = useState([0, 1]); // Inicialmente mostrando os dois primeiros campos
+
+  const handleNext = () => {
+    setVisibleFields((prev) => {
+      if (prev[1] === 2) {
+        return prev;
+      }
+      return [prev[0] + 1, prev[1] + 1];
+    });
+  };
+
+  const handlePrev = () => {
+    setVisibleFields((prev) => {
+      if (prev[0] === 0) {
+        return prev;
+      }
+      return [prev[0] - 1, prev[1] - 1];
+    });
+  };
 
   const breadcrumbsItems = [
     {
@@ -360,75 +382,102 @@ const Contour: React.FC = () => {
                           <TableD>
                             <TableDivision>|</TableDivision>
                           </TableD>
-                          {item.aParamValue || item.aParamValue === '' ? (
-                            <TableD>
-                              <TableDContent>
-                                <TableInputLabel>
-                                  {item.aParamId}
-                                </TableInputLabel>
-                                <TableInputLabeled
-                                  className="input is-edit"
-                                  type="text"
-                                  name="aParamValue"
-                                  value={item.aParamValue}
-                                  onChange={(e) => handleChange(e, index)}
-                                />
-                              </TableDContent>
-                            </TableD>
-                          ) : (
-                            <TableD>
-                              <TableDContent>
-                                <TableInputLabel />
-                                <TableInputLabeled type="text" disabled />
-                              </TableDContent>
-                            </TableD>
-                          )}
-                          {item.bParamValue || item.bParamValue === '' ? (
-                            <TableD>
-                              <TableDContent>
-                                <TableInputLabel>
-                                  {item.bParamId}
-                                </TableInputLabel>
-                                <TableInputLabeled
-                                  className="input is-edit"
-                                  type="text"
-                                  name="bParamValue"
-                                  value={item.bParamValue}
-                                  onChange={(e) => handleChange(e, index)}
-                                />
-                              </TableDContent>
-                            </TableD>
-                          ) : (
-                            <TableD>
-                              <TableDContent>
-                                <TableInputLabel />
-                                <TableInputLabeled type="text" disabled />
-                              </TableDContent>
-                            </TableD>
-                          )}
-                          {item.cParamValue || item.cParamValue === '' ? (
-                            <TableD>
-                              <TableDContent>
-                                <TableInputLabel>
-                                  {item.cParamId}
-                                </TableInputLabel>
-                                <TableInputLabeled
-                                  className="input is-edit"
-                                  type="text"
-                                  name="cParamValue"
-                                  value={item.cParamValue}
-                                  onChange={(e) => handleChange(e, index)}
-                                />
-                              </TableDContent>
-                            </TableD>
-                          ) : (
-                            <TableD>
-                              <TableDContent>
-                                <TableInputLabel />
-                                <TableInputLabeled type="text" disabled />
-                              </TableDContent>
-                            </TableD>
-                          )}
+                          <TableD>
+                            <ScrollBtn
+                              type="button"
+                              onClick={() => handlePrev()}
+                            >
+                              <RotatedIcon
+                                className="icon-expand_less"
+                                color={colors.white}
+                                fontSize="22px"
+                              />
+                            </ScrollBtn>
+                          </TableD>
+                          {visibleFields.includes(0) &&
+                            (item.aParamValue || item.aParamValue === '' ? (
+                              <TableD>
+                                <TableDContent>
+                                  <TableInputLabel>
+                                    {item.aParamId}
+                                  </TableInputLabel>
+                                  <TableInputLabeled
+                                    className="input is-edit"
+                                    type="text"
+                                    name="aParamValue"
+                                    value={item.aParamValue}
+                                    onChange={(e) => handleChange(e, index)}
+                                  />
+                                </TableDContent>
+                              </TableD>
+                            ) : (
+                              <TableD>
+                                <TableDContent>
+                                  <TableInputLabel />
+                                  <TableInputLabeled type="text" disabled />
+                                </TableDContent>
+                              </TableD>
+                            ))}
+                          {visibleFields.includes(1) &&
+                            (item.bParamValue || item.bParamValue === '' ? (
+                              <TableD>
+                                <TableDContent>
+                                  <TableInputLabel>
+                                    {item.bParamId}
+                                  </TableInputLabel>
+                                  <TableInputLabeled
+                                    className="input is-edit"
+                                    type="text"
+                                    name="bParamValue"
+                                    value={item.bParamValue}
+                                    onChange={(e) => handleChange(e, index)}
+                                  />
+                                </TableDContent>
+                              </TableD>
+                            ) : (
+                              <TableD>
+                                <TableDContent>
+                                  <TableInputLabel />
+                                  <TableInputLabeled type="text" disabled />
+                                </TableDContent>
+                              </TableD>
+                            ))}
+                          {visibleFields.includes(2) &&
+                            (item.cParamValue || item.cParamValue === '' ? (
+                              <TableD>
+                                <TableDContent>
+                                  <TableInputLabel>
+                                    {item.cParamId}
+                                  </TableInputLabel>
+                                  <TableInputLabeled
+                                    className="input is-edit"
+                                    type="text"
+                                    name="cParamValue"
+                                    value={item.cParamValue}
+                                    onChange={(e) => handleChange(e, index)}
+                                  />
+                                </TableDContent>
+                              </TableD>
+                            ) : (
+                              <TableD>
+                                <TableDContent>
+                                  <TableInputLabel />
+                                  <TableInputLabeled type="text" disabled />
+                                </TableDContent>
+                              </TableD>
+                            ))}
+                          <TableD>
+                            <ScrollBtn
+                              type="button"
+                              onClick={() => handleNext()}
+                            >
+                              <RotatedIcon
+                                className="icon-expand_more"
+                                color={colors.white}
+                                fontSize="22px"
+                              />
+                            </ScrollBtn>
+                          </TableD>
                           <TableD>
                             <DeleteBtn
                               type="button"

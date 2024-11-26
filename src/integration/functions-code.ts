@@ -287,4 +287,17 @@ export const actionParams: auxActionParamsCode[] = [
     cParamValue: null,
     cParamValidation: null,
   },
+  // test case
+  {
+    actionCode: 'G121',
+    aParamId: 'A',
+    aParamValue: '',
+    aParamValidation: FROM_1_TO_9999_REGEX,
+    bParamId: 'M',
+    bParamValue: '',
+    bParamValidation: FROM_1_TO_9999_REGEX,
+    cParamId: 'S',
+    cParamValue: '',
+    cParamValidation: FROM_1_TO_9999_REGEX,
+  },
 ];

@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { PageTitle, PageContent, ContentBlock } from 'styles/Components';
 import { colors, measures } from 'styles/global.styles';
 
+import Icon from 'components/Icon';
+
 export const Container = styled.div`
   width: 100%;
 `;
@@ -163,6 +165,28 @@ export const TableInputLabel = styled.label`
   box-sizing: border-box;
   font-weight: bold;
   text-align: center;
+`;
+
+export const TableScroll = styled.div``;
+
+export const ScrollBtn = styled.button`
+  background-color: ${colors.greyDark};
+  border: 0;
+  margin: 0;
+  font-size: 22px;
+  line-height: 22px;
+  width: 30px;
+  height: 39px;
+  padding: 5px 0;
+  vertical-align: middle;
+  border-radius: ${measures.borderRadius};
+  font-weight: bolder;
+  cursor: pointer;
+  box-sizing: border-box;
+`;
+
+export const RotatedIcon = styled(Icon)`
+  transform: rotate(-90deg);
 `;
 
 export const AddBtn = styled.button`

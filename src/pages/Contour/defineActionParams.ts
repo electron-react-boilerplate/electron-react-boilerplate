@@ -1,9 +1,7 @@
-// Provavelmente essa função vai virar um componente que pegara os dados do select do menu config para abastecer o select e os seus respectivos parametros
 import { actionParams } from 'integration/functions-code';
 import { auxActionParams as auxActionParamsInterface } from './interface';
 
 function defineActionParams(actionCodeValue: string): auxActionParamsInterface {
-  // faria uma chamada de API para pegar os parametros de acordo com o actionCodeValue
   const params = actionParams.find((p) => p.actionCode === actionCodeValue);
 
   if (params) {
