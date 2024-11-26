@@ -8,12 +8,12 @@ export interface ActivitiyItem {
   zaxis: string;
   fvalue: string;
   actionCode: string;
-  aParamId: string;
-  aParamValue: string | null;
-  bParamId: string;
-  bParamValue: string | null;
-  cParamId: string;
-  cParamValue: string | null;
+  param1Id: string;
+  param1Value: string | null;
+  param2Id: string;
+  param2Value: string | null;
+  param3Id: string;
+  param3Value: string | null;
 }
 
 export interface Activities extends Array<ActivitiyItem> {}

@@ -11,15 +11,15 @@ function defineActionParams(actionCodeValue: string): auxActionParamsInterface {
     return rest;
   }
   return {
-    aParamId: '',
-    aParamValue: null,
-    aParamValidation: null,
-    bParamId: '',
-    bParamValue: null,
-    bParamValidation: null,
-    cParamId: '',
-    cParamValue: null,
-    cParamValidation: null,
+    param1Id: '',
+    param1Value: null,
+    param1Validation: null,
+    param2Id: '',
+    param2Value: null,
+    param2Validation: null,
+    param3Id: '',
+    param3Value: null,
+    param3Validation: null,
   };
 }
 

@@ -138,11 +138,11 @@ const Contour: React.FC = () => {
             const actionParams = defineActionParams(value);
             const {
               // eslint-disable-next-line @typescript-eslint/no-unused-vars
-              aParamValidation,
+              param1Validation,
               // eslint-disable-next-line @typescript-eslint/no-unused-vars
-              bParamValidation,
+              param2Validation,
               // eslint-disable-next-line @typescript-eslint/no-unused-vars
-              cParamValidation,
+              param3Validation,
               ...rest
             } = actionParams;
             return {
@@ -156,9 +156,9 @@ const Contour: React.FC = () => {
       });
     } else if (
       index !== undefined &&
-      (e.currentTarget.name === 'aParamValue' ||
-        e.currentTarget.name === 'bParamValue' ||
-        e.currentTarget.name === 'cParamValue')
+      (e.currentTarget.name === 'param1Value' ||
+        e.currentTarget.name === 'param2Value' ||
+        e.currentTarget.name === 'param3Value')
     ) {
       const actionCodeValue = formData.activities[index].actionCode;
       const params = actionParamsAux.find(
@@ -166,15 +166,15 @@ const Contour: React.FC = () => {
       );
       if (
         (params &&
-          ((e.currentTarget.name === 'aParamValue' &&
-            params.aParamValidation &&
-            value.match(params.aParamValidation)) ||
-            (e.currentTarget.name === 'bParamValue' &&
-              params.bParamValidation &&
-              value.match(params.bParamValidation)) ||
-            (e.currentTarget.name === 'cParamValue' &&
-              params.cParamValidation &&
-              value.match(params.cParamValidation)))) ||
+          ((e.currentTarget.name === 'param1Value' &&
+            params.param1Validation &&
+            value.match(params.param1Validation)) ||
+            (e.currentTarget.name === 'param2Value' &&
+              params.param2Validation &&
+              value.match(params.param2Validation)) ||
+            (e.currentTarget.name === 'param3Value' &&
+              params.param3Validation &&
+              value.match(params.param3Validation)))) ||
         value === ''
       ) {
         setFormData({
@@ -253,6 +253,34 @@ const Contour: React.FC = () => {
       nameInputRef.current.focus();
     }
   }, [isEditingName]);
+
+  const renderField = (
+    item: any,
+    fieldName: string,
+    fieldId: string,
+    index: number,
+  ) =>
+    item[fieldName] || item[fieldName] === '' ? (
+      <TableD key={fieldName}>
+        <TableDContent>
+          <TableInputLabel>{item[fieldId]}</TableInputLabel>
+          <TableInputLabeled
+            className="input is-edit"
+            type="text"
+            name={fieldName}
+            value={item[fieldName]}
+            onChange={(e) => handleChange(e, index)}
+          />
+        </TableDContent>
+      </TableD>
+    ) : (
+      <TableD key={fieldName}>
+        <TableDContent>
+          <TableInputLabel />
+          <TableInputLabeled type="text" disabled />
+        </TableDContent>
+      </TableD>
+    );
 
   return (
     <Container>
@@ -405,77 +433,11 @@ const Contour: React.FC = () => {
                             </ScrollBtn>
                           </TableD>
                           {visibleFields[index].includes(0) &&
-                            (item.aParamValue || item.aParamValue === '' ? (
-                              <TableD>
-                                <TableDContent>
-                                  <TableInputLabel>
-                                    {item.aParamId}
-                                  </TableInputLabel>
-                                  <TableInputLabeled
-                                    className="input is-edit"
-                                    type="text"
-                                    name="aParamValue"
-                                    value={item.aParamValue}
-                                    onChange={(e) => handleChange(e, index)}
-                                  />
-                                </TableDContent>
-                              </TableD>
-                            ) : (
-                              <TableD>
-                                <TableDContent>
-                                  <TableInputLabel />
-                                  <TableInputLabeled type="text" disabled />
-                                </TableDContent>
-                              </TableD>
-                            ))}
+                            renderField(item, 'param1Value', 'param1Id', index)}
                           {visibleFields[index].includes(1) &&
-                            (item.bParamValue || item.bParamValue === '' ? (
-                              <TableD>
-                                <TableDContent>
-                                  <TableInputLabel>
-                                    {item.bParamId}
-                                  </TableInputLabel>
-                                  <TableInputLabeled
-                                    className="input is-edit"
-                                    type="text"
-                                    name="bParamValue"
-                                    value={item.bParamValue}
-                                    onChange={(e) => handleChange(e, index)}
-                                  />
-                                </TableDContent>
-                              </TableD>
-                            ) : (
-                              <TableD>
-                                <TableDContent>
-                                  <TableInputLabel />
-                                  <TableInputLabeled type="text" disabled />
-                                </TableDContent>
-                              </TableD>
-                            ))}
+                            renderField(item, 'param2Value', 'param2Id', index)}
                           {visibleFields[index].includes(2) &&
-                            (item.cParamValue || item.cParamValue === '' ? (
-                              <TableD>
-                                <TableDContent>
-                                  <TableInputLabel>
-                                    {item.cParamId}
-                                  </TableInputLabel>
-                                  <TableInputLabeled
-                                    className="input is-edit"
-                                    type="text"
-                                    name="cParamValue"
-                                    value={item.cParamValue}
-                                    onChange={(e) => handleChange(e, index)}
-                                  />
-                                </TableDContent>
-                              </TableD>
-                            ) : (
-                              <TableD>
-                                <TableDContent>
-                                  <TableInputLabel />
-                                  <TableInputLabeled type="text" disabled />
-                                </TableDContent>
-                              </TableD>
-                            ))}
+                            renderField(item, 'param3Value', 'param3Id', index)}
                           <TableD>
                             <ScrollBtn
                               type="button"

@@ -21,14 +21,14 @@ function mountGCodeLine(
   const z = activity.zaxis ? `Z${activity.zaxis} ` : '';
   const f = activity.fvalue ? `F${activity.fvalue} ` : '';
   const a = activity.actionCode ? `${activity.actionCode} ` : '';
-  const aParam = activity.aParamValue
-    ? `${activity.aParamId}${activity.aParamValue} `
+  const aParam = activity.param1Value
+    ? `${activity.param1Id}${activity.param1Value} `
     : '';
-  const bParam = activity.bParamValue
-    ? `${activity.bParamId}${activity.bParamValue} `
+  const bParam = activity.param2Value
+    ? `${activity.param2Id}${activity.param2Value} `
     : '';
-  const cParam = activity.cParamValue
-    ? `${activity.cParamId}${activity.cParamValue} `
+  const cParam = activity.param3Value
+    ? `${activity.param3Id}${activity.param3Value} `
     : '';
   let gCodeLine = `N00${
     (n + 3) * 10

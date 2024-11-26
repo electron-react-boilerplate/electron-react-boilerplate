@@ -1,13 +1,13 @@
 export interface auxActionParams {
-  aParamId: string;
-  aParamValue: string | null;
-  aParamValidation: RegExp | null;
-  bParamId: string;
-  bParamValue: string | null;
-  bParamValidation: RegExp | null;
-  cParamId: string;
-  cParamValue: string | null;
-  cParamValidation: RegExp | null;
+  param1Id: string;
+  param1Value: string | null;
+  param1Validation: RegExp | null;
+  param2Id: string;
+  param2Value: string | null;
+  param2Validation: RegExp | null;
+  param3Id: string;
+  param3Value: string | null;
+  param3Validation: RegExp | null;
 }
 
 export interface auxActionParamsCode extends auxActionParams {
