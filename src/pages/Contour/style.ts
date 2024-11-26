@@ -176,7 +176,7 @@ export const ScrollBtn = styled.button`
   font-size: 22px;
   line-height: 22px;
   width: 30px;
-  height: 39px;
+  height: 40px;
   padding: 5px 0;
   vertical-align: middle;
   border-radius: ${measures.borderRadius};

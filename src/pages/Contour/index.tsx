@@ -46,7 +46,6 @@ import {
   CodePreviewBtn,
   PageHead,
   BtnText,
-  TableScroll,
   ScrollBtn,
   RotatedIcon,
 } from './style';
@@ -73,23 +72,35 @@ const Contour: React.FC = () => {
   const prevFormDataRef = useRef<ContourItem>(formData);
   const nameInputRef = useRef<HTMLInputElement | null>(null);
 
-  const [visibleFields, setVisibleFields] = useState([0, 1]); // Inicialmente mostrando os dois primeiros campos
+  const [visibleFields, setVisibleFields] = useState(
+    formData.activities.map(() => [0, 1]),
+  ); // Inicialmente mostrando os dois primeiros campos para cada item
 
-  const handleNext = () => {
+  const handleNext = (index) => {
     setVisibleFields((prev) => {
-      if (prev[1] === 2) {
-        return prev;
+      const newVisibleFields = [...prev];
+      if (newVisibleFields[index][1] === 2) {
+        return prev; // Se já estiver mostrando "B, C", não faz nada
       }
-      return [prev[0] + 1, prev[1] + 1];
+      newVisibleFields[index] = [
+        newVisibleFields[index][0] + 1,
+        newVisibleFields[index][1] + 1,
+      ]; // Avança para o próximo par
+      return newVisibleFields;
     });
   };
 
-  const handlePrev = () => {
+  const handlePrev = (index) => {
     setVisibleFields((prev) => {
-      if (prev[0] === 0) {
-        return prev;
+      const newVisibleFields = [...prev];
+      if (newVisibleFields[index][0] === 0) {
+        return prev; // Se já estiver mostrando "A, B", não faz nada
       }
-      return [prev[0] - 1, prev[1] - 1];
+      newVisibleFields[index] = [
+        newVisibleFields[index][0] - 1,
+        newVisibleFields[index][1] - 1,
+      ]; // Volta para o par anterior
+      return newVisibleFields;
     });
   };
 
@@ -208,6 +219,7 @@ const Contour: React.FC = () => {
       ...formData,
       activities: newActivities,
     });
+    setVisibleFields((prev) => [...prev, [0, 1]]);
   };
 
   const handleDelete = (index: number) => () => {
@@ -385,7 +397,7 @@ const Contour: React.FC = () => {
                           <TableD>
                             <ScrollBtn
                               type="button"
-                              onClick={() => handlePrev()}
+                              onClick={() => handlePrev(index)}
                             >
                               <RotatedIcon
                                 className="icon-expand_less"
@@ -394,7 +406,7 @@ const Contour: React.FC = () => {
                               />
                             </ScrollBtn>
                           </TableD>
-                          {visibleFields.includes(0) &&
+                          {visibleFields[index].includes(0) &&
                             (item.aParamValue || item.aParamValue === '' ? (
                               <TableD>
                                 <TableDContent>
@@ -418,7 +430,7 @@ const Contour: React.FC = () => {
                                 </TableDContent>
                               </TableD>
                             ))}
-                          {visibleFields.includes(1) &&
+                          {visibleFields[index].includes(1) &&
                             (item.bParamValue || item.bParamValue === '' ? (
                               <TableD>
                                 <TableDContent>
@@ -442,7 +454,7 @@ const Contour: React.FC = () => {
                                 </TableDContent>
                               </TableD>
                             ))}
-                          {visibleFields.includes(2) &&
+                          {visibleFields[index].includes(2) &&
                             (item.cParamValue || item.cParamValue === '' ? (
                               <TableD>
                                 <TableDContent>
@@ -469,7 +481,7 @@ const Contour: React.FC = () => {
                           <TableD>
                             <ScrollBtn
                               type="button"
-                              onClick={() => handleNext()}
+                              onClick={() => handleNext(index)}
                             >
                               <RotatedIcon
                                 className="icon-expand_more"
