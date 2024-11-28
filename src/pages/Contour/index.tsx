@@ -46,9 +46,10 @@ import {
   CodePreviewBtn,
   PageHead,
   BtnText,
-  ScrollBtn,
-  RotatedIcon,
+  // ScrollBtn,
+  // RotatedIcon,
 } from './style';
+import { ActionParamsValidation } from './interface';
 
 const defaultValue: ContourItem = {
   id: 0,
@@ -72,37 +73,39 @@ const Contour: React.FC = () => {
   const prevFormDataRef = useRef<ContourItem>(formData);
   const nameInputRef = useRef<HTMLInputElement | null>(null);
 
-  const [visibleFields, setVisibleFields] = useState(
-    formData.activities.map(() => [0, 1]),
-  );
+  // const [visibleFields, setVisibleFields] = useState(
+  //   formData.activities.map(() => [0, 1]),
+  // );
 
-  const handleNext = (index: number) => {
-    setVisibleFields((prev) => {
-      const newVisibleFields = [...prev];
-      if (newVisibleFields[index][1] === 2) {
-        return prev;
-      }
-      newVisibleFields[index] = [
-        newVisibleFields[index][0] + 1,
-        newVisibleFields[index][1] + 1,
-      ];
-      return newVisibleFields;
-    });
-  };
+  // const handleNext = (index: number) => {
+  //   setVisibleFields((prev) => {
+  //     const newVisibleFields = [...prev];
+  //     if (newVisibleFields[index][1] === 2) {
+  //       return prev;
+  //     }
+  //     newVisibleFields[index] = [
+  //       newVisibleFields[index][0] + 1,
+  //       newVisibleFields[index][1] + 1,
+  //     ];
+  //     console.log('newVisibleFields', newVisibleFields);
+  //     return newVisibleFields;
+  //   });
+  // };
 
-  const handlePrev = (index: number) => {
-    setVisibleFields((prev) => {
-      const newVisibleFields = [...prev];
-      if (newVisibleFields[index][0] === 0) {
-        return prev;
-      }
-      newVisibleFields[index] = [
-        newVisibleFields[index][0] - 1,
-        newVisibleFields[index][1] - 1,
-      ];
-      return newVisibleFields;
-    });
-  };
+  // const handlePrev = (index: number) => {
+  //   setVisibleFields((prev) => {
+  //     const newVisibleFields = [...prev];
+  //     if (newVisibleFields[index][0] === 0) {
+  //       return prev;
+  //     }
+  //     newVisibleFields[index] = [
+  //       newVisibleFields[index][0] - 1,
+  //       newVisibleFields[index][1] - 1,
+  //     ];
+  //     console.log('newVisibleFields', newVisibleFields);
+  //     return newVisibleFields;
+  //   });
+  // };
 
   const breadcrumbsItems = [
     {
@@ -116,6 +119,10 @@ const Contour: React.FC = () => {
       isActive: true,
     },
   ];
+
+  useEffect(() => {
+    console.log('formData', formData);
+  }, [formData]);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -135,18 +142,12 @@ const Contour: React.FC = () => {
         ...formData,
         activities: formData.activities.map((item, i) => {
           if (i === index) {
-            const actionParams = defineActionParams(value);
-            const {
-              // eslint-disable-next-line @typescript-eslint/no-unused-vars
-              param1Validation,
-              // eslint-disable-next-line @typescript-eslint/no-unused-vars
-              param2Validation,
-              // eslint-disable-next-line @typescript-eslint/no-unused-vars
-              param3Validation,
-              ...rest
-            } = actionParams;
+            const newactionParams: ActionParamsValidation =
+              defineActionParams(value);
+            const { ...rest } = newactionParams;
             return {
               ...item,
+              actionParams: newactionParams,
               [e.currentTarget.name]: value,
               ...rest,
             };
@@ -156,25 +157,29 @@ const Contour: React.FC = () => {
       });
     } else if (
       index !== undefined &&
-      (e.currentTarget.name === 'param1Value' ||
-        e.currentTarget.name === 'param2Value' ||
-        e.currentTarget.name === 'param3Value')
+      e.currentTarget.name.startsWith('actionParam')
     ) {
       const actionCodeValue = formData.activities[index].actionCode;
       const params = actionParamsAux.find(
         (p) => p.actionCode === actionCodeValue,
       );
+      const actionParamId = params?.actionParams.find((ap) => {
+        const name = `actionParam${ap.id}`;
+        return name === e.currentTarget.name;
+      })?.id;
+      const actionParamFieldName = `actionParam${actionParamId}`;
+      const actionParamFieldValidation = params?.actionParams.find(
+        (ap) => ap.id,
+      )?.validation;
+
+      console.log('actionParamFieldName', actionParamFieldName);
+      console.log('actionParamFieldValidation', actionParamFieldValidation);
+
       if (
         (params &&
-          ((e.currentTarget.name === 'param1Value' &&
-            params.param1Validation &&
-            value.match(params.param1Validation)) ||
-            (e.currentTarget.name === 'param2Value' &&
-              params.param2Validation &&
-              value.match(params.param2Validation)) ||
-            (e.currentTarget.name === 'param3Value' &&
-              params.param3Validation &&
-              value.match(params.param3Validation)))) ||
+          e.currentTarget.name === actionParamFieldName &&
+          actionParamFieldValidation &&
+          value.match(actionParamFieldValidation)) ||
         value === ''
       ) {
         setFormData({
@@ -217,7 +222,7 @@ const Contour: React.FC = () => {
       ...formData,
       activities: newActivities,
     });
-    setVisibleFields((prev) => [...prev, [0, 1]]);
+    // setVisibleFields((prev) => [...prev, [0, 1]]);
   };
 
   const handleDelete = (index: number) => () => {
@@ -255,32 +260,39 @@ const Contour: React.FC = () => {
   }, [isEditingName]);
 
   const renderField = (
-    item: any,
+    item: any, // ActivitiyItem com actionParams modificado para ActionParamsValidation
     fieldName: string,
     fieldId: string,
     index: number,
-  ) =>
-    item[fieldName] || item[fieldName] === '' ? (
-      <TableD key={fieldName}>
-        <TableDContent>
-          <TableInputLabel>{item[fieldId]}</TableInputLabel>
-          <TableInputLabeled
-            className="input is-edit"
-            type="text"
-            name={fieldName}
-            value={item[fieldName]}
-            onChange={(e) => handleChange(e, index)}
-          />
-        </TableDContent>
-      </TableD>
-    ) : (
-      <TableD key={fieldName}>
+  ) => {
+    // console.log('item', item);
+    // console.log('fieldName', fieldName);
+    // console.log('fieldId', fieldId);
+    if (fieldId && fieldId !== '') {
+      return (
+        <TableD key={fieldName}>
+          <TableDContent>
+            <TableInputLabel>{fieldId}</TableInputLabel>
+            <TableInputLabeled
+              className="input is-edit"
+              type="text"
+              name={fieldName}
+              value={item[fieldName]}
+              onChange={(e) => handleChange(e, index)}
+            />
+          </TableDContent>
+        </TableD>
+      );
+    }
+    return (
+      <TableD>
         <TableDContent>
           <TableInputLabel />
           <TableInputLabeled type="text" disabled />
         </TableDContent>
       </TableD>
     );
+  };
 
   return (
     <Container>
@@ -420,7 +432,7 @@ const Contour: React.FC = () => {
                           <TableD>
                             <TableDivision>|</TableDivision>
                           </TableD>
-                          <TableD>
+                          {/* <TableD>
                             <ScrollBtn
                               type="button"
                               onClick={() => handlePrev(index)}
@@ -431,14 +443,16 @@ const Contour: React.FC = () => {
                                 fontSize="22px"
                               />
                             </ScrollBtn>
-                          </TableD>
-                          {visibleFields[index].includes(0) &&
-                            renderField(item, 'param1Value', 'param1Id', index)}
-                          {visibleFields[index].includes(1) &&
-                            renderField(item, 'param2Value', 'param2Id', index)}
-                          {visibleFields[index].includes(2) &&
-                            renderField(item, 'param3Value', 'param3Id', index)}
-                          <TableD>
+                          </TableD> */}
+                          {item.actionParams.map((param) =>
+                            renderField(
+                              item,
+                              `actionParam${param.id}`,
+                              param.id,
+                              index,
+                            ),
+                          )}
+                          {/* <TableD>
                             <ScrollBtn
                               type="button"
                               onClick={() => handleNext(index)}
@@ -449,7 +463,7 @@ const Contour: React.FC = () => {
                                 fontSize="22px"
                               />
                             </ScrollBtn>
-                          </TableD>
+                          </TableD> */}
                           <TableD>
                             <DeleteBtn
                               type="button"

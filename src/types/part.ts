@@ -2,18 +2,21 @@
 export type ContourType = 1 | 2;
 
 // Interfaces
+
+export interface ActionParamItem {
+  id: string;
+  value: string | null;
+}
+
+export interface ActionParams extends Array<ActionParamItem> {}
+
 export interface ActivitiyItem {
   id: number;
   xaxis: string;
   zaxis: string;
   fvalue: string;
   actionCode: string;
-  param1Id: string;
-  param1Value: string | null;
-  param2Id: string;
-  param2Value: string | null;
-  param3Id: string;
-  param3Value: string | null;
+  actionParams: ActionParams;
 }
 
 export interface Activities extends Array<ActivitiyItem> {}
