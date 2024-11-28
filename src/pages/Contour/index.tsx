@@ -142,14 +142,21 @@ const Contour: React.FC = () => {
         ...formData,
         activities: formData.activities.map((item, i) => {
           if (i === index) {
-            const newactionParams: ActionParamsValidation =
+            const newActionParams: ActionParamsValidation =
               defineActionParams(value);
-            const { ...rest } = newactionParams;
+
+            // Remove props to prevent user error
+            const updatedItem = { ...item };
+            Object.keys(updatedItem).forEach((key) => {
+              if (key.startsWith('actionParam')) {
+                delete (updatedItem as any)[key];
+              }
+            });
+
             return {
-              ...item,
-              actionParams: newactionParams,
+              ...updatedItem,
+              actionParams: newActionParams,
               [e.currentTarget.name]: value,
-              ...rest,
             };
           }
           return item;
