@@ -10,12 +10,13 @@ import GrindingTypeLabel from 'components/GrindingTypeLabel';
 import Modal from 'components/Modal';
 import CodePreview from 'components/CodePreview';
 
-import { StyledIcon } from 'components/SideMenu/styles';
-
-import { XZ_REGEX } from 'utils/constants';
-import { ContourItem, Part } from 'types/part';
-import { colors } from 'styles/global.styles';
 import { actionParams as actionParamsAux } from 'integration/functions-code';
+import { XZ_REGEX } from 'utils/constants';
+
+import { ContourItem, Part } from 'types/part';
+import { StyledIcon } from 'components/SideMenu/styles';
+import { colors } from 'styles/global.styles';
+
 import defineActionParams from './defineActionParams';
 
 import {
@@ -46,8 +47,8 @@ import {
   CodePreviewBtn,
   PageHead,
   BtnText,
-  // ScrollBtn,
-  // RotatedIcon,
+  ScrollBtn,
+  RotatedIcon,
 } from './style';
 import { ActionParamsValidation } from './interface';
 
@@ -73,39 +74,42 @@ const Contour: React.FC = () => {
   const prevFormDataRef = useRef<ContourItem>(formData);
   const nameInputRef = useRef<HTMLInputElement | null>(null);
 
-  // const [visibleFields, setVisibleFields] = useState(
-  //   formData.activities.map(() => [0, 1]),
-  // );
+  const [visibleFields, setVisibleFields] = useState(
+    formData.activities.map(() => [0, 1]),
+  );
 
-  // const handleNext = (index: number) => {
-  //   setVisibleFields((prev) => {
-  //     const newVisibleFields = [...prev];
-  //     if (newVisibleFields[index][1] === 2) {
-  //       return prev;
-  //     }
-  //     newVisibleFields[index] = [
-  //       newVisibleFields[index][0] + 1,
-  //       newVisibleFields[index][1] + 1,
-  //     ];
-  //     console.log('newVisibleFields', newVisibleFields);
-  //     return newVisibleFields;
-  //   });
-  // };
+  const handleNext = (index: number) => {
+    setVisibleFields((prev) => {
+      const newVisibleFields = [...prev];
+      if (
+        newVisibleFields[index][1] >=
+        formData.activities[index].actionParams.length - 1
+      ) {
+        return prev;
+      }
+      newVisibleFields[index] = [
+        newVisibleFields[index][0] + 1,
+        newVisibleFields[index][1] + 1,
+      ];
+      console.log('newVisibleFields', newVisibleFields);
+      return newVisibleFields;
+    });
+  };
 
-  // const handlePrev = (index: number) => {
-  //   setVisibleFields((prev) => {
-  //     const newVisibleFields = [...prev];
-  //     if (newVisibleFields[index][0] === 0) {
-  //       return prev;
-  //     }
-  //     newVisibleFields[index] = [
-  //       newVisibleFields[index][0] - 1,
-  //       newVisibleFields[index][1] - 1,
-  //     ];
-  //     console.log('newVisibleFields', newVisibleFields);
-  //     return newVisibleFields;
-  //   });
-  // };
+  const handlePrev = (index: number) => {
+    setVisibleFields((prev) => {
+      const newVisibleFields = [...prev];
+      if (newVisibleFields[index][0] === 0) {
+        return prev;
+      }
+      newVisibleFields[index] = [
+        newVisibleFields[index][0] - 1,
+        newVisibleFields[index][1] - 1,
+      ];
+      console.log('newVisibleFields', newVisibleFields);
+      return newVisibleFields;
+    });
+  };
 
   const breadcrumbsItems = [
     {
@@ -229,7 +233,7 @@ const Contour: React.FC = () => {
       ...formData,
       activities: newActivities,
     });
-    // setVisibleFields((prev) => [...prev, [0, 1]]);
+    setVisibleFields((prev) => [...prev, [0, 1]]);
   };
 
   const handleDelete = (index: number) => () => {
@@ -291,14 +295,7 @@ const Contour: React.FC = () => {
         </TableD>
       );
     }
-    return (
-      <TableD>
-        <TableDContent>
-          <TableInputLabel />
-          <TableInputLabeled type="text" disabled />
-        </TableDContent>
-      </TableD>
-    );
+    return null;
   };
 
   return (
@@ -439,7 +436,7 @@ const Contour: React.FC = () => {
                           <TableD>
                             <TableDivision>|</TableDivision>
                           </TableD>
-                          {/* <TableD>
+                          <TableD>
                             <ScrollBtn
                               type="button"
                               onClick={() => handlePrev(index)}
@@ -450,16 +447,44 @@ const Contour: React.FC = () => {
                                 fontSize="22px"
                               />
                             </ScrollBtn>
-                          </TableD> */}
-                          {item.actionParams.map((param) =>
-                            renderField(
-                              item,
-                              `actionParam${param.id}`,
-                              param.id,
-                              index,
-                            ),
+                          </TableD>
+                          {item.actionParams.map((param, paramIndex) => {
+                            if (visibleFields[index].includes(paramIndex)) {
+                              return renderField(
+                                item,
+                                `actionParam${param.id}`,
+                                param.id,
+                                index,
+                              );
+                            }
+                            return null;
+                          })}
+                          {item.actionParams.length === 0 ? (
+                            <>
+                              <TableD>
+                                <TableDContent>
+                                  <TableInputLabel />
+                                  <TableInputLabeled type="text" disabled />
+                                </TableDContent>
+                              </TableD>
+                              <TableD>
+                                <TableDContent>
+                                  <TableInputLabel />
+                                  <TableInputLabeled type="text" disabled />
+                                </TableDContent>
+                              </TableD>
+                            </>
+                          ) : (
+                            item.actionParams.length === 1 && (
+                              <TableD>
+                                <TableDContent>
+                                  <TableInputLabel />
+                                  <TableInputLabeled type="text" disabled />
+                                </TableDContent>
+                              </TableD>
+                            )
                           )}
-                          {/* <TableD>
+                          <TableD>
                             <ScrollBtn
                               type="button"
                               onClick={() => handleNext(index)}
@@ -470,7 +495,7 @@ const Contour: React.FC = () => {
                                 fontSize="22px"
                               />
                             </ScrollBtn>
-                          </TableD> */}
+                          </TableD>
                           <TableD>
                             <DeleteBtn
                               type="button"
