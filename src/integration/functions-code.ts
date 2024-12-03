@@ -16,7 +16,6 @@ export const actionParams: auxActionParamsCode[] = [
     actionParams: [
       {
         id: 'S',
-        value: '',
         validation: FROM_1_TO_2K_REGEX,
       },
     ],
@@ -26,7 +25,6 @@ export const actionParams: auxActionParamsCode[] = [
     actionParams: [
       {
         id: 'S',
-        value: '',
         validation: FROM_1_TO_2K_REGEX,
       },
     ],
@@ -36,7 +34,6 @@ export const actionParams: auxActionParamsCode[] = [
     actionParams: [
       {
         id: 'S',
-        value: '',
         validation: FROM_1_TO_60_REGEX,
       },
     ],
@@ -46,7 +43,6 @@ export const actionParams: auxActionParamsCode[] = [
     actionParams: [
       {
         id: 'S',
-        value: '',
         validation: FROM_1_TO_2K_REGEX,
       },
     ],
@@ -56,7 +52,6 @@ export const actionParams: auxActionParamsCode[] = [
     actionParams: [
       {
         id: 'S',
-        value: '',
         validation: FROM_1_TO_2K_REGEX,
       },
     ],
@@ -66,7 +61,6 @@ export const actionParams: auxActionParamsCode[] = [
     actionParams: [
       {
         id: 'S',
-        value: '',
         validation: FROM_1_TO_60_REGEX,
       },
     ],
@@ -76,7 +70,6 @@ export const actionParams: auxActionParamsCode[] = [
     actionParams: [
       {
         id: 'S',
-        value: '',
         validation: FROM_1_TO_60_REGEX,
       },
     ],
@@ -86,7 +79,6 @@ export const actionParams: auxActionParamsCode[] = [
     actionParams: [
       {
         id: 'S',
-        value: '',
         validation: FROM_1_TO_10K_REGEX,
       },
     ],
@@ -96,7 +88,6 @@ export const actionParams: auxActionParamsCode[] = [
     actionParams: [
       {
         id: 'S',
-        value: '',
         validation: FROM_1_TO_60_REGEX,
       },
     ],
@@ -106,7 +97,6 @@ export const actionParams: auxActionParamsCode[] = [
     actionParams: [
       {
         id: 'S',
-        value: '',
         validation: FROM_1_TO_2K_REGEX,
       },
     ],
@@ -116,7 +106,6 @@ export const actionParams: auxActionParamsCode[] = [
     actionParams: [
       {
         id: 'S',
-        value: '',
         validation: FROM_1_TO_2K_REGEX,
       },
     ],
@@ -126,7 +115,6 @@ export const actionParams: auxActionParamsCode[] = [
     actionParams: [
       {
         id: 'S',
-        value: '',
         validation: FROM_1_TO_3K_REGEX,
       },
     ],
@@ -136,7 +124,6 @@ export const actionParams: auxActionParamsCode[] = [
     actionParams: [
       {
         id: 'S',
-        value: '',
         validation: FROM_1_TO_18K_REGEX,
       },
     ],
@@ -146,7 +133,6 @@ export const actionParams: auxActionParamsCode[] = [
     actionParams: [
       {
         id: 'S',
-        value: '',
         validation: FROM_1_TO_2K_REGEX,
       },
     ],
@@ -156,7 +142,6 @@ export const actionParams: auxActionParamsCode[] = [
     actionParams: [
       {
         id: 'S',
-        value: '',
         validation: FROM_1_TO_2K_REGEX,
       },
     ],
@@ -166,7 +151,6 @@ export const actionParams: auxActionParamsCode[] = [
     actionParams: [
       {
         id: 'S',
-        value: '',
         validation: FROM_1_TO_18K_REGEX,
       },
     ],
@@ -176,7 +160,6 @@ export const actionParams: auxActionParamsCode[] = [
     actionParams: [
       {
         id: 'S',
-        value: '',
         validation: FROM_1_TO_10K_REGEX,
       },
     ],
@@ -186,7 +169,6 @@ export const actionParams: auxActionParamsCode[] = [
     actionParams: [
       {
         id: 'S',
-        value: '',
         validation: FROM_1_TO_10K_REGEX,
       },
     ],
@@ -196,7 +178,6 @@ export const actionParams: auxActionParamsCode[] = [
     actionParams: [
       {
         id: 'R',
-        value: '',
         validation: FROM_0001_TO_100_REGEX,
       },
     ],
@@ -206,7 +187,6 @@ export const actionParams: auxActionParamsCode[] = [
     actionParams: [
       {
         id: 'R',
-        value: '',
         validation: FROM_0001_TO_100_REGEX,
       },
     ],
@@ -216,7 +196,6 @@ export const actionParams: auxActionParamsCode[] = [
     actionParams: [
       {
         id: 'P1',
-        value: '',
         validation: null,
       },
     ],
@@ -226,7 +205,6 @@ export const actionParams: auxActionParamsCode[] = [
     actionParams: [
       {
         id: 'P',
-        value: '',
         validation: FROM_1_TO_10_REGEX,
       },
     ],
@@ -236,7 +214,6 @@ export const actionParams: auxActionParamsCode[] = [
     actionParams: [
       {
         id: 'P',
-        value: '',
         validation: FROM_1_TO_9999_REGEX,
       },
     ],
@@ -247,17 +224,14 @@ export const actionParams: auxActionParamsCode[] = [
     actionParams: [
       {
         id: 'A',
-        value: '',
         validation: FROM_1_TO_9999_REGEX,
       },
       {
         id: 'M',
-        value: '',
         validation: FROM_1_TO_9999_REGEX,
       },
       {
         id: 'S',
-        value: '',
         validation: FROM_1_TO_9999_REGEX,
       },
     ],
