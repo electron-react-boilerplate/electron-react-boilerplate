@@ -21,18 +21,12 @@ function mountGCodeLine(
   const z = activity.zaxis ? `Z${activity.zaxis} ` : '';
   const f = activity.fvalue ? `F${activity.fvalue} ` : '';
   const a = activity.actionCode ? `${activity.actionCode} ` : '';
-  const aParam = activity.param1Value
-    ? `${activity.param1Id}${activity.param1Value} `
-    : '';
-  const bParam = activity.param2Value
-    ? `${activity.param2Id}${activity.param2Value} `
-    : '';
-  const cParam = activity.param3Value
-    ? `${activity.param3Id}${activity.param3Value} `
-    : '';
-  let gCodeLine = `N00${
-    (n + 3) * 10
-  } G90 ${rm}${x}${z}${f}${a}${aParam}${bParam}${cParam}\n`;
+
+  const adtParams = Object.keys(activity)
+    .filter((key) => key.startsWith('adtParam'))
+    .map((key) => `${key.slice(-1)}${activity[key as keyof ActivitiyItem]} `)
+    .join('');
+  let gCodeLine = `N00${(n + 3) * 10} G90 ${rm}${x}${z}${f}${a}${adtParams}\n`;
 
   if (isLastLine) gCodeLine = `${gCodeLine}N00${(n + 4) * 10} M99`;
 

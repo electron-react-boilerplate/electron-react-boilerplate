@@ -80,18 +80,6 @@ const Contour: React.FC = () => {
   const [canNavigateNext, setCanNavigateNext] = useState<boolean[]>([]);
   const [canNavigatePrev, setCanNavigatePrev] = useState<boolean[]>([]);
 
-  useEffect(() => {
-    console.log('visibleFields', visibleFields);
-  }, [formData, visibleFields]);
-
-  useEffect(() => {
-    console.log('canNavigateNext', canNavigateNext);
-  }, [formData, canNavigateNext]);
-
-  useEffect(() => {
-    console.log('canNavigatePrev', canNavigatePrev);
-  }, [formData, canNavigatePrev]);
-
   const breadcrumbsItems = [
     {
       label: 'Grupo de Trabalho',
@@ -203,7 +191,7 @@ const Contour: React.FC = () => {
             // Remove props to prevent user error
             const updatedItem = { ...item };
             Object.keys(updatedItem).forEach((key) => {
-              if (key.startsWith('actionParam')) {
+              if (key.startsWith('adtParam')) {
                 delete (updatedItem as any)[key];
               }
             });
@@ -225,17 +213,17 @@ const Contour: React.FC = () => {
       });
     } else if (
       index !== undefined &&
-      e.currentTarget.name.startsWith('actionParam')
+      e.currentTarget.name.startsWith('adtParam')
     ) {
       const actionCodeValue = formData.activities[index].actionCode;
       const params = actionParamsAux.find(
         (p) => p.actionCode === actionCodeValue,
       );
       const actionParamId = params?.actionParams.find((ap) => {
-        const name = `actionParam${ap.id}`;
+        const name = `adtParam${ap.id}`; // adtParam = short for additionalParam
         return name === e.currentTarget.name;
       })?.id;
-      const actionParamFieldName = `actionParam${actionParamId}`;
+      const actionParamFieldName = `adtParam${actionParamId}`;
       const actionParamFieldValidation = params?.actionParams.find(
         (ap) => ap.id,
       )?.validation;
@@ -547,7 +535,7 @@ const Contour: React.FC = () => {
                             if (visibleFields[index].includes(paramIndex)) {
                               return renderField(
                                 item,
-                                `actionParam${param.id}`,
+                                `adtParam${param.id}`,
                                 param.id,
                                 index,
                               );
