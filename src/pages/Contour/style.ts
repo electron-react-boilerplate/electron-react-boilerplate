@@ -169,8 +169,8 @@ export const TableInputLabel = styled.label`
 
 export const TableScroll = styled.div``;
 
-export const ScrollBtn = styled.button`
-  background-color: ${colors.greyDark};
+export const ScrollBtn = styled.button<{ color: string }>`
+  background-color: ${(props) => props.color};
   border: 0;
   margin: 0;
   font-size: 22px;

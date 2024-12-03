@@ -77,39 +77,8 @@ const Contour: React.FC = () => {
   const [visibleFields, setVisibleFields] = useState(
     formData.activities.map(() => [0, 1]),
   );
-
-  const handleNext = (index: number) => {
-    setVisibleFields((prev) => {
-      const newVisibleFields = [...prev];
-      if (
-        newVisibleFields[index][1] >=
-        formData.activities[index].actionParams.length - 1
-      ) {
-        return prev;
-      }
-      newVisibleFields[index] = [
-        newVisibleFields[index][0] + 1,
-        newVisibleFields[index][1] + 1,
-      ];
-      console.log('newVisibleFields', newVisibleFields);
-      return newVisibleFields;
-    });
-  };
-
-  const handlePrev = (index: number) => {
-    setVisibleFields((prev) => {
-      const newVisibleFields = [...prev];
-      if (newVisibleFields[index][0] === 0) {
-        return prev;
-      }
-      newVisibleFields[index] = [
-        newVisibleFields[index][0] - 1,
-        newVisibleFields[index][1] - 1,
-      ];
-      console.log('newVisibleFields', newVisibleFields);
-      return newVisibleFields;
-    });
-  };
+  const [canNavigateNext, setCanNavigateNext] = useState<boolean[]>([]);
+  const [canNavigatePrev, setCanNavigatePrev] = useState<boolean[]>([]);
 
   const breadcrumbsItems = [
     {
@@ -124,9 +93,79 @@ const Contour: React.FC = () => {
     },
   ];
 
+  const updateNavigationAvailability = (
+    index: number,
+    newVisibleFields: number[][],
+  ) => {
+    setCanNavigateNext((prev) => {
+      const newCanNavigateNext = [...prev];
+      newCanNavigateNext[index] =
+        newVisibleFields[index][1] <
+        formData.activities[index].actionParams.length - 1;
+      return newCanNavigateNext;
+    });
+
+    setCanNavigatePrev((prev) => {
+      const newCanNavigatePrev = [...prev];
+      newCanNavigatePrev[index] = newVisibleFields[index][0] > 0;
+      return newCanNavigatePrev;
+    });
+  };
+
+  const handleNext = (index: number) => {
+    setVisibleFields((prev) => {
+      const newVisibleFields = [...prev];
+      if (
+        newVisibleFields[index][1] >=
+        formData.activities[index].actionParams.length - 1
+      ) {
+        return prev;
+      }
+      newVisibleFields[index] = [
+        newVisibleFields[index][0] + 1,
+        newVisibleFields[index][1] + 1,
+      ];
+      updateNavigationAvailability(index, newVisibleFields);
+      return newVisibleFields;
+    });
+  };
+
+  const handlePrev = (index: number) => {
+    setVisibleFields((prev) => {
+      const newVisibleFields = [...prev];
+      if (newVisibleFields[index][0] === 0) {
+        return prev;
+      }
+      newVisibleFields[index] = [
+        newVisibleFields[index][0] - 1,
+        newVisibleFields[index][1] - 1,
+      ];
+      updateNavigationAvailability(index, newVisibleFields);
+      return newVisibleFields;
+    });
+  };
+
   useEffect(() => {
-    console.log('formData', formData);
-  }, [formData]);
+    setCanNavigateNext((prev) => {
+      const newCanNavigateNext = formData.activities.map((activity, index) => {
+        if (prev[index] !== undefined) {
+          return prev[index];
+        }
+        return activity.actionParams.length > 1;
+      });
+      return newCanNavigateNext;
+    });
+
+    setCanNavigatePrev((prev) => {
+      const newCanNavigatePrev = formData.activities.map((_, index) => {
+        if (prev[index] !== undefined) {
+          return prev[index];
+        }
+        return false;
+      });
+      return newCanNavigatePrev;
+    });
+  }, [formData.activities]);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -157,6 +196,12 @@ const Contour: React.FC = () => {
               }
             });
 
+            setCanNavigateNext((prev) => {
+              const newCanNavigateNext = [...prev];
+              newCanNavigateNext[index] = newActionParams.length > 2;
+              return newCanNavigateNext;
+            });
+
             return {
               ...updatedItem,
               actionParams: newActionParams,
@@ -182,9 +227,6 @@ const Contour: React.FC = () => {
       const actionParamFieldValidation = params?.actionParams.find(
         (ap) => ap.id,
       )?.validation;
-
-      console.log('actionParamFieldName', actionParamFieldName);
-      console.log('actionParamFieldValidation', actionParamFieldValidation);
 
       if (
         (params &&
@@ -234,6 +276,7 @@ const Contour: React.FC = () => {
       activities: newActivities,
     });
     setVisibleFields((prev) => [...prev, [0, 1]]);
+    updateNavigationAvailability(index, [...visibleFields, [0, 1]]);
   };
 
   const handleDelete = (index: number) => () => {
@@ -276,9 +319,6 @@ const Contour: React.FC = () => {
     fieldId: string,
     index: number,
   ) => {
-    // console.log('item', item);
-    // console.log('fieldName', fieldName);
-    // console.log('fieldId', fieldId);
     if (fieldId && fieldId !== '') {
       return (
         <TableD key={fieldName}>
@@ -440,6 +480,11 @@ const Contour: React.FC = () => {
                             <ScrollBtn
                               type="button"
                               onClick={() => handlePrev(index)}
+                              color={
+                                canNavigatePrev[index]
+                                  ? colors.blue
+                                  : colors.greyMedium
+                              }
                             >
                               <RotatedIcon
                                 className="icon-expand_less"
@@ -488,6 +533,11 @@ const Contour: React.FC = () => {
                             <ScrollBtn
                               type="button"
                               onClick={() => handleNext(index)}
+                              color={
+                                canNavigateNext[index]
+                                  ? colors.blue
+                                  : colors.greyMedium
+                              }
                             >
                               <RotatedIcon
                                 className="icon-expand_more"
