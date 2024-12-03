@@ -80,6 +80,18 @@ const Contour: React.FC = () => {
   const [canNavigateNext, setCanNavigateNext] = useState<boolean[]>([]);
   const [canNavigatePrev, setCanNavigatePrev] = useState<boolean[]>([]);
 
+  useEffect(() => {
+    console.log('visibleFields', visibleFields);
+  }, [formData, visibleFields]);
+
+  useEffect(() => {
+    console.log('canNavigateNext', canNavigateNext);
+  }, [formData, canNavigateNext]);
+
+  useEffect(() => {
+    console.log('canNavigatePrev', canNavigatePrev);
+  }, [formData, canNavigatePrev]);
+
   const breadcrumbsItems = [
     {
       label: 'Grupo de Trabalho',
@@ -275,8 +287,28 @@ const Contour: React.FC = () => {
       ...formData,
       activities: newActivities,
     });
-    setVisibleFields((prev) => [...prev, [0, 1]]);
-    updateNavigationAvailability(index, [...visibleFields, [0, 1]]);
+
+    setVisibleFields((prev) => {
+      const newVisibleFields = [...prev];
+      newVisibleFields.splice(index + 1, 0, [0, 1]);
+      return newVisibleFields;
+    });
+
+    setCanNavigateNext((prev) => {
+      const newCanNavigateNext = [...prev];
+      newCanNavigateNext.splice(
+        index + 1,
+        0,
+        newActivity.actionParams.length > 2,
+      );
+      return newCanNavigateNext;
+    });
+
+    setCanNavigatePrev((prev) => {
+      const newCanNavigatePrev = [...prev];
+      newCanNavigatePrev.splice(index + 1, 0, false);
+      return newCanNavigatePrev;
+    });
   };
 
   const handleDelete = (index: number) => () => {
@@ -289,6 +321,24 @@ const Contour: React.FC = () => {
       setFormData({
         ...formData,
         activities: newActivities,
+      });
+
+      setVisibleFields((prev) => {
+        const newVisibleFields = [...prev];
+        newVisibleFields.splice(index, 1);
+        return newVisibleFields;
+      });
+
+      setCanNavigateNext((prev) => {
+        const newCanNavigateNext = [...prev];
+        newCanNavigateNext.splice(index, 1);
+        return newCanNavigateNext;
+      });
+
+      setCanNavigatePrev((prev) => {
+        const newCanNavigatePrev = [...prev];
+        newCanNavigatePrev.splice(index, 1);
+        return newCanNavigatePrev;
       });
     }
   };
