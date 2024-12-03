@@ -253,7 +253,6 @@ const Contour: React.FC = () => {
           value.match(RegExp(actionParamFieldValidation))) ||
         value === ''
       ) {
-        console.log('inside if');
         setFormData({
           ...formData,
           activities: formData.activities.map((item, i) => {
