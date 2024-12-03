@@ -192,14 +192,32 @@ const Contour: React.FC = () => {
             const updatedItem = { ...item };
             Object.keys(updatedItem).forEach((key) => {
               if (key.startsWith('adtParam')) {
+                // adtParam = short for additionalParam
                 delete (updatedItem as any)[key];
               }
+            });
+
+            newActionParams.forEach((param) => {
+              const paramName = `adtParam${param.id}`;
+              (updatedItem as any)[paramName] = '';
+            });
+
+            setVisibleFields((prev) => {
+              const newVisibleFields = [...prev];
+              newVisibleFields[index] = [0, 1];
+              return newVisibleFields;
             });
 
             setCanNavigateNext((prev) => {
               const newCanNavigateNext = [...prev];
               newCanNavigateNext[index] = newActionParams.length > 2;
               return newCanNavigateNext;
+            });
+
+            setCanNavigatePrev((prev) => {
+              const newCanNavigatePrev = [...prev];
+              newCanNavigatePrev[index] = false;
+              return newCanNavigatePrev;
             });
 
             return {
@@ -220,7 +238,7 @@ const Contour: React.FC = () => {
         (p) => p.actionCode === actionCodeValue,
       );
       const actionParamId = params?.actionParams.find((ap) => {
-        const name = `adtParam${ap.id}`; // adtParam = short for additionalParam
+        const name = `adtParam${ap.id}`;
         return name === e.currentTarget.name;
       })?.id;
       const actionParamFieldName = `adtParam${actionParamId}`;
@@ -232,9 +250,10 @@ const Contour: React.FC = () => {
         (params &&
           e.currentTarget.name === actionParamFieldName &&
           actionParamFieldValidation &&
-          value.match(actionParamFieldValidation)) ||
+          value.match(RegExp(actionParamFieldValidation))) ||
         value === ''
       ) {
+        console.log('inside if');
         setFormData({
           ...formData,
           activities: formData.activities.map((item, i) => {

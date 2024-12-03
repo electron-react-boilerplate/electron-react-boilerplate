@@ -22,8 +22,9 @@ function mountGCodeLine(
   const f = activity.fvalue ? `F${activity.fvalue} ` : '';
   const a = activity.actionCode ? `${activity.actionCode} ` : '';
 
-  const adtParams = Object.keys(activity)
-    .filter((key) => key.startsWith('adtParam'))
+  const adtParams = activity.actionParams
+    .map((param) => `adtParam${param.id}`)
+    .filter((key) => key in activity)
     .map((key) => `${key.slice(-1)}${activity[key as keyof ActivitiyItem]} `)
     .join('');
   let gCodeLine = `N00${(n + 3) * 10} G90 ${rm}${x}${z}${f}${a}${adtParams}\n`;

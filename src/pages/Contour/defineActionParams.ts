@@ -7,7 +7,7 @@ function defineActionParams(actionCodeValue: string): ActionParamsValidation {
   if (params) {
     return params.actionParams.map((param) => ({
       id: param.id,
-      validation: param.validation,
+      validation: param.validation ? param.validation.toString() : null,
     }));
   }
   return [];
