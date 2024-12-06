@@ -51,18 +51,18 @@ export const FROM_0_001_TO_9999_REGEX: RegExp =
 export const FROM_0_001_TO_2_REGEX: RegExp =
   /^(0(\.\d{1,3})?|0\.|1(\.\d{0,3})?|1\.|2(\.0{0,3})?|2\.)$/;
 export const FROM_0_1_TO_3000_REGEX: RegExp =
-  /^(0|0\.[1-9]|[1-9]\d{0,2}(\.\d{0,1})?|3000(\.0)?|0\.)$/;
+  /^(0(\.\d{1,3})?|0\.|[1-9]\d{0,2}(\.\d{0,3})?|[1-9]\d{0,2}\.|3000(\.0{0,3})?|3000\.)$/;
 export const FROM_0_TO_2_REGEX: RegExp = /^(0|1|2)$/;
 export const FROM_0_TO_999_REGEX: RegExp = /^(0|[1-9]\d{0,2})$/;
 export const FROM_0_TO_999_DEC_REGEX: RegExp =
   /^(0|0\.|[1-9]\d{0,2}(\.\d{0,3})?|[1-9]\d{0,2}\.)$/;
 export const FROM_NEG1_0_TO_0_REGEX: RegExp =
-  /^(-1(\.0)?|-0(\.\d{0,3})?|-0\.|0(\.\d{0,3})?|0\.|1(\.0)?|1\.)$/;
+  /^-?(0(\.\d{1,3})?|0\.|1(\.\d{1,3})?|1\.|-1(\.\d{1,3})?|-1\.|-0(\.\d{1,3})?|-0\.|-)$/;
 export const FROM_0_TO_360_REGEX: RegExp =
   /^(0|[1-9]\d?|[12]\d{2}|3[0-5]\d|360)$/;
 export const FROM_0_TO_60_REGEX: RegExp = /^(0|[1-5]?\d|60)$/;
 export const FROM_NEG10_TO_10_REGEX: RegExp =
-  /^(-10(\.0{0,3})?|-\d(\.\d{0,3})?|-?\d(\.\d{0,3})?|0(\.\d{0,3})?|10(\.0{0,3})?|10\.)$/;
+  /^-?(10(\.0{0,3})?|[1-9](\.\d{1,3})?|0(\.\d{1,3})?|0\.|-10(\.0{0,3})?|-\d(\.\d{1,3})?|-0(\.\d{1,3})?|-0\.|-)$/;
 export const FROM_1_TO_999_999_REGEX: RegExp =
   /^(0\.\d{1,3}|[1-9]\d{0,2}(\.\d{1,3})?|[1-9]\d{0,2}\.)$/;
 export const ONLY_1_REGEX: RegExp = /^1$/; // unificar
