@@ -7,6 +7,26 @@ import {
   FROM_0001_TO_100_REGEX,
   FROM_1_TO_10_REGEX,
   FROM_1_TO_9999_REGEX,
+  FROM_0_001_TO_9999_REGEX,
+  FROM_0_001_TO_2_REGEX,
+  FROM_0_1_TO_3000_REGEX,
+  FROM_0_TO_2_REGEX,
+  FROM_0_TO_999_REGEX,
+  FROM_0_TO_360_REGEX,
+  FROM_0_TO_60_REGEX,
+  FROM_NEG10_TO_10_REGEX,
+  FROM_1_TO_999_999_REGEX,
+  FROM_1_TO_9999_9999_REGEX,
+  ONLY_1_REGEX,
+  ONLY_2_REGEX,
+  ONLY_3_REGEX,
+  ONLY_4_REGEX,
+  FROM_0_001_TO_999_999_REGEX,
+  FROM_1_TO_2_REGEX,
+  FROM_0_001_TO_6_REGEX,
+  XZ_REGEX,
+  FROM_NEG1_0_TO_0_REGEX,
+  FROM_0_TO_999_DEC_REGEX,
 } from 'utils/constants';
 import { auxActionParamsCode } from 'pages/Contour/interface';
 
@@ -196,7 +216,7 @@ export const actionParams: auxActionParamsCode[] = [
     actionParams: [
       {
         id: 'P1',
-        validation: null,
+        validation: XZ_REGEX,
       },
     ],
   },
@@ -218,21 +238,222 @@ export const actionParams: auxActionParamsCode[] = [
       },
     ],
   },
-  // test case
+  {
+    actionCode: 'G88',
+    actionParams: [
+      {
+        id: 'X',
+        validation: FROM_1_TO_9999_9999_REGEX,
+      },
+      {
+        id: 'W',
+        validation: FROM_0_001_TO_9999_REGEX,
+      },
+      {
+        id: 'U',
+        validation: FROM_0_001_TO_2_REGEX,
+      },
+      {
+        id: 'F',
+        validation: FROM_0_1_TO_3000_REGEX,
+      },
+      {
+        id: 'C',
+        validation: FROM_0_TO_2_REGEX,
+      },
+      {
+        id: 'S',
+        validation: FROM_0_TO_999_REGEX,
+      },
+      {
+        id: 'H',
+        validation: FROM_0_TO_999_DEC_REGEX,
+      },
+      {
+        id: 'J',
+        validation: FROM_NEG1_0_TO_0_REGEX,
+      },
+    ],
+  },
+  {
+    actionCode: 'G89',
+    actionParams: [
+      {
+        id: 'X',
+        validation: FROM_1_TO_9999_REGEX,
+      },
+      {
+        id: 'W',
+        validation: FROM_0_001_TO_9999_REGEX,
+      },
+      {
+        id: 'U',
+        validation: FROM_0_001_TO_2_REGEX,
+      },
+      {
+        id: 'F',
+        validation: FROM_0_1_TO_3000_REGEX,
+      },
+      {
+        id: 'C',
+        validation: FROM_0_TO_2_REGEX,
+      },
+      {
+        id: 'S',
+        validation: FROM_0_TO_999_REGEX,
+      },
+    ],
+  },
+  {
+    actionCode: 'G120',
+    actionParams: [
+      {
+        id: 'A',
+        validation: FROM_0_TO_360_REGEX,
+      },
+    ],
+  },
   {
     actionCode: 'G121',
     actionParams: [
       {
         id: 'A',
-        validation: FROM_1_TO_9999_REGEX,
+        validation: FROM_0_TO_360_REGEX,
       },
       {
         id: 'M',
-        validation: FROM_1_TO_9999_REGEX,
+        validation: FROM_0_TO_60_REGEX,
       },
       {
         id: 'S',
-        validation: FROM_1_TO_9999_REGEX,
+        validation: FROM_0_TO_60_REGEX,
+      },
+    ],
+  },
+  {
+    actionCode: 'G130',
+    actionParams: [
+      {
+        id: 'W',
+        validation: FROM_NEG10_TO_10_REGEX,
+      },
+      {
+        id: 'F',
+        validation: FROM_1_TO_999_999_REGEX,
+      },
+    ],
+  },
+  {
+    actionCode: 'G131',
+    actionParams: [
+      {
+        id: 'W',
+        validation: FROM_NEG10_TO_10_REGEX,
+      },
+    ],
+  },
+  {
+    actionCode: 'G132',
+    actionParams: [
+      {
+        id: 'X',
+        validation: FROM_1_TO_9999_9999_REGEX,
+      },
+      {
+        id: 'I1',
+        validation: ONLY_1_REGEX,
+      },
+      {
+        id: 'I2',
+        validation: ONLY_2_REGEX,
+      },
+      {
+        id: 'I3',
+        validation: ONLY_3_REGEX,
+      },
+      {
+        id: 'I4',
+        validation: ONLY_4_REGEX,
+      },
+      {
+        id: 'F',
+        validation: FROM_1_TO_999_999_REGEX,
+      },
+    ],
+  },
+  {
+    actionCode: 'G133',
+    actionParams: [
+      {
+        id: 'Z',
+        validation: FROM_1_TO_9999_9999_REGEX,
+      },
+      {
+        id: 'I1',
+        validation: ONLY_1_REGEX,
+      },
+      {
+        id: 'I2',
+        validation: ONLY_2_REGEX,
+      },
+      {
+        id: 'I3',
+        validation: ONLY_3_REGEX,
+      },
+      {
+        id: 'I4',
+        validation: ONLY_4_REGEX,
+      },
+      {
+        id: 'F',
+        validation: FROM_1_TO_999_999_REGEX,
+      },
+    ],
+  },
+  {
+    actionCode: 'G134',
+    actionParams: [
+      {
+        id: 'H',
+        validation: FROM_0_001_TO_999_999_REGEX,
+      },
+      {
+        id: 'E',
+        validation: FROM_0_001_TO_6_REGEX,
+      },
+      {
+        id: 'F',
+        validation: FROM_1_TO_999_999_REGEX,
+      },
+    ],
+  },
+  {
+    actionCode: 'G188',
+    actionParams: [
+      {
+        id: 'W',
+        validation: FROM_0_001_TO_999_999_REGEX,
+      },
+      {
+        id: 'F',
+        validation: FROM_0_001_TO_999_999_REGEX,
+      },
+    ],
+  },
+  {
+    actionCode: 'G190',
+    actionParams: [
+      {
+        id: 'U',
+        validation: FROM_0_001_TO_999_999_REGEX,
+      },
+      {
+        id: 'W',
+        validation: FROM_0_001_TO_999_999_REGEX,
+      },
+      {
+        id: 'C',
+        validation: FROM_1_TO_2_REGEX,
       },
     ],
   },

@@ -24,8 +24,20 @@ function mountGCodeLine(
 
   const adtParams = activity.actionParams
     .map((param) => `adtParam${param.id}`)
-    .filter((key) => key in activity)
-    .map((key) => `${key.slice(-1)}${activity[key as keyof ActivitiyItem]} `)
+    .filter(
+      (key) =>
+        key in activity &&
+        activity[key as keyof ActivitiyItem] !== '' &&
+        activity[key as keyof ActivitiyItem] !== undefined,
+    )
+    .map((key) => {
+      const paramValue = activity[key as keyof ActivitiyItem];
+      const paramId = key.replace('adtParam', '');
+      if (paramId.startsWith('I')) {
+        return `I${paramValue} `;
+      }
+      return `${paramId}${paramValue} `;
+    })
     .join('');
   let gCodeLine = `N00${(n + 3) * 10} G90 ${rm}${x}${z}${f}${a}${adtParams}\n`;
 

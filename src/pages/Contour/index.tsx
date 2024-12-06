@@ -237,14 +237,16 @@ const Contour: React.FC = () => {
       const params = actionParamsAux.find(
         (p) => p.actionCode === actionCodeValue,
       );
+      // console.log('params', params);
       const actionParamId = params?.actionParams.find((ap) => {
         const name = `adtParam${ap.id}`;
         return name === e.currentTarget.name;
       })?.id;
       const actionParamFieldName = `adtParam${actionParamId}`;
       const actionParamFieldValidation = params?.actionParams.find(
-        (ap) => ap.id,
+        (ap) => ap.id === actionParamId,
       )?.validation;
+      // console.log('actionParamFieldValidation', actionParamFieldValidation);
 
       if (
         (params &&
