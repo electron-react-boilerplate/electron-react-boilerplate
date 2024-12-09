@@ -17,16 +17,13 @@ import {
   FROM_NEG10_TO_10_REGEX,
   FROM_1_TO_999_999_REGEX,
   FROM_1_TO_9999_9999_REGEX,
-  ONLY_1_REGEX,
-  ONLY_2_REGEX,
-  ONLY_3_REGEX,
-  ONLY_4_REGEX,
   FROM_0_001_TO_999_999_REGEX,
   FROM_1_TO_2_REGEX,
   FROM_0_001_TO_6_REGEX,
   XZ_REGEX,
   FROM_NEG1_0_TO_0_REGEX,
   FROM_0_TO_999_DEC_REGEX,
+  FROM_1_TO_4_REGEX,
 } from 'utils/constants';
 import { auxActionParamsCode } from 'pages/Contour/interface';
 
@@ -360,20 +357,8 @@ export const actionParams: auxActionParamsCode[] = [
         validation: FROM_1_TO_9999_9999_REGEX,
       },
       {
-        id: 'I1',
-        validation: ONLY_1_REGEX,
-      },
-      {
-        id: 'I2',
-        validation: ONLY_2_REGEX,
-      },
-      {
-        id: 'I3',
-        validation: ONLY_3_REGEX,
-      },
-      {
-        id: 'I4',
-        validation: ONLY_4_REGEX,
+        id: 'I',
+        validation: FROM_1_TO_4_REGEX,
       },
       {
         id: 'F',
@@ -389,20 +374,8 @@ export const actionParams: auxActionParamsCode[] = [
         validation: FROM_1_TO_9999_9999_REGEX,
       },
       {
-        id: 'I1',
-        validation: ONLY_1_REGEX,
-      },
-      {
-        id: 'I2',
-        validation: ONLY_2_REGEX,
-      },
-      {
-        id: 'I3',
-        validation: ONLY_3_REGEX,
-      },
-      {
-        id: 'I4',
-        validation: ONLY_4_REGEX,
+        id: 'I',
+        validation: FROM_1_TO_4_REGEX,
       },
       {
         id: 'F',

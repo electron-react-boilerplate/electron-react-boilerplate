@@ -33,9 +33,6 @@ function mountGCodeLine(
     .map((key) => {
       const paramValue = activity[key as keyof ActivitiyItem];
       const paramId = key.replace('adtParam', '');
-      if (paramId.startsWith('I')) {
-        return `I${paramValue} `;
-      }
       return `${paramId}${paramValue} `;
     })
     .join('');
