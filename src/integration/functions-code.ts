@@ -9,7 +9,7 @@ import {
   FROM_1_TO_9999_REGEX,
   FROM_0_001_TO_9999_REGEX,
   FROM_0_001_TO_2_REGEX,
-  FROM_0_1_TO_3000_REGEX,
+  FROM_0_001_TO_3000_REGEX,
   FROM_0_TO_2_REGEX,
   FROM_0_TO_999_REGEX,
   FROM_0_TO_360_REGEX,
@@ -21,7 +21,7 @@ import {
   FROM_1_TO_2_REGEX,
   FROM_0_001_TO_6_REGEX,
   XZ_REGEX,
-  FROM_NEG1_0_TO_0_REGEX,
+  FROM_NEG_1_TO_1_DEC_REGEX,
   FROM_0_TO_999_DEC_REGEX,
   FROM_1_TO_4_REGEX,
 } from 'utils/constants';
@@ -252,7 +252,7 @@ export const actionParams: auxActionParamsCode[] = [
       },
       {
         id: 'F',
-        validation: FROM_0_1_TO_3000_REGEX,
+        validation: FROM_0_001_TO_3000_REGEX,
       },
       {
         id: 'C',
@@ -268,7 +268,7 @@ export const actionParams: auxActionParamsCode[] = [
       },
       {
         id: 'J',
-        validation: FROM_NEG1_0_TO_0_REGEX,
+        validation: FROM_NEG_1_TO_1_DEC_REGEX,
       },
     ],
   },
@@ -289,7 +289,7 @@ export const actionParams: auxActionParamsCode[] = [
       },
       {
         id: 'F',
-        validation: FROM_0_1_TO_3000_REGEX,
+        validation: FROM_0_001_TO_3000_REGEX,
       },
       {
         id: 'C',
