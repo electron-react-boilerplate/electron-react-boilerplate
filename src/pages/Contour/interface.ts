@@ -1,15 +1,13 @@
-export interface auxActionParams {
-  aParamId: string;
-  aParamValue: string | null;
-  aParamValidation: RegExp | null;
-  bParamId: string;
-  bParamValue: string | null;
-  bParamValidation: RegExp | null;
-  cParamId: string;
-  cParamValue: string | null;
-  cParamValidation: RegExp | null;
+import { ActionParamItem } from 'types/part';
+
+export interface ActionParamItemValidation extends ActionParamItem {
+  validation: RegExp | string | null;
 }
 
-export interface auxActionParamsCode extends auxActionParams {
+export interface ActionParamsValidation
+  extends Array<ActionParamItemValidation> {}
+
+export interface auxActionParamsCode {
   actionCode: string;
+  actionParams: ActionParamsValidation;
 }

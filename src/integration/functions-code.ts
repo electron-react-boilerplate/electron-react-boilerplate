@@ -7,284 +7,427 @@ import {
   FROM_0001_TO_100_REGEX,
   FROM_1_TO_10_REGEX,
   FROM_1_TO_9999_REGEX,
+  FROM_0_001_TO_9999_REGEX,
+  FROM_0_001_TO_2_REGEX,
+  FROM_0_001_TO_3000_REGEX,
+  FROM_0_TO_2_REGEX,
+  FROM_0_TO_999_REGEX,
+  FROM_0_TO_360_REGEX,
+  FROM_0_TO_60_REGEX,
+  FROM_NEG10_TO_10_REGEX,
+  FROM_1_TO_999_999_REGEX,
+  FROM_1_TO_9999_9999_REGEX,
+  FROM_0_001_TO_999_999_REGEX,
+  FROM_1_TO_2_REGEX,
+  FROM_0_001_TO_6_REGEX,
+  XZ_REGEX,
+  FROM_NEG_1_TO_1_DEC_REGEX,
+  FROM_0_TO_999_DEC_REGEX,
+  FROM_1_TO_4_REGEX,
 } from 'utils/constants';
 import { auxActionParamsCode } from 'pages/Contour/interface';
 
 export const actionParams: auxActionParamsCode[] = [
   {
     actionCode: 'M3',
-    aParamId: 'S',
-    aParamValue: '',
-    aParamValidation: FROM_1_TO_2K_REGEX,
-    bParamId: '',
-    bParamValue: null,
-    bParamValidation: null,
-    cParamId: '',
-    cParamValue: null,
-    cParamValidation: null,
+    actionParams: [
+      {
+        id: 'S',
+        validation: FROM_1_TO_2K_REGEX,
+      },
+    ],
   },
   {
     actionCode: 'M4',
-    aParamId: 'S',
-    aParamValue: '',
-    aParamValidation: FROM_1_TO_2K_REGEX,
-    bParamId: '',
-    bParamValue: null,
-    bParamValidation: null,
-    cParamId: '',
-    cParamValue: null,
-    cParamValidation: null,
+    actionParams: [
+      {
+        id: 'S',
+        validation: FROM_1_TO_2K_REGEX,
+      },
+    ],
   },
   {
     actionCode: 'M11',
-    aParamId: 'S',
-    aParamValue: '',
-    aParamValidation: FROM_1_TO_60_REGEX,
-    bParamId: '',
-    bParamValue: null,
-    bParamValidation: null,
-    cParamId: '',
-    cParamValue: null,
-    cParamValidation: null,
+    actionParams: [
+      {
+        id: 'S',
+        validation: FROM_1_TO_60_REGEX,
+      },
+    ],
   },
   {
     actionCode: 'M13',
-    aParamId: 'S',
-    aParamValue: '',
-    aParamValidation: FROM_1_TO_2K_REGEX,
-    bParamId: '',
-    bParamValue: null,
-    bParamValidation: null,
-    cParamId: '',
-    cParamValue: null,
-    cParamValidation: null,
+    actionParams: [
+      {
+        id: 'S',
+        validation: FROM_1_TO_2K_REGEX,
+      },
+    ],
   },
   {
     actionCode: 'M14',
-    aParamId: 'S',
-    aParamValue: '',
-    aParamValidation: FROM_1_TO_2K_REGEX,
-    bParamId: '',
-    bParamValue: null,
-    bParamValidation: null,
-    cParamId: '',
-    cParamValue: null,
-    cParamValidation: null,
+    actionParams: [
+      {
+        id: 'S',
+        validation: FROM_1_TO_2K_REGEX,
+      },
+    ],
   },
   {
     actionCode: 'M31',
-    aParamId: 'S',
-    aParamValue: '',
-    aParamValidation: FROM_1_TO_60_REGEX,
-    bParamId: '',
-    bParamValue: null,
-    bParamValidation: null,
-    cParamId: '',
-    cParamValue: null,
-    cParamValidation: null,
+    actionParams: [
+      {
+        id: 'S',
+        validation: FROM_1_TO_60_REGEX,
+      },
+    ],
   },
   {
     actionCode: 'M37',
-    aParamId: 'S',
-    aParamValue: '',
-    aParamValidation: FROM_1_TO_60_REGEX,
-    bParamId: '',
-    bParamValue: null,
-    bParamValidation: null,
-    cParamId: '',
-    cParamValue: null,
-    cParamValidation: null,
+    actionParams: [
+      {
+        id: 'S',
+        validation: FROM_1_TO_60_REGEX,
+      },
+    ],
   },
   {
     actionCode: 'M51',
-    aParamId: 'S',
-    aParamValue: '',
-    aParamValidation: FROM_1_TO_10K_REGEX,
-    bParamId: '',
-    bParamValue: null,
-    bParamValidation: null,
-    cParamId: '',
-    cParamValue: null,
-    cParamValidation: null,
+    actionParams: [
+      {
+        id: 'S',
+        validation: FROM_1_TO_10K_REGEX,
+      },
+    ],
   },
   {
     actionCode: 'M57',
-    aParamId: 'S',
-    aParamValue: '',
-    aParamValidation: FROM_1_TO_60_REGEX,
-    bParamId: '',
-    bParamValue: null,
-    bParamValidation: null,
-    cParamId: '',
-    cParamValue: null,
-    cParamValidation: null,
+    actionParams: [
+      {
+        id: 'S',
+        validation: FROM_1_TO_60_REGEX,
+      },
+    ],
   },
   {
     actionCode: 'M103',
-    aParamId: 'S',
-    aParamValue: '',
-    aParamValidation: FROM_1_TO_2K_REGEX,
-    bParamId: '',
-    bParamValue: null,
-    bParamValidation: null,
-    cParamId: '',
-    cParamValue: null,
-    cParamValidation: null,
+    actionParams: [
+      {
+        id: 'S',
+        validation: FROM_1_TO_2K_REGEX,
+      },
+    ],
   },
   {
     actionCode: 'M104',
-    aParamId: 'S',
-    aParamValue: '',
-    aParamValidation: FROM_1_TO_2K_REGEX,
-    bParamId: '',
-    bParamValue: null,
-    bParamValidation: null,
-    cParamId: '',
-    cParamValue: null,
-    cParamValidation: null,
+    actionParams: [
+      {
+        id: 'S',
+        validation: FROM_1_TO_2K_REGEX,
+      },
+    ],
   },
   {
     actionCode: 'M111',
-    aParamId: 'S',
-    aParamValue: '',
-    aParamValidation: FROM_1_TO_3K_REGEX,
-    bParamId: '',
-    bParamValue: null,
-    bParamValidation: null,
-    cParamId: '',
-    cParamValue: null,
-    cParamValidation: null,
+    actionParams: [
+      {
+        id: 'S',
+        validation: FROM_1_TO_3K_REGEX,
+      },
+    ],
   },
   {
     actionCode: 'M112',
-    aParamId: 'S',
-    aParamValue: '',
-    aParamValidation: FROM_1_TO_18K_REGEX,
-    bParamId: '',
-    bParamValue: null,
-    bParamValidation: null,
-    cParamId: '',
-    cParamValue: null,
-    cParamValidation: null,
+    actionParams: [
+      {
+        id: 'S',
+        validation: FROM_1_TO_18K_REGEX,
+      },
+    ],
   },
   {
     actionCode: 'M113',
-    aParamId: 'S',
-    aParamValue: '',
-    aParamValidation: FROM_1_TO_2K_REGEX,
-    bParamId: '',
-    bParamValue: null,
-    bParamValidation: null,
-    cParamId: '',
-    cParamValue: null,
-    cParamValidation: null,
+    actionParams: [
+      {
+        id: 'S',
+        validation: FROM_1_TO_2K_REGEX,
+      },
+    ],
   },
   {
     actionCode: 'M114',
-    aParamId: 'S',
-    aParamValue: '',
-    aParamValidation: FROM_1_TO_2K_REGEX,
-    bParamId: '',
-    bParamValue: null,
-    bParamValidation: null,
-    cParamId: '',
-    cParamValue: null,
-    cParamValidation: null,
+    actionParams: [
+      {
+        id: 'S',
+        validation: FROM_1_TO_2K_REGEX,
+      },
+    ],
   },
   {
     actionCode: 'M131',
-    aParamId: 'S',
-    aParamValue: '',
-    aParamValidation: FROM_1_TO_18K_REGEX,
-    bParamId: '',
-    bParamValue: null,
-    bParamValidation: null,
-    cParamId: '',
-    cParamValue: null,
-    cParamValidation: null,
+    actionParams: [
+      {
+        id: 'S',
+        validation: FROM_1_TO_18K_REGEX,
+      },
+    ],
   },
   {
     actionCode: 'M151',
-    aParamId: 'S',
-    aParamValue: '',
-    aParamValidation: FROM_1_TO_10K_REGEX,
-    bParamId: '',
-    bParamValue: null,
-    bParamValidation: null,
-    cParamId: '',
-    cParamValue: null,
-    cParamValidation: null,
+    actionParams: [
+      {
+        id: 'S',
+        validation: FROM_1_TO_10K_REGEX,
+      },
+    ],
   },
   {
     actionCode: 'M218',
-    aParamId: 'S',
-    aParamValue: '',
-    aParamValidation: FROM_1_TO_10K_REGEX,
-    bParamId: '',
-    bParamValue: null,
-    bParamValidation: null,
-    cParamId: '',
-    cParamValue: null,
-    cParamValidation: null,
+    actionParams: [
+      {
+        id: 'S',
+        validation: FROM_1_TO_10K_REGEX,
+      },
+    ],
   },
   {
     actionCode: 'G2',
-    aParamId: 'R',
-    aParamValue: '',
-    aParamValidation: FROM_0001_TO_100_REGEX,
-    bParamId: '',
-    bParamValue: null,
-    bParamValidation: null,
-    cParamId: '',
-    cParamValue: null,
-    cParamValidation: null,
+    actionParams: [
+      {
+        id: 'R',
+        validation: FROM_0001_TO_100_REGEX,
+      },
+    ],
   },
   {
     actionCode: 'G3',
-    aParamId: 'R',
-    aParamValue: '',
-    aParamValidation: FROM_0001_TO_100_REGEX,
-    bParamId: '',
-    bParamValue: null,
-    bParamValidation: null,
-    cParamId: '',
-    cParamValue: null,
-    cParamValidation: null,
+    actionParams: [
+      {
+        id: 'R',
+        validation: FROM_0001_TO_100_REGEX,
+      },
+    ],
   },
   {
     actionCode: 'G4.1',
-    aParamId: 'P1',
-    aParamValue: '',
-    aParamValidation: null,
-    bParamId: '',
-    bParamValue: null,
-    bParamValidation: null,
-    cParamId: '',
-    cParamValue: null,
-    cParamValidation: null,
+    actionParams: [
+      {
+        id: 'P1',
+        validation: XZ_REGEX,
+      },
+    ],
   },
   {
     actionCode: 'G31',
-    aParamId: 'P',
-    aParamValue: '',
-    aParamValidation: FROM_1_TO_10_REGEX,
-    bParamId: '',
-    bParamValue: null,
-    bParamValidation: null,
-    cParamId: '',
-    cParamValue: null,
-    cParamValidation: null,
+    actionParams: [
+      {
+        id: 'P',
+        validation: FROM_1_TO_10_REGEX,
+      },
+    ],
   },
   {
     actionCode: 'G65',
-    aParamId: 'P',
-    aParamValue: '',
-    aParamValidation: FROM_1_TO_9999_REGEX,
-    bParamId: '',
-    bParamValue: null,
-    bParamValidation: null,
-    cParamId: '',
-    cParamValue: null,
-    cParamValidation: null,
+    actionParams: [
+      {
+        id: 'P',
+        validation: FROM_1_TO_9999_REGEX,
+      },
+    ],
+  },
+  {
+    actionCode: 'G88',
+    actionParams: [
+      {
+        id: 'X',
+        validation: FROM_1_TO_9999_9999_REGEX,
+      },
+      {
+        id: 'W',
+        validation: FROM_0_001_TO_9999_REGEX,
+      },
+      {
+        id: 'U',
+        validation: FROM_0_001_TO_2_REGEX,
+      },
+      {
+        id: 'F',
+        validation: FROM_0_001_TO_3000_REGEX,
+      },
+      {
+        id: 'C',
+        validation: FROM_0_TO_2_REGEX,
+      },
+      {
+        id: 'S',
+        validation: FROM_0_TO_999_REGEX,
+      },
+      {
+        id: 'H',
+        validation: FROM_0_TO_999_DEC_REGEX,
+      },
+      {
+        id: 'J',
+        validation: FROM_NEG_1_TO_1_DEC_REGEX,
+      },
+    ],
+  },
+  {
+    actionCode: 'G89',
+    actionParams: [
+      {
+        id: 'X',
+        validation: FROM_1_TO_9999_REGEX,
+      },
+      {
+        id: 'W',
+        validation: FROM_0_001_TO_9999_REGEX,
+      },
+      {
+        id: 'U',
+        validation: FROM_0_001_TO_2_REGEX,
+      },
+      {
+        id: 'F',
+        validation: FROM_0_001_TO_3000_REGEX,
+      },
+      {
+        id: 'C',
+        validation: FROM_0_TO_2_REGEX,
+      },
+      {
+        id: 'S',
+        validation: FROM_0_TO_999_REGEX,
+      },
+    ],
+  },
+  {
+    actionCode: 'G120',
+    actionParams: [
+      {
+        id: 'A',
+        validation: FROM_0_TO_360_REGEX,
+      },
+    ],
+  },
+  {
+    actionCode: 'G121',
+    actionParams: [
+      {
+        id: 'A',
+        validation: FROM_0_TO_360_REGEX,
+      },
+      {
+        id: 'M',
+        validation: FROM_0_TO_60_REGEX,
+      },
+      {
+        id: 'S',
+        validation: FROM_0_TO_60_REGEX,
+      },
+    ],
+  },
+  {
+    actionCode: 'G130',
+    actionParams: [
+      {
+        id: 'W',
+        validation: FROM_NEG10_TO_10_REGEX,
+      },
+      {
+        id: 'F',
+        validation: FROM_1_TO_999_999_REGEX,
+      },
+    ],
+  },
+  {
+    actionCode: 'G131',
+    actionParams: [
+      {
+        id: 'W',
+        validation: FROM_NEG10_TO_10_REGEX,
+      },
+    ],
+  },
+  {
+    actionCode: 'G132',
+    actionParams: [
+      {
+        id: 'X',
+        validation: FROM_1_TO_9999_9999_REGEX,
+      },
+      {
+        id: 'I',
+        validation: FROM_1_TO_4_REGEX,
+      },
+      {
+        id: 'F',
+        validation: FROM_1_TO_999_999_REGEX,
+      },
+    ],
+  },
+  {
+    actionCode: 'G133',
+    actionParams: [
+      {
+        id: 'Z',
+        validation: FROM_1_TO_9999_9999_REGEX,
+      },
+      {
+        id: 'I',
+        validation: FROM_1_TO_4_REGEX,
+      },
+      {
+        id: 'F',
+        validation: FROM_1_TO_999_999_REGEX,
+      },
+    ],
+  },
+  {
+    actionCode: 'G134',
+    actionParams: [
+      {
+        id: 'H',
+        validation: FROM_0_001_TO_999_999_REGEX,
+      },
+      {
+        id: 'E',
+        validation: FROM_0_001_TO_6_REGEX,
+      },
+      {
+        id: 'F',
+        validation: FROM_1_TO_999_999_REGEX,
+      },
+    ],
+  },
+  {
+    actionCode: 'G188',
+    actionParams: [
+      {
+        id: 'W',
+        validation: FROM_0_001_TO_999_999_REGEX,
+      },
+      {
+        id: 'F',
+        validation: FROM_0_001_TO_999_999_REGEX,
+      },
+    ],
+  },
+  {
+    actionCode: 'G190',
+    actionParams: [
+      {
+        id: 'U',
+        validation: FROM_0_001_TO_999_999_REGEX,
+      },
+      {
+        id: 'W',
+        validation: FROM_0_001_TO_999_999_REGEX,
+      },
+      {
+        id: 'C',
+        validation: FROM_1_TO_2_REGEX,
+      },
+    ],
   },
 ];

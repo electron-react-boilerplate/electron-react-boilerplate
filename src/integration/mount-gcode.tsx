@@ -21,18 +21,22 @@ function mountGCodeLine(
   const z = activity.zaxis ? `Z${activity.zaxis} ` : '';
   const f = activity.fvalue ? `F${activity.fvalue} ` : '';
   const a = activity.actionCode ? `${activity.actionCode} ` : '';
-  const aParam = activity.aParamValue
-    ? `${activity.aParamId}${activity.aParamValue} `
-    : '';
-  const bParam = activity.bParamValue
-    ? `${activity.bParamId}${activity.bParamValue} `
-    : '';
-  const cParam = activity.cParamValue
-    ? `${activity.cParamId}${activity.cParamValue} `
-    : '';
-  let gCodeLine = `N00${
-    (n + 3) * 10
-  } G90 ${rm}${x}${z}${f}${a}${aParam}${bParam}${cParam}\n`;
+
+  const adtParams = activity.actionParams
+    .map((param) => `adtParam${param.id}`)
+    .filter(
+      (key) =>
+        key in activity &&
+        activity[key as keyof ActivitiyItem] !== '' &&
+        activity[key as keyof ActivitiyItem] !== undefined,
+    )
+    .map((key) => {
+      const paramValue = activity[key as keyof ActivitiyItem];
+      const paramId = key.replace('adtParam', '');
+      return `${paramId}${paramValue} `;
+    })
+    .join('');
+  let gCodeLine = `N00${(n + 3) * 10} G90 ${rm}${x}${z}${f}${a}${adtParams}\n`;
 
   if (isLastLine) gCodeLine = `${gCodeLine}N00${(n + 4) * 10} M99`;
 

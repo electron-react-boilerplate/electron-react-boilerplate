@@ -13,12 +13,7 @@ const initialActivity: ActivitiyItem = {
   zaxis: '',
   fvalue: '',
   actionCode: '',
-  aParamId: '',
-  aParamValue: null,
-  bParamId: '',
-  bParamValue: null,
-  cParamId: '',
-  cParamValue: null,
+  actionParams: [],
 };
 
 export const initialState: Part = {
