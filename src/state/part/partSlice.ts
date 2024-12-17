@@ -33,6 +33,8 @@ export const initialState: Part = {
       name: 'Operação',
       contoursIds: [],
       bAxisAngle: 0,
+      xSafetyDistance: 0,
+      zSafetyDistance: 0,
     },
   ],
 };

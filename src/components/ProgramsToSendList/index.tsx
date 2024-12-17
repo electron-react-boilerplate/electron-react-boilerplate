@@ -74,6 +74,16 @@ const ProgramsToSendList: React.FC = () => {
                     Number(rangeStart) + Number(index),
                     getOperationData(part, contour.id, (op) => op.toolId),
                     getOperationData(part, contour.id, (op) => op.bAxisAngle),
+                    getOperationData(
+                      part,
+                      contour.id,
+                      (op) => op.xSafetyDistance,
+                    ),
+                    getOperationData(
+                      part,
+                      contour.id,
+                      (op) => op.zSafetyDistance,
+                    ),
                   )}
                 </CodeBlock>
               </DropdownContent>

@@ -10,6 +10,13 @@ export const Field = styled.div`
   margin-bottom: 20px;
 `;
 
+export const HorizontalField = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row nowrap;
+  gap: 20px;
+`;
+
 export const SButton = styled.button`
   background-color: ${colors.blue};
   border: none;

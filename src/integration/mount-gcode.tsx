@@ -6,21 +6,16 @@ function removeAccents(str: string): string {
   return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 }
 
-// Some string have right blank spaces that are required for CNC syntax
-const isRapidMovement = (fvalue: string | undefined): string =>
-  fvalue ? 'G01 ' : 'G00 ';
-
 function mountGCodeLine(
   activity: ActivitiyItem,
   index: number,
   isLastLine: boolean,
 ): string {
   const n = index + 1;
-  const rm = isRapidMovement(activity.fvalue);
+  const a = activity.actionCode ? `${activity.actionCode} ` : 'G01 G90 ';
   const x = activity.xaxis ? `X${activity.xaxis} ` : '';
   const z = activity.zaxis ? `Z${activity.zaxis} ` : '';
   const f = activity.fvalue ? `F${activity.fvalue} ` : '';
-  const a = activity.actionCode ? `${activity.actionCode} ` : '';
 
   const adtParams = activity.actionParams
     .map((param) => `adtParam${param.id}`)
@@ -36,9 +31,9 @@ function mountGCodeLine(
       return `${paramId}${paramValue} `;
     })
     .join('');
-  let gCodeLine = `N00${(n + 3) * 10} G90 ${rm}${x}${z}${f}${a}${adtParams}\n`;
+  let gCodeLine = `N00${(n + 5) * 10} ${a}${x}${z}${f}${adtParams}\n`;
 
-  if (isLastLine) gCodeLine = `${gCodeLine}N00${(n + 4) * 10} M99`;
+  if (isLastLine) gCodeLine = `${gCodeLine}N00${(n + 6) * 10} M99`;
 
   return gCodeLine;
 }
@@ -47,17 +42,21 @@ function generateLines(
   contour: ContourItem,
   toolId?: number,
   bAxisAngleValue?: number,
+  xSafetyDistanceValue?: number,
+  zSafetyDistanceValue?: number,
 ): string {
   let gCodeOutput = '';
   const toolLine = `N0010 #50001=${toolId}\n`;
   const bAxisAngleLine = `N0020 #50002=${bAxisAngleValue}\n`;
-  const macroRefLine = `N0030 ${macroRef}\n`;
+  const xSafetyDistanceLine = `N0030 #5000X=${xSafetyDistanceValue}\n`;
+  const zSafetyDistanceLine = `N0040 #5000Z=${zSafetyDistanceValue}\n`;
+  const macroRefLine = `N0050 ${macroRef}\n`;
 
   contour.activities.forEach((element: any, index: any) => {
     const isLastLine = contour.activities.length === index + 1;
     gCodeOutput = `${gCodeOutput}${mountGCodeLine(element, index, isLastLine)}`;
   });
-  gCodeOutput = `${toolLine}${bAxisAngleLine}${macroRefLine}${gCodeOutput}\n`;
+  gCodeOutput = `${toolLine}${bAxisAngleLine}${xSafetyDistanceLine}${zSafetyDistanceLine}${macroRefLine}${gCodeOutput}\n`;
 
   return gCodeOutput;
 }
@@ -74,8 +73,16 @@ function mountGCodeWithProgramNumber(
   programNumber: number,
   toolId: number,
   bAxisAngleValue: number,
+  xSafetyDistanceValue: number,
+  zSafetyDistanceValue: number,
 ): string {
-  const gCodeOutput = generateLines(contour, toolId, bAxisAngleValue);
+  const gCodeOutput = generateLines(
+    contour,
+    toolId,
+    bAxisAngleValue,
+    xSafetyDistanceValue,
+    zSafetyDistanceValue,
+  );
   const gCodeTemplate = `\nO${programNumber}(${removeAccents(
     contour.name,
   )})\n${gCodeOutput}%`;
@@ -121,6 +128,16 @@ function generateGCodeForPart(part: Part, rangeStart: number): string[] {
       Number(rangeStart) + index,
       getOperationData(part, contour.id, (operation) => operation.toolId),
       getOperationData(part, contour.id, (operation) => operation.bAxisAngle),
+      getOperationData(
+        part,
+        contour.id,
+        (operation) => operation.xSafetyDistance,
+      ),
+      getOperationData(
+        part,
+        contour.id,
+        (operation) => operation.zSafetyDistance,
+      ),
     );
     gCodeStrings.push(gCode);
   });

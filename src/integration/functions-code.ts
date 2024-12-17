@@ -1,9 +1,6 @@
 import {
-  FROM_1_TO_60_REGEX,
   FROM_1_TO_2K_REGEX,
   FROM_1_TO_10K_REGEX,
-  FROM_1_TO_3K_REGEX,
-  FROM_1_TO_18K_REGEX,
   FROM_0001_TO_100_REGEX,
   FROM_1_TO_10_REGEX,
   FROM_1_TO_9999_REGEX,
@@ -47,15 +44,6 @@ export const actionParams: auxActionParamsCode[] = [
     ],
   },
   {
-    actionCode: 'M11',
-    actionParams: [
-      {
-        id: 'S',
-        validation: FROM_1_TO_60_REGEX,
-      },
-    ],
-  },
-  {
     actionCode: 'M13',
     actionParams: [
       {
@@ -74,38 +62,11 @@ export const actionParams: auxActionParamsCode[] = [
     ],
   },
   {
-    actionCode: 'M31',
-    actionParams: [
-      {
-        id: 'S',
-        validation: FROM_1_TO_60_REGEX,
-      },
-    ],
-  },
-  {
-    actionCode: 'M37',
-    actionParams: [
-      {
-        id: 'S',
-        validation: FROM_1_TO_60_REGEX,
-      },
-    ],
-  },
-  {
     actionCode: 'M51',
     actionParams: [
       {
         id: 'S',
         validation: FROM_1_TO_10K_REGEX,
-      },
-    ],
-  },
-  {
-    actionCode: 'M57',
-    actionParams: [
-      {
-        id: 'S',
-        validation: FROM_1_TO_60_REGEX,
       },
     ],
   },
@@ -128,24 +89,6 @@ export const actionParams: auxActionParamsCode[] = [
     ],
   },
   {
-    actionCode: 'M111',
-    actionParams: [
-      {
-        id: 'S',
-        validation: FROM_1_TO_3K_REGEX,
-      },
-    ],
-  },
-  {
-    actionCode: 'M112',
-    actionParams: [
-      {
-        id: 'S',
-        validation: FROM_1_TO_18K_REGEX,
-      },
-    ],
-  },
-  {
     actionCode: 'M113',
     actionParams: [
       {
@@ -160,15 +103,6 @@ export const actionParams: auxActionParamsCode[] = [
       {
         id: 'S',
         validation: FROM_1_TO_2K_REGEX,
-      },
-    ],
-  },
-  {
-    actionCode: 'M131',
-    actionParams: [
-      {
-        id: 'S',
-        validation: FROM_1_TO_18K_REGEX,
       },
     ],
   },

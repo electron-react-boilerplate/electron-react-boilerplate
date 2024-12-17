@@ -34,6 +34,8 @@ export interface OperationItem {
   name: string;
   toolId: number;
   bAxisAngle: number;
+  xSafetyDistance: number;
+  zSafetyDistance: number;
   contoursIds: number[];
   contoursIdsExcluded?: number[];
 }

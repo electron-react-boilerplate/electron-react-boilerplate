@@ -237,7 +237,6 @@ const Contour: React.FC = () => {
       const params = actionParamsAux.find(
         (p) => p.actionCode === actionCodeValue,
       );
-      // console.log('params', params);
       const actionParamId = params?.actionParams.find((ap) => {
         const name = `adtParam${ap.id}`;
         return name === e.currentTarget.name;
@@ -246,7 +245,6 @@ const Contour: React.FC = () => {
       const actionParamFieldValidation = params?.actionParams.find(
         (ap) => ap.id === actionParamId,
       )?.validation;
-      // console.log('actionParamFieldValidation', actionParamFieldValidation);
 
       if (
         (params &&
@@ -464,6 +462,9 @@ const Contour: React.FC = () => {
                         <TableH />
                         <TableH />
                         <TableH>
+                          <HText>Código</HText>
+                        </TableH>
+                        <TableH>
                           <HText>X</HText>
                         </TableH>
                         <TableH>
@@ -471,9 +472,6 @@ const Contour: React.FC = () => {
                         </TableH>
                         <TableH>
                           <HText>F</HText>
-                        </TableH>
-                        <TableH>
-                          <HText>Código</HText>
                         </TableH>
                         <TableH />
                         <TableH colSpan={3}>
@@ -499,6 +497,15 @@ const Contour: React.FC = () => {
                             <TableInput
                               className="input is-edit"
                               type="text"
+                              name="actionCode"
+                              value={item.actionCode}
+                              onChange={(e) => handleChange(e, index)}
+                            />
+                          </TableD>
+                          <TableD>
+                            <TableInput
+                              className="input is-edit"
+                              type="text"
                               name="xaxis"
                               value={item.xaxis}
                               onChange={(e) => handleChange(e, index)}
@@ -519,15 +526,6 @@ const Contour: React.FC = () => {
                               type="text"
                               name="fvalue"
                               value={item.fvalue}
-                              onChange={(e) => handleChange(e, index)}
-                            />
-                          </TableD>
-                          <TableD>
-                            <TableInput
-                              className="input is-edit"
-                              type="text"
-                              name="actionCode"
-                              value={item.actionCode}
                               onChange={(e) => handleChange(e, index)}
                             />
                           </TableD>
