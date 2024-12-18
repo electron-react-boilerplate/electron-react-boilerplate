@@ -214,7 +214,7 @@ const Contour: React.FC = () => {
 
             setCanNavigateNext((prev) => {
               const newCanNavigateNext = [...prev];
-              newCanNavigateNext[index] = newActionParams.length > 2;
+              newCanNavigateNext[index] = newActionParams.length > 3;
               return newCanNavigateNext;
             });
 
@@ -522,33 +522,6 @@ const Contour: React.FC = () => {
                               onChange={(e) => handleChange(e, index)}
                             />
                           </TableD>
-                          {/* <TableD>
-                            <TableInput
-                              className="input is-edit"
-                              type="text"
-                              name="xaxis"
-                              value={item.xaxis}
-                              onChange={(e) => handleChange(e, index)}
-                            />
-                          </TableD>
-                          <TableD>
-                            <TableInput
-                              className="input is-edit"
-                              type="text"
-                              name="zaxis"
-                              value={item.zaxis}
-                              onChange={(e) => handleChange(e, index)}
-                            />
-                          </TableD>
-                          <TableD>
-                            <TableInput
-                              className="input is-edit"
-                              type="text"
-                              name="fvalue"
-                              value={item.fvalue}
-                              onChange={(e) => handleChange(e, index)}
-                            />
-                          </TableD> */}
                           <TableD>
                             <TableDivision>|</TableDivision>
                           </TableD>

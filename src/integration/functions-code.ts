@@ -141,7 +141,15 @@ export const actionParams: auxActionParamsCode[] = [
       },
       {
         id: 'M',
-        validation: '',
+        validation: FROM_1_TO_2K_REGEX,
+      },
+      {
+        id: 'M',
+        validation: FROM_1_TO_2K_REGEX,
+      },
+      {
+        id: 'M',
+        validation: FROM_1_TO_2K_REGEX,
       },
     ],
   },
@@ -166,7 +174,15 @@ export const actionParams: auxActionParamsCode[] = [
       },
       {
         id: 'M',
-        validation: '',
+        validation: FROM_1_TO_2K_REGEX,
+      },
+      {
+        id: 'M',
+        validation: FROM_1_TO_2K_REGEX,
+      },
+      {
+        id: 'M',
+        validation: FROM_1_TO_2K_REGEX,
       },
     ],
   },
@@ -191,7 +207,15 @@ export const actionParams: auxActionParamsCode[] = [
       },
       {
         id: 'M',
-        validation: '',
+        validation: FROM_1_TO_2K_REGEX,
+      },
+      {
+        id: 'M',
+        validation: FROM_1_TO_2K_REGEX,
+      },
+      {
+        id: 'M',
+        validation: FROM_1_TO_2K_REGEX,
       },
     ],
   },
@@ -418,3 +442,42 @@ export const actionParams: auxActionParamsCode[] = [
     ],
   },
 ];
+
+const EXCLUDED_CODES = [
+  'M11',
+  'M31',
+  'M37',
+  'M57',
+  'M111',
+  'M112',
+  'M131',
+  'M3',
+  'M4',
+  'M13',
+  'M14',
+  'M51',
+  'M151',
+  'M218',
+  'M0',
+  'M1',
+  'M2',
+  'M30',
+  'M96',
+  'M97',
+  'M98',
+  'M99',
+];
+
+for (let i = 0; i <= 305; i += 1) {
+  const code = `M${i}`;
+  if (!EXCLUDED_CODES.includes(code)) {
+    actionParams.push({
+      actionCode: code,
+      actionParams: [
+        { id: 'M', validation: FROM_1_TO_2K_REGEX },
+        { id: 'M', validation: FROM_1_TO_2K_REGEX },
+        { id: 'M', validation: FROM_1_TO_2K_REGEX },
+      ],
+    });
+  }
+}
