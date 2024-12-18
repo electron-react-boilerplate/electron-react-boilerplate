@@ -139,6 +139,10 @@ export const actionParams: auxActionParamsCode[] = [
         id: 'F',
         validation: XZ_REGEX,
       },
+      {
+        id: 'M',
+        validation: '',
+      },
     ],
   },
   {
@@ -160,6 +164,10 @@ export const actionParams: auxActionParamsCode[] = [
         id: 'R',
         validation: FROM_0001_TO_100_REGEX,
       },
+      {
+        id: 'M',
+        validation: '',
+      },
     ],
   },
   {
@@ -180,6 +188,10 @@ export const actionParams: auxActionParamsCode[] = [
       {
         id: 'R',
         validation: FROM_0001_TO_100_REGEX,
+      },
+      {
+        id: 'M',
+        validation: '',
       },
     ],
   },

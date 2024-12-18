@@ -74,7 +74,7 @@ const Contour: React.FC = () => {
   const prevFormDataRef = useRef<ContourItem>(formData);
   const nameInputRef = useRef<HTMLInputElement | null>(null);
 
-  const [visibleFields, setVisibleFields] = useState(
+  const [visibleFields, setVisibleFields] = useState<number[][]>(
     formData.activities.map(() => [0, 1, 2, 3]),
   );
   const [canNavigateNext, setCanNavigateNext] = useState<boolean[]>([]);
@@ -353,10 +353,10 @@ const Contour: React.FC = () => {
     }
   };
 
-  const renderTableBlocks = (length: number) => {
+  const renderTableBlocks = (length: number, vFields: number[]) => {
     const blocks = [];
-    const renderCount = 4 - length;
-    for (let i = 0; i < renderCount; i += 1) {
+    const renderCount = Math.max(...vFields) - length;
+    for (let i = 0; i <= renderCount; i += 1) {
       blocks.push(
         <TableD key={i}>
           <TableDContent>
@@ -494,7 +494,7 @@ const Contour: React.FC = () => {
                           <HText>F</HText>
                         </TableH> */}
                         <TableH />
-                        <TableH colSpan={3}>
+                        <TableH colSpan={6}>
                           <HText>Parâmetros Adicionais</HText>
                         </TableH>
                         <TableH />
@@ -580,7 +580,10 @@ const Contour: React.FC = () => {
                             }
                             return null;
                           })}
-                          {renderTableBlocks(item.actionParams.length)}
+                          {renderTableBlocks(
+                            item.actionParams.length,
+                            visibleFields[index],
+                          )}
                           <TableD>
                             <ScrollBtn
                               type="button"
