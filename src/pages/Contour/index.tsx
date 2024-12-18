@@ -484,15 +484,6 @@ const Contour: React.FC = () => {
                         <TableH>
                           <HText>Código</HText>
                         </TableH>
-                        {/* <TableH>
-                          <HText>X</HText>
-                        </TableH>
-                        <TableH>
-                          <HText>Z</HText>
-                        </TableH>
-                        <TableH>
-                          <HText>F</HText>
-                        </TableH> */}
                         <TableH />
                         <TableH colSpan={6}>
                           <HText>Parâmetros Adicionais</HText>
@@ -547,7 +538,7 @@ const Contour: React.FC = () => {
                               return renderField(
                                 item,
                                 `adtParam${param.id}`,
-                                param.id,
+                                param.fakeId ? param.fakeId : param.id,
                                 index,
                               );
                             }

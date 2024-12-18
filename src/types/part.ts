@@ -5,6 +5,7 @@ export type ContourType = 1 | 2;
 
 export interface ActionParamItem {
   id: string;
+  fakeId?: string;
 }
 
 export interface ActionParams extends Array<ActionParamItem> {}
