@@ -75,7 +75,7 @@ const Contour: React.FC = () => {
   const nameInputRef = useRef<HTMLInputElement | null>(null);
 
   const [visibleFields, setVisibleFields] = useState(
-    formData.activities.map(() => [0, 1]),
+    formData.activities.map(() => [0, 1, 2, 3]),
   );
   const [canNavigateNext, setCanNavigateNext] = useState<boolean[]>([]);
   const [canNavigatePrev, setCanNavigatePrev] = useState<boolean[]>([]);
@@ -100,7 +100,7 @@ const Contour: React.FC = () => {
     setCanNavigateNext((prev) => {
       const newCanNavigateNext = [...prev];
       newCanNavigateNext[index] =
-        newVisibleFields[index][1] <
+        newVisibleFields[index][3] <
         formData.activities[index].actionParams.length - 1;
       return newCanNavigateNext;
     });
@@ -116,14 +116,16 @@ const Contour: React.FC = () => {
     setVisibleFields((prev) => {
       const newVisibleFields = [...prev];
       if (
-        newVisibleFields[index][1] >=
+        newVisibleFields[index][3] >=
         formData.activities[index].actionParams.length - 1
       ) {
         return prev;
       }
       newVisibleFields[index] = [
-        newVisibleFields[index][0] + 1,
-        newVisibleFields[index][1] + 1,
+        newVisibleFields[index][0] + 4,
+        newVisibleFields[index][1] + 4,
+        newVisibleFields[index][2] + 4,
+        newVisibleFields[index][3] + 4,
       ];
       updateNavigationAvailability(index, newVisibleFields);
       return newVisibleFields;
@@ -137,8 +139,10 @@ const Contour: React.FC = () => {
         return prev;
       }
       newVisibleFields[index] = [
-        newVisibleFields[index][0] - 1,
-        newVisibleFields[index][1] - 1,
+        newVisibleFields[index][0] - 4,
+        newVisibleFields[index][1] - 4,
+        newVisibleFields[index][2] - 4,
+        newVisibleFields[index][3] - 4,
       ];
       updateNavigationAvailability(index, newVisibleFields);
       return newVisibleFields;
@@ -151,7 +155,7 @@ const Contour: React.FC = () => {
         if (prev[index] !== undefined) {
           return prev[index];
         }
-        return activity.actionParams.length > 1;
+        return activity.actionParams.length > 3;
       });
       return newCanNavigateNext;
     });
@@ -204,7 +208,7 @@ const Contour: React.FC = () => {
 
             setVisibleFields((prev) => {
               const newVisibleFields = [...prev];
-              newVisibleFields[index] = [0, 1];
+              newVisibleFields[index] = [0, 1, 2, 3];
               return newVisibleFields;
             });
 
@@ -296,7 +300,7 @@ const Contour: React.FC = () => {
 
     setVisibleFields((prev) => {
       const newVisibleFields = [...prev];
-      newVisibleFields.splice(index + 1, 0, [0, 1]);
+      newVisibleFields.splice(index + 1, 0, [0, 1, 2, 3]);
       return newVisibleFields;
     });
 
@@ -305,7 +309,7 @@ const Contour: React.FC = () => {
       newCanNavigateNext.splice(
         index + 1,
         0,
-        newActivity.actionParams.length > 2,
+        newActivity.actionParams.length > 4,
       );
       return newCanNavigateNext;
     });
@@ -347,6 +351,22 @@ const Contour: React.FC = () => {
         return newCanNavigatePrev;
       });
     }
+  };
+
+  const renderTableBlocks = (length: number) => {
+    const blocks = [];
+    const renderCount = 4 - length;
+    for (let i = 0; i < renderCount; i += 1) {
+      blocks.push(
+        <TableD key={i}>
+          <TableDContent>
+            <TableInputLabel />
+            <TableInputLabeled type="text" disabled />
+          </TableDContent>
+        </TableD>,
+      );
+    }
+    return blocks;
   };
 
   const toggleEdit = () => {
@@ -464,7 +484,7 @@ const Contour: React.FC = () => {
                         <TableH>
                           <HText>Código</HText>
                         </TableH>
-                        <TableH>
+                        {/* <TableH>
                           <HText>X</HText>
                         </TableH>
                         <TableH>
@@ -472,7 +492,7 @@ const Contour: React.FC = () => {
                         </TableH>
                         <TableH>
                           <HText>F</HText>
-                        </TableH>
+                        </TableH> */}
                         <TableH />
                         <TableH colSpan={3}>
                           <HText>Parâmetros Adicionais</HText>
@@ -502,7 +522,7 @@ const Contour: React.FC = () => {
                               onChange={(e) => handleChange(e, index)}
                             />
                           </TableD>
-                          <TableD>
+                          {/* <TableD>
                             <TableInput
                               className="input is-edit"
                               type="text"
@@ -528,7 +548,7 @@ const Contour: React.FC = () => {
                               value={item.fvalue}
                               onChange={(e) => handleChange(e, index)}
                             />
-                          </TableD>
+                          </TableD> */}
                           <TableD>
                             <TableDivision>|</TableDivision>
                           </TableD>
@@ -560,31 +580,7 @@ const Contour: React.FC = () => {
                             }
                             return null;
                           })}
-                          {item.actionParams.length === 0 ? (
-                            <>
-                              <TableD>
-                                <TableDContent>
-                                  <TableInputLabel />
-                                  <TableInputLabeled type="text" disabled />
-                                </TableDContent>
-                              </TableD>
-                              <TableD>
-                                <TableDContent>
-                                  <TableInputLabel />
-                                  <TableInputLabeled type="text" disabled />
-                                </TableDContent>
-                              </TableD>
-                            </>
-                          ) : (
-                            item.actionParams.length === 1 && (
-                              <TableD>
-                                <TableDContent>
-                                  <TableInputLabel />
-                                  <TableInputLabeled type="text" disabled />
-                                </TableDContent>
-                              </TableD>
-                            )
-                          )}
+                          {renderTableBlocks(item.actionParams.length)}
                           <TableD>
                             <ScrollBtn
                               type="button"

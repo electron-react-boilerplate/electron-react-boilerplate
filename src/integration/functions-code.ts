@@ -125,8 +125,37 @@ export const actionParams: auxActionParamsCode[] = [
     ],
   },
   {
-    actionCode: 'G2',
+    actionCode: 'G01',
     actionParams: [
+      {
+        id: 'X',
+        validation: XZ_REGEX,
+      },
+      {
+        id: 'Z',
+        validation: XZ_REGEX,
+      },
+      {
+        id: 'F',
+        validation: XZ_REGEX,
+      },
+    ],
+  },
+  {
+    actionCode: 'G02',
+    actionParams: [
+      {
+        id: 'X',
+        validation: XZ_REGEX,
+      },
+      {
+        id: 'Z',
+        validation: XZ_REGEX,
+      },
+      {
+        id: 'F',
+        validation: XZ_REGEX,
+      },
       {
         id: 'R',
         validation: FROM_0001_TO_100_REGEX,
@@ -134,8 +163,20 @@ export const actionParams: auxActionParamsCode[] = [
     ],
   },
   {
-    actionCode: 'G3',
+    actionCode: 'G03',
     actionParams: [
+      {
+        id: 'X',
+        validation: XZ_REGEX,
+      },
+      {
+        id: 'Z',
+        validation: XZ_REGEX,
+      },
+      {
+        id: 'F',
+        validation: XZ_REGEX,
+      },
       {
         id: 'R',
         validation: FROM_0001_TO_100_REGEX,
