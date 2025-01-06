@@ -13,11 +13,13 @@ import CodePreview from 'components/CodePreview';
 import { actionParams as actionParamsAux } from 'integration/functions-code';
 import { XZ_REGEX } from 'utils/constants';
 
-import { ContourItem, Part } from 'types/part';
+import { ActionParamItem, ContourItem, Part } from 'types/part';
 import { StyledIcon } from 'components/SideMenu/styles';
 import { colors } from 'styles/global.styles';
 
 import defineActionParams from './defineActionParams';
+
+import { ActionParamsValidation } from './interface';
 
 import {
   Container,
@@ -50,7 +52,6 @@ import {
   ScrollBtn,
   RotatedIcon,
 } from './style';
-import { ActionParamsValidation } from './interface';
 
 const defaultValue: ContourItem = {
   id: 0,
@@ -390,8 +391,8 @@ const Contour: React.FC = () => {
   }, [isEditingName]);
 
   const renderField = (
-    item: any, // ActivitiyItem com actionParams modificado para ActionParamsValidation
-    fieldName: string,
+    item: ActionParamItem, // ActivitiyItem com actionParams modificado para ActionParamsValidation
+    fieldName: keyof ActionParamItem,
     fieldId: string,
     index: number,
   ) => {
@@ -404,7 +405,8 @@ const Contour: React.FC = () => {
               className="input is-edit"
               type="text"
               name={fieldName}
-              value={item[fieldName]}
+              value={item[fieldName] as string}
+              placeholder={item.placeholder}
               onChange={(e) => handleChange(e, index)}
             />
           </TableDContent>
@@ -536,8 +538,8 @@ const Contour: React.FC = () => {
                           {item.actionParams.map((param, paramIndex) => {
                             if (visibleFields[index].includes(paramIndex)) {
                               return renderField(
-                                item,
-                                `adtParam${param.id}`,
+                                param,
+                                `adtParam${param.id}` as keyof ActionParamItem,
                                 param.fakeId ? param.fakeId : param.id,
                                 index,
                               );

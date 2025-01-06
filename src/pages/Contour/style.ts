@@ -94,6 +94,11 @@ export const TableHead = styled.thead`
   font-weight: bold;
 `;
 
+export const TableDesc = styled.thead`
+  text-align: left;
+  font-size: 14px;
+`;
+
 export const TableH = styled.th`
   padding: 0 2px 10px 2px;
 `;
@@ -102,6 +107,12 @@ export const HText = styled.p`
   padding: 5px;
   border-bottom: 1px solid ${colors.greyMedium};
   color: ${colors.greyLogo};
+`;
+
+export const HDesc = styled.p`
+  padding: 0 5px;
+  border-bottom: 0;
+  color: ${colors.greyFont};
 `;
 
 export const TableBody = styled.tbody`
@@ -149,6 +160,10 @@ export const TableInputLabeled = styled.input`
   &:disabled {
     background-color: ${colors.greyMedium};
     opacity: 0.3;
+  }
+
+  &::placeholder {
+    color: ${colors.greyMedium};
   }
 `;
 

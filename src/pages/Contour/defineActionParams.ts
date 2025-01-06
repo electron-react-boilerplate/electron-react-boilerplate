@@ -9,6 +9,7 @@ function defineActionParams(actionCodeValue: string): ActionParamsValidation {
       id: param.id,
       fakeId: param.fakeId ? param.fakeId : undefined,
       validation: param.validation ? param.validation.toString() : null,
+      placeholder: param.placeholder,
     }));
   }
   return [];
