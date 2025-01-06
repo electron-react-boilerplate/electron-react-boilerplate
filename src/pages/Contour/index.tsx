@@ -9,6 +9,7 @@ import Breadcrumbs from 'components/Breadcrumbs';
 import GrindingTypeLabel from 'components/GrindingTypeLabel';
 import Modal from 'components/Modal';
 import CodePreview from 'components/CodePreview';
+import Tooltip from 'components/Tooltip';
 
 import { actionParams as actionParamsAux } from 'integration/functions-code';
 import { XZ_REGEX } from 'utils/constants';
@@ -80,6 +81,17 @@ const Contour: React.FC = () => {
   );
   const [canNavigateNext, setCanNavigateNext] = useState<boolean[]>([]);
   const [canNavigatePrev, setCanNavigatePrev] = useState<boolean[]>([]);
+
+  const [focusedField, setFocusedField] = useState<{
+    fieldId: string;
+    index: number;
+  } | null>(null);
+
+  useEffect(() => {
+    if (isEditingName && nameInputRef.current) {
+      nameInputRef.current.focus();
+    }
+  }, [isEditingName]);
 
   const breadcrumbsItems = [
     {
@@ -408,7 +420,13 @@ const Contour: React.FC = () => {
               value={item[fieldName] as string}
               placeholder={item.placeholder}
               onChange={(e) => handleChange(e, index)}
+              onFocus={() => setFocusedField({ fieldId, index })}
+              onBlur={() => setFocusedField(null)}
             />
+            {focusedField?.fieldId === fieldId &&
+              focusedField?.index === index && (
+                <Tooltip>{item.placeholder}</Tooltip>
+              )}
           </TableDContent>
         </TableD>
       );
