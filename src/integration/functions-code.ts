@@ -22,6 +22,7 @@ import {
   FROM_0_TO_999_DEC_REGEX,
   FROM_1_TO_4_REGEX,
   VALID_CHAIN_M_CODES_REGEX,
+  FROM_0_001_TO_9999_9999_REGEX,
 } from 'utils/constants';
 import { auxActionParamsCode } from 'pages/Contour/interface';
 
@@ -400,7 +401,7 @@ export const actionParams: auxActionParamsCode[] = [
       },
       {
         id: 'F',
-        validation: FROM_1_TO_999_999_REGEX,
+        validation: FROM_0_001_TO_9999_9999_REGEX,
         placeholder: 'Velocidade',
       },
     ],
@@ -430,7 +431,7 @@ export const actionParams: auxActionParamsCode[] = [
       },
       {
         id: 'F',
-        validation: FROM_1_TO_999_999_REGEX,
+        validation: FROM_0_001_TO_9999_9999_REGEX,
         placeholder: 'Velocidade',
       },
     ],
@@ -450,7 +451,7 @@ export const actionParams: auxActionParamsCode[] = [
       },
       {
         id: 'F',
-        validation: FROM_1_TO_999_999_REGEX,
+        validation: FROM_0_001_TO_9999_9999_REGEX,
         placeholder: 'Velocidade',
       },
     ],
@@ -470,7 +471,7 @@ export const actionParams: auxActionParamsCode[] = [
       },
       {
         id: 'F',
-        validation: FROM_1_TO_999_999_REGEX,
+        validation: FROM_0_001_TO_9999_9999_REGEX,
         placeholder: 'Velocidade',
       },
     ],
@@ -485,7 +486,7 @@ export const actionParams: auxActionParamsCode[] = [
       },
       {
         id: 'F',
-        validation: FROM_1_TO_999_999_REGEX,
+        validation: FROM_0_001_TO_9999_9999_REGEX,
         placeholder: 'Velocidade',
       },
     ],

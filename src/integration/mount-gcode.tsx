@@ -48,11 +48,17 @@ function generateLines(
   xSafetyDistanceValue?: number,
   zSafetyDistanceValue?: number,
 ): string {
+  let toolVar: string = '5X00';
+  if (toolId === 1) toolVar = '5200';
+  if (toolId === 2) toolVar = '5300';
+  if (toolId === 3) toolVar = '5400';
+  if (toolId === 4) toolVar = '5500';
+
   let gCodeOutput = '';
   const toolLine = `N0010 #50001=${toolId}\n`;
-  const bAxisAngleLine = `N0020 #50002=${bAxisAngleValue}\n`;
-  const xSafetyDistanceLine = `N0030 #5000X=${xSafetyDistanceValue}\n`;
-  const zSafetyDistanceLine = `N0040 #5000Z=${zSafetyDistanceValue}\n`;
+  const bAxisAngleLine = `N0020 #${toolVar}1=${bAxisAngleValue}\n`;
+  const xSafetyDistanceLine = `N0030 #${toolVar}2=${xSafetyDistanceValue}\n`;
+  const zSafetyDistanceLine = `N0040 #${toolVar}3=${zSafetyDistanceValue}\n`;
   const macroRefLine = `N0050 ${macroRef}\n`;
 
   contour.activities.forEach((element: any, index: any) => {

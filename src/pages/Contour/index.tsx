@@ -405,14 +405,15 @@ const Contour: React.FC = () => {
   const renderField = (
     item: ActionParamItem, // ActivitiyItem com actionParams modificado para ActionParamsValidation
     fieldName: keyof ActionParamItem,
-    fieldId: string,
     index: number,
   ) => {
-    if (fieldId && fieldId !== '') {
+    const fId = item.fakeId ? item.fakeId : item.id;
+
+    if (fId && fId !== '') {
       return (
         <TableD key={fieldName}>
           <TableDContent>
-            <TableInputLabel>{fieldId}</TableInputLabel>
+            <TableInputLabel>{fId}</TableInputLabel>
             <TableInputLabeled
               className="input is-edit"
               type="text"
@@ -420,10 +421,10 @@ const Contour: React.FC = () => {
               value={item[fieldName] as string}
               placeholder={item.placeholder}
               onChange={(e) => handleChange(e, index)}
-              onFocus={() => setFocusedField({ fieldId, index })}
+              onFocus={() => setFocusedField({ fieldId: item.id, index })}
               onBlur={() => setFocusedField(null)}
             />
-            {focusedField?.fieldId === fieldId &&
+            {focusedField?.fieldId === item.id &&
               focusedField?.index === index && (
                 <Tooltip>{item.placeholder}</Tooltip>
               )}
@@ -558,7 +559,7 @@ const Contour: React.FC = () => {
                               return renderField(
                                 param,
                                 `adtParam${param.id}` as keyof ActionParamItem,
-                                param.fakeId ? param.fakeId : param.id,
+                                // param.fakeId ? param.fakeId : param.id,
                                 index,
                               );
                             }
