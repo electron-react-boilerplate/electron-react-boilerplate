@@ -5,6 +5,8 @@ export type ContourType = 1 | 2;
 
 export interface ActionParamItem {
   id: string;
+  fakeId?: string;
+  placeholder: string;
 }
 
 export interface ActionParams extends Array<ActionParamItem> {}
@@ -34,6 +36,8 @@ export interface OperationItem {
   name: string;
   toolId: number;
   bAxisAngle: number;
+  xSafetyDistance: number;
+  zSafetyDistance: number;
   contoursIds: number[];
   contoursIdsExcluded?: number[];
 }

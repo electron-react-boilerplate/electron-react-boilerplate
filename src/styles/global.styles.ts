@@ -14,6 +14,7 @@ export const colors = {
   greyCodeBg: '#282c34',
   blue: '#0069b5',
   blueLight: '#72B2FF',
+  blueLighter: '#d7e8fc',
   blueDark: '#2772CE',
   blueCodeFont: '#6D9CBE',
   black: '#363636',

@@ -1,9 +1,6 @@
 import {
-  FROM_1_TO_60_REGEX,
   FROM_1_TO_2K_REGEX,
   FROM_1_TO_10K_REGEX,
-  FROM_1_TO_3K_REGEX,
-  FROM_1_TO_18K_REGEX,
   FROM_0001_TO_100_REGEX,
   FROM_1_TO_10_REGEX,
   FROM_1_TO_9999_REGEX,
@@ -24,6 +21,8 @@ import {
   FROM_NEG_1_TO_1_DEC_REGEX,
   FROM_0_TO_999_DEC_REGEX,
   FROM_1_TO_4_REGEX,
+  VALID_CHAIN_M_CODES_REGEX,
+  FROM_0_001_TO_9999_9999_REGEX,
 } from 'utils/constants';
 import { auxActionParamsCode } from 'pages/Contour/interface';
 
@@ -34,6 +33,7 @@ export const actionParams: auxActionParamsCode[] = [
       {
         id: 'S',
         validation: FROM_1_TO_2K_REGEX,
+        placeholder: 'Rotação',
       },
     ],
   },
@@ -43,15 +43,7 @@ export const actionParams: auxActionParamsCode[] = [
       {
         id: 'S',
         validation: FROM_1_TO_2K_REGEX,
-      },
-    ],
-  },
-  {
-    actionCode: 'M11',
-    actionParams: [
-      {
-        id: 'S',
-        validation: FROM_1_TO_60_REGEX,
+        placeholder: 'Rotação',
       },
     ],
   },
@@ -61,6 +53,7 @@ export const actionParams: auxActionParamsCode[] = [
       {
         id: 'S',
         validation: FROM_1_TO_2K_REGEX,
+        placeholder: 'Rotação',
       },
     ],
   },
@@ -70,24 +63,7 @@ export const actionParams: auxActionParamsCode[] = [
       {
         id: 'S',
         validation: FROM_1_TO_2K_REGEX,
-      },
-    ],
-  },
-  {
-    actionCode: 'M31',
-    actionParams: [
-      {
-        id: 'S',
-        validation: FROM_1_TO_60_REGEX,
-      },
-    ],
-  },
-  {
-    actionCode: 'M37',
-    actionParams: [
-      {
-        id: 'S',
-        validation: FROM_1_TO_60_REGEX,
+        placeholder: 'Rotação',
       },
     ],
   },
@@ -97,15 +73,7 @@ export const actionParams: auxActionParamsCode[] = [
       {
         id: 'S',
         validation: FROM_1_TO_10K_REGEX,
-      },
-    ],
-  },
-  {
-    actionCode: 'M57',
-    actionParams: [
-      {
-        id: 'S',
-        validation: FROM_1_TO_60_REGEX,
+        placeholder: 'Rotação',
       },
     ],
   },
@@ -115,6 +83,7 @@ export const actionParams: auxActionParamsCode[] = [
       {
         id: 'S',
         validation: FROM_1_TO_2K_REGEX,
+        placeholder: 'Rotação',
       },
     ],
   },
@@ -124,24 +93,7 @@ export const actionParams: auxActionParamsCode[] = [
       {
         id: 'S',
         validation: FROM_1_TO_2K_REGEX,
-      },
-    ],
-  },
-  {
-    actionCode: 'M111',
-    actionParams: [
-      {
-        id: 'S',
-        validation: FROM_1_TO_3K_REGEX,
-      },
-    ],
-  },
-  {
-    actionCode: 'M112',
-    actionParams: [
-      {
-        id: 'S',
-        validation: FROM_1_TO_18K_REGEX,
+        placeholder: 'Rotação',
       },
     ],
   },
@@ -151,6 +103,7 @@ export const actionParams: auxActionParamsCode[] = [
       {
         id: 'S',
         validation: FROM_1_TO_2K_REGEX,
+        placeholder: 'Rotação',
       },
     ],
   },
@@ -160,15 +113,7 @@ export const actionParams: auxActionParamsCode[] = [
       {
         id: 'S',
         validation: FROM_1_TO_2K_REGEX,
-      },
-    ],
-  },
-  {
-    actionCode: 'M131',
-    actionParams: [
-      {
-        id: 'S',
-        validation: FROM_1_TO_18K_REGEX,
+        placeholder: 'Rotação',
       },
     ],
   },
@@ -178,6 +123,7 @@ export const actionParams: auxActionParamsCode[] = [
       {
         id: 'S',
         validation: FROM_1_TO_10K_REGEX,
+        placeholder: 'Rotação',
       },
     ],
   },
@@ -187,33 +133,131 @@ export const actionParams: auxActionParamsCode[] = [
       {
         id: 'S',
         validation: FROM_1_TO_10K_REGEX,
+        placeholder: 'Rotação',
       },
     ],
   },
   {
-    actionCode: 'G2',
+    actionCode: 'G01',
     actionParams: [
       {
-        id: 'R',
-        validation: FROM_0001_TO_100_REGEX,
-      },
-    ],
-  },
-  {
-    actionCode: 'G3',
-    actionParams: [
-      {
-        id: 'R',
-        validation: FROM_0001_TO_100_REGEX,
-      },
-    ],
-  },
-  {
-    actionCode: 'G4.1',
-    actionParams: [
-      {
-        id: 'P1',
+        id: 'X',
         validation: XZ_REGEX,
+        placeholder: 'Eixo X',
+      },
+      {
+        id: 'Z',
+        validation: XZ_REGEX,
+        placeholder: 'Eixo Z',
+      },
+      {
+        id: 'F',
+        validation: XZ_REGEX,
+        placeholder: 'Velocidade',
+      },
+      {
+        id: 'M1',
+        fakeId: 'M',
+        validation: VALID_CHAIN_M_CODES_REGEX,
+        placeholder: 'Função M',
+      },
+      {
+        id: 'M2',
+        fakeId: 'M',
+        validation: VALID_CHAIN_M_CODES_REGEX,
+        placeholder: 'Função M',
+      },
+      {
+        id: 'M3',
+        fakeId: 'M',
+        validation: VALID_CHAIN_M_CODES_REGEX,
+        placeholder: 'Função M',
+      },
+    ],
+  },
+  {
+    actionCode: 'G02',
+    actionParams: [
+      {
+        id: 'X',
+        validation: XZ_REGEX,
+        placeholder: 'Eixo X',
+      },
+      {
+        id: 'Z',
+        validation: XZ_REGEX,
+        placeholder: 'Eixo Z',
+      },
+      {
+        id: 'F',
+        validation: XZ_REGEX,
+        placeholder: 'Velocidade',
+      },
+      {
+        id: 'R',
+        validation: FROM_0001_TO_100_REGEX,
+        placeholder: 'Raio',
+      },
+      {
+        id: 'M1',
+        fakeId: 'M',
+        validation: VALID_CHAIN_M_CODES_REGEX,
+        placeholder: 'Função M',
+      },
+      {
+        id: 'M2',
+        fakeId: 'M',
+        validation: VALID_CHAIN_M_CODES_REGEX,
+        placeholder: 'Função M',
+      },
+      {
+        id: 'M3',
+        fakeId: 'M',
+        validation: VALID_CHAIN_M_CODES_REGEX,
+        placeholder: 'Função M',
+      },
+    ],
+  },
+  {
+    actionCode: 'G03',
+    actionParams: [
+      {
+        id: 'X',
+        validation: XZ_REGEX,
+        placeholder: 'Eixo X',
+      },
+      {
+        id: 'Z',
+        validation: XZ_REGEX,
+        placeholder: 'Eixo Z',
+      },
+      {
+        id: 'F',
+        validation: XZ_REGEX,
+        placeholder: 'Velocidade',
+      },
+      {
+        id: 'R',
+        validation: FROM_0001_TO_100_REGEX,
+        placeholder: 'Raio',
+      },
+      {
+        id: 'M1',
+        fakeId: 'M',
+        validation: VALID_CHAIN_M_CODES_REGEX,
+        placeholder: 'Função M',
+      },
+      {
+        id: 'M2',
+        fakeId: 'M',
+        validation: VALID_CHAIN_M_CODES_REGEX,
+        placeholder: 'Função M',
+      },
+      {
+        id: 'M3',
+        fakeId: 'M',
+        validation: VALID_CHAIN_M_CODES_REGEX,
+        placeholder: 'Função M',
       },
     ],
   },
@@ -223,6 +267,7 @@ export const actionParams: auxActionParamsCode[] = [
       {
         id: 'P',
         validation: FROM_1_TO_10_REGEX,
+        placeholder: 'Código P',
       },
     ],
   },
@@ -232,6 +277,7 @@ export const actionParams: auxActionParamsCode[] = [
       {
         id: 'P',
         validation: FROM_1_TO_9999_REGEX,
+        placeholder: 'Código P',
       },
     ],
   },
@@ -241,34 +287,42 @@ export const actionParams: auxActionParamsCode[] = [
       {
         id: 'X',
         validation: FROM_1_TO_9999_9999_REGEX,
+        placeholder: 'Diâmetro Final',
       },
       {
         id: 'W',
         validation: FROM_0_001_TO_9999_REGEX,
+        placeholder: 'Comprimento de Passada',
       },
       {
         id: 'U',
         validation: FROM_0_001_TO_2_REGEX,
+        placeholder: 'Incremento em X',
       },
       {
         id: 'F',
         validation: FROM_0_001_TO_3000_REGEX,
+        placeholder: 'Velocidade',
       },
       {
         id: 'C',
         validation: FROM_0_TO_2_REGEX,
+        placeholder: 'Incremento dos Dois Lados',
       },
       {
         id: 'S',
         validation: FROM_0_TO_999_REGEX,
+        placeholder: 'Passadas em Vazio',
       },
       {
         id: 'H',
         validation: FROM_0_TO_999_DEC_REGEX,
+        placeholder: 'Tempo para Furo Cego',
       },
       {
         id: 'J',
         validation: FROM_NEG_1_TO_1_DEC_REGEX,
+        placeholder: 'Corretor Paralelo',
       },
     ],
   },
@@ -278,26 +332,32 @@ export const actionParams: auxActionParamsCode[] = [
       {
         id: 'X',
         validation: FROM_1_TO_9999_REGEX,
+        placeholder: 'Diâmetro final',
       },
       {
         id: 'W',
         validation: FROM_0_001_TO_9999_REGEX,
+        placeholder: 'Comprimento de Passada',
       },
       {
         id: 'U',
         validation: FROM_0_001_TO_2_REGEX,
+        placeholder: 'Incremento em X',
       },
       {
         id: 'F',
         validation: FROM_0_001_TO_3000_REGEX,
+        placeholder: 'Velocidade',
       },
       {
         id: 'C',
         validation: FROM_0_TO_2_REGEX,
+        placeholder: 'Incremento dos Dois Lados',
       },
       {
         id: 'S',
         validation: FROM_0_TO_999_REGEX,
+        placeholder: 'Passadas em Vazio',
       },
     ],
   },
@@ -307,6 +367,7 @@ export const actionParams: auxActionParamsCode[] = [
       {
         id: 'A',
         validation: FROM_0_TO_360_REGEX,
+        placeholder: 'Ângulo (Graus)',
       },
     ],
   },
@@ -316,14 +377,17 @@ export const actionParams: auxActionParamsCode[] = [
       {
         id: 'A',
         validation: FROM_0_TO_360_REGEX,
+        placeholder: 'Ângulo (Graus)',
       },
       {
         id: 'M',
         validation: FROM_0_TO_60_REGEX,
+        placeholder: 'Ângulo (Minutos)',
       },
       {
         id: 'S',
         validation: FROM_0_TO_60_REGEX,
+        placeholder: 'Ângulo (Segundos)',
       },
     ],
   },
@@ -333,10 +397,12 @@ export const actionParams: auxActionParamsCode[] = [
       {
         id: 'W',
         validation: FROM_NEG10_TO_10_REGEX,
+        placeholder: 'Afastamento em Z',
       },
       {
         id: 'F',
-        validation: FROM_1_TO_999_999_REGEX,
+        validation: FROM_0_001_TO_9999_9999_REGEX,
+        placeholder: 'Velocidade',
       },
     ],
   },
@@ -346,6 +412,7 @@ export const actionParams: auxActionParamsCode[] = [
       {
         id: 'W',
         validation: FROM_NEG10_TO_10_REGEX,
+        placeholder: 'Afastamento em Z',
       },
     ],
   },
@@ -355,14 +422,17 @@ export const actionParams: auxActionParamsCode[] = [
       {
         id: 'X',
         validation: FROM_1_TO_9999_9999_REGEX,
+        placeholder: 'Diâmetro Final',
       },
       {
         id: 'I',
         validation: FROM_1_TO_4_REGEX,
+        placeholder: 'Sinal do Medidor',
       },
       {
         id: 'F',
-        validation: FROM_1_TO_999_999_REGEX,
+        validation: FROM_0_001_TO_9999_9999_REGEX,
+        placeholder: 'Velocidade',
       },
     ],
   },
@@ -372,14 +442,17 @@ export const actionParams: auxActionParamsCode[] = [
       {
         id: 'Z',
         validation: FROM_1_TO_9999_9999_REGEX,
+        placeholder: 'Distância Final',
       },
       {
         id: 'I',
         validation: FROM_1_TO_4_REGEX,
+        placeholder: 'Sinal do Medidor',
       },
       {
         id: 'F',
-        validation: FROM_1_TO_999_999_REGEX,
+        validation: FROM_0_001_TO_9999_9999_REGEX,
+        placeholder: 'Velocidade',
       },
     ],
   },
@@ -389,14 +462,67 @@ export const actionParams: auxActionParamsCode[] = [
       {
         id: 'H',
         validation: FROM_0_001_TO_999_999_REGEX,
+        placeholder: 'Comprimento da Rosca',
       },
       {
         id: 'E',
         validation: FROM_0_001_TO_6_REGEX,
+        placeholder: 'Passo da Rosca',
       },
       {
         id: 'F',
-        validation: FROM_1_TO_999_999_REGEX,
+        validation: FROM_0_001_TO_9999_9999_REGEX,
+        placeholder: 'Velocidade',
+      },
+    ],
+  },
+  {
+    actionCode: 'G137',
+    actionParams: [
+      {
+        id: 'T',
+        validation: FROM_0_001_TO_9999_REGEX,
+        placeholder: 'Movim. ABS do CCP',
+      },
+      {
+        id: 'F',
+        validation: FROM_0_001_TO_9999_9999_REGEX,
+        placeholder: 'Velocidade',
+      },
+    ],
+  },
+  {
+    actionCode: 'G140',
+    actionParams: [
+      {
+        id: 'W',
+        validation: FROM_0_001_TO_9999_REGEX, // revisar
+        placeholder: 'Rebolo',
+      },
+      {
+        id: 'SR',
+        validation: FROM_0_001_TO_9999_REGEX, // revisar
+        placeholder: 'S ou R (???)',
+      },
+      {
+        id: 'R',
+        validation: FROM_1_TO_999_999_REGEX, // revisar
+        placeholder: 'Rotação',
+      },
+      {
+        id: 'S',
+        validation: FROM_1_TO_999_999_REGEX, // revisar
+        placeholder: 'Velocidade Periférica',
+      },
+    ],
+  },
+  {
+    actionCode: 'G141',
+    actionParams: [
+      {
+        id: 'W',
+        validation: FROM_0_001_TO_9999_REGEX, // revisar
+        placeholder: 'Rebolo',
       },
     ],
   },
@@ -406,10 +532,12 @@ export const actionParams: auxActionParamsCode[] = [
       {
         id: 'W',
         validation: FROM_0_001_TO_999_999_REGEX,
+        placeholder: 'Comprimento de Passada',
       },
       {
         id: 'F',
         validation: FROM_0_001_TO_999_999_REGEX,
+        placeholder: 'Velocidade',
       },
     ],
   },
@@ -419,15 +547,67 @@ export const actionParams: auxActionParamsCode[] = [
       {
         id: 'U',
         validation: FROM_0_001_TO_999_999_REGEX,
-      },
-      {
-        id: 'W',
-        validation: FROM_0_001_TO_999_999_REGEX,
+        placeholder: 'Incremento em X',
       },
       {
         id: 'C',
         validation: FROM_1_TO_2_REGEX,
+        placeholder: 'Incremento em Z',
       },
     ],
   },
 ];
+
+const EXCLUDED_CODES = [
+  'M11',
+  'M31',
+  'M37',
+  'M57',
+  'M111',
+  'M112',
+  'M131',
+  'M3',
+  'M4',
+  'M13',
+  'M14',
+  'M51',
+  'M151',
+  'M218',
+  'M0',
+  'M1',
+  'M2',
+  'M30',
+  'M96',
+  'M97',
+  'M98',
+  'M99',
+];
+
+for (let i = 0; i <= 305; i += 1) {
+  const code = `M${i}`;
+  if (!EXCLUDED_CODES.includes(code)) {
+    actionParams.push({
+      actionCode: code,
+      actionParams: [
+        {
+          id: 'M1',
+          fakeId: 'M',
+          validation: FROM_1_TO_2K_REGEX,
+          placeholder: 'Função M',
+        },
+        {
+          id: 'M2',
+          fakeId: 'M',
+          validation: FROM_1_TO_2K_REGEX,
+          placeholder: 'Função M',
+        },
+        {
+          id: 'M3',
+          fakeId: 'M',
+          validation: FROM_1_TO_2K_REGEX,
+          placeholder: 'Função M',
+        },
+      ],
+    });
+  }
+}
