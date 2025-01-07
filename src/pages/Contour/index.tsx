@@ -559,7 +559,6 @@ const Contour: React.FC = () => {
                               return renderField(
                                 param,
                                 `adtParam${param.id}` as keyof ActionParamItem,
-                                // param.fakeId ? param.fakeId : param.id,
                                 index,
                               );
                             }
