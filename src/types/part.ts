@@ -13,9 +13,6 @@ export interface ActionParams extends Array<ActionParamItem> {}
 
 export interface ActivitiyItem {
   id: number;
-  xaxis: string;
-  zaxis: string;
-  fvalue: string;
   actionCode: string;
   actionParams: ActionParams;
 }

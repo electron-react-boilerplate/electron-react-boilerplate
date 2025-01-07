@@ -14,7 +14,7 @@ import Tooltip from 'components/Tooltip';
 import { actionParams as actionParamsAux } from 'integration/functions-code';
 import { XZ_REGEX } from 'utils/constants';
 
-import { ActionParamItem, ContourItem, Part } from 'types/part';
+import { ActionParamItem, ActivitiyItem, ContourItem, Part } from 'types/part';
 import { StyledIcon } from 'components/SideMenu/styles';
 import { colors } from 'styles/global.styles';
 
@@ -403,11 +403,12 @@ const Contour: React.FC = () => {
   }, [isEditingName]);
 
   const renderField = (
-    item: ActionParamItem, // ActivitiyItem com actionParams modificado para ActionParamsValidation
-    fieldName: keyof ActionParamItem,
+    item: ActivitiyItem, // ActivitiyItem with additional keys dynamically included in handleChange
+    param: ActionParamItem,
+    fieldName: string,
     index: number,
   ) => {
-    const fId = item.fakeId ? item.fakeId : item.id;
+    const fId = param.fakeId ? param.fakeId : param.id;
 
     if (fId && fId !== '') {
       return (
@@ -418,15 +419,15 @@ const Contour: React.FC = () => {
               className="input is-edit"
               type="text"
               name={fieldName}
-              value={item[fieldName] as string}
-              placeholder={item.placeholder}
+              value={item[fieldName as keyof ActivitiyItem] as string} // as the fields need to be controlled by the dynamic keys of formData, we adjusted the typing to handle them accordingly
+              placeholder={param.placeholder}
               onChange={(e) => handleChange(e, index)}
-              onFocus={() => setFocusedField({ fieldId: item.id, index })}
+              onFocus={() => setFocusedField({ fieldId: param.id, index })}
               onBlur={() => setFocusedField(null)}
             />
-            {focusedField?.fieldId === item.id &&
+            {focusedField?.fieldId === param.id &&
               focusedField?.index === index && (
-                <Tooltip>{item.placeholder}</Tooltip>
+                <Tooltip>{param.placeholder}</Tooltip>
               )}
           </TableDContent>
         </TableD>
@@ -557,6 +558,7 @@ const Contour: React.FC = () => {
                           {item.actionParams.map((param, paramIndex) => {
                             if (visibleFields[index].includes(paramIndex)) {
                               return renderField(
+                                item,
                                 param,
                                 `adtParam${param.id}` as keyof ActionParamItem,
                                 index,
