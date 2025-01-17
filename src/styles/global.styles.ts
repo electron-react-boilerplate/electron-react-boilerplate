@@ -24,6 +24,7 @@ export const colors = {
   green: '#73B566',
   greenDark: '#5E9C4F',
   orange: '#FDA403',
+  yellow: '#FCEB00',
 };
 
 export const measures = {

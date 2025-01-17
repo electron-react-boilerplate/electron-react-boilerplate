@@ -9,9 +9,6 @@ interface EditContourPayload {
 
 const initialActivity: ActivitiyItem = {
   id: 1,
-  xaxis: '',
-  zaxis: '',
-  fvalue: '',
   actionCode: '',
   actionParams: [],
 };
@@ -22,7 +19,8 @@ export const initialState: Part = {
     {
       id: 0,
       name: 'Contorno',
-      type: 2,
+      machining: 1,
+      type: 1,
       activities: [initialActivity],
     },
   ],
@@ -48,7 +46,7 @@ const partSlice = createSlice({
       action: PayloadAction<
         | Omit<ContourItem, 'id'>
         | (Omit<Partial<Pick<ContourItem, 'activities'>>, 'id'> &
-            Pick<ContourItem, 'name' | 'type'>)
+            Pick<ContourItem, 'name' | 'machining' | 'type'>)
       >,
     ) => {
       const maxId = Math.max(...state.contours.map((contour) => contour.id), 0);

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { ContourType } from 'types/part';
+import { ContourType, Machining } from 'types/part';
 
 import FormField from 'components/FormField';
 import { Message } from 'components/FormField/style';
@@ -15,8 +15,8 @@ import { Container, Field, Label, RadioButton, Button } from './style';
 
 const initialFormData: IFormData = {
   name: { value: '', error: false, message: undefined },
-  // toolId value 1 represents first tool fetched from API, wich has id 1
-  type: { value: 1, error: false, message: undefined },
+  machining: { value: undefined, error: false, message: undefined },
+  type: { value: undefined, error: false, message: undefined },
 };
 
 const ContourForm: React.FC<FormProps> = ({ onButtonClick }) => {
@@ -78,11 +78,13 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick }) => {
 
     const contour: addContourPayload = {
       name: formData.name.value as string,
+      machining: Number(formData.machining.value) as Machining,
       type: Number(formData.type.value) as ContourType,
     };
     dispatch(
       addContour({
         ...contour,
+        machining: Number(formData.machining.value) as Machining,
         type: Number(formData.type.value) as ContourType,
       }),
     );
@@ -106,6 +108,34 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick }) => {
           fieldState={formData.name}
           handleInputChange={handleChange}
         />
+      </Field>
+      <Field>
+        <Label>Usinagem:</Label>
+        {formData.machining.error && (
+          <Message>{formData.machining.message}</Message>
+        )}
+        <RadioButton>
+          <input
+            type="radio"
+            value={1}
+            name="machining"
+            onChange={(e) => handleChange(e)}
+            required
+          />
+          <span />
+          Retificação
+        </RadioButton>
+        <RadioButton>
+          <input
+            type="radio"
+            value={2}
+            name="machining"
+            onChange={(e) => handleChange(e)}
+            required
+          />
+          <span />
+          Dressagem
+        </RadioButton>
       </Field>
       <Field>
         <Label>Tipo:</Label>

@@ -34,6 +34,11 @@ export const ContentRight = styled.div`
   align-items: center;
 `;
 
+export const ImgContainer = styled.div`
+  background-color: ${colors.yellow};
+  padding: 8px;
+`;
+
 const BaseButton = styled.button`
   flex-shrink: 0;
   position: relative;
@@ -44,16 +49,10 @@ const BaseButton = styled.button`
   height: 100%;
 `;
 
-export const Drag = styled(BaseButton)`
-  background-color: ${colors.white};
-  cursor: grab;
-  width: 36px;
-`;
-
 export const Toggle = styled(BaseButton)`
   text-align: center;
   background-color: ${colors.white};
-  width: 36px;
+  width: 56px;
 `;
 
 export const UpDownContainer = styled.div`
@@ -61,22 +60,22 @@ export const UpDownContainer = styled.div`
   flex-flow: column nowrap;
   align-items: center;
   justify-content: center;
-  width: 56px;
+  width: 36px;
 `;
 
 export const Up = styled(BaseButton)`
   background-color: ${colors.white};
-  width: 56px;
+  width: 100%;
 `;
 
 export const Down = styled(BaseButton)`
   background-color: ${colors.white};
-  width: 56px;
+  width: 100%;
 `;
 
-export const Name = styled.div<{ paddingLeft?: boolean }>`
+export const Name = styled.div`
   font-size: 18px;
-  padding-left: ${(props) => (props.paddingLeft ? '16px' : 'none')};
+  padding-left: 16px;
 `;
 
 export const Edit = styled(BaseButton)`

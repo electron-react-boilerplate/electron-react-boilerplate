@@ -21,6 +21,10 @@ import { Contours, ContourType, OperationItem, Operations } from 'types/part';
 import { ToolOptionItem } from 'components/Select/interface';
 
 import { colors } from 'styles/global.styles';
+
+import dresserImg from '../../../assets/images/dresser.png';
+import partImg from '../../../assets/images/part.png';
+
 import { CardProps } from './interface';
 
 import {
@@ -35,7 +39,7 @@ import {
   Up,
   Down,
   UpDownContainer,
-  Drag,
+  ImgContainer,
 } from './styles';
 
 const Card: React.FC<CardProps> = ({
@@ -141,13 +145,13 @@ const Card: React.FC<CardProps> = ({
         />
       </Modal>
       <ContentLeft>
-        <Drag>
-          <Icon
-            className="icon-drag_indicator"
-            color={colors.greyDark}
-            fontSize="24px"
+        <ImgContainer>
+          <img
+            src={content.machining === 1 ? dresserImg : partImg}
+            alt="Dresser Icon"
+            height={37}
           />
-        </Drag>
+        </ImgContainer>
         {variation === 'operation' && (
           <>
             <Toggle onClick={() => toggleCard()}>
