@@ -22,6 +22,10 @@ import { ToolOptionItem } from 'components/Select/interface';
 import { Contours, OperationItem, Operations } from 'types/part';
 
 import { colors } from 'styles/global.styles';
+
+import dresserImg from '../../../assets/images/dresser.png';
+import partImg from '../../../assets/images/part.png';
+
 import {
   Block,
   Container,
@@ -41,6 +45,9 @@ import {
   BAxisAngleText,
   WheelText,
   OpItemHeaderContent,
+  ContourBtnsWrapper,
+  IconButton,
+  IconBtn,
 } from './style';
 
 const breadcrumbsItems = [
@@ -61,6 +68,7 @@ const WorkGroup: React.FC = () => {
     (state: { part: { operations: Operations } }) => state.part.operations,
   );
   const [isModalContourOpen, setIsModalContourOpen] = useState<boolean>(false);
+  const [selectedButton, setSelectedButton] = useState<number>(0);
   const [isModalOperationOpen, setIsModalOperationOpen] =
     useState<boolean>(false);
   const [isModalEditOperationOpen, setIsModalEditOperationOpen] =
@@ -166,22 +174,42 @@ const WorkGroup: React.FC = () => {
       <Content>
         <Block>
           <Title>Contornos</Title>
-          <AddBtn>
-            <Button
-              onClick={() => setIsModalContourOpen(true)}
-              color={colors.white}
-              bgColor={colors.green}
-            >
-              <Wrap>
-                <Icon
-                  className="icon-add"
-                  color={colors.white}
-                  fontSize="26px"
-                />
-                <TextAdd>Cadastrar Contorno</TextAdd>
-              </Wrap>
-            </Button>
-          </AddBtn>
+          <ContourBtnsWrapper>
+            <IconBtn>
+              <IconButton
+                onClick={() => setSelectedButton(0)}
+                bgColor={selectedButton === 0 ? colors.yellow : colors.white}
+                shadow={selectedButton === 0}
+              >
+                <img src={dresserImg} height={34} alt="Dressing Icon" />
+              </IconButton>
+            </IconBtn>
+            <IconBtn>
+              <IconButton
+                onClick={() => setSelectedButton(1)}
+                bgColor={selectedButton === 1 ? colors.yellow : colors.white}
+                shadow={selectedButton === 1}
+              >
+                <img src={partImg} height={34} alt="Part Icon" />
+              </IconButton>
+            </IconBtn>
+            <AddBtn>
+              <Button
+                onClick={() => setIsModalContourOpen(true)}
+                color={colors.white}
+                bgColor={colors.green}
+              >
+                <Wrap>
+                  <Icon
+                    className="icon-add"
+                    color={colors.white}
+                    fontSize="26px"
+                  />
+                  <TextAdd>Cadastrar Contorno</TextAdd>
+                </Wrap>
+              </Button>
+            </AddBtn>
+          </ContourBtnsWrapper>
           <CContentBlock>
             <div>
               {contours.map((contour) => (

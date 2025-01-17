@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-
 import { PageTitle, PageContent, ContentBlock } from 'styles/Components';
-import { colors, measures } from 'styles/global.styles';
+import { colors, measures, shadows } from 'styles/global.styles';
 
 export const Container = styled.div`
   height: 100%;
@@ -81,10 +80,21 @@ export const Title = styled(PageTitle)`
   margin-bottom: 24px;
 `;
 
+export const ContourBtnsWrapper = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+`;
+
 export const AddBtn = styled.div`
   height: 48px;
   font-size: 16px;
   margin-bottom: 15px;
+  width: 100%;
+`;
+
+export const IconBtn = styled.div`
+  height: 48px;
+  font-size: 16px;
 `;
 
 export const Wrap = styled.div`
@@ -109,4 +119,16 @@ export const SButton = styled.button`
   &:last-child {
     margin-right: 0;
   }
+`;
+
+export const IconButton = styled.button<{ bgColor: string; shadow?: boolean }>`
+  margin: 0 10px 0 0;
+  padding: 0;
+  border: 0;
+  background-color: ${({ bgColor }) => bgColor};
+  cursor: pointer;
+  padding: 7px;
+  border-radius: ${measures.borderRadius};
+  box-shadow: ${({ shadow }) => (shadow ? shadows.std : 'none')};
+  border: 1px solid ${colors.yellow};
 `;
