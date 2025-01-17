@@ -1,22 +1,24 @@
-/*
- * @NOTE: Prepend a `~` to css file paths that are in your node_modules
- *        See https://github.com/webpack-contrib/sass-loader#imports
- */
+@font-face {
+  font-family: 'ZebulonCondensedBold';
+  src: url('../../fonts/Zebulon_Condensed_Bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+h1 {
+  font-family: 'ZebulonCondensedBold';
+  font-size: 3rem;
+  margin: 0;
+}
+
 body {
   position: relative;
-  color: white;
+  color: #090909;
   height: 100vh;
-  background: linear-gradient(
-    200.96deg,
-    #fedc2a -29.09%,
-    #dd5789 51.77%,
-    #7a2c9e 129.35%
-  );
+  background: #1D1616;
   font-family: sans-serif;
-  overflow-y: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 button {
@@ -33,30 +35,71 @@ button {
   opacity: 0.9;
 }
 
-button:hover {
-  transform: scale(1.05);
-  opacity: 1;
+.fixed-header {
+  text-align: center;
+  padding: 10px; /* Ajoutez du padding pour un meilleur espacement */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ajoutez une ombre pour un effet visuel */
 }
 
-li {
-  list-style: none;
+span {
+  font-size: 1.5rem;
 }
 
-a {
-  text-decoration: none;
-  height: fit-content;
-  width: fit-content;
-  margin: 10px;
-}
 
-a:hover {
-  opacity: 1;
-  text-decoration: none;
-}
-
-.Hello {
+.main {
+  row-gap: 20px;
+  margin-top: 10px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  margin: 20px 0;
+  height: calc(
+    100vh - 80px
+  );
 }
+
+.sub-div1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 20px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.child {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.span-5 {
+  grid-column: span 5; /* Cet élément prendra 2 colonnes */
+}
+
+.sub-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 20px;
+  gap: 20px;
+}
+
+.color-keyboard {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sub-buttons {
+  display: flex;
+  gap: 20px;
+}
+

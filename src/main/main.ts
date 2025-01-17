@@ -1,19 +1,16 @@
-/* eslint global-require: off, no-console: off, promise/always-return: off */
-
-/**
- * This module executes inside of electron's main process. You can start
- * electron renderer process from here and communicate with the other processes
- * through IPC.
- *
- * When running `npm run build` or `npm run build:main`, this file is compiled to
- * `./src/main.js` using webpack. This gives us some performance wins.
- */
+/* eslint-disable global-require */
 import path from 'path';
-import { app, BrowserWindow, shell, ipcMain } from 'electron';
+import { app, BrowserWindow, shell, ipcMain, Tray, Menu } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
+import { exec } from 'child_process';
+import Store from 'electron-store';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+import { StoredData } from '../renderer/types';
+import ROGAURACORE_PATH from '../renderer/constants';
+
+const store = new Store();
 
 class AppUpdater {
   constructor() {
@@ -29,6 +26,30 @@ ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
   console.log(msgTemplate(arg));
   event.reply('ipc-example', msgTemplate('pong'));
+});
+
+ipcMain.on('execute-command', (event, command) => {
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Command error: ${error.message}`);
+      event.reply('command-result', { error: error.message });
+    } else {
+      console.error(`Command stderr: ${stderr}`);
+      event.reply('command-result', { stdout, stderr });
+    }
+  });
+});
+
+ipcMain.handle('store-get', (event, key) => {
+  return store.get(key);
+});
+
+ipcMain.handle('store-set', (event, key, value) => {
+  store.set(key, value);
+});
+
+ipcMain.handle('store-delete', (event, key) => {
+  store.delete(key);
 });
 
 if (process.env.NODE_ENV === 'production') {
@@ -71,9 +92,7 @@ const createWindow = async () => {
 
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1024,
-    height: 728,
-    icon: getAssetPath('icon.png'),
+    icon: getAssetPath('/icons/asus.png'),
     webPreferences: {
       preload: app.isPackaged
         ? path.join(__dirname, 'preload.js')
@@ -101,6 +120,9 @@ const createWindow = async () => {
   const menuBuilder = new MenuBuilder(mainWindow);
   menuBuilder.buildMenu();
 
+  mainWindow.maximize();
+  mainWindow.setMenuBarVisibility(false);
+
   // Open urls in the user's browser
   mainWindow.webContents.setWindowOpenHandler((edata) => {
     shell.openExternal(edata.url);
@@ -112,10 +134,6 @@ const createWindow = async () => {
   new AppUpdater();
 };
 
-/**
- * Add event listeners...
- */
-
 app.on('window-all-closed', () => {
   // Respect the OSX convention of having the application in memory even
   // after all windows have been closed
@@ -126,12 +144,80 @@ app.on('window-all-closed', () => {
 
 app
   .whenReady()
-  .then(() => {
-    createWindow();
+  .then(async () => {
+    const trayIconPath = app.isPackaged
+      ? path.join(process.resourcesPath, 'assets', 'icons', 'asus.png')
+      : path.join(__dirname, '../../assets/icons/asus.png');
+
+    const data = store.get('dataStored');
+
+    exec(`${ROGAURACORE_PATH} brightness 2`);
+
+    const storedData = JSON.parse(data as any) as StoredData;
+
+    if (storedData.mode === 'STATIC') {
+      exec(`${ROGAURACORE_PATH} single_static ${storedData.color}`);
+    }
+
+    if (storedData.mode === 'RAINBOW') {
+      exec(`${ROGAURACORE_PATH} rainbow_cycle ${storedData.force}`);
+    }
+
+    if (storedData.mode === 'BRIGHTNESS') {
+      exec(`${ROGAURACORE_PATH} brightness ${storedData.force}`);
+    }
+
+    if (storedData.mode === 'OFF') {
+      exec(`${ROGAURACORE_PATH} single_static 000000`);
+    }
+
+    if (storedData.mode === 'MULTI_STATIC') {
+      exec(
+        `${ROGAURACORE_PATH} multi_static ${storedData.color1} ${storedData.color2} ${storedData.color3} ${storedData.color4}`,
+      );
+    }
+
+    const tray = new Tray(trayIconPath);
+
+    const contextMenu = Menu.buildFromTemplate([
+      {
+        label: 'Show App',
+        click: () => {
+          createWindow();
+          mainWindow?.show();
+        },
+      },
+      {
+        label: 'Hide App',
+        click: () => {
+          mainWindow?.hide();
+        },
+      },
+      {
+        label: 'Quit',
+        click: () => {
+          app.quit();
+        },
+      },
+    ]);
+
+    tray.on('balloon-click', () => {
+      console.log('Balloon clicked');
+      createWindow();
+      mainWindow?.show();
+    });
+
+    tray.setToolTip('Rogauracore gui');
+    tray.setContextMenu(contextMenu);
+
     app.on('activate', () => {
       // On macOS it's common to re-create a window in the app when the
       // dock icon is clicked and there are no other windows open.
       if (mainWindow === null) createWindow();
     });
+
+    return true;
   })
-  .catch(console.log);
+  .catch((error) => {
+    console.error('Failed to create window:', error);
+  });
