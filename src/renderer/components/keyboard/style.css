@@ -1,0 +1,184 @@
+/*
+  1. Use a more-intuitive box-sizing model.
+*/
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+/*
+  2. Remove default margin
+*/
+* {
+  margin: 0;
+}
+/*
+  3. Allow percentage-based heights in the application
+*/
+html, body {
+  height: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+#root, #__next {
+  isolation: isolate;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Montserrat:wght@700&display=swap');
+
+@keyframes jiggle {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, 2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(1px, 1px) rotate(2deg); }
+  40% { transform: translate(-2px, -1px) rotate(-2deg); }
+  50% { transform: translate(1px, 1px) rotate(-6deg); }
+  60% { transform: translate(4px, -4px) rotate(6deg); }
+  70% { transform: translate(1px, 1px) rotate(0deg); }
+  80% { transform: translate(3px, -2px) rotate(-1deg); }
+  90% { transform: translate(-1px, 1px) rotate(1deg); }
+  100% { transform: translate(1px, 1px) rotate(-1deg); }
+}
+
+body {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  min-width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+
+.keyboard {
+  background: #000000;
+  padding: 45px 40px;
+  border-radius: 40px;
+  position: relative;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  width: 1120px;
+}
+
+.key::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 49%;
+  border-radius: 13px;
+  height: 3.8em;
+  aspect-ratio: 1 / 1;
+  background-color: #161616;
+  transform: translate(-50%, -50%);
+}
+
+.key {
+  border: none;
+  border-radius: 16px;
+  color: #60C1B6;
+  cursor: pointer;
+  min-width: 65px;
+  padding: 18px 24px;
+  position: relative;
+  height: 4rem;
+}
+
+.key-space::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 16px;
+  height: 3.5rem;
+  width: calc(100% - 10px);
+  background-color: #000000;
+  transform: translate(-50%, -50%);
+}
+
+.key-space {
+  width: 100%;
+}
+
+.key:hover .front {
+  transform: translateY(-6px);
+  transition:
+    transform
+    250ms
+    cubic-bezier(.3, .7, .4, 1.5);
+}
+
+.key:hover .shadow {
+  transform: translateY(4px);
+  transition:
+    transform
+    250ms
+    cubic-bezier(.3, .7, .4, 1.5);
+}
+
+.key:active .front {
+  transform: translateY(-2px);
+  transition: transform 34ms;
+}
+
+.key:active .shadow {
+  transform: translateY(1px);
+}
+
+/* Gradient classes */
+.gradient-1 { background: linear-gradient(to right, var(--color1), var(--color2)); }
+.gradient-2 { background: linear-gradient(to right, var(--color2), var(--color3)); }
+.gradient-3 { background: linear-gradient(to right, var(--color3), var(--color4)); }
+.gradient-4 { background: linear-gradient(to right, var(--color4), var(--color1)); }
+.gradient-5 { background: linear-gradient(to right, var(--color1), var(--color2)); }
+.gradient-6 { background: linear-gradient(to right, var(--color2), var(--color3)); }
+.gradient-7 { background: linear-gradient(to right, var(--color3), var(--color4)); }
+.gradient-8 { background: linear-gradient(to right, var(--color4), var(--color1)); }
+.gradient-9 { background: linear-gradient(to right, var(--color1), var(--color2)); }
+.gradient-10 { background: linear-gradient(to right, var(--color2), var(--color3)); }
+.gradient-11 { background: linear-gradient(to right, var(--color3), var(--color4)); }
+.gradient-12 { background: linear-gradient(to right, var(--color4), var(--color1)); }
+.gradient-13 { background: linear-gradient(to right, var(--color1), var(--color2)); }
+.gradient-14 { background: linear-gradient(to right, var(--color2), var(--color3)); }
+.gradient-15 { background: linear-gradient(to right, var(--color3), var(--color4)); }
+.gradient-16 { background: linear-gradient(to right, var(--color4), var(--color1)); }
+.gradient-17 { background: linear-gradient(to right, var(--color1), var(--color2)); }
+.gradient-18 { background: linear-gradient(to right, var(--color2), var(--color3)); }
+.gradient-19 { background: linear-gradient(to right, var(--color3), var(--color4)); }
+.gradient-20 { background: linear-gradient(to right, var(--color4), var(--color1)); }
+.gradient-21 { background: linear-gradient(to right, var(--color1), var(--color2)); }
+.gradient-22 { background: linear-gradient(to right, var(--color2), var(--color3)); }
+.gradient-23 { background: linear-gradient(to right, var(--color3), var(--color4)); }
+.gradient-24 { background: linear-gradient(to right, var(--color4), var(--color1)); }
+.gradient-25 { background: linear-gradient(to right, var(--color1), var(--color2)); }
+.gradient-26 { background: linear-gradient(to right, var(--color2), var(--color3)); }
+.gradient-27 { background: linear-gradient(to right, var(--color3), var(--color4)); }
+.gradient-28 { background: linear-gradient(to right, var(--color4), var(--color1)); }
+.gradient-29 { background: linear-gradient(to right, var(--color1), var(--color2)); }
+.gradient-30 { background: linear-gradient(to right, var(--color2), var(--color3)); }
+.gradient-31 { background: linear-gradient(to right, var(--color3), var(--color4)); }
+.gradient-32 { background: linear-gradient(to right, var(--color4), var(--color1)); }
+.gradient-33 { background: linear-gradient(to right, var(--color1), var(--color2)); }
+.gradient-34 { background: linear-gradient(to right, var(--color2), var(--color3)); }
+.gradient-35 { background: linear-gradient(to right, var(--color3), var(--color4)); }
+.gradient-36 { background: linear-gradient(to right, var(--color4), var(--color1)); }
+.gradient-37 { background: linear-gradient(to right, var(--color1), var(--color2)); }
+.gradient-38 { background: linear-gradient(to right, var(--color2), var(--color3)); }
+.gradient-39 { background: linear-gradient(to right, var(--color3), var(--color4)); }
+.gradient-40 { background: linear-gradient(to right, var(--color4), var(--color1)); }
+.gradient-41 { background: linear-gradient(to right, var(--color1), var(--color2)); }
+.gradient-42 { background: linear-gradient(to right, var(--color2), var(--color3)); }
+.gradient-43 { background: linear-gradient(to right, var(--color3), var(--color4)); }
+.gradient-44 { background: linear-gradient(to right, var(--color4), var(--color1)); }
+.gradient-45 { background: linear-gradient(to right, var(--color1), var(--color2)); }
+.gradient-46 { background: linear-gradient(to right, var(--color2), var(--color3)); }
+.gradient-47 { background: linear-gradient(to right, var(--color3), var(--color4)); }
+.gradient-48 { background: linear-gradient(to right, var(--color4), var(--color1)); }
+.gradient-49 { background: linear-gradient(to right, var(--color1), var(--color2)); }
+.gradient-50 { background: linear-gradient(to right, var(--color2), var(--color3)); }
+.gradient-51 { background: linear-gradient(to right, var(--color3), var(--color4)); }
