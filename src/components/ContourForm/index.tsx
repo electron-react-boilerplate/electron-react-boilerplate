@@ -15,11 +15,10 @@ import { Container, Field, Label, RadioButton, Button } from './style';
 
 const initialFormData: IFormData = {
   name: { value: '', error: false, message: undefined },
-  machining: { value: undefined, error: false, message: undefined },
   type: { value: undefined, error: false, message: undefined },
 };
 
-const ContourForm: React.FC<FormProps> = ({ onButtonClick }) => {
+const ContourForm: React.FC<FormProps> = ({ onButtonClick, machining }) => {
   const dispatch = useDispatch();
   const formattedTools = useFormattedTools();
   const availableTypes = Array.from(
@@ -78,13 +77,13 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick }) => {
 
     const contour: addContourPayload = {
       name: formData.name.value as string,
-      machining: Number(formData.machining.value) as Machining,
+      machining: machining as Machining,
       type: Number(formData.type.value) as ContourType,
     };
     dispatch(
       addContour({
         ...contour,
-        machining: Number(formData.machining.value) as Machining,
+        machining: machining as Machining,
         type: Number(formData.type.value) as ContourType,
       }),
     );
@@ -108,34 +107,6 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick }) => {
           fieldState={formData.name}
           handleInputChange={handleChange}
         />
-      </Field>
-      <Field>
-        <Label>Usinagem:</Label>
-        {formData.machining.error && (
-          <Message>{formData.machining.message}</Message>
-        )}
-        <RadioButton>
-          <input
-            type="radio"
-            value={1}
-            name="machining"
-            onChange={(e) => handleChange(e)}
-            required
-          />
-          <span />
-          Retificação
-        </RadioButton>
-        <RadioButton>
-          <input
-            type="radio"
-            value={2}
-            name="machining"
-            onChange={(e) => handleChange(e)}
-            required
-          />
-          <span />
-          Dressagem
-        </RadioButton>
       </Field>
       <Field>
         <Label>Tipo:</Label>

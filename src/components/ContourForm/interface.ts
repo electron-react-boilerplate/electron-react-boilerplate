@@ -11,6 +11,7 @@ export interface addContourPayload {
 
 export interface FormProps {
   contour?: ContourItem;
+  machining: Machining;
   action: Action;
   onButtonClick: () => void;
 }
@@ -21,6 +22,5 @@ export interface CustomFieldState extends Omit<FieldState, 'value'> {
 
 export interface IFormData {
   name: FieldState;
-  machining: CustomFieldState;
   type: CustomFieldState;
 }

@@ -19,7 +19,7 @@ import {
 } from 'state/part/partSlice';
 
 import { ToolOptionItem } from 'components/Select/interface';
-import { Contours, OperationItem, Operations } from 'types/part';
+import { Contours, Machining, OperationItem, Operations } from 'types/part';
 
 import { colors } from 'styles/global.styles';
 
@@ -68,7 +68,7 @@ const WorkGroup: React.FC = () => {
     (state: { part: { operations: Operations } }) => state.part.operations,
   );
   const [isModalContourOpen, setIsModalContourOpen] = useState<boolean>(false);
-  const [selectedButton, setSelectedButton] = useState<number>(0);
+  const [selectedMachining, setSelectedMachining] = useState<Machining>(1);
   const [isModalOperationOpen, setIsModalOperationOpen] =
     useState<boolean>(false);
   const [isModalEditOperationOpen, setIsModalEditOperationOpen] =
@@ -127,12 +127,15 @@ const WorkGroup: React.FC = () => {
   return (
     <Container>
       <Modal
-        title="Cadastrar Contorno"
+        title={`Cadastrar ${
+          selectedMachining === 1 ? 'Retificação' : 'Dressagem'
+        }`}
         isOpen={isModalContourOpen}
         onClose={() => setIsModalContourOpen(false)}
       >
         <ContourForm
           action="add"
+          machining={selectedMachining}
           onButtonClick={() => setIsModalContourOpen(false)}
         />
       </Modal>
@@ -177,20 +180,20 @@ const WorkGroup: React.FC = () => {
           <ContourBtnsWrapper>
             <IconBtn>
               <IconButton
-                onClick={() => setSelectedButton(0)}
-                bgColor={selectedButton === 0 ? colors.yellow : colors.white}
-                shadow={selectedButton === 0}
+                onClick={() => setSelectedMachining(1)}
+                bgColor={selectedMachining === 1 ? colors.yellow : colors.white}
+                shadow={selectedMachining === 1}
               >
-                <img src={dresserImg} height={34} alt="Dressing Icon" />
+                <img src={partImg} height={34} alt="Part Icon" />
               </IconButton>
             </IconBtn>
             <IconBtn>
               <IconButton
-                onClick={() => setSelectedButton(1)}
-                bgColor={selectedButton === 1 ? colors.yellow : colors.white}
-                shadow={selectedButton === 1}
+                onClick={() => setSelectedMachining(2)}
+                bgColor={selectedMachining === 2 ? colors.yellow : colors.white}
+                shadow={selectedMachining === 2}
               >
-                <img src={partImg} height={34} alt="Part Icon" />
+                <img src={dresserImg} height={34} alt="Dressing Icon" />
               </IconButton>
             </IconBtn>
             <AddBtn>
@@ -205,16 +208,25 @@ const WorkGroup: React.FC = () => {
                     color={colors.white}
                     fontSize="26px"
                   />
-                  <TextAdd>Cadastrar Contorno</TextAdd>
+                  <TextAdd>
+                    Cadastrar{' '}
+                    {selectedMachining === 1 ? 'Retificação' : 'Dressagem'}
+                  </TextAdd>
                 </Wrap>
               </Button>
             </AddBtn>
           </ContourBtnsWrapper>
           <CContentBlock>
             <div>
-              {contours.map((contour) => (
-                <Card key={contour.id} content={contour} variation="contour" />
-              ))}
+              {contours
+                .filter((contour) => contour.machining === selectedMachining)
+                .map((contour) => (
+                  <Card
+                    key={contour.id}
+                    content={contour}
+                    variation="contour"
+                  />
+                ))}
             </div>
           </CContentBlock>
         </Block>

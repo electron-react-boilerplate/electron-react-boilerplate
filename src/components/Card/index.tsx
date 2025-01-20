@@ -147,7 +147,7 @@ const Card: React.FC<CardProps> = ({
       <ContentLeft>
         <ImgContainer>
           <img
-            src={content.machining === 1 ? dresserImg : partImg}
+            src={content.machining === 1 ? partImg : dresserImg}
             alt="Dresser Icon"
             height={37}
           />
