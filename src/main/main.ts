@@ -82,9 +82,11 @@ const createWindow = async () => {
   });
 
   //open devtools
-  let devtools = new BrowserWindow();
-  mainWindow.webContents.setDevToolsWebContents(devtools.webContents);
-  mainWindow.webContents.openDevTools({ mode: 'detach' });
+  if (isDebug) {
+    let devtools = new BrowserWindow();
+    mainWindow.webContents.setDevToolsWebContents(devtools.webContents);
+    mainWindow.webContents.openDevTools({ mode: 'detach' });
+  }
 
   mainWindow.loadURL(resolveHtmlPath('index.html'));
 
