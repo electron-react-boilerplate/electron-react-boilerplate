@@ -81,7 +81,7 @@ const createWindow = async () => {
     },
   });
 
-  //open devtools
+  // Open devtools
   if (isDebug) {
     let devtools = new BrowserWindow();
     mainWindow.webContents.setDevToolsWebContents(devtools.webContents);
