@@ -17,7 +17,7 @@ import {
   removeContour,
 } from 'state/part/partSlice';
 
-import { Contours, ContourType, OperationItem, Operations } from 'types/part';
+import { ContourType, OperationItem, Operations } from 'types/part';
 import { ToolOptionItem } from 'components/Select/interface';
 
 import { colors } from 'styles/global.styles';
