@@ -89,8 +89,8 @@ const Card: React.FC<CardProps> = ({
             (t: ToolOptionItem) => t.id === operation.toolId,
           );
           if (!tool) return false;
-
-          return contours.some((contour) => contour.type === tool.type);
+          if (content.type === tool.type) return true;
+          return false;
         })
         .map((operation: OperationItem) => ({
           name: operation.name,
