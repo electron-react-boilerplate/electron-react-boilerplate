@@ -24,6 +24,7 @@ export const colors = {
   green: '#73B566',
   greenDark: '#5E9C4F',
   orange: '#FDA403',
+  yellow: '#FCEB00',
 };
 
 export const measures = {
@@ -39,5 +40,6 @@ export const fonts = {
 
 export const shadows = {
   std: '0px 5px 8px -3px rgba(0, 0, 0, 0.4)',
+  inStd: '0px 5px 8px -3px rgba(0, 0, 0, 0.4) inset',
   strong: '0px 10px 16px -3px rgba(0, 0, 0, 0.8)',
 };

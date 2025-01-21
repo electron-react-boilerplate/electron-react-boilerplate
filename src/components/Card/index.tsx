@@ -17,10 +17,14 @@ import {
   removeContour,
 } from 'state/part/partSlice';
 
-import { Contours, ContourType, OperationItem, Operations } from 'types/part';
+import { ContourType, OperationItem, Operations } from 'types/part';
 import { ToolOptionItem } from 'components/Select/interface';
 
 import { colors } from 'styles/global.styles';
+
+import dresserImg from '../../../assets/images/dresser.png';
+import partImg from '../../../assets/images/part.png';
+
 import { CardProps } from './interface';
 
 import {
@@ -35,7 +39,7 @@ import {
   Up,
   Down,
   UpDownContainer,
-  Drag,
+  ImgContainer,
 } from './styles';
 
 const Card: React.FC<CardProps> = ({
@@ -48,9 +52,6 @@ const Card: React.FC<CardProps> = ({
   const formattedTools = useFormattedTools();
   const operations = useSelector(
     (state: { part: { operations: Operations } }) => state.part.operations,
-  );
-  const contours = useSelector(
-    (state: { part: { contours: Contours } }) => state.part.contours,
   );
   const [isCardActive, setIsCardActive] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -85,8 +86,8 @@ const Card: React.FC<CardProps> = ({
             (t: ToolOptionItem) => t.id === operation.toolId,
           );
           if (!tool) return false;
-
-          return contours.some((contour) => contour.type === tool.type);
+          if (content.type === tool.type) return true;
+          return false;
         })
         .map((operation: OperationItem) => ({
           name: operation.name,
@@ -141,13 +142,13 @@ const Card: React.FC<CardProps> = ({
         />
       </Modal>
       <ContentLeft>
-        <Drag>
-          <Icon
-            className="icon-drag_indicator"
-            color={colors.greyDark}
-            fontSize="24px"
+        <ImgContainer>
+          <img
+            src={content.machining === 1 ? partImg : dresserImg}
+            alt="Dresser Icon"
+            height={37}
           />
-        </Drag>
+        </ImgContainer>
         {variation === 'operation' && (
           <>
             <Toggle onClick={() => toggleCard()}>

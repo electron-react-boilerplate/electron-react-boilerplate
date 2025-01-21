@@ -1,5 +1,6 @@
 // Types
 export type ContourType = 1 | 2;
+export type Machining = 1 | 2;
 
 // Interfaces
 
@@ -13,9 +14,6 @@ export interface ActionParams extends Array<ActionParamItem> {}
 
 export interface ActivitiyItem {
   id: number;
-  xaxis: string;
-  zaxis: string;
-  fvalue: string;
   actionCode: string;
   actionParams: ActionParams;
 }
@@ -25,6 +23,7 @@ export interface Activities extends Array<ActivitiyItem> {}
 export interface ContourItem {
   id: number;
   name: string;
+  machining: Machining;
   type: ContourType;
   activities: Activities;
 }

@@ -19,9 +19,13 @@ import {
 } from 'state/part/partSlice';
 
 import { ToolOptionItem } from 'components/Select/interface';
-import { Contours, OperationItem, Operations } from 'types/part';
+import { Contours, Machining, OperationItem, Operations } from 'types/part';
 
 import { colors } from 'styles/global.styles';
+
+import dresserImg from '../../../assets/images/dresser.png';
+import partImg from '../../../assets/images/part.png';
+
 import {
   Block,
   Container,
@@ -41,6 +45,9 @@ import {
   BAxisAngleText,
   WheelText,
   OpItemHeaderContent,
+  ContourBtnsWrapper,
+  IconButton,
+  IconBtn,
 } from './style';
 
 const breadcrumbsItems = [
@@ -61,6 +68,7 @@ const WorkGroup: React.FC = () => {
     (state: { part: { operations: Operations } }) => state.part.operations,
   );
   const [isModalContourOpen, setIsModalContourOpen] = useState<boolean>(false);
+  const [selectedMachining, setSelectedMachining] = useState<Machining>(1);
   const [isModalOperationOpen, setIsModalOperationOpen] =
     useState<boolean>(false);
   const [isModalEditOperationOpen, setIsModalEditOperationOpen] =
@@ -119,12 +127,15 @@ const WorkGroup: React.FC = () => {
   return (
     <Container>
       <Modal
-        title="Cadastrar Contorno"
+        title={`Cadastrar ${
+          selectedMachining === 1 ? 'Retificação' : 'Dressagem'
+        }`}
         isOpen={isModalContourOpen}
         onClose={() => setIsModalContourOpen(false)}
       >
         <ContourForm
           action="add"
+          machining={selectedMachining}
           onButtonClick={() => setIsModalContourOpen(false)}
         />
       </Modal>
@@ -166,27 +177,56 @@ const WorkGroup: React.FC = () => {
       <Content>
         <Block>
           <Title>Contornos</Title>
-          <AddBtn>
-            <Button
-              onClick={() => setIsModalContourOpen(true)}
-              color={colors.white}
-              bgColor={colors.green}
-            >
-              <Wrap>
-                <Icon
-                  className="icon-add"
-                  color={colors.white}
-                  fontSize="26px"
-                />
-                <TextAdd>Cadastrar Contorno</TextAdd>
-              </Wrap>
-            </Button>
-          </AddBtn>
+          <ContourBtnsWrapper>
+            <IconBtn>
+              <IconButton
+                onClick={() => setSelectedMachining(1)}
+                bgColor={selectedMachining === 1 ? colors.yellow : colors.white}
+                shadow={selectedMachining === 1}
+              >
+                <img src={partImg} height={34} alt="Part Icon" />
+              </IconButton>
+            </IconBtn>
+            <IconBtn>
+              <IconButton
+                onClick={() => setSelectedMachining(2)}
+                bgColor={selectedMachining === 2 ? colors.yellow : colors.white}
+                shadow={selectedMachining === 2}
+              >
+                <img src={dresserImg} height={34} alt="Dressing Icon" />
+              </IconButton>
+            </IconBtn>
+            <AddBtn>
+              <Button
+                onClick={() => setIsModalContourOpen(true)}
+                color={colors.white}
+                bgColor={colors.green}
+              >
+                <Wrap>
+                  <Icon
+                    className="icon-add"
+                    color={colors.white}
+                    fontSize="26px"
+                  />
+                  <TextAdd>
+                    Cadastrar{' '}
+                    {selectedMachining === 1 ? 'Retificação' : 'Dressagem'}
+                  </TextAdd>
+                </Wrap>
+              </Button>
+            </AddBtn>
+          </ContourBtnsWrapper>
           <CContentBlock>
             <div>
-              {contours.map((contour) => (
-                <Card key={contour.id} content={contour} variation="contour" />
-              ))}
+              {contours
+                .filter((contour) => contour.machining === selectedMachining)
+                .map((contour) => (
+                  <Card
+                    key={contour.id}
+                    content={contour}
+                    variation="contour"
+                  />
+                ))}
             </div>
           </CContentBlock>
         </Block>

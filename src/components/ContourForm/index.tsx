@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { ContourType } from 'types/part';
+import { ContourType, Machining } from 'types/part';
 
 import FormField from 'components/FormField';
 import { Message } from 'components/FormField/style';
@@ -15,11 +15,10 @@ import { Container, Field, Label, RadioButton, Button } from './style';
 
 const initialFormData: IFormData = {
   name: { value: '', error: false, message: undefined },
-  // toolId value 1 represents first tool fetched from API, wich has id 1
-  type: { value: 1, error: false, message: undefined },
+  type: { value: undefined, error: false, message: undefined },
 };
 
-const ContourForm: React.FC<FormProps> = ({ onButtonClick }) => {
+const ContourForm: React.FC<FormProps> = ({ onButtonClick, machining }) => {
   const dispatch = useDispatch();
   const formattedTools = useFormattedTools();
   const availableTypes = Array.from(
@@ -78,11 +77,13 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick }) => {
 
     const contour: addContourPayload = {
       name: formData.name.value as string,
+      machining: machining as Machining,
       type: Number(formData.type.value) as ContourType,
     };
     dispatch(
       addContour({
         ...contour,
+        machining: machining as Machining,
         type: Number(formData.type.value) as ContourType,
       }),
     );

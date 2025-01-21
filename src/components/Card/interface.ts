@@ -1,4 +1,4 @@
-import { Activities, ContourType } from 'types/part';
+import { Activities, ContourType, Machining } from 'types/part';
 
 type Variations = 'contour' | 'operation';
 
@@ -6,6 +6,7 @@ export interface CardData {
   operationId?: number;
   id: number;
   name: string;
+  machining: Machining;
   type: ContourType;
   activities: Activities;
 }
