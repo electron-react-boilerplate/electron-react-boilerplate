@@ -53,9 +53,6 @@ const Card: React.FC<CardProps> = ({
   const operations = useSelector(
     (state: { part: { operations: Operations } }) => state.part.operations,
   );
-  const contours = useSelector(
-    (state: { part: { contours: Contours } }) => state.part.contours,
-  );
   const [isCardActive, setIsCardActive] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
