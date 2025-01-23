@@ -9,9 +9,10 @@ import {
   getOperationData,
 } from 'integration/mount-gcode';
 import { loadConfig } from 'utils/loadConfig';
+import { loadTools } from 'utils/loadTools';
 
 import { Part, ContourItem } from 'types/part';
-import { Config } from 'types/api';
+import { Config, GetToolsResponseData } from 'types/api';
 
 import { colors } from 'styles/global.styles';
 import {
@@ -31,6 +32,7 @@ const ProgramsToSendList: React.FC = () => {
     null,
   );
   const [rangeStart, setRangeStart] = useState<number>(0);
+  const [loadedTools, setLoadedTools] = useState<GetToolsResponseData>([]);
   const part = useSelector((state: { part: Part }) => state.part);
 
   const handleContourClick = (contourId: number) => {
@@ -40,10 +42,25 @@ const ProgramsToSendList: React.FC = () => {
   useEffect(() => {
     async function fetchData() {
       const loadedConfig: Config = await loadConfig();
+      const getTools: GetToolsResponseData = await loadTools();
       setRangeStart(loadedConfig.cnc.delRangeStart);
+      setLoadedTools(getTools);
     }
     fetchData();
   }, []);
+
+  const mountCodeBlock = (contour: ContourItem, index: number) => {
+    const toolId = getOperationData(part, contour.id, (op) => op.toolId);
+    return mountGCodeWithProgramNumber(
+      contour,
+      Number(rangeStart) + Number(index),
+      toolId,
+      loadedTools[toolId - 1].value,
+      getOperationData(part, contour.id, (op) => op.bAxisAngle),
+      getOperationData(part, contour.id, (op) => op.xSafetyDistance),
+      getOperationData(part, contour.id, (op) => op.zSafetyDistance),
+    );
+  };
 
   return (
     <Container>
@@ -68,24 +85,7 @@ const ProgramsToSendList: React.FC = () => {
             </DropdownButton>
             {selectedContourId === contour.id && (
               <DropdownContent>
-                <CodeBlock>
-                  {mountGCodeWithProgramNumber(
-                    contour,
-                    Number(rangeStart) + Number(index),
-                    getOperationData(part, contour.id, (op) => op.toolId),
-                    getOperationData(part, contour.id, (op) => op.bAxisAngle),
-                    getOperationData(
-                      part,
-                      contour.id,
-                      (op) => op.xSafetyDistance,
-                    ),
-                    getOperationData(
-                      part,
-                      contour.id,
-                      (op) => op.zSafetyDistance,
-                    ),
-                  )}
-                </CodeBlock>
+                <CodeBlock>{mountCodeBlock(contour, index)}</CodeBlock>
               </DropdownContent>
             )}
           </ListItem>

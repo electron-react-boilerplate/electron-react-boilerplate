@@ -1,5 +1,6 @@
 import { GetToolsResponseData } from 'types/api';
 
+// When refering to the tools, we use index the array index. Index 0 is tool 1, index 1 is tool 2, and so on.
 export const defaultTools: GetToolsResponseData = [
   {
     code: 50010,

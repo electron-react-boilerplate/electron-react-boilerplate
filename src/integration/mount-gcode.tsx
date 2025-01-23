@@ -1,4 +1,5 @@
 import { ContourItem, ActivitiyItem, Part, OperationItem } from 'types/part';
+import { GetToolsResponseData } from 'types/api';
 
 const macroRef = 'G65 P7001';
 
@@ -13,9 +14,7 @@ function mountGCodeLine(
 ): string {
   const n = index + 1;
   const a = activity.actionCode ? `${activity.actionCode} ` : 'G01 G90 ';
-  const x = activity.xaxis ? `X${activity.xaxis} ` : '';
-  const z = activity.zaxis ? `Z${activity.zaxis} ` : '';
-  const f = activity.fvalue ? `F${activity.fvalue} ` : '';
+  const nHeaderJumpValue = n + 6;
 
   const adtParams = activity.actionParams
     .map((param) => `adtParam${param.id}`)
@@ -34,9 +33,10 @@ function mountGCodeLine(
       return `${paramId}${paramValue} `;
     })
     .join('');
-  let gCodeLine = `N00${(n + 5) * 10} ${a}${x}${z}${f}${adtParams}\n`;
+  let gCodeLine = `N00${nHeaderJumpValue * 10} ${a}${adtParams}\n`;
 
-  if (isLastLine) gCodeLine = `${gCodeLine}N00${(n + 6) * 10} M99`;
+  if (isLastLine)
+    gCodeLine = `${gCodeLine}N00${(nHeaderJumpValue + 1) * 10} M99`;
 
   return gCodeLine;
 }
@@ -44,28 +44,30 @@ function mountGCodeLine(
 function generateLines(
   contour: ContourItem,
   toolId?: number,
+  toolType?: number,
   bAxisAngleValue?: number,
   xSafetyDistanceValue?: number,
   zSafetyDistanceValue?: number,
 ): string {
   let toolVar: string = '5X00';
-  if (toolId === 1) toolVar = '5200';
-  if (toolId === 2) toolVar = '5300';
-  if (toolId === 3) toolVar = '5400';
-  if (toolId === 4) toolVar = '5500';
+  if (toolId === 1) toolVar = '5100';
+  if (toolId === 2) toolVar = '5200';
+  if (toolId === 3) toolVar = '5300';
+  if (toolId === 4) toolVar = '5400';
 
   let gCodeOutput = '';
-  const toolLine = `N0010 #50001=${toolId}\n`;
-  const bAxisAngleLine = `N0020 #${toolVar}1=${bAxisAngleValue}\n`;
-  const xSafetyDistanceLine = `N0030 #${toolVar}2=${xSafetyDistanceValue}\n`;
-  const zSafetyDistanceLine = `N0040 #${toolVar}3=${zSafetyDistanceValue}\n`;
-  const macroRefLine = `N0050 ${macroRef}\n`;
+  const toolIdLine = `N0010 #50001=${toolId}\n`;
+  const toolTypeLine = `N0020 #${toolVar}0=${toolType}\n`;
+  const bAxisAngleLine = `N0030 #${toolVar}1=${bAxisAngleValue}\n`;
+  const xSafetyDistanceLine = `N0040 #${toolVar}2=${xSafetyDistanceValue}\n`;
+  const zSafetyDistanceLine = `N0050 #${toolVar}3=${zSafetyDistanceValue}\n`;
+  const macroRefLine = `N0060 ${macroRef}\n`;
 
   contour.activities.forEach((element: any, index: any) => {
     const isLastLine = contour.activities.length === index + 1;
     gCodeOutput = `${gCodeOutput}${mountGCodeLine(element, index, isLastLine)}`;
   });
-  gCodeOutput = `${toolLine}${bAxisAngleLine}${xSafetyDistanceLine}${zSafetyDistanceLine}${macroRefLine}${gCodeOutput}\n`;
+  gCodeOutput = `${toolIdLine}${toolTypeLine}${bAxisAngleLine}${xSafetyDistanceLine}${zSafetyDistanceLine}${macroRefLine}${gCodeOutput}\n`;
 
   return gCodeOutput;
 }
@@ -81,6 +83,7 @@ function mountGCodeWithProgramNumber(
   contour: ContourItem,
   programNumber: number,
   toolId: number,
+  toolType: number,
   bAxisAngleValue: number,
   xSafetyDistanceValue: number,
   zSafetyDistanceValue: number,
@@ -88,6 +91,7 @@ function mountGCodeWithProgramNumber(
   const gCodeOutput = generateLines(
     contour,
     toolId,
+    toolType,
     bAxisAngleValue,
     xSafetyDistanceValue,
     zSafetyDistanceValue,
@@ -128,14 +132,25 @@ function getOperationData<T>(
   return callback(operation);
 }
 
-function generateGCodeForPart(part: Part, rangeStart: number): string[] {
+function generateGCodeForPart(
+  part: Part,
+  rangeStart: number,
+  loadedTools: GetToolsResponseData,
+): string[] {
   const gCodeStrings: string[] = [];
 
   orderedContours(part).forEach((contour: ContourItem, index: number) => {
+    const toolId = getOperationData(
+      part,
+      contour.id,
+      (operation) => operation.toolId,
+    );
+
     const gCode = mountGCodeWithProgramNumber(
       contour,
       Number(rangeStart) + index,
-      getOperationData(part, contour.id, (operation) => operation.toolId),
+      toolId,
+      loadedTools[toolId - 1].value,
       getOperationData(part, contour.id, (operation) => operation.bAxisAngle),
       getOperationData(
         part,
