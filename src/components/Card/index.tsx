@@ -20,6 +20,8 @@ import {
 import { ContourType, OperationItem, Operations } from 'types/part';
 import { ToolOptionItem } from 'components/Select/interface';
 
+import { MACHINING_GRINDING } from 'utils/constants';
+
 import { colors } from 'styles/global.styles';
 
 import dresserImg from '../../../assets/images/dresser.png';
@@ -144,7 +146,9 @@ const Card: React.FC<CardProps> = ({
       <ContentLeft>
         <ImgContainer>
           <img
-            src={content.machining === 1 ? partImg : dresserImg}
+            src={
+              content.machining === MACHINING_GRINDING ? partImg : dresserImg
+            }
             alt="Dresser Icon"
             height={37}
           />

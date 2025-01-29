@@ -12,7 +12,7 @@ import CodePreview from 'components/CodePreview';
 import Tooltip from 'components/Tooltip';
 
 import { actionParams as actionParamsAux } from 'integration/functions-code';
-import { XZ_REGEX } from 'utils/constants';
+import { MACHINING_GRINDING, TYPE_EXTERNAL, XZ_REGEX } from 'utils/constants';
 
 import { ActionParamItem, ActivitiyItem, ContourItem, Part } from 'types/part';
 import { StyledIcon } from 'components/SideMenu/styles';
@@ -57,7 +57,8 @@ import {
 const defaultValue: ContourItem = {
   id: 0,
   name: '',
-  type: 1,
+  machining: MACHINING_GRINDING,
+  type: TYPE_EXTERNAL,
   activities: [],
 };
 
