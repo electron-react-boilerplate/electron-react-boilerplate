@@ -77,7 +77,7 @@ const ProgramsToSendList: React.FC = () => {
               </IconWrapper>
               <DropdownButtonText>
                 <ProgramNumber>
-                  O{Number(rangeStart) + Number(index)}
+                  {Number(rangeStart) + Number(index)}
                 </ProgramNumber>
                 {': '}
                 {contour.name}

@@ -3,6 +3,7 @@ import { GetToolsResponseData } from 'types/api';
 import {
   MACHINING_DRESSING,
   MACHINING_GRINDING,
+  TYPE_EXTERNAL,
   TYPE_INTERNAL,
 } from 'utils/constants';
 
@@ -65,11 +66,38 @@ function generateLines(
     return currentLineNumber.toString().padStart(4, '0');
   };
 
+  const jobValue: number | null = (() => {
+    if (
+      contour.machining === MACHINING_GRINDING &&
+      contour.type === TYPE_EXTERNAL
+    )
+      return 1;
+    if (
+      contour.machining === MACHINING_DRESSING &&
+      contour.type === TYPE_EXTERNAL
+    )
+      return 2;
+    if (
+      contour.machining === MACHINING_GRINDING &&
+      contour.type === TYPE_INTERNAL
+    )
+      return 3;
+    if (
+      contour.machining === MACHINING_DRESSING &&
+      contour.type === TYPE_INTERNAL
+    )
+      return 4;
+    return 0;
+  })();
+
   const toolIdLine = toolId
     ? `N${incrementLineNumber()} #50001=${toolId}\n`
     : '';
   const toolTypeLine = toolType
     ? `N${incrementLineNumber()} #${toolVar}0=${toolType}\n`
+    : '';
+  const jobLine = jobValue
+    ? `N${incrementLineNumber()} #50002=${jobValue}\n`
     : '';
   const bAxisAngleLine = bAxisAngleValue
     ? `N${incrementLineNumber()} #${toolVar}1=${bAxisAngleValue}\n`
@@ -93,7 +121,7 @@ function generateLines(
       incrementLineNumber,
     )}`;
   });
-  gCodeOutput = `${toolIdLine}${toolTypeLine}${bAxisAngleLine}${xSafetyDistanceLine}${zSafetyDistanceLine}${macroRefLine}${gCodeOutput}\n`;
+  gCodeOutput = `${toolIdLine}${jobLine}${toolTypeLine}${bAxisAngleLine}${xSafetyDistanceLine}${zSafetyDistanceLine}${macroRefLine}${gCodeOutput}\n`;
 
   return gCodeOutput;
 }
@@ -105,18 +133,6 @@ function mountGCode(contour: ContourItem): string {
   return gCodeTemplate;
 }
 
-export function adjustProgramNumber(
-  contour: ContourItem,
-  programNumber: number,
-): number {
-  if (contour.machining === MACHINING_GRINDING) {
-    if (contour.type === TYPE_INTERNAL) return programNumber + 1000;
-  } else if (contour.machining === MACHINING_DRESSING) {
-    return programNumber + 2000;
-  }
-  return programNumber;
-}
-
 function mountGCodeWithProgramNumber(
   contour: ContourItem,
   programNumber: number,
@@ -126,8 +142,6 @@ function mountGCodeWithProgramNumber(
   xSafetyDistanceValue: number,
   zSafetyDistanceValue: number,
 ): string {
-  const adjustedProgramNumber = adjustProgramNumber(contour, programNumber);
-
   const gCodeOutput = generateLines(
     contour,
     toolId,
@@ -136,7 +150,7 @@ function mountGCodeWithProgramNumber(
     xSafetyDistanceValue,
     zSafetyDistanceValue,
   );
-  const gCodeTemplate = `\nO${adjustedProgramNumber}(${removeAccents(
+  const gCodeTemplate = `\nO${programNumber}(${removeAccents(
     contour.name,
   )})\n${gCodeOutput}%`;
 
