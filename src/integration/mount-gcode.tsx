@@ -96,6 +96,7 @@ function generateLines(
   const toolTypeLine = toolType
     ? `N${incrementLineNumber()} #${toolVar}0=${toolType}\n`
     : '';
+  // jobLine refers to if it is a grinding OD/ID or dressing OD/ID operation
   const jobLine = jobValue
     ? `N${incrementLineNumber()} #50002=${jobValue}\n`
     : '';
