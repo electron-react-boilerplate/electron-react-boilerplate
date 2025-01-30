@@ -1,5 +1,11 @@
 import { ContourItem, ActivitiyItem, Part, OperationItem } from 'types/part';
 import { GetToolsResponseData } from 'types/api';
+import {
+  MACHINING_DRESSING,
+  MACHINING_GRINDING,
+  TYPE_EXTERNAL,
+  TYPE_INTERNAL,
+} from 'utils/constants';
 
 const macroRef = 'G65 P7001';
 
@@ -9,12 +15,10 @@ function removeAccents(str: string): string {
 
 function mountGCodeLine(
   activity: ActivitiyItem,
-  index: number,
   isLastLine: boolean,
+  incrementLineNumber: () => string,
 ): string {
-  const n = index + 1;
   const a = activity.actionCode ? `${activity.actionCode} ` : 'G01 G90 ';
-  const nHeaderJumpValue = n + 6;
 
   const adtParams = activity.actionParams
     .map((param) => `adtParam${param.id}`)
@@ -33,10 +37,10 @@ function mountGCodeLine(
       return `${paramId}${paramValue} `;
     })
     .join('');
-  let gCodeLine = `N00${nHeaderJumpValue * 10} ${a}${adtParams}\n`;
 
-  if (isLastLine)
-    gCodeLine = `${gCodeLine}N00${(nHeaderJumpValue + 1) * 10} M99`;
+  let gCodeLine = `N${incrementLineNumber()} ${a}${adtParams}\n`;
+
+  if (isLastLine) gCodeLine = `${gCodeLine}N${incrementLineNumber()} M99`;
 
   return gCodeLine;
 }
@@ -55,19 +59,70 @@ function generateLines(
   if (toolId === 3) toolVar = '5300';
   if (toolId === 4) toolVar = '5400';
 
-  let gCodeOutput = '';
-  const toolIdLine = `N0010 #50001=${toolId}\n`;
-  const toolTypeLine = `N0020 #${toolVar}0=${toolType}\n`;
-  const bAxisAngleLine = `N0030 #${toolVar}1=${bAxisAngleValue}\n`;
-  const xSafetyDistanceLine = `N0040 #${toolVar}2=${xSafetyDistanceValue}\n`;
-  const zSafetyDistanceLine = `N0050 #${toolVar}3=${zSafetyDistanceValue}\n`;
-  const macroRefLine = `N0060 ${macroRef}\n`;
+  let lineNumber = 10;
+  const incrementLineNumber = () => {
+    const currentLineNumber = lineNumber;
+    lineNumber += 10;
+    return currentLineNumber.toString().padStart(4, '0');
+  };
 
+  const jobValue: number | null = (() => {
+    if (
+      contour.machining === MACHINING_GRINDING &&
+      contour.type === TYPE_EXTERNAL
+    )
+      return 1;
+    if (
+      contour.machining === MACHINING_DRESSING &&
+      contour.type === TYPE_EXTERNAL
+    )
+      return 2;
+    if (
+      contour.machining === MACHINING_GRINDING &&
+      contour.type === TYPE_INTERNAL
+    )
+      return 3;
+    if (
+      contour.machining === MACHINING_DRESSING &&
+      contour.type === TYPE_INTERNAL
+    )
+      return 4;
+    return 0;
+  })();
+
+  const toolIdLine = toolId
+    ? `N${incrementLineNumber()} #50001=${toolId}\n`
+    : '';
+  const toolTypeLine = toolType
+    ? `N${incrementLineNumber()} #${toolVar}0=${toolType}\n`
+    : '';
+  // jobLine refers to if it is a grinding OD/ID or dressing OD/ID operation
+  const jobLine = jobValue
+    ? `N${incrementLineNumber()} #50002=${jobValue}\n`
+    : '';
+  const bAxisAngleLine = bAxisAngleValue
+    ? `N${incrementLineNumber()} #${toolVar}1=${bAxisAngleValue}\n`
+    : '';
+  const xSafetyDistanceLine = xSafetyDistanceValue
+    ? `N${incrementLineNumber()} #${toolVar}2=${xSafetyDistanceValue}\n`
+    : '';
+  const zSafetyDistanceLine = zSafetyDistanceValue
+    ? `N${incrementLineNumber()} #${toolVar}3=${zSafetyDistanceValue}\n`
+    : '';
+  const macroRefLine = macroRef
+    ? `N${incrementLineNumber()} ${macroRef}\n`
+    : '';
+
+  let gCodeOutput = '';
   contour.activities.forEach((element: any, index: any) => {
     const isLastLine = contour.activities.length === index + 1;
-    gCodeOutput = `${gCodeOutput}${mountGCodeLine(element, index, isLastLine)}`;
+    gCodeOutput = `${gCodeOutput}${mountGCodeLine(
+      element,
+      isLastLine,
+      incrementLineNumber,
+    )}`;
   });
-  gCodeOutput = `${toolIdLine}${toolTypeLine}${bAxisAngleLine}${xSafetyDistanceLine}${zSafetyDistanceLine}${macroRefLine}${gCodeOutput}\n`;
+  gCodeOutput = `${toolIdLine}${jobLine}${toolTypeLine}${bAxisAngleLine}${xSafetyDistanceLine}${zSafetyDistanceLine}${macroRefLine}${gCodeOutput}\n`;
 
   return gCodeOutput;
 }

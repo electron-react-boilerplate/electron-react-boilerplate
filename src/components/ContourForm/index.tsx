@@ -5,6 +5,8 @@ import { ContourType, Machining } from 'types/part';
 import FormField from 'components/FormField';
 import { Message } from 'components/FormField/style';
 
+import { TYPE_EXTERNAL, TYPE_INTERNAL } from 'utils/constants';
+
 import useFormattedTools from 'hooks/useFormattedTools';
 import { addContour } from 'state/part/partSlice';
 
@@ -111,11 +113,11 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick, machining }) => {
       <Field>
         <Label>Tipo:</Label>
         {formData.type.error && <Message>{formData.type.message}</Message>}
-        {availableTypes.includes(1) && (
+        {availableTypes.includes(TYPE_EXTERNAL) && (
           <RadioButton>
             <input
               type="radio"
-              value={1}
+              value={TYPE_EXTERNAL}
               name="type"
               onChange={(e) => handleChange(e)}
               required
@@ -124,11 +126,11 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick, machining }) => {
             Externo
           </RadioButton>
         )}
-        {availableTypes.includes(2) && (
+        {availableTypes.includes(TYPE_INTERNAL) && (
           <RadioButton>
             <input
               type="radio"
-              value={2}
+              value={TYPE_INTERNAL}
               name="type"
               onChange={(e) => handleChange(e)}
               required

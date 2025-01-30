@@ -1,6 +1,13 @@
+import {
+  TYPE_EXTERNAL,
+  TYPE_INTERNAL,
+  MACHINING_GRINDING,
+  MACHINING_DRESSING,
+} from 'utils/constants';
+
 // Types
-export type ContourType = 1 | 2;
-export type Machining = 1 | 2;
+export type ContourType = typeof TYPE_EXTERNAL | typeof TYPE_INTERNAL;
+export type Machining = typeof MACHINING_GRINDING | typeof MACHINING_DRESSING;
 
 // Interfaces
 

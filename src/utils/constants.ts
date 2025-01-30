@@ -1,3 +1,8 @@
+export const TYPE_EXTERNAL = 1;
+export const TYPE_INTERNAL = 2;
+export const MACHINING_GRINDING = 1;
+export const MACHINING_DRESSING = 2;
+
 export const isElectron = () => {
   // Renderer process
   if (
