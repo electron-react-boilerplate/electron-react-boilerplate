@@ -69,68 +69,129 @@ const Config: React.FC = () => {
       const loadedConfig: ConfigType = await loadConfig();
       const loadedTools: GetToolsResponseData = await loadTools();
 
-      setFormState({
+      setFormState((prevState) => ({
+        ...prevState,
         ip: {
+          ...prevState.ip,
           value: loadedConfig.network.ip,
-          edit: false,
-          error: false,
-          message: undefined,
         },
         port: {
+          ...prevState.port,
           value: loadedConfig.network.port,
-          edit: false,
-          error: false,
-          message: undefined,
         },
         delRangeStart: {
+          ...prevState.delRangeStart,
           value: loadedConfig.cnc.delRangeStart,
-          edit: false,
-          error: false,
-          message: undefined,
         },
         delRangeEnd: {
+          ...prevState.delRangeEnd,
           value: loadedConfig.cnc.delRangeEnd,
-          edit: false,
-          error: false,
-          message: undefined,
         },
         pmcAddress: {
+          ...prevState.pmcAddress,
           value: loadedConfig.cnc.pmcAddress,
-          edit: false,
-          error: false,
-          message: undefined,
         },
         pmcAddressBit: {
+          ...prevState.pmcAddressBit,
           value: loadedConfig.cnc.pmcAddressBit,
-          edit: false,
-          error: false,
-          message: undefined,
         },
         tool1Var: {
+          ...prevState.tool1Var,
           value: loadedConfig.tools.tool1Var,
-          edit: false,
-          error: false,
-          message: undefined,
+        },
+        tool1fixedDiamond: {
+          ...prevState.tool1fixedDiamond,
+          value: loadedConfig.tools.tool1fixedDiamond,
+        },
+        tool1refractableDiamond: {
+          ...prevState.tool1refractableDiamond,
+          value: loadedConfig.tools.tool1refractableDiamond,
+        },
+        tool1dressingDisc: {
+          ...prevState.tool1dressingDisc,
+          value: loadedConfig.tools.tool1dressingDisc,
+        },
+        tool1fixedDressingRoller: {
+          ...prevState.tool1fixedDressingRoller,
+          value: loadedConfig.tools.tool1fixedDressingRoller,
+        },
+        tool1sCtrlMovableDressingRoller: {
+          ...prevState.tool1sCtrlMovableDressingRoller,
+          value: loadedConfig.tools.tool1sCtrlMovableDressingRoller,
         },
         tool2Var: {
+          ...prevState.tool2Var,
           value: loadedConfig.tools.tool2Var,
-          edit: false,
-          error: false,
-          message: undefined,
+        },
+        tool2fixedDiamond: {
+          ...prevState.tool2fixedDiamond,
+          value: loadedConfig.tools.tool2fixedDiamond,
+        },
+        tool2refractableDiamond: {
+          ...prevState.tool2refractableDiamond,
+          value: loadedConfig.tools.tool2refractableDiamond,
+        },
+        tool2dressingDisc: {
+          ...prevState.tool2dressingDisc,
+          value: loadedConfig.tools.tool2dressingDisc,
+        },
+        tool2fixedDressingRoller: {
+          ...prevState.tool2fixedDressingRoller,
+          value: loadedConfig.tools.tool2fixedDressingRoller,
+        },
+        tool2sCtrlMovableDressingRoller: {
+          ...prevState.tool2sCtrlMovableDressingRoller,
+          value: loadedConfig.tools.tool2sCtrlMovableDressingRoller,
         },
         tool3Var: {
+          ...prevState.tool3Var,
           value: loadedConfig.tools.tool3Var,
-          edit: false,
-          error: false,
-          message: undefined,
+        },
+        tool3fixedDiamond: {
+          ...prevState.tool3fixedDiamond,
+          value: loadedConfig.tools.tool3fixedDiamond,
+        },
+        tool3refractableDiamond: {
+          ...prevState.tool3refractableDiamond,
+          value: loadedConfig.tools.tool3refractableDiamond,
+        },
+        tool3dressingDisc: {
+          ...prevState.tool3dressingDisc,
+          value: loadedConfig.tools.tool3dressingDisc,
+        },
+        tool3fixedDressingRoller: {
+          ...prevState.tool3fixedDressingRoller,
+          value: loadedConfig.tools.tool3fixedDressingRoller,
+        },
+        tool3sCtrlMovableDressingRoller: {
+          ...prevState.tool3sCtrlMovableDressingRoller,
+          value: loadedConfig.tools.tool3sCtrlMovableDressingRoller,
         },
         tool4Var: {
+          ...prevState.tool4Var,
           value: loadedConfig.tools.tool4Var,
-          edit: false,
-          error: false,
-          message: undefined,
         },
-      });
+        tool4fixedDiamond: {
+          ...prevState.tool4fixedDiamond,
+          value: loadedConfig.tools.tool4fixedDiamond,
+        },
+        tool4refractableDiamond: {
+          ...prevState.tool4refractableDiamond,
+          value: loadedConfig.tools.tool4refractableDiamond,
+        },
+        tool4dressingDisc: {
+          ...prevState.tool4dressingDisc,
+          value: loadedConfig.tools.tool4dressingDisc,
+        },
+        tool4fixedDressingRoller: {
+          ...prevState.tool4fixedDressingRoller,
+          value: loadedConfig.tools.tool4fixedDressingRoller,
+        },
+        tool4sCtrlMovableDressingRoller: {
+          ...prevState.tool4sCtrlMovableDressingRoller,
+          value: loadedConfig.tools.tool4sCtrlMovableDressingRoller,
+        },
+      }));
       setToolsData(loadedTools);
       setLoaded(true);
     };
@@ -153,9 +214,41 @@ const Config: React.FC = () => {
       },
       tools: {
         tool1Var: formState.tool1Var.value as number,
+        tool1fixedDiamond: formState.tool1fixedDiamond.value as number,
+        tool1refractableDiamond: formState.tool1refractableDiamond
+          .value as number,
+        tool1dressingDisc: formState.tool1dressingDisc.value as number,
+        tool1fixedDressingRoller: formState.tool1fixedDressingRoller
+          .value as number,
+        tool1sCtrlMovableDressingRoller: formState
+          .tool1sCtrlMovableDressingRoller.value as number,
         tool2Var: formState.tool2Var.value as number,
+        tool2fixedDiamond: formState.tool2fixedDiamond.value as number,
+        tool2refractableDiamond: formState.tool2refractableDiamond
+          .value as number,
+        tool2dressingDisc: formState.tool2dressingDisc.value as number,
+        tool2fixedDressingRoller: formState.tool2fixedDressingRoller
+          .value as number,
+        tool2sCtrlMovableDressingRoller: formState
+          .tool2sCtrlMovableDressingRoller.value as number,
         tool3Var: formState.tool3Var.value as number,
+        tool3fixedDiamond: formState.tool3fixedDiamond.value as number,
+        tool3refractableDiamond: formState.tool3refractableDiamond
+          .value as number,
+        tool3dressingDisc: formState.tool3dressingDisc.value as number,
+        tool3fixedDressingRoller: formState.tool3fixedDressingRoller
+          .value as number,
+        tool3sCtrlMovableDressingRoller: formState
+          .tool3sCtrlMovableDressingRoller.value as number,
         tool4Var: formState.tool4Var.value as number,
+        tool4fixedDiamond: formState.tool4fixedDiamond.value as number,
+        tool4refractableDiamond: formState.tool4refractableDiamond
+          .value as number,
+        tool4dressingDisc: formState.tool4dressingDisc.value as number,
+        tool4fixedDressingRoller: formState.tool4fixedDressingRoller
+          .value as number,
+        tool4sCtrlMovableDressingRoller: formState
+          .tool4sCtrlMovableDressingRoller.value as number,
       },
     };
 
