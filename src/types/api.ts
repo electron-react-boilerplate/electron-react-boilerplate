@@ -49,29 +49,29 @@ export interface DressingQtdVars {
 
 export interface Tools {
   tool1Var: number;
-  tool1fixedDiamond: number;
-  tool1refractableDiamond: number;
-  tool1dressingDisc: number;
-  tool1fixedDressingRoller: number;
-  tool1sCtrlMovableDressingRoller: number;
+  tool1fixedDiamondQtd: number;
+  tool1refractableDiamondQtd: number;
+  tool1dressingDiscQtd: number;
+  tool1fixedDressingRollerQtd: number;
+  tool1sCtrlMovableDressingRollerQtd: number;
   tool2Var: number;
-  tool2fixedDiamond: number;
-  tool2refractableDiamond: number;
-  tool2dressingDisc: number;
-  tool2fixedDressingRoller: number;
-  tool2sCtrlMovableDressingRoller: number;
+  tool2fixedDiamondQtd: number;
+  tool2refractableDiamondQtd: number;
+  tool2dressingDiscQtd: number;
+  tool2fixedDressingRollerQtd: number;
+  tool2sCtrlMovableDressingRollerQtd: number;
   tool3Var: number;
-  tool3fixedDiamond: number;
-  tool3refractableDiamond: number;
-  tool3dressingDisc: number;
-  tool3fixedDressingRoller: number;
-  tool3sCtrlMovableDressingRoller: number;
+  tool3fixedDiamondQtd: number;
+  tool3refractableDiamondQtd: number;
+  tool3dressingDiscQtd: number;
+  tool3fixedDressingRollerQtd: number;
+  tool3sCtrlMovableDressingRollerQtd: number;
   tool4Var: number;
-  tool4fixedDiamond: number;
-  tool4refractableDiamond: number;
-  tool4dressingDisc: number;
-  tool4fixedDressingRoller: number;
-  tool4sCtrlMovableDressingRoller: number;
+  tool4fixedDiamondQtd: number;
+  tool4refractableDiamondQtd: number;
+  tool4dressingDiscQtd: number;
+  tool4fixedDressingRollerQtd: number;
+  tool4sCtrlMovableDressingRollerQtd: number;
 }
 
 export interface Config {

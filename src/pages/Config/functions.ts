@@ -45,32 +45,32 @@ export const initialState: FormState = {
     error: false,
     message: undefined,
   },
-  tool1fixedDiamond: {
-    value: defaultConfig.tools.tool1fixedDiamond,
+  tool1fixedDiamondQtd: {
+    value: defaultConfig.tools.tool1fixedDiamondQtd,
     edit: false,
     error: false,
     message: undefined,
   },
-  tool1refractableDiamond: {
-    value: defaultConfig.tools.tool1refractableDiamond,
+  tool1refractableDiamondQtd: {
+    value: defaultConfig.tools.tool1refractableDiamondQtd,
     edit: false,
     error: false,
     message: undefined,
   },
-  tool1dressingDisc: {
-    value: defaultConfig.tools.tool1dressingDisc,
+  tool1dressingDiscQtd: {
+    value: defaultConfig.tools.tool1dressingDiscQtd,
     edit: false,
     error: false,
     message: undefined,
   },
-  tool1fixedDressingRoller: {
-    value: defaultConfig.tools.tool1fixedDressingRoller,
+  tool1fixedDressingRollerQtd: {
+    value: defaultConfig.tools.tool1fixedDressingRollerQtd,
     edit: false,
     error: false,
     message: undefined,
   },
-  tool1sCtrlMovableDressingRoller: {
-    value: defaultConfig.tools.tool1sCtrlMovableDressingRoller,
+  tool1sCtrlMovableDressingRollerQtd: {
+    value: defaultConfig.tools.tool1sCtrlMovableDressingRollerQtd,
     edit: false,
     error: false,
     message: undefined,
@@ -81,32 +81,32 @@ export const initialState: FormState = {
     error: false,
     message: undefined,
   },
-  tool2fixedDiamond: {
-    value: defaultConfig.tools.tool2fixedDiamond,
+  tool2fixedDiamondQtd: {
+    value: defaultConfig.tools.tool2fixedDiamondQtd,
     edit: false,
     error: false,
     message: undefined,
   },
-  tool2refractableDiamond: {
-    value: defaultConfig.tools.tool2refractableDiamond,
+  tool2refractableDiamondQtd: {
+    value: defaultConfig.tools.tool2refractableDiamondQtd,
     edit: false,
     error: false,
     message: undefined,
   },
-  tool2dressingDisc: {
-    value: defaultConfig.tools.tool2dressingDisc,
+  tool2dressingDiscQtd: {
+    value: defaultConfig.tools.tool2dressingDiscQtd,
     edit: false,
     error: false,
     message: undefined,
   },
-  tool2fixedDressingRoller: {
-    value: defaultConfig.tools.tool2fixedDressingRoller,
+  tool2fixedDressingRollerQtd: {
+    value: defaultConfig.tools.tool2fixedDressingRollerQtd,
     edit: false,
     error: false,
     message: undefined,
   },
-  tool2sCtrlMovableDressingRoller: {
-    value: defaultConfig.tools.tool2sCtrlMovableDressingRoller,
+  tool2sCtrlMovableDressingRollerQtd: {
+    value: defaultConfig.tools.tool2sCtrlMovableDressingRollerQtd,
     edit: false,
     error: false,
     message: undefined,
@@ -117,32 +117,32 @@ export const initialState: FormState = {
     error: false,
     message: undefined,
   },
-  tool3fixedDiamond: {
-    value: defaultConfig.tools.tool3fixedDiamond,
+  tool3fixedDiamondQtd: {
+    value: defaultConfig.tools.tool3fixedDiamondQtd,
     edit: false,
     error: false,
     message: undefined,
   },
-  tool3refractableDiamond: {
-    value: defaultConfig.tools.tool3refractableDiamond,
+  tool3refractableDiamondQtd: {
+    value: defaultConfig.tools.tool3refractableDiamondQtd,
     edit: false,
     error: false,
     message: undefined,
   },
-  tool3dressingDisc: {
-    value: defaultConfig.tools.tool3dressingDisc,
+  tool3dressingDiscQtd: {
+    value: defaultConfig.tools.tool3dressingDiscQtd,
     edit: false,
     error: false,
     message: undefined,
   },
-  tool3fixedDressingRoller: {
-    value: defaultConfig.tools.tool3fixedDressingRoller,
+  tool3fixedDressingRollerQtd: {
+    value: defaultConfig.tools.tool3fixedDressingRollerQtd,
     edit: false,
     error: false,
     message: undefined,
   },
-  tool3sCtrlMovableDressingRoller: {
-    value: defaultConfig.tools.tool3sCtrlMovableDressingRoller,
+  tool3sCtrlMovableDressingRollerQtd: {
+    value: defaultConfig.tools.tool3sCtrlMovableDressingRollerQtd,
     edit: false,
     error: false,
     message: undefined,
@@ -153,32 +153,32 @@ export const initialState: FormState = {
     error: false,
     message: undefined,
   },
-  tool4fixedDiamond: {
-    value: defaultConfig.tools.tool4fixedDiamond,
+  tool4fixedDiamondQtd: {
+    value: defaultConfig.tools.tool4fixedDiamondQtd,
     edit: false,
     error: false,
     message: undefined,
   },
-  tool4refractableDiamond: {
-    value: defaultConfig.tools.tool4refractableDiamond,
+  tool4refractableDiamondQtd: {
+    value: defaultConfig.tools.tool4refractableDiamondQtd,
     edit: false,
     error: false,
     message: undefined,
   },
-  tool4dressingDisc: {
-    value: defaultConfig.tools.tool4dressingDisc,
+  tool4dressingDiscQtd: {
+    value: defaultConfig.tools.tool4dressingDiscQtd,
     edit: false,
     error: false,
     message: undefined,
   },
-  tool4fixedDressingRoller: {
-    value: defaultConfig.tools.tool4fixedDressingRoller,
+  tool4fixedDressingRollerQtd: {
+    value: defaultConfig.tools.tool4fixedDressingRollerQtd,
     edit: false,
     error: false,
     message: undefined,
   },
-  tool4sCtrlMovableDressingRoller: {
-    value: defaultConfig.tools.tool4sCtrlMovableDressingRoller,
+  tool4sCtrlMovableDressingRollerQtd: {
+    value: defaultConfig.tools.tool4sCtrlMovableDressingRollerQtd,
     edit: false,
     error: false,
     message: undefined,
@@ -231,31 +231,31 @@ export const fieldsToolsProps: RenderFieldProps = [
   },
   {
     label: 'Diamante Fixo do Rebolo 1',
-    name: 'tool1fixedDiamond',
+    name: 'tool1fixedDiamondQtd',
     type: 'number',
     placeholder: '50011',
   },
   {
     label: 'Diamante Retrátil do Rebolo 1',
-    name: 'tool1refractableDiamond',
+    name: 'tool1refractableDiamondQtd',
     type: 'number',
     placeholder: '50012',
   },
   {
     label: 'Disco de Dressagem do Rebolo 1',
-    name: 'tool1dressingDisc',
+    name: 'tool1dressingDiscQtd',
     type: 'number',
     placeholder: '50013',
   },
   {
     label: 'Rolo de Dressagem Fixo do Rebolo 1',
-    name: 'tool1fixedDressingRoller',
+    name: 'tool1fixedDressingRollerQtd',
     type: 'number',
     placeholder: '50014',
   },
   {
     label: 'Rolo de Dressagem Móvel do Rebolo 1',
-    name: 'tool1sCtrlMovableDressingRoller',
+    name: 'tool1sCtrlMovableDressingRollerQtd',
     type: 'number',
     placeholder: '50015',
   },
@@ -267,31 +267,31 @@ export const fieldsToolsProps: RenderFieldProps = [
   },
   {
     label: 'Diamante Fixo do Rebolo 2',
-    name: 'tool2fixedDiamond',
+    name: 'tool2fixedDiamondQtd',
     type: 'number',
     placeholder: '50021',
   },
   {
     label: 'Diamante Retrátil do Rebolo 2',
-    name: 'tool2refractableDiamond',
+    name: 'tool2refractableDiamondQtd',
     type: 'number',
     placeholder: '50022',
   },
   {
     label: 'Disco de Dressagem do Rebolo 2',
-    name: 'tool2dressingDisc',
+    name: 'tool2dressingDiscQtd',
     type: 'number',
     placeholder: '50023',
   },
   {
     label: 'Rolo de Dressagem Fixo do Rebolo 2',
-    name: 'tool2fixedDressingRoller',
+    name: 'tool2fixedDressingRollerQtd',
     type: 'number',
     placeholder: '50024',
   },
   {
     label: 'Rolo de Dressagem Móvel do Rebolo 2',
-    name: 'tool2sCtrlMovableDressingRoller',
+    name: 'tool2sCtrlMovableDressingRollerQtd',
     type: 'number',
     placeholder: '50025',
   },
@@ -303,31 +303,31 @@ export const fieldsToolsProps: RenderFieldProps = [
   },
   {
     label: 'Diamante Fixo do Rebolo 3',
-    name: 'tool3fixedDiamond',
+    name: 'tool3fixedDiamondQtd',
     type: 'number',
     placeholder: '50031',
   },
   {
     label: 'Diamante Retrátil do Rebolo 3',
-    name: 'tool3refractableDiamond',
+    name: 'tool3refractableDiamondQtd',
     type: 'number',
     placeholder: '50032',
   },
   {
     label: 'Disco de Dressagem do Rebolo 3',
-    name: 'tool3dressingDisc',
+    name: 'tool3dressingDiscQtd',
     type: 'number',
     placeholder: '50033',
   },
   {
     label: 'Rolo de Dressagem Fixo do Rebolo 3',
-    name: 'tool3fixedDressingRoller',
+    name: 'tool3fixedDressingRollerQtd',
     type: 'number',
     placeholder: '50034',
   },
   {
     label: 'Rolo de Dressagem Móvel do Rebolo 3',
-    name: 'tool3sCtrlMovableDressingRoller',
+    name: 'tool3sCtrlMovableDressingRollerQtd',
     type: 'number',
     placeholder: '50035',
   },
@@ -339,31 +339,31 @@ export const fieldsToolsProps: RenderFieldProps = [
   },
   {
     label: 'Diamante Fixo do Rebolo 4',
-    name: 'tool4fixedDiamond',
+    name: 'tool4fixedDiamondQtd',
     type: 'number',
     placeholder: '50041',
   },
   {
     label: 'Diamante Retrátil do Rebolo 4',
-    name: 'tool4refractableDiamond',
+    name: 'tool4refractableDiamondQtd',
     type: 'number',
     placeholder: '50042',
   },
   {
     label: 'Disco de Dressagem do Rebolo 4',
-    name: 'tool4dressingDisc',
+    name: 'tool4dressingDiscQtd',
     type: 'number',
     placeholder: '50043',
   },
   {
     label: 'Rolo de Dressagem Fixo do Rebolo 4',
-    name: 'tool4fixedDressingRoller',
+    name: 'tool4fixedDressingRollerQtd',
     type: 'number',
     placeholder: '50044',
   },
   {
     label: 'Rolo de Dressagem Móvel do Rebolo 4',
-    name: 'tool4sCtrlMovableDressingRoller',
+    name: 'tool4sCtrlMovableDressingRollerQtd',
     type: 'number',
     placeholder: '50045',
   },
@@ -432,29 +432,29 @@ export const validateField = (
       };
     }
     case 'tool1Var':
-    case 'tool1fixedDiamond':
-    case 'tool1refractableDiamond':
-    case 'tool1dressingDisc':
-    case 'tool1fixedDressingRoller':
-    case 'tool1sCtrlMovableDressingRoller':
+    case 'tool1fixedDiamondQtd':
+    case 'tool1refractableDiamondQtd':
+    case 'tool1dressingDiscQtd':
+    case 'tool1fixedDressingRollerQtd':
+    case 'tool1sCtrlMovableDressingRollerQtd':
     case 'tool2Var':
-    case 'tool2fixedDiamond':
-    case 'tool2refractableDiamond':
-    case 'tool2dressingDisc':
-    case 'tool2fixedDressingRoller':
-    case 'tool2sCtrlMovableDressingRoller':
+    case 'tool2fixedDiamondQtd':
+    case 'tool2refractableDiamondQtd':
+    case 'tool2dressingDiscQtd':
+    case 'tool2fixedDressingRollerQtd':
+    case 'tool2sCtrlMovableDressingRollerQtd':
     case 'tool3Var':
-    case 'tool3fixedDiamond':
-    case 'tool3refractableDiamond':
-    case 'tool3dressingDisc':
-    case 'tool3fixedDressingRoller':
-    case 'tool3sCtrlMovableDressingRoller':
+    case 'tool3fixedDiamondQtd':
+    case 'tool3refractableDiamondQtd':
+    case 'tool3dressingDiscQtd':
+    case 'tool3fixedDressingRollerQtd':
+    case 'tool3sCtrlMovableDressingRollerQtd':
     case 'tool4Var':
-    case 'tool4fixedDiamond':
-    case 'tool4refractableDiamond':
-    case 'tool4dressingDisc':
-    case 'tool4fixedDressingRoller':
-    case 'tool4sCtrlMovableDressingRoller': {
+    case 'tool4fixedDiamondQtd':
+    case 'tool4refractableDiamondQtd':
+    case 'tool4dressingDiscQtd':
+    case 'tool4fixedDressingRollerQtd':
+    case 'tool4sCtrlMovableDressingRollerQtd': {
       const numValue = Number(value);
       if (numValue < 0) {
         return {
