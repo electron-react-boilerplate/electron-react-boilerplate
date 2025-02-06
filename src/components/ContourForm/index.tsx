@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ContourType, Machining } from 'types/part';
 
 import FormField from 'components/FormField';
 import { Message } from 'components/FormField/style';
 
-import { TYPE_EXTERNAL, TYPE_INTERNAL } from 'utils/constants';
+import {
+  MACHINING_DRESSING,
+  TYPE_EXTERNAL,
+  TYPE_INTERNAL,
+} from 'utils/constants';
 
 import useFormattedTools from 'hooks/useFormattedTools';
 import { addContour } from 'state/part/partSlice';
@@ -28,6 +32,10 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick, machining }) => {
   );
 
   const [formData, setFormData] = useState(initialFormData);
+
+  useEffect(() => {
+    console.log('formattedTools', formattedTools);
+  }, [formattedTools]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -120,7 +128,6 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick, machining }) => {
               value={TYPE_EXTERNAL}
               name="type"
               onChange={(e) => handleChange(e)}
-              required
             />
             <span />
             Externo
@@ -133,13 +140,29 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick, machining }) => {
               value={TYPE_INTERNAL}
               name="type"
               onChange={(e) => handleChange(e)}
-              required
             />
             <span />
             Interno
           </RadioButton>
         )}
       </Field>
+      {machining === MACHINING_DRESSING && (
+        <Field>
+          <Label>Tipo:</Label>
+          {/* {loadedTools.map((tool) => (
+            <RadioButton>
+              <input
+                type="radio"
+                value={tool.}
+                name="type"
+                onChange={(e) => handleChange(e)}
+              />
+              <span />
+              {tool.name}
+            </RadioButton>
+          ))} */}
+        </Field>
+      )}
       <Button onClick={handleClick}>Cadastrar</Button>
     </Container>
   );

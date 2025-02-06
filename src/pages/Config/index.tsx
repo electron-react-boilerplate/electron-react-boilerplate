@@ -10,8 +10,8 @@ import {
   Config as ConfigType,
   GetToolsRequest,
   GetToolsResponse,
-  GetToolsResponseData,
   GetToolsResponseDataItem,
+  Tools,
 } from 'types/api';
 import Button from 'components/Button';
 import { ModalContent, ModalText } from 'components/SideMenu/styles';
@@ -54,7 +54,7 @@ const breadcrumbsItems = [
 const Config: React.FC = () => {
   const [loaded, setLoaded] = useState(false);
   const [formState, setFormState] = useState<FormState>(initialState);
-  const [toolsData, setToolsData] = useState<GetToolsResponseData>([]);
+  const [toolsData, setToolsData] = useState<Tools>({} as Tools);
   const [isGetToolsLoading, setIsGetToolsLoading] = useState<boolean>(false);
   const [isModalFeedbackOpen, setIsModalFeedbackOpen] =
     useState<boolean>(false);
@@ -67,7 +67,7 @@ const Config: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       const loadedConfig: ConfigType = await loadConfig();
-      const loadedTools: GetToolsResponseData = await loadTools();
+      const loadedTools: Tools = await loadTools();
 
       setFormState((prevState) => ({
         ip: {
@@ -357,32 +357,43 @@ const Config: React.FC = () => {
     const newDisplayValues: { [key: string]: string } = {};
     const newColorsState: { [key: string]: string } = {};
 
-    fieldsToolsProps.forEach((toolVar) => {
-      const toolData = toolsData.find(
-        (tool: GetToolsResponseDataItem) =>
-          tool.code === formState[toolVar.name].value,
-      );
+    fieldsToolsProps.forEach((prop) => {
+      const toolVarName = prop.name as keyof Tools;
+      const toolValue = toolsData[toolVarName];
 
-      if (toolData) {
-        if (toolData.value === 1) {
-          newDisplayValues[toolVar.name] = 'Externo';
-          newColorsState[toolVar.name] = colors.blue;
-        } else if (toolData.value === 2) {
-          newDisplayValues[toolVar.name] = 'Interno';
-          newColorsState[toolVar.name] = colors.blue;
+      if (
+        toolVarName === 'tool1Var' ||
+        toolVarName === 'tool2Var' ||
+        toolVarName === 'tool3Var' ||
+        toolVarName === 'tool4Var'
+      ) {
+        if (toolValue !== undefined) {
+          if (toolValue === 1) {
+            newDisplayValues[prop.name] = 'Externo';
+            newColorsState[prop.name] = colors.blue;
+          } else if (toolValue === 2) {
+            newDisplayValues[prop.name] = 'Interno';
+            newColorsState[prop.name] = colors.blue;
+          } else {
+            newDisplayValues[prop.name] = 'Inexistente';
+            newColorsState[prop.name] = colors.greyDark;
+          }
         } else {
-          newDisplayValues[toolVar.name] = 'Inexistente';
-          newColorsState[toolVar.name] = colors.greyDark;
+          newDisplayValues[prop.name] = 'Inexistente';
+          newColorsState[prop.name] = colors.greyDark;
         }
+      } else if (toolValue) {
+        newDisplayValues[prop.name] = `Quantidade: ${toolValue.toString()}`;
+        newColorsState[prop.name] = colors.blue;
       } else {
-        newDisplayValues[toolVar.name] = 'Inexistente';
-        newColorsState[toolVar.name] = colors.greyDark;
+        newDisplayValues[prop.name] = 'Inexistente';
+        newColorsState[prop.name] = colors.greyDark;
       }
     });
 
     setDisplayValues(newDisplayValues);
     setColorsState(newColorsState);
-  }, [toolsData, formState]);
+  }, [toolsData]);
 
   useEffect(() => {
     arrangeToolTypes();
@@ -422,6 +433,10 @@ const Config: React.FC = () => {
             name === 'tool4Var') && (
             <ContentText color={color}>{displayValue}</ContentText>
           )}
+          {Object.keys(toolsData).includes(name) &&
+            !['tool1Var', 'tool2Var', 'tool3Var', 'tool4Var'].includes(
+              name,
+            ) && <ContentText color={color}>{displayValue}</ContentText>}
           <EditButton type="button" onClick={() => toggleEdit(name)}>
             {renderEditIcon(name)}
           </EditButton>
@@ -491,11 +506,20 @@ const Config: React.FC = () => {
 
     try {
       const res: GetToolsResponse = await getTools(request, 100000);
+
       if (res.statusCode === 200) {
         if (res.data) {
-          await window.electron.store.set('tools', res.data);
+          const newObject: Tools = {} as Tools;
+          res.data.forEach((tool: GetToolsResponseDataItem) => {
+            Object.keys(formState).forEach((key) => {
+              if (formState[key as keyof FormState].value === tool.code) {
+                newObject[key as keyof Tools] = tool.value;
+              }
+            });
+          });
 
-          setToolsData(res.data);
+          window.electron.store.set('tools', newObject);
+          setToolsData(newObject);
           arrangeToolTypes();
         }
       } else setIsModalFeedbackOpen(true);
@@ -528,7 +552,7 @@ const Config: React.FC = () => {
               color={colors.white}
               bgColor={colors.blue}
             >
-              Buscar rebolos
+              Buscar ferramentas
             </SButton>
           ) : (
             <Spinner color={colors.blue} />
@@ -536,15 +560,15 @@ const Config: React.FC = () => {
         </SContentBlock>
       </Content>
       <Modal
-        title="Erro ao buscar rebolos"
+        title="Erro ao buscar ferramentas"
         variation="danger"
         isOpen={isModalFeedbackOpen}
         onClose={() => setIsModalFeedbackOpen(false)}
       >
         <ModalContent>
           <ModalText>
-            Houve um erro ao buscar rebolos, verifique a conexão com o serviço
-            ou o CNC e tente novamente.
+            Houve um erro ao buscar ferramentas, verifique a conexão com o
+            serviço ou o CNC e tente novamente.
           </ModalText>
         </ModalContent>
         <Button

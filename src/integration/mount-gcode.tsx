@@ -1,11 +1,11 @@
 import { ContourItem, ActivitiyItem, Part, OperationItem } from 'types/part';
-import { GetToolsResponseData } from 'types/api';
 import {
   MACHINING_DRESSING,
   MACHINING_GRINDING,
   TYPE_EXTERNAL,
   TYPE_INTERNAL,
 } from 'utils/constants';
+import { ToolOptions } from 'components/Select/interface';
 
 const macroRef = 'G65 P7001';
 
@@ -190,7 +190,7 @@ function getOperationData<T>(
 function generateGCodeForPart(
   part: Part,
   rangeStart: number,
-  loadedTools: GetToolsResponseData,
+  formattedTools: ToolOptions,
 ): string[] {
   const gCodeStrings: string[] = [];
 
@@ -205,7 +205,9 @@ function generateGCodeForPart(
       contour,
       Number(rangeStart) + index,
       toolId,
-      loadedTools[toolId - 1].value,
+      Array.isArray(formattedTools)
+        ? formattedTools.find((t) => t.id === toolId)?.value ?? 0
+        : 0,
       getOperationData(part, contour.id, (operation) => operation.bAxisAngle),
       getOperationData(
         part,

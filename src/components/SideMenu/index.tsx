@@ -8,9 +8,10 @@ import ProgramsToSendList from 'components/ProgramsToSendList';
 import Spinner from 'components/Spinner';
 import ConfirmAction from 'components/ConfirmAction';
 
+import useFormattedTools from 'hooks/useFormattedTools';
+
 import { saveFile, saveFileAs } from 'utils/saveFile';
 import { loadConfig } from 'utils/loadConfig';
-import { loadTools } from 'utils/loadTools';
 import { generateGCodeForPart } from 'integration/mount-gcode';
 
 import { editApp } from 'state/app/appSlice';
@@ -18,7 +19,7 @@ import { editApp } from 'state/app/appSlice';
 import { Part } from 'types/part';
 import { App } from 'types/app';
 import { SaveObject } from 'types/general';
-import { Response, Request, Config, GetToolsResponseData } from 'types/api';
+import { Response, Request, Config } from 'types/api';
 
 import { colors } from 'styles/global.styles';
 import {
@@ -38,6 +39,7 @@ import {
 
 const SideMenu: React.FC = () => {
   const dispatch = useDispatch();
+  const formattedTools = useFormattedTools();
   const part = useSelector((state: { part: Part }) => state.part);
   const lastFilePath = useSelector(
     (state: { app: App }) => state.app.lastFilePathSaved,
@@ -132,11 +134,10 @@ const SideMenu: React.FC = () => {
 
   const sendPrograms = async () => {
     const loadedConfig: Config = await loadConfig();
-    const loadedTools: GetToolsResponseData = await loadTools();
     const generatedCodes: string[] = generateGCodeForPart(
       part,
       loadedConfig.cnc.delRangeStart,
-      loadedTools,
+      formattedTools,
     );
     const request: Request = {
       ...loadedConfig,

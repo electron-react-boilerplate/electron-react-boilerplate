@@ -46,10 +46,12 @@ export const ContentText = styled.div<{ color: string }>`
   padding: 15px;
   font-size: 18px;
   box-sizing: border-box;
+  min-width: 150px;
   height: 53px;
   background-color: ${colors.white};
   border: 1px solid ${(props) => props.color};
   color: ${(props) => props.color};
+  text-align: center;
 `;
 
 export const SButton = styled(Button)`
