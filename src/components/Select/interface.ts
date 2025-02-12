@@ -9,6 +9,14 @@ export interface ToolOptionItem {
 
 export interface ToolOptions extends Array<ToolOptionItem> {}
 
+export interface ToolDressingOptionItem {
+  name: string;
+  value: number;
+  toolId: number;
+}
+
+export interface ToolDressingOptions extends Array<ToolDressingOptionItem> {}
+
 export interface SelectComponentProps {
   label: string;
   name: string;

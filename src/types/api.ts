@@ -74,6 +74,11 @@ export interface Tools {
   tool4sCtrlMovableDressingRollerQtd: number;
 }
 
+export type DressingToolsQtds = Omit<
+  Tools,
+  'tool1Var' | 'tool2Var' | 'tool3Var' | 'tool4Var'
+>;
+
 export interface Config {
   network: Network;
   cnc: Cnc;

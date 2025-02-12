@@ -4,6 +4,7 @@ import {
   MACHINING_GRINDING,
   MACHINING_DRESSING,
 } from 'utils/constants';
+import { DressingToolsQtds } from './api';
 
 // Types
 export type ContourType = typeof TYPE_EXTERNAL | typeof TYPE_INTERNAL;
@@ -33,6 +34,10 @@ export interface ContourItem {
   machining: Machining;
   type: ContourType;
   activities: Activities;
+}
+
+export interface ContourItemWithDressingToolsQtds extends ContourItem {
+  dressingToolsQtds: DressingToolsQtds;
 }
 
 export interface Contours extends Array<ContourItem> {}

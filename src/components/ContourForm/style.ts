@@ -17,6 +17,21 @@ export const Label = styled.label`
   margin-bottom: 12px;
 `;
 
+export const LabelSmall = styled.label`
+  display: block;
+  font-size: 16px;
+  color: ${colors.blue};
+  margin-bottom: 12px;
+`;
+
+export const TitleLabel = styled.label`
+  display: block;
+  font-size: 20px;
+  color: ${colors.blue};
+  margin-top: 10px;
+  margin-bottom: 20px;
+`;
+
 export const RadioButton = styled.label`
   display: block;
   position: relative;
@@ -67,7 +82,6 @@ export const RadioButton = styled.label`
   }
 `;
 
-// use component Button
 export const Button = styled.button`
   background-color: ${colors.blue};
   border: none;

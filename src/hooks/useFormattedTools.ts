@@ -41,7 +41,6 @@ const useFormattedTools = () => {
     fetchTools();
   }, []);
 
-  console.log('formattedTools', formattedTools);
   return formattedTools;
 };
 

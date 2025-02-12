@@ -1,7 +1,7 @@
 import React from 'react';
 
 export type FieldState = {
-  value: string | number;
+  value: string | number | undefined;
   error: boolean;
   message: string | undefined;
 };

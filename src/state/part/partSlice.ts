@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 import { Part, ContourItem, ActivitiyItem, OperationItem } from 'types/part';
+import { DressingToolsQtds } from 'types/api';
 
 interface EditContourPayload {
   id: number;
@@ -46,7 +47,9 @@ const partSlice = createSlice({
       action: PayloadAction<
         | Omit<ContourItem, 'id'>
         | (Omit<Partial<Pick<ContourItem, 'activities'>>, 'id'> &
-            Pick<ContourItem, 'name' | 'machining' | 'type'>)
+            Pick<ContourItem, 'name' | 'machining' | 'type'> & {
+              dressingToolsQtds?: DressingToolsQtds;
+            })
       >,
     ) => {
       const maxId = Math.max(...state.contours.map((contour) => contour.id), 0);
@@ -131,9 +134,9 @@ const partSlice = createSlice({
       }>,
     ) => {
       const { operationId, contourId, direction } = action.payload;
-      const operation = state.operations.find((op) => op.id === operationId); // encontrar a operação correta
+      const operation = state.operations.find((op) => op.id === operationId);
 
-      if (!operation) return; // se a operação não for encontrada, retorne
+      if (!operation) return;
 
       const index = operation.contoursIds.findIndex((id) => id === contourId);
       if (index < 0) return;

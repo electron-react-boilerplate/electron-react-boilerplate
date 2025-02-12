@@ -23,4 +23,5 @@ export interface CustomFieldState extends Omit<FieldState, 'value'> {
 export interface IFormData {
   name: FieldState;
   type: CustomFieldState;
+  dressingTool?: FieldState;
 }
