@@ -61,6 +61,10 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick, machining }) => {
     );
   }, [formData.type.value, formattedTools]);
 
+  useEffect(() => {
+    console.log('formData', formData);
+  }, [formData]);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
@@ -113,19 +117,13 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick, machining }) => {
       name: formData.name.value as string,
       machining: machining as Machining,
       type: Number(formData.type.value) as ContourType,
+      dressingTool: formData.dressingTool?.value as string,
     };
     dispatch(
       addContour({
         ...contour,
         machining: machining as Machining,
         type: Number(formData.type.value) as ContourType,
-        // dressingToolsQtds: {
-        //   fixedDiamond: 0,
-        //   refractableDiamond: 0,
-        //   dressingDisc: 0,
-        //   fixedDressingRoller: 0,
-        //   sCtrlMovableDressingRoller: 0,
-        // },
       }),
     );
 

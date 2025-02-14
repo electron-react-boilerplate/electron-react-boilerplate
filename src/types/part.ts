@@ -34,10 +34,7 @@ export interface ContourItem {
   machining: Machining;
   type: ContourType;
   activities: Activities;
-}
-
-export interface ContourItemWithDressingToolsQtds extends ContourItem {
-  dressingToolsQtds: DressingToolsQtds;
+  dressingTool?: string;
 }
 
 export interface Contours extends Array<ContourItem> {}

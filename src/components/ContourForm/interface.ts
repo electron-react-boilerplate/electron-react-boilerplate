@@ -7,6 +7,7 @@ export interface addContourPayload {
   name: string;
   machining: Machining | string;
   type: ContourType | string;
+  dressingTool?: string;
 }
 
 export interface FormProps {

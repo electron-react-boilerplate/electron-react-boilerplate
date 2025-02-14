@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 import { Part, ContourItem, ActivitiyItem, OperationItem } from 'types/part';
-import { DressingToolsQtds } from 'types/api';
 
 interface EditContourPayload {
   id: number;
@@ -47,9 +46,7 @@ const partSlice = createSlice({
       action: PayloadAction<
         | Omit<ContourItem, 'id'>
         | (Omit<Partial<Pick<ContourItem, 'activities'>>, 'id'> &
-            Pick<ContourItem, 'name' | 'machining' | 'type'> & {
-              dressingToolsQtds?: DressingToolsQtds;
-            })
+            Pick<ContourItem, 'name' | 'machining' | 'type' | 'dressingTool'>)
       >,
     ) => {
       const maxId = Math.max(...state.contours.map((contour) => contour.id), 0);
