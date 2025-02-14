@@ -302,11 +302,20 @@ const Config: React.FC = () => {
       value: string | number;
     };
 
+    let newValue: string | number;
+    if (name === 'ip') {
+      newValue = value;
+    } else if (Number.isNaN(Number(value))) {
+      newValue = value;
+    } else {
+      newValue = Number(value);
+    }
+
     setFormState((prevState) => ({
       ...prevState,
       [name]: {
         ...prevState[name],
-        value: Number.isNaN(Number(value)) ? value : Number(value),
+        value: newValue,
       },
     }));
   };
