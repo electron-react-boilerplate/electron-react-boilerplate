@@ -478,7 +478,7 @@ const Contour: React.FC = () => {
                     contourType={formData.type}
                     fontSize="14px"
                   />
-                  {formData.dressingTool && <div>{formData.dressingTool}</div>}
+                  {/* {formData.dressingTool && <div>{formData.dressingTool}</div>} */}
                   <CodePreviewBtn>
                     <StyledIcon
                       className="icon-code"

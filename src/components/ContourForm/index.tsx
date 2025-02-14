@@ -61,9 +61,9 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick, machining }) => {
     );
   }, [formData.type.value, formattedTools]);
 
-  useEffect(() => {
-    console.log('formData', formData);
-  }, [formData]);
+  // useEffect(() => {
+  //   console.log('formData', formData);
+  // }, [formData]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -83,7 +83,10 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick, machining }) => {
 
     const updatedFormData = Object.entries(formData).reduce(
       (acc, [key, field]) => {
-        if (!field.value) {
+        if (
+          !field.value &&
+          (key !== 'dressingTool' || machining === MACHINING_DRESSING)
+        ) {
           (acc as any)[key] = {
             ...field,
             error: true,

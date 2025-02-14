@@ -4,7 +4,6 @@ import {
   MACHINING_GRINDING,
   MACHINING_DRESSING,
 } from 'utils/constants';
-import { DressingToolsQtds } from './api';
 
 // Types
 export type ContourType = typeof TYPE_EXTERNAL | typeof TYPE_INTERNAL;
