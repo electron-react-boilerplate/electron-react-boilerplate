@@ -46,7 +46,16 @@ const partSlice = createSlice({
       action: PayloadAction<
         | Omit<ContourItem, 'id'>
         | (Omit<Partial<Pick<ContourItem, 'activities'>>, 'id'> &
-            Pick<ContourItem, 'name' | 'machining' | 'type' | 'dressingTool'>)
+            Pick<
+              ContourItem,
+              | 'name'
+              | 'machining'
+              | 'type'
+              | 'dressingTool'
+              | 'bAxisAngle'
+              | 'xSafetyDistance'
+              | 'zSafetyDistance'
+            >)
       >,
     ) => {
       const maxId = Math.max(...state.contours.map((contour) => contour.id), 0);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ContourType, Machining } from 'types/part';
 
 import FormField from 'components/FormField';
@@ -16,6 +16,9 @@ import { addContour } from 'state/part/partSlice';
 
 import useFormattedDressingTools from 'hooks/useFormattedDressingTools';
 
+import { HorizontalField } from 'components/OperationForm/style';
+
+import { FieldState } from 'components/FormField/interface';
 import { ToolOptionItem, ToolOptions } from 'components/Select/interface';
 import { addContourPayload, FormProps, IFormData } from './interface';
 
@@ -31,6 +34,9 @@ import {
 const initialFormData: IFormData = {
   name: { value: '', error: false, message: undefined },
   type: { value: undefined, error: false, message: undefined },
+  bAxisAngle: { value: 0, error: false, message: undefined },
+  xSafetyDistance: { value: 0, error: false, message: undefined },
+  zSafetyDistance: { value: 0, error: false, message: undefined },
   dressingTool: { value: undefined, error: false, message: undefined },
 };
 
@@ -61,10 +67,6 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick, machining }) => {
     );
   }, [formData.type.value, formattedTools]);
 
-  // useEffect(() => {
-  //   console.log('formData', formData);
-  // }, [formData]);
-
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
@@ -84,7 +86,9 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick, machining }) => {
     const updatedFormData = Object.entries(formData).reduce(
       (acc, [key, field]) => {
         if (
-          !field.value &&
+          (field.value === null ||
+            field.value === undefined ||
+            field.value === '') &&
           (key !== 'dressingTool' || machining === MACHINING_DRESSING)
         ) {
           (acc as any)[key] = {
@@ -121,6 +125,9 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick, machining }) => {
       machining: machining as Machining,
       type: Number(formData.type.value) as ContourType,
       dressingTool: formData.dressingTool?.value as string,
+      bAxisAngle: Number(formData.bAxisAngle?.value) as number,
+      xSafetyDistance: Number(formData.xSafetyDistance?.value) as number,
+      zSafetyDistance: Number(formData.zSafetyDistance?.value) as number,
     };
     dispatch(
       addContour({
@@ -178,6 +185,38 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick, machining }) => {
           </RadioButton>
         )}
       </Field>
+      <Field>
+        <FormField
+          name="bAxisAngle"
+          label="Ângulo Eixo B"
+          type="number"
+          placeholder="Valor do ângulo..."
+          fieldState={formData.bAxisAngle as FieldState}
+          handleInputChange={handleChange}
+        />
+      </Field>
+      <HorizontalField>
+        <Field>
+          <FormField
+            name="xSafetyDistance"
+            label="Distância de Segurança X"
+            type="number"
+            placeholder="Valor da distância..."
+            fieldState={formData.xSafetyDistance as FieldState}
+            handleInputChange={handleChange}
+          />
+        </Field>
+        <Field>
+          <FormField
+            name="zSafetyDistance"
+            label="Distância de Segurança Z"
+            type="number"
+            placeholder="Valor da distância..."
+            fieldState={formData.zSafetyDistance as FieldState}
+            handleInputChange={handleChange}
+          />
+        </Field>
+      </HorizontalField>
       {machining === MACHINING_DRESSING && formData.type.value && (
         <>
           {formData.dressingTool && formData.dressingTool.error && (

@@ -53,7 +53,10 @@ export const IconClose = styled.span`
   color: ${colors.greyFont};
 `;
 
-export const Content = styled.div``;
+export const Content = styled.div`
+  max-height: 75vh;
+  overflow-y: auto;
+`;
 
 export const CloseButton = styled.button`
   background-color: transparent;
