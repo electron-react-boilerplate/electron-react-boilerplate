@@ -1,9 +1,12 @@
 import React from 'react';
 
+import InfoLabel from 'components/InfoLabel';
+
 import { TYPE_EXTERNAL, TYPE_INTERNAL } from 'utils/constants';
 
+import { colors } from 'styles/global.styles';
+
 import { GrindingTypeLabelProps } from './interface';
-import { Container } from './style';
 
 const getContourTypeLabel = (type: number) => {
   if (type === TYPE_EXTERNAL) return 'Externo';
@@ -16,9 +19,9 @@ const GrindingTypeLabel: React.FC<GrindingTypeLabelProps> = ({
   fontSize,
 }) => {
   return (
-    <Container fontSize={fontSize}>
+    <InfoLabel fontSize={fontSize} color={colors.blue}>
       {getContourTypeLabel(contourType)}
-    </Container>
+    </InfoLabel>
   );
 };
 

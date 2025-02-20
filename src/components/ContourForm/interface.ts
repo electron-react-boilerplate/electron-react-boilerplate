@@ -1,7 +1,7 @@
 import { ContourItem, ContourType, Machining } from 'types/part';
 import { FieldState } from 'components/FormField/interface';
 
-type Action = 'add' | 'edit';
+type Variation = 'add' | 'edit';
 
 export interface addContourPayload {
   name: string;
@@ -15,8 +15,9 @@ export interface addContourPayload {
 
 export interface FormProps {
   contour?: ContourItem;
-  machining: Machining;
-  action: Action;
+  machining?: Machining;
+  variation: Variation;
+  contourId?: number;
   onButtonClick: () => void;
 }
 

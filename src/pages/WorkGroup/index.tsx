@@ -134,7 +134,7 @@ const WorkGroup: React.FC = () => {
         onClose={() => setIsModalContourOpen(false)}
       >
         <ContourForm
-          action="add"
+          variation="add"
           machining={selectedMachining}
           onButtonClick={() => setIsModalContourOpen(false)}
         />

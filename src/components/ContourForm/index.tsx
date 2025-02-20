@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { ContourType, Machining } from 'types/part';
+import { useDispatch, useSelector } from 'react-redux';
+import { ContourType, Machining, Contours } from 'types/part';
 
 import FormField from 'components/FormField';
 import { Message } from 'components/FormField/style';
@@ -12,7 +12,7 @@ import {
 } from 'utils/constants';
 
 import useFormattedTools from 'hooks/useFormattedTools';
-import { addContour } from 'state/part/partSlice';
+import { addContour, editContour } from 'state/part/partSlice';
 
 import useFormattedDressingTools from 'hooks/useFormattedDressingTools';
 
@@ -48,7 +48,12 @@ const toolNameTranslations: { [key: string]: string } = {
   sCtrlMovableDressingRollerQtd: 'Rolo de Dressagem Móvel',
 };
 
-const ContourForm: React.FC<FormProps> = ({ onButtonClick, machining }) => {
+const ContourForm: React.FC<FormProps> = ({
+  onButtonClick,
+  machining,
+  variation,
+  contourId,
+}) => {
   const dispatch = useDispatch();
   const formattedTools = useFormattedTools();
   const fDressingTools = useFormattedDressingTools();
@@ -56,7 +61,43 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick, machining }) => {
     new Set(formattedTools.map((tool: ToolOptionItem) => tool.type)),
   );
 
-  const [formData, setFormData] = useState(initialFormData);
+  const contours = useSelector(
+    (state: { part: { contours: Contours } }) => state.part.contours,
+  );
+
+  let formValues: IFormData = initialFormData;
+
+  if (variation === 'edit') {
+    const contour = contours.find((c) => c.id === contourId);
+    if (contour) {
+      formValues = {
+        name: { value: contour.name, error: false, message: undefined },
+        type: { value: contour.type, error: false, message: undefined },
+        bAxisAngle: {
+          value: contour.bAxisAngle,
+          error: false,
+          message: undefined,
+        },
+        xSafetyDistance: {
+          value: contour.xSafetyDistance,
+          error: false,
+          message: undefined,
+        },
+        zSafetyDistance: {
+          value: contour.zSafetyDistance,
+          error: false,
+          message: undefined,
+        },
+        dressingTool: {
+          value: contour.dressingTool,
+          error: false,
+          message: undefined,
+        },
+      };
+    }
+  }
+
+  const [formData, setFormData] = useState(formValues);
   const [matchedTools, setMatchedTools] = useState<ToolOptions>([]);
 
   useEffect(() => {
@@ -97,6 +138,20 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick, machining }) => {
             message: 'Campo obrigatório',
           };
           isValid = false;
+        } else if (
+          (key === 'bAxisAngle' ||
+            key === 'xSafetyDistance' ||
+            key === 'zSafetyDistance') &&
+          (field.value === null ||
+            field.value === undefined ||
+            field.value === '')
+        ) {
+          (acc as any)[key] = {
+            ...field,
+            error: true,
+            message: 'Campo obrigatório',
+          };
+          isValid = false;
         } else {
           (acc as any)[key] = {
             ...field,
@@ -129,13 +184,27 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick, machining }) => {
       xSafetyDistance: Number(formData.xSafetyDistance?.value) as number,
       zSafetyDistance: Number(formData.zSafetyDistance?.value) as number,
     };
-    dispatch(
-      addContour({
-        ...contour,
-        machining: machining as Machining,
-        type: Number(formData.type.value) as ContourType,
-      }),
-    );
+
+    if (variation === 'add') {
+      dispatch(
+        addContour({
+          ...contour,
+          machining: machining as Machining,
+          type: Number(formData.type.value) as ContourType,
+        }),
+      );
+    } else if (variation === 'edit' && contourId !== undefined) {
+      dispatch(
+        editContour({
+          id: contourId,
+          changes: {
+            ...contour,
+            machining: machining as Machining,
+            type: Number(formData.type.value) as ContourType,
+          },
+        }),
+      );
+    }
 
     onButtonClick();
   };
@@ -147,44 +216,48 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick, machining }) => {
 
   return (
     <Container>
-      <Field>
-        <FormField
-          name="name"
-          label="Nome"
-          type="text"
-          placeholder="Peça PC01..."
-          fieldState={formData.name}
-          handleInputChange={handleChange}
-        />
-      </Field>
-      <Field>
-        <Label>Tipo:</Label>
-        {formData.type.error && <Message>{formData.type.message}</Message>}
-        {availableTypes.includes(TYPE_EXTERNAL) && (
-          <RadioButton>
-            <input
-              type="radio"
-              value={TYPE_EXTERNAL}
-              name="type"
-              onChange={(e) => handleChange(e)}
+      {variation === 'add' && (
+        <>
+          <Field>
+            <FormField
+              name="name"
+              label="Nome"
+              type="text"
+              placeholder="Peça PC01..."
+              fieldState={formData.name}
+              handleInputChange={handleChange}
             />
-            <span />
-            Externo
-          </RadioButton>
-        )}
-        {availableTypes.includes(TYPE_INTERNAL) && (
-          <RadioButton>
-            <input
-              type="radio"
-              value={TYPE_INTERNAL}
-              name="type"
-              onChange={(e) => handleChange(e)}
-            />
-            <span />
-            Interno
-          </RadioButton>
-        )}
-      </Field>
+          </Field>
+          <Field>
+            <Label>Tipo:</Label>
+            {formData.type.error && <Message>{formData.type.message}</Message>}
+            {availableTypes.includes(TYPE_EXTERNAL) && (
+              <RadioButton>
+                <input
+                  type="radio"
+                  value={TYPE_EXTERNAL}
+                  name="type"
+                  onChange={(e) => handleChange(e)}
+                />
+                <span />
+                Externo
+              </RadioButton>
+            )}
+            {availableTypes.includes(TYPE_INTERNAL) && (
+              <RadioButton>
+                <input
+                  type="radio"
+                  value={TYPE_INTERNAL}
+                  name="type"
+                  onChange={(e) => handleChange(e)}
+                />
+                <span />
+                Interno
+              </RadioButton>
+            )}
+          </Field>
+        </>
+      )}
       <Field>
         <FormField
           name="bAxisAngle"
@@ -217,61 +290,69 @@ const ContourForm: React.FC<FormProps> = ({ onButtonClick, machining }) => {
           />
         </Field>
       </HorizontalField>
-      {machining === MACHINING_DRESSING && formData.type.value && (
-        <>
-          {formData.dressingTool && formData.dressingTool.error && (
-            <Message>{formData.dressingTool.message}</Message>
-          )}
-          <TitleLabel>Ferramenta de Dressagem</TitleLabel>
-          <Field>
-            {['tool1', 'tool2', 'tool3', 'tool4'].map((toolPrefix, index) => {
-              const toolsForPrefix = fDressingTools.filter((tool) =>
-                tool.name.startsWith(toolPrefix),
-              );
-              if (toolsForPrefix.length === 0) return null;
+      {variation === 'add' &&
+        machining === MACHINING_DRESSING &&
+        formData.type.value && (
+          <>
+            {formData.dressingTool && formData.dressingTool.error && (
+              <Message>{formData.dressingTool.message}</Message>
+            )}
+            <TitleLabel>Ferramenta de Dressagem</TitleLabel>
+            <Field>
+              {['tool1', 'tool2', 'tool3', 'tool4'].map((toolPrefix, index) => {
+                const toolsForPrefix = fDressingTools.filter((tool) =>
+                  tool.name.startsWith(toolPrefix),
+                );
+                if (toolsForPrefix.length === 0) return null;
 
-              return (
-                <div key={toolPrefix}>
-                  {toolsForPrefix.map((tool) => {
-                    const noPrefixToolName = tool.name.replace(/tool[1-4]/, '');
-                    const translatedToolName =
-                      toolNameTranslations[noPrefixToolName];
-                    const isMatchedTool = matchedTools.some(
-                      (matchedTool) => matchedTool.id === tool.toolId,
-                    );
-                    if (!isMatchedTool) return null;
+                return (
+                  <div key={toolPrefix}>
+                    {toolsForPrefix.map((tool) => {
+                      const noPrefixToolName = tool.name.replace(
+                        /tool[1-4]/,
+                        '',
+                      );
+                      const translatedToolName =
+                        toolNameTranslations[noPrefixToolName];
+                      const isMatchedTool = matchedTools.some(
+                        (matchedTool) => matchedTool.id === tool.toolId,
+                      );
+                      if (!isMatchedTool) return null;
 
-                    return (
-                      <>
-                        <Field>
-                          <Label>Rebolo {index + 1}</Label>
-                        </Field>
-                        <Field key={tool.name}>
-                          {[...Array(tool.value)].map((_, i) => (
-                            <RadioButton style={{ fontSize: '16px' }}>
-                              <input
-                                type="radio"
-                                value={`${noPrefixToolName.replace('Qtd', '')}${
-                                  i + 1
-                                }`}
-                                name="dressingTool"
-                                onChange={(e) => handleChange(e)}
-                              />
-                              <span />
-                              {`${translatedToolName} ${i + 1}`}
-                            </RadioButton>
-                          ))}
-                        </Field>
-                      </>
-                    );
-                  })}
-                </div>
-              );
-            })}
-          </Field>
-        </>
-      )}
-      <Button onClick={handleClick}>Cadastrar</Button>
+                      return (
+                        <>
+                          <Field>
+                            <Label>Rebolo {index + 1}</Label>
+                          </Field>
+                          <Field key={tool.name}>
+                            {[...Array(tool.value)].map((_, i) => (
+                              <RadioButton style={{ fontSize: '16px' }}>
+                                <input
+                                  type="radio"
+                                  value={`${noPrefixToolName.replace(
+                                    'Qtd',
+                                    '',
+                                  )}${i + 1}`}
+                                  name="dressingTool"
+                                  onChange={(e) => handleChange(e)}
+                                />
+                                <span />
+                                {`${translatedToolName} ${i + 1}`}
+                              </RadioButton>
+                            ))}
+                          </Field>
+                        </>
+                      );
+                    })}
+                  </div>
+                );
+              })}
+            </Field>
+          </>
+        )}
+      <Button onClick={handleClick}>
+        {variation === 'add' ? 'Cadastrar' : 'Editar'}
+      </Button>
     </Container>
   );
 };

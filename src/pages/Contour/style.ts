@@ -15,13 +15,35 @@ export const PageHead = styled.div`
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: ${measures.gutter};
 `;
 
 export const TitleContainer = styled.div`
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+`;
+
+export const DressingLabelsContainer = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  margin-bottom: 24px;
+`;
+
+export const DressingLabels = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: left;
+  gap: ${measures.gutter};
+  color: ${colors.greyFont};
+`;
+
+export const DressingItem = styled.div`
+  span {
+    font-weight: bold;
+    color: ${colors.blueDark};
+  }
 `;
 
 export const Title = styled(PageTitle)`

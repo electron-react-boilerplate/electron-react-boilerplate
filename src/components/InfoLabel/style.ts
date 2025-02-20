@@ -1,11 +1,10 @@
 import styled from 'styled-components';
-import { colors } from 'styles/global.styles';
 
-export const Container = styled.div<{ fontSize: string }>`
+export const Container = styled.div<{ fontSize: string; color: string }>`
   font-size: ${(props) => props.fontSize};
   padding: 3px 6px;
-  border: 1px solid ${colors.blue};
-  color: ${colors.blue};
+  border: 1px solid ${(props) => props.color};
+  color: ${(props) => props.color};
   font-weight: strong;
   margin-right: 16px;
   max-height: 22px;

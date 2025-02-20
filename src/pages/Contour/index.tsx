@@ -8,8 +8,10 @@ import { editContour } from 'state/part/partSlice';
 import Breadcrumbs from 'components/Breadcrumbs';
 import GrindingTypeLabel from 'components/GrindingTypeLabel';
 import Modal from 'components/Modal';
+import ContourForm from 'components/ContourForm';
 import CodePreview from 'components/CodePreview';
 import Tooltip from 'components/Tooltip';
+import InfoLabel from 'components/InfoLabel';
 
 import { actionParams as actionParamsAux } from 'integration/functions-code';
 import { MACHINING_GRINDING, TYPE_EXTERNAL, XZ_REGEX } from 'utils/constants';
@@ -52,6 +54,9 @@ import {
   BtnText,
   ScrollBtn,
   RotatedIcon,
+  DressingLabels,
+  DressingItem,
+  DressingLabelsContainer,
 } from './style';
 
 const defaultValue: ContourItem = {
@@ -70,6 +75,8 @@ const Contour: React.FC = () => {
     return contour || defaultValue;
   });
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isModalEditDressingOpen, setIsModalEditDressingOpen] =
+    useState<boolean>(false);
   const [formData, setFormData] = useState<ContourItem>({
     ...initialState,
   });
@@ -446,6 +453,17 @@ const Contour: React.FC = () => {
       >
         <CodePreview contourId={formData.id} />
       </Modal>
+      <Modal
+        title="Editar Dressagem"
+        isOpen={isModalEditDressingOpen}
+        onClose={() => setIsModalEditDressingOpen(false)}
+      >
+        <ContourForm
+          variation="edit"
+          contourId={initialState.id}
+          onButtonClick={() => setIsModalEditDressingOpen(false)}
+        />
+      </Modal>
       {formData.activities ? (
         <>
           <Breadcrumbs items={breadcrumbsItems} />
@@ -478,7 +496,11 @@ const Contour: React.FC = () => {
                     contourType={formData.type}
                     fontSize="14px"
                   />
-                  {/* {formData.dressingTool && <div>{formData.dressingTool}</div>} */}
+                  {formData.dressingTool && (
+                    <InfoLabel fontSize="14px" color={colors.blue}>
+                      {formData.dressingTool}
+                    </InfoLabel>
+                  )}
                   <CodePreviewBtn>
                     <StyledIcon
                       className="icon-code"
@@ -498,6 +520,35 @@ const Contour: React.FC = () => {
                   </CodePreviewBtn>
                 </TitleContainer>
               </PageHead>
+              <DressingLabelsContainer>
+                <DressingLabels>
+                  {(formData.bAxisAngle || formData.bAxisAngle === 0) && (
+                    <DressingItem>
+                      <span>Ângulo Eixo B: </span> {formData.bAxisAngle}
+                    </DressingItem>
+                  )}
+                  {(formData.xSafetyDistance ||
+                    formData.xSafetyDistance === 0) && (
+                    <DressingItem>
+                      <span>Distância de Segurança X: </span>
+                      {formData.xSafetyDistance}
+                    </DressingItem>
+                  )}
+                  {(formData.zSafetyDistance ||
+                    formData.zSafetyDistance === 0) && (
+                    <DressingItem>
+                      <span>Distância de Segurança X: </span>
+                      {formData.zSafetyDistance}
+                    </DressingItem>
+                  )}
+                </DressingLabels>
+                <TitleEditBtn
+                  type="button"
+                  onClick={() => setIsModalEditDressingOpen(true)}
+                >
+                  <TitleEditIconDone className="icon-create" />
+                </TitleEditBtn>
+              </DressingLabelsContainer>
               <Block>
                 <TableWrapper>
                   <Table className="table table-ordenation">
