@@ -13,6 +13,16 @@ export const Link = styled(LinkRouter)`
   }
 `;
 
+export const LinkAction = styled.button`
+  text-decoration: none;
+
+  &:hover {
+    color: ${colors.blue};
+    background-color: ${colors.grey};
+    opacity: 0.6;
+  }
+`;
+
 export const PageTitle = styled.h1`
   font-size: 30px;
   font-weight: bold;

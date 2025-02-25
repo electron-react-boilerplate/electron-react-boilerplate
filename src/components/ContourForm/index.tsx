@@ -18,6 +18,8 @@ import useFormattedDressingTools from 'hooks/useFormattedDressingTools';
 
 import { HorizontalField } from 'components/OperationForm/style';
 
+import toolNames from 'mockdata/pt-br/dressingTools.json';
+
 import { FieldState } from 'components/FormField/interface';
 import { ToolOptionItem, ToolOptions } from 'components/Select/interface';
 import { addContourPayload, FormProps, IFormData } from './interface';
@@ -38,14 +40,6 @@ const initialFormData: IFormData = {
   xSafetyDistance: { value: 0, error: false, message: undefined },
   zSafetyDistance: { value: 0, error: false, message: undefined },
   dressingTool: { value: undefined, error: false, message: undefined },
-};
-
-const toolNameTranslations: { [key: string]: string } = {
-  fixedDiamondQtd: 'Diamante Fixo',
-  refractableDiamondQtd: 'Diamante Retrátil',
-  dressingDiscQtd: 'Disco de Dressagem',
-  fixedDressingRollerQtd: 'Rolo de Dressagem Fixo',
-  sCtrlMovableDressingRollerQtd: 'Rolo de Dressagem Móvel',
 };
 
 const ContourForm: React.FC<FormProps> = ({
@@ -308,12 +302,11 @@ const ContourForm: React.FC<FormProps> = ({
                 return (
                   <div key={toolPrefix}>
                     {toolsForPrefix.map((tool) => {
-                      const noPrefixToolName = tool.name.replace(
-                        /tool[1-4]/,
-                        '',
-                      );
+                      const noPrefixToolName = tool.name
+                        .replace(/tool[1-4]/, '')
+                        .replace('Qtd', '');
                       const translatedToolName =
-                        toolNameTranslations[noPrefixToolName];
+                        toolNames[noPrefixToolName as keyof typeof toolNames];
                       const isMatchedTool = matchedTools.some(
                         (matchedTool) => matchedTool.id === tool.toolId,
                       );

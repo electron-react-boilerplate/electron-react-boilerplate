@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { PageTitle, PageContent, ContentBlock } from 'styles/Components';
 import { colors, measures } from 'styles/global.styles';
 
+import LinkAction from 'components/LinkAction';
 import Icon from 'components/Icon';
 
 export const Container = styled.div`
@@ -28,7 +29,6 @@ export const DressingLabelsContainer = styled.div`
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-  margin-bottom: 24px;
 `;
 
 export const DressingLabels = styled.div`
@@ -40,10 +40,12 @@ export const DressingLabels = styled.div`
 `;
 
 export const DressingItem = styled.div`
-  span {
-    font-weight: bold;
-    color: ${colors.blueDark};
-  }
+  margin-bottom: 24px;
+`;
+
+export const SLinkAction = styled(LinkAction)`
+  font-weight: bold;
+  color: ${colors.blueDark};
 `;
 
 export const Title = styled(PageTitle)`

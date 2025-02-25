@@ -20,6 +20,8 @@ import { ActionParamItem, ActivitiyItem, ContourItem, Part } from 'types/part';
 import { StyledIcon } from 'components/SideMenu/styles';
 import { colors } from 'styles/global.styles';
 
+import toolNames from 'mockdata/pt-br/dressingTools.json';
+
 import defineActionParams from './defineActionParams';
 
 import { ActionParamsValidation } from './interface';
@@ -57,6 +59,7 @@ import {
   DressingLabels,
   DressingItem,
   DressingLabelsContainer,
+  SLinkAction,
 } from './style';
 
 const defaultValue: ContourItem = {
@@ -498,7 +501,16 @@ const Contour: React.FC = () => {
                   />
                   {formData.dressingTool && (
                     <InfoLabel fontSize="14px" color={colors.blue}>
-                      {formData.dressingTool}
+                      {(() => {
+                        const toolName = formData.dressingTool.replace(
+                          /\d+$/,
+                          '',
+                        ); // Remove sufixo numérico
+                        const translatedToolName =
+                          toolNames[toolName as keyof typeof toolNames];
+                        const toolNumber = formData.dressingTool.match(/\d+$/); // Captura o sufixo numérico
+                        return `${translatedToolName} ${toolNumber}`;
+                      })()}
                     </InfoLabel>
                   )}
                   <CodePreviewBtn>
@@ -524,30 +536,52 @@ const Contour: React.FC = () => {
                 <DressingLabels>
                   {(formData.bAxisAngle || formData.bAxisAngle === 0) && (
                     <DressingItem>
-                      <span>Ângulo Eixo B: </span> {formData.bAxisAngle}
+                      <SLinkAction
+                        onClick={() => setIsModalEditDressingOpen(true)}
+                      >
+                        Ângulo Eixo B:
+                      </SLinkAction>{' '}
+                      {formData.bAxisAngle}
                     </DressingItem>
                   )}
                   {(formData.xSafetyDistance ||
                     formData.xSafetyDistance === 0) && (
                     <DressingItem>
-                      <span>Distância de Segurança X: </span>
+                      <SLinkAction
+                        onClick={() => setIsModalEditDressingOpen(true)}
+                      >
+                        Distância de Segurança X:
+                      </SLinkAction>{' '}
                       {formData.xSafetyDistance}
                     </DressingItem>
                   )}
                   {(formData.zSafetyDistance ||
                     formData.zSafetyDistance === 0) && (
                     <DressingItem>
-                      <span>Distância de Segurança X: </span>
+                      <SLinkAction
+                        onClick={() => setIsModalEditDressingOpen(true)}
+                      >
+                        Distância de Segurança X:
+                      </SLinkAction>{' '}
                       {formData.zSafetyDistance}
                     </DressingItem>
                   )}
                 </DressingLabels>
-                <TitleEditBtn
-                  type="button"
-                  onClick={() => setIsModalEditDressingOpen(true)}
-                >
-                  <TitleEditIconDone className="icon-create" />
-                </TitleEditBtn>
+                {(formData.bAxisAngle ||
+                  formData.bAxisAngle === 0 ||
+                  formData.xSafetyDistance ||
+                  formData.xSafetyDistance === 0 ||
+                  formData.zSafetyDistance ||
+                  formData.zSafetyDistance === 0) && (
+                  <DressingItem>
+                    <TitleEditBtn
+                      type="button"
+                      onClick={() => setIsModalEditDressingOpen(true)}
+                    >
+                      <TitleEditIconEdit className="icon-create" />
+                    </TitleEditBtn>
+                  </DressingItem>
+                )}
               </DressingLabelsContainer>
               <Block>
                 <TableWrapper>
