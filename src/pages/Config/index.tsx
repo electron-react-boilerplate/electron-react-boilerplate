@@ -326,6 +326,14 @@ const Config: React.FC = () => {
       formState[field].value,
       formState,
     );
+
+    // Verifica se o valor da ferramenta já está sendo usado por outra ferramenta
+    const isDuplicateToolValue = Object.keys(formState).some(
+      (key) =>
+        key !== field &&
+        formState[key as FieldKeys].value === formState[field].value,
+    );
+
     if (formState[field].edit && !validateObj.isValid) {
       setFormState((prevState) => ({
         ...prevState,
@@ -333,6 +341,15 @@ const Config: React.FC = () => {
           ...prevState[field],
           error: true,
           message: validateObj.message,
+        },
+      }));
+    } else if (isDuplicateToolValue) {
+      setFormState((prevState) => ({
+        ...prevState,
+        [field]: {
+          ...prevState[field],
+          error: true,
+          message: 'O valor da ferramenta já está em uso por outra ferramenta.',
         },
       }));
     } else {
