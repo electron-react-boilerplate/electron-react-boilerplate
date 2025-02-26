@@ -79,7 +79,7 @@ export const FROM_0_001_TO_999_999_REGEX: RegExp =
 export const FROM_0_001_TO_9999_9999_REGEX: RegExp =
   /^(0(\.\d{1,4})?|0\.|[1-9]\d{0,3}(\.\d{1,4})?|[1-9]\d{0,3}\.)$/;
 export const VALID_CHAIN_M_CODES_REGEX: RegExp =
-  /^(M(?!0$|1$|2$|3$|4$|13$|14$|30$|51$|96$|97$|98$|99$|151$|218$)\d+)$/;
+  /^(0*[1-9]|0*[1-9][0-9]|0*[1-9][0-9][0-9])$/;
 
 // Other Regex
 export const getProgramNameFromGeratedCode =

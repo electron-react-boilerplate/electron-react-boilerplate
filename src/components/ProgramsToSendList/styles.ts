@@ -1,7 +1,8 @@
 import styled from 'styled-components';
-import { colors } from 'styles/global.styles';
+import { colors, measures } from 'styles/global.styles';
 
 import Icon from 'components/Icon';
+import { CodeBlock } from 'components/CodePreview/styles';
 
 export const Container = styled.div`
   width: 100%;
@@ -43,6 +44,13 @@ export const IconWrapper = styled.div<{ isOpen: boolean }>`
 
 export const IconExpand = styled(Icon)`
   transform: rotate(90deg) scale(1.2);
+`;
+
+export const SCodeBlock = styled(CodeBlock)`
+  max-height: auto;
+  height: auto;
+  overflow-y: visible;
+  margin-bottom: ${measures.gutter};
 `;
 
 export const ProgramNumber = styled.span`

@@ -26,8 +26,10 @@ export const LinkAction = styled.button`
 export const PageTitle = styled.h1`
   font-size: 30px;
   font-weight: bold;
-  margin-bottom: 24px;
   color: ${colors.greyFont};
+  margin: 0;
+  margin-bottom: ${measures.gutter};
+  line-height: 40px;
 `;
 
 export const SubTitle = styled.h2`

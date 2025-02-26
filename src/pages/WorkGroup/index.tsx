@@ -21,6 +21,7 @@ import {
 import { ToolOptionItem } from 'components/Select/interface';
 import { Contours, Machining, OperationItem, Operations } from 'types/part';
 
+import { PageTitle } from 'styles/Components';
 import { colors } from 'styles/global.styles';
 
 import dresserImg from '../../../assets/images/dresser.png';
@@ -31,7 +32,6 @@ import {
   Container,
   Content,
   AddBtn,
-  Title,
   TextAdd,
   Wrap,
   OpWrapper,
@@ -176,7 +176,7 @@ const WorkGroup: React.FC = () => {
       <Breadcrumbs items={breadcrumbsItems} />
       <Content>
         <Block>
-          <Title>Contornos</Title>
+          <PageTitle>Contornos</PageTitle>
           <ContourBtnsWrapper>
             <IconBtn>
               <IconButton
@@ -231,7 +231,7 @@ const WorkGroup: React.FC = () => {
           </CContentBlock>
         </Block>
         <Block>
-          <Title>Sequência de Execução</Title>
+          <PageTitle>Sequência de Execução</PageTitle>
           <AddBtn>
             <Button
               onClick={() => setIsModalOperationOpen(true)}

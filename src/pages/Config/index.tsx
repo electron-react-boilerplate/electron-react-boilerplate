@@ -20,6 +20,8 @@ import { loadConfig } from 'utils/loadConfig';
 import { loadTools } from 'utils/loadTools';
 
 import { colors } from 'styles/global.styles';
+import { PageContent, PageTitle } from 'styles/Components';
+
 import { FieldKeys, FormState } from './interface';
 import {
   fieldsCNCProps,
@@ -31,9 +33,7 @@ import {
 } from './functions';
 import {
   Container,
-  Content,
   SContentBlock,
-  Title,
   SInput,
   SSubTitle,
   Field,
@@ -559,8 +559,8 @@ const Config: React.FC = () => {
   return (
     <Container className={loaded ? 'loaded' : ''}>
       <Breadcrumbs items={breadcrumbsItems} />
-      <Title>Configurações</Title>
-      <Content>
+      <PageContent>
+        <PageTitle>Configurações</PageTitle>
         <SContentBlock>
           <SSubTitle>Rede</SSubTitle>
           {fieldsNetworkProps.map((field) => renderField(field))}
@@ -584,7 +584,7 @@ const Config: React.FC = () => {
             <Spinner color={colors.blue} />
           )}
         </SContentBlock>
-      </Content>
+      </PageContent>
       <Modal
         title="Erro ao buscar ferramentas"
         variation="danger"

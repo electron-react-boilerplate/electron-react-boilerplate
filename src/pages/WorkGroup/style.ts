@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { PageTitle, PageContent, ContentBlock } from 'styles/Components';
+import { PageContent, ContentBlock } from 'styles/Components';
 import { colors, measures, shadows } from 'styles/global.styles';
 
 export const Container = styled.div`
@@ -73,11 +73,6 @@ export const CContentBlock = styled(ContentBlock)`
 
 export const SContentBlock = styled(ContentBlock)`
   margin-bottom: 15px;
-`;
-
-export const Title = styled(PageTitle)`
-  margin: 0;
-  margin-bottom: 24px;
 `;
 
 export const ContourBtnsWrapper = styled.div`

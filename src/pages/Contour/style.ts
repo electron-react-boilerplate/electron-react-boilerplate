@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { PageTitle, PageContent, ContentBlock } from 'styles/Components';
+import { PageTitle, ContentBlock } from 'styles/Components';
 import { colors, measures } from 'styles/global.styles';
 
 import LinkAction from 'components/LinkAction';
@@ -8,8 +8,6 @@ import Icon from 'components/Icon';
 export const Container = styled.div`
   width: 100%;
 `;
-
-export const Content = styled(PageContent)``;
 
 export const PageHead = styled.div`
   display: flex;

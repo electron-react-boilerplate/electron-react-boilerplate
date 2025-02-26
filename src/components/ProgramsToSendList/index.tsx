@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { CodeBlock } from 'components/CodePreview/styles';
 import { ToolOptionItem } from 'components/Select/interface';
 
 import useFormattedTools from 'hooks/useFormattedTools';
@@ -27,6 +26,7 @@ import {
   ProgramNumber,
   IconExpand,
   DropdownButtonText,
+  SCodeBlock,
 } from './styles';
 
 const ProgramsToSendList: React.FC = () => {
@@ -85,7 +85,7 @@ const ProgramsToSendList: React.FC = () => {
             </DropdownButton>
             {selectedContourId === contour.id && (
               <DropdownContent>
-                <CodeBlock>{mountCodeBlock(contour, index)}</CodeBlock>
+                <SCodeBlock>{mountCodeBlock(contour, index)}</SCodeBlock>
               </DropdownContent>
             )}
           </ListItem>

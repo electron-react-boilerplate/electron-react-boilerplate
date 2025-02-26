@@ -3,29 +3,12 @@ import Input from 'components/Input';
 
 import { colors } from 'styles/global.styles';
 
-import {
-  PageContent,
-  PageTitle,
-  ContentBlock,
-  SubTitle,
-} from 'styles/Components';
+import { ContentBlock, SubTitle } from 'styles/Components';
 import Button from 'components/Button';
 
 export const Container = styled.div`
   width: 100%;
   height: 100%;
-`;
-
-export const Content = styled(PageContent)`
-  max-height: calc(100vh - 242px);
-  overflow-y: auto;
-  padding-top: 9px;
-`;
-
-export const Title = styled(PageTitle)`
-  display: block;
-  padding: 0;
-  margin: 15px 24px 15px;
 `;
 
 export const SContentBlock = styled(ContentBlock)`

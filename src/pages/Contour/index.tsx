@@ -17,7 +17,9 @@ import { actionParams as actionParamsAux } from 'integration/functions-code';
 import { MACHINING_GRINDING, TYPE_EXTERNAL, XZ_REGEX } from 'utils/constants';
 
 import { ActionParamItem, ActivitiyItem, ContourItem, Part } from 'types/part';
+
 import { StyledIcon } from 'components/SideMenu/styles';
+import { PageContent } from 'styles/Components';
 import { colors } from 'styles/global.styles';
 
 import toolNames from 'mockdata/pt-br/dressingTools.json';
@@ -28,7 +30,6 @@ import { ActionParamsValidation } from './interface';
 
 import {
   Container,
-  Content,
   TitleContainer,
   Title,
   TitleEdit,
@@ -463,6 +464,7 @@ const Contour: React.FC = () => {
       >
         <ContourForm
           variation="edit"
+          machining={initialState.machining}
           contourId={initialState.id}
           onButtonClick={() => setIsModalEditDressingOpen(false)}
         />
@@ -470,7 +472,7 @@ const Contour: React.FC = () => {
       {formData.activities ? (
         <>
           <Breadcrumbs items={breadcrumbsItems} />
-          <Content>
+          <PageContent>
             <form name="activity-items-table" className="activity-items-table">
               <PageHead>
                 <TitleContainer>
@@ -688,7 +690,7 @@ const Contour: React.FC = () => {
                 </TableWrapper>
               </Block>
             </form>
-          </Content>
+          </PageContent>
         </>
       ) : (
         'Página não encontrada'
