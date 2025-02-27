@@ -42,9 +42,9 @@ const OSMenu: React.FC = () => {
   const partState = useSelector((state: { part: Part }) => state.part);
   const dispatch = useDispatch();
 
-  const toggleMenu = () => {
+  const toggleMenu = useCallback(() => {
     setIsOpen(!isOpen);
-  };
+  }, [isOpen]);
 
   const newFile = useCallback(() => {
     dispatch(
@@ -57,7 +57,8 @@ const OSMenu: React.FC = () => {
         ...appInitialState,
       }),
     );
-  }, [dispatch]);
+    toggleMenu();
+  }, [dispatch, toggleMenu]);
 
   const handleNewFile = useCallback(() => {
     if (!isSaved) {
@@ -65,7 +66,8 @@ const OSMenu: React.FC = () => {
     } else {
       newFile();
     }
-  }, [isSaved, newFile]);
+    toggleMenu();
+  }, [isSaved, newFile, toggleMenu]);
 
   const openFile = useCallback(async () => {
     try {
@@ -121,7 +123,8 @@ const OSMenu: React.FC = () => {
     } catch (error: unknown) {
       alert(`Error opening file`);
     }
-  }, [dispatch]);
+    toggleMenu();
+  }, [dispatch, toggleMenu]);
 
   const handleOpenFile = useCallback(() => {
     if (!isSaved) {
@@ -129,7 +132,8 @@ const OSMenu: React.FC = () => {
     } else {
       openFile();
     }
-  }, [isSaved, openFile]);
+    toggleMenu();
+  }, [isSaved, openFile, toggleMenu]);
 
   const saveFileChangeAppState = useCallback(
     async (saveObj: SaveObject) => {

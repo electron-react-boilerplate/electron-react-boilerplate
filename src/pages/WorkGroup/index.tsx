@@ -126,53 +126,6 @@ const WorkGroup: React.FC = () => {
 
   return (
     <Container>
-      <Modal
-        title={`Cadastrar ${
-          selectedMachining === 1 ? 'Retificação' : 'Dressagem'
-        }`}
-        isOpen={isModalContourOpen}
-        onClose={() => setIsModalContourOpen(false)}
-      >
-        <ContourForm
-          variation="add"
-          machining={selectedMachining}
-          onButtonClick={() => setIsModalContourOpen(false)}
-        />
-      </Modal>
-      <Modal
-        title="Adicionar Operação"
-        isOpen={isModalOperationOpen}
-        onClose={() => setIsModalOperationOpen(false)}
-      >
-        <AddOperationForm
-          onButtonClick={() => setIsModalOperationOpen(false)}
-        />
-      </Modal>
-      <Modal
-        title="Editar Operação"
-        isOpen={isModalEditOperationOpen}
-        onClose={() => setIsModalEditOperationOpen(false)}
-      >
-        <AddOperationForm
-          variation="edit"
-          onButtonClick={() => setIsModalEditOperationOpen(false)}
-          operationId={opIdAux}
-        />
-      </Modal>
-      <Modal
-        title="Deseja excluir operação?"
-        isOpen={isModalCofirmDeleteOpOpen}
-        onClose={() => setIsModalCofirmDeleteOpOpen(false)}
-        variation="danger"
-      >
-        <ConfirmAction
-          onConfirm={() => {
-            handleDeleteOperation();
-            setIsModalCofirmDeleteOpOpen(false);
-          }}
-          onCancel={() => setIsModalCofirmDeleteOpOpen(false)}
-        />
-      </Modal>
       <Breadcrumbs items={breadcrumbsItems} />
       <Content>
         <Block>
@@ -324,6 +277,53 @@ const WorkGroup: React.FC = () => {
           </OpWrapper>
         </Block>
       </Content>
+      <Modal
+        title={`Cadastrar ${
+          selectedMachining === 1 ? 'Retificação' : 'Dressagem'
+        }`}
+        isOpen={isModalContourOpen}
+        onClose={() => setIsModalContourOpen(false)}
+      >
+        <ContourForm
+          variation="add"
+          machining={selectedMachining}
+          onButtonClick={() => setIsModalContourOpen(false)}
+        />
+      </Modal>
+      <Modal
+        title="Adicionar Operação"
+        isOpen={isModalOperationOpen}
+        onClose={() => setIsModalOperationOpen(false)}
+      >
+        <AddOperationForm
+          onButtonClick={() => setIsModalOperationOpen(false)}
+        />
+      </Modal>
+      <Modal
+        title="Editar Operação"
+        isOpen={isModalEditOperationOpen}
+        onClose={() => setIsModalEditOperationOpen(false)}
+      >
+        <AddOperationForm
+          variation="edit"
+          onButtonClick={() => setIsModalEditOperationOpen(false)}
+          operationId={opIdAux}
+        />
+      </Modal>
+      <Modal
+        title="Deseja excluir operação?"
+        isOpen={isModalCofirmDeleteOpOpen}
+        onClose={() => setIsModalCofirmDeleteOpOpen(false)}
+        variation="danger"
+      >
+        <ConfirmAction
+          onConfirm={() => {
+            handleDeleteOperation();
+            setIsModalCofirmDeleteOpOpen(false);
+          }}
+          onCancel={() => setIsModalCofirmDeleteOpOpen(false)}
+        />
+      </Modal>
     </Container>
   );
 };

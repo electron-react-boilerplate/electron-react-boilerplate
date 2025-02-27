@@ -5,6 +5,7 @@ import { colors, measures, shadows } from 'styles/global.styles';
 
 export const Link = styled(LinkRouter)`
   text-decoration: none;
+  color: ${colors.blueDark};
 
   &:hover {
     color: ${colors.blue};

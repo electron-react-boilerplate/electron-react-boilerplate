@@ -61,6 +61,9 @@ import {
   DressingItem,
   DressingLabelsContainer,
   SLinkAction,
+  BackBtn,
+  BackBtnContent,
+  IconBack,
 } from './style';
 
 const defaultValue: ContourItem = {
@@ -450,30 +453,21 @@ const Contour: React.FC = () => {
 
   return (
     <Container>
-      <Modal
-        title={`Code Preview de ${formData.name}`}
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      >
-        <CodePreview contourId={formData.id} />
-      </Modal>
-      <Modal
-        title="Editar Dressagem"
-        isOpen={isModalEditDressingOpen}
-        onClose={() => setIsModalEditDressingOpen(false)}
-      >
-        <ContourForm
-          variation="edit"
-          machining={initialState.machining}
-          contourId={initialState.id}
-          onButtonClick={() => setIsModalEditDressingOpen(false)}
-        />
-      </Modal>
       {formData.activities ? (
         <>
           <Breadcrumbs items={breadcrumbsItems} />
           <PageContent>
             <form name="activity-items-table" className="activity-items-table">
+              <BackBtn to="/workgroup">
+                <BackBtnContent>
+                  <IconBack
+                    className="icon-expand_less"
+                    color={colors.green}
+                    fontSize="16px"
+                  />
+                  <div>Voltar</div>
+                </BackBtnContent>
+              </BackBtn>
               <PageHead>
                 <TitleContainer>
                   {isEditingName ? (
@@ -563,7 +557,7 @@ const Contour: React.FC = () => {
                       <SLinkAction
                         onClick={() => setIsModalEditDressingOpen(true)}
                       >
-                        Distância de Segurança X:
+                        Distância de Segurança Z:
                       </SLinkAction>{' '}
                       {formData.zSafetyDistance}
                     </DressingItem>
@@ -695,6 +689,25 @@ const Contour: React.FC = () => {
       ) : (
         'Página não encontrada'
       )}
+      <Modal
+        title={`Code Preview de ${formData.name}`}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      >
+        <CodePreview contourId={formData.id} />
+      </Modal>
+      <Modal
+        title="Editar Dressagem"
+        isOpen={isModalEditDressingOpen}
+        onClose={() => setIsModalEditDressingOpen(false)}
+      >
+        <ContourForm
+          variation="edit"
+          machining={initialState.machining}
+          contourId={initialState.id}
+          onButtonClick={() => setIsModalEditDressingOpen(false)}
+        />
+      </Modal>
     </Container>
   );
 };

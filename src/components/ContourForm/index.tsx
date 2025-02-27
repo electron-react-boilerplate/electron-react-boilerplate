@@ -299,42 +299,42 @@ const ContourForm: React.FC<FormProps> = ({
                 );
                 if (toolsForPrefix.length === 0) return null;
 
+                const matchedToolsForPrefix = toolsForPrefix.filter((tool) =>
+                  matchedTools.some(
+                    (matchedTool) => matchedTool.id === tool.toolId,
+                  ),
+                );
+                if (matchedToolsForPrefix.length === 0) return null;
+
                 return (
                   <div key={toolPrefix}>
-                    {toolsForPrefix.map((tool) => {
+                    <Field>
+                      <Label>Rebolo {index + 1}</Label>
+                    </Field>
+                    {matchedToolsForPrefix.map((tool) => {
                       const noPrefixToolName = tool.name
                         .replace(/tool[1-4]/, '')
                         .replace('Qtd', '');
                       const translatedToolName =
                         toolNames[noPrefixToolName as keyof typeof toolNames];
-                      const isMatchedTool = matchedTools.some(
-                        (matchedTool) => matchedTool.id === tool.toolId,
-                      );
-                      if (!isMatchedTool) return null;
 
                       return (
-                        <>
-                          <Field>
-                            <Label>Rebolo {index + 1}</Label>
-                          </Field>
-                          <Field key={tool.name}>
-                            {[...Array(tool.value)].map((_, i) => (
-                              <RadioButton style={{ fontSize: '16px' }}>
-                                <input
-                                  type="radio"
-                                  value={`${noPrefixToolName.replace(
-                                    'Qtd',
-                                    '',
-                                  )}${i + 1}`}
-                                  name="dressingTool"
-                                  onChange={(e) => handleChange(e)}
-                                />
-                                <span />
-                                {`${translatedToolName} ${i + 1}`}
-                              </RadioButton>
-                            ))}
-                          </Field>
-                        </>
+                        <Field key={tool.name}>
+                          {[...Array(tool.value)].map((_, i) => (
+                            <RadioButton style={{ fontSize: '16px' }} key={i}>
+                              <input
+                                type="radio"
+                                value={`${noPrefixToolName.replace('Qtd', '')}${
+                                  i + 1
+                                }`}
+                                name="dressingTool"
+                                onChange={(e) => handleChange(e)}
+                              />
+                              <span />
+                              {`${translatedToolName} ${i + 1}`}
+                            </RadioButton>
+                          ))}
+                        </Field>
                       );
                     })}
                   </div>
