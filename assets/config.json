@@ -1,0 +1,118 @@
+{
+    "opportunity": {
+        "name": {
+            "display_name": "Company Name",
+            "sheet": "Overall",
+            "cell": "J2"
+        },
+        "details": {
+            "display_name": "Description",
+            "sheet": "Overall",
+            "cell": "J5"
+        }
+    },
+    "primary_contact": {
+        "name": {
+            "display_name": "Primary Contact Name",
+            "sheet": "Team",
+            "cell": "B1"
+        },
+        "email": {
+            "display_name": "Primary Contact Email",
+            "sheet": "Team",
+            "cell": "B2"
+        }
+    },
+    "custom_opp_fields": {
+        "Industry Expertise": {
+            "sheet": "Overall",
+            "cell": "J4"
+        },
+        "Source - Specific (I.E., the name of the person / firm who referred)": {
+            "sheet": "Overall",
+            "cell": "J7"
+        },
+        "Value Proposition": {
+            "sheet": "Overall",
+            "cell": "J8"
+        },
+        "Near-Term Growth": {
+            "sheet": "Growth",
+            "cell": "A13"
+        },
+        "Product & Competition": {
+            "sheet": "Growth",
+            "cell": "A23"
+        },
+        "GTM Strategy & Pricing": {
+            "sheet": "Growth",
+            "cell": "A33"
+        },
+        "Market Size": {
+            "sheet": "Growth",
+            "cell": "A43"
+        },
+        "Exit": {
+            "sheet": "Growth",
+            "cell": "A55"
+        },
+        "Founder Background": {
+            "sheet": "Team",
+            "cell": "A5"
+        },
+        "Stage of Investment (Select all that apply)": {
+            "sheet": "Overall",
+            "cell": "J11"
+        },
+        "Round Structure": {
+            "sheet": "Overall",
+            "cell": "J12"
+        },
+        "Round Size": {
+            "sheet": "Overall",
+            "cell": "J15"
+        },
+        "Valuation": {
+            "sheet": "Overall",
+            "cell": "J14"
+        },
+        "Lead Investor": {
+            "sheet": "Overall",
+            "cell": "J18"
+        },
+        "About Lead Investor": {
+            "sheet": "Investors",
+            "cell": "A5"
+        },
+        "Amount Committed": {
+            "sheet": "Overall",
+            "cell": "J16"
+        },
+        "Existing Investor Participation": {
+            "sheet": "Investors",
+            "cell": "A15"
+        },
+        "Other co-investors": {
+            "sheet": "Overall",
+            "cell": "J19"
+        },
+        "Initial DD Focus": {
+            "sheet": "Overall",
+            "cell": "J20"
+        },
+        "City": {},
+        "State": {},
+        "Location": {
+            "sheet": "Overall",
+            "cell": "J6"
+        },
+        "Expected IA Raise": {
+            "sheet": "Overall",
+            "cell": "J13"
+        },
+        "Other Terms": {
+            "sheet": "Overall",
+            "cell": "J17"
+        }
+    }
+}

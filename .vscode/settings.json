@@ -26,5 +26,6 @@
     "test/**/__snapshots__": true,
     "package-lock.json": true,
     "*.{css,sass,scss}.d.ts": true
-  }
+  },
+  "typescript.tsdk": "/Users/mschoess3/irish-automate/node_modules/typescript/lib"
 }

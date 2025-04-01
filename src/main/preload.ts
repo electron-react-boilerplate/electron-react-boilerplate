@@ -25,5 +25,8 @@ const electronHandler = {
 };
 
 contextBridge.exposeInMainWorld('electron', electronHandler);
+contextBridge.exposeInMainWorld('env', {
+  COPPER_API_KEY: process.env.COPPER_API_KEY
+})
 
 export type ElectronHandler = typeof electronHandler;

@@ -1,29 +1,17 @@
-/*
- * @NOTE: Prepend a `~` to css file paths that are in your node_modules
- *        See https://github.com/webpack-contrib/sass-loader#imports
- */
 body {
-  position: relative;
-  color: white;
-  height: 100vh;
-  background: linear-gradient(
-    200.96deg,
-    #fedc2a -29.09%,
-    #ffffff 51.77%,
-    #fedc2a 129.35%
-  );
-  font-family: sans-serif;
-  overflow-y: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: 0;
 }
 
 h1 {
   color: #0C2340;
-  display: flex;
-  justify-content: center;
+  margin: 0 0 0 30px;
   align-items: center;
+  font-size: 3em;
+}
+
+h3 {
+  margin: 50px 0;
+  text-decoration-line: underline;
 }
 
 button {
@@ -32,12 +20,16 @@ button {
   border-radius: 10px;
   border: none;
   appearance: none;
-  font-size: 1.3rem;
+  font-size: 1.0rem;
   box-shadow: 0px 8px 28px -6px rgba(24, 39, 75, 0.12),
     0px 18px 88px -4px rgba(24, 39, 75, 0.14);
   transition: all ease-in 0.1s;
   cursor: pointer;
   opacity: 0.9;
+  max-height: 100px;
+  max-width: fit-content;
+  margin: 20px;
+  color: #0C2340;
 }
 
 button:hover {
@@ -45,25 +37,95 @@ button:hover {
   opacity: 1;
 }
 
-li {
-  list-style: none;
+.navbar {
+  height: 10vh;
+  background-color: gold;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-a {
-  text-decoration: none;
-  height: fit-content;
-  width: fit-content;
-  margin: 10px;
+.sidebar {
+  height: calc(100vh - 10vh);
+  width: 15vw;
+  background-color: #0C2340;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-a:hover {
-  opacity: 1;
-  text-decoration: none;
+.content {
+  width: 85vw;
+  display: flex;
+  flex-direction: column;
 }
 
-.Hello {
+.horizontal-line {
+  width: 70%;
+  height: 2px;
+  background-color: #0C2340;
+  margin-top: 10px;
+}
+
+.sidebar-body {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+}
+
+.selector {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  height: 10vh;
+}
+
+.opportunity-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+table {
+  color: #0C2340;
+  width: 100%;
+  margin: 10px 0 10px 0;
+}
+
+td {
+  padding: 0 5px 0 5px;
+  text-align: center;
+}
+
+.col-title {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.cell-left {
+  width: 50%;
+  border-right: solid 1px #0C2340;
+}
+
+.cell-middle {
+  width: 15%;
+  border-right: solid 1px #0C2340;
+}
+
+.cell-right {
+  width: 35%;
+}
+
+.loading {
+  font-size: 2em;
+  color: #0C2340;
+  position: fixed;
+  top: 45vh;
+  left: 50vw;
+}
+
+.button-class {
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin: 20px 0;
 }

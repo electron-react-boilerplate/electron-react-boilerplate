@@ -81,12 +81,18 @@
   },
   "dependencies": {
     "@electron/notarize": "^3.0.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mantine/core": "^7.17.3",
+    "@mantine/hooks": "^7.17.3",
+    "dotenv": "^16.4.7",
     "electron-debug": "^4.1.0",
     "electron-log": "^5.3.2",
     "electron-updater": "^6.3.9",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-router-dom": "^7.3.0"
+    "react-router-dom": "^7.3.0",
+    "react-select": "^5.10.1"
   },
   "devDependencies": {
     "@electron/rebuild": "^3.7.1",

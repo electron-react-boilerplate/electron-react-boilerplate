@@ -14,6 +14,9 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+import * as dotenv from "dotenv";
+
+dotenv.config();
 
 class AppUpdater {
   constructor() {
@@ -82,6 +85,7 @@ const createWindow = async () => {
   });
 
   mainWindow.loadURL(resolveHtmlPath('index.html'));
+  mainWindow.maximize();
 
   mainWindow.on('ready-to-show', () => {
     if (!mainWindow) {
