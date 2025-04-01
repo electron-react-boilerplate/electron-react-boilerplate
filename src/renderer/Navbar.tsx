@@ -23,10 +23,27 @@ interface Industry {
   rank: number;
 }
 
+interface Option {
+    id: number;
+    name: string;
+    rank: number;
+  }
+
+interface CustomField {
+    id: number;
+    name: string;
+    data_type: string;
+    available_on: string[];
+    is_filterable: boolean;
+    currency: string[] | undefined;
+    options: Option[] | undefined;
+  }
+
 interface NavbarProps {
     setSelectOpps: React.Dispatch<React.SetStateAction<SelectOption[]>>;
     setStages: React.Dispatch<React.SetStateAction<Stage[]>>;
     setIndustries: React.Dispatch<React.SetStateAction<Industry[]>>;
+    setCustomFields: React.Dispatch<React.SetStateAction<CustomField[]>>;
 }
 
 const baseUrl = "https://api.copper.com/developer_api/v1/";
@@ -47,6 +64,7 @@ function Navbar(props: NavbarProps) {
             const listOpportunitiesUrl = baseUrl + 'opportunities/search';
             const apiStageUrl = `${baseUrl}/pipeline_stages`;
             const apiIndustriesUrl = `${baseUrl}/custom_field_definitions/648465`;
+            const customFieldsUrl = `${baseUrl}/custom_field_definitions`;
             let allCompanies: Opportunity[] = [];
             const totalPages = 50; // No efficient way to get total opportunities in Copper, so use total pages > actual total pages
         
@@ -68,6 +86,11 @@ function Navbar(props: NavbarProps) {
                 method: 'GET',
                 headers: headers
             });
+
+            const customFieldsResponse = await fetch(customFieldsUrl, {
+                method: 'GET',
+                headers: headers
+            });
         
             const results = await Promise.all(requests);
             
@@ -76,11 +99,12 @@ function Navbar(props: NavbarProps) {
             ).filter(opp => opp.company_name != null);
             const stageData = await stageResponse.json();
             const industriesData = await industriesResponse.json();
+            const customFieldsData = await customFieldsResponse.json() as CustomField[];
             setOpportunities(companies);
             props.setSelectOpps(companies.map(opp => ({value: opp.id, label: opp.company_name})))
             props.setStages(stageData);
             props.setIndustries(industriesData.options);
-            console.log(stageData);
+            props.setCustomFields(customFieldsData);
             } catch (error) {
             console.log('Error: ', error);
             }

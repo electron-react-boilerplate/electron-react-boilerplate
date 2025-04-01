@@ -1,6 +1,6 @@
 {
     "opportunity": {
-        "name": {
+        "company_name": {
             "display_name": "Company Name",
             "sheet": "Overall",
             "cell": "J2"

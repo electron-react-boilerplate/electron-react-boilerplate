@@ -4,9 +4,8 @@ import './App.css'
 function Sidebar() {
     return (
         <div className="sidebar">
-            <h3>Export</h3>
-            <h3>Find Co-Investors</h3>
-            <h3>Find Opportunities</h3>
+            <h3>Opportunity</h3>
+            <h3>Co-Investor</h3>
         </div>
     );
 }

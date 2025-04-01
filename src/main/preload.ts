@@ -22,11 +22,13 @@ const electronHandler = {
       ipcRenderer.once(channel, (_event, ...args) => func(...args));
     },
   },
+  readOnePager: () => ipcRenderer.invoke('read-one-pager'),
+  writeOnePager: (writtenFile) => ipcRenderer.invoke('write-one-pager', writtenFile)
 };
 
 contextBridge.exposeInMainWorld('electron', electronHandler);
 contextBridge.exposeInMainWorld('env', {
   COPPER_API_KEY: process.env.COPPER_API_KEY
-})
+});
 
 export type ElectronHandler = typeof electronHandler;

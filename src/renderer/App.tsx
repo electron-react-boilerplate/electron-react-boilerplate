@@ -5,6 +5,8 @@ import './App.css';
 import Select from 'react-select';
 import Sidebar from './Sidebar';
 import LoadingIndicator from './Loading';
+import configData from '../../assets/config.json';
+import * as XLSX from 'xlsx';
 
 interface SelectOption {
   value: number;  // or string if you have string IDs
@@ -37,8 +39,8 @@ interface Opportunity {
   company_name: string;
   details: string;
   pipeline_stage_id: number;
-  primary_contact_d: number;
-  custom_fields: CustomField[];
+  primary_contact_id: number;
+  custom_fields: OpportunityCustomField[];
 }
 
 interface Stage {
@@ -50,6 +52,18 @@ interface Industry {
   id: number;
   name: string;
   rank: number;
+}
+
+interface Person {
+  id: number;
+  name: string;
+  emails: Email[];
+  email: string = "";
+}
+
+interface Email {
+  email: string;
+  category: string;
 }
 
 const baseUrl = "https://api.copper.com/developer_api/v1/";
@@ -69,6 +83,9 @@ function Hello() {
   const [stage, setStage] = useState<Stage>();
   const [industries, setIndustries] = useState<Industry[]>([]);
   const [industry, setIndustry] = useState<string>('');
+  const [customFields, setCustomFields] = useState<CustomField[]>([]);
+  const [customFieldsDict, setCustomFieldsDict] = useState<Record<number, CustomField>>();
+  const [contact, setContact] = useState<Person>();
 
   const onOpportunitySelect = async (selectedOption: SelectOption) => {
     console.log('Opportunity Selected!');
@@ -91,7 +108,7 @@ function Hello() {
       }
 
       // Parse JSON response
-      const data = await response.json();
+      const data = await response.json() as Opportunity;
 
       // Get Primary Contact Info
       const apiContactUrl = `${baseUrl}/people/${data.primary_contact_id}`;
@@ -99,23 +116,125 @@ function Hello() {
         method: 'GET',
         headers: headers
       });
-      const contactData = await contactResponse.json();
-      console.log('Contact Data:', contactData);
+      const contactData = await contactResponse.json() as Person;
 
       setSelectedOpportunity(data);
       setStage(stages?.find(stage => stage.id == data.pipeline_stage_id));
-      const oppsIndustryIds = data.custom_fields.find((cf: OpportunityCustomField) => cf.custom_field_definition_id == 648465).value;
+      const oppsIndustryIds = data.custom_fields.find((cf: OpportunityCustomField) => cf.custom_field_definition_id == 648465)?.value;
       setIndustry(oppsIndustryIds.map((id: number) => industries.find(ind => ind.id == id)?.name).join(', '));
 
-      // Handle data (e.g., export to Excel)
+      // Find contact's work email or first email in their list
+      const workEmails = contactData.emails.filter(e => e.category == 'work');
+      contactData.email = workEmails.length > 0 ? workEmails[0].email : contactData.emails[0]?.email;
+      console.log('Contact Data ', contactData);
+      console.log('done');
+      setContact(contactData);
+
+      // Make dictionary of custom fields
+      const customFieldsDict = customFields?.reduce((acc, cf) => {
+        acc[cf.id] = cf;
+        return acc;
+      }, {} as Record<number, CustomField>);
+
+      setCustomFieldsDict(customFieldsDict);
+      
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
 
+  const onExportOnePager = async () => {
+    if (selectedOpportunity == undefined) return;
+    // const onePagerPath = '../../assets/One-Pager_template.xlsx';
+    // const workbook = XLSX.readFile(onePagerPath);
+    let workbook = undefined;
+    try {
+      workbook = await window.electron.readOnePager();
+      workbook = XLSX.read(workbook, { type: 'buffer' });
+    } catch(err){
+      console.error('Error reading file:', err);
+    };
+    if (workbook == undefined)
+      throw new Error('Workbook is not defined');
+
+    // Export Basic Company Info
+    for (const [key, val] of Object.entries(configData.opportunity)) {
+        XLSX.utils.sheet_add_aoa(workbook.Sheets[val.sheet], [[selectedOpportunity[key as keyof Opportunity]]], { origin: val.cell});
+    }
+    
+    let opp_city = '';
+    let opp_state = '';
+
+    if (customFieldsDict == undefined)
+      throw new Error('Custom Field Dictionary was not created correctly. Make sure config is properly set');
+
+    // Export Copper Custom Fields 
+    for (const customField of selectedOpportunity.custom_fields) {
+      const customFieldConfigData = customFieldsDict[customField.custom_field_definition_id];
+
+      if (!(customFieldConfigData.name in configData.custom_opp_fields))
+        continue
+      const excelInfo = configData.custom_opp_fields[customFieldConfigData.name as keyof object]
+      const optionsDict = customFieldConfigData.options?.reduce((acc, opt) => {
+        acc[opt.id] = opt;
+        return acc;
+      }, {} as Record<number, Option>)
+
+      if (customFieldConfigData.id == 327449) {
+        opp_city = customField.value;
+      }
+      else if (customFieldConfigData.id == 327711) {
+        opp_state = customField.value;
+      }
+      else if (['Text', 'String', 'Currency'].includes(customFieldConfigData.data_type)) {
+        XLSX.utils.sheet_add_aoa(workbook.Sheets[excelInfo['sheet']], [[customField.value]], { origin: excelInfo['cell']});
+      }
+      else if (customFieldConfigData.data_type == 'MultiSelect') {
+        if (optionsDict == undefined)
+          continue;
+        const selections = customField.value.map((opt: number) => optionsDict[opt])
+                                             .sort((a: Option,b: Option) => a.rank - b.rank)
+                                             .map((opt: Option) => opt.name)
+                                             .join(', ');
+        XLSX.utils.sheet_add_aoa(workbook.Sheets[excelInfo['sheet']], [[selections]], { origin: excelInfo['cell']});
+      }
+      else if (customFieldConfigData.data_type == 'Dropdown') {
+        if (optionsDict == undefined)
+          continue;
+        XLSX.utils.sheet_add_aoa(workbook.Sheets[excelInfo['sheet']], [[optionsDict[customField.value].name]], { origin: excelInfo['cell']});
+      }
+    }
+
+    // Set Location Value
+    const locationExcelInfo = configData.custom_opp_fields['Location'];        
+    XLSX.utils.sheet_add_aoa(workbook.Sheets[locationExcelInfo['sheet']], [[`${opp_city}, ${opp_state}`]], { origin: locationExcelInfo['cell']});
+
+    // Get Primary Contact Info
+    for (const [key, val] of Object.entries(configData.primary_contact)) {
+      if (contact == undefined)
+        continue;
+      XLSX.utils.sheet_add_aoa(workbook.Sheets[val.sheet], [[contact[key as keyof Person]]], { origin: val.cell});
+  }
+
+    // Write the updated Excel file
+    try {
+      const writtenFile = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
+      const testWorkbookValues = XLSX.read(writtenFile, { type: 'buffer' });
+      console.log(testWorkbookValues.Sheets);
+      await window.electron.writeOnePager(writtenFile);
+    } catch (err: any) {
+      throw new Error('New Error in writing: ', err);
+    }
+  }
+
   return (
     <div>
-      <Navbar setSelectOpps={setSelectOpps} setStages={setStages} setIndustries={setIndustries}/>
+      <Navbar 
+        setSelectOpps={setSelectOpps} 
+        setStages={setStages} 
+        setIndustries={setIndustries} 
+        setCustomFields={setCustomFields}
+      />
       <div className="sidebar-body">
         <Sidebar />
         {selectOpps.length == 0
@@ -160,7 +279,7 @@ function Hello() {
               <div className="horizontal-line" />
             </div>
             <div className="button-class">
-              <button>Export Summary</button>
+              <button onClick={onExportOnePager}>Export One-Pager  ➚</button>
             </div>
           </div>
         }

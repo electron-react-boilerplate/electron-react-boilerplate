@@ -34,6 +34,23 @@ ipcMain.on('ipc-example', async (event, arg) => {
   event.reply('ipc-example', msgTemplate('pong'));
 });
 
+ipcMain.handle('read-one-pager', () => {
+  const onePagerPath = path.join(app.getAppPath(), 'src/main', 'One-Pager_template.xlsx');
+  // Check if the file exists
+  const fs = require('fs');
+  if (!fs.existsSync(onePagerPath)) {
+    throw new Error(`File not found: ${onePagerPath}`);
+  }
+  return fs.promises.readFile(onePagerPath)
+});
+ipcMain.handle('write-one-pager', (event, writtenFile) => {
+  const os = require('os');
+  const onePagerPath = path.join(os.homedir(), 'New-One-Pager_template.xlsx');
+  
+  const fs = require('fs');
+  return fs.promises.writeFile(onePagerPath, writtenFile)
+});
+
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
   sourceMapSupport.install();
