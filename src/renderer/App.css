@@ -129,3 +129,8 @@ td {
   display: flex;
   justify-content: center;
 }
+
+.debug {
+  display: flex;
+  flex-direction: column;
+}

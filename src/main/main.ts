@@ -15,6 +15,7 @@ import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 import * as dotenv from "dotenv";
+import ExcelJS from 'exceljs';
 
 dotenv.config();
 
@@ -34,21 +35,42 @@ ipcMain.on('ipc-example', async (event, arg) => {
   event.reply('ipc-example', msgTemplate('pong'));
 });
 
-ipcMain.handle('read-one-pager', () => {
-  const onePagerPath = path.join(app.getAppPath(), 'src/main', 'One-Pager_template.xlsx');
-  // Check if the file exists
-  const fs = require('fs');
-  if (!fs.existsSync(onePagerPath)) {
-    throw new Error(`File not found: ${onePagerPath}`);
+ipcMain.handle('read-one-pager', async () => {
+  console.log('process resources path: ', process.resourcesPath);
+  let onePagerPath = '';
+  if (process.env.NODE_ENV === 'development') {
+    // Use the original dev path
+    onePagerPath = path.join(app.getAppPath(), 'assets', 'One-Pager_template.xlsx');
+  } else {
+    // Use the packaged path
+    onePagerPath = path.join(process.resourcesPath, 'assets', 'One-Pager_template.xlsx');
   }
-  return fs.promises.readFile(onePagerPath)
+  console.log(process.env.NODE_ENV);
+  console.log('one pager path: ', onePagerPath);
+  const os = require('os');
+  const onePagerWritePath = path.join(os.homedir(), 'New-One-Pager_template.xlsx');
+  // Check if the file exists
+  // const fs = require('fs');
+  // if (!fs.existsSync(onePagerPath)) {
+  //   throw new Error(`File not found: ${onePagerPath}`);
+  // }
+  // return fs.promises.readFile(onePagerPath)
+  const wb = new ExcelJS.Workbook();
+  await wb.xlsx.readFile(onePagerPath);
+  var sheet = wb.getWorksheet('Overall');
+  var cell = sheet?.getCell('I3');
+  if (cell)
+    cell.value = 'Matts best company yet';
+  console.log('I3');
+  console.log(cell?.value);
+  wb.xlsx.writeFile(onePagerWritePath);
+  
 });
-ipcMain.handle('write-one-pager', (event, writtenFile) => {
+ipcMain.handle('write-one-pager', async (event, writtenFile: ExcelJS.Workbook) => {
   const os = require('os');
   const onePagerPath = path.join(os.homedir(), 'New-One-Pager_template.xlsx');
   
-  const fs = require('fs');
-  return fs.promises.writeFile(onePagerPath, writtenFile)
+  return await writtenFile.xlsx.writeFile(onePagerPath);
 });
 
 if (process.env.NODE_ENV === 'production') {

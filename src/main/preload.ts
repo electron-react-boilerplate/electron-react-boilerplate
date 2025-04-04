@@ -1,6 +1,7 @@
 // Disable no-unused-vars, broken for spread args
 /* eslint no-unused-vars: off */
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
+import ExcelJS from 'exceljs';
 
 export type Channels = 'ipc-example';
 
@@ -22,8 +23,8 @@ const electronHandler = {
       ipcRenderer.once(channel, (_event, ...args) => func(...args));
     },
   },
-  readOnePager: () => ipcRenderer.invoke('read-one-pager'),
-  writeOnePager: (writtenFile) => ipcRenderer.invoke('write-one-pager', writtenFile)
+  readOnePager: async () => ipcRenderer.invoke('read-one-pager'),
+  writeOnePager: (writtenFile: ExcelJS.Workbook) => ipcRenderer.invoke('write-one-pager', writtenFile)
 };
 
 contextBridge.exposeInMainWorld('electron', electronHandler);

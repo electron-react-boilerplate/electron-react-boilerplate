@@ -6,7 +6,7 @@ import Select from 'react-select';
 import Sidebar from './Sidebar';
 import LoadingIndicator from './Loading';
 import configData from '../../assets/config.json';
-import * as XLSX from 'xlsx';
+import ExcelJS from 'exceljs';
 
 interface SelectOption {
   value: number;  // or string if you have string IDs
@@ -67,7 +67,7 @@ interface Email {
 }
 
 const baseUrl = "https://api.copper.com/developer_api/v1/";
-const apiToken = window.env.COPPER_API_KEY;
+const apiToken = '';
 const apiEmail = "mschoessling@irishangels.com";
 const headers = {
   "X-PW-AccessToken": apiToken,
@@ -86,7 +86,9 @@ function Hello() {
   const [customFields, setCustomFields] = useState<CustomField[]>([]);
   const [customFieldsDict, setCustomFieldsDict] = useState<Record<number, CustomField>>();
   const [contact, setContact] = useState<Person>();
-
+  const [debug1, setDebug1] = useState<string>('');
+  const [debug2, setDebug2] = useState<string>('');
+  const [debug3, setDebug3] = useState<string>('');
   const onOpportunitySelect = async (selectedOption: SelectOption) => {
     console.log('Opportunity Selected!');
 
@@ -150,81 +152,95 @@ function Hello() {
     let workbook = undefined;
     try {
       workbook = await window.electron.readOnePager();
-      workbook = XLSX.read(workbook, { type: 'buffer' });
     } catch(err){
       console.error('Error reading file:', err);
     };
-    if (workbook == undefined)
-      throw new Error('Workbook is not defined');
+    // setDebug1(workbook == undefined ? 'Undefined #sad' : 'Good to go. Workbook is defined!!');
+    // if (workbook == undefined)
+    //   throw new Error('Workbook is not defined');
+    // console.log(workbook);
+
+    // const cell = sheet?.getCell('I2');
+    // if (cell != undefined)
+    // {
+    //   console.log('Lets see cell value of I2: ', cell?.value);
+    //   cell.value = 'Test value';
+    // } else {
+    //   console.log('cell was undefined')
+    // }
 
     // Export Basic Company Info
-    for (const [key, val] of Object.entries(configData.opportunity)) {
-        XLSX.utils.sheet_add_aoa(workbook.Sheets[val.sheet], [[selectedOpportunity[key as keyof Opportunity]]], { origin: val.cell});
-    }
+    // for (const [key, val] of Object.entries(configData.opportunity)) {
+    //     XLSX.utils.sheet_add_aoa(workbook.Sheets[val.sheet], [[selectedOpportunity[key as keyof Opportunity]]], { origin: val.cell});
+    // }
+    // console.log('The I5 value: ', workbook.Sheets['Overall']['I5'].v)
+    // setDebug2(workbook.Sheets['Overall']['I5'].v);
     
-    let opp_city = '';
-    let opp_state = '';
+    // let opp_city = '';
+    // let opp_state = '';
 
-    if (customFieldsDict == undefined)
-      throw new Error('Custom Field Dictionary was not created correctly. Make sure config is properly set');
+    // if (customFieldsDict == undefined)
+    //   throw new Error('Custom Field Dictionary was not created correctly. Make sure config is properly set');
 
-    // Export Copper Custom Fields 
-    for (const customField of selectedOpportunity.custom_fields) {
-      const customFieldConfigData = customFieldsDict[customField.custom_field_definition_id];
+    // // Export Copper Custom Fields 
+    // for (const customField of selectedOpportunity.custom_fields) {
+    //   const customFieldConfigData = customFieldsDict[customField.custom_field_definition_id];
 
-      if (!(customFieldConfigData.name in configData.custom_opp_fields))
-        continue
-      const excelInfo = configData.custom_opp_fields[customFieldConfigData.name as keyof object]
-      const optionsDict = customFieldConfigData.options?.reduce((acc, opt) => {
-        acc[opt.id] = opt;
-        return acc;
-      }, {} as Record<number, Option>)
+    //   if (!(customFieldConfigData.name in configData.custom_opp_fields))
+    //     continue
+    //   const excelInfo = configData.custom_opp_fields[customFieldConfigData.name as keyof object]
+    //   const optionsDict = customFieldConfigData.options?.reduce((acc, opt) => {
+    //     acc[opt.id] = opt;
+    //     return acc;
+    //   }, {} as Record<number, Option>)
 
-      if (customFieldConfigData.id == 327449) {
-        opp_city = customField.value;
-      }
-      else if (customFieldConfigData.id == 327711) {
-        opp_state = customField.value;
-      }
-      else if (['Text', 'String', 'Currency'].includes(customFieldConfigData.data_type)) {
-        XLSX.utils.sheet_add_aoa(workbook.Sheets[excelInfo['sheet']], [[customField.value]], { origin: excelInfo['cell']});
-      }
-      else if (customFieldConfigData.data_type == 'MultiSelect') {
-        if (optionsDict == undefined)
-          continue;
-        const selections = customField.value.map((opt: number) => optionsDict[opt])
-                                             .sort((a: Option,b: Option) => a.rank - b.rank)
-                                             .map((opt: Option) => opt.name)
-                                             .join(', ');
-        XLSX.utils.sheet_add_aoa(workbook.Sheets[excelInfo['sheet']], [[selections]], { origin: excelInfo['cell']});
-      }
-      else if (customFieldConfigData.data_type == 'Dropdown') {
-        if (optionsDict == undefined)
-          continue;
-        XLSX.utils.sheet_add_aoa(workbook.Sheets[excelInfo['sheet']], [[optionsDict[customField.value].name]], { origin: excelInfo['cell']});
-      }
-    }
+    //   if (customFieldConfigData.id == 327449) {
+    //     opp_city = customField.value;
+    //   }
+    //   else if (customFieldConfigData.id == 327711) {
+    //     opp_state = customField.value;
+    //   }
+    //   else if (['Text', 'String', 'Currency'].includes(customFieldConfigData.data_type)) {
+    //     XLSX.utils.sheet_add_aoa(workbook.Sheets[excelInfo['sheet']], [[customField.value]], { origin: excelInfo['cell']});
+    //   }
+    //   else if (customFieldConfigData.data_type == 'MultiSelect') {
+    //     if (optionsDict == undefined)
+    //       continue;
+    //     const selections = customField.value.map((opt: number) => optionsDict[opt])
+    //                                          .sort((a: Option,b: Option) => a.rank - b.rank)
+    //                                          .map((opt: Option) => opt.name)
+    //                                          .join(', ');
+    //     XLSX.utils.sheet_add_aoa(workbook.Sheets[excelInfo['sheet']], [[selections]], { origin: excelInfo['cell']});
+    //   }
+    //   else if (customFieldConfigData.data_type == 'Dropdown') {
+    //     if (optionsDict == undefined)
+    //       continue;
+    //     XLSX.utils.sheet_add_aoa(workbook.Sheets[excelInfo['sheet']], [[optionsDict[customField.value].name]], { origin: excelInfo['cell']});
+    //   }
+    // }
 
-    // Set Location Value
-    const locationExcelInfo = configData.custom_opp_fields['Location'];        
-    XLSX.utils.sheet_add_aoa(workbook.Sheets[locationExcelInfo['sheet']], [[`${opp_city}, ${opp_state}`]], { origin: locationExcelInfo['cell']});
+  //   // Set Location Value
+  //   const locationExcelInfo = configData.custom_opp_fields['Location'];        
+  //   XLSX.utils.sheet_add_aoa(workbook.Sheets[locationExcelInfo['sheet']], [[`${opp_city}, ${opp_state}`]], { origin: locationExcelInfo['cell']});
 
-    // Get Primary Contact Info
-    for (const [key, val] of Object.entries(configData.primary_contact)) {
-      if (contact == undefined)
-        continue;
-      XLSX.utils.sheet_add_aoa(workbook.Sheets[val.sheet], [[contact[key as keyof Person]]], { origin: val.cell});
-  }
+  //   // Get Primary Contact Info
+  //   for (const [key, val] of Object.entries(configData.primary_contact)) {
+  //     if (contact == undefined)
+  //       continue;
+  //     XLSX.utils.sheet_add_aoa(workbook.Sheets[val.sheet], [[contact[key as keyof Person]]], { origin: val.cell});
+  // }
 
     // Write the updated Excel file
-    try {
-      const writtenFile = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
-      const testWorkbookValues = XLSX.read(writtenFile, { type: 'buffer' });
-      console.log(testWorkbookValues.Sheets);
-      await window.electron.writeOnePager(writtenFile);
-    } catch (err: any) {
-      throw new Error('New Error in writing: ', err);
-    }
+    // try {
+    //   // const writtenFile = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
+    //   // const testWorkbookValues = XLSX.read(writtenFile, { type: 'buffer' });
+    //   // console.log('test written: ', testWorkbookValues.Sheets['Overall']['J2']?.v);
+    //   // console.log(testWorkbookValues.Sheets);
+    //   // setDebug3(testWorkbookValues.Sheets['Overall']['J2']?.v)
+    //   await window.electron.writeOnePager(workbook);
+    // } catch (err: any) {
+    //   throw new Error('New Error in writing: ', err);
+    // }
   }
 
   return (
@@ -281,6 +297,11 @@ function Hello() {
             <div className="button-class">
               <button onClick={onExportOnePager}>Export One-Pager  ➚</button>
             </div>
+            <div className='debug'>
+              <label>Debug 1 - {debug1}</label>
+              <label>Debug 2 - {debug2}</label>
+              <label>Debug 3 - {debug3}</label>
+            </div> 
           </div>
         }
       </div>

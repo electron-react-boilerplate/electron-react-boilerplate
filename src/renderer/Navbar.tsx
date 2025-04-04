@@ -47,7 +47,7 @@ interface NavbarProps {
 }
 
 const baseUrl = "https://api.copper.com/developer_api/v1/";
-const apiToken = window.env.COPPER_API_KEY;
+const apiToken = '';
 const apiEmail = "mschoessling@irishangels.com";
 const headers = {
 "X-PW-AccessToken": apiToken,
