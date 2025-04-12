@@ -1,43 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { baseUrl, headers} from '../helpers/constants';
+import { SelectOption, Stage, Industry, CustomField, Opportunity } from '../helpers/types'
 import './App.css';
-
-// Define the type for API response items
-interface Opportunity {
-  id: number;
-  company_name: string;
-}
-
-interface SelectOption {
-    value: number;  // or string if you have string IDs
-    label: string;
-  }
-
-interface Stage {
-id: number;
-name: string;
-}
-
-interface Industry {
-  id: number;
-  name: string;
-  rank: number;
-}
-
-interface Option {
-    id: number;
-    name: string;
-    rank: number;
-  }
-
-interface CustomField {
-    id: number;
-    name: string;
-    data_type: string;
-    available_on: string[];
-    is_filterable: boolean;
-    currency: string[] | undefined;
-    options: Option[] | undefined;
-  }
 
 interface NavbarProps {
     setSelectOpps: React.Dispatch<React.SetStateAction<SelectOption[]>>;
@@ -45,16 +9,6 @@ interface NavbarProps {
     setIndustries: React.Dispatch<React.SetStateAction<Industry[]>>;
     setCustomFields: React.Dispatch<React.SetStateAction<CustomField[]>>;
 }
-
-const baseUrl = "https://api.copper.com/developer_api/v1/";
-const apiToken = '';
-const apiEmail = "mschoessling@irishangels.com";
-const headers = {
-"X-PW-AccessToken": apiToken,
-"X-PW-Application": "developer_api",
-"X-PW-UserEmail": apiEmail,
-"Content-Type": "application/json"
-};
 
 function Navbar(props: NavbarProps) {
     const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
