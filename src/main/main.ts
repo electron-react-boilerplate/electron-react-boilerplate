@@ -70,7 +70,8 @@ const createWindow = async () => {
   };
 
   mainWindow = new BrowserWindow({
-    show: false,
+    // Show window immediately (avoids hidden window if ready-to-show never fires)
+    show: true,
     width: 1024,
     height: 728,
     icon: getAssetPath('icon.png'),
