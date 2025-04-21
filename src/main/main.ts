@@ -14,6 +14,8 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+import { addTask, removeTask, modifyTask } from "./taskManager";
+import { loadTasks } from './storage';
 
 class AppUpdater {
   constructor() {
@@ -123,6 +125,29 @@ app.on('window-all-closed', () => {
     app.quit();
   }
 });
+
+
+
+
+
+//handling ipc protocols on Main
+
+
+ipcMain.handle('get-tasks', async () => {
+  const data = loadTasks();
+  return data;
+})
+
+ipcMain.handle('add-task', async (event, task) => {
+  return addTask(task); // calls the logic from taskManager
+})
+ipcMain.handle('remove-task', async (event, id) => {
+  return removeTask(id); // calls
+})
+ipcMain.handle('modify-task', async (event, args) => {
+  const { id, property, data } = args;
+  return modifyTask(id, property, data);
+})
 
 app
   .whenReady()

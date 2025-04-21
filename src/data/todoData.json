@@ -1,0 +1,68 @@
+{
+  "todoList": [
+    {
+      "id": 1,
+      "name": "Take out trash",
+      "recurring": true,
+      "dueToday": true,
+      "recurringTiming": "Weekly",
+      "priority": "low"
+    },
+    {
+      "id": 2,
+      "name": "Finish CS homework",
+      "recurring": false,
+      "dueToday": true,
+      "recurringTiming": null,
+      "priority": "high"
+    },
+    {
+      "id": 3,
+      "name": "Go to the gym",
+      "recurring": true,
+      "dueToday": false,
+      "recurringTiming": "Daily",
+      "priority": "medium"
+    },
+    {
+      "id": 4,
+      "name": "Water the plants",
+      "recurring": true,
+      "dueToday": true,
+      "recurringTiming": "Every 3 days",
+      "priority": "low"
+    },
+    {
+      "id": 5,
+      "name": "Email professor",
+      "recurring": false,
+      "dueToday": false,
+      "recurringTiming": null,
+      "priority": "high"
+    },
+    {
+      "id": 6,
+      "name": "Skate for 30 minutes",
+      "recurring": true,
+      "dueToday": true,
+      "recurringTiming": "Daily",
+      "priority": "medium"
+    },
+    {
+      "id": 7,
+      "name": "Journal",
+      "recurring": true,
+      "dueToday": true,
+      "recurringTiming": "Daily",
+      "priority": "low"
+    },
+    {
+      "id": 8,
+      "name": "Clean your desktop files",
+      "recurring": false,
+      "dueToday": false,
+      "recurringTiming": null,
+      "priority": "medium"
+    }
+  ]
+}

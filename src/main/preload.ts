@@ -4,6 +4,8 @@ import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 
 export type Channels = 'ipc-example';
 
+
+
 const electronHandler = {
   ipcRenderer: {
     sendMessage(channel: Channels, ...args: unknown[]) {
@@ -22,8 +24,17 @@ const electronHandler = {
       ipcRenderer.once(channel, (_event, ...args) => func(...args));
     },
   },
+  taskAPI: {
+    getTasks: () => ipcRenderer.invoke('get-tasks'),
+    addTask: (task: any) => ipcRenderer.invoke('add-task', task),
+    removeTask: (id: string) => ipcRenderer.invoke('remove-task', id),
+    modifyTask: (id: string, property: string, value: any) =>
+      ipcRenderer.invoke('modify-task', id, property, value),
+  },
 };
 
+
 contextBridge.exposeInMainWorld('electron', electronHandler);
+
 
 export type ElectronHandler = typeof electronHandler;
