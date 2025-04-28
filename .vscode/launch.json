@@ -2,29 +2,46 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Electron: Main",
+      "name": "Electron: Pre",
       "type": "node",
       "request": "launch",
-      "protocol": "inspector",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "start"],
-      "env": {
-        "MAIN_ARGS": "--inspect=5858 --remote-debugging-port=9223"
-      }
+      "runtimeArgs": ["run", "start:VSCode"], 
     },
     {
       "name": "Electron: Renderer",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "start:renderer:VSCode"],       
+      "env": {
+        "MAIN_ARGS": "--inspect=5858 --remote-debugging-port=9223"
+      }, 
+    },    
+    {
+      "name": "Electron: Main",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "start:main"],       
+      "env": {
+        "MAIN_ARGS": "--inspect=5858 --remote-debugging-port=9223"
+      }, 
+    },
+
+    {
+      "name": "Electron: Renderer Attach",
       "type": "chrome",
       "request": "attach",
       "port": 9223,
       "webRoot": "${workspaceFolder}",
-      "timeout": 15000
+      "timeout": 60000
     }
   ],
   "compounds": [
     {
       "name": "Electron: All",
-      "configurations": ["Electron: Main", "Electron: Renderer"]
+      "configurations": ["Electron: Pre","Electron: Renderer","Electron: Main", "Electron: Renderer Attach"]
     }
   ]
 }

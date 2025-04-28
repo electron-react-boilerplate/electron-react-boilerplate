@@ -40,7 +40,17 @@ const isDebug =
   process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true';
 
 if (isDebug) {
-  require('electron-debug').default();
+  require('electron-debug').default();  
+  let port = '9223';
+  if (process.env.MAIN_ARGS) {
+    if (process.env.MAIN_ARGS) {
+       port = (([...process.env.MAIN_ARGS.matchAll(/"[^"]+"|[^\s"]+/g)]
+       .flat()
+      .filter(str=>str.includes('debugging-port'))[0]||"=9223").split('=')[1])
+
+    } 
+  }
+  app.commandLine.appendSwitch("remote-debugging-port", port)
 }
 
 const installExtensions = async () => {
