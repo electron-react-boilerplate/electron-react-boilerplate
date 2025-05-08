@@ -124,6 +124,14 @@ app.on('window-all-closed', () => {
   }
 });
 
+app.on('before-quit', () => {
+  // fix: restart by edit code, but error: [electronmon] app exited with code 3221226525, waiting for change to restart it
+  for (const window of BrowserWindow.getAllWindows()) {
+    window.webContents.closeDevTools()
+    window.close();
+  }
+});
+
 app
   .whenReady()
   .then(() => {
