@@ -178,6 +178,7 @@
     "productName": "ElectronReact",
     "appId": "org.erb.ElectronReact",
     "asar": true,
+    "afterSign": ".erb/scripts/notarize.js",
     "asarUnpack": "**\\*.{node,dll}",
     "files": [
       "dist",
@@ -185,7 +186,6 @@
       "package.json"
     ],
     "mac": {
-      "sign": ".erb/scripts/notarize.js",
       "notarize": false,
       "target": {
         "target": "default",
