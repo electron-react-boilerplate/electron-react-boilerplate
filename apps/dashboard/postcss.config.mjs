@@ -1,0 +1,1 @@
+export { default } from "@die-macht-zentrale/ui/postcss.config";

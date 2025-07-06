@@ -1,0 +1,12 @@
+{
+  "name": "github-service",
+  "scripts": {
+    "dev": "bun run --hot src/index.ts"
+  },
+  "dependencies": {
+    "hono": "^4.8.4"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  }
+}
