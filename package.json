@@ -1,6 +1,12 @@
 {
-  "name": "electron-react-boilerplate",
+  "name": "die-macht-zentrale",
   "description": "A foundation for scalable desktop apps",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "services/*",
+    "packages/*"
+  ],
   "keywords": [
     "electron",
     "boilerplate",
@@ -35,21 +41,15 @@
   ],
   "main": "./.erb/dll/main.bundle.dev.js",
   "scripts": {
-    "build": "concurrently \"npm run build:main\" \"npm run build:renderer\"",
-    "build:dll": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true NODE_OPTIONS=\"-r ts-node/register --no-warnings\" webpack --config ./.erb/configs/webpack.config.renderer.dev.dll.ts",
-    "build:main": "cross-env NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true NODE_OPTIONS=\"-r ts-node/register --no-warnings\" webpack --config ./.erb/configs/webpack.config.main.prod.ts",
-    "build:renderer": "cross-env NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true NODE_OPTIONS=\"-r ts-node/register --no-warnings\" webpack --config ./.erb/configs/webpack.config.renderer.prod.ts",
-    "postinstall": "ts-node .erb/scripts/check-native-dep.js && electron-builder install-app-deps && npm run build:dll",
-    "lint": "cross-env NODE_ENV=development eslint . --ext .js,.jsx,.ts,.tsx",
-    "lint:fix": "cross-env NODE_ENV=development eslint . --ext .js,.jsx,.ts,.tsx --fix",
-    "package": "ts-node ./.erb/scripts/clean.js dist && npm run build && electron-builder build --publish never && npm run build:dll",
-    "rebuild": "electron-rebuild --parallel --types prod,dev,optional --module-dir release/app",
-    "prestart": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true NODE_OPTIONS=\"-r ts-node/register --no-warnings\" webpack --config ./.erb/configs/webpack.config.main.dev.ts",
-    "start": "ts-node ./.erb/scripts/check-port-in-use.js && npm run prestart && npm run start:renderer",
-    "start:main": "concurrently -k -P \"cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack --watch --config ./.erb/configs/webpack.config.main.dev.ts\" \"electronmon . -- {@}\" --",
-    "start:preload": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true NODE_OPTIONS=\"-r ts-node/register --no-warnings\" webpack --config ./.erb/configs/webpack.config.preload.dev.ts",
-    "start:renderer": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true NODE_OPTIONS=\"-r ts-node/register --no-warnings\" webpack serve --config ./.erb/configs/webpack.config.renderer.dev.ts",
-    "test": "jest"
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "lint:fix": "turbo lint:fix",
+    "test": "turbo test",
+    "clean": "turbo clean",
+    "start": "turbo start --filter=@die-macht-zentrale/desktop",
+    "desktop:start": "turbo start --filter=@die-macht-zentrale/desktop",
+    "desktop:package": "turbo package --filter=@die-macht-zentrale/desktop"
   },
   "browserslist": [
     "extends browserslist-config-erb"
@@ -110,6 +110,8 @@
     "react-router-dom": "^7.3.0"
   },
   "devDependencies": {
+    "@die-macht-zentrale/eslint-config": "workspace:*",
+    "@die-macht-zentrale/typescript-config": "workspace:*",
     "@electron/rebuild": "^3.7.1",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.15",
     "@svgr/webpack": "^8.1.0",
@@ -132,7 +134,7 @@
     "css-loader": "^7.1.2",
     "css-minimizer-webpack-plugin": "^7.0.2",
     "detect-port": "^2.1.0",
-    "electron": "^35.0.2",
+    "electron": "^35.7.0",
     "electron-builder": "^25.1.8",
     "electron-devtools-installer": "^4.0.0",
     "electronmon": "^2.0.3",
@@ -166,6 +168,7 @@
     "ts-loader": "^9.5.2",
     "ts-node": "^10.9.2",
     "tsconfig-paths-webpack-plugin": "^4.2.0",
+    "turbo": "^2.0.0",
     "typescript": "^5.8.2",
     "url-loader": "^4.1.1",
     "webpack": "^5.98.0",
@@ -247,11 +250,6 @@
       "name": "node",
       "version": ">=14.x",
       "onFail": "error"
-    },
-    "packageManager": {
-      "name": "npm",
-      "version": ">=7.x",
-      "onFail": "error"
     }
   },
   "electronmon": {
@@ -261,5 +259,6 @@
       ".erb/dll/**"
     ],
     "logLevel": "quiet"
-  }
+  },
+  "packageManager": "pnpm@10.12.4+sha512.5ea8b0deed94ed68691c9bad4c955492705c5eeb8a87ef86bc62c74a26b037b08ff9570f108b2e4dbd1dd1a9186fea925e527f141c648e85af45631074680184"
 }
