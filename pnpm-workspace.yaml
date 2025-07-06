@@ -1,0 +1,11 @@
+packages:
+  - apps/*
+  - services/*
+  - packages/*
+
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - core-js
+  - core-js-pure
+  - electron
+  - unrs-resolver

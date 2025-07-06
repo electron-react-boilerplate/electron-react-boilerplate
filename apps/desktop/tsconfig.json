@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "incremental": true,
+    "target": "ES2021",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "ES6"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@shared/*": ["../../libs/shared/*"],
+      "@ui/*": ["../../libs/ui/*"],
+      "@core/*": ["../../libs/core/*"],
+      "@services/*": ["../../services/*"]
+    }
+  },
+  "include": [
+    "src/**/*",
+    ".erb/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
