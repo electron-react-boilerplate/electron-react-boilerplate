@@ -14,6 +14,7 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+import { pdfGenerator } from './services/pdfGenerator';
 
 class AppUpdater {
   constructor() {
@@ -29,6 +30,43 @@ ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
   console.log(msgTemplate(arg));
   event.reply('ipc-example', msgTemplate('pong'));
+});
+
+// Handle PDF generation request
+ipcMain.handle('generate-pdf', async (event, options) => {
+  try {
+    const {
+      systemName = 'SysName',
+      date = new Date().toLocaleDateString('en-US', {
+        month: '2-digit',
+        day: '2-digit',
+        year: 'numeric',
+      }),
+      pageNumber = 1,
+    } = options || {};
+
+    const filePath = await pdfGenerator.generatePDF({
+      systemName,
+      date,
+      pageNumber,
+    });
+
+    return { success: true, filePath };
+  } catch (error) {
+    console.error('Error generating PDF:', error);
+    return { success: false, error: (error as Error).message };
+  }
+});
+
+// Handle opening PDF file
+ipcMain.handle('open-pdf', async (event, filePath) => {
+  try {
+    await shell.openPath(filePath);
+    return { success: true };
+  } catch (error) {
+    console.error('Error opening PDF:', error);
+    return { success: false, error: (error as Error).message };
+  }
 });
 
 if (process.env.NODE_ENV === 'production') {
