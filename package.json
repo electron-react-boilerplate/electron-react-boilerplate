@@ -105,9 +105,12 @@
     "electron-debug": "^4.1.0",
     "electron-log": "^5.3.2",
     "electron-updater": "^6.3.9",
+    "lucide-react": "^0.563.0",
+    "pdfjs-dist": "^5.4.624",
     "pdfkit": "^0.17.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-pdf": "^10.3.0",
     "react-router-dom": "^7.3.0"
   },
   "devDependencies": {
@@ -232,7 +235,14 @@
       "output": "release/build"
     },
     "extraResources": [
-      "./assets/**"
+      "./assets/**",
+      {
+        "from": "java-helper",
+        "to": "java-helper",
+        "filter": [
+          "**/*"
+        ]
+      }
     ],
     "publish": {
       "provider": "github",

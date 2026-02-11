@@ -1,52 +1,185 @@
-<img src=".erb/img/erb-banner.svg" width="100%" />
+# Wiring Diagram Generator
 
-<br>
+An Electron-based desktop application for generating wiring diagrams from Microsoft Access databases.
 
-<p>
-  Electron React Boilerplate uses <a href="https://electron.atom.io/">Electron</a>, <a href="https://facebook.github.io/react/">React</a>, <a href="https://github.com/reactjs/react-router">React Router</a>, <a href="https://webpack.js.org/">Webpack</a> and <a href="https://www.npmjs.com/package/react-refresh">React Fast Refresh</a>.
-</p>
+## ✨ Features
 
-<br>
+- 📄 **PDF Generation** - Generate professional wiring diagrams with precise dimensions
+- 📁 **Database Upload** - Read Microsoft Access (.accdb/.mdb) files cross-platform
+- 🖥️ **Cross-Platform** - Works on Linux, macOS, and Windows
+- 🎯 **Automated Processing** - Extract specific tables and generate diagrams automatically
 
-<div align="center">
+## 📋 Prerequisites
 
-[![Build Status][github-actions-status]][github-actions-url]
-[![Github Tag][github-tag-image]][github-tag-url]
-[![Discord](https://badgen.net/badge/icon/discord?icon=discord&label)](https://discord.gg/Fjy3vfgy5q)
+### Required
+- **Node.js** 14.x or higher
+- **npm** 7.x or higher
+- **Java JRE** 8 or higher (for database reading)
 
-[![OpenCollective](https://opencollective.com/electron-react-boilerplate-594/backers/badge.svg)](#backers)
-[![OpenCollective](https://opencollective.com/electron-react-boilerplate-594/sponsors/badge.svg)](#sponsors)
-[![StackOverflow][stackoverflow-img]][stackoverflow-url]
+### Installing Java
 
-</div>
+**Linux (Ubuntu/Debian):**
+```bash
+sudo apt update
+sudo apt install default-jre default-jdk
+```
 
-## Install
+**macOS:**
+```bash
+brew install openjdk
+```
 
-Clone the repo and install dependencies:
+**Windows:**
+- Download from [java.com](https://www.java.com/) or [Adoptium](https://adoptium.net/)
+
+Verify installation:
+```bash
+java -version
+```
+
+## 🚀 Quick Start
+
+### 1. Install Dependencies
 
 ```bash
-git clone --depth 1 --branch main https://github.com/electron-react-boilerplate/electron-react-boilerplate.git your-project-name
-cd your-project-name
 npm install
 ```
 
-**Having issues installing? See our [debugging guide](https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues/400)**
+### 2. Setup Java Helper
 
-## Starting Development
+```bash
+cd java-helper
+./setup.sh
+cd ..
+```
 
-Start the app in the `dev` environment:
+This will download required libraries and compile the database reader.
+
+### 3. Start Development
 
 ```bash
 npm start
 ```
 
-## Packaging for Production
+## 📖 Usage
 
-To package apps for the local platform:
+### Upload Database
+1. Click **"Upload Database File"** button
+2. Select your .accdb or .mdb file
+3. System will read these tables:
+   - `temp01selfuncsys1`
+   - `temp02seldsts-left-inputs1`
+   - `temp03selsrcs-right-outputs1`
+4. View results in UI and console logs
+
+### Generate PDF
+1. Click **"Generate Wiring Diagram PDF"** button
+2. PDF will be generated with precise dimensions (17" × 11" landscape)
+3. File automatically opens after generation
+
+## 📚 Documentation
+
+- [INSTALLATION.md](./INSTALLATION.md) - Complete installation guide
+- [DATABASE_SETUP.md](./DATABASE_SETUP.md) - Database reading architecture
+- [java-helper/README.md](./java-helper/README.md) - Java helper documentation
+
+## 🏗️ Architecture
+
+```
+User Interface (React)
+         ↓
+   Electron IPC
+         ↓
+Main Process (Node.js)
+    ↙        ↘
+PDF Gen    Database Reader
+           (Java Helper)
+                ↓
+          Jackcess Library
+                ↓
+         .accdb/.mdb File
+```
+
+## 🔧 Development
+
+### Project Structure
+```
+src/
+├── main/              # Electron main process
+│   ├── main.ts        # Entry point, IPC handlers
+│   └── services/
+│       ├── pdfGenerator.ts      # PDF generation
+│       └── databaseReader.ts    # Database reading
+├── renderer/          # React UI
+│   └── App.tsx        # Main application UI
+java-helper/           # Java-based database reader
+├── AccessDBReader.java
+├── setup.sh           # Automated setup
+└── lib/               # JAR dependencies
+```
+
+### Available Scripts
+
+```bash
+npm start              # Start development
+npm run package        # Build production app
+npm run lint           # Run ESLint
+npm run test           # Run tests
+```
+
+## 📦 Building for Production
 
 ```bash
 npm run package
 ```
+
+Output locations:
+- **Linux:** `release/build/*.AppImage`
+- **Windows:** `release/build/*.exe`
+- **macOS:** `release/build/*.dmg`
+
+## ⚠️ Troubleshooting
+
+### Java Not Found
+```
+Error: Java is not installed
+```
+**Solution:** Install Java JRE as shown in Prerequisites section
+
+### Database Tables Not Found
+```
+Warning: Missing tables: [table_name]
+```
+**Solution:** Verify your database contains the required tables
+
+### Compilation Failed
+```
+Error: Compilation failed
+```
+**Solution:** Install Java JDK (not just JRE):
+```bash
+sudo apt install default-jdk  # Linux
+brew install openjdk          # macOS
+```
+
+See [INSTALLATION.md](./INSTALLATION.md) for more troubleshooting tips.
+
+## 🛠️ Tech Stack
+
+- **Electron** - Desktop application framework
+- **React** - UI framework
+- **TypeScript** - Type-safe JavaScript
+- **PDFKit** - PDF generation
+- **Jackcess** (Java) - Access database reading
+- **Webpack** - Module bundler
+
+## 📄 License
+
+MIT
+
+## 🤝 Contributing
+
+Contributions welcome! Please read the contributing guidelines first.
 
 ## Docs
 

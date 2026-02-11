@@ -9,12 +9,13 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow, shell, ipcMain } from 'electron';
+import { app, BrowserWindow, shell, ipcMain, dialog } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 import { pdfGenerator } from './services/pdfGenerator';
+import { databaseReader } from './services/databaseReader';
 
 class AppUpdater {
   constructor() {
@@ -69,6 +70,68 @@ ipcMain.handle('open-pdf', async (event, filePath) => {
   }
 });
 
+// Handle reading PDF file as base64
+ipcMain.handle('read-pdf-file', async (event, filePath: string) => {
+  try {
+    const fs = require('fs').promises;
+    const fileBuffer = await fs.readFile(filePath);
+    const base64 = fileBuffer.toString('base64');
+    return { success: true, data: base64 };
+  } catch (error) {
+    console.error('Error reading PDF file:', error);
+    return { success: false, error: (error as Error).message };
+  }
+});
+
+// Handle database file selection
+ipcMain.handle('select-database-file', async () => {
+  try {
+    const result = await dialog.showOpenDialog({
+      title: 'Select Access Database File',
+      filters: [
+        { name: 'Access Database', extensions: ['accdb', 'mdb'] },
+        { name: 'All Files', extensions: ['*'] },
+      ],
+      properties: ['openFile'],
+    });
+
+    if (result.canceled || result.filePaths.length === 0) {
+      return { success: false, canceled: true };
+    }
+
+    return { success: true, filePath: result.filePaths[0] };
+  } catch (error) {
+    console.error('Error selecting database file:', error);
+    return { success: false, error: (error as Error).message };
+  }
+});
+
+// Handle database reading
+ipcMain.handle('read-database', async (event, filePath: string) => {
+  try {
+    // Validate file
+    const validation = await databaseReader.validateFile(filePath);
+    if (!validation.valid) {
+      return {
+        success: false,
+        error: validation.error,
+        type: 'ValidationError',
+      };
+    }
+
+    // Read database
+    const result = await databaseReader.readAccessDatabase(filePath);
+    return result;
+  } catch (error) {
+    console.error('Error reading database:', error);
+    return {
+      success: false,
+      error: (error as Error).message,
+      type: 'UnknownError',
+    };
+  }
+});
+
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
   sourceMapSupport.install();
@@ -109,8 +172,10 @@ const createWindow = async () => {
 
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1024,
-    height: 728,
+    width: 1400,
+    height: 900,
+    minWidth: 1200,
+    minHeight: 800,
     icon: getAssetPath('icon.png'),
     webPreferences: {
       preload: app.isPackaged
