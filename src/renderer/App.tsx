@@ -94,29 +94,34 @@ console.log('selectResult',selectResult);
   };
 
   const generatePDF = async () => {
+    if (!databaseData || !databaseData.tables) {
+      setMessage('⚠️ Please upload database first');
+      return;
+    }
+
     setGeneratingPDF(true);
 
     try {
-      // Generate PDF with default options
-      const result = await window.electron.ipcRenderer.invoke('generate-pdf', {
-        systemName: 'SysName',
+      // Generate wiring diagram from database data
+      const result = await window.electron.ipcRenderer.invoke('generate-wiring-diagram', {
+        systemName: databaseData.fileName?.replace('.accdb', '').replace('.mdb', '') || 'Wiring Diagram',
         date: new Date().toLocaleDateString('en-US', {
           month: '2-digit',
           day: '2-digit',
           year: 'numeric',
         }),
         pageNumber: 1,
-        numberOfSections: 2
+        databaseData: databaseData.tables,
       });
 
       if (result.success) {
         setPdfPath(result.filePath);
-        setMessage('✅ Database and PDF ready!');
+        setMessage('✅ Wiring diagram generated successfully!');
       } else {
-        setMessage(`⚠️ Database loaded but PDF generation failed: ${result.error}`);
+        setMessage(`⚠️ PDF generation failed: ${result.error}`);
       }
     } catch (error) {
-      setMessage(`⚠️ Database loaded but PDF generation failed: ${error}`);
+      setMessage(`⚠️ PDF generation failed: ${error}`);
     } finally {
       setGeneratingPDF(false);
     }
@@ -353,8 +358,8 @@ console.log('selectResult',selectResult);
               onClick={() => {
                 // When clicking PDF Preview tab
                 setActiveTab('pdf');
-                // Generate PDF if not already generated
-                if (!pdfPath && !generatingPDF) {
+                // Generate wiring diagram PDF if not already generated
+                if (!pdfPath && !generatingPDF && databaseData) {
                   generatePDF();
                 }
               }}

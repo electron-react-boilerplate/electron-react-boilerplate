@@ -9,13 +9,14 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow, shell, ipcMain, dialog } from 'electron';
+import { app, BrowserWindow, shell, ipcMain, dialog,session } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 import { pdfGenerator } from './services/pdfGenerator';
 import { databaseReader } from './services/databaseReader';
+import { wiringDiagramGenerator } from './services/wiringDiagramGenerator';
 
 class AppUpdater {
   constructor() {
@@ -132,6 +133,42 @@ ipcMain.handle('read-database', async (event, filePath: string) => {
   }
 });
 
+// Handle wiring diagram generation from database
+ipcMain.handle('generate-wiring-diagram', async (event, options: {
+  systemName?: string;
+  date?: string;
+  pageNumber?: number;
+  databaseData: any; // Should be databaseData.tables from database reader
+  outputPath?: string;
+}) => {
+  try {
+    console.log('Generating wiring diagram with data:', {
+      systemName: options.systemName,
+      tables: Object.keys(options.databaseData || {}),
+    });
+
+    const result = await wiringDiagramGenerator.generateMultiPageWiringDiagram({
+      systemName: options.systemName || 'Wiring Diagram',
+      date: options.date || new Date().toLocaleDateString('en-US', {
+        month: '2-digit',
+        day: '2-digit',
+        year: 'numeric',
+      }),
+      pageNumber: options.pageNumber || 1,
+      databaseData: options.databaseData || {},
+      outputPath: options.outputPath,
+    });
+
+    return { success: true, filePath: result };
+  } catch (error) {
+    console.error('Error generating wiring diagram:', error);
+    return {
+      success: false,
+      error: (error as Error).message,
+    };
+  }
+});
+
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
   sourceMapSupport.install();
@@ -238,3 +275,9 @@ app
     });
   })
   .catch(console.log);
+
+
+  app.whenReady().then(async () => {
+    await session.defaultSession.clearCache();
+    console.log("Cache cleared");
+  });

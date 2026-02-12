@@ -7,7 +7,8 @@ export type Channels =
   | 'generate-pdf' 
   | 'open-pdf'
   | 'read-database'
-  | 'select-database-file';
+  | 'select-database-file'
+  | 'generate-wiring-diagram';
 
 const electronHandler = {
   ipcRenderer: {
