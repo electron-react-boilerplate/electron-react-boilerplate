@@ -166,7 +166,7 @@ console.log('selectResult',selectResult);
           Wiring Diagram Generator
         </h1>
         <p style={{ color: '#666', fontSize: '14px', margin: 0 }}>
-          Upload Microsoft Access database (.accdb) to generate plant wiring diagrams
+          Upload your database file (“.accdb”) to generate wiring diagrams automatically
         </p>
       </div>
 
@@ -196,7 +196,7 @@ console.log('selectResult',selectResult);
             </div>
             
             <h2 style={{ color: '#333', margin: '0 0 10px 0', fontSize: '22px', fontWeight: '600' }}>
-              Upload Microsoft Access Database
+             Upload Access Database File (.accdb)
             </h2>
             
             <p style={{ color: '#888', margin: '0 0 30px 0', fontSize: '14px' }}>
@@ -230,7 +230,7 @@ console.log('selectResult',selectResult);
                   Processing...
                 </>
               ) : (
-                'Select Database File'
+                'Choose Database File'
               )}
             </button>
 
