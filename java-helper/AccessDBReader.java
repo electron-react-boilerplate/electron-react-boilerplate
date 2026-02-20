@@ -17,6 +17,7 @@ import org.json.*;
 public class AccessDBReader {
     
     private static final String[] REQUIRED_TABLES = {
+        "temp00DwgLabel",
         "temp01selfuncsys1",
         "temp02seldsts-left-inputs1",
         "temp03selsrcs-right-outputs1"

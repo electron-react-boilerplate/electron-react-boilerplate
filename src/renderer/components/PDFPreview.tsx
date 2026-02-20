@@ -5,10 +5,10 @@ interface PDFPreviewProps {
   pdfPath: string;
   loading?: boolean;
   onExport: () => void;
-  onRegenerate?: () => void;
+  // onRegenerate?: () => void;
 }
 
-export function PDFPreview({ pdfPath, loading = false, onExport, onRegenerate }: PDFPreviewProps) {
+export function PDFPreview({ pdfPath, loading = false, onExport }: PDFPreviewProps) {
   const [zoom, setZoom] = useState(100);
   const [currentPage, setCurrentPage] = useState(1);
   const [error, setError] = useState<string>('');
@@ -161,7 +161,7 @@ export function PDFPreview({ pdfPath, loading = false, onExport, onRegenerate }:
           </div>
 
           {/* Regenerate Button (if provided) */}
-          {onRegenerate && (
+          {/* {onRegenerate && (
             <button
               onClick={onRegenerate}
               disabled={loading}
@@ -188,7 +188,8 @@ export function PDFPreview({ pdfPath, loading = false, onExport, onRegenerate }:
                 'Regenerate PDF'
               )}
             </button>
-          )}
+        </div>
+      )} */}
 
           {/* Export Button */}
           <button

@@ -90,7 +90,7 @@ ipcMain.handle('select-database-file', async () => {
     const result = await dialog.showOpenDialog({
       title: 'Select Access Database File',
       filters: [
-        { name: 'Access Database', extensions: ['accdb', 'mdb'] },
+        { name: 'Access Database', extensions: ['accdb'] },
         { name: 'All Files', extensions: ['*'] },
       ],
       properties: ['openFile'],

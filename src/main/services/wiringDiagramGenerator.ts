@@ -36,13 +36,18 @@ interface ConnectionData {
   [key: string]: any;
 }
 
+interface DwgLabelData {
+  FuncSysName?: string;
+  [key: string]: any;
+}
+
 interface WiringDiagramOptions {
   pageNumber: number;
   systemName: string;
   date: string;
   databaseData: {
     [tableName: string]: {
-      data?: SystemData[] | ConnectionData[];
+      data?: SystemData[] | ConnectionData[] | DwgLabelData[];
       rowCount?: number;
       columns?: Array<{ name: string; type: string; length: number }>;
     };
@@ -63,6 +68,7 @@ interface SystemBlock {
   width: number;
   height: number;
   isSpecialCase: boolean; // For RTR-01
+  showPortNumber?: boolean; // Only true for the regular system with most connections
   drawTopBorder?: boolean; // For multi-page continuation - draw top border
   drawBottomBorder?: boolean; // For multi-page continuation - draw bottom border
 }
@@ -118,17 +124,44 @@ export class WiringDiagramGenerator {
   private readonly BUBBLE_TEXT_SIZE = 4.32; // For bubble labels (Arial 0.06" = 4.32pt)
   private readonly PORT_TEXT_SIZE = 4.32; // For port names inside block (Arial 0.06")
 
-  // System name mapping for special cases
-  private readonly SPECIAL_SYSTEMS = ['RTR-01', 'RTR01'];
+  /**
+   * 🎯 SPECIAL SYSTEMS CONFIGURATION (LEFT SIDE)
+   * 
+   * Systems listed here will be automatically placed on the LEFT side of the diagram.
+   * All other systems from temp01 will be placed on the RIGHT side and sorted alphabetically.
+   * 
+   * How it works:
+   * 1. All systems are read from temp01 table
+   * 2. Each system name is checked against this array (case-insensitive, substring match)
+   * 3. If match found → LEFT side placement (LEFT_COLUMN_X = 1.25")
+   * 4. If no match → RIGHT side placement (RIGHT_COLUMN_X = 9.0") + alphabetical sorting
+   * 
+   * To add more special systems:
+   * Simply add the system name to this array, e.g., ['RTR-01', 'RTR01', 'RTR-02', 'SPECIAL-SYS']
+   * 
+   * Examples:
+   * - ['RTR-01', 'RTR01'] → Only RTR-01 variants on left
+   * - ['RTR-01', 'RTR01', 'RTR-02', 'RTR-03'] → All RTR systems on left
+   * - ['RTR-01', 'RTR01', 'MAIN-SYS'] → RTR-01 and MAIN-SYS on left
+   */
+  private readonly SPECIAL_SYSTEMS = ['RTR-01', 'RTR01','RTR-01b','SW-01>04','SW-01>04b'];
   
   // Store system names from temp01 for continuation checks during drawing
   private systemNameMap: Set<string> = new Set();
 
+  
   /**
    * Generate wiring diagram from database data
    * Automatically handles multi-page if needed
    */
   async generateWiringDiagram(options: WiringDiagramOptions): Promise<string> {
+    // Extract FuncSysName from temp00DwgLabel table
+    const temp00Table = options.databaseData['temp00DwgLabel'];
+    const temp00Data = (Array.isArray(temp00Table) ? temp00Table : temp00Table?.data || []) as DwgLabelData[];
+    const funcSysName = temp00Data.length > 0 && temp00Data[0].FuncSysName 
+      ? temp00Data[0].FuncSysName 
+      : options.systemName; // Fallback to systemName if FuncSysName not found
+    
     // Process systems first to check if multi-page is needed
     const systems = this.processSystemData(options.databaseData);
     
@@ -176,12 +209,11 @@ export class WiringDiagramGenerator {
         size: [this.PAGE_WIDTH, this.PAGE_HEIGHT],
         margins: { top: 0, bottom: 0, left: 0, right: 0 },
       });
-
       const stream = fs.createWriteStream(finalPath);
       doc.pipe(stream);
 
-      // Draw base layout (borders, labels, etc.)
-      this.drawBaseLayout(doc, systemName, date, pageNumber);
+      // Draw base layout (borders, labels, etc.) with FuncSysName from temp00DwgLabel
+      this.drawBaseLayout(doc, funcSysName, date, pageNumber);
 
       // Draw wiring diagram
       this.drawWiringDiagram(doc, systems);
@@ -226,6 +258,8 @@ export class WiringDiagramGenerator {
     // Process each system from temp01
     temp01.forEach((system: SystemData) => {
       const sysName = system.systemName || '';
+      
+      // Check if this system is in SPECIAL_SYSTEMS array (case-insensitive substring match)
       const isSpecial = this.SPECIAL_SYSTEMS.some(s => 
         sysName.toUpperCase().includes(s.toUpperCase())
       );
@@ -255,7 +289,7 @@ export class WiringDiagramGenerator {
 
       systems.push({
         systemName: sysName,
-        location: system.location || '',
+        location: system.Location || '',
         frameName: system.frameName || system.systemName || '',
         inputs: allInputs, // Store all inputs in original order
         outputs: allOutputs, // Store all outputs in original order
@@ -267,8 +301,21 @@ export class WiringDiagramGenerator {
         width: this.SYSTEM_BLOCK_WIDTH,
         height,
         isSpecialCase: isSpecial,
+        showPortNumber: false, // Will be set below for the busiest regular system
       });
     });
+
+    // Find the single regular system with the MOST connections (max inputs+outputs)
+    // Only THAT system shows portNumber inside the block
+    const regularSystems = systems.filter(s => !s.isSpecialCase);
+    if (regularSystems.length > 0) {
+      const busiest = regularSystems.reduce((prev, curr) => {
+        const prevCount = Math.max(prev.inputs.length, prev.outputs.length);
+        const currCount = Math.max(curr.inputs.length, curr.outputs.length);
+        return currCount > prevCount ? curr : prev;
+      });
+      busiest.showPortNumber = true;
+    }
 
     return systems;
   }
@@ -296,7 +343,7 @@ export class WiringDiagramGenerator {
    */
   private drawBaseLayout(
     doc: PDFKit.PDFDocument,
-    systemName: string,
+    funcSysName: string,
     date: string,
     pageNumber: number
   ): void {
@@ -349,15 +396,36 @@ export class WiringDiagramGenerator {
     doc.stroke();
     doc.restore();
 
-    // Draw left vertical text
-    const text = `${systemName} | ${date} | pg${pageNumber}`;
+    
+
+    // Draw left vertical text spine with format: "FuncSysName - Date Pg#"
+    const text = `${funcSysName} - ${date} Pg${pageNumber}`;
     const centerY = boxY + boxH / 2;
-    const textX = boxX + 15;
+    // const textX = boxX + 15;
     doc.save();
-    doc.font('Helvetica-Bold').fontSize(12);
-    doc.translate(textX, centerY);
-    doc.rotate(-90);
-    doc.text(text, 0, 0, { align: 'center' });
+    doc.font('Helvetica-Bold').fontSize(10);
+     const textWidth = doc.widthOfString(text);
+    
+    // ✨ X position: centered between box left edge and first vertical line
+    const firstLineX = LINE_X[0]; // 0.75 inch = 54 points
+    const textX = (boxX + firstLineX) / 2; // ~40 points from left
+    
+    // ✨ Y position: center of box height
+    const boxCenterY = boxY + boxH / 2;
+    
+  // 1. Move to the position first
+doc.translate(textX, boxCenterY);
+
+// 2. Then rotate the coordinate system
+doc.rotate(-90);
+
+// 3. Draw text at the new origin with centering offset
+doc.text(text, -textWidth / 2, -6)
+// , {
+//   width: textWidth,
+//   align: 'center',
+// });
+
     doc.restore();
 
     // Draw corner labels
@@ -386,17 +454,22 @@ export class WiringDiagramGenerator {
     // Left column uses more spacing from top horizontal line
     const leftColumnTopY = topHorizontalLineY - this.LEFT_COLUMN_SPACING_FROM_TOP;
 
-    // Separate special systems (left) and regular systems (right)
+    // 🎯 SEPARATE AND SORT SYSTEMS FOR PLACEMENT
+    // LEFT SIDE: Special systems (defined in SPECIAL_SYSTEMS array)
+    // RIGHT SIDE: Regular systems (all others) - sorted alphabetically
     const specialSystems = systems.filter(s => s.isSpecialCase);
     const regularSystems = systems.filter(s => !s.isSpecialCase);
-
-    // Sort regular systems alphabetically by systemName (from temp01)
-    // This ensures ACNV-01, ACNV-02, ACNV-03, then APRC-10, etc.
+    // 📊 SORT REGULAR SYSTEMS ALPHABETICALLY (RIGHT SIDE ONLY)
+    // Sort A→Z: ACNV-01, ACNV-02, ACNV-03, APRC-10, ENC-11, FS-01, FS-02
+    // Using localeCompare with numeric: true for proper number handling
     regularSystems.sort((a, b) => {
       const nameA = a.systemName.toUpperCase();
       const nameB = b.systemName.toUpperCase();
-      return nameA.localeCompare(nameB);
+      return nameA.localeCompare(nameB, undefined, { numeric: true, sensitivity: 'base' });
     });
+    // 🔄 REVERSE for correct visual order
+    // Drawing works bottom-to-top (high Y → low Y), so reverse to show ACNV-01 at top (low Y)
+    regularSystems.reverse();
 
     // Layout systems vertically
     let currentYLeft = leftColumnTopY;
@@ -410,11 +483,13 @@ export class WiringDiagramGenerator {
     });
 
     // Draw regular systems on right with minimal spacing (sorted alphabetically)
-    regularSystems.forEach((system) => {
+    regularSystems.forEach((system, index) => {
       system.y = currentYRight - system.height;
       this.drawSystemBlock(doc, system, false);
       currentYRight = system.y - this.DIAGRAM_SPACING;
     });
+    
+    console.log(`📐 Single-page drawing END: Final currentYRight = ${currentYRight.toFixed(2)}`);
   }
 
   /**
@@ -468,20 +543,24 @@ export class WiringDiagramGenerator {
     // Right: 9.0" + 0.1" spacing + similar = ends at 16.35" (before 16.375" edge line)
 
     // Draw header (systemName space frameName - NO BOX, just text) above system block
+    // Skip header for continuation chunks (drawTopBorder === false means it's a continuation)
+    const isFirstChunk = system.drawTopBorder !== false;
     const headerY = y + this.HEADER_PADDING;
     
-    // Line 1: systemName space frameName (if frameName exists and different)
-    doc.font('Helvetica').fontSize(this.HEADER_TEXT_SIZE).fillColor('black');
-    const headerText = frameName && frameName !== systemName 
-      ? `${systemName} ${frameName}` 
-      : systemName;
-    doc.text(headerText, systemBlockX + this.CONTENT_PADDING, headerY);
-    
-    // Line 2: location (if exists)
-    if (location) {
-      doc.font('Helvetica').fontSize(this.LOCATION_TEXT_SIZE).fillColor('black');
-      const locationY = headerY + (this.HEADER_TEXT_SIZE * 1.2);
-      doc.text(location, systemBlockX + this.CONTENT_PADDING, locationY);
+    if (isFirstChunk) {
+      // Line 1: systemName space frameName (if frameName exists and different)
+      doc.font('Helvetica').fontSize(this.HEADER_TEXT_SIZE).fillColor('black');
+      const headerText = frameName && frameName !== systemName 
+        ? `${systemName} ${frameName}` 
+        : systemName;
+      doc.text(headerText, systemBlockX + this.CONTENT_PADDING, headerY);
+      
+      // Line 2: location (if exists)
+      if (location) {
+        doc.font('Helvetica').fontSize(this.LOCATION_TEXT_SIZE).fillColor('black');
+        const locationY = headerY + (this.HEADER_TEXT_SIZE * 1.2);
+        doc.text(location, systemBlockX + this.CONTENT_PADDING, locationY);
+      }
     }
 
     // Draw system block border (only around content area, not header)
@@ -527,16 +606,19 @@ export class WiringDiagramGenerator {
     // IMPORTANT: Preserve original database order from temp02 and temp03
     const contentStartY = contentY + this.CONTENT_PADDING;
     
+    // showPortNumber: true only for the regular system with most connections
+    const showPortNumber = system.showPortNumber === true;
+
     // Draw all inputs in original temp02 order (checking each for continuation)
     inputs.forEach((input, index) => {
       const rowY = contentStartY + (index * this.ROW_HEIGHT);
-      this.drawInputPort(doc, systemBlockX, rowY, input);
+      this.drawInputPort(doc, systemBlockX, rowY, input, showPortNumber);
     });
 
     // Draw all outputs in original temp03 order (checking each for continuation)
     outputs.forEach((output, index) => {
       const rowY = contentStartY + (index * this.ROW_HEIGHT);
-      this.drawOutputPort(doc, systemBlockX + this.SYSTEM_BLOCK_WIDTH, rowY, output);
+      this.drawOutputPort(doc, systemBlockX + this.SYSTEM_BLOCK_WIDTH, rowY, output, showPortNumber);
     });
 
     // Draw input connections (bubbles, lines, cable IDs) - in original order
@@ -601,9 +683,10 @@ export class WiringDiagramGenerator {
       }
       
       if (isContinuation) {
-        // Continuation output: NO bubble, line to CENTER line (8.75")
-        // Both left and right sides end at CENTER_LINE_X
-        const continuationEndX = this.CENTER_LINE_X;
+        // Continuation output: NO bubble, line extends to edge
+        // LEFT side: line to CENTER_LINE_X (8.75")
+        // RIGHT side: line to RIGHT_EDGE_X (16.375")
+        const continuationEndX = isLeftSide ? this.CENTER_LINE_X : this.RIGHT_EDGE_X;
         
         doc.lineWidth(0.5).strokeColor('black');
         doc.moveTo(outputCableX + this.CABLE_ID_BOX_WIDTH, centerY);
@@ -616,18 +699,9 @@ export class WiringDiagramGenerator {
         doc.lineTo(outputBubbleX, centerY);
         doc.stroke();
         
-        this.drawOutputBubble(doc, outputBubbleX, rowY, output);
+        this.drawOutputBubble(doc, outputBubbleX, rowY, output, system.isSpecialCase);
       }
     });
-
-    // Special case: RTR-01 continuation line at bottom
-    if (system.isSpecialCase && isLeftSide) {
-      const lineY = y - 0.1 * this.INCH;
-      doc.lineWidth(1).strokeColor('black');
-      doc.moveTo(systemBlockX, lineY);
-      doc.lineTo(systemBlockX + this.SYSTEM_BLOCK_WIDTH, lineY);
-      doc.stroke();
-    }
 
     doc.restore();
   }
@@ -648,8 +722,9 @@ export class WiringDiagramGenerator {
     const textWidth = doc.widthOfString(cableText);
     
     // Draw box (0.625" width, height matches row height)
+    // Slight border radius (2pt) - subtle rounding, not too pronounced
     doc.lineWidth(0.5).strokeColor('black');
-    doc.rect(x, y, this.CABLE_ID_BOX_WIDTH, this.ROW_HEIGHT);
+    doc.roundedRect(x, y, this.CABLE_ID_BOX_WIDTH, this.ROW_HEIGHT, 5);
     doc.stroke();
     
     // Draw cable ID text (centered in box)
@@ -676,19 +751,26 @@ export class WiringDiagramGenerator {
     doc.save();
 
     // Format label: systemName space portName_src space portNumber_src space signalName_src
-    // If portNumber_src is EMPTY, continue with space and add signalName_src if not EMPTY
-    const parts: string[] = [];
-    if (input.systemName_src) parts.push(input.systemName_src);
-    if (input.portName_src) parts.push(input.portName_src);
-    if (input.portNumber_src) {
-      parts.push(input.portNumber_src);
-      if (input.signalName_src) parts.push(input.signalName_src);
-    } else {
-      // If portNumber_src is empty, add space and signalName_src if exists
-      if (input.signalName_src) parts.push(input.signalName_src);
-    }
+    // Add space for missing values to maintain proper formatting
+    const systemName = String(input.systemName_src || '').trim();
+    const portName = String(input.portName_src || '').trim();
+    const portNumber = String(input.portNumber_src || '').trim();
+    const signalName = String(input.signalName_src || '').trim();
     
-    const label = parts.join(' '); // Single space between parts
+    // Build label with spaces for missing values
+    const parts: string[] = [];
+    if (systemName) parts.push(systemName);
+    else parts.push(''); // Add space for missing systemName
+    
+    if (portName) parts.push(portName);
+    else if (portNumber || signalName) parts.push(''); // Add space if later values exist
+    
+    if (portNumber) parts.push(portNumber);
+    else if (signalName) parts.push(''); // Add space if signalName exists
+    
+    if (signalName) parts.push(signalName);
+    
+    const label = parts.filter((p, i) => p !== '' || i < parts.length - 1).join(' '); // Keep spaces, trim trailing empty
 
     // Draw bubble as rounded rectangle - text goes INSIDE
     doc.font('Helvetica').fontSize(this.BUBBLE_TEXT_SIZE).fillColor('black');
@@ -726,13 +808,15 @@ export class WiringDiagramGenerator {
 
   /**
    * Draw input port inside block (left side)
-   * Shows portName_dst from temp02
+   * showPortNumber=true (busiest regular system): portName_dst  portNumber_dst (from temp02)
+   * showPortNumber=false (all others + special): portName_dst only
    */
   private drawInputPort(
     doc: PDFKit.PDFDocument,
     x: number,
     y: number,
-    input: ConnectionData
+    input: ConnectionData,
+    showPortNumber: boolean = false
   ): void {
     doc.save();
     doc.font('Helvetica').fontSize(this.PORT_TEXT_SIZE).fillColor('black');
@@ -740,7 +824,16 @@ export class WiringDiagramGenerator {
     const portName = input.portName_dst || '';
     const portX = x + this.CONTENT_PADDING;
     
-    doc.text(portName, portX, y);
+    if (showPortNumber) {
+      // Busiest regular system: show portName_dst + 2x space + portNumber_dst
+      const portNumber = input.portNumber_dst || '';
+      const label = portNumber ? `${portName}  ${portNumber}` : portName;
+      doc.text(label, portX, y);
+    } else {
+      // All other systems (special + regular): show portName_dst only
+      doc.text(portName, portX, y);
+    }
+    
     doc.restore();
   }
 
@@ -755,24 +848,34 @@ export class WiringDiagramGenerator {
     doc: PDFKit.PDFDocument,
     x: number,
     y: number,
-    output: ConnectionData
+    output: ConnectionData,
+    isSpecialCase: boolean = false
   ): void {
     doc.save();
 
-    // Format label: systemName_dst space portName_dst space portNumber_dst space signalName_dst
-    // If portNumber_dst is EMPTY, continue with space and add signalName_dst if not EMPTY
-    const parts: string[] = [];
-    if (output.systemName_dst) parts.push(output.systemName_dst);
-    if (output.portName_dst) parts.push(output.portName_dst);
-    if (output.portNumber_dst) {
-      parts.push(output.portNumber_dst);
-      if (output.signalName_dst) parts.push(output.signalName_dst);
-    } else {
-      // If portNumber_dst is empty, add space and signalName_dst if exists
-      if (output.signalName_dst) parts.push(output.signalName_dst);
-    }
+    // Format label:
+    // Regular systems:  systemName_dst  portName_dst  portNumber_dst  signalName_src (from temp03)
+    // Special systems (RTR-01/SW): systemName_dst  portName_dst  portNumber_dst  (NO signalName)
+    const systemName = String(output.systemName_dst || '').trim();
+    const portName = String(output.portName_dst || '').trim();
+    const portNumber = String(output.portNumber_dst || '').trim();
+    // signalName_src shown for ALL systems (both regular and special RTR-01/SW)
+    const signalName = String(output.signalName_src || '').trim();
     
-    const label = parts.join(' '); // Single space between parts
+    // Build label with spaces for missing values
+    const parts: string[] = [];
+    if (systemName) parts.push(systemName);
+    else parts.push(''); // Add space for missing systemName
+    
+    if (portName) parts.push(portName);
+    else if (portNumber || signalName) parts.push(''); // Add space if later values exist
+    
+    if (portNumber) parts.push(portNumber);
+    else if (signalName) parts.push(''); // Add space if signalName exists
+    
+    if (signalName) parts.push(signalName);
+    
+    const label = parts.filter((p, i) => p !== '' || i < parts.length - 1).join(' '); // Keep spaces, trim trailing empty
 
     // Draw bubble as rounded rectangle - text goes INSIDE
     doc.font('Helvetica').fontSize(this.BUBBLE_TEXT_SIZE).fillColor('black');
@@ -810,24 +913,35 @@ export class WiringDiagramGenerator {
 
   /**
    * Draw output port inside block (right side)
-   * Shows portName_src from temp03 (output port name)
-   * Note: Based on reference image, outputs use portName_src from temp03
+   * showPortNumber=true (busiest regular system): portName_src  portNumber_src (from temp03)
+   * showPortNumber=false (all others + special): portName_src only
    */
   private drawOutputPort(
     doc: PDFKit.PDFDocument,
     x: number,
     y: number,
-    output: ConnectionData
+    output: ConnectionData,
+    showPortNumber: boolean = false
   ): void {
     doc.save();
     doc.font('Helvetica').fontSize(this.PORT_TEXT_SIZE).fillColor('black');
     
-    // Output port name from temp03 (portName_src)
     const portName = output.portName_src || '';
-    const textWidth = doc.widthOfString(portName);
-    const portX = x - textWidth - this.CONTENT_PADDING;
     
-    doc.text(portName, portX, y);
+    if (showPortNumber) {
+      // Busiest regular system: show portName_src + 2x space + portNumber_src
+      const portNumber = output.portNumber_src || '';
+      const label = portNumber ? `${portName}  ${portNumber}` : portName;
+      const textWidth = doc.widthOfString(label);
+      const portX = x - textWidth - (this.CONTENT_PADDING * 2);
+      doc.text(label, portX, y);
+    } else {
+      // All other systems (special + regular): show portName_src only, 2x padding
+      const textWidth = doc.widthOfString(portName);
+      const portX = x - textWidth - (this.CONTENT_PADDING * 8);
+      doc.text(portName, portX, y);
+    }
+    
     doc.restore();
   }
 
@@ -838,8 +952,15 @@ export class WiringDiagramGenerator {
   async generateMultiPageWiringDiagram(
     options: WiringDiagramOptions
   ): Promise<string> {
+    // Extract FuncSysName from temp00DwgLabel table
+    const temp00Table = options.databaseData['temp00DwgLabel'];
+    const temp00Data = (Array.isArray(temp00Table) ? temp00Table : temp00Table?.data || []) as DwgLabelData[];
+    const funcSysName = temp00Data.length > 0 && temp00Data[0].FuncSysName 
+      ? temp00Data[0].FuncSysName 
+      : options.systemName; // Fallback to systemName if FuncSysName not found
+    
     const systems = this.processSystemData(options.databaseData);
-    console.log('system', systems);
+    console.log('--system', systems);
 
     const finalPath =
       options.outputPath ??
@@ -862,17 +983,30 @@ export class WiringDiagramGenerator {
       regularSystems.sort((a, b) => {
         const nameA = a.systemName.toUpperCase();
         const nameB = b.systemName.toUpperCase();
-        return nameA.localeCompare(nameB);
+        return nameA.localeCompare(nameB, undefined, { numeric: true, sensitivity: 'base' });
       });
       
       // Calculate available height
       const boxY = this.LABEL + this.SAFE;
       const boxH = this.PAGE_HEIGHT - 2 * (this.LABEL + this.SAFE);
       const topHorizontalLineY = boxY + boxH - this.BOX_PADDING_TOP;
+      
+      // Use NORMAL spacing (same as drawing) for consistent calculation
       const contentStartOffset = 0.125 * this.INCH;
+      const leftColumnOffset = this.LEFT_COLUMN_SPACING_FROM_TOP;
       const contentTopY = topHorizontalLineY - contentStartOffset;
+      const leftColumnTopY = topHorizontalLineY - leftColumnOffset;
       const contentBottomY = boxY + this.BOX_PADDING_BOTTOM;
-      const maxHeight = contentTopY - contentBottomY;
+      
+      // Calculate maxHeight for BOTH columns (use smaller one to be safe)
+      const maxHeightRight = contentTopY - contentBottomY;
+      const maxHeightLeft = leftColumnTopY - contentBottomY;
+      const maxHeight = Math.min(maxHeightRight, maxHeightLeft);
+      
+      console.log(`📏 Page splitting calculations (using NORMAL DRAWING spacing):`);
+      console.log(`   contentTopY: ${contentTopY.toFixed(2)}`);
+      console.log(`   contentBottomY: ${contentBottomY.toFixed(2)}`);
+      console.log(`   maxHeight: ${maxHeight.toFixed(2)}`);
 
       // Process both columns INDEPENDENTLY
       const leftPages: SystemBlock[][] = [];
@@ -882,9 +1016,14 @@ export class WiringDiagramGenerator {
       let currentLeftPage: SystemBlock[] = [];
       let currentLeftHeight = 0;
       
-      specialSystems.forEach((system) => {
+      console.log(`\n🔵 Processing LEFT column:`);
+      
+      specialSystems.forEach((system, sysIndex) => {
+        console.log(`   System ${sysIndex + 1}/${specialSystems.length}: ${system.systemName}, height: ${system.height.toFixed(2)}`);
+        
         // Check if this single system is too tall for one page
         if (system.height > maxHeight) {
+          console.log(`      ⚠️ System too tall (${system.height.toFixed(2)} > ${maxHeight.toFixed(2)}), splitting...`);
           // Need to split this system across multiple pages
           const chunks = this.splitSystemIntoChunks(system, maxHeight);
           
@@ -893,13 +1032,18 @@ export class WiringDiagramGenerator {
             const wouldExceed = currentLeftHeight + chunkHeightWithSpacing > maxHeight;
             const hasContent = currentLeftPage.length > 0;
             
+            console.log(`      Chunk ${chunkIndex + 1}/${chunks.length}: height=${chunk.height.toFixed(2)}, with spacing=${chunkHeightWithSpacing.toFixed(2)}`);
+            console.log(`         currentLeftHeight: ${currentLeftHeight.toFixed(2)}, would exceed? ${wouldExceed}`);
+            
             if (wouldExceed && hasContent) {
               // Current page is full, start new page
+              console.log(`         📝 Creating new LEFT page (current page full)`);
               leftPages.push([...currentLeftPage]);
               currentLeftPage = [chunk];
               currentLeftHeight = chunkHeightWithSpacing;
             } else {
               // Add to current page
+              console.log(`         ➕ Adding chunk to current LEFT page`);
               currentLeftPage.push(chunk);
               currentLeftHeight += chunkHeightWithSpacing;
             }
@@ -910,52 +1054,84 @@ export class WiringDiagramGenerator {
           const wouldExceed = currentLeftHeight + systemHeightWithSpacing > maxHeight;
           const hasContent = currentLeftPage.length > 0;
           
+          console.log(`      System fits on one page: height=${system.height.toFixed(2)}, with spacing=${systemHeightWithSpacing.toFixed(2)}`);
+          console.log(`         currentLeftHeight: ${currentLeftHeight.toFixed(2)}, would exceed? ${wouldExceed}`);
+          
           if (wouldExceed && hasContent) {
             // Current page is full, start new page with this system
+            console.log(`         📝 Creating new LEFT page (current page full)`);
             leftPages.push([...currentLeftPage]);
             currentLeftPage = [system];
             currentLeftHeight = systemHeightWithSpacing;
           } else {
             // Add to current page
+            console.log(`         ➕ Adding system to current LEFT page`);
             currentLeftPage.push(system);
             currentLeftHeight += systemHeightWithSpacing;
           }
         }
+        console.log(`      Current page total height: ${currentLeftHeight.toFixed(2)}/${maxHeight.toFixed(2)}`);
       });
       
       if (currentLeftPage.length > 0) {
+        console.log(`   📝 Finalizing last LEFT page with ${currentLeftPage.length} systems, height: ${currentLeftHeight.toFixed(2)}`);
         leftPages.push(currentLeftPage);
       }
+      
+      console.log(`\n🔵 LEFT column summary: ${leftPages.length} pages created`);
+      leftPages.forEach((page, i) => {
+        const pageHeight = page.reduce((sum, sys) => sum + sys.height + this.DIAGRAM_SPACING, 0);
+        console.log(`   Page ${i + 1}: ${page.length} systems, total height: ${pageHeight.toFixed(2)}`);
+      });
       
       // Process RIGHT column (regular systems)
       let currentRightPage: SystemBlock[] = [];
       let currentRightHeight = 0;
       
-      regularSystems.forEach((system) => {
+      console.log(`\n🟢 Processing RIGHT column:`);
+      
+      regularSystems.forEach((system, sysIndex) => {
+        console.log(`   System ${sysIndex + 1}/${regularSystems.length}: ${system.systemName}, height: ${system.height.toFixed(2)}`);
+        
         const systemHeightWithSpacing = system.height + this.DIAGRAM_SPACING;
         const wouldExceed = currentRightHeight + systemHeightWithSpacing > maxHeight;
         const hasContent = currentRightPage.length > 0;
         
+        console.log(`      height with spacing: ${systemHeightWithSpacing.toFixed(2)}`);
+        console.log(`      currentRightHeight: ${currentRightHeight.toFixed(2)}, would exceed? ${wouldExceed}`);
+        
         if (wouldExceed && hasContent) {
           // Current page is full, start new page with this system
+          console.log(`      📝 Creating new RIGHT page (current page full)`);
           rightPages.push([...currentRightPage]);
           currentRightPage = [system];
           currentRightHeight = systemHeightWithSpacing;
         } else {
           // Add to current page
+          console.log(`      ➕ Adding to current RIGHT page: ${system.systemName}`);
           currentRightPage.push(system);
           currentRightHeight += systemHeightWithSpacing;
         }
+        console.log(`      Current page total height: ${currentRightHeight.toFixed(2)}/${maxHeight.toFixed(2)}`);
       });
       
       if (currentRightPage.length > 0) {
+        console.log(`   📝 Finalizing last RIGHT page with ${currentRightPage.length} systems, height: ${currentRightHeight.toFixed(2)}`);
         rightPages.push(currentRightPage);
       }
       
+      rightPages.forEach((page, i) => {
+        const pageHeight = page.reduce((sum, sys) => sum + sys.height + this.DIAGRAM_SPACING, 0);
+        console.log(`   Page ${i + 1}: ${page.length} systems, total height: ${pageHeight.toFixed(2)}`);
+      });
+      
       // Merge pages: create pages up to max of left/right page counts
-      // Limit to maximum 2 pages
-      const totalPagesBeforeLimit = Math.max(leftPages.length, rightPages.length);
-      const totalPages = Math.min(totalPagesBeforeLimit, 2);
+      // NO LIMIT - support unlimited pages (scalable for 4-5+ pages if needed)
+      const totalPages = Math.max(leftPages.length, rightPages.length);
+      
+      console.log(`\n📚 Total pages needed: ${totalPages}`);
+      console.log(`   Left column pages: ${leftPages.length}`);
+      console.log(`   Right column pages: ${rightPages.length}`);
       
       const pages: { left: SystemBlock[]; right: SystemBlock[] }[] = [];
       for (let i = 0; i < totalPages; i++) {
@@ -964,6 +1140,7 @@ export class WiringDiagramGenerator {
           right: rightPages[i] || []
         });
       }
+
 
       // Draw each page
       pages.forEach((pageData, pageIndex) => {
@@ -974,7 +1151,7 @@ export class WiringDiagramGenerator {
 
         this.drawBaseLayout(
           doc,
-          options.systemName,
+          funcSysName,
           options.date,
           options.pageNumber + pageIndex
         );
@@ -983,18 +1160,23 @@ export class WiringDiagramGenerator {
         const boxY = this.LABEL + this.SAFE;
         const boxH = this.PAGE_HEIGHT - 2 * (this.LABEL + this.SAFE);
         const topHorizontalLineY = boxY + boxH - this.BOX_PADDING_TOP;
-        const contentStartOffset = 0.125 * this.INCH;
-        const contentTopY = topHorizontalLineY - contentStartOffset;
-        const leftColumnTopY = topHorizontalLineY - this.LEFT_COLUMN_SPACING_FROM_TOP;
-
-        let currentYLeft = leftColumnTopY;
-        let currentYRight = contentTopY;
-
+        const actualTopY = boxY + this.BOX_PADDING_TOP; // Top horizontal line (Y=53)
+        const contentBottomY = boxY + this.BOX_PADDING_BOTTOM;
+        
+        let currentYLeft: number;
+        let currentYRight: number;
+        
+        const isFirstPage = pageIndex === 0;
+        
+        // ALL PAGES: Start from same TOP position (consistent spacing)
+        const contentStartOffset = 0.2 * this.INCH;
+        const leftColumnOffset = this.LEFT_COLUMN_SPACING_FROM_TOP;
+        currentYRight = actualTopY + contentStartOffset; // Always start from top (~73)
+        currentYLeft = actualTopY + leftColumnOffset; // Always start from top for left
         // Draw left side systems (special cases like RTR-01)
         pageData.left.forEach((system, index) => {
-          system.y = currentYLeft - system.height;
           
-          console.log(`  Left: ${system.systemName} at Y=${system.y.toFixed(2)}, height=${system.height.toFixed(2)}`);
+          system.y = currentYLeft;
           
           // Border logic is already set by splitSystemIntoChunks, but we can override for page continuation
           // Check if this is a continuation scenario across pages (not just chunks)
@@ -1020,16 +1202,21 @@ export class WiringDiagramGenerator {
           }
           
           this.drawSystemBlock(doc, system, true);
-          currentYLeft = system.y - this.DIAGRAM_SPACING;
+          currentYLeft += system.height + this.DIAGRAM_SPACING;
         });
 
         // Draw right side systems (regular systems)
-        pageData.right.forEach((system) => {
-          system.y = currentYRight - system.height;
-          console.log(`  Right: ${system.systemName} at Y=${system.y.toFixed(2)}`);
+        pageData.right.forEach((system, index) => {
+          system.y = currentYRight;
           this.drawSystemBlock(doc, system, false);
-          currentYRight = system.y - this.DIAGRAM_SPACING;
+          currentYRight += system.height + this.DIAGRAM_SPACING;
+          console.log(`      AFTER drawing: currentYRight = ${currentYRight.toFixed(2)} (for next system)`);
         });
+        
+        console.log(`\n   📊 Page ${pageIndex + 1} Summary:`);
+        console.log(`      Final currentYLeft: ${currentYLeft.toFixed(2)}`);
+        console.log(`      Final currentYRight: ${currentYRight.toFixed(2)}`);
+        console.log(`📄 ========== PAGE ${pageIndex + 1} END ==========\n`);
       });
 
       console.log(`\n✅ Multi-page generation complete: ${totalPages} pages\n`);

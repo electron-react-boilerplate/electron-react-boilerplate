@@ -25,6 +25,7 @@ interface DatabaseResult {
 
 export class DatabaseReader {
   private readonly REQUIRED_TABLES = [
+    'temp00DwgLabel',
     'temp01selfuncsys1',
     'temp02seldsts-left-inputs1',
     'temp03selsrcs-right-outputs1',
@@ -250,16 +251,16 @@ export class DatabaseReader {
         }
 
         // Log each table's data
-        for (const tableName of this.REQUIRED_TABLES) {
-          if (data.tables[tableName]) {
-            const tableData = data.tables[tableName];
-            console.log(`\n--- Table: ${tableName} ---`);
-            console.log(`Rows: ${tableData.rowCount}`);
-            console.log(`Columns: ${tableData.columns.map(c => c.name).join(', ')}`);
-            console.log('Sample data (first 3 rows):');
-            console.log(JSON.stringify(tableData.data.slice(0, 3), null, 2));
-          }
-        }
+        // for (const tableName of this.REQUIRED_TABLES) {
+        //   if (data.tables[tableName]) {
+        //     const tableData = data.tables[tableName];
+        //     console.log(`\n--- Table: ${tableName} ---`);
+        //     console.log(`Rows: ${tableData.rowCount}`);
+        //     console.log(`Columns: ${tableData.columns.map(c => c.name).join(', ')}`);
+        //     console.log('Sample data (first 3 rows):');
+        //     console.log(JSON.stringify(tableData.data.slice(0, 3), null, 2));
+        //   }
+        // }
         console.log('\n==============================\n');
       }
 
@@ -334,10 +335,9 @@ export class DatabaseReader {
       if (ext !== '.accdb' && ext !== '.mdb') {
         return { 
           valid: false, 
-          error: 'File must be an Access database (.accdb or .mdb)' 
+          error: 'File must be an Access database (.accdb)' 
         };
       }
-
       return { valid: true };
     } catch (error) {
       return { 

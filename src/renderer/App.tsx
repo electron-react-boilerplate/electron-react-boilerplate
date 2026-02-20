@@ -80,7 +80,7 @@ console.log('selectResult',selectResult);
           errorMsg += '  cd java-helper && ./setup.sh\n';
           errorMsg += '\nThen restart the app.';
         } else if (result.type === 'ValidationError') {
-          errorMsg += '\n⚠️ Please select a valid .accdb or .mdb file.';
+          errorMsg += '\n⚠️ Please select a valid .accdb file.';
         }
         
         setMessage(errorMsg);
@@ -113,7 +113,7 @@ console.log('selectResult',selectResult);
         pageNumber: 1,
         databaseData: databaseData.tables,
       });
-
+console.log("pdfpath",result)
       if (result.success) {
         setPdfPath(result.filePath);
         setMessage('✅ Wiring diagram generated successfully!');
@@ -411,7 +411,7 @@ console.log('selectResult',selectResult);
                 pdfPath={pdfPath}
                 loading={generatingPDF}
                 onExport={handleExportPDF}
-                onRegenerate={handleGeneratePDF}
+                // onRegenerate={handleGeneratePDF}
               />
             )}
           </div>

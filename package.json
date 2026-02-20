@@ -1,5 +1,6 @@
 {
   "name": "electron-react-boilerplate",
+  "version": "1.0.0",
   "description": "A foundation for scalable desktop apps",
   "keywords": [
     "electron",
