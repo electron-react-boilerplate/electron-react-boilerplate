@@ -5,10 +5,10 @@ interface PDFPreviewProps {
   pdfPath: string;
   loading?: boolean;
   onExport: () => void;
-  // onRegenerate?: () => void;
+  pdfError?: string;
 }
 
-export function PDFPreview({ pdfPath, loading = false, onExport }: PDFPreviewProps) {
+export function PDFPreview({ pdfPath, loading = false, onExport, pdfError }: PDFPreviewProps) {
   const [zoom, setZoom] = useState(100);
   const [currentPage, setCurrentPage] = useState(1);
   const [error, setError] = useState<string>('');
@@ -55,7 +55,7 @@ export function PDFPreview({ pdfPath, loading = false, onExport }: PDFPreviewPro
         borderBottom: '1px solid #e0e0e0'
       }}>
         {/* Zoom Controls */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+        {/* <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
           <button
             onClick={handleZoomOut}
             disabled={zoom <= 50}
@@ -117,11 +117,11 @@ export function PDFPreview({ pdfPath, loading = false, onExport }: PDFPreviewPro
           >
             <Maximize2 size={18} />
           </button>
-        </div>
+        </div> */}
 
         {/* Right Side Controls */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-          {/* Page Navigation */}
+        {/* <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+         
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <button
               disabled
@@ -159,39 +159,6 @@ export function PDFPreview({ pdfPath, loading = false, onExport }: PDFPreviewPro
               <ChevronRight size={18} />
             </button>
           </div>
-
-          {/* Regenerate Button (if provided) */}
-          {/* {onRegenerate && (
-            <button
-              onClick={onRegenerate}
-              disabled={loading}
-              style={{
-                padding: '10px 20px',
-                backgroundColor: '#f5f5f5',
-                color: '#666',
-                border: '1px solid #e0e0e0',
-                borderRadius: '6px',
-                cursor: loading ? 'not-allowed' : 'pointer',
-                fontSize: '14px',
-                fontWeight: '500',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px'
-              }}
-            >
-              {loading ? (
-                <>
-                  <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} />
-                  Generating...
-                </>
-              ) : (
-                'Regenerate PDF'
-              )}
-            </button>
-        </div>
-      )} */}
-
-          {/* Export Button */}
           <button
             onClick={onExport}
             disabled={loading || !pdfPath}
@@ -213,7 +180,7 @@ export function PDFPreview({ pdfPath, loading = false, onExport }: PDFPreviewPro
             <Download size={18} />
             Export PDF
           </button>
-        </div>
+        </div> */}
       </div>
 
       {/* PDF Viewer */}
@@ -229,7 +196,7 @@ export function PDFPreview({ pdfPath, loading = false, onExport }: PDFPreviewPro
         position: 'relative'
       }}>
         {loading ? (
-          /* Loading State */
+          /* Loading / Generating State */
           <div style={{
             display: 'flex',
             flexDirection: 'column',
@@ -240,8 +207,42 @@ export function PDFPreview({ pdfPath, loading = false, onExport }: PDFPreviewPro
             <Loader2 size={48} style={{ animation: 'spin 1s linear infinite' }} />
             <p style={{ fontSize: '16px', margin: 0 }}>Generating PDF...</p>
           </div>
+
+        ) : pdfError ? (
+          /* PDF Generation Failed — show error inside PDF tab */
+          <div style={{
+            textAlign: 'center',
+            color: 'white',
+            padding: '40px',
+            maxWidth: '600px'
+          }}>
+            <div style={{
+              backgroundColor: '#c62828',
+              borderRadius: '10px',
+              padding: '28px 32px',
+              marginBottom: '16px'
+            }}>
+              <p style={{ fontSize: '16px', fontWeight: '600', margin: '0 0 12px 0' }}>
+                ❌ PDF Generation Failed
+              </p>
+              <p style={{
+                fontSize: '13px',
+                opacity: 0.9,
+                margin: 0,
+                wordBreak: 'break-word',
+                whiteSpace: 'pre-wrap',
+                textAlign: 'left'
+              }}>
+                {pdfError}
+              </p>
+            </div>
+            <p style={{ fontSize: '13px', opacity: 0.7, margin: 0 }}>
+              Click the "PDF Preview" tab again to retry.
+            </p>
+          </div>
+
         ) : pdfDataUrl ? (
-          /* PDF Embedded */
+          /* PDF loaded — show in iframe (works on both Windows and Linux) */
           <div style={{
             width: '100%',
             height: '100%',
@@ -250,23 +251,24 @@ export function PDFPreview({ pdfPath, loading = false, onExport }: PDFPreviewPro
             justifyContent: 'center',
             overflow: 'auto'
           }}>
-            <embed
+            <iframe
               src={pdfDataUrl}
-              type="application/pdf"
               style={{
                 width: `${zoom}%`,
                 height: `${zoom}%`,
                 minWidth: '800px',
-                minHeight: '1000px',
+                minHeight: '600px',
                 border: 'none',
                 backgroundColor: 'white',
-                boxShadow: '0 4px 20px rgba(0,0,0,0.3)'
+                boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
+                borderRadius: '4px'
               }}
               title="PDF Preview"
             />
           </div>
+
         ) : (
-          /* No PDF State */
+          /* No PDF yet (waiting for generation) */
           <div style={{
             textAlign: 'center',
             color: 'white',
@@ -277,7 +279,7 @@ export function PDFPreview({ pdfPath, loading = false, onExport }: PDFPreviewPro
           </div>
         )}
 
-        {/* Error Message */}
+        {/* Read error (file could not be read after generation) */}
         {error && (
           <div style={{
             position: 'absolute',
@@ -288,7 +290,8 @@ export function PDFPreview({ pdfPath, loading = false, onExport }: PDFPreviewPro
             color: 'white',
             padding: '12px 24px',
             borderRadius: '6px',
-            fontSize: '14px'
+            fontSize: '14px',
+            whiteSpace: 'nowrap'
           }}>
             {error}
           </div>

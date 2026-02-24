@@ -45,7 +45,7 @@ export class PDFGenerator {
 
     const finalPath =
       outputPath ??
-      path.join(app.getPath('documents'), `wiring-diagram-pg${pageNumber}.pdf`);
+      path.join(app.getPath('temp'), `wiring-diagram-pg${pageNumber}.pdf`);
 
     return new Promise((resolve, reject) => {
       const doc = new PDFDocument({
@@ -188,6 +188,23 @@ doc.text(text, -textWidth / 2, -6, {
       });
       
       doc.restore();
+
+      // ✅ ADD TOP HORIZONTAL LINE (ONLY THIS NEW PART)
+
+      const topY2 = boxY + this.BOX_PADDING_TOP;
+
+  const firstLineX = this.LINE_X[0];      // 1.25"
+  const lastLineX = this.LINE_X[2];       // 16.375"
+
+  doc.save();
+  // doc.lineWidth(0.6).strokeColor('black');
+
+  // Draw horizontal line connecting vertical lines at top
+  // doc.moveTo(firstLineX, topY2);
+  // doc.lineTo(lastLineX, topY2);
+  doc.stroke();
+
+  doc.restore();
     });
   }
 

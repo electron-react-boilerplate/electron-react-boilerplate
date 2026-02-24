@@ -15,7 +15,6 @@
     "link-modules": "node -r ts-node/register ../../.erb/scripts/link-modules.ts"
   },
   "dependencies": {
-    "pdfkit": "^0.15.1",
-    "@types/pdfkit": "^0.13.5"
+    "pdfkit": "^0.17.2"
   }
 }

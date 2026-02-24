@@ -30,12 +30,9 @@ npm-debug.log.*
 
 project-context
 
-
-# Java helper - compiled files and dependencies
-java-helper/*.class
-java-helper/lib/*.jar
-
 # Java helper - temporary output files
 java-helper/*.json.tmp
 java-helper/db-output-*.json
 
+# Bundled JRE (auto-downloaded per platform - do NOT commit, platform-specific binaries)
+java-helper/jre/

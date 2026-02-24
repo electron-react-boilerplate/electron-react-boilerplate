@@ -27,6 +27,7 @@ function Hello() {
   const [activeTab, setActiveTab] = useState<TabType>('database');
   const [pdfPath, setPdfPath] = useState<string>('');
   const [generatingPDF, setGeneratingPDF] = useState(false);
+  const [pdfError, setPdfError] = useState<string>('');
 
   const handleUploadDatabase = async () => {
     setLoading(true);
@@ -95,33 +96,39 @@ console.log('selectResult',selectResult);
 
   const generatePDF = async () => {
     if (!databaseData || !databaseData.tables) {
-      setMessage('⚠️ Please upload database first');
+      setPdfError('Please upload a database file first.');
       return;
     }
 
+    setPdfError('');
     setGeneratingPDF(true);
 
     try {
-      // Generate wiring diagram from database data
       const result = await window.electron.ipcRenderer.invoke('generate-wiring-diagram', {
         systemName: databaseData.fileName?.replace('.accdb', '').replace('.mdb', '') || 'Wiring Diagram',
-        date: new Date().toLocaleDateString('en-US', {
-          month: '2-digit',
+        date: new Date().toLocaleDateString('en-GB', {
           day: '2-digit',
+          month: '2-digit',
           year: 'numeric',
         }),
         pageNumber: 1,
         databaseData: databaseData.tables,
       });
-console.log("pdfpath",result)
+
+      console.log('pdfpath', result);
+
       if (result.success) {
         setPdfPath(result.filePath);
         setMessage('✅ Wiring diagram generated successfully!');
       } else {
-        setMessage(`⚠️ PDF generation failed: ${result.error}`);
+        const errMsg = result.error || 'Unknown error during PDF generation';
+        setPdfError(`PDF generation failed: ${errMsg}`);
+        setMessage(`⚠️ PDF generation failed: ${errMsg}`);
       }
     } catch (error) {
-      setMessage(`⚠️ PDF generation failed: ${error}`);
+      const errMsg = String(error);
+      setPdfError(`PDF generation failed: ${errMsg}`);
+      setMessage(`⚠️ PDF generation failed: ${errMsg}`);
     } finally {
       setGeneratingPDF(false);
     }
@@ -154,6 +161,7 @@ console.log("pdfpath",result)
     setDatabaseData(null);
     setUploadedFile('');
     setPdfPath('');
+    setPdfError('');
     setMessage('');
     setActiveTab('database');
   };
@@ -411,7 +419,7 @@ console.log("pdfpath",result)
                 pdfPath={pdfPath}
                 loading={generatingPDF}
                 onExport={handleExportPDF}
-                // onRegenerate={handleGeneratePDF}
+                pdfError={pdfError}
               />
             )}
           </div>

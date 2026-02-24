@@ -32,24 +32,72 @@ export class DatabaseReader {
   ];
 
   private getJavaHelperPath(): string {
-    // Get the path to the Java helper
     if (app.isPackaged) {
-      // In production, look in resources
       return path.join(process.resourcesPath, 'java-helper');
     }
-    
-    // In development - use multiple strategies to find the java-helper directory
-    // Strategy 1: From app.getAppPath()
+
+    // Development – prefer project root
     let javaHelperPath = path.join(app.getAppPath(), 'java-helper');
-    
-    // Strategy 2: If that doesn't exist, try from project root (parent of src)
     if (!existsSync(javaHelperPath)) {
       const projectRoot = path.join(__dirname, '../../..');
       javaHelperPath = path.join(projectRoot, 'java-helper');
     }
-    
+
     console.log('Java helper path:', javaHelperPath);
     return javaHelperPath;
+  }
+
+  /**
+   * Returns the path to the bundled Eclipse Temurin JRE java binary, or null
+   * if the JRE has not been downloaded yet (e.g. first-run without postinstall).
+   */
+  private getBundledJavaBinary(): string | null {
+    const javaHelperPath = this.getJavaHelperPath();
+    const jreBin = path.join(javaHelperPath, 'jre', 'bin', process.platform === 'win32' ? 'java.exe' : 'java');
+    return existsSync(jreBin) ? jreBin : null;
+  }
+
+  /**
+   * Returns the java executable to use.
+   * Prefers the bundled JRE; falls back to system `java` if none is bundled.
+   */
+  private getJavaExecutable(): string {
+    const bundled = this.getBundledJavaBinary();
+    if (bundled) {
+      console.log('Using bundled JRE:', bundled);
+      return bundled;
+    }
+    console.warn('⚠️  Bundled JRE not found – falling back to system Java. Run `npm run download-jre` to bundle one.');
+    return 'java';
+  }
+
+  /**
+   * Sanity-check that the given java binary runs and reports a version.
+   */
+  private verifyJavaBinary(javaExe: string): Promise<{ ok: boolean; version?: string; error?: string }> {
+    return new Promise((resolve) => {
+      const proc = spawn(javaExe, ['-version']);
+      let output = '';
+
+      proc.stderr.on('data', (d) => { output += d.toString(); });
+      proc.stdout.on('data', (d) => { output += d.toString(); });
+
+      proc.on('close', (code) => {
+        if (code === 0 || output.includes('version')) {
+          const m = output.match(/version "([^"]+)"/);
+          resolve({ ok: true, version: m ? m[1] : 'unknown' });
+        } else {
+          resolve({ ok: false, error: `Java binary check failed (${javaExe}): ${output}` });
+        }
+      });
+
+      proc.on('error', (err) => {
+        resolve({
+          ok: false,
+          error: `Cannot run Java (${javaExe}): ${err.message}. Run \`npm run download-jre\` to install the bundled JRE.`,
+        });
+      });
+    });
   }
 
   private async checkJavaInstallation(): Promise<{ installed: boolean; version?: string; error?: string }> {
@@ -192,34 +240,39 @@ export class DatabaseReader {
 
   async readAccessDatabase(accdbPath: string): Promise<DatabaseResult> {
     try {
-      // 1. Check Java installation
-      const javaCheck = await this.checkJavaInstallation();
-      if (!javaCheck.installed) {
+      const javaExe = this.getJavaExecutable();
+
+      // Verify the java binary works (whether bundled or system)
+      const javaCheck = await this.verifyJavaBinary(javaExe);
+      if (!javaCheck.ok) {
         return {
           success: false,
-          error: javaCheck.error || 'Java is not installed',
+          error:
+            javaCheck.error ||
+            'Java runtime not available. Run `npm run download-jre` or install Java manually.',
           type: 'JavaNotFound',
         };
       }
 
-      console.log(`Java detected: ${javaCheck.version}`);
+      console.log(`Java detected (${javaCheck.version}): ${javaExe}`);
 
-      // 2. Check if Java helper is compiled (it should be pre-compiled by setup.sh)
-      const compileResult = await this.compileJavaHelper();
-      if (!compileResult.success) {
+      // ClassFile should always be present (bundled with app); log a warning if missing
+      const javaHelperPath = this.getJavaHelperPath();
+      const classFile = path.join(javaHelperPath, 'AccessDBReader.class');
+      if (!existsSync(classFile)) {
+        console.warn('⚠️  AccessDBReader.class not found at', classFile);
         return {
           success: false,
-          error: compileResult.error || 'Java helper is not compiled. Please run: cd java-helper && ./setup.sh',
+          error: 'AccessDBReader.class is missing. Please rebuild the project.',
           type: 'CompilationError',
         };
       }
 
-      // 3. Create temp output file
+      // Create temp output file
       const tempDir = os.tmpdir();
       const outputJsonPath = path.join(tempDir, `db-output-${Date.now()}.json`);
 
-      // 4. Run Java helper
-      const javaHelperPath = this.getJavaHelperPath();
+      // Build classpath and run Java helper
       const libPath = path.join(javaHelperPath, 'lib', '*');
       const classpath = `${javaHelperPath}${path.delimiter}${libPath}`;
 
@@ -227,7 +280,7 @@ export class DatabaseReader {
       console.log('Classpath:', classpath);
       console.log('ACCDB Path:', accdbPath);
 
-      const result = await this.executeJavaHelper(classpath, accdbPath, outputJsonPath);
+      const result = await this.executeJavaHelper(javaExe, classpath, accdbPath, outputJsonPath);
 
       // 5. Read and parse the output JSON
       const jsonContent = await fs.readFile(outputJsonPath, 'utf-8');
@@ -277,13 +330,14 @@ export class DatabaseReader {
   }
 
   private executeJavaHelper(
+    javaExe: string,
     classpath: string,
     accdbPath: string,
     outputPath: string
   ): Promise<void> {
     return new Promise((resolve, reject) => {
       const javaProcess = spawn(
-        'java',
+        javaExe,
         [
           '-cp',
           classpath,

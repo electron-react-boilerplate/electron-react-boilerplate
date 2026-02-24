@@ -112,7 +112,7 @@ export class WiringDiagramGenerator {
   
   // Block dimensions
   private readonly MIN_BLOCK_HEIGHT = 0.8 * this.INCH; // Minimum block height (0.7998" from image)
-  private readonly HEADER_HEIGHT = 0.4 * this.INCH; // Header section height
+  private readonly HEADER_HEIGHT = 0.3 * this.INCH; // Header section height — 2 lines: (systemName + frameName) + location
   private readonly HEADER_PADDING = 0.05 * this.INCH; // Padding inside header (0.05" from image)
   private readonly CONTENT_PADDING = 0.05 * this.INCH; // Padding for content inside block (0.05" from image)
   private readonly CONTENT_START_Y = 0.8 * this.INCH; // Content start Y position (0.8" from image)
@@ -202,7 +202,7 @@ export class WiringDiagramGenerator {
     const { pageNumber, systemName, date, outputPath } = options;
     const finalPath =
       outputPath ??
-      path.join(app.getPath('documents'), `wiring-diagram-${Date.now()}.pdf`);
+      path.join(app.getPath('temp'), `wiring-diagram-${Date.now()}.pdf`);
 
     return new Promise((resolve, reject) => {
       const doc = new PDFDocument({
@@ -213,7 +213,7 @@ export class WiringDiagramGenerator {
       doc.pipe(stream);
 
       // Draw base layout (borders, labels, etc.) with FuncSysName from temp00DwgLabel
-      this.drawBaseLayout(doc, funcSysName, date, pageNumber);
+      this.drawBaseLayout(doc, funcSysName, date, pageNumber, true);
 
       // Draw wiring diagram
       this.drawWiringDiagram(doc, systems);
@@ -290,7 +290,7 @@ export class WiringDiagramGenerator {
       systems.push({
         systemName: sysName,
         location: system.Location || '',
-        frameName: system.frameName || system.systemName || '',
+        frameName: (system.frameName || '').trim(),
         inputs: allInputs, // Store all inputs in original order
         outputs: allOutputs, // Store all outputs in original order
         continuationInputs: [], // Not used anymore - check during drawing
@@ -305,17 +305,8 @@ export class WiringDiagramGenerator {
       });
     });
 
-    // Find the single regular system with the MOST connections (max inputs+outputs)
-    // Only THAT system shows portNumber inside the block
-    const regularSystems = systems.filter(s => !s.isSpecialCase);
-    if (regularSystems.length > 0) {
-      const busiest = regularSystems.reduce((prev, curr) => {
-        const prevCount = Math.max(prev.inputs.length, prev.outputs.length);
-        const currCount = Math.max(curr.inputs.length, curr.outputs.length);
-        return currCount > prevCount ? curr : prev;
-      });
-      busiest.showPortNumber = true;
-    }
+    // ALL systems show portNumber inside the block (both left/special and right/regular)
+    systems.forEach(s => { s.showPortNumber = true; });
 
     return systems;
   }
@@ -345,7 +336,8 @@ export class WiringDiagramGenerator {
     doc: PDFKit.PDFDocument,
     funcSysName: string,
     date: string,
-    pageNumber: number
+    pageNumber: number,
+    isFirstPage: boolean = true
   ): void {
     const boxX = this.LABEL + this.SAFE;
     const boxY = this.LABEL + this.SAFE;
@@ -371,71 +363,72 @@ export class WiringDiagramGenerator {
       doc.stroke();
       doc.restore();
 
-      // Labels
-      const xInches = (x / this.INCH).toFixed(2);
-      const yTopInches = ((this.PAGE_HEIGHT - topY) / this.INCH).toFixed(3);
-      const yBottomInches = ((this.PAGE_HEIGHT - bottomY) / this.INCH).toFixed(3);
-
-      doc.save();
-      doc.font('Helvetica').fontSize(8).fillColor('black');
-      const topLabel = `${xInches}",${yTopInches}"`;
-      const bottomLabel = `${xInches}",${yBottomInches}"`;
-      doc.text(topLabel, x - doc.widthOfString(topLabel) / 2, topY + 4);
-      doc.text(bottomLabel, x - doc.widthOfString(bottomLabel) / 2, bottomY - 12);
-      doc.restore();
+      // Coordinate debug labels – commented out
+      // const xInches = (x / this.INCH).toFixed(2);
+      // const yTopInches = ((this.PAGE_HEIGHT - topY) / this.INCH).toFixed(3);
+      // const yBottomInches = ((this.PAGE_HEIGHT - bottomY) / this.INCH).toFixed(3);
+      // doc.save();
+      // doc.font('Helvetica').fontSize(8).fillColor('black');
+      // const topLabel = `${xInches}",${yTopInches}"`;
+      // const bottomLabel = `${xInches}",${yBottomInches}"`;
+      // doc.text(topLabel, x - doc.widthOfString(topLabel) / 2, topY + 4);
+      // doc.text(bottomLabel, x - doc.widthOfString(bottomLabel) / 2, bottomY - 12);
+      // doc.restore();
     });
 
-    // Draw horizontal line at the TOP of the page connecting all three vertical lines
-    doc.save();
-    doc.lineWidth(0.6).strokeColor('black');
-    // Draw at the actual top of the content area (inside the box, at the top)
-    const actualTopY = boxY + this.BOX_PADDING_TOP;
-    doc.moveTo(LINE_X[0], actualTopY);
-    doc.lineTo(LINE_X[1], actualTopY);
-    doc.lineTo(LINE_X[2], actualTopY);
-    doc.stroke();
-    doc.restore();
+    // Draw horizontal line at the TOP of the content area — first page only
+    if (isFirstPage) {
+      doc.save();
+      doc.lineWidth(0.6).strokeColor('black');
+      const actualTopY = boxY + this.BOX_PADDING_TOP;
+      doc.moveTo(LINE_X[0], actualTopY);
+      doc.lineTo(LINE_X[1], actualTopY);
+      doc.lineTo(LINE_X[2], actualTopY);
+      doc.stroke();
+      doc.restore();
+    }
 
     
 
     // Draw left vertical text spine with format: "FuncSysName - Date Pg#"
     const text = `${funcSysName} - ${date} Pg${pageNumber}`;
-    const centerY = boxY + boxH / 2;
-    // const textX = boxX + 15;
     doc.save();
-    doc.font('Helvetica-Bold').fontSize(10);
-     const textWidth = doc.widthOfString(text);
-    
-    // ✨ X position: centered between box left edge and first vertical line
-    const firstLineX = LINE_X[0]; // 0.75 inch = 54 points
-    const textX = (boxX + firstLineX) / 2; // ~40 points from left
-    
-    // ✨ Y position: center of box height
+    doc.font('Helvetica-Bold');
+
+    // Dynamically find the largest font size that fits within the box height (rotated axis)
+    const maxSpineFontSize = 20;
+    const minSpineFontSize = 7;
+    const availableSpineLength = boxH * 0.9; // 90% of box height for the rotated text
+    let spineFontSize = maxSpineFontSize;
+    while (spineFontSize > minSpineFontSize) {
+      doc.fontSize(spineFontSize);
+      if (doc.widthOfString(text) <= availableSpineLength) break;
+      spineFontSize -= 0.5;
+    }
+    doc.fontSize(spineFontSize);
+    const textWidth = doc.widthOfString(text);
+
+    // X position: centered horizontally between box left edge and first vertical line
+    const firstLineX = LINE_X[0];
+    const spineTextX = (boxX + firstLineX) / 2;
+
+    // Y position: vertical center of box
     const boxCenterY = boxY + boxH / 2;
-    
-  // 1. Move to the position first
-doc.translate(textX, boxCenterY);
 
-// 2. Then rotate the coordinate system
-doc.rotate(-90);
-
-// 3. Draw text at the new origin with centering offset
-doc.text(text, -textWidth / 2, -6)
-// , {
-//   width: textWidth,
-//   align: 'center',
-// });
+    doc.translate(spineTextX, boxCenterY);
+    doc.rotate(-90);
+    doc.text(text, -textWidth / 2, -(spineFontSize / 2));
 
     doc.restore();
 
-    // Draw corner labels
-    doc.save();
-    doc.font('Courier').fontSize(7).fillColor('black');
-    doc.text(`0", 11"`, boxX - 6, boxY - 12);
-    doc.text(`17", 11"`, boxX + boxW - 36, boxY - 12);
-    doc.text(`0", 0"`, boxX - 6, boxY + boxH + 2);
-    doc.text(`17", 0"`, boxX + boxW - 36, boxY + boxH + 2);
-    doc.restore();
+    // Corner labels – commented out
+    // doc.save();
+    // doc.font('Courier').fontSize(7).fillColor('black');
+    // doc.text(`0", 11"`, boxX - 6, boxY - 12);
+    // doc.text(`17", 11"`, boxX + boxW - 36, boxY - 12);
+    // doc.text(`0", 0"`, boxX - 6, boxY + boxH + 2);
+    // doc.text(`17", 0"`, boxX + boxW - 36, boxY + boxH + 2);
+    // doc.restore();
   }
 
   /**
@@ -511,36 +504,44 @@ doc.text(text, -textWidth / 2, -6)
 
     doc.save();
 
-    // Calculate X positions based on left or right side
-    // Left side: starts from LEFT_COLUMN_X (1.25") + spacing
-    // Right side: starts from RIGHT_COLUMN_X (9.0") + spacing
-    let currentX = isLeftSide ? this.LEFT_COLUMN_X : this.RIGHT_COLUMN_X;
-    
-    // Add initial spacing from vertical line
-    currentX += this.COMPONENT_START_SPACING;
-    
-    // Position 1: Input bubble area (1.5" width)
+    // Calculate X positions with EQUAL margins on both sides of the column.
+    // Left column boundary: LEFT_COLUMN_X → CENTER_LINE_X
+    // Right column boundary: CENTER_LINE_X → RIGHT_EDGE_X
+    const columnStartX = isLeftSide ? this.LEFT_COLUMN_X : this.CENTER_LINE_X;
+    const columnEndX   = isLeftSide ? this.CENTER_LINE_X  : this.RIGHT_EDGE_X;
+    const columnWidth  = columnEndX - columnStartX;
+
+    // Total content width (bubbles + connectors + cable boxes + system block)
+    const totalContentWidth =
+      this.INPUT_BUBBLE_WIDTH +
+      this.CONNECTOR_LINE_WIDTH + this.CABLE_ID_BOX_WIDTH +
+      this.CONNECTOR_LINE_WIDTH + this.SYSTEM_BLOCK_WIDTH +
+      this.CONNECTOR_LINE_WIDTH + this.CABLE_ID_BOX_WIDTH +
+      this.CONNECTOR_LINE_WIDTH + this.OUTPUT_BUBBLE_WIDTH;
+
+    // Equal margin so gap at input side == gap at output side
+    const equalMargin = Math.max(0, (columnWidth - totalContentWidth) / 2);
+
+    let currentX = columnStartX + equalMargin;
+
+    // Position 1: Input bubble
     const inputBubbleX = currentX;
     currentX += this.INPUT_BUBBLE_WIDTH;
-    
-    // Position 2: Line + Cable ID box (0.5" width)
+
+    // Position 2: Line + Cable ID box
     const inputCableX = currentX + this.CONNECTOR_LINE_WIDTH;
     currentX += this.CONNECTOR_LINE_WIDTH + this.CABLE_ID_BOX_WIDTH;
-    
-    // Position 3: Line + System block (1.3" width)
+
+    // Position 3: Line + System block
     const systemBlockX = currentX + this.CONNECTOR_LINE_WIDTH;
     currentX += this.CONNECTOR_LINE_WIDTH + this.SYSTEM_BLOCK_WIDTH;
-    
-    // Position 4: Line + Cable ID box (0.5" width)
+
+    // Position 4: Line + Cable ID box
     const outputCableX = currentX + this.CONNECTOR_LINE_WIDTH;
     currentX += this.CONNECTOR_LINE_WIDTH + this.CABLE_ID_BOX_WIDTH;
-    
-    // Position 5: Line + Output bubble (1.5" width)
+
+    // Position 5: Line + Output bubble
     const outputBubbleX = currentX + this.CONNECTOR_LINE_WIDTH;
-    
-    // Total width used (for verification):
-    // Left: 1.25" + 0.1" spacing + 1.5" bubble + 0.15" line + 0.5" cable + 0.15" line + 1.3" block + 0.15" line + 0.5" cable + 0.15" line + 1.5" bubble = 7.35" (ends at 8.6", before 8.75" center line)
-    // Right: 9.0" + 0.1" spacing + similar = ends at 16.35" (before 16.375" edge line)
 
     // Draw header (systemName space frameName - NO BOX, just text) above system block
     // Skip header for continuation chunks (drawTopBorder === false means it's a continuation)
@@ -548,18 +549,21 @@ doc.text(text, -textWidth / 2, -6)
     const headerY = y + this.HEADER_PADDING;
     
     if (isFirstChunk) {
-      // Line 1: systemName space frameName (if frameName exists and different)
+      const hdrX = systemBlockX + this.CONTENT_PADDING;
+      const hdrW = this.SYSTEM_BLOCK_WIDTH - this.CONTENT_PADDING * 2;
+      let nextLineY = headerY;
+
+      // Line 1: systemName + frameName (appended with space if frameName is non-empty)
+      const trimmedFrame = (frameName || '').trim();
+      const headerLine1 = trimmedFrame ? `${systemName} ${trimmedFrame}` : systemName;
       doc.font('Helvetica').fontSize(this.HEADER_TEXT_SIZE).fillColor('black');
-      const headerText = frameName && frameName !== systemName 
-        ? `${systemName} ${frameName}` 
-        : systemName;
-      doc.text(headerText, systemBlockX + this.CONTENT_PADDING, headerY);
-      
-      // Line 2: location (if exists)
+      doc.text(headerLine1, hdrX, nextLineY, { width: hdrW, ellipsis: true });
+      nextLineY += this.HEADER_TEXT_SIZE + 1;
+
+      // Line 2: location
       if (location) {
         doc.font('Helvetica').fontSize(this.LOCATION_TEXT_SIZE).fillColor('black');
-        const locationY = headerY + (this.HEADER_TEXT_SIZE * 1.2);
-        doc.text(location, systemBlockX + this.CONTENT_PADDING, locationY);
+        doc.text(location, hdrX, nextLineY, { width: hdrW, ellipsis: true });
       }
     }
 
@@ -727,10 +731,14 @@ doc.text(text, -textWidth / 2, -6)
     doc.roundedRect(x, y, this.CABLE_ID_BOX_WIDTH, this.ROW_HEIGHT, 5);
     doc.stroke();
     
-    // Draw cable ID text (centered in box)
-    const textX = x + (this.CABLE_ID_BOX_WIDTH - textWidth) / 2;
+    // Draw cable ID text – left-aligned with small left padding so all rows start at same X
+    const CABLE_TEXT_PAD = 3; // 3pt left padding
     const textY = y + (this.ROW_HEIGHT - this.BUBBLE_TEXT_SIZE) / 2;
-    doc.text(cableText, textX, textY);
+    doc.text(cableText, x + CABLE_TEXT_PAD, textY, {
+      width: this.CABLE_ID_BOX_WIDTH - CABLE_TEXT_PAD * 2,
+      align: 'left',
+      ellipsis: true,
+    });
     
     doc.restore();
   }
@@ -787,21 +795,14 @@ doc.text(text, -textWidth / 2, -6)
     doc.roundedRect(x, y, bubbleWidth, bubbleHeight, borderRadius);
     doc.stroke();
     
-    // Center text inside bubble
-    const textX = x + (bubbleWidth - textWidth) / 2;
+    // Left-align text – all rows start from the same X so they are visually lined up
+    const BUBBLE_TEXT_PAD = 3; // 3pt left padding inside bubble
     const textY = y + (bubbleHeight - textHeight) / 2;
-    
-    // If text is too wide, wrap it
-    if (textWidth > bubbleWidth - 0.1 * this.INCH) {
-      doc.text(label, x + 0.05 * this.INCH, textY, {
-        width: bubbleWidth - 0.1 * this.INCH,
-        align: 'center',
-        ellipsis: true,
-      });
-    } else {
-      // Text fits - center it perfectly
-      doc.text(label, textX, textY);
-    }
+    doc.text(label, x + BUBBLE_TEXT_PAD, textY, {
+      width: bubbleWidth - BUBBLE_TEXT_PAD * 2,
+      align: 'left',
+      ellipsis: true,
+    });
 
     doc.restore();
   }
@@ -824,15 +825,13 @@ doc.text(text, -textWidth / 2, -6)
     const portName = input.portName_dst || '';
     const portX = x + this.CONTENT_PADDING;
     
-    if (showPortNumber) {
-      // Busiest regular system: show portName_dst + 2x space + portNumber_dst
-      const portNumber = input.portNumber_dst || '';
-      const label = portNumber ? `${portName}  ${portNumber}` : portName;
-      doc.text(label, portX, y);
-    } else {
-      // All other systems (special + regular): show portName_dst only
-      doc.text(portName, portX, y);
-    }
+    // All systems: portName_dst + 2 spaces + portNumber_dst; omit portNumber if empty
+    const portNumber = input.portNumber_dst || '';
+    const label = (portName && portNumber) ? `${portName}  ${portNumber}` : (portName || portNumber);
+    doc.text(label || '—', portX, y, {
+      width: this.SYSTEM_BLOCK_WIDTH / 2 - this.CONTENT_PADDING,
+      ellipsis: true,
+    });
     
     doc.restore();
   }
@@ -892,21 +891,14 @@ doc.text(text, -textWidth / 2, -6)
     doc.roundedRect(x, y, bubbleWidth, bubbleHeight, borderRadius);
     doc.stroke();
     
-    // Center text inside bubble
-    const textX = x + (bubbleWidth - textWidth) / 2;
+    // Left-align text – all rows start from the same X so they are visually lined up
+    const OUT_BUBBLE_TEXT_PAD = 3; // 3pt left padding inside bubble
     const textY = y + (bubbleHeight - textHeight) / 2;
-    
-    // If text is too wide, wrap it
-    if (textWidth > bubbleWidth - 0.1 * this.INCH) {
-      doc.text(label, x + 0.05 * this.INCH, textY, {
-        width: bubbleWidth - 0.1 * this.INCH,
-        align: 'center',
-        ellipsis: true,
-      });
-    } else {
-      // Text fits - center it perfectly
-      doc.text(label, textX, textY);
-    }
+    doc.text(label, x + OUT_BUBBLE_TEXT_PAD, textY, {
+      width: bubbleWidth - OUT_BUBBLE_TEXT_PAD * 2,
+      align: 'left',
+      ellipsis: true,
+    });
 
     doc.restore();
   }
@@ -928,19 +920,19 @@ doc.text(text, -textWidth / 2, -6)
     
     const portName = output.portName_src || '';
     
-    if (showPortNumber) {
-      // Busiest regular system: show portName_src + 2x space + portNumber_src
-      const portNumber = output.portNumber_src || '';
-      const label = portNumber ? `${portName}  ${portNumber}` : portName;
-      const textWidth = doc.widthOfString(label);
-      const portX = x - textWidth - (this.CONTENT_PADDING * 2);
-      doc.text(label, portX, y);
-    } else {
-      // All other systems (special + regular): show portName_src only, 2x padding
-      const textWidth = doc.widthOfString(portName);
-      const portX = x - textWidth - (this.CONTENT_PADDING * 8);
-      doc.text(portName, portX, y);
-    }
+    // All systems: portName_src + 2 spaces + portNumber_src; omit portNumber if empty
+    const portNumberOut = output.portNumber_src || '';
+    const labelOut = (portName && portNumberOut) ? `${portName}  ${portNumberOut}` : (portName || portNumberOut);
+
+    // Left-align from the horizontal centre of the system block, with padding.
+    // x = systemBlockX + SYSTEM_BLOCK_WIDTH (right edge); we step back to the midpoint.
+    const halfWidth = this.SYSTEM_BLOCK_WIDTH / 2 - this.CONTENT_PADDING * 2;
+    const portX = x - this.SYSTEM_BLOCK_WIDTH / 2 + this.CONTENT_PADDING; // starts at block centre + padding
+    doc.text(labelOut || '—', portX, y, {
+      width: halfWidth,
+      align: 'left',
+      ellipsis: true,
+    });
     
     doc.restore();
   }
@@ -964,7 +956,7 @@ doc.text(text, -textWidth / 2, -6)
 
     const finalPath =
       options.outputPath ??
-      path.join(app.getPath('documents'), `wiring-diagram-${Date.now()}.pdf`);
+      path.join(app.getPath('temp'), `wiring-diagram-${Date.now()}.pdf`);
 
     return new Promise((resolve, reject) => {
       const doc = new PDFDocument({
@@ -1153,7 +1145,8 @@ doc.text(text, -textWidth / 2, -6)
           doc,
           funcSysName,
           options.date,
-          options.pageNumber + pageIndex
+          options.pageNumber + pageIndex,
+          pageIndex === 0  // top horizontal line on first page only
         );
 
         // Adjust Y positions for this page
