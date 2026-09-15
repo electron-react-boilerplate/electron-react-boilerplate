@@ -116,10 +116,8 @@ async function main() {
   );
   assert.equal(await evaluate('document.querySelectorAll("a").length'), 2);
   assert.equal(
-    await evaluate(
-      'new Promise((resolve) => { window.electron.ipcRenderer.once("ipc-example", resolve); window.electron.ipcRenderer.sendMessage("ipc-example", ["smoke-test"]); })',
-    ),
-    'IPC test: pong',
+    await evaluate('window.electron.ping("smoke-test")'),
+    'IPC test: pong (smoke-test)',
   );
   assert.deepEqual(exceptions, []);
   console.log(
