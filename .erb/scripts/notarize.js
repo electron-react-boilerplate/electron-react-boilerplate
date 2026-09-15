@@ -1,4 +1,3 @@
-const { notarize } = import('@electron/notarize');
 const { build } = require('../../package.json');
 
 exports.default = async function notarizeMacos(context) {
@@ -12,13 +11,11 @@ exports.default = async function notarizeMacos(context) {
     return;
   }
 
-  if (
-    !(
-      'APPLE_ID' in process.env &&
-      'APPLE_ID_PASS' in process.env &&
-      'APPLE_TEAM_ID' in process.env
-    )
-  ) {
+  if (!(
+    'APPLE_ID' in process.env &&
+    'APPLE_ID_PASS' in process.env &&
+    'APPLE_TEAM_ID' in process.env
+  )) {
     console.warn(
       'Skipping notarizing step. APPLE_ID, APPLE_ID_PASS, and APPLE_TEAM_ID env variables must be set',
     );
@@ -27,6 +24,7 @@ exports.default = async function notarizeMacos(context) {
 
   const appName = context.packager.appInfo.productFilename;
 
+  const { notarize } = await import('@electron/notarize');
   await notarize({
     tool: 'notarytool',
     appBundleId: build.appId,

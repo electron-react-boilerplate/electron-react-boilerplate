@@ -2,17 +2,40 @@
   "compilerOptions": {
     "incremental": true,
     "target": "es2022",
-    "module": "node16",
-    "lib": ["dom", "es2022"],
+    "module": "nodenext",
+    "lib": [
+      "dom",
+      "es2022"
+    ],
     "jsx": "react-jsx",
     "strict": true,
     "sourceMap": true,
-    "moduleResolution": "node16",
+    "moduleResolution": "nodenext",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "allowJs": true,
-    "outDir": ".erb/dll"
+    "outDir": ".erb/dll",
+    "rootDir": ".",
+    "types": [
+      "node",
+      "jest"
+    ]
   },
-  "exclude": ["test", "release/build", "release/app/dist", ".erb/dll"]
+  "exclude": [
+    "test",
+    "release/build",
+    "release/app/dist",
+    ".erb/dll",
+    "node_modules",
+    ".erb/tooling/node_modules"
+  ],
+  "include": [
+    "src",
+    ".erb/configs",
+    ".erb/scripts",
+    "eslint.config.js",
+    "jest.config.js",
+    "assets"
+  ]
 }

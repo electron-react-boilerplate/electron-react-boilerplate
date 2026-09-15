@@ -2,10 +2,15 @@
  * Base webpack config used across other specific configs
  */
 
+import { createRequire } from 'node:module';
 import webpack from 'webpack';
 import TsconfigPathsPlugins from 'tsconfig-paths-webpack-plugin';
 import webpackPaths from './webpack.paths';
 import { dependencies as externals } from '../../release/app/package.json';
+
+const toolingRequire = createRequire(
+  require.resolve('../tooling/package.json'),
+);
 
 const configuration: webpack.Configuration = {
   externals: [...Object.keys(externals || {})],
@@ -18,7 +23,7 @@ const configuration: webpack.Configuration = {
         test: /\.[jt]sx?$/,
         exclude: /node_modules/,
         use: {
-          loader: 'ts-loader',
+          loader: toolingRequire.resolve('ts-loader'),
           options: {
             // Remove this line to enable type checking in webpack builds
             transpileOnly: true,
