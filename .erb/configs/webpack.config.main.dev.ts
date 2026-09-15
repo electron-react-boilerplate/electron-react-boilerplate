@@ -37,7 +37,6 @@ const configuration: webpack.Configuration = {
   },
 
   plugins: [
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     new BundleAnalyzerPlugin({
       analyzerMode: process.env.ANALYZE === 'true' ? 'server' : 'disabled',

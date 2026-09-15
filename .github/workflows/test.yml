@@ -12,17 +12,17 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7.0.1
 
       - name: Install Node.js and NPM
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v7.0.0
         with:
           node-version: 22
           cache: npm
 
-      - name: npm install
+      - name: Clean install
         run: |
-          npm install
+          npm ci
 
       - name: npm test
         env:
@@ -30,5 +30,13 @@ jobs:
         run: |
           npm run package
           npm run lint
-          npm exec tsc
+          npm exec tsc -- --noEmit
           npm test
+
+      - name: Verify Electron startup (Linux)
+        if: runner.os == 'Linux'
+        run: xvfb-run --auto-servernum npm run test:smoke
+
+      - name: Verify Electron startup (macOS and Windows)
+        if: runner.os != 'Linux'
+        run: npm run test:smoke
