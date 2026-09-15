@@ -46,7 +46,7 @@
     "rebuild": "electron-rebuild --parallel --types prod,dev,optional --module-dir release/app",
     "prestart": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true NODE_OPTIONS=\"-r ./.erb/scripts/register.cjs --no-warnings\" webpack --config ./.erb/configs/webpack.config.main.dev.ts",
     "start": "node -r ./.erb/scripts/register.cjs ./.erb/scripts/check-port-in-use.js && npm run prestart && npm run start:renderer",
-    "start:main": "concurrently -k -P \"cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true NODE_OPTIONS=\\\"-r ./.erb/scripts/register.cjs --no-warnings\\\" webpack --watch --config ./.erb/configs/webpack.config.main.dev.ts\" \"electronmon . {@}\" --",
+    "start:main": "node .erb/scripts/start-main.cjs",
     "start:preload": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true NODE_OPTIONS=\"-r ./.erb/scripts/register.cjs --no-warnings\" webpack --config ./.erb/configs/webpack.config.preload.dev.ts",
     "start:renderer": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true NODE_OPTIONS=\"-r ./.erb/scripts/register.cjs --no-warnings\" webpack serve --config ./.erb/configs/webpack.config.renderer.dev.ts",
     "test": "jest",
