@@ -10,18 +10,10 @@
  */
 import path from 'path';
 import { app, BrowserWindow, shell, ipcMain } from 'electron';
-import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
-
-class AppUpdater {
-  constructor() {
-    log.transports.file.level = 'info';
-    autoUpdater.logger = log;
-    autoUpdater.checkForUpdatesAndNotify();
-  }
-}
+import startAutoUpdates from './updates';
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -81,8 +73,6 @@ const createWindow = async () => {
     },
   });
 
-  mainWindow.loadURL(resolveHtmlPath('index.html'));
-
   mainWindow.on('ready-to-show', () => {
     if (!mainWindow) {
       throw new Error('"mainWindow" is not defined');
@@ -107,8 +97,7 @@ const createWindow = async () => {
     return { action: 'deny' };
   });
 
-  // Remove this if your app does not use auto updates
-  new AppUpdater();
+  await mainWindow.loadURL(resolveHtmlPath('index.html'));
 };
 
 /**
@@ -123,14 +112,27 @@ app.on('window-all-closed', () => {
   }
 });
 
+function reportWindowError(error: unknown) {
+  log.error('Failed to create the application window', error);
+  mainWindow?.destroy();
+  mainWindow = null;
+}
+
+function onActivate() {
+  // Reopening a macOS window must not initialize another updater.
+  if (mainWindow === null) {
+    void createWindow().catch(reportWindowError);
+  }
+}
+
 app
   .whenReady()
-  .then(() => {
-    createWindow();
-    app.on('activate', () => {
-      // On macOS it's common to re-create a window in the app when the
-      // dock icon is clicked and there are no other windows open.
-      if (mainWindow === null) createWindow();
-    });
+  .then(async () => {
+    await createWindow();
+    startAutoUpdates();
+    app.on('activate', onActivate);
   })
-  .catch(console.log);
+  .catch((error: unknown) => {
+    reportWindowError(error);
+    app.quit();
+  });
