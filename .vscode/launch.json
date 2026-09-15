@@ -7,10 +7,15 @@
       "request": "launch",
       "protocol": "inspector",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "start"],
-      "env": {
-        "MAIN_ARGS": "--inspect=5858 --remote-debugging-port=9223"
-      }
+      "runtimeArgs": [
+        "run",
+        "start",
+        "--",
+        "--inspect",
+        "5858",
+        "--remoteDebuggingPort",
+        "9223"
+      ]
     },
     {
       "name": "Electron: Renderer",

@@ -5,16 +5,25 @@ const { setTimeout: delay } = require('node:timers/promises');
 const port = Number(process.env.SMOKE_PORT || 1213);
 const debugPort = Number(process.env.SMOKE_DEBUG_PORT || 9335);
 const windows = process.platform === 'win32';
-const child = spawn(windows ? 'npm.cmd' : 'npm', ['start'], {
-  detached: !windows,
-  shell: windows,
-  env: {
-    ...process.env,
-    PORT: String(port),
-    MAIN_ARGS: `--remote-debugging-port=${debugPort}${process.env.CI && process.platform === 'linux' ? ' --no-sandbox' : ''}`,
+const child = spawn(
+  windows ? 'npm.cmd' : 'npm',
+  [
+    'start',
+    '--',
+    '--remoteDebuggingPort',
+    String(debugPort),
+    ...(process.env.CI && process.platform === 'linux' ? ['--noSandbox'] : []),
+  ],
+  {
+    detached: !windows,
+    shell: windows,
+    env: {
+      ...process.env,
+      PORT: String(port),
+    },
+    stdio: ['ignore', 'pipe', 'pipe'],
   },
-  stdio: ['ignore', 'pipe', 'pipe'],
-});
+);
 let output = '';
 let exited = false;
 let socket;
@@ -109,9 +118,7 @@ async function main() {
     'home page and image',
   );
   assert.equal(
-    await evaluate(
-      'Boolean(document.querySelector("#webpack-dev-server-client-overlay"))',
-    ),
+    await evaluate('Boolean(document.querySelector("vite-error-overlay"))'),
     false,
   );
   assert.equal(await evaluate('document.querySelectorAll("a").length'), 2);

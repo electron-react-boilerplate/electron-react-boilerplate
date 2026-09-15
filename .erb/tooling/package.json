@@ -8,7 +8,6 @@
     "@typescript-eslint/eslint-plugin": "^8.70.0",
     "@typescript-eslint/parser": "^8.70.0",
     "ts-node": "^10.9.2",
-    "ts-loader": "^9.6.2",
     "ts-jest": "^29.4.12",
     "eslint-plugin-jest": "^29.16.6",
     "eslint-import-resolver-typescript": "^4.4.5"
