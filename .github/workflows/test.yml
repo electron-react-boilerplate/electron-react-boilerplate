@@ -43,3 +43,20 @@ jobs:
       - name: Verify Electron startup (macOS and Windows)
         if: runner.os != 'Linux'
         run: npm run test:smoke
+
+      - name: Verify packaged startup (Linux)
+        if: runner.os == 'Linux'
+        run: xvfb-run --auto-servernum npm run test:packaged
+
+      - name: Verify packaged startup (macOS and Windows)
+        if: runner.os != 'Linux'
+        run: npm run test:packaged
+
+      - name: Preserve packaged smoke diagnostics
+        if: always()
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: packaged-smoke-${{ runner.os }}
+          path: release/build/smoke
+          if-no-files-found: ignore
+          retention-days: 7
