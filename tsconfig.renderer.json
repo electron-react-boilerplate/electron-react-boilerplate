@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "es2022"],
+    "types": [],
+    "tsBuildInfoFile": ".erb/dll/renderer.tsbuildinfo",
+    "rootDir": "."
+  },
+  "include": ["src/renderer", "src/shared", "assets/assets.d.ts"],
+  "exclude": ["**/node_modules", "src/**/__tests__/**", "src/**/*.test.*"]
+}

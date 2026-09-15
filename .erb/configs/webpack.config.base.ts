@@ -27,6 +27,10 @@ const configuration: webpack.Configuration = {
           options: {
             // Remove this line to enable type checking in webpack builds
             transpileOnly: true,
+            configFile: require('path').join(
+              webpackPaths.rootPath,
+              'tsconfig.renderer.json',
+            ),
             compilerOptions: {
               module: 'nodenext',
               moduleResolution: 'nodenext',

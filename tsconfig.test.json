@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "es2022"],
+    "types": ["node", "jest"],
+    "tsBuildInfoFile": ".erb/dll/test.tsbuildinfo",
+    "rootDir": ".",
+    "isolatedModules": true
+  },
+  "include": [
+    "src",
+    "assets/assets.d.ts",
+    ".erb/scripts/check-build-exists.ts",
+    ".erb/configs/webpack.paths.ts"
+  ],
+  "exclude": ["**/node_modules"]
+}

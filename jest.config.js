@@ -23,9 +23,7 @@ module.exports = {
       toolingRequire.resolve('ts-jest'),
       {
         compiler: toolingRequire.resolve('typescript'),
-        tsconfig: {
-          isolatedModules: true,
-        },
+        tsconfig: 'tsconfig.test.json',
       },
     ],
   },

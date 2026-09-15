@@ -6,6 +6,10 @@ const toolingRequire = createRequire(
 );
 
 toolingRequire('ts-node').register({
+  project: require('node:path').resolve(
+    __dirname,
+    '../../tsconfig.tooling.json',
+  ),
   compiler: toolingRequire.resolve('typescript'),
   transpileOnly: true,
 });

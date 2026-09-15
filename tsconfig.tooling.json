@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["es2022"],
+    "types": ["node"],
+    "tsBuildInfoFile": ".erb/dll/tooling.tsbuildinfo",
+    "rootDir": ".",
+    "skipLibCheck": true
+  },
+  "include": [
+    ".erb/configs",
+    ".erb/scripts",
+    "eslint.config.js",
+    "jest.config.js"
+  ],
+  "exclude": ["**/node_modules", "src/**/__tests__/**", "src/**/*.test.*"]
+}

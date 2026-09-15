@@ -50,7 +50,8 @@
     "start:preload": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true NODE_OPTIONS=\"-r ./.erb/scripts/register.cjs --no-warnings\" webpack --config ./.erb/configs/webpack.config.preload.dev.ts",
     "start:renderer": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true NODE_OPTIONS=\"-r ./.erb/scripts/register.cjs --no-warnings\" webpack serve --config ./.erb/configs/webpack.config.renderer.dev.ts",
     "test": "jest",
-    "test:smoke": "node .erb/scripts/smoke-test.cjs"
+    "test:smoke": "node .erb/scripts/smoke-test.cjs",
+    "typecheck": "tsc --build --noEmit"
   },
   "browserslist": [
     "extends browserslist-config-erb"
