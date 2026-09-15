@@ -5,8 +5,8 @@
  * electron renderer process from here and communicate with the other processes
  * through IPC.
  *
- * When running `npm run build` or `npm run build:main`, this file is compiled to
- * `./src/main.js` using webpack. This gives us some performance wins.
+ * When running `npm run build`, this file is compiled to
+ * `./release/app/dist/main/main.js` using electron-vite.
  */
 import path from 'path';
 import { app, BrowserWindow, shell, ipcMain } from 'electron';
@@ -32,28 +32,24 @@ ipcMain.on('ipc-example', async (event, arg) => {
 });
 
 if (process.env.NODE_ENV === 'production') {
-  const sourceMapSupport = require('source-map-support');
-  sourceMapSupport.install();
+  process.setSourceMapsEnabled(true);
 }
 
 const isDebug =
   process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true';
 
 if (isDebug) {
-  require('electron-debug').default();
+  void import('electron-debug')
+    .then(({ default: debug }) => debug())
+    .catch(console.error);
 }
 
 const installExtensions = async () => {
-  const installer = require('electron-devtools-installer');
-  const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
-  const extensions = ['REACT_DEVELOPER_TOOLS'];
-
-  return installer
-    .default(
-      extensions.map((name) => installer[name]),
-      forceDownload,
-    )
-    .catch(console.log);
+  const { installExtension, REACT_DEVELOPER_TOOLS } =
+    await import('electron-devtools-installer');
+  return installExtension(REACT_DEVELOPER_TOOLS, {
+    forceDownload: !!process.env.UPGRADE_EXTENSIONS,
+  }).catch(console.log);
 };
 
 const createWindow = async () => {
@@ -63,7 +59,7 @@ const createWindow = async () => {
 
   const RESOURCES_PATH = app.isPackaged
     ? path.join(process.resourcesPath, 'assets')
-    : path.join(__dirname, '../../assets');
+    : path.join(app.getAppPath(), 'assets');
 
   const getAssetPath = (...paths: string[]): string => {
     return path.join(RESOURCES_PATH, ...paths);
@@ -75,9 +71,7 @@ const createWindow = async () => {
     height: 728,
     icon: getAssetPath('icon.png'),
     webPreferences: {
-      preload: app.isPackaged
-        ? path.join(__dirname, 'preload.js')
-        : path.join(__dirname, '../../.erb/dll/preload.js'),
+      preload: path.join(__dirname, '../preload/preload.js'),
     },
   });
 

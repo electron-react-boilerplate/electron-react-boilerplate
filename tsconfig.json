@@ -3,10 +3,7 @@
     "incremental": true,
     "target": "es2022",
     "module": "nodenext",
-    "lib": [
-      "dom",
-      "es2022"
-    ],
+    "lib": ["dom", "es2022"],
     "jsx": "react-jsx",
     "strict": true,
     "sourceMap": true,
@@ -17,10 +14,7 @@
     "allowJs": true,
     "outDir": ".erb/dll",
     "rootDir": ".",
-    "types": [
-      "node",
-      "jest"
-    ]
+    "types": ["node", "jest"]
   },
   "exclude": [
     "test",
@@ -36,6 +30,7 @@
     ".erb/scripts",
     "eslint.config.js",
     "jest.config.js",
-    "assets"
+    "assets",
+    "electron.vite.config.ts"
   ]
 }

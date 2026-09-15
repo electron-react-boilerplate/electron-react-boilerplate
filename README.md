@@ -3,7 +3,7 @@
 <br>
 
 <p>
-  Electron React Boilerplate uses <a href="https://electron.atom.io/">Electron</a>, <a href="https://facebook.github.io/react/">React</a>, <a href="https://github.com/reactjs/react-router">React Router</a>, <a href="https://webpack.js.org/">Webpack</a> and <a href="https://www.npmjs.com/package/react-refresh">React Fast Refresh</a>.
+  Electron React Boilerplate uses <a href="https://electron.atom.io/">Electron</a>, <a href="https://facebook.github.io/react/">React</a>, <a href="https://github.com/reactjs/react-router">React Router</a>, <a href="https://electron-vite.org/">electron-vite</a> and <a href="https://www.npmjs.com/package/react-refresh">React Fast Refresh</a>.
 </p>
 
 <br>
@@ -160,3 +160,23 @@ MIT © [Electron React Boilerplate](https://github.com/electron-react-boilerplat
 [github-tag-url]: https://github.com/electron-react-boilerplate/electron-react-boilerplate/releases/latest
 [stackoverflow-img]: https://img.shields.io/badge/stackoverflow-electron_react_boilerplate-blue.svg
 [stackoverflow-url]: https://stackoverflow.com/questions/tagged/electron-react-boilerplate
+
+## Development and builds
+
+- `npm start`: build main/preload, start Vite, and reload on source changes.
+- `npm run build`: produce main, preload, and renderer bundles in `release/app/dist`.
+- `npm run preview`: build and launch the production bundles locally.
+- `npm run package`: build installers with electron-builder.
+- `npm run test:smoke`: verify development startup and preload IPC.
+
+Build settings live in `electron.vite.config.ts`; development no longer needs a
+DLL build or separate webpack watchers. Use `PORT` to select the renderer port,
+or `npm start -- --inspect 5858 --remoteDebuggingPort 9223` for debugging.
+
+SVG imports return asset URLs. For React components, use
+`import Icon from './icon.svg?react'`. CSS modules and Sass are handled by Vite.
+
+Native dependencies still belong in `release/app/package.json`. They remain
+external to the main/preload bundles and are rebuilt and packaged by
+electron-builder. Other application dependencies are bundled. The build uses
+Vite 7, which is supported by electron-vite 5's current peer dependency range.

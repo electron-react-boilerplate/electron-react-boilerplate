@@ -1,13 +1,10 @@
-/* eslint import/prefer-default-export: off */
-import { URL } from 'url';
-import path from 'path';
+import { app } from 'electron';
+import { pathToFileURL } from 'node:url';
+import path from 'node:path';
 
 export function resolveHtmlPath(htmlFileName: string) {
-  if (process.env.NODE_ENV === 'development') {
-    const port = process.env.PORT || 1212;
-    const url = new URL(`http://localhost:${port}`);
-    url.pathname = htmlFileName;
-    return url.href;
+  if (!app.isPackaged && process.env.ELECTRON_RENDERER_URL) {
+    return new URL(htmlFileName, `${process.env.ELECTRON_RENDERER_URL}/`).href;
   }
-  return `file://${path.resolve(__dirname, '../renderer/', htmlFileName)}`;
+  return pathToFileURL(path.join(__dirname, '../renderer', htmlFileName)).href;
 }
