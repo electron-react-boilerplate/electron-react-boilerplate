@@ -4,42 +4,64 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_call:
+
+permissions:
+  contents: read
 
 jobs:
-  test:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [macos-latest, windows-latest, ubuntu-latest]
-
+  validate:
+    name: Lint, types, and unit tests
+    runs-on: ubuntu-latest
     steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v7.0.1
-
-      - name: Install Node.js and NPM
-        uses: actions/setup-node@v7.0.0
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.0.0
         with:
           node-version: 24
           cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            .erb/tooling/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm exec tsc -- --noEmit
+      - run: npm test -- --runInBand
 
-      - name: Clean install
-        run: |
-          npm ci
-
-      - name: npm test
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          npm run package
-          npm run lint
-          npm exec tsc -- --noEmit
-          npm test
-
+  package:
+    needs: validate
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.0.0
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            .erb/tooling/package-lock.json
+      - run: npm ci
+      - run: npm run package
       - name: Verify Electron startup (Linux)
         if: runner.os == 'Linux'
         run: xvfb-run --auto-servernum npm run test:smoke
-
       - name: Verify Electron startup (macOS and Windows)
         if: runner.os != 'Linux'
         run: npm run test:smoke
+      - name: Preserve packages and diagnostics
+        if: always()
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: packages-${{ runner.os }}
+          path: |
+            release/build/*.dmg
+            release/build/*.zip
+            release/build/*.exe
+            release/build/*.AppImage
+            release/build/*.yml
+            release/build/smoke
+          if-no-files-found: ignore
+          retention-days: 7
