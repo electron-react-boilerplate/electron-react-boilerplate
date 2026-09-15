@@ -9,6 +9,9 @@ const appUrl = 'file:///app/dist/renderer/index.html';
 test('navigation accepts only the app document, including hash routes', () => {
   expect(isAppUrl(`${appUrl}#/settings`, appUrl)).toBe(true);
   expect(isAppUrl('file:///etc/passwd', appUrl)).toBe(false);
+  expect(isAppUrl('file://remote/app/dist/renderer/index.html', appUrl)).toBe(
+    false,
+  );
   expect(isAppUrl('https://example.com/index.html', appUrl)).toBe(false);
   expect(
     isAppUrl(

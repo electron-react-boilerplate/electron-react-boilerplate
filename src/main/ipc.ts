@@ -8,6 +8,9 @@ export function isAppUrl(candidate: string, expected: string): boolean {
     return (
       url.origin === appUrl.origin &&
       url.protocol === appUrl.protocol &&
+      url.host === appUrl.host &&
+      url.username === appUrl.username &&
+      url.password === appUrl.password &&
       url.pathname === appUrl.pathname &&
       url.search === appUrl.search
     );
