@@ -24,7 +24,7 @@
 
 Clone the repo and install dependencies:
 
-Requires Node.js 22.15 or newer and npm 10 or newer.
+Requires Node.js 24 or newer and npm 10 or newer.
 The [compiler tooling notes](.erb/tooling/README.md) explain the separate tooling install.
 
 ```bash
