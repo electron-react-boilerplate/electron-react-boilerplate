@@ -50,7 +50,9 @@
     "start:preload": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true NODE_OPTIONS=\"-r ./.erb/scripts/register.cjs --no-warnings\" webpack --config ./.erb/configs/webpack.config.preload.dev.ts",
     "start:renderer": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true NODE_OPTIONS=\"-r ./.erb/scripts/register.cjs --no-warnings\" webpack serve --config ./.erb/configs/webpack.config.renderer.dev.ts",
     "test": "jest",
-    "test:smoke": "node .erb/scripts/smoke-test.cjs"
+    "test:smoke": "node .erb/scripts/smoke-test.cjs",
+    "package:smoke": "npm run build && electron-builder --dir --publish never",
+    "test:packaged": "node .erb/scripts/packaged-smoke.cjs"
   },
   "browserslist": [
     "extends browserslist-config-erb"
@@ -123,6 +125,7 @@
     "jest": "^30.5.1",
     "jest-environment-jsdom": "^30.5.1",
     "mini-css-extract-plugin": "^2.10.2",
+    "playwright": "^1.63.0",
     "prettier": "^3.9.6",
     "react-refresh": "^0.19.0",
     "react-test-renderer": "^19.3.0",
