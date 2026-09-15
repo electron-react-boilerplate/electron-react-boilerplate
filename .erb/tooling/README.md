@@ -11,8 +11,9 @@ beside the incompatible root compiler. Do not turn it into a workspace or a
 linked root dependency without testing that resolution.
 
 `.erb/scripts/register.cjs`, webpack, ESLint, and Jest resolve their tools from
-this package explicitly. `npm exec tsc -- --noEmit` uses the root TypeScript 7
-compiler and checks both application and webpack configuration code.
+this package explicitly. `npm run typecheck` uses the root TypeScript 7 compiler and checks the main,
+renderer, tooling, and test environments. See [TYPESCRIPT.md](TYPESCRIPT.md) for
+the configuration boundaries.
 
 To update tooling, run `npm --prefix .erb/tooling update` and commit its lockfile.
 Move the tools back to the root when their compiler API supports TypeScript 7.
