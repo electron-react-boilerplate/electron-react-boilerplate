@@ -88,7 +88,7 @@
     "@vitejs/plugin-react": "^5.2.0",
     "browserslist-config-erb": "^0.0.3",
     "cross-env": "^10.1.0",
-    "electron": "^44.4.0",
+    "electron": "^44.9.3",
     "electron-builder": "^26.15.3",
     "electron-devtools-installer": "^4.0.0",
     "electron-vite": "^5.0.0",
